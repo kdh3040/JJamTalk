@@ -5,20 +5,18 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
-    <ImageButton
-        android:id="@+id/btnBack"
+    <Button
+        android:id="@+id/btn_profile"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_alignParentLeft="true"
-        android:src="@android:drawable/ic_menu_compass" />
+        android:text="프로필" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:layout_marginLeft="17dp"
         android:layout_toLeftOf="@+id/checkBox"
-        android:layout_toRightOf="@id/btnBack"
+        android:layout_toRightOf="@+id/btn_profile"
         android:gravity="center"
         android:text="잼톡"
         android:textColor="@android:color/holo_blue_bright"

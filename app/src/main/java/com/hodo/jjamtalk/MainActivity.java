@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
         actionBar.setDisplayShowCustomEnabled(true);
 
-
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         View menu_Main  = inflater.inflate(R.layout.menu_main,null);
         actionBar.setCustomView(menu_Main);

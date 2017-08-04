@@ -6,13 +6,40 @@
     android:layout_height="match_parent"
     android:elevation="22dp"
     android:orientation="vertical"
-    android:weightSum="20"
     tools:context="com.hodo.jjamtalk.MainActivity">
 
     <GridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="18" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="여자만" />
+
+        <Button
+            android:id="@+id/button18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="남자만" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="전체" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
