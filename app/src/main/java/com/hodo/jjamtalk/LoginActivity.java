@@ -64,7 +64,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private TextView mTextView_SignUp;
     private TextView mTextView_NeedHelp;
-    private Button mEmailSignInButton;
+    private Button mEmailSignInButton,mFacebookButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+        mFacebookButton = (Button)findViewById(R.id.btn_facebook);
+        mFacebookButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
             }
         });
 
