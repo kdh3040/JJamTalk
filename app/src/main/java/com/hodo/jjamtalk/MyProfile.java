@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 /**
  * Created by mjk on 2017. 8. 4..
@@ -16,6 +17,7 @@ public class MyProfile extends AppCompatActivity {
 
     ImageButton btn_Setting;
     Button btn_heart;
+    ImageView img_Mypic;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,5 +40,12 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
+        img_Mypic = (ImageView)findViewById(R.id.img_mypic);
+        img_Mypic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),ClickedMyPicActivity.class));
+            }
+        });
     }
 }

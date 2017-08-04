@@ -36,6 +36,7 @@
         <activity android:name=".MyProfile" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".HeartActivity" />
+        <activity android:name=".ClickedMyPicActivity"></activity>
 
         <activity android:name=".InputProfile"></activity>
     </application>
