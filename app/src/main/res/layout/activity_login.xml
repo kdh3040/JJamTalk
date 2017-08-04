@@ -107,6 +107,13 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_tomain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="메인입장" />
+
+                <Button
                     android:id="@+id/Login_Kakao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

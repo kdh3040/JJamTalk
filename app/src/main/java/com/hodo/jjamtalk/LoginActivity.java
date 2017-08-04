@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private Button mEmailSignInButton;
     private Button mGoogleSignInButton;
     private Button mNaverSignInButton;
+    private Button mToMain;
 
     private static final int RC_SIGN_IN = 9001;
     private String TAG = "LoginActivity Log!!";
@@ -155,6 +156,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, RC_SIGN_IN);
 
+            }
+        });
+
+        mToMain =(Button)findViewById(R.id.btn_tomain);
+        mToMain.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
             }
         });
 
