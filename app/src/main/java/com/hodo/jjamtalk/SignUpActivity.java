@@ -6,7 +6,9 @@ import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +29,8 @@ public class SignUpActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
 
     private TextView mTextInfo;
-    private EditText mEditText;
+    private EditText mEditEmail;
+    private EditText mEditPwd;
     private Button mBtnSignUp;
 
     private String mStrEmail;
@@ -44,64 +47,52 @@ public class SignUpActivity extends AppCompatActivity {
 
         mTextInfo = (TextView) findViewById(R.id.signup_Info);
 
-        mEditText = (EditText)findViewById(R.id.signup_EditEmail);
+        mEditEmail = (EditText)findViewById(R.id.signup_EditEmail);
+        mEditPwd = (EditText)findViewById(R.id.signup_EditPwd);
+
         mBtnSignUp = (Button)findViewById(R.id.signup_BtnSignUp);
-        mEditText.setHint("이메일");
 
         bConfEmail = false;
+
+        mTextInfo.setText("이메일과 비밀 번호를 6자리 이상 입력해주세요");
 
         mBtnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(bConfEmail == false)
-                {
-                    mStrEmail = mEditText.getText().toString().trim();
-                    mUserIdx = mAwsFunc.CreateUserIdx(mStrEmail);
+                mStrEmail = mEditEmail.getText().toString().trim();
+                mStrPwd = mEditPwd.getText().toString().trim();
 
-                    mTextInfo.setText("입력하신 이메일 " + "\n" + mStrEmail + "\n\n" + "비밀 번호를 6자리 이상 입력해주세요");
-                    mEditText.getEditableText().clear();
-
-                    mEditText.setHint("비밀번호");
-
-                    mEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    mEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-
-                    mBtnSignUp.setText("회원가입");
-
-                    bConfEmail = true;
-                }
-
-                else
-                {
-                    mStrPwd = mEditText.getText().toString().trim();
-
-                    if(mStrEmail != null && mStrPwd != null) {
-
-                        mAuth.createUserWithEmailAndPassword(mStrEmail,mStrPwd)
-                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            mMyData.setUserIdx(mUserIdx);
-                                            Intent intent = new Intent(SignUpActivity.this, InputProfile.class);
-                                            startActivity(intent);
-                                        } else {
-                                            Toast.makeText(SignUpActivity.this,"이메일 형식이 아닙니다",Toast.LENGTH_LONG).show();
-                                            int asdasd =0;
-                                            //보통 이메일이 이미 존재하거나, 이메일 형식이아니거나, 비밀번호가 6자리 이상이 아닐 때 발생 
-                                        }
+                if(mStrEmail != null && mStrPwd != null) {
+                    mAuth.createUserWithEmailAndPassword(mStrEmail,mStrPwd)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        mUserIdx = mAwsFunc.CreateUserIdx(mStrEmail);
+                                        mMyData.setUserIdx(mUserIdx);
+                                        Intent intent = new Intent(SignUpActivity.this, InputProfile.class);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this,"이메일 입력이 잘못되었습니다",Toast.LENGTH_LONG).show();
+                                        //보통 이메일이 이미 존재하거나, 이메일 형식이아니거나, 비밀번호가 6자리 이상이 아닐 때 발생 
                                     }
-                                });
-                    }
+                                }
+                            });
                 }
-
             }
         });
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
         StrictMode.setThreadPolicy(policy);
-
     }
+
+    private boolean isValidEmail(String str){
+        if(str == null || TextUtils.isEmpty(str)){
+            return false;
+        } else {
+            return Patterns.EMAIL_ADDRESS.matcher(str).matches();
+        }
+    }
+
 }
