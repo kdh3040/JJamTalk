@@ -9,6 +9,10 @@
 
     <style name = "MyActionBar"
         parent = "@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name = "@android:background">#FFFFFF</item>
+        <item name = "@android:background">#ffffff</item>
+    </style>
+    <style name = "NoTitleBar" parent="Theme.AppCompat.Light" >
+
+        <item name ="windowNoTitle">true</item>
     </style>
 </resources>
