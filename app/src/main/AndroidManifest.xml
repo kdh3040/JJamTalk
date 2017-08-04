@@ -32,6 +32,10 @@
             android:value="@string/kakao_app_key" />
 
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".MyProfile" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".HeartActivity" />
+
         <activity android:name=".InputProfile"></activity>
     </application>
 

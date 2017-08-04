@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private Button mEmailSignInButton;
     private Button mGoogleSignInButton;
     private Button mNaverSignInButton;
+    private Button mToMain;
 
     private FirebaseAuth mAuth;
 
@@ -161,6 +162,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+
         if(mAuth.getCurrentUser() != null){
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             // 만약 회원이라면 메인으로 이동한다.
@@ -168,6 +170,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             Log.d(TAG, "Log out State");
         }
+
+
+        mToMain =(Button)findViewById(R.id.btn_tomain);
+        mToMain.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            }
+        });
+
 
     }
 
