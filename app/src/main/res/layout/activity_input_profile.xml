@@ -28,18 +28,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
-            android:hint="나이"
-            android:inputType="textPersonName" />
+            android:text="나이" />
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
@@ -51,18 +49,16 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
-            android:hint="지역"
-            android:inputType="textPersonName" />
+            android:text="지역" />
 
         <Spinner
             android:id="@+id/spinner2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
