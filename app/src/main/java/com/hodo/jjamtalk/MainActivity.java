@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MyProfileFragment.class));
+                startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
             }
         });
 

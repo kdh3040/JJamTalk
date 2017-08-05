@@ -37,11 +37,11 @@
             android:value="@string/kakao_app_key" />
 
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".MyProfileFragment"/>
+        <activity android:name=".MyPageActivity"/>
 
         <activity android:name=".SettingActivity"
             android:label="설정"
-            android:parentActivityName=".MyProfileFragment">
+            android:parentActivityName=".MyPageActivity">
 
         </activity>
         <activity android:name=".MyProfileActivity"></activity>

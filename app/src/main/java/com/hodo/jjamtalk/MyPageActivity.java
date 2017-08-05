@@ -13,7 +13,7 @@ import android.widget.ImageView;
  * Created by mjk on 2017. 8. 4..
  */
 
-public class MyProfileFragment extends AppCompatActivity {
+public class MyPageActivity extends AppCompatActivity {
 
     ImageButton btn_Setting,btn_my_profile;
     Button btn_heart;
@@ -22,7 +22,7 @@ public class MyProfileFragment extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_myprofile_from_main);
+        setContentView(R.layout.activity_my_page);
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
         btn_Setting.setOnClickListener(new View.OnClickListener() {
