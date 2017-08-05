@@ -16,8 +16,17 @@ public class MyData {
         return  _Instance;
     }
 
-    private String UserIdx;
+    private String strIdx;
+    private String strImg;
+    private String strNick;
+    private String strGender;
+    private String strAge;
 
+    private double lLat;
+    private double lLon;
+
+    private int nHot;
+    private int nRank;
 
     private MyData()
     {
@@ -25,10 +34,65 @@ public class MyData {
     }
 
     public void setUserIdx(String userIdx) {
-        UserIdx = userIdx;
+        strIdx = userIdx;
+    }
+    public String getUserIdx() {
+        return strIdx;
     }
 
-    public String getUserIdx() {
-        return UserIdx;
+    public void setUserImg(String userImg) {
+        strImg = userImg;
     }
+    public String getUserImg() {
+        return strImg;
+    }
+
+    public void setUserNick(String userNick) {
+        strNick = userNick;
+    }
+    public String getUserNick() {
+        return strNick;
+    }
+
+    public void setUserGender(String userGender) {
+        strGender = userGender;
+    }
+    public String getUserGender() {
+        return strGender;
+    }
+
+    public void setUserAge(String userAge) {
+        strAge = userAge;
+    }
+    public String getUserAge() {
+        return strAge;
+    }
+
+
+
+    public void setUserLon(Double userLon) { lLon = userLon;}
+    public Double getUserLon() {
+        return lLon;
+    }
+
+    public void setUserLat(Double userLat) {
+        lLat = userLat;
+    }
+    public Double getUserLat() {
+        return lLat;
+    }
+
+
+    public void setUserHor(int userHot) { nHot = userHot;}
+    public int getUserHor() {
+        return nHot;
+    }
+
+    public void setUserRank(int userRank) {
+        nRank = userRank;
+    }
+    public int getUserRank() {
+        return nRank;
+    }
+
 }
