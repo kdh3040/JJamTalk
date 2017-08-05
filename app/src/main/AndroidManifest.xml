@@ -44,13 +44,18 @@
             android:parentActivityName=".MyPageActivity">
 
         </activity>
-        <activity android:name=".MyProfileActivity"></activity>
+        <activity android:name=".MyProfileActivity"
+            android:label = "프로필 편집"
+            android:parentActivityName=".MyPageActivity"></activity>
         <activity android:name=".HeartActivity" />
         <activity android:name=".Kakao.KakaoSignupActivity" />
         <activity android:name=".ClickedMyPicActivity"
             android:theme ="@style/NoTitleBar">
         </activity>
         <activity android:name=".InputProfile"></activity>
+        <activity android:name=".UserPageActivity"
+            android:theme="@style/NoTitleBar"></activity>
+
 
 
     </application>

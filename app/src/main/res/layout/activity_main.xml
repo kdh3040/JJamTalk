@@ -9,6 +9,7 @@
     tools:context="com.hodo.jjamtalk.MainActivity">
 
     <GridView
+        android:id="@+id/main_gridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="18" />
