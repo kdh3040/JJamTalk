@@ -7,14 +7,36 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+
+
+import java.util.ArrayList;
 
 import com.google.common.collect.Lists;
 
 import java.util.List;
+
 
 
 import github.chenupt.multiplemodel.viewpager.ModelPagerAdapter;
@@ -25,6 +47,7 @@ import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 public class MainActivity extends AppCompatActivity {
     SpringIndicator springIndicator;
     ScrollerViewPager viewPager;
+    private FirebaseData mFireBaseData = FirebaseData.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +92,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
+            }
+        });
+
+
+        final ArrayList<UserData> arrTemp = new ArrayList<UserData>();
+
+        final DatabaseReference table = FirebaseDatabase.getInstance().getReference("Users");
+        Query query=table.orderByChild("Heart").limitToLast(10);//키가 id와 같은걸 쿼리로 가져옴
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {//그걸 처리해줘야겠지
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                JSONObject json=null;
+                for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                    UserData tempDB = new UserData();
+                    //   json=new JSONObject(dataSnapshot.getValue());
+                    tempDB = fileSnapshot.getValue(UserData.class);
+
+                    arrTemp.add(tempDB);
+                    Log.d("MainAc!!", "!!!! " + tempDB.Heart + " @@@@@ " + tempDB.NickName);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 

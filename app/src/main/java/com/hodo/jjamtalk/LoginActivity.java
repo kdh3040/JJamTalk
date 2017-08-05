@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private MyData mMyData = MyData.getInstance();
 
     private UserLoginTask mAuthTask = null;
-    private SessionCallback callback;      //콜백 선
 
 
     // UI references.
@@ -101,10 +100,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-        callback = new SessionCallback();                  // 이 두개의 함수 중요함
-        Session.getCurrentSession().addCallback(callback);
 
         // Set up the login form.
         mAuth = FirebaseAuth.getInstance();
@@ -201,7 +196,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Session.getCurrentSession().removeCallback(callback);
+    }
+
+    private void GoProfilePage() {
+        Intent intent = new Intent(LoginActivity.this, InputProfile.class);
+        startActivity(intent);
     }
 
     private void GoMainPage() {
@@ -209,34 +208,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         startActivity(intent);
     }
 
-    public static final String getKeyHash(Context context) {
-        String keyHash = null;
-        try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(),
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                keyHash = Base64.encodeToString(md.digest(), Base64.DEFAULT);
-               // Log.d("LoginActiviry", "KeyHash:%s", keyHash);
-                return keyHash;
-            }
 
-        } catch (PackageManager.NameNotFoundException e) {
-           // Log.d("LoginActiviry", "getKeyHash Error:%s", e.getMessage());
-        } catch (NoSuchAlgorithmException e) {
-          //  Log.d("LoginActiviry", "getKeyHash Error:%s", e.getMessage());
-        }
-        return keyHash;
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
-            return;
-        }
 
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -268,8 +244,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
 
-                        mMyData.setUserIdx(mAwsFunc.CreateUserIdx(acct.getEmail()));
-                        GoMainPage();
+                        mMyData.setUserIdx(mAwsFunc.GetUserIdx(acct.getEmail()));
+                        GoProfilePage();
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
@@ -345,12 +321,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     }
                                 }
                             });
-
-
-         //   mAuthTask = new UserLoginTask(email, password);
-           // mAuthTask.execute((Void) null);
-
-
         }
     }
 
@@ -519,28 +489,5 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private class SessionCallback implements ISessionCallback {
-
-        @Override
-        public void onSessionOpened() {
-            redirectSignupActivity();  // 세션 연결성공 시 redirectSignupActivity() 호출
-        }
-
-        @Override
-        public void onSessionOpenFailed(KakaoException exception) {
-            if(exception != null) {
-                Logger.e(exception);
-            }
-            setContentView(R.layout.activity_login); // 세션 연결이 실패했을때
-        }                                            // 로그인화면을 다시 불러옴
-    }
-
-    protected void redirectSignupActivity() {       //세션 연결 성공 시 SignupActivity로 넘김
-        final Intent intent = new Intent(this, KakaoSignupActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-        finish();
-
-    }
 }
 

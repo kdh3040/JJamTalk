@@ -63,8 +63,10 @@
         <ImageButton
             android:id="@+id/ib_my_profile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/common_google_signin_btn_icon_dark_disabled" />
+            android:layout_height="wrap_content">
+
+        </ImageButton>
+            <!--app:srcCompat="@drawable/common_google_signin_btn_icon_dark_disabled" /> -->
 
         <TextView
             android:layout_width="match_parent"
