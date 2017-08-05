@@ -25,10 +25,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -46,22 +44,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Util.AwsFunc;
-import com.kakao.Session;
-import com.kakao.SessionCallback;
-import com.kakao.exception.KakaoException;
+
+import com.hodo.jjamtalk.Kakao.KakaoSignupActivity;
+import com.kakao.auth.Session;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.Manifest.permission.READ_CONTACTS;
-
+import com.kakao.auth.ISessionCallback;
+import com.kakao.util.exception.KakaoException;
+import com.kakao.util.helper.log.Logger;
 /**
  * A login screen that offers login via email/password.
  */
@@ -75,6 +73,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private MyData mMyData = MyData.getInstance();
 
     private UserLoginTask mAuthTask = null;
+    private SessionCallback callback;      //콜백 선
+
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private TextView mTextView_NeedHelp;
     private Button mEmailSignInButton;
     private Button mGoogleSignInButton;
+    private Button mKakaoSignInButton;
     private Button mNaverSignInButton;
     private Button mToMain;
 
@@ -100,6 +101,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        callback = new SessionCallback();                  // 이 두개의 함수 중요함
+        Session.getCurrentSession().addCallback(callback);
+
         // Set up the login form.
         mAuth = FirebaseAuth.getInstance();
 
@@ -145,6 +151,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Log.d("LoginActivity", "mTextView_NeedHelp Clicked!");
             }
         });
+        //mKakaoSignInButton = (Button)findViewById(R.id.Login_Kakao);
+
+    /*    mKakaoSignInButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });*/
 
         mNaverSignInButton  = (Button)findViewById(R.id.Login_Naver);
         mNaverSignInButton.setOnClickListener(new OnClickListener() {
@@ -181,8 +195,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
             }
         });
+    }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Session.getCurrentSession().removeCallback(callback);
     }
 
     private void GoMainPage() {
@@ -214,6 +233,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
 
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -494,6 +517,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    private class SessionCallback implements ISessionCallback {
+
+        @Override
+        public void onSessionOpened() {
+            redirectSignupActivity();  // 세션 연결성공 시 redirectSignupActivity() 호출
+        }
+
+        @Override
+        public void onSessionOpenFailed(KakaoException exception) {
+            if(exception != null) {
+                Logger.e(exception);
+            }
+            setContentView(R.layout.activity_login); // 세션 연결이 실패했을때
+        }                                            // 로그인화면을 다시 불러옴
+    }
+
+    protected void redirectSignupActivity() {       //세션 연결 성공 시 SignupActivity로 넘김
+        final Intent intent = new Intent(this, KakaoSignupActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
+
     }
 }
 
