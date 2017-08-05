@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     SpringIndicator springIndicator;
     ScrollerViewPager viewPager;
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
