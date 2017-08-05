@@ -37,19 +37,25 @@
 
 
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".MyProfile"/>
+        <activity android:name=".MyPageActivity"/>
 
         <activity android:name=".SettingActivity"
             android:label="설정"
-            android:parentActivityName=".MyProfile">
+            android:parentActivityName=".MyPageActivity">
 
         </activity>
+        <activity android:name=".MyProfileActivity"
+            android:label = "프로필 편집"
+            android:parentActivityName=".MyPageActivity"></activity>
         <activity android:name=".HeartActivity" />
         <activity android:name=".Kakao.KakaoSignupActivity" />
         <activity android:name=".ClickedMyPicActivity"
             android:theme ="@style/NoTitleBar">
         </activity>
         <activity android:name=".InputProfile"></activity>
+        <activity android:name=".UserPageActivity"
+            android:theme="@style/NoTitleBar"></activity>
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

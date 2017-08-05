@@ -13,16 +13,16 @@ import android.widget.ImageView;
  * Created by mjk on 2017. 8. 4..
  */
 
-public class MyProfile extends AppCompatActivity {
+public class MyPageActivity extends AppCompatActivity {
 
-    ImageButton btn_Setting;
+    ImageButton btn_Setting,btn_my_profile;
     Button btn_heart;
     ImageView img_Mypic;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_myprofile_from_main);
+        setContentView(R.layout.activity_my_page);
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
         btn_Setting.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +45,13 @@ public class MyProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),ClickedMyPicActivity.class));
+            }
+        });
+        btn_my_profile = (ImageButton)findViewById(R.id.ib_my_profile);
+        btn_my_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));
             }
         });
     }

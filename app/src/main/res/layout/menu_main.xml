@@ -9,7 +9,7 @@
         android:id="@+id/btn_profile"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:text="프로필" />
+        android:text="마이페이지" />
 
     <TextView
         android:id="@+id/title"
