@@ -15,5 +15,6 @@ public class MyProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_profile);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
     }
 }

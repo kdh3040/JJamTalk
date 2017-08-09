@@ -23,6 +23,7 @@ public class MyPageActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
         btn_Setting.setOnClickListener(new View.OnClickListener() {

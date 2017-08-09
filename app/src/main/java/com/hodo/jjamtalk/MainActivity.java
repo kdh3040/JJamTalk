@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar parent = (Toolbar)menu_Main.getParent();
         parent.setContentInsetsAbsolute(0,0);
 
-        Button button = (Button)findViewById(R.id.btn_profile);
+        ImageButton button = (ImageButton)findViewById(R.id.iv_mypage);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

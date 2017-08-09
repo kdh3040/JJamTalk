@@ -16,12 +16,14 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
+        android:scaleType="centerCrop"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <EditText
         android:id="@+id/InputProfile_Nick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
         android:hint="닉네임"
         android:inputType="textPersonName" />
@@ -29,6 +31,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -49,6 +52,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 

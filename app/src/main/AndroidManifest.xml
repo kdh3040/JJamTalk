@@ -37,7 +37,8 @@
 
 
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".MyPageActivity"/>
+        <activity android:name=".MyPageActivity"
+            android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".SettingActivity"
             android:label="설정"
@@ -45,8 +46,9 @@
 
         </activity>
         <activity android:name=".MyProfileActivity"
-            android:label = "프로필 편집"
-            android:parentActivityName=".MyPageActivity"></activity>
+            android:parentActivityName=".MyPageActivity"
+
+            android:label="프로필 편집"></activity>
         <activity android:name=".HeartActivity" />
         <activity android:name=".Kakao.KakaoSignupActivity" />
         <activity android:name=".ClickedMyPicActivity"
