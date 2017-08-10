@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -39,6 +42,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import com.google.common.collect.Lists;
+import com.hodo.jjamtalk.Util.AppStatus;
 
 import java.util.List;
 
@@ -55,7 +59,11 @@ public class MainActivity extends AppCompatActivity {
     ImageButton ib_cardList,ib_chatList,ib_board;
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private MyData mMyData = MyData.getInstance();
+    private AppStatus mAppStatus = AppStatus.getInstance();
+
     GridView m_GridView;
+
+    ArrayList<Class> arrFragment = new ArrayList<>();
 
 
 
@@ -88,8 +96,11 @@ public class MainActivity extends AppCompatActivity {
         });
         //m_GridView = (GridView)findViewById(R.id.main_gridview);
 
+
+
         PagerModelManager manager = new PagerModelManager();
         manager.addCommonFragment(GuideFragment.class, getBgRes(),getTitles());
+        //manager.addCommonFragment(arrFragment, getTitles());
 
         final ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);
         viewPager.setAdapter(adapter);
@@ -122,6 +133,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
+            }
+        });
+
+        CheckBox cbMultiSend = (CheckBox)findViewById(R.id.checkBox);
+        cbMultiSend.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                mAppStatus.bCheckMultiSend = isChecked;
             }
         });
 

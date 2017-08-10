@@ -61,7 +61,9 @@ import com.kakao.auth.Session;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.kakao.auth.ISessionCallback;
@@ -336,6 +338,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     Log.d(TAG, "Sing in Account:" + task.isSuccessful());
                                     if(task.isSuccessful()){
                                         InitData_Rank();
+                                        InitData_Near();
+                                        InitData_New();
+                                        InitData_Hot();
                                     }else {
                                         Toast.makeText(LoginActivity.this,
                                                 "Log In Failed", Toast.LENGTH_LONG).show();
@@ -404,9 +409,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
-                                mMyData.mUserManData.add(stRecvData);
-                                mMyData.mUserAllData.add(stRecvData);
-                                Log.d("Main Man : ", mMyData.mUserManData.get(i).NickName);
+                                mMyData.arrUserMan_Rank.add(stRecvData);
+                                mMyData.arrUserAll_Rank.add(stRecvData);
+                                Log.d("Login Man_Rank : ", mMyData.arrUserMan_Rank.get(i).NickName);
                             }
                             i++;
                         }
@@ -438,9 +443,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
-                                mMyData.mUserWomanData.add(stRecvData);
-                                mMyData.mUserAllData.add(stRecvData);
-                                Log.d("Main Woman : ", mMyData.mUserWomanData.get(i).NickName);
+                                mMyData.arrUserWoman_Rank.add(stRecvData);
+                                mMyData.arrUserAll_Rank.add(stRecvData);
+                                Log.d("Login Woman_Rank : ", mMyData.arrUserWoman_Rank.get(i).NickName);
                             }
                         }
 
@@ -462,13 +467,230 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void InitData_Hot() {
+        DatabaseReference refMan, refWoman;
+        refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
+        Query query=refMan.orderByChild("Hot");//키가 id와 같은걸 쿼리로 가져옴
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                            UserData stRecvData = new UserData ();
+                            stRecvData = fileSnapshot.getValue(UserData.class);
+                            if(stRecvData != null) {
+                                mMyData.arrUserMan_Hot.add(stRecvData);
+                                mMyData.arrUserAll_Hot.add(stRecvData);
+                                Log.d("Login arrUserMan_Hot : ", mMyData.arrUserMan_Hot.get(i).NickName);
+                            }
+                            i++;
+                        }
 
+                        if(bUserSet == false)
+                            bUserSet = true;
+                        else if(bUserSet == true && bMySet == true){
+                            showProgress(false);
+                            Log.d(TAG, "Account Log in  Complete");
+                            GoMainPage();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                    }
+                });
+
+        refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
+        query=refWoman.orderByChild("Hot");//키가 id와 같은걸 쿼리로 가져옴
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                            UserData stRecvData = new UserData ();
+                            stRecvData = fileSnapshot.getValue(UserData.class);
+                            if(stRecvData != null) {
+                                mMyData.arrUserWoman_Hot.add(stRecvData);
+                                mMyData.arrUserAll_Hot.add(stRecvData);
+                                Log.d("Login Woman_Hot : ", mMyData.arrUserWoman_Hot.get(i).NickName);
+                            }
+                        }
+
+                        if(bUserSet == false)
+                            bUserSet = true;
+                        else if(bUserSet == true && bMySet == true){
+                            showProgress(false);
+                            Log.d(TAG, "Account Log in  Complete");
+                            GoMainPage();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                    }
+                });
     }
 
+    // 일주일간 NEW 멤버
     private void InitData_New() {
+        long time = System.currentTimeMillis();
+        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
+        int nTodayDate =  Integer.parseInt(ctime.format(new Date(time)));
+        int nStartDate = nTodayDate - 7;
+
+        DatabaseReference refMan, refWoman;
+        refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
+        Query query=refMan.startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                            UserData stRecvData = new UserData ();
+                            stRecvData = fileSnapshot.getValue(UserData.class);
+                            if(stRecvData != null) {
+                                mMyData.arrUserMan_New.add(stRecvData);
+                                mMyData.arrUserAll_New.add(stRecvData);
+                                Log.d("Login arrUserMan_New : ", mMyData.arrUserMan_New.get(i).NickName);
+                            }
+                            i++;
+                        }
+
+                        if(bUserSet == false)
+                            bUserSet = true;
+                        else if(bUserSet == true && bMySet == true){
+                            showProgress(false);
+                            Log.d(TAG, "Account Log in  Complete");
+                            GoMainPage();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                    }
+                });
+
+        refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
+        query=refMan.startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                            UserData stRecvData = new UserData ();
+                            stRecvData = fileSnapshot.getValue(UserData.class);
+                            if(stRecvData != null) {
+                                mMyData.arrUserWoman_New.add(stRecvData);
+                                mMyData.arrUserAll_New.add(stRecvData);
+                                Log.d("Login Woman_New : ", mMyData.arrUserWoman_New.get(i).NickName);
+                            }
+                        }
+
+                        if(bUserSet == false)
+                            bUserSet = true;
+                        else if(bUserSet == true && bMySet == true){
+                            showProgress(false);
+                            Log.d(TAG, "Account Log in  Complete");
+                            GoMainPage();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                    }
+                });
     }
 
+    // 경위도 +- 1 씩
     private void InitData_Near() {
+
+        Double lStartLon = mMyData.getUserLon() - 1;
+        Double lStartLat = mMyData.getUserLat() - 1;
+
+        Double lEndLon = mMyData.getUserLon() + 1;
+        Double IEndLat = mMyData.getUserLon() + 1;
+
+        DatabaseReference refMan, refWoman;
+        refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
+        Query query=refMan
+                .startAt(lStartLon).endAt(lEndLon);
+
+
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                            UserData stRecvData = new UserData ();
+                            stRecvData = fileSnapshot.getValue(UserData.class);
+                            if(stRecvData != null) {
+                                mMyData.arrUserMan_New.add(stRecvData);
+                                mMyData.arrUserAll_New.add(stRecvData);
+                                Log.d("Login arrUserMan_New : ", mMyData.arrUserMan_New.get(i).NickName);
+                            }
+                            i++;
+                        }
+
+                        if(bUserSet == false)
+                            bUserSet = true;
+                        else if(bUserSet == true && bMySet == true){
+                            showProgress(false);
+                            Log.d(TAG, "Account Log in  Complete");
+                            GoMainPage();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                    }
+                });
+
+        refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                            UserData stRecvData = new UserData ();
+                            stRecvData = fileSnapshot.getValue(UserData.class);
+                            if(stRecvData != null) {
+                                mMyData.arrUserWoman_New.add(stRecvData);
+                                mMyData.arrUserAll_New.add(stRecvData);
+                                Log.d("Login Woman_New : ", mMyData.arrUserWoman_New.get(i).NickName);
+                            }
+                        }
+
+                        if(bUserSet == false)
+                            bUserSet = true;
+                        else if(bUserSet == true && bMySet == true){
+                            showProgress(false);
+                            Log.d(TAG, "Account Log in  Complete");
+                            GoMainPage();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                    }
+                });
+
     }
 
     private boolean isEmailValid(String email) {

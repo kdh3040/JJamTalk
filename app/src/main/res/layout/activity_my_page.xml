@@ -20,7 +20,7 @@
             app:srcCompat="@mipmap/hdvd" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/MyPage_txtProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -93,7 +93,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/MyPage_txtHeart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

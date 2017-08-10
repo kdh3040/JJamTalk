@@ -36,6 +36,7 @@ import android.widget.TextView;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Util.AppStatus;
 import com.hodo.jjamtalk.Util.LocationFunc;
 
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class GuideFragment extends Fragment {
 
     private LocationFunc mLocFunc = LocationFunc.getInstance();
     private MyData mMyData = MyData.getInstance();
+    private AppStatus mAppStatus = AppStatus.getInstance();
 
     private int UserManCnt;
     private int UserWomanCnt;
@@ -71,9 +73,9 @@ public class GuideFragment extends Fragment {
         bgRes = getArguments().getInt("data");
         mainAdapter = new MainAdapter();
 
-        UserManCnt = mMyData.mUserManData.size();
-        UserWomanCnt = mMyData.mUserWomanData.size();
-        UserAllCnt = mMyData.mUserAllData.size();
+        UserManCnt = mMyData.arrUserMan_Rank.size();
+        UserWomanCnt = mMyData.arrUserWoman_Rank.size();
+        UserAllCnt = mMyData.arrUserAll_Rank.size();
 
         initData();
     }
@@ -109,7 +111,10 @@ public class GuideFragment extends Fragment {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getContext(),UserPageActivity.class));
+                   if(mAppStatus.bCheckMultiSend == false)
+                        startActivity(new Intent(getContext(),UserPageActivity.class));
+
+
                 }
             });
 
@@ -126,25 +131,22 @@ public class GuideFragment extends Fragment {
             {
                 //  남자 탐색
                 case 1:
-                    float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.mUserManData.get(i).Lat, mMyData.mUserManData.get(i).Lon);
+                    float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Rank.get(i).Lat, mMyData.arrUserMan_Rank.get(i).Lon);
                     Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-                    holder.textView.setText(mMyData.mUserManData.get(i).NickName + ", " + mMyData.mUserManData.get(i).Age + "세, " + (int)Dist + "km");
+                    holder.textView.setText(mMyData.arrUserMan_Rank.get(i).NickName + ", " + mMyData.arrUserMan_Rank.get(i).Age + "세, " + (int)Dist + "km");
                     break;
                 // 여자 탐색
                 case 2:
-                    Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.mUserWomanData.get(i).Lat, mMyData.mUserWomanData.get(i).Lon);
+                    Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Rank.get(i).Lat, mMyData.arrUserWoman_Rank.get(i).Lon);
                     Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
-                    holder.textView.setText(mMyData.mUserWomanData.get(i).NickName + ", " + mMyData.mUserWomanData.get(i).Age + "세, " + (int)Dist + "km");
+                    holder.textView.setText(mMyData.arrUserWoman_Rank.get(i).NickName + ", " + mMyData.arrUserWoman_Rank.get(i).Age + "세, " + (int)Dist + "km");
                     break;
                 case 3:
                     Log.d("Guide !!!! ", "Case 3");
-                    Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.mUserAllData.get(i).Lat, mMyData.mUserAllData.get(i).Lon);
-                    holder.textView.setText(mMyData.mUserAllData.get(i).NickName + ", " + mMyData.mUserAllData.get(i).Age + "세, " + (int)Dist + "km");
+                    Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Rank.get(i).Lat, mMyData.arrUserAll_Rank.get(i).Lon);
+                    holder.textView.setText(mMyData.arrUserAll_Rank.get(i).NickName + ", " + mMyData.arrUserAll_Rank.get(i).Age + "세, " + (int)Dist + "km");
                     break;
                 default:
-                    Log.d("Guide !!!! ", "Case 4");
-                    Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.mUserManData.get(i).Lat, mMyData.mUserManData.get(i).Lon);
-                    holder.textView.setText(mMyData.mUserManData.get(i).NickName + ", " + mMyData.mUserManData.get(i).Age + "세, " + (int)Dist + "km");
                     break;
             }
 
@@ -155,13 +157,13 @@ public class GuideFragment extends Fragment {
             int rtValue = 0;
             if (mSetting.getnSearchSetting() == 1) {
                 Log.d("Guide !!!! ", "getItem 1");
-                rtValue = mMyData.mUserManData.size();
+                rtValue = mMyData.arrUserMan_Rank.size();
             } else if (mSetting.getnSearchSetting() == 2) {
                 Log.d("Guide !!!! ", "getItem 2");
-                rtValue = mMyData.mUserWomanData.size();
+                rtValue = mMyData.arrUserWoman_Rank.size();
             } else if (mSetting.getnSearchSetting() == 3) {
                 Log.d("Guide !!!! ", "getItem 3");
-                rtValue = mMyData.mUserAllData.size();
+                rtValue = mMyData.arrUserAll_Rank.size();
             }
             return rtValue;
         }
