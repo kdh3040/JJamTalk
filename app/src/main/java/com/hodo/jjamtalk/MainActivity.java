@@ -110,18 +110,19 @@ public class MainActivity extends AppCompatActivity {
         springIndicator.setViewPager(viewPager);
     }
 
-    private List<String> getTitles(){
+    /*private List<String> getTitles(){
         return Lists.newArrayList("Near", "Hot", "Rank", "New");
     }
 
     private List<Integer> getBgRes(){
         return Lists.newArrayList(R.drawable.bg1, R.drawable.bg2, R.drawable.bg3, R.drawable.bg4);
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         ActionBar actionBar = getSupportActionBar();
 
+        assert actionBar != null;
         actionBar.setDisplayShowCustomEnabled(true);
 
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
