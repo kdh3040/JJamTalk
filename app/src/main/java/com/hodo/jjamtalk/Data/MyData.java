@@ -1,5 +1,9 @@
 package com.hodo.jjamtalk.Data;
 
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
+
 /**
  * Created by boram on 2017-08-04.
  */
@@ -16,6 +20,9 @@ public class MyData {
         return  _Instance;
     }
 
+    public ArrayList<UserData> mUserManData = new ArrayList<>();
+    public ArrayList<UserData> mUserWomanData = new ArrayList<>();
+
     private String strIdx;
     private String strImg;
     private String strNick;
@@ -28,9 +35,22 @@ public class MyData {
     private int nHot;
     private int nRank;
 
+
     private MyData()
     {
+    }
 
+    public void setMyData(String _UserIdx, String _UserImg, String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat, int _UserHot, int _UserRank)
+    {
+        strIdx = _UserIdx;
+        strImg = _UserImg;
+        strNick = _UserNick;
+        strGender = _UserGender;
+        strAge = _UserAge;
+        lLon = _UserLon;
+        lLat = _UserLat;
+        nHot = _UserHot;
+        nRank = _UserRank;
     }
 
     public void setUserIdx(String userIdx) {
@@ -67,8 +87,6 @@ public class MyData {
     public String getUserAge() {
         return strAge;
     }
-
-
 
     public void setUserLon(Double userLon) { lLon = userLon;}
     public Double getUserLon() {
