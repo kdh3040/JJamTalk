@@ -1,5 +1,7 @@
 package com.hodo.jjamtalk;
 
+import android.*;
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -13,6 +15,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.database.Cursor;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -20,7 +25,9 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -40,6 +47,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -57,6 +66,7 @@ import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AwsFunc;
 
 import com.hodo.jjamtalk.Kakao.KakaoSignupActivity;
+import com.hodo.jjamtalk.Util.LocationFunc;
 import com.kakao.auth.Session;
 
 import java.security.MessageDigest;
@@ -101,15 +111,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private Button mToMain;
 
     private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
+    private LocationFunc mLocalFunc = LocationFunc.getInstance();
     //String strMyIdx = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
     String strMyIdx;
     DatabaseReference ref;
 
 
     private Boolean bMySet = false;
-    private Boolean bUserSet = false;
+    private int nUserSet = 0;
     private static final int RC_SIGN_IN = 9001;
     private static String TAG = "LoginActivity Log!!";
+
+    private FusedLocationProviderClient mFusedLocationClient;
+    LocationManager locationManager;
+    String provider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +133,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Set up the login form.
         mAuth = FirebaseAuth.getInstance();
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        provider = locationManager.getBestProvider(new Criteria(), false);
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -210,6 +230,40 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.d("nUserSet !!!", "nUserSet : " + nUserSet);
+        if (mLocalFunc.checkLocationPermission(getApplicationContext(), this)) {
+            if (ContextCompat.checkSelfPermission(this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                getLocation();
+            }
+        }
+    }
+
+    public void getLocation() {
+        OnCompleteListener<Location> mCompleteListener = new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                if (task.isSuccessful() && task.getResult() != null) {
+                    Location tempLoc = task.getResult();
+                    mMyData.setUserLon(tempLoc.getLongitude());
+                    mMyData.setUserLat(tempLoc.getLatitude());
+                    InitData_Near();
+                }
+            }
+        };
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        mFusedLocationClient.getLastLocation().addOnCompleteListener(this, mCompleteListener);
     }
 
     private void GoProfilePage() {
@@ -338,7 +392,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     Log.d(TAG, "Sing in Account:" + task.isSuccessful());
                                     if(task.isSuccessful()){
                                         InitData_Rank();
-                                        InitData_Near();
                                         InitData_New();
                                         InitData_Hot();
                                     }else {
@@ -416,9 +469,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             i++;
                         }
 
-                        if(bUserSet == false)
-                            bUserSet = true;
-                        else if(bUserSet == true && bMySet == true){
+                        if(nUserSet != 4)
+                            nUserSet+=1;
+
+                        else if(nUserSet == 4 && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -449,9 +503,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
                         }
 
-                        if(bUserSet == false)
-                            bUserSet = true;
-                        else if(bUserSet == true && bMySet == true){
+
+                        if(nUserSet != 8)
+                            nUserSet += 1;
+                        else if(nUserSet == 7 && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -486,9 +541,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             i++;
                         }
 
-                        if(bUserSet == false)
-                            bUserSet = true;
-                        else if(bUserSet == true && bMySet == true){
+                        if(nUserSet != 8)
+                            nUserSet += 1;
+                        if(nUserSet == 8 && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -519,9 +574,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
                         }
 
-                        if(bUserSet == false)
-                            bUserSet = true;
-                        else if(bUserSet == true && bMySet == true){
+
+                        if(nUserSet != 8)
+                            nUserSet += 1;
+                        if(nUserSet == 8 && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -545,7 +601,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         DatabaseReference refMan, refWoman;
         refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
-        Query query=refMan.startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
+        Query query=refMan.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -562,9 +618,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             i++;
                         }
 
-                        if(bUserSet == false)
-                            bUserSet = true;
-                        else if(bUserSet == true && bMySet == true){
+
+                        if(nUserSet != 8)
+                            nUserSet += 1;
+                        if(nUserSet == 8 && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -579,7 +636,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 });
 
         refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
-        query=refMan.startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
+        query=refWoman.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -595,9 +652,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
                         }
 
-                        if(bUserSet == false)
-                            bUserSet = true;
-                        else if(bUserSet == true && bMySet == true){
+
+                        if(nUserSet != 8)
+                            nUserSet += 1;
+                        if(nUserSet == 8 && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -624,6 +682,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         DatabaseReference refMan, refWoman;
         refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
         Query query=refMan
+                .orderByChild("Lon")
                 .startAt(lStartLon).endAt(lEndLon);
 
 
@@ -636,16 +695,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
-                                mMyData.arrUserMan_New.add(stRecvData);
-                                mMyData.arrUserAll_New.add(stRecvData);
-                                Log.d("Login arrUserMan_New : ", mMyData.arrUserMan_New.get(i).NickName);
+                                mMyData.arrUserMan_Near.add(stRecvData);
+                                mMyData.arrUserAll_Near.add(stRecvData);
+                                Log.d("Login Man_Near : ", mMyData.arrUserMan_Near.get(i).NickName);
                             }
                             i++;
                         }
 
-                        if(bUserSet == false)
-                            bUserSet = true;
-                        else if(bUserSet == true && bMySet == true){
+
+                        if(nUserSet != 8)
+                            nUserSet += 1;
+                        if(nUserSet == 8 && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -660,6 +720,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 });
 
         refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
+        query=refWoman
+                .orderByChild("Lon")
+                .startAt(lStartLon).endAt(lEndLon);
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -669,15 +732,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
-                                mMyData.arrUserWoman_New.add(stRecvData);
-                                mMyData.arrUserAll_New.add(stRecvData);
-                                Log.d("Login Woman_New : ", mMyData.arrUserWoman_New.get(i).NickName);
+                                mMyData.arrUserWoman_Near.add(stRecvData);
+                                mMyData.arrUserAll_Near.add(stRecvData);
+                                Log.d("Login Woman_Near : ", mMyData.arrUserWoman_Near.get(i).NickName);
                             }
                         }
 
-                        if(bUserSet == false)
-                            bUserSet = true;
-                        else if(bUserSet == true && bMySet == true){
+
+                        if(nUserSet != 8)
+                            nUserSet += 1;
+                        if(nUserSet == 8 && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
