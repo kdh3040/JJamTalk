@@ -57,6 +57,19 @@
         <activity android:name=".InputProfile"></activity>
         <activity android:name=".UserPageActivity"
             android:theme="@style/NoTitleBar"></activity>
+        <activity android:name=".BoardActivity"
+            android:label="게시판"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".CardListActivity"
+            android:label="내 카드"
+            android:parentActivityName=".MainActivity"></activity>
+
+        <activity android:name=".ChatListActivity"
+            android:label="쪽지함"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".ChatRoomActivity"
+
+            ></activity>
 
 
         <meta-data

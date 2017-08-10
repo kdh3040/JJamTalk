@@ -34,21 +34,21 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/ib_cardlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:srcCompat="@android:drawable/btn_star_big_on" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/ib_chatlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:srcCompat="@drawable/kakao_account_logo" />
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/ib_board"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

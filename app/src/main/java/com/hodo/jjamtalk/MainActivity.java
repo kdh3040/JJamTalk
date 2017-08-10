@@ -52,6 +52,7 @@ import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 public class MainActivity extends AppCompatActivity {
     SpringIndicator springIndicator;
     ScrollerViewPager viewPager;
+    ImageButton ib_cardList,ib_chatList,ib_board;
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private MyData mMyData = MyData.getInstance();
     GridView m_GridView;
@@ -64,6 +65,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.mainactivity);
         viewPager = (ScrollerViewPager)findViewById(R.id.view_pager);
         springIndicator = (SpringIndicator)findViewById(R.id.indicator);
+        ib_board = (ImageButton)findViewById(R.id.ib_board);
+        ib_board.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),BoardActivity.class));
+            }
+        });
+        ib_cardList = (ImageButton)findViewById(R.id.ib_cardlist);
+        ib_cardList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),CardListActivity.class));
+            }
+        });
+        ib_chatList = (ImageButton)findViewById(R.id.ib_chatlist);
+        ib_chatList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),ChatListActivity.class));
+            }
+        });
         //m_GridView = (GridView)findViewById(R.id.main_gridview);
 
         PagerModelManager manager = new PagerModelManager();

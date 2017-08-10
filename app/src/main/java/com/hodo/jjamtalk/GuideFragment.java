@@ -153,25 +153,21 @@ public class GuideFragment extends Fragment {
         @Override
         public int getItemCount() {
             int rtValue = 0;
-            if(mSetting.getnSearchSetting() == 1) {
+            if (mSetting.getnSearchSetting() == 1) {
                 Log.d("Guide !!!! ", "getItem 1");
                 rtValue = mMyData.mUserManData.size();
-            }
-            else if(mSetting.getnSearchSetting() == 2)
-            {
+            } else if (mSetting.getnSearchSetting() == 2) {
                 Log.d("Guide !!!! ", "getItem 2");
                 rtValue = mMyData.mUserWomanData.size();
-            }
-            else if(mSetting.getnSearchSetting() == 3)
-            {
+            } else if (mSetting.getnSearchSetting() == 3) {
                 Log.d("Guide !!!! ", "getItem 3");
                 rtValue = mMyData.mUserAllData.size();
             }
-
             return rtValue;
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder{
+
+        public  class ViewHolder extends RecyclerView.ViewHolder{
 
             public ImageView image;
             public TextView textView;
