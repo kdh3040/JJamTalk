@@ -11,8 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -49,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     SpringIndicator springIndicator;
     ScrollerViewPager viewPager;
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
+    GridView m_GridView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.mainactivity);
         viewPager = (ScrollerViewPager)findViewById(R.id.view_pager);
         springIndicator = (SpringIndicator)findViewById(R.id.indicator);
+        //m_GridView = (GridView)findViewById(R.id.main_gridview);
+
+
+
 
         PagerModelManager manager = new PagerModelManager();
         manager.addCommonFragment(GuideFragment.class, getBgRes(),getTitles());
