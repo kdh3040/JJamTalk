@@ -51,9 +51,6 @@ public class GuideFragment extends Fragment {
         bgRes = getArguments().getInt("data");
         mainAdapter = new MainAdapter();
 
-
-
-
     }
 
     @Override
@@ -87,8 +84,6 @@ public class GuideFragment extends Fragment {
                     startActivity(new Intent(getContext(),UserPageActivity.class));
                 }
             });
-
-
             return new ViewHolder(view);
         }
 
@@ -100,13 +95,12 @@ public class GuideFragment extends Fragment {
         }
 
 
-
         @Override
         public int getItemCount() {
-            return 3;
+            return 30;
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder{
+        public  class ViewHolder extends RecyclerView.ViewHolder{
 
             public ImageView image;
             public TextView textView;
