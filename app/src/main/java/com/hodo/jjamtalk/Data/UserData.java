@@ -1,10 +1,15 @@
 package com.hodo.jjamtalk.Data;
 
+import java.io.Serializable;
+
 /**
  * Created by boram on 2017-08-05.
  */
 
-public class UserData {
+public class UserData implements Serializable {
+
+    private static final long  serialVersionUID = 1L;
+
     public String Idx;
     public String Img;
     public String NickName;
