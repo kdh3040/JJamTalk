@@ -93,8 +93,10 @@ public class MainActivity extends AppCompatActivity {
         //m_GridView = (GridView)findViewById(R.id.main_gridview);
 
         PagerModelManager manager = new PagerModelManager();
-        manager.addFragment(new NearFragment(),"near");
-        manager.addFragment(new NewMemberFragment(),"new");
+        manager.addFragment(new NearFragment(),"Near");
+        manager.addFragment(new NewMemberFragment(),"New");
+        manager.addFragment(new HotFragment(),"Hot");
+        manager.addFragment(new RankFragment(),"Rank");
 
         final ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);
         viewPager.setAdapter(adapter);
