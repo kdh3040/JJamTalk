@@ -34,24 +34,31 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_action_name" />
+
+        <ImageButton
             android:id="@+id/ib_cardlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="@android:drawable/btn_star_big_on" />
+            app:srcCompat="@drawable/heart_icon" />
 
         <ImageButton
             android:id="@+id/ib_chatlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="@drawable/kakao_account_logo" />
+            app:srcCompat="@drawable/msg_icon" />
 
         <ImageButton
             android:id="@+id/ib_board"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="@drawable/googleg_standard_color_18" />
+            app:srcCompat="@drawable/board_icon" />
     </LinearLayout>
 </LinearLayout>
