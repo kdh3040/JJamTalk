@@ -16,6 +16,8 @@ import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AwsFunc;
 import com.kakao.usermgmt.response.model.User;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -41,8 +43,7 @@ public class FirebaseData {
 
     }
 
-    public void SaveData(String userIdx)
-    {
+    public void SaveData(String userIdx) {
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
 
@@ -52,7 +53,7 @@ public class FirebaseData {
 
         userIdx = Integer.toString(rand.nextInt(100));
 
-       // DatabaseReference user = table.child( userIdx);
+        // DatabaseReference user = table.child( userIdx);
         DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
         user.child("Img").setValue(mMyData.getUserImg());
@@ -64,19 +65,11 @@ public class FirebaseData {
         user.child("Lat").setValue(mMyData.getUserLat());
 
         user.child("Rank").setValue(rand.nextInt(100));
-        user.child("Heart").setValue(rand.nextInt(30));
+        user.child("Hot").setValue(rand.nextInt(30));
 
-    }
+        long time = System.currentTimeMillis();
+        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
+        user.child("Date").setValue(ctime.format(new Date(time)));
 
-    public Query getQuery(DatabaseReference databaseReference, int select)
-    {
-        Query resultQuery = null;
-        switch (select)
-        {
-            case 1:
-                resultQuery = databaseReference.child("Heart");
-                break;
-        }
-        return resultQuery;
     }
 }

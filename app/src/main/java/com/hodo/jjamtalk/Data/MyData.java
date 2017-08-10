@@ -20,13 +20,21 @@ public class MyData {
         return  _Instance;
     }
 
-    public ArrayList<UserData> mUserAllData = new ArrayList<>();
-    public ArrayList<UserData> mUserManData = new ArrayList<>();
-    public ArrayList<UserData> mUserWomanData = new ArrayList<>();
+    public ArrayList<UserData> arrUserMan_Near = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Near = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Near = new ArrayList<>();
 
-    private ArrayList<UserData> arrUserMan_Near = new ArrayList<UserData>();
-    private ArrayList<UserData> arrUserWoman_Near = new ArrayList<UserData>();
-    private ArrayList<UserData> arrUserAll_Near = new ArrayList<UserData>();
+    public ArrayList<UserData> arrUserMan_New = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_New = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_New = new ArrayList<>();
+
+    public ArrayList<UserData> arrUserMan_Hot = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Hot = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Hot = new ArrayList<>();
+
+    public ArrayList<UserData> arrUserMan_Rank = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Rank = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Rank = new ArrayList<>();
 
 
     private String strIdx;
@@ -42,13 +50,13 @@ public class MyData {
     public int nHot;
     public int nRank;
 
-    public int nDate;
+    public String strDate;
 
     private MyData()
     {
     }
 
-    public void setMyData(String _UserIdx, String _UserImg, String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat, int _UserHeart, int _UserHot, int _UserRank, int _UserDate)
+    public void setMyData(String _UserIdx, String _UserImg, String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat, int _UserHeart, int _UserHot, int _UserRank, String _UserDate)
     {
         strIdx = _UserIdx;
         strImg = _UserImg;
@@ -60,7 +68,7 @@ public class MyData {
         nHeart = _UserHeart;
         nHot = _UserHot;
         nRank = _UserRank;
-        nDate = _UserDate;
+        strDate = _UserDate;
     }
 
     public void setUserIdx(String userIdx) {
@@ -125,10 +133,10 @@ public class MyData {
         return nRank;
     }
 
-    public void setUserDate(int userDate) {
-        nDate = userDate;
+    public void setUserDate(String userDate) {
+        strDate = userDate;
     }
-    public int getUserDate() {
-        return nDate;
+    public String getUserDate() {
+        return strDate;
     }
 }

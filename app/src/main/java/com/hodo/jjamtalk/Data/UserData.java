@@ -18,5 +18,5 @@ public class UserData {
     public int Hot;
     public int Rank;
 
-    public int Date;
+    public String Date;
 }
