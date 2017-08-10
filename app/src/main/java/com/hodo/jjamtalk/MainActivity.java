@@ -2,6 +2,7 @@ package com.hodo.jjamtalk;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     SpringIndicator springIndicator;
     ScrollerViewPager viewPager;
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
+    private MyData mMyData = MyData.getInstance();
     GridView m_GridView;
 
 
@@ -64,20 +66,15 @@ public class MainActivity extends AppCompatActivity {
         springIndicator = (SpringIndicator)findViewById(R.id.indicator);
         //m_GridView = (GridView)findViewById(R.id.main_gridview);
 
-
-
-
         PagerModelManager manager = new PagerModelManager();
         manager.addCommonFragment(GuideFragment.class, getBgRes(),getTitles());
 
-        ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);
-
+        final ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);
         viewPager.setAdapter(adapter);
         viewPager.fixScrollSpeed();
         springIndicator.setViewPager(viewPager);
-
-
     }
+
     private List<String> getTitles(){
         return Lists.newArrayList("Near", "Hot", "Rank", "New");
     }
@@ -103,32 +100,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
-            }
-        });
-
-
-        final ArrayList<UserData> arrTemp = new ArrayList<UserData>();
-
-        final DatabaseReference table = FirebaseDatabase.getInstance().getReference("Users");
-        Query query=table.orderByChild("Heart").limitToLast(10);//키가 id와 같은걸 쿼리로 가져옴
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {//그걸 처리해줘야겠지
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                JSONObject json=null;
-                for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                    UserData tempDB = new UserData();
-                    //   json=new JSONObject(dataSnapshot.getValue());
-                    tempDB = fileSnapshot.getValue(UserData.class);
-
-                    arrTemp.add(tempDB);
-                    Log.d("MainAc!!", "!!!! " + tempDB.Heart + " @@@@@ " + tempDB.NickName);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 

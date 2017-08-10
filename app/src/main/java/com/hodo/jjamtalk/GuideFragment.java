@@ -23,6 +23,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,17 +33,36 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SettingData;
+import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Util.LocationFunc;
+
+import java.util.ArrayList;
+import java.util.Set;
+
 /**
  * Created by chenupt@gmail.com on 2015/1/31.
  * Description TODO
  */
 public class GuideFragment extends Fragment {
 
+    private SettingData mSetting = SettingData.getInstance();
+
     private int bgRes;
     private ImageView imageView;
 
     private MainAdapter mainAdapter;
     RecyclerView recyclerView;
+
+    private LocationFunc mLocFunc = LocationFunc.getInstance();
+    private MyData mMyData = MyData.getInstance();
+
+    private int UserManCnt;
+    private int UserWomanCnt;
+    private int UserAllCnt;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,8 +71,14 @@ public class GuideFragment extends Fragment {
         bgRes = getArguments().getInt("data");
         mainAdapter = new MainAdapter();
 
+        UserManCnt = mMyData.mUserManData.size();
+        UserWomanCnt = mMyData.mUserWomanData.size();
+        UserAllCnt = mMyData.mUserAllData.size();
 
+        initData();
+    }
 
+    private void initData() {
 
     }
 
@@ -64,13 +90,12 @@ public class GuideFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
 
         return view;
-
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Log.d ( "Guide @@@", "페이지 전환 3  "  + view.getContext());
 
         //imageView = (ImageView) getView().findViewById(R.id.image);
         //imageView.setBackgroundResource(bgRes);
@@ -88,22 +113,62 @@ public class GuideFragment extends Fragment {
                 }
             });
 
-
             return new ViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
 
-            holder.textView.setText("호근 , 25, 20km");
+            Log.d("Guide !!!! ", "Start");
+            int i = position;
+
+            switch (mSetting.getnSearchSetting())
+            {
+                //  남자 탐색
+                case 1:
+                    float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.mUserManData.get(i).Lat, mMyData.mUserManData.get(i).Lon);
+                    Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
+                    holder.textView.setText(mMyData.mUserManData.get(i).NickName + ", " + mMyData.mUserManData.get(i).Age + "세, " + (int)Dist + "km");
+                    break;
+                // 여자 탐색
+                case 2:
+                    Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.mUserWomanData.get(i).Lat, mMyData.mUserWomanData.get(i).Lon);
+                    Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
+                    holder.textView.setText(mMyData.mUserWomanData.get(i).NickName + ", " + mMyData.mUserWomanData.get(i).Age + "세, " + (int)Dist + "km");
+                    break;
+                case 3:
+                    Log.d("Guide !!!! ", "Case 3");
+                    Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.mUserAllData.get(i).Lat, mMyData.mUserAllData.get(i).Lon);
+                    holder.textView.setText(mMyData.mUserAllData.get(i).NickName + ", " + mMyData.mUserAllData.get(i).Age + "세, " + (int)Dist + "km");
+                    break;
+                default:
+                    Log.d("Guide !!!! ", "Case 4");
+                    Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.mUserManData.get(i).Lat, mMyData.mUserManData.get(i).Lon);
+                    holder.textView.setText(mMyData.mUserManData.get(i).NickName + ", " + mMyData.mUserManData.get(i).Age + "세, " + (int)Dist + "km");
+                    break;
+            }
 
         }
 
-
-
         @Override
         public int getItemCount() {
-            return 3;
+            int rtValue = 0;
+            if(mSetting.getnSearchSetting() == 1) {
+                Log.d("Guide !!!! ", "getItem 1");
+                rtValue = mMyData.mUserManData.size();
+            }
+            else if(mSetting.getnSearchSetting() == 2)
+            {
+                Log.d("Guide !!!! ", "getItem 2");
+                rtValue = mMyData.mUserWomanData.size();
+            }
+            else if(mSetting.getnSearchSetting() == 3)
+            {
+                Log.d("Guide !!!! ", "getItem 3");
+                rtValue = mMyData.mUserAllData.size();
+            }
+
+            return rtValue;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder{

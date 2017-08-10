@@ -15,5 +15,8 @@ public class UserData {
     public double Lon;
 
     public int Heart;
+    public int Hot;
     public int Rank;
+
+    public int Date;
 }

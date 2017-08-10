@@ -20,8 +20,14 @@ public class MyData {
         return  _Instance;
     }
 
+    public ArrayList<UserData> mUserAllData = new ArrayList<>();
     public ArrayList<UserData> mUserManData = new ArrayList<>();
     public ArrayList<UserData> mUserWomanData = new ArrayList<>();
+
+    private ArrayList<UserData> arrUserMan_Near = new ArrayList<UserData>();
+    private ArrayList<UserData> arrUserWoman_Near = new ArrayList<UserData>();
+    private ArrayList<UserData> arrUserAll_Near = new ArrayList<UserData>();
+
 
     private String strIdx;
     private String strImg;
@@ -32,15 +38,17 @@ public class MyData {
     private double lLat;
     private double lLon;
 
-    private int nHot;
-    private int nRank;
+    public int nHeart;
+    public int nHot;
+    public int nRank;
 
+    public int nDate;
 
     private MyData()
     {
     }
 
-    public void setMyData(String _UserIdx, String _UserImg, String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat, int _UserHot, int _UserRank)
+    public void setMyData(String _UserIdx, String _UserImg, String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat, int _UserHeart, int _UserHot, int _UserRank, int _UserDate)
     {
         strIdx = _UserIdx;
         strImg = _UserImg;
@@ -49,8 +57,10 @@ public class MyData {
         strAge = _UserAge;
         lLon = _UserLon;
         lLat = _UserLat;
+        nHeart = _UserHeart;
         nHot = _UserHot;
         nRank = _UserRank;
+        nDate = _UserDate;
     }
 
     public void setUserIdx(String userIdx) {
@@ -96,13 +106,15 @@ public class MyData {
     public void setUserLat(Double userLat) {
         lLat = userLat;
     }
-    public Double getUserLat() {
-        return lLat;
+    public Double getUserLat() { return lLat;   }
+
+    public void setUserHeart(int userHeart) { nHeart = userHeart;}
+    public int getUserHeart() {
+        return nHeart;
     }
 
-
-    public void setUserHor(int userHot) { nHot = userHot;}
-    public int getUserHor() {
+    public void setUserHot(int userHot) { nHot = userHot;}
+    public int getUserHot() {
         return nHot;
     }
 
@@ -113,4 +125,10 @@ public class MyData {
         return nRank;
     }
 
+    public void setUserDate(int userDate) {
+        nDate = userDate;
+    }
+    public int getUserDate() {
+        return nDate;
+    }
 }

@@ -12,7 +12,7 @@
 
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/Setting_btnHeart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -40,14 +40,14 @@
                 android:textStyle="bold" />
 
             <Switch
-                android:id="@+id/switch4"
+                android:id="@+id/Setting_swMan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="7dp"
                 android:text="남자" />
 
             <Switch
-                android:id="@+id/switch5"
+                android:id="@+id/Setting_swWoman"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="7dp"
@@ -73,21 +73,21 @@
                 android:textStyle="bold" />
 
             <Switch
-                android:id="@+id/switch1"
+                android:id="@+id/Setting_swNoti"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="7dp"
                 android:text="쪽지" />
 
             <Switch
-                android:id="@+id/switch2"
+                android:id="@+id/Setting_swFollow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="7dp"
                 android:text="팔로우" />
 
             <Switch
-                android:id="@+id/switch3"
+                android:id="@+id/Setting_swLike"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="좋아요" />
@@ -97,7 +97,7 @@
 
 
         <Button
-            android:id="@+id/button20"
+            android:id="@+id/Setting_btnHelp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -105,7 +105,7 @@
             android:text="도움말 및 고객 지원" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/Setting_txtShare"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -154,7 +154,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button21"
+            android:id="@+id/Setting_btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -162,7 +162,7 @@
             android:text="로그아웃" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/Setting_btnDel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
