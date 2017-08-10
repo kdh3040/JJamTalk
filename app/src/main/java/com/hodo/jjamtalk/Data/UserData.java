@@ -5,6 +5,8 @@ package com.hodo.jjamtalk.Data;
  */
 
 public class UserData {
+    public String Idx;
+    public String Img;
     public String NickName;
     public String Gender;
     public String Age;
