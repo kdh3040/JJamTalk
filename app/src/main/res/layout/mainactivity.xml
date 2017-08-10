@@ -1,7 +1,11 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
+
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <github.chenupt.springindicator.SpringIndicator xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,14 +13,45 @@
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="28dp"
+        android:layout_weight="1"
         app:siIndicatorColor="@color/colorPrimary"
         app:siIndicatorColors="@array/indicator_colors"
         app:siSelectedTextColor="@android:color/white"
         app:siTextColor="@color/colorPrimaryDark"
         app:siTextSize="18sp" />
-<github.chenupt.springindicator.viewpager.ScrollerViewPager
-android:id="@+id/view_pager"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:layout_gravity="center" />
-    </FrameLayout>
+
+    <github.chenupt.springindicator.viewpager.ScrollerViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="8" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/kakao_account_logo" />
+
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/googleg_standard_color_18" />
+    </LinearLayout>
+</LinearLayout>
