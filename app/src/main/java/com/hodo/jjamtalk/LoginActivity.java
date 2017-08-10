@@ -284,8 +284,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+      /*  String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();*/
+
+        String email = "jjdd@naver.com";
+        String password = "111111";
+
 
         boolean cancel = false;
         View focusView = null;
