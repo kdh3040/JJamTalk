@@ -55,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton ib_cardList,ib_chatList,ib_board;
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private MyData mMyData = MyData.getInstance();
-    GridView m_GridView;
+
+
+
 
 
 
@@ -63,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainactivity);
+
+
         viewPager = (ScrollerViewPager)findViewById(R.id.view_pager);
         springIndicator = (SpringIndicator)findViewById(R.id.indicator);
         ib_board = (ImageButton)findViewById(R.id.ib_board);
@@ -89,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
         //m_GridView = (GridView)findViewById(R.id.main_gridview);
 
         PagerModelManager manager = new PagerModelManager();
-        manager.addCommonFragment(GuideFragment.class, getBgRes(),getTitles());
+        manager.addFragment(new NearFragment(),"near");
+        manager.addFragment(new NewMemberFragment(),"new");
 
         final ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);
         viewPager.setAdapter(adapter);

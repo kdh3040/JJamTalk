@@ -68,8 +68,8 @@ public class GuideFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        bgRes = getArguments().getInt("data");
-        mainAdapter = new MainAdapter();
+        //bgRes = getArguments().getInt("data");
+        //mainAdapter = new MainAdapter();
 
         UserManCnt = mMyData.mUserManData.size();
         UserWomanCnt = mMyData.mUserWomanData.size();

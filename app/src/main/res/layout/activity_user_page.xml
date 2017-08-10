@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 <LinearLayout
@@ -32,10 +33,14 @@
 
         <ImageButton
             android:id="@+id/imageButton2"
+            style="@android:style/Widget.Holo.Light.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="?android:attr/actionModeShareDrawable" />
+            android:background="@color/white"
+            android:elevation="0dp"
+            android:outlineProvider="bounds"
+            app:srcCompat="@drawable/share_icon" />
 
     </LinearLayout>
 
@@ -71,21 +76,28 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button22"
+            android:id="@+id/btn_get_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="내 카드에 등록" />
+
+        <Button
+            android:id="@+id/btn_gift"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="선물하기" />
 
         <Button
-            android:id="@+id/button23"
+            android:id="@+id/btn_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="좋아요" />
 
         <Button
-            android:id="@+id/button24"
+            android:id="@+id/btn_send_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
