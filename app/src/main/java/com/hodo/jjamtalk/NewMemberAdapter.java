@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,12 @@ public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     @Override
     public GridUserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.content_user,parent,false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext.startActivity(new Intent(mContext,UserPageActivity.class));
+            }
+        });
 
         return new GridUserViewHolder(view);
     }
