@@ -16,14 +16,14 @@
         android:textSize="24sp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_msg"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/bg2" />
+        app:srcCompat="@mipmap/hdvd" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/et_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="정말 쪽지를 보내시겠습니까?"
+        android:text="쪽지를 보내시겠습니까?"
         android:textSize="24sp" />
 
     <LinearLayout
@@ -48,15 +48,15 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="보낸다!"
+            android:text="보낸다"
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
