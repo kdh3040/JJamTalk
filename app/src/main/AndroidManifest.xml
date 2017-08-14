@@ -73,6 +73,11 @@
         <activity android:name=".BoardItemActivity"
 
             ></activity>
+        <activity android:name=".BoardWriteActivity"
+            android:label="글쓰기"
+            android:parentActivityName=".BoardActivity"
+
+            ></activity>
 
 
         <meta-data

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
 
@@ -19,6 +20,7 @@ import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
 public class BoardActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    Button btn_write,btn_myList;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,15 @@ public class BoardActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.board_recy);
         recyclerView.setAdapter(new BoardAdapter());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        btn_write = (Button)findViewById(R.id.btn_write);
+        btn_write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),BoardWriteActivity.class));
+
+            }
+        });
+        btn_myList = (Button)findViewById(R.id.btn_mylist);
     }
 
     private class BoardAdapter extends RecyclerView.Adapter<BoardViewHolder> {
