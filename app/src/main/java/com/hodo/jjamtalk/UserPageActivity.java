@@ -44,7 +44,6 @@ public class UserPageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         stTargetData = (UserData)intent.getExtras().getSerializable("Target");
 
-
         txtProfile = (TextView)findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
         txtMemo = (TextView)findViewById(R.id.UserPage_txtMemo);
@@ -80,7 +79,6 @@ public class UserPageActivity extends AppCompatActivity {
                         final AlertDialog dialog = builder.create();
                         dialog.show();
 
-
                         Button btn_gift_send= giftView.findViewById(R.id.btn_gift_send);
                         btn_gift_send.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -97,11 +95,6 @@ public class UserPageActivity extends AppCompatActivity {
 
                             }
                         });
-
-
-
-
-
                         //ClickBtnSendHeart();
                         break;
                     case R.id.UserPage_btnLike:
@@ -112,7 +105,6 @@ public class UserPageActivity extends AppCompatActivity {
                         //ClickBtnSendHeart();
                         break;
                     case R.id.UserPage_btnMessage:
-
 
                         View view1= inflater.inflate(R.layout.alert_send_msg,null);
                         Button btn_cancel = view1.findViewById(R.id.btn_cancel);
@@ -139,10 +131,8 @@ public class UserPageActivity extends AppCompatActivity {
                             }
                         });
 
-
                         //ClickBtnSendHeart();
                         break;
-
                 }
             }
         };
