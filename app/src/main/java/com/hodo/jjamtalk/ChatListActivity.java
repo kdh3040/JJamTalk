@@ -52,7 +52,7 @@ public class ChatListActivity extends AppCompatActivity {
             holder.textView.setText("안녕하세요");
             holder.imageView.setImageResource(R.mipmap.girl1);
             arrChatNameData.add(mMyData.arrSendNameList.get(i));
-            holder.imageView.setOnClickListener(new View.OnClickListener() {
+            holder.textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String strCharName = arrChatNameData.get(position);

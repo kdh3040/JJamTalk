@@ -284,4 +284,7 @@ public class MyData {
         });
 
     }
+
+    public void getSendData() {
+    }
 }
