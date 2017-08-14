@@ -37,6 +37,12 @@ public class BoardActivity extends AppCompatActivity {
             }
         });
         btn_myList = (Button)findViewById(R.id.btn_mylist);
+        btn_myList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),BoardMyListActivity.class));
+            }
+        });
     }
 
     private class BoardAdapter extends RecyclerView.Adapter<BoardViewHolder> {
