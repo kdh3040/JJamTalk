@@ -45,6 +45,7 @@
             android:id="@+id/btn_setting"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:background="@color/white"
             android:scaleType="centerCrop"
             app:srcCompat="@mipmap/setting_icon" />
 
@@ -69,6 +70,7 @@
             android:id="@+id/ib_my_profile"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:background="@color/white"
             android:scaleType="centerCrop"
             app:srcCompat="@mipmap/edit_icon">
 
@@ -105,6 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@color/white"
             android:text="하트 구입" />
     </LinearLayout>
 
