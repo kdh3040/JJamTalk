@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 
 /**
@@ -23,6 +24,7 @@ import com.hodo.jjamtalk.Data.UserData;
 
 public class UserPageActivity extends AppCompatActivity {
     private UserData stTargetData;
+    private MyData mMyData = MyData.getInstance();
 
     private TextView txtProfile;
     private TextView txtMemo;
@@ -160,7 +162,8 @@ public class UserPageActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(getApplicationContext(),"succeed",Toast.LENGTH_SHORT).show();
+                                boolean rtValuew = mMyData.makeCardList(stTargetData);
+                                Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
                             }
                         });
         AlertDialog alertDialog = alertDialogBuilder.create();
