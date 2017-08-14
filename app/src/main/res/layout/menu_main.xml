@@ -10,6 +10,7 @@
         android:id="@+id/iv_mypage"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
+        android:background="@color/white"
         app:srcCompat="@drawable/mypage_icon" />
 
     <TextView

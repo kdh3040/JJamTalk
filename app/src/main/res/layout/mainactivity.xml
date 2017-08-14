@@ -36,29 +36,33 @@
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_action_name" />
+            android:background="@color/white"
+            app:srcCompat="@drawable/icon_home" />
 
         <ImageButton
             android:id="@+id/ib_cardlist"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/heart_icon" />
+            android:background="@color/white"
+            app:srcCompat="@drawable/mycard_icon" />
 
         <ImageButton
             android:id="@+id/ib_chatlist"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/msg_icon" />
+            android:background="@color/white"
+            app:srcCompat="@drawable/icon_msg" />
 
         <ImageButton
             android:id="@+id/ib_board"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/board_icon" />
+            android:background="@color/white"
+            app:srcCompat="@drawable/icon_board" />
     </LinearLayout>
 </LinearLayout>
