@@ -415,7 +415,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         stRecvData = dataSnapshot.getValue(UserData.class);
                         if(stRecvData != null) {
                             mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.NickName, stRecvData.Gender, stRecvData.Age,
-                                    stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date);
+                                    stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date, stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
                             bMySet = true;
 
                             mMyData.getCardList();
@@ -440,7 +440,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         stRecvData = dataSnapshot.getValue(UserData.class);
                         if(stRecvData != null) {
                             mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.NickName, stRecvData.Gender, stRecvData.Age,
-                                    stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date);
+                                    stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date,  stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
                             bMySet = true;
 
                             mMyData.getCardList();

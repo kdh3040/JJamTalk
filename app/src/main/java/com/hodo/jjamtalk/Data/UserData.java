@@ -24,4 +24,9 @@ public class UserData implements Serializable {
     public int Rank;
 
     public String Date;
+
+    public String Memo;
+    public String School;
+    public String Company;
+    public String Title;
 }

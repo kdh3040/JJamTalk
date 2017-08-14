@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hodo.jjamtalk.Data.ChatData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SendData;
+import com.hodo.jjamtalk.Data.UserData;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,6 +47,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     FirebaseRecyclerAdapter<ChatData, ChatViewHolder> firebaseRecyclerAdapter;
     LinearLayoutManager mLinearLayoutManager;
     SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm");
+    SendData tempChatData;
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder{
 
@@ -72,11 +75,13 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String strRoomName =  intent.getStringExtra("ChatName");
+        tempChatData = (SendData) intent.getExtras().getSerializable("ChatData");
 
-        mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(strRoomName);
+        mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(tempChatData.strSendName);
 
         txt_msg = (EditText)findViewById(R.id.et_msg);
+
+
         btn_plus = (Button)findViewById(R.id.btn_plus);
 
         recyclerView = (RecyclerView) findViewById(R.id.chat_list);
@@ -90,6 +95,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                 R.layout.content_chat_data,
                 ChatViewHolder.class,
                 mRef){
+
+
+
             @Override
             protected ChatData parseSnapshot(DataSnapshot snapshot) {
 
@@ -171,7 +179,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                 });
             }
         });
-
         btn_send = (Button)findViewById(R.id.btn_send);
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +188,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 if(txt_msg.getText() == null){
                     return;
                 }else{
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), "target", message, nowTime, null);
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, message, nowTime, null);
                     mRef.push().setValue(chat_Data);
                     txt_msg.setText("");
 

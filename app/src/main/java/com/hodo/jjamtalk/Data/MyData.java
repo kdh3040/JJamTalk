@@ -59,6 +59,11 @@ public class MyData {
 
     public String strDate;
 
+    private String strMemo;
+    private String strSchool;
+    private String strCompany;
+    private String strTitle;
+
     public ArrayList<String> arrSendNameList = new ArrayList<>();
     public ArrayList<SendData> arrSendDataList = new ArrayList<>();
 
@@ -69,7 +74,8 @@ public class MyData {
     {
     }
 
-    public void setMyData(String _UserIdx, String _UserImg, String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat, int _UserHeart, int _UserHot, int _UserRank, String _UserDate)
+    public void setMyData(String _UserIdx, String _UserImg, String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
+                          int _UserHeart, int _UserHot, int _UserRank, String _UserDate, String _UserMemo, String _UserSchool, String _UserCompany, String _UserTitle)
     {
         strIdx = _UserIdx;
         strImg = _UserImg;
@@ -82,6 +88,11 @@ public class MyData {
         nHot = _UserHot;
         nRank = _UserRank;
         strDate = _UserDate;
+
+        strMemo = _UserMemo;
+        strSchool = _UserSchool;
+        strCompany = _UserCompany;
+        strTitle = _UserTitle;
     }
 
     public void setUserIdx(String userIdx) {
@@ -146,11 +157,32 @@ public class MyData {
         return nRank;
     }
 
-    public void setUserDate(String userDate) {
-        strDate = userDate;
+    public void setUserMemo(String userMemo) {
+        strMemo = userMemo;
     }
-    public String getUserDate() {
-        return strDate;
+    public String getUserMemo() {
+        return strMemo;
+    }
+
+    public void setUserSchool(String userSchool) {
+        strSchool = userSchool;
+    }
+    public String getUserSchool() {
+        return strSchool;
+    }
+
+    public void setUserCompany(String userCompany) {
+        strCompany = userCompany;
+    }
+    public String getUserCompany() {
+        return strCompany;
+    }
+
+    public void setUserTitle(String userTitle) {
+        strTitle = userTitle;
+    }
+    public String getUserTitle() {
+        return strTitle;
     }
 
     public boolean makeSendList(UserData _UserData, Editable _strSend)
@@ -298,8 +330,12 @@ public class MyData {
             }
 
         });
-
     }
 
-
+    public void setProfileData(Editable memo, Editable school, Editable company, Editable title) {
+        strMemo = memo.toString();
+        strSchool = school.toString();
+        strCompany = company.toString();
+        strTitle = title.toString();
+    }
 }
