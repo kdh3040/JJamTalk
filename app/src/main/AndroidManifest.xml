@@ -78,6 +78,11 @@
             android:parentActivityName=".BoardActivity"
 
             ></activity>
+        <activity android:name=".BoardMyListActivity"
+            android:label="내가 쓴 글"
+            android:parentActivityName=".BoardActivity"
+
+            ></activity>
 
 
         <meta-data
