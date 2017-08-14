@@ -134,7 +134,6 @@ public class InputProfile extends AppCompatActivity {
                     mFireBaseData.SaveData(mMyData.getUserIdx());
                     Intent intent = new Intent(InputProfile.this, MainActivity.class);
                     startActivity(intent);
-
                 }
             }
         });

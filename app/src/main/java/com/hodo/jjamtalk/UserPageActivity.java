@@ -110,32 +110,56 @@ public class UserPageActivity extends AppCompatActivity {
                         break;
                     case R.id.UserPage_btnMessage:
 
-                        View view1= inflater.inflate(R.layout.alert_send_msg,null);
-                        Button btn_cancel = view1.findViewById(R.id.btn_cancel);
-                        final EditText et_msg = view1.findViewById(R.id.et_msg);
+                        if(mMyData.getUserHeart() > 5)
+                        {
+                            View view1= inflater.inflate(R.layout.alert_send_msg,null);
+                            Button btn_cancel = view1.findViewById(R.id.btn_cancel);
+                            final EditText et_msg = view1.findViewById(R.id.et_msg);
 
-                        builder.setView(view1);
+                            builder.setView(view1);
 
-                        final AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
+                            final AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                            btn_cancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    alertDialog.dismiss();
+                                }
+                            });
+                            Button btn_send = view1.findViewById(R.id.btn_send);
+                            btn_send.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText());
+                                    if(rtValuew == true)
+                                        mMyData.setUserHeart(mMyData.getUserHeart() - 5);
+                                    Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
 
-                        btn_cancel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                alertDialog.dismiss();
-
-                            }
-                        });
-
-
-                        Button btn_send = view1.findViewById(R.id.btn_send);
-                        btn_send.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText());
-                                Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        else
+                        {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                            alertDialogBuilder.setTitle("하트가 부족 합니다");
+                            alertDialogBuilder.setMessage("하트를 구매하시겠습니까?")
+                                    .setCancelable(true)
+                                    .setPositiveButton("취소", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    })
+                                    .setNegativeButton("구매한다!",
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+                                                }
+                                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        }
 
                         //ClickBtnSendHeart();
                         break;

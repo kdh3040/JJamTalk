@@ -70,4 +70,12 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
+        txt_MyHeartCnt.setText("소지하고 있는 하트 개수 : " + mMyData.getUserHeart() + " 개");
+    }
 }

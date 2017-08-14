@@ -65,6 +65,7 @@ public class ChatListActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
                     intent.putExtra("ChatData", mSendData);
                     startActivity(intent);
+
                 }
             });
         }

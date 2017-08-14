@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -113,7 +114,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
     private LocationFunc mLocalFunc = LocationFunc.getInstance();
     //String strMyIdx = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
-    String strMyIdx;
+    String strMyIdx; // = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
+    //String strMyIdx;
     DatabaseReference ref;
 
 
@@ -170,6 +172,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -224,6 +227,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
             }
         });
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
     }
 
 
@@ -269,11 +276,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void GoProfilePage() {
         Intent intent = new Intent(LoginActivity.this, InputProfile.class);
         startActivity(intent);
+        finish();
     }
 
     private void GoMainPage() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 
@@ -340,11 +349,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-      /*  String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();*/
-
-        String email = "tt@naver.com";
-        String password = "111111";
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        strMyIdx = mAwsFunc.GetUserIdx(email);
+       // String email;// = "tt@naver.com";
+       // String password;// = "111111";
 
 
         boolean cancel = false;
@@ -378,7 +387,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
 
             //strMyIdx = "87";
-            strMyIdx = "81";
+            //strMyIdx = "81";
 
             InitData_Mine();
   //          InitData_Near();

@@ -78,13 +78,11 @@ public class KakaoSignupActivity extends Activity {
 
     private void redirectMainActivity() {
         startActivity(new Intent(this, MainActivity.class));
-        finish();
     }
     protected void redirectLoginActivity() {
         final Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
-        finish();
     }
 
 }

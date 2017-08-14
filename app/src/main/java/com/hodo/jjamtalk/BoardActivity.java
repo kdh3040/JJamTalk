@@ -33,7 +33,6 @@ public class BoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),BoardWriteActivity.class));
-
             }
         });
         btn_myList = (Button)findViewById(R.id.btn_mylist);
@@ -47,6 +46,7 @@ public class BoardActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(getApplicationContext(),BoardItemActivity.class));
+                    finish();
                 }
             });
             return new BoardViewHolder(view);

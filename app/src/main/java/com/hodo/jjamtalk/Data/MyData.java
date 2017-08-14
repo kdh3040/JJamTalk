@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by boram on 2017-08-04.
@@ -140,7 +142,20 @@ public class MyData {
     }
     public Double getUserLat() { return lLat;   }
 
-    public void setUserHeart(int userHeart) { nHeart = userHeart;}
+    public void setUserHeart(int userHeart) {
+        nHeart = userHeart;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table;
+        if(strGender.equals("여자"))
+            table = database.getReference("Users/여자/"+ strIdx);
+        else
+            table = database.getReference("Users/남자/"+ strIdx);
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("Heart", nHeart);
+        table.updateChildren(updateMap);
+
+    }
     public int getUserHeart() {
         return nHeart;
     }

@@ -111,8 +111,10 @@ public class GuideFragment extends Fragment {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   if(mAppStatus.bCheckMultiSend == false)
-                        startActivity(new Intent(getContext(),UserPageActivity.class));
+                   if(mAppStatus.bCheckMultiSend == false) {
+                       startActivity(new Intent(getContext(), UserPageActivity.class));
+
+                   }
 
 
                 }

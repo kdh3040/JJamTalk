@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),BoardActivity.class));
+
             }
         });
         ib_cardList = (ImageButton)findViewById(R.id.ib_cardlist);
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),CardListActivity.class));
+
             }
         });
         ib_chatList = (ImageButton)findViewById(R.id.ib_chatlist);
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),ChatListActivity.class));
+
             }
         });
         //m_GridView = (GridView)findViewById(R.id.main_gridview);
