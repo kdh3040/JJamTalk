@@ -1,21 +1,17 @@
 package com.hodo.jjamtalk;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.hodo.jjamtalk.Data.ChatData;
-import com.hodo.jjamtalk.Data.MyData;
 
 /**
  * Created by mjk on 2017. 8. 10..
@@ -23,64 +19,46 @@ import com.hodo.jjamtalk.Data.MyData;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
-    private Button btnSend, btnOption;
-    private EditText txtMsg;
-
-    private MyData mMyData = MyData.getInstance();
-    DatabaseReference mRef;
-
-
-    public static class ChatViewHolder extends RecyclerView.ViewHolder{
-
-        ImageView image_profile,image_sent;
-        TextView message;
-
-        TextView sender;
-        TextView time;
-
-        //회색글자 처리 뜸 원인불명
-        public ChatViewHolder(View itemView) {
-            super(itemView);
-            image_profile = (ImageView)itemView.findViewById(R.id.imageView);
-           // image_sent = (ImageView)itemView.findViewById(R.id.iv_sent);
-          //  sender = (TextView)itemView.findViewById(R.id.nickname);
-          //  message =(TextView)itemView.findViewById(R.id.message);
-
-            time = (TextView)itemView.findViewById(R.id.time);
-
-        }
-    }
+    private static final int REQUEST_IMAGE = 1001;
+    Button btn_send,btn_plus;
+    Context context=this;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
 
-        btnSend = (Button)findViewById(R.id.Chat_btnSend);
-        btnOption = (Button)findViewById(R.id.Chat_btnOption);
-        txtMsg = (EditText) findViewById(R.id.Chat_txtMsg);
-       // recyclerView = (RecyclerView) findViewById(R.id.chatroom_RecylerView);
+        btn_plus = (Button)findViewById(R.id.btn_plus);
 
-        Intent intent = getIntent();
-        String strRoomName =  intent.getStringExtra("ChatName");
-
-        mRef = FirebaseDatabase.getInstance().getReference().child("ChatRoom").child(strRoomName);
-
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        btn_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = txtMsg.getText().toString();
-                long nowTime =System.currentTimeMillis();
-                if(message == null){
-                    return;
-                }else{
-                    ChatData chat_data = new ChatData(mMyData.getUserNick(), "Target", message, nowTime, null);
-                    mRef.push().setValue(chat_data);
-                    txtMsg.setText("");
 
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater inflater = LayoutInflater.from(context);
+
+                //View framelayout = findViewById(R.id.framelayout_chatroom);
+
+                View popup= inflater.inflate(R.layout.popup_chatroom,null);
+
+                builder.setView(popup);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+                Button btn_gal = popup.findViewById(R.id.btn_gallery);
+                btn_gal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+
+                        intent.setType("image/*");
+
+                        startActivityForResult(Intent.createChooser(intent,"Select Picture"),REQUEST_IMAGE);
+
+                    }
+                });
+
+
             }
         });
-
     }
 }
