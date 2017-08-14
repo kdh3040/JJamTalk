@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -21,13 +22,17 @@ public class BoardItemActivity extends AppCompatActivity{
 
     Button btn_send;
     ImageButton ib_vote_like,ib_warn;
-    Activity mActivity = this;
+    EditText et_reply;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_item);
+        final Activity mActivity = this;
         btn_send = (Button) findViewById(R.id.btn_send);
+
         ib_vote_like = (ImageButton) findViewById(R.id.ib_vote_like);
         ib_vote_like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,5 +64,7 @@ public class BoardItemActivity extends AppCompatActivity{
 
             }
         });
+        et_reply = (EditText)findViewById(R.id.et_reply);
+
     }
 }
