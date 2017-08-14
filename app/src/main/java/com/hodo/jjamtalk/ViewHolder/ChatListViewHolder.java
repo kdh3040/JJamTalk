@@ -20,7 +20,7 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         imageView = itemView.findViewById(R.id.iv_chat_list);
         textView = itemView.findViewById(R.id.tv_chat_list);
-
+        textView.setText("안녕하세요");
 
     }
 }

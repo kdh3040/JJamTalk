@@ -10,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.ChatListViewHolder;
+
+import java.util.ArrayList;
 
 /**
  * Created by mjk on 2017. 8. 10..
@@ -18,6 +22,9 @@ import com.hodo.jjamtalk.ViewHolder.ChatListViewHolder;
 
 public class ChatListActivity extends AppCompatActivity {
     RecyclerView chatListRecyclerView;
+    private MyData mMyData = MyData.getInstance();
+    private ArrayList<String> arrChatNameData = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,26 +40,32 @@ public class ChatListActivity extends AppCompatActivity {
         @Override
         public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_chat_list,parent,false);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(getApplicationContext(),ChatRoomActivity.class));
-                }
-            });
+
 
             return new ChatListViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(ChatListViewHolder holder, int position) {
+        public void onBindViewHolder(ChatListViewHolder holder, final int position) {
+            int i = position;
+
             holder.textView.setText("안녕하세요");
             holder.imageView.setImageResource(R.mipmap.girl1);
-
+            arrChatNameData.add(mMyData.arrSendNameList.get(i));
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String strCharName = arrChatNameData.get(position);
+                    Intent intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
+                    intent.putExtra("ChatName", strCharName);
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return 30;
+            return mMyData.arrSendNameList.size();
         }
     }
 

@@ -129,7 +129,8 @@ public class UserPageActivity extends AppCompatActivity {
                         btn_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
+                                boolean rtValuew = mMyData.makeSendList(stTargetData);
+                                Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
                             }
                         });
 
