@@ -58,6 +58,9 @@ public class MyData {
 
     public String strDate;
 
+    public ArrayList<String> arrSendNameList = new ArrayList<>();
+    public ArrayList<UserData> arrSendList = new ArrayList<>();
+
     public ArrayList<String> arrCardNameList = new ArrayList<>();
     public ArrayList<UserData> arrCardList = new ArrayList<>();
 
@@ -147,6 +150,74 @@ public class MyData {
     }
     public String getUserDate() {
         return strDate;
+    }
+
+    public boolean makeSendList(UserData _UserData)
+    {
+        boolean rtValue = false;
+
+        UserData SaveUserData = _UserData;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user, targetuser;
+        table = database.getReference("SendList");
+
+        user = table.child(strIdx).child(_UserData.Idx);
+        targetuser = table.child(_UserData.Idx).child(strIdx);
+
+        String strCheckName = strIdx + "_" + _UserData.Idx;
+
+        if(!arrSendNameList.contains(strCheckName)) {
+            user.setValue(strCheckName);
+            targetuser.setValue(strCheckName);
+            rtValue = true;
+        }
+        else
+            return rtValue;
+
+        return rtValue;
+    }
+
+    public void getSendList() {
+        String MyID =  strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("SendList");
+        user = table.child(strIdx);
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+                String SendList= dataSnapshot.getValue(String.class);
+                if(!arrSendNameList.contains(SendList))
+                    arrSendNameList.add(SendList);
+                //arrCardList.add(CardList);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa =0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+
     }
 
     public boolean makeCardList(UserData _UserData)

@@ -418,6 +418,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             bMySet = true;
 
                             mMyData.getCardList();
+                            mMyData.getSendList();
                         }
                     }
 
