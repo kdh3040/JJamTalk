@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SendData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.ChatListViewHolder;
 
@@ -24,7 +25,7 @@ public class ChatListActivity extends AppCompatActivity {
     RecyclerView chatListRecyclerView;
     private MyData mMyData = MyData.getInstance();
     private ArrayList<String> arrChatNameData = new ArrayList<>();
-    private ArrayList<String> arrChatLastData = new ArrayList<>();
+    private ArrayList<SendData> arrChatData = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,13 +54,16 @@ public class ChatListActivity extends AppCompatActivity {
             holder.imageView.setImageResource(R.mipmap.girl1);
 
             arrChatNameData.add(mMyData.arrSendDataList.get(i).strSendName);
-            holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");//mMyData.arrSendDataList.get(i).strTargetMsg);
+            arrChatData.add(mMyData.arrSendDataList.get(i));
+            holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
             holder.textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String strCharName = arrChatNameData.get(position);
+                    SendData mSendData = arrChatData.get(position);
+
                     Intent intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
-                    intent.putExtra("ChatName", strCharName);
+                    intent.putExtra("ChatData", mSendData);
                     startActivity(intent);
                 }
             });

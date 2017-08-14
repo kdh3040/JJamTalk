@@ -71,5 +71,10 @@ public class FirebaseData {
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
         user.child("Date").setValue(ctime.format(new Date(time)));
 
+        user.child("Memo").setValue(mMyData.getUserMemo());
+        user.child("Scool").setValue(mMyData.getUserSchool());
+        user.child("Company").setValue(mMyData.getUserCompany());
+        user.child("Title").setValue(mMyData.getUserTitle());
+
     }
 }

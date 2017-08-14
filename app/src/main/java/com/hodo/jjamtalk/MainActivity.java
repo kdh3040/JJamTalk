@@ -63,7 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Class> arrFragment = new ArrayList<>();
 
-
+    @Override
+    public void onBackPressed(){
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

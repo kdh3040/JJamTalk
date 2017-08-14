@@ -50,6 +50,7 @@ public class UserPageActivity extends AppCompatActivity {
         txtProfile = (TextView)findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
         txtMemo = (TextView)findViewById(R.id.UserPage_txtMemo);
+        txtMemo.setText(stTargetData.Memo);
         //private TextView txtProfile;
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
