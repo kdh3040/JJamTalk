@@ -56,7 +56,7 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
        // holder.textView.setText("핫멤버, 25, 20km");
-        holder.imageView.setImageResource(R.mipmap.home_icon);
+        holder.imageView.setImageResource(R.drawable.bg1);
 
         Log.d("Guide !!!! ", "Start");
         int i = position;

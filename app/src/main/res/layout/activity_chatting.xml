@@ -10,6 +10,14 @@
         android:layout_height="match_parent"
         android:layout_weight="9" />
 
+    <FrameLayout
+        android:id="@+id/framelayout_chatroom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="9">
+
+    </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,23 +26,22 @@
         android:weightSum="10">
 
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/btn_plus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="+" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/et_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="7"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"

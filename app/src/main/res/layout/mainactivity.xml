@@ -13,6 +13,7 @@
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="28dp"
+        android:layout_margin="5dp"
         android:layout_weight="1"
         app:siIndicatorColor="@color/colorPrimary"
         app:siIndicatorColors="@array/indicator_colors"
@@ -25,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:layout_margin="5dp"
         android:layout_weight="8" />
 
     <LinearLayout
