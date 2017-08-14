@@ -27,6 +27,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="false"
+                    android:background="@color/white"
                     app:srcCompat="@drawable/icon_vote_like" />
 
                 <ImageButton
@@ -37,6 +38,8 @@
                     android:layout_alignParentStart="false"
                     android:layout_alignParentTop="false"
                     android:layout_below="@+id/ib_vote_like"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
                     app:srcCompat="@drawable/icon_warning" />
 
                 <ImageView
@@ -44,7 +47,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_alignParentLeft="true"
-                    app:srcCompat="@drawable/bg4" />
+                    app:srcCompat="@mipmap/girl1" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -132,6 +135,7 @@
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_board_reply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp" />
