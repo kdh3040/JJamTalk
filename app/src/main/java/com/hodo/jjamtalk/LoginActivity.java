@@ -343,7 +343,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
       /*  String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();*/
 
-        String email = "jjdd@naver.com";
+        String email = "tt@naver.com";
         String password = "111111";
 
 
@@ -377,6 +377,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
 
+            //strMyIdx = "87";
             strMyIdx = "81";
 
             InitData_Mine();
@@ -441,6 +442,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.NickName, stRecvData.Gender, stRecvData.Age,
                                     stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date);
                             bMySet = true;
+
+                            mMyData.getCardList();
+                            mMyData.getSendList();
+                            //mMyData.getSendData();
                         }
                     }
 

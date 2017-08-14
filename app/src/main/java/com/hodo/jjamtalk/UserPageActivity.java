@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -110,6 +111,7 @@ public class UserPageActivity extends AppCompatActivity {
 
                         View view1= inflater.inflate(R.layout.alert_send_msg,null);
                         Button btn_cancel = view1.findViewById(R.id.btn_cancel);
+                        final EditText et_msg = view1.findViewById(R.id.et_msg);
 
                         builder.setView(view1);
 
@@ -129,7 +131,7 @@ public class UserPageActivity extends AppCompatActivity {
                         btn_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                boolean rtValuew = mMyData.makeSendList(stTargetData);
+                                boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText());
                                 Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
                             }
                         });

@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk.Data;
 
+import android.text.Editable;
 import android.widget.ArrayAdapter;
 
 import com.google.firebase.database.ChildEventListener;
@@ -59,7 +60,7 @@ public class MyData {
     public String strDate;
 
     public ArrayList<String> arrSendNameList = new ArrayList<>();
-    public ArrayList<UserData> arrSendList = new ArrayList<>();
+    public ArrayList<SendData> arrSendDataList = new ArrayList<>();
 
     public ArrayList<String> arrCardNameList = new ArrayList<>();
     public ArrayList<UserData> arrCardList = new ArrayList<>();
@@ -152,7 +153,7 @@ public class MyData {
         return strDate;
     }
 
-    public boolean makeSendList(UserData _UserData)
+    public boolean makeSendList(UserData _UserData, Editable _strSend)
     {
         boolean rtValue = false;
 
@@ -162,15 +163,27 @@ public class MyData {
         DatabaseReference table, user, targetuser;
         table = database.getReference("SendList");
 
-        user = table.child(strIdx).child(_UserData.Idx);
-        targetuser = table.child(_UserData.Idx).child(strIdx);
+        user = table.child(strIdx);
+        targetuser = table.child(_UserData.Idx);
 
         String strCheckName = strIdx + "_" + _UserData.Idx;
+        SendData tempMySave = new SendData();
+        tempMySave.strTargetImg = getUserImg();
+        tempMySave.strTargetNick = getUserNick();
+        tempMySave.strSendName = strCheckName;
+        tempMySave.strTargetMsg = _strSend.toString();
+
+        SendData tempTargetSave = new SendData();
+        tempTargetSave.strTargetNick = _UserData.NickName;
+        tempTargetSave.strTargetImg = _UserData.Img;
+        tempTargetSave.strSendName = strCheckName;
+        tempTargetSave.strTargetMsg = _strSend.toString();
 
         if(!arrSendNameList.contains(strCheckName)) {
-            user.setValue(strCheckName);
-            targetuser.setValue(strCheckName);
+            user.push().setValue(tempTargetSave);
+            targetuser.push().setValue(tempMySave);
             rtValue = true;
+
         }
         else
             return rtValue;
@@ -191,9 +204,11 @@ public class MyData {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 int saa =0;
-                String SendList= dataSnapshot.getValue(String.class);
-                if(!arrSendNameList.contains(SendList))
-                    arrSendNameList.add(SendList);
+                SendData SendList= dataSnapshot.getValue(SendData.class);
+                if(!arrSendNameList.contains(SendList.strSendName)) {
+                    arrSendNameList.add(SendList.strSendName);
+                    arrSendDataList.add(SendList);
+                }
                 //arrCardList.add(CardList);
             }
 
@@ -219,6 +234,7 @@ public class MyData {
         });
 
     }
+
 
     public boolean makeCardList(UserData _UserData)
     {
@@ -285,6 +301,5 @@ public class MyData {
 
     }
 
-    public void getSendData() {
-    }
+
 }

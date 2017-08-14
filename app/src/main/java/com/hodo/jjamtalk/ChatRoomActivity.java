@@ -74,7 +74,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         String strRoomName =  intent.getStringExtra("ChatName");
 
-        mRef = FirebaseDatabase.getInstance().getReference().child("ChatRoom").child(strRoomName);
+        mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(strRoomName);
 
         txt_msg = (EditText)findViewById(R.id.et_msg);
         btn_plus = (Button)findViewById(R.id.btn_plus);

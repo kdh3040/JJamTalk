@@ -24,6 +24,7 @@ public class ChatListActivity extends AppCompatActivity {
     RecyclerView chatListRecyclerView;
     private MyData mMyData = MyData.getInstance();
     private ArrayList<String> arrChatNameData = new ArrayList<>();
+    private ArrayList<String> arrChatLastData = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,9 +50,10 @@ public class ChatListActivity extends AppCompatActivity {
         public void onBindViewHolder(ChatListViewHolder holder, final int position) {
             int i = position;
 
-            holder.textView.setText("안녕하세요");
             holder.imageView.setImageResource(R.mipmap.girl1);
-            arrChatNameData.add(mMyData.arrSendNameList.get(i));
+
+            arrChatNameData.add(mMyData.arrSendDataList.get(i).strSendName);
+            holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");//mMyData.arrSendDataList.get(i).strTargetMsg);
             holder.textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

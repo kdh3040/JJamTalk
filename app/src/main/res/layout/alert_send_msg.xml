@@ -30,7 +30,7 @@
         android:inputType="textPersonName"
         android:maxLength="30"
         android:minLines="3"
-        android:text="내용을 입력해주세요. (30자)" />
+        android:hint="내용을 입력해주세요. (30자)" />
 
     <TextView
         android:id="@+id/textView4"
