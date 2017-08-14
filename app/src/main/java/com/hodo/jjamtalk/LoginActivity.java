@@ -416,6 +416,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.NickName, stRecvData.Gender, stRecvData.Age,
                                     stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date);
                             bMySet = true;
+
+                            mMyData.getCardList();
                         }
                     }
 

@@ -2,6 +2,12 @@ package com.hodo.jjamtalk.Data;
 
 import android.widget.ArrayAdapter;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 /**
@@ -51,6 +57,9 @@ public class MyData {
     public int nRank;
 
     public String strDate;
+
+    public ArrayList<String> arrCardNameList = new ArrayList<>();
+    public ArrayList<UserData> arrCardList = new ArrayList<>();
 
     private MyData()
     {
@@ -138,5 +147,70 @@ public class MyData {
     }
     public String getUserDate() {
         return strDate;
+    }
+
+    public boolean makeCardList(UserData _UserData)
+    {
+        boolean rtValue = false;
+
+        UserData SaveUserData = _UserData;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("CardList");
+
+        user = table.child(strIdx).child(_UserData.Idx);
+
+        if(!arrCardNameList.contains(_UserData.Idx)) {
+            user.setValue(_UserData);
+            rtValue = true;
+        }
+        else
+            return rtValue;
+
+        return rtValue;
+
+    }
+
+    public void getCardList() {
+        String MyID =  strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("CardList");
+        user = table.child(strIdx);
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+                UserData CardList= dataSnapshot.getValue(UserData.class);
+                if(!arrCardNameList.contains(CardList.Idx))
+                    arrCardNameList.add(CardList.Idx);
+                    arrCardList.add(CardList);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa =0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+
     }
 }
