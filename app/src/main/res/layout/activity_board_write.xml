@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/Write_txtMemo"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:ems="10"
@@ -19,13 +19,13 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/Write_Img1"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/Write_Img2"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
@@ -33,7 +33,7 @@
             app:srcCompat="@drawable/bg2" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/Write_Img3"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/kakao_editable_profile" />

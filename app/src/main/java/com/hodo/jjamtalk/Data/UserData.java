@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by boram on 2017-08-05.
@@ -29,4 +30,11 @@ public class UserData implements Serializable {
     public String School;
     public String Company;
     public String Title;
+
+    public String ImgGroup0;
+    public String ImgGroup1;
+    public String ImgGroup2;
+    public String ImgGroup3;
+    public String ImgGroup4;
+
 }

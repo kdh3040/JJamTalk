@@ -12,6 +12,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AwsFunc;
 import com.kakao.usermgmt.response.model.User;
@@ -57,6 +58,10 @@ public class FirebaseData {
         DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
         user.child("Img").setValue(mMyData.getUserImg());
+
+        for(int i=0; i<mMyData.arrImgList.size(); i++)
+            user.child("ImgGroup"+Integer.toString(i)).setValue(mMyData.getUserImgList(i));
+
         user.child("NickName").setValue(mMyData.getUserNick());
         user.child("Gender").setValue(mMyData.getUserGender());
         user.child("Age").setValue(mMyData.getUserAge());
@@ -76,5 +81,26 @@ public class FirebaseData {
         user.child("Company").setValue(mMyData.getUserCompany());
         user.child("Title").setValue(mMyData.getUserTitle());
 
+    }
+
+    public boolean SaveBoardData(String strMemo) {
+
+
+        Random rand = new Random();
+        rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Board");
+
+        TempBoardData sendData = new TempBoardData();
+
+        sendData.NickName = mMyData.getUserNick();
+        sendData.Age = mMyData.getUserAge();
+        sendData.Img = mMyData.getUserImg();
+        sendData.Msg = strMemo;
+
+        table.push().setValue(sendData);
+
+        return  true;
     }
 }
