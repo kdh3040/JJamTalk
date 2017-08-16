@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 
 /**
@@ -56,10 +58,18 @@ public class MyPageActivity extends AppCompatActivity {
         });
 
         img_Mypic = (ImageView)findViewById(R.id.img_mypic);
+
+        Glide.with(getApplicationContext())
+                .load(mMyData.getUserImg())
+                .thumbnail(0.1f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(img_Mypic);
+
         img_Mypic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),ClickedMyPicActivity.class));
+
             }
         });
         btn_my_profile = (ImageButton)findViewById(R.id.ib_my_profile);
@@ -67,6 +77,7 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));
+                finish();
             }
         });
     }

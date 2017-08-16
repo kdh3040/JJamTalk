@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -15,8 +16,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -34,12 +37,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.LocationFunc;
@@ -55,6 +64,8 @@ public class InputProfile extends AppCompatActivity {
     private LocationFunc mLocalFunc = LocationFunc.getInstance();
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReferenceFromUrl("gs://jamtalk-cf526.appspot.com/");
 
     private ImageView mProfileImage;
     private EditText mNickName;
@@ -83,6 +94,10 @@ public class InputProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(InputProfile.this, "이미지 등록", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent, "Select"), 1);
+
             }
         });
 
@@ -96,7 +111,7 @@ public class InputProfile extends AppCompatActivity {
         AgeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int Position, long Id) {
-                Toast.makeText(InputProfile.this, "이미지 등록" + AgeSpin.getItem(Position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(InputProfile.this, "나이" + AgeSpin.getItem(Position), Toast.LENGTH_SHORT).show();
                 mMyData.setUserAge(AgeSpin.getItem(Position).toString());
             }
 
@@ -114,7 +129,7 @@ public class InputProfile extends AppCompatActivity {
         GenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int Position, long Id) {
-                Toast.makeText(InputProfile.this, "이미지 등록" + GenderSpin.getItem(Position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(InputProfile.this, "성별" + GenderSpin.getItem(Position), Toast.LENGTH_SHORT).show();
                 mMyData.setUserGender(GenderSpin.getItem(Position).toString());
             }
 
@@ -170,6 +185,60 @@ public class InputProfile extends AppCompatActivity {
             return;
         }
         mFusedLocationClient.getLastLocation().addOnCompleteListener(this, mCompleteListener);
+    }
+
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
+                Uri uri = data.getData();
+
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+                int nh = (int) (bitmap.getHeight() * (1024.0 / bitmap.getWidth()));
+                Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 1024, nh, true);
+
+                mProfileImage.setImageBitmap(scaled);
+
+                UploadImage_Firebase(uri);
+
+            } else {
+                Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Oops! 로딩에 오류가 있습니다.", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+    }
+
+    private void UploadImage_Firebase(Uri file) {
+
+        StorageReference riversRef = storageRef.child("images/"+file.getLastPathSegment());
+        UploadTask uploadTask = riversRef.putFile(file);
+
+// Register observers to listen for when the download is done or if it fails
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                Tr(downloadUrl);
+            }
+        });
+
+
+    }
+
+    public void Tr(Uri uri)
+    {
+        mMyData.setUserImg(uri.toString());
     }
 
 }

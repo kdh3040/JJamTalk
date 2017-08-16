@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 
@@ -15,6 +18,8 @@ import com.hodo.jjamtalk.Firebase.FirebaseData;
 
 public class MyProfileActivity extends AppCompatActivity {
     private EditText txt_Memo, txt_School, txt_Company, txt_Title;
+    private ImageView Img_Sum;
+    private ImageView[] Img_Profiles = new ImageView[5];
 
     private MyData mMyData = MyData.getInstance();
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
@@ -24,6 +29,18 @@ public class MyProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Img_Sum = (ImageView)findViewById(R.id.MyProfile_SumImg);
+        Img_Profiles[0] = (ImageView)findViewById(R.id.MyProfile_Img1);
+        Img_Profiles[1] = (ImageView)findViewById(R.id.MyProfile_Img2);
+        Img_Profiles[2] = (ImageView)findViewById(R.id.MyProfile_Img3);
+        Img_Profiles[3] = (ImageView)findViewById(R.id.MyProfile_Img4);
+        Img_Profiles[4] = (ImageView)findViewById(R.id.MyProfile_Img5);
+
+        Glide.with(getApplicationContext())
+                .load(mMyData.getUserImg())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(Img_Sum);
 
         txt_Memo = (EditText)findViewById(R.id.MyProfile_Memo);
         txt_School = (EditText)findViewById(R.id.MyProfile_School);
@@ -35,7 +52,6 @@ public class MyProfileActivity extends AppCompatActivity {
         txt_Company.setText(mMyData.getUserCompany());
         txt_Title.setText(mMyData.getUserTitle());
 
-
     }
 
     @Override
@@ -44,8 +60,9 @@ public class MyProfileActivity extends AppCompatActivity {
         mMyData.setProfileData(txt_Memo.getText(), txt_School.getText(), txt_Company.getText(), txt_Title.getText());
 
         mFireBaseData.SaveData(mMyData.getUserIdx());
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MyPageActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }
