@@ -92,8 +92,8 @@ public class BoardItemActivity extends AppCompatActivity{
         Intent intent = getIntent();
         nTargetIdx = intent.getIntExtra("Target", 0);
         tv_Name.setText(mBoardData.arrBoardList.get(nTargetIdx).NickName);
-        //tv_Info.setText(mBoardData.arrBoardList.get(nTargetIdx).;
-        //tv_Date.setText(mBoardData.arrBoardList.get(nTargetIdx).);
+        tv_Info.setText(mBoardData.arrBoardList.get(nTargetIdx).Job);
+        tv_Date.setText(mBoardData.arrBoardList.get(nTargetIdx).Date);
         tv_Memo.setText(mBoardData.arrBoardList.get(nTargetIdx).Msg);
         Glide.with(getApplicationContext())
                 .load(mBoardData.arrBoardList.get(nTargetIdx).Img)
@@ -107,9 +107,6 @@ public class BoardItemActivity extends AppCompatActivity{
                 startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
             }
         });
-
-
-
 
     }
 

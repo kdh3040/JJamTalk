@@ -94,9 +94,17 @@ public class FirebaseData {
 
         TempBoardData sendData = new TempBoardData();
 
+        sendData.Idx = mMyData.getUserIdx();
         sendData.NickName = mMyData.getUserNick();
         sendData.Age = mMyData.getUserAge();
         sendData.Img = mMyData.getUserImg();
+        sendData.Job = mMyData.getUserCompany();
+        //sendData. = mMyData.getUserImg();
+
+        long time = System.currentTimeMillis();
+        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
+
+        sendData.Date = ctime.format(new Date(time));
         sendData.Msg = strMemo;
 
         table.push().setValue(sendData);

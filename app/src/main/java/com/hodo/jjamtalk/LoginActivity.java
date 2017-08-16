@@ -286,9 +286,49 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void GoMainPage() {
         SetBoardData();
+        SetBoardMyData();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void SetBoardMyData() {
+        DatabaseReference refMyBoard;
+        refMyBoard = FirebaseDatabase.getInstance().getReference().child("Board");
+
+        refMyBoard.orderByChild("Idx").equalTo(mMyData.getUserIdx()).addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                TempBoardData stRecvData = new TempBoardData();
+                stRecvData = dataSnapshot.getValue(TempBoardData.class);
+                if (stRecvData != null) {
+                    if (stRecvData != null) {
+                        mBoardData.arrBoardMyList.add(stRecvData);
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void SetBoardData() {

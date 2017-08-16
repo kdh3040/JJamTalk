@@ -8,10 +8,13 @@ import java.util.ArrayList;
 
 public class TempBoardData {
 
+    public String Idx;
     public String Img;
     public String NickName;
     public String Age;
-    public String Dist;
+    public String Job;
+    public String Info;
+    public String Date;
     public String Msg;
 
 }
