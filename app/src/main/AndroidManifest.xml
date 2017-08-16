@@ -71,6 +71,8 @@
 
             ></activity>
         <activity android:name=".BoardItemActivity"
+            android:label="허허참"
+
 
             ></activity>
         <activity android:name=".BoardWriteActivity"

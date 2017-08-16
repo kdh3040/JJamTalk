@@ -5,11 +5,15 @@
     android:layout_height="match_parent"
     >
 
+
+
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,30 +28,19 @@
                 <ImageButton
                     android:id="@+id/ib_vote_like"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="70dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="false"
                     android:background="@color/white"
-                    app:srcCompat="@drawable/icon_vote_like" />
-
-                <ImageButton
-                    android:id="@+id/ib_warn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentStart="false"
-                    android:layout_alignParentTop="false"
-                    android:layout_below="@+id/ib_vote_like"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/white"
-                    app:srcCompat="@drawable/icon_warning" />
+                    app:srcCompat="@drawable/mycard_icon" />
 
                 <ImageView
                     android:id="@+id/iv_profile"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_alignParentLeft="true"
-                    app:srcCompat="@mipmap/girl1" />
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/hedfvb" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -145,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tv_reply"
-                    app:srcCompat="@drawable/icon_vote_like" />
+                    app:srcCompat="@drawable/mycard_icon" />
 
                 <TextView
                     android:id="@+id/tv_like"

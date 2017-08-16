@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <!-- 액션버튼  -->
+    <item
+        android:id="@+id/btn_report"
+        android:icon="@drawable/icon_report"
+        android:title="액션버튼1"
+        app:showAsAction="always|withText" />
+
+    />
+</menu>
