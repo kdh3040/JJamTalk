@@ -5,13 +5,13 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/MyPic_Img"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         app:srcCompat="@mipmap/hdvd" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/MyPic_Memo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="호근 , 36 \n 안녕하세요 자기소개합니다" />
