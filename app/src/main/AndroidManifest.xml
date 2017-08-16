@@ -83,8 +83,8 @@
             android:parentActivityName=".BoardActivity"
 
             ></activity>
-
-
+        <activity android:name=".ImageViewPager"
+            android:theme ="@style/NoTitleBar"></activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

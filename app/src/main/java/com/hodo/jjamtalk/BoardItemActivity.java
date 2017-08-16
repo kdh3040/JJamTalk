@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -32,6 +33,7 @@ public class BoardItemActivity extends AppCompatActivity{
     Button btn_send;
     ImageButton ib_vote_like,ib_warn;
     EditText et_reply;
+    LinearLayout imageViewLayout;
 
     TextView tv_Name, tv_Info, tv_Date, tv_Memo;
     ImageView iv_Profile;
@@ -93,11 +95,22 @@ public class BoardItemActivity extends AppCompatActivity{
         //tv_Info.setText(mBoardData.arrBoardList.get(nTargetIdx).;
         //tv_Date.setText(mBoardData.arrBoardList.get(nTargetIdx).);
         tv_Memo.setText(mBoardData.arrBoardList.get(nTargetIdx).Msg);
-
         Glide.with(getApplicationContext())
                 .load(mBoardData.arrBoardList.get(nTargetIdx).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(iv_Profile);
 
+        imageViewLayout = (LinearLayout)findViewById(R.id.layout_imageview);
+        imageViewLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
+            }
+        });
+
+
+
+
     }
+
 }
