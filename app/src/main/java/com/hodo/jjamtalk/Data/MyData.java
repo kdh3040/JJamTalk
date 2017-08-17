@@ -1,8 +1,14 @@
 package com.hodo.jjamtalk.Data;
 
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.widget.ArrayAdapter;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,6 +53,7 @@ public class MyData {
 
 
     private String strIdx;
+    private String strToken;
     private String strImg;
     private String strNick;
     private String strGender;
@@ -83,6 +90,21 @@ public class MyData {
                           String _UserMemo, String _UserSchool, String _UserCompany, String _UserTitle)
     {
         strIdx = _UserIdx;
+
+        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getToken(true)
+                .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                    public void onComplete(@NonNull Task<GetTokenResult> task) {
+                        if (task.isSuccessful()) {
+                            strToken = task.getResult().getToken();
+                            // Send token to your backend via HTTPS
+                            // ...
+                        } else {
+                            // Handle error -> task.getException();
+                        }
+                    }
+                });
+
         strImg = _UserImg;
         strNick = _UserNick;
         strGender = _UserGender;
@@ -111,6 +133,13 @@ public class MyData {
     }
     public String getUserIdx() {
         return strIdx;
+    }
+
+    public void setUserToken(String userToken) {
+        strToken = userToken;
+    }
+    public String getUserToken() {
+        return strToken;
     }
 
     public void setUserImg(String userImg) {

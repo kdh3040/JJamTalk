@@ -1,9 +1,14 @@
 package com.hodo.jjamtalk.Firebase;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,8 +60,24 @@ public class FirebaseData {
         userIdx = Integer.toString(rand.nextInt(100));
 
         // DatabaseReference user = table.child( userIdx);
-        DatabaseReference user = table.child(mMyData.getUserIdx());
+        final DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
+
+        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getToken(true)
+                .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                    public void onComplete(@NonNull Task<GetTokenResult> task) {
+                        if (task.isSuccessful()) {
+                            user.child("Token").setValue(task.getResult().getToken());
+                            // Send token to your backend via HTTPS
+                            // ...
+                        } else {
+                            // Handle error -> task.getException();
+                        }
+                    }
+                });
+
+
         user.child("Img").setValue(mMyData.getUserImg());
 
         for(int i=0; i<mMyData.arrImgList.size(); i++)

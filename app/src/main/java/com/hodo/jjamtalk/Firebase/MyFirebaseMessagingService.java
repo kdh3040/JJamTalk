@@ -32,7 +32,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             Map<String, String> data = remoteMessage.getData();
 
-            String Heart = data.get("message");
+            String ImgUrl = data.get("Img");
+            String NickName = data.get("NickName");
 
             if (remoteMessage.getData().size() > 0) {
                 Log.d(TAG, "Message data payload: " + remoteMessage.getData());

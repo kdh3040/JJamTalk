@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Util.NotiFunc;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -26,6 +27,7 @@ import com.hodo.jjamtalk.Data.UserData;
 public class UserPageActivity extends AppCompatActivity {
     private UserData stTargetData;
     private MyData mMyData = MyData.getInstance();
+    private NotiFunc mNotiFunc = NotiFunc.getInstance();
 
     private TextView txtProfile;
     private TextView txtMemo;
@@ -87,7 +89,7 @@ public class UserPageActivity extends AppCompatActivity {
                         btn_gift_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
+                                mNotiFunc.SendMSGToFCM(stTargetData, 1);
                             }
                         });
                         Button btn_gift_cancel= giftView.findViewById(R.id.btn_gift_cancel);
@@ -104,6 +106,7 @@ public class UserPageActivity extends AppCompatActivity {
                     case R.id.UserPage_btnLike:
 
                         Toast.makeText(context,"좋아요를 눌렀습니다",Toast.LENGTH_SHORT).show();
+                        mNotiFunc.SendMSGToFCM(stTargetData, 2);
 
 
                         //ClickBtnSendHeart();
@@ -131,9 +134,11 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText());
-                                    if(rtValuew == true)
+                                    if(rtValuew == true) {
+                                        mNotiFunc.SendMSGToFCM(stTargetData, 0);
                                         mMyData.setUserHeart(mMyData.getUserHeart() - 5);
-                                    Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
                         }

@@ -267,7 +267,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Location tempLoc = task.getResult();
                     mMyData.setUserLon(tempLoc.getLongitude());
                     mMyData.setUserLat(tempLoc.getLatitude());
-                    InitData_Near();
+                    //InitData_Near();
                 }
             }
         };
@@ -486,6 +486,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         InitData_Rank();
                                         InitData_New();
                                         InitData_Hot();
+                                        InitData_Near();
                                     }else {
                                         Toast.makeText(LoginActivity.this,
                                                 "Log In Failed", Toast.LENGTH_LONG).show();

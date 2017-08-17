@@ -12,6 +12,8 @@ public class UserData implements Serializable {
     private static final long  serialVersionUID = 1L;
 
     public String Idx;
+    public String Token;
+
     public String Img;
     public String NickName;
     public String Gender;
@@ -26,6 +28,7 @@ public class UserData implements Serializable {
 
     public String Date;
 
+    public String SendMSG;
     public String Memo;
     public String School;
     public String Company;
