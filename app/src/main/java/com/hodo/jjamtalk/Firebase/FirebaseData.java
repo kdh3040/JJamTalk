@@ -62,22 +62,8 @@ public class FirebaseData {
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
-
-        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser.getToken(true)
-                .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-                    public void onComplete(@NonNull Task<GetTokenResult> task) {
-                        if (task.isSuccessful()) {
-                            user.child("Token").setValue(task.getResult().getToken());
-                            // Send token to your backend via HTTPS
-                            // ...
-                        } else {
-                            // Handle error -> task.getException();
-                        }
-                    }
-                });
-
-
+        mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+        user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         user.child("Img").setValue(mMyData.getUserImg());
 
         for(int i=0; i<mMyData.arrImgList.size(); i++)

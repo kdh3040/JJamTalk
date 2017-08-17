@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.NotiFunc;
@@ -56,6 +58,11 @@ public class UserPageActivity extends AppCompatActivity {
         //private TextView txtProfile;
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
+        Glide.with(getApplicationContext())
+                .load(stTargetData.Img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imgProfile);
+
 
         btnRegister = (Button) findViewById(R.id.UserPage_btnRegister);
         btnGift = (Button) findViewById(R.id.UserPage_btnGift);

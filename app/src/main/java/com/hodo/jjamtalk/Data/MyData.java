@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,8 +92,8 @@ public class MyData {
     {
         strIdx = _UserIdx;
 
-        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser.getToken(true)
+     /*   FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getIdToken(true)
                 .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                     public void onComplete(@NonNull Task<GetTokenResult> task) {
                         if (task.isSuccessful()) {
@@ -104,6 +105,12 @@ public class MyData {
                         }
                     }
                 });
+*/
+
+        strToken = FirebaseInstanceId.getInstance().getToken();
+
+        //strToken = com.google.firebase.iid.FirebaseInstanceId.getInstance().getToken();
+
 
         strImg = _UserImg;
         strNick = _UserNick;
