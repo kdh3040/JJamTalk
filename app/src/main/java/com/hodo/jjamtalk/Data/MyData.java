@@ -84,6 +84,21 @@ public class MyData {
 
     private MyData()
     {
+        strImg = null;
+        strNick = null;
+        strGender = null;
+        strAge = null;
+        lLon = 0f;
+        lLat = 0f;
+        nHeart = 0;
+        nHoney = 0;
+        nRank = 0;
+        strDate = null;
+
+        strMemo = null;
+        strSchool = null;
+        strCompany = null;
+        strTitle = null;
     }
 
     public void setMyData(String _UserIdx, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3, String _UserImgGroup4,
