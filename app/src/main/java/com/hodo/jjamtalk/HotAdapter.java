@@ -32,11 +32,6 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
     private MyData mMyData = MyData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
 
-    public UserData stTargetData = new UserData();
-    private ArrayList<UserData> arrTargetData_Man = new ArrayList<>();
-    private ArrayList<UserData> arrTargetData_Woman = new ArrayList<>();
-    private ArrayList<UserData> arrTargetData_All = new ArrayList<>();
-
     public HotAdapter(Context context) {
         mContext = context;
     }
@@ -77,9 +72,6 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
                         .thumbnail(0.1f)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(holder.imageView);
-
-                stTargetData = mMyData.arrUserMan_Near.get(i);
-                arrTargetData_Man.add(stTargetData);
                 break;
             // 여자 탐색
             case 2:
@@ -92,8 +84,6 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(holder.imageView);
 
-                stTargetData = mMyData.arrUserWoman_Near.get(i);
-                arrTargetData_Woman.add(stTargetData);
                 break;
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
@@ -105,40 +95,10 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(holder.imageView);
 
-                stTargetData = mMyData.arrUserAll_Near.get(i);
-                arrTargetData_All.add(stTargetData);
                 break;
             default:
                 break;
         }
-
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mAppStatus.bCheckMultiSend == false) {
-                    switch (mSetting.getnSearchSetting())
-                    {
-                        case 1:
-                            stTargetData = arrTargetData_Man.get(position);
-                            break;
-                        case 2:
-                            stTargetData = arrTargetData_Woman.get(position);
-                            break;
-                        case 3:
-                            stTargetData = arrTargetData_All.get(position);
-                            break;
-                    }
-
-                    Log.d("Guide !!!! ", "Start : " + position);
-                    Intent intent = new Intent(mContext, UserPageActivity.class);
-                    intent.putExtra("Target", stTargetData);
-                    mContext.startActivity(intent);
-                }
-                //mContext.startActivity(new Intent(mContext,UserPageActivity.class));
-            }
-        });
-
-
     }
 
     @Override
