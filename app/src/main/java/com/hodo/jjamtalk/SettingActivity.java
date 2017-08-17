@@ -50,7 +50,8 @@ public class SettingActivity extends AppCompatActivity {
         sw_AlarmFollow = (Switch)findViewById(R.id.Setting_swFollow);
         sw_AlarmLike = (Switch)findViewById(R.id.Setting_swLike);
 
-        initValue();
+        initSearchValue();
+        initNotiValue();
 
         sw_SearchMan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -82,9 +83,91 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        sw_AlarmNoti.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
+                if(bChecked == true)
+                {
+                    if(sw_AlarmFollow.isChecked() == true && sw_AlarmLike.isChecked() == true)  // 1 1 1
+                        mSetting.setnAlarmSetting(7);
+                    else if(sw_AlarmFollow.isChecked() == true && sw_AlarmLike.isChecked() == false) // 1 1 0
+                        mSetting.setnAlarmSetting(6);
+                    else if(sw_AlarmFollow.isChecked() == false && sw_AlarmLike.isChecked() == true) // 1 0 1
+                        mSetting.setnAlarmSetting(5);
+                    else if(sw_AlarmFollow.isChecked() == false && sw_AlarmLike.isChecked() == false) // 1 0 0
+                        mSetting.setnAlarmSetting(4);
+                }
+                else {
+                    if(sw_AlarmFollow.isChecked() == true && sw_AlarmLike.isChecked() == true) // 0 1 1
+                        mSetting.setnAlarmSetting(3);
+                    else if(sw_AlarmFollow.isChecked() == true && sw_AlarmLike.isChecked() == false) // 0 1 0
+                        mSetting.setnAlarmSetting(2);
+                    else if(sw_AlarmFollow.isChecked() == false && sw_AlarmLike.isChecked() == true) // 0 0 1
+                        mSetting.setnAlarmSetting(1);
+                    else if(sw_AlarmFollow.isChecked() == false && sw_AlarmLike.isChecked() == false) // 0 0 0
+                        mSetting.setnAlarmSetting(0);
+                }
+            }
+        });
+
+        sw_AlarmFollow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
+                if(bChecked == true)
+                {
+                    if(sw_AlarmNoti.isChecked() == true && sw_AlarmLike.isChecked() == true)  // 1 1 1
+                        mSetting.setnAlarmSetting(7);
+                    else if(sw_AlarmNoti.isChecked() == true && sw_AlarmLike.isChecked() == false) // 1 1 0
+                        mSetting.setnAlarmSetting(6);
+                    else if(sw_AlarmNoti.isChecked() == false && sw_AlarmLike.isChecked() == true) // 0 1 1
+                        mSetting.setnAlarmSetting(3);
+                    else if(sw_AlarmNoti.isChecked() == false && sw_AlarmLike.isChecked() == false) // 0 1 0
+                        mSetting.setnAlarmSetting(2);
+                }
+                else {
+
+                     if(sw_AlarmNoti.isChecked() == true && sw_AlarmLike.isChecked() == true) // 1 0 1
+                        mSetting.setnAlarmSetting(5);
+                    else if(sw_AlarmNoti.isChecked() == true && sw_AlarmLike.isChecked() == false) // 1 0 0
+                        mSetting.setnAlarmSetting(4);
+                    else if(sw_AlarmNoti.isChecked() == false && sw_AlarmLike.isChecked() == true) // 0 0 1
+                        mSetting.setnAlarmSetting(1);
+                    else if(sw_AlarmNoti.isChecked() == false && sw_AlarmLike.isChecked() == false) // 0 0 0
+                        mSetting.setnAlarmSetting(0);
+                }
+
+            }
+        });
+        sw_AlarmLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
+                if(bChecked == true)
+                {
+                    if(sw_AlarmNoti.isChecked() == true && sw_AlarmFollow.isChecked() == true)  // 1 1 1
+                        mSetting.setnAlarmSetting(7);
+                    else if(sw_AlarmNoti.isChecked() == false && sw_AlarmFollow.isChecked() == true) // 0 1 1
+                        mSetting.setnAlarmSetting(3);
+                    else if(sw_AlarmNoti.isChecked() == true && sw_AlarmFollow.isChecked() == false) // 1 0 1
+                        mSetting.setnAlarmSetting(5);
+                    else if(sw_AlarmNoti.isChecked() == false && sw_AlarmFollow.isChecked() == false) // 0 0 1
+                        mSetting.setnAlarmSetting(1);
+                }
+                else {
+
+                    if(sw_AlarmNoti.isChecked() == true && sw_AlarmFollow.isChecked() == false) // 1 0 0
+                        mSetting.setnAlarmSetting(4);
+                      else if(sw_AlarmNoti.isChecked() == true && sw_AlarmFollow.isChecked() == true) // 1 1 0
+                        mSetting.setnAlarmSetting(6);
+                    else if(sw_AlarmNoti.isChecked() == false && sw_AlarmFollow.isChecked() == true) // 0 1 0
+                        mSetting.setnAlarmSetting(2);
+                    else if(sw_AlarmNoti.isChecked() == false && sw_AlarmFollow.isChecked() == false) // 0 0 0
+                        mSetting.setnAlarmSetting(0);
+                }
+            }
+        });
     }
 
-    private void initValue() {
+    private void initSearchValue() {
 
         if(mSetting.getnSearchSetting() == 1) {
             sw_SearchMan.setChecked(true);
@@ -97,6 +180,53 @@ public class SettingActivity extends AppCompatActivity {
         else{
             sw_SearchMan.setChecked(true);
             sw_SearchWoman.setChecked(true);
+        }
+    }
+
+    private void initNotiValue() {
+
+        switch (mSetting.getnAlarmSetting())
+        {
+            case 0:
+                sw_AlarmNoti.setChecked(false);
+                sw_AlarmFollow.setChecked(false);
+                sw_AlarmLike.setChecked(false);
+                break;
+            case 1:
+                sw_AlarmNoti.setChecked(false);
+                sw_AlarmFollow.setChecked(false);
+                sw_AlarmLike.setChecked(true);
+                break;
+            case 2:
+                sw_AlarmNoti.setChecked(false);
+                sw_AlarmFollow.setChecked(true);
+                sw_AlarmLike.setChecked(false);
+                break;
+            case 3:
+                sw_AlarmNoti.setChecked(false);
+                sw_AlarmFollow.setChecked(true);
+                sw_AlarmLike.setChecked(true);
+                break;
+            case 4:
+                sw_AlarmNoti.setChecked(true);
+                sw_AlarmFollow.setChecked(false);
+                sw_AlarmLike.setChecked(false);
+                break;
+            case 5:
+                sw_AlarmNoti.setChecked(true);
+                sw_AlarmFollow.setChecked(false);
+                sw_AlarmLike.setChecked(true);
+                break;
+            case 6:
+                sw_AlarmNoti.setChecked(true);
+                sw_AlarmFollow.setChecked(true);
+                sw_AlarmLike.setChecked(false);
+                break;
+            case 7:
+                sw_AlarmNoti.setChecked(true);
+                sw_AlarmFollow.setChecked(true);
+                sw_AlarmLike.setChecked(true);
+                break;
         }
     }
 }

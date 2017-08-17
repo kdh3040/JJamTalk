@@ -30,13 +30,23 @@ public class SettingData {
             nSearchSetting = 1;
         else
             nSearchSetting = 2;
+
+        nAlarmSetting = 0;
+    }
+
+    public  void setnAlarmSetting(int Option)
+    {
+        nAlarmSetting = Option;
+    }
+    public int getnAlarmSetting()
+    {
+        return  nAlarmSetting;
     }
 
     public  void setnSearchSetting(int Option)
     {
         nSearchSetting = Option;
     }
-
     public int getnSearchSetting()
     {
         return  nSearchSetting;
