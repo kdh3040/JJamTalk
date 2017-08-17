@@ -2,7 +2,6 @@ package com.hodo.jjamtalk.Data;
 
 import android.support.annotation.NonNull;
 import android.text.Editable;
-import android.widget.ArrayAdapter;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -92,7 +91,7 @@ public class MyData {
         strIdx = _UserIdx;
 
         FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser.getToken(true)
+        mUser.getIdToken(true)
                 .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                     public void onComplete(@NonNull Task<GetTokenResult> task) {
                         if (task.isSuccessful()) {
