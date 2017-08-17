@@ -38,14 +38,19 @@
                     android:id="@+id/iv_profile"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    app:srcCompat="@mipmap/girl1"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
+
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/hedfvb" />
+                     />
+
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/iv_vote_like"
+                    
                     android:layout_toRightOf="@+id/iv_profile"
                     android:orientation="vertical">
 

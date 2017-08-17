@@ -66,6 +66,8 @@ public class MyData {
     private String strCompany;
     private String strTitle;
 
+    public ArrayList<String> arrImgList = new ArrayList<>();
+
     public ArrayList<String> arrSendNameList = new ArrayList<>();
     public ArrayList<SendData> arrSendDataList = new ArrayList<>();
 
@@ -76,8 +78,9 @@ public class MyData {
     {
     }
 
-    public void setMyData(String _UserIdx, String _UserImg, String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
-                          int _UserHeart, int _UserHot, int _UserRank, String _UserDate, String _UserMemo, String _UserSchool, String _UserCompany, String _UserTitle)
+    public void setMyData(String _UserIdx, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3, String _UserImgGroup4,
+                          String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat, int _UserHeart, int _UserHot, int _UserRank, String _UserDate,
+                          String _UserMemo, String _UserSchool, String _UserCompany, String _UserTitle)
     {
         strIdx = _UserIdx;
         strImg = _UserImg;
@@ -95,6 +98,12 @@ public class MyData {
         strSchool = _UserSchool;
         strCompany = _UserCompany;
         strTitle = _UserTitle;
+
+        arrImgList.add(_UserImgGroup0);
+        arrImgList.add(_UserImgGroup1);
+        arrImgList.add(_UserImgGroup2);
+        arrImgList.add(_UserImgGroup3);
+        arrImgList.add(_UserImgGroup4);
     }
 
     public void setUserIdx(String userIdx) {
@@ -110,6 +119,14 @@ public class MyData {
     public String getUserImg() {
         return strImg;
     }
+
+    public void setUserImgList(String userImg) {
+        arrImgList.add(userImg);
+    }
+    public String getUserImgList(int i) {
+        return arrImgList.get(i);
+    }
+
 
     public void setUserNick(String userNick) {
         strNick = userNick;

@@ -56,13 +56,16 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AwsFunc;
 
@@ -113,6 +116,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
     private LocationFunc mLocalFunc = LocationFunc.getInstance();
+    private BoardData mBoardData = BoardData.getInstance();
+
     //String strMyIdx = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
     String strMyIdx; // = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
     //String strMyIdx;
@@ -280,11 +285,88 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void GoMainPage() {
+        SetBoardData();
+        SetBoardMyData();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
+    private void SetBoardMyData() {
+        DatabaseReference refMyBoard;
+        refMyBoard = FirebaseDatabase.getInstance().getReference().child("Board");
+
+        refMyBoard.orderByChild("Idx").equalTo(mMyData.getUserIdx()).addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                TempBoardData stRecvData = new TempBoardData();
+                stRecvData = dataSnapshot.getValue(TempBoardData.class);
+                if (stRecvData != null) {
+                    if (stRecvData != null) {
+                        mBoardData.arrBoardMyList.add(stRecvData);
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void SetBoardData() {
+
+        DatabaseReference refBoard;
+        refBoard = FirebaseDatabase.getInstance().getReference().child("Board");
+        refBoard.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                TempBoardData stRecvData = new TempBoardData();
+                stRecvData = dataSnapshot.getValue(TempBoardData.class);
+                if (stRecvData != null) {
+                    mBoardData.arrBoardList.add(stRecvData);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast toast = Toast.makeText(getApplicationContext(), "마이 데이터 cancelled", Toast.LENGTH_SHORT);
+            }
+        });
+    }
 
 
     @Override
@@ -423,8 +505,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         UserData stRecvData = new UserData ();
                         stRecvData = dataSnapshot.getValue(UserData.class);
                         if(stRecvData != null) {
-                            mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.NickName, stRecvData.Gender, stRecvData.Age,
-                                    stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date, stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
+                            mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3, stRecvData.ImgGroup4,
+                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date,
+                                    stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
                             bMySet = true;
 
                             mMyData.getCardList();
@@ -448,8 +531,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         UserData stRecvData = new UserData ();
                         stRecvData = dataSnapshot.getValue(UserData.class);
                         if(stRecvData != null) {
-                            mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.NickName, stRecvData.Gender, stRecvData.Age,
-                                    stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date,  stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
+                            mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3, stRecvData.ImgGroup4,
+                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date,
+                                    stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
                             bMySet = true;
 
                             mMyData.getCardList();

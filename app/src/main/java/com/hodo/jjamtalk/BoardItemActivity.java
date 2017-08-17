@@ -14,8 +14,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hodo.jjamtalk.Data.BoardData;
 
 /**
  * Created by mjk on 2017. 8. 14..
@@ -23,6 +29,7 @@ import android.widget.Toast;
 
 public class BoardItemActivity extends AppCompatActivity{
 
+    private BoardData mBoardData = BoardData.getInstance();
 
     RecyclerView recyclerView_board_reply;
     Button btn_send;
@@ -32,8 +39,10 @@ public class BoardItemActivity extends AppCompatActivity{
     Toolbar toolbar;
 
 
+    TextView tv_Name, tv_Info, tv_Date, tv_Memo;
+    ImageView iv_Profile;
 
-
+    int nTargetIdx;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +77,24 @@ public class BoardItemActivity extends AppCompatActivity{
 
         recyclerView_board_reply = (RecyclerView)findViewById(R.id.recyclerview_board_reply);
 
+        tv_Name = (TextView)findViewById(R.id.tv_nickname);
+        tv_Info = (TextView)findViewById(R.id.tv_info);
+        tv_Date = (TextView)findViewById(R.id.tv_date);
+        tv_Memo = (TextView)findViewById(R.id.tv_content);
+        iv_Profile = (ImageView)findViewById(R.id.iv_profile);
+
+
+        Intent intent = getIntent();
+        nTargetIdx = intent.getIntExtra("Target", 0);
+        tv_Name.setText(mBoardData.arrBoardList.get(nTargetIdx).NickName);
+        tv_Info.setText(mBoardData.arrBoardList.get(nTargetIdx).Job);
+        tv_Date.setText(mBoardData.arrBoardList.get(nTargetIdx).Date);
+        tv_Memo.setText(mBoardData.arrBoardList.get(nTargetIdx).Msg);
+        Glide.with(getApplicationContext())
+                .load(mBoardData.arrBoardList.get(nTargetIdx).Img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(iv_Profile);
+
         imageViewLayout = (LinearLayout)findViewById(R.id.layout_imageview);
         imageViewLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +102,6 @@ public class BoardItemActivity extends AppCompatActivity{
                 startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
             }
         });
-
-
 
     }
 
