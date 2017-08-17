@@ -3,11 +3,6 @@ package com.hodo.jjamtalk;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,21 +16,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.AppStatus;
 
@@ -53,8 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private MyData mMyData = MyData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
+    private UIData mUIData = UIData.getInstance();
 
     ArrayList<Class> arrFragment = new ArrayList<>();
+
+
 
     @Override
     public void onBackPressed(){
@@ -72,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         int width = size.x;
         int height = size.y;
 
+        mUIData.setHeight(height);
+        mUIData.setWidth(width);
+
+        //int mHeight = mUIData.getHeight();
+        int mWidth = mUIData.getWidth();
+
         Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
 
 
@@ -79,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ScrollerViewPager)findViewById(R.id.view_pager);
         springIndicator = (SpringIndicator)findViewById(R.id.indicator);
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width/5,LinearLayout.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(mWidth/5,LinearLayout.LayoutParams.MATCH_PARENT);
 
         ib_home = (ImageButton) findViewById(R.id.ib_home);
         ib_home.setLayoutParams(lp);

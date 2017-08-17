@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:layout_height="wrap_content"
+    android:background="?android:attr/colorPressedHighlight">
 
     <ImageButton
         android:id="@+id/iv_mypage"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:background="@color/white"
-        app:srcCompat="@drawable/mypage_icon" />
+        android:background="?android:attr/colorPressedHighlight"
+        app:srcCompat="@drawable/ic_mypage" />
 
     <TextView
         android:id="@+id/title"
@@ -20,9 +20,10 @@
         android:layout_toLeftOf="@+id/checkBox"
         android:layout_toRightOf="@+id/iv_mypage"
         android:gravity="center"
-        android:text="잼톡"
-        android:textColor="@android:color/holo_blue_bright"
-        android:textSize="20sp" />
+        android:text="꿀톡"
+        android:textColor="#985b10"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <CheckBox
         android:id="@+id/checkBox"

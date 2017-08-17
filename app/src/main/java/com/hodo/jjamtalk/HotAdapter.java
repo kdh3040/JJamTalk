@@ -7,17 +7,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
-import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Util.AppStatus;
 import com.hodo.jjamtalk.Util.LocationFunc;
 import com.hodo.jjamtalk.ViewHolder.GridUserViewHolder;
-
-import java.util.ArrayList;
 
 /**
  * Created by mjk on 2017. 8. 10..
@@ -27,10 +26,12 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
 {
     Context mContext;
 
+
     private SettingData mSetting = SettingData.getInstance();
     private LocationFunc mLocFunc = LocationFunc.getInstance();
     private MyData mMyData = MyData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
+    private UIData mUIData = UIData.getInstance();
 
     public HotAdapter(Context context) {
         mContext = context;
@@ -39,6 +40,9 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
     @Override
     public GridUserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.content_user,parent,false);
+
+
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +58,9 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
        // holder.textView.setText("핫멤버, 25, 20km");
         //holder.imageView.setImageResource(R.drawable.bg1);
+
+        holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
+        holder.textView.setLayoutParams(new LinearLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
 
 
 

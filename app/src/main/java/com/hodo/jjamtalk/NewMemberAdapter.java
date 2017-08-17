@@ -1,23 +1,21 @@
 package com.hodo.jjamtalk;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
-import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Util.AppStatus;
 import com.hodo.jjamtalk.Util.LocationFunc;
 import com.hodo.jjamtalk.ViewHolder.GridUserViewHolder;
-
-import java.util.ArrayList;
 
 /**
  * Created by mjk on 2017. 8. 10..
@@ -31,6 +29,7 @@ public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     private LocationFunc mLocFunc = LocationFunc.getInstance();
     private MyData mMyData = MyData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
+    private UIData mUIData = UIData.getInstance();
 
 
     public NewMemberAdapter(Context context) {
@@ -45,6 +44,9 @@ public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
 
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
+
+        holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
+        holder.textView.setLayoutParams(new LinearLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
         //holder.textView.setText("뉴멤버, 25, 20km");
         holder.imageView.setImageResource(R.mipmap.ic_launcher);
 
