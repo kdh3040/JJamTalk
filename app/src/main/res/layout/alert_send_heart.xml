@@ -22,18 +22,18 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/HeartPop_MyHeart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="내 하트 232개" />
+            android:text="내 꿀 232개" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/HeartPop_Charge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="하트 충전" />
+            android:text="꿀 충전" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,25 +43,25 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button16"
+            android:id="@+id/HeartPop_100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="100 하트" />
+            android:text="100 꿀" />
 
         <Button
-            android:id="@+id/button15"
+            android:id="@+id/HeartPop_200"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="200하트" />
+            android:text="200꿀" />
 
         <Button
-            android:id="@+id/button14"
+            android:id="@+id/HeartPop_300"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="300하트" />
+            android:text="300꿀" />
     </LinearLayout>
 
     <LinearLayout
@@ -71,36 +71,36 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/HeartPop_500"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="500하트" />
+            android:text="500꿀" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/HeartPop_1000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="1000하트" />
+            android:text="1000꿀" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/HeartPop_5000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="5000하트" />
+            android:text="5000꿀" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/HeartPop_Msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text='"  " 하트를 보내시겠습니까?' />
+        android:text='"  " 꿀를 보내시겠습니까?' />
 
     <LinearLayout
         android:layout_width="match_parent"

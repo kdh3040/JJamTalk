@@ -497,6 +497,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void InitData_Mine() {
+
+
         ref = FirebaseDatabase.getInstance().getReference().child("Users").child("여자").child(strMyIdx);
         ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -507,7 +509,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         stRecvData = dataSnapshot.getValue(UserData.class);
                         if(stRecvData != null) {
                             mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3, stRecvData.ImgGroup4,
-                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date,
+                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Honey, stRecvData.Rank, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
                             bMySet = true;
 
@@ -533,7 +535,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         stRecvData = dataSnapshot.getValue(UserData.class);
                         if(stRecvData != null) {
                             mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3, stRecvData.ImgGroup4,
-                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Hot, stRecvData.Rank, stRecvData.Date,
+                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Honey, stRecvData.Rank, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
                             bMySet = true;
 
@@ -626,7 +628,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void InitData_Hot() {
         DatabaseReference refMan, refWoman;
         refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
-        Query query=refMan.orderByChild("Hot");//키가 id와 같은걸 쿼리로 가져옴
+        Query query=refMan.orderByChild("Heart");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -660,7 +662,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 });
 
         refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
-        query=refWoman.orderByChild("Hot");//키가 id와 같은걸 쿼리로 가져옴
+        query=refWoman.orderByChild("Heart");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override

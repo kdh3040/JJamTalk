@@ -39,7 +39,7 @@ public class MyPageActivity extends AppCompatActivity {
         txt_MyProfile.setText(mMyData.getUserNick() + "," + mMyData.getUserAge());
 
         txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
-        txt_MyHeartCnt.setText("소지하고 있는 하트 개수 : " + mMyData.getUserHeart() + " 개");
+        txt_MyHeartCnt.setText("소지하고 있는 꿀 개수 : " + mMyData.getUserHoney() + " 개");
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
         btn_Setting.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +87,6 @@ public class MyPageActivity extends AppCompatActivity {
     {
         super.onStart();
         txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
-        txt_MyHeartCnt.setText("소지하고 있는 하트 개수 : " + mMyData.getUserHeart() + " 개");
+        txt_MyHeartCnt.setText("소지하고 있는 꿀 개수 : " + mMyData.getUserHoney() + " 개");
     }
 }

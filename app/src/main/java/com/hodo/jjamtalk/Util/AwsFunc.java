@@ -69,6 +69,7 @@ public class AwsFunc {
             }
         }catch(Exception e) {
             e.printStackTrace();
+
         }
         return rtValue;
     }

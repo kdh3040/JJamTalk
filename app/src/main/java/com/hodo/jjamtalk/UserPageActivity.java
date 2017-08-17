@@ -16,9 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.NotiFunc;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -28,9 +33,11 @@ public class UserPageActivity extends AppCompatActivity {
     private UserData stTargetData;
     private MyData mMyData = MyData.getInstance();
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
+    private FirebaseData mFireBase = FirebaseData.getInstance();
 
     private TextView txtProfile;
     private TextView txtMemo;
+    private TextView txtHeart;
     //private TextView txtProfile;
 
     private Button btnRegister;
@@ -56,11 +63,20 @@ public class UserPageActivity extends AppCompatActivity {
         //private TextView txtProfile;
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
+        Glide.with(getApplicationContext())
+                .load(stTargetData.Img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imgProfile);
+
+        txtHeart = (TextView)findViewById(R.id.UserPage_txtHeart);
+        txtHeart.setText(Integer.toString(stTargetData.Heart));
+
 
         btnRegister = (Button) findViewById(R.id.UserPage_btnRegister);
         btnGift = (Button) findViewById(R.id.UserPage_btnGift);
         btnLike = (Button) findViewById(R.id.UserPage_btnLike);
         btnMessage = (Button) findViewById(R.id.UserPage_btnMessage);
+
 
 
         View.OnClickListener listener = new View.OnClickListener()
@@ -78,18 +94,90 @@ public class UserPageActivity extends AppCompatActivity {
                         break;
                     case R.id.UserPage_btnGift:
 
+                        final int[] nSendHoneyCnt = new int[1];
+                        nSendHoneyCnt[0] = 0;
                         View giftView = inflater.inflate(R.layout.alert_send_heart,null);
-
                         builder.setView(giftView);
-
                         final AlertDialog dialog = builder.create();
                         dialog.show();
+
+                        TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
+                         Button btnHeartCharge =  giftView.findViewById(R.id.HeartPop_Charge);
+                         Button btnHeart100 = giftView.findViewById(R.id.HeartPop_100);
+                         Button btnHeart200 = giftView.findViewById(R.id.HeartPop_200);
+                         Button btnHeart300 = giftView.findViewById(R.id.HeartPop_300);
+                         Button btnHeart500 = giftView.findViewById(R.id.HeartPop_500);
+                         Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_1000);
+                         Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_5000);
+                        final TextView Msg = giftView.findViewById(R.id.HeartPop_Msg);
+
+                        tvHeartCnt.setText("꿀 : " +  Integer.toString(mMyData.getUserHoney()) + " 개");
+                        Msg.setText("몇 개의 꿀을 보내시겠습니까?");
+
+
+                         btnHeartCharge.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+                            }
+                        });
+
+                        btnHeart100.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nSendHoneyCnt[0] = 100;
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
+
+                        btnHeart200.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nSendHoneyCnt[0] = 200;
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
+
+                        btnHeart300.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nSendHoneyCnt[0] = 300;
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
+
+                        btnHeart500.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nSendHoneyCnt[0] = 500;
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
+
+                        btnHeart1000.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nSendHoneyCnt[0] = 1000;
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
+
+                        btnHeart5000.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nSendHoneyCnt[0] = 5000;
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
+
+
+
 
                         Button btn_gift_send= giftView.findViewById(R.id.btn_gift_send);
                         btn_gift_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                mNotiFunc.SendMSGToFCM(stTargetData, 1);
+                                mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                             }
                         });
                         Button btn_gift_cancel= giftView.findViewById(R.id.btn_gift_cancel);
@@ -106,14 +194,12 @@ public class UserPageActivity extends AppCompatActivity {
                     case R.id.UserPage_btnLike:
 
                         Toast.makeText(context,"좋아요를 눌렀습니다",Toast.LENGTH_SHORT).show();
-                        mNotiFunc.SendMSGToFCM(stTargetData, 2);
+                        mNotiFunc.SendHeartToFCM(stTargetData, 1);
 
-
-                        //ClickBtnSendHeart();
                         break;
                     case R.id.UserPage_btnMessage:
 
-                        if(mMyData.getUserHeart() > 5)
+                        if(mMyData.getUserHoney() > 5)
                         {
                             View view1= inflater.inflate(R.layout.alert_send_msg,null);
                             Button btn_cancel = view1.findViewById(R.id.btn_cancel);
@@ -135,8 +221,8 @@ public class UserPageActivity extends AppCompatActivity {
                                 public void onClick(View view) {
                                     boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText());
                                     if(rtValuew == true) {
-                                        mNotiFunc.SendMSGToFCM(stTargetData, 0);
-                                        mMyData.setUserHeart(mMyData.getUserHeart() - 5);
+                                        mNotiFunc.SendMSGToFCM(stTargetData);
+                                        mMyData.setUserHoney(mMyData.getUserHoney() - 5);
                                         Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                     }
                                 }

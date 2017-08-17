@@ -17,4 +17,8 @@ public class TempBoardData {
     public String Date;
     public String Msg;
 
+    public int ReplyCnt;
+    public int LikeCnt;
+
+    public ArrayList<TempBoard_ReplyData> arrReplyList = new ArrayList<>();
 }
