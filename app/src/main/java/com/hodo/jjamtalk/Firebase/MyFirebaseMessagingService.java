@@ -7,11 +7,18 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.LoginActivity;
 import com.hodo.jjamtalk.R;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -22,6 +29,16 @@ import java.util.Map;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private final static String TAG = "FCM_MESSAGE";
 
+    private String strSenderImg;
+    private String strSenderName;
+    private String strSenderGender;
+    private String strSenderIdx;
+
+    private String strSenderHoney;
+    private String strSenderHeart;
+
+    private int nHeartCnt;
+    private int nHoneyCnt;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -30,12 +47,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String body = remoteMessage.getNotification().getBody();
             Log.d(TAG, "Notification Body: " + body);
 
-            Map<String, String> data = remoteMessage.getData();
-
-            String ImgUrl = data.get("Img");
-            String NickName = data.get("NickName");
 
             if (remoteMessage.getData().size() > 0) {
+                Map<String, String> data = remoteMessage.getData();
+                strSenderImg= data.get("Img");
+                strSenderName= data.get("NickName");
+
+                strSenderGender= data.get("Gender");
+                strSenderIdx= data.get("Idx");
+
+                strSenderHoney = data.get("Honey");
+                strSenderHeart = data.get("Heart");
+
+                getTargetData(strSenderGender, strSenderIdx);
+
                 Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             }
 
@@ -74,5 +99,85 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
+    void getTargetData(String Gender, String idx)
+    {
+        final DatabaseReference ref;
+
+        if(Gender.equals("여자"))
+        {
+            ref = FirebaseDatabase.getInstance().getReference().child("Users").child("여자").child(idx);
+            ref.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            UserData stRecvData = new UserData ();
+                            stRecvData = dataSnapshot.getValue(UserData.class);
+                            if(stRecvData != null) {
+
+                                Map<String, Object> updateMap = new HashMap<>();
+
+                                nHeartCnt = stRecvData.Heart;
+                                nHoneyCnt = stRecvData.Honey;
+
+                                if(strSenderHoney != null) {
+                                    nHoneyCnt += Integer.valueOf(strSenderHoney);
+                                    updateMap.put("Honey", nHoneyCnt);
+                                }
+                                if(strSenderHeart != null) {
+                                    nHeartCnt += Integer.valueOf(strSenderHeart);
+                                    updateMap.put("Heart", nHeartCnt);
+                                }
+
+                                ref.updateChildren(updateMap);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                        }
+                    });
+        }
+        else
+        {
+            ref = FirebaseDatabase.getInstance().getReference().child("Users").child("남자").child(idx);
+            ref.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            UserData stRecvData = new UserData ();
+                            stRecvData = dataSnapshot.getValue(UserData.class);
+                            if(stRecvData != null) {
+
+                                Map<String, Object> updateMap = new HashMap<>();
+
+                                nHeartCnt = stRecvData.Heart;
+                                nHoneyCnt = stRecvData.Honey;
+
+                                if(strSenderHoney != null) {
+                                    nHoneyCnt += Integer.valueOf(strSenderHoney);
+                                    updateMap.put("Honey", nHoneyCnt);
+                                }
+                                if(strSenderHeart != null) {
+                                    nHeartCnt += Integer.valueOf(strSenderHeart);
+                                    updateMap.put("Heart", nHeartCnt);
+                                }
+
+                                ref.updateChildren(updateMap);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                        }
+                    });
+        }
+
+    }
 
 }

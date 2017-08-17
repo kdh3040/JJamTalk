@@ -22,8 +22,8 @@ public class UserData implements Serializable {
     public double Lat;
     public double Lon;
 
+    public int Honey;
     public int Heart;
-    public int Hot;
     public int Rank;
 
     public String Date;

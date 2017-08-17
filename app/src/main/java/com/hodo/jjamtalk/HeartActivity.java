@@ -42,7 +42,7 @@ public class HeartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cash_charge);
 
         txt_heartStatus = (TextView)findViewById(R.id.Heart_MyHeart);
-        txt_heartStatus.setText("현재 보유 하트 갯수 : " + mMyData.getUserHeart());
+        txt_heartStatus.setText("현재 보유 꿀 갯수 : " + mMyData.getUserHoney());
 
         HeartChargeList = (ListView)findViewById(R.id.Heart_list);
 
@@ -64,7 +64,7 @@ public class HeartActivity extends AppCompatActivity {
     }
     public void refreshHearCnt()
     {
-        txt_heartStatus.setText("현재 보유 하트 갯수 : " + mMyData.getUserHeart());
+        txt_heartStatus.setText("현재 보유 꿀 갯수 : " + mMyData.getUserHoney());
     }
 
 
@@ -131,15 +131,15 @@ public class HeartActivity extends AppCompatActivity {
                     switch (i)
                     {
                         case 0:
-                            mMyData.setUserHeart(mMyData.getUserHeart() + 50);
+                            mMyData.setUserHoney(mMyData.getUserHoney() + 50);
                             refreshHearCnt();
                             break;
                         case 1:
-                            mMyData.setUserHeart(mMyData.getUserHeart() + 70);
+                            mMyData.setUserHoney(mMyData.getUserHoney() + 70);
                             refreshHearCnt();
                             break;
                         case 2:
-                            mMyData.setUserHeart(mMyData.getUserHeart() + 100);
+                            mMyData.setUserHoney(mMyData.getUserHoney() + 100);
                             refreshHearCnt();
                             break;
                     }

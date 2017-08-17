@@ -64,7 +64,7 @@ public class MyData {
     private double lLon;
 
     public int nHeart;
-    public int nHot;
+    public int nHoney;
     public int nRank;
 
     public String strDate;
@@ -87,26 +87,10 @@ public class MyData {
     }
 
     public void setMyData(String _UserIdx, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3, String _UserImgGroup4,
-                          String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat, int _UserHeart, int _UserHot, int _UserRank, String _UserDate,
+                          String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat, int _UserHeart, int _UserHoney, int _UserRank, String _UserDate,
                           String _UserMemo, String _UserSchool, String _UserCompany, String _UserTitle)
     {
         strIdx = _UserIdx;
-
-     /*   FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser.getIdToken(true)
-                .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-                    public void onComplete(@NonNull Task<GetTokenResult> task) {
-                        if (task.isSuccessful()) {
-                            strToken = task.getResult().getToken();
-                            // Send token to your backend via HTTPS
-                            // ...
-                        } else {
-                            // Handle error -> task.getException();
-                        }
-                    }
-                });
-*/
-
         strToken = FirebaseInstanceId.getInstance().getToken();
 
         //strToken = com.google.firebase.iid.FirebaseInstanceId.getInstance().getToken();
@@ -119,7 +103,7 @@ public class MyData {
         lLon = _UserLon;
         lLat = _UserLat;
         nHeart = _UserHeart;
-        nHot = _UserHot;
+        nHoney = _UserHoney;
         nRank = _UserRank;
         strDate = _UserDate;
 
@@ -213,9 +197,22 @@ public class MyData {
         return nHeart;
     }
 
-    public void setUserHot(int userHot) { nHot = userHot;}
-    public int getUserHot() {
-        return nHot;
+    public void setUserHoney(int userHoney) {
+        nHoney = userHoney;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table;
+        if(strGender.equals("여자"))
+            table = database.getReference("Users/여자/"+ strIdx);
+        else
+            table = database.getReference("Users/남자/"+ strIdx);
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("Honey", nHoney);
+        table.updateChildren(updateMap);
+
+    }
+    public int getUserHoney() {
+        return nHoney;
     }
 
     public void setUserRank(int userRank) {
