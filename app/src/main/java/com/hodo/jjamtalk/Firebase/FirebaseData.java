@@ -94,7 +94,6 @@ public class FirebaseData {
 
     public boolean SaveBoardData(String strMemo) {
 
-
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
 

@@ -49,13 +49,13 @@ public class HeartActivity extends AppCompatActivity {
         list = new ArrayList<HeartItem>();
 
         HeartItem mHeartItem;
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "하트 50개 5천원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "꿀 50개 5천원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "하트 70개 7천원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "꿀 70개 7천원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "하트 100개 1만원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "꿀 100개 1만원");
         list.add(mHeartItem);
 
         HeartItemAdapter adapter = new HeartItemAdapter(this, R.layout.content_cash_charge, list);
