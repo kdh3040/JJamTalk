@@ -161,7 +161,17 @@ public class InputProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String strNickName = mNickName.getText().toString();
-                if (strNickName != null) {
+                String strImg = mMyData.getUserImg();
+
+                if ("".equals(strNickName)) {
+                    Toast.makeText(InputProfile.this, "이름을 입력 해주세요", Toast.LENGTH_SHORT).show();
+                }
+                //if ("null".equals(strImg)) {
+                if (strImg == null) {
+                    Toast.makeText(InputProfile.this, "사진을 입력 해주세요", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
                     mMyData.setUserNick(strNickName);
                     mFireBaseData.SaveData(mMyData.getUserIdx());
                     bMySet = true;

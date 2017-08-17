@@ -46,13 +46,13 @@ public class NewMemberFragment extends Fragment {
                         if (mAppStatus.bCheckMultiSend == false) {
                             switch (mSetting.getnSearchSetting()) {
                                 case 1:
-                                    stTargetData = mMyData.arrUserMan_Near.get(position);
+                                    stTargetData = mMyData.arrUserMan_New.get(position);
                                     break;
                                 case 2:
-                                    stTargetData = mMyData.arrUserWoman_Near.get(position);
+                                    stTargetData = mMyData.arrUserWoman_New.get(position);
                                     break;
                                 case 3:
-                                    stTargetData = mMyData.arrUserAll_Near.get(position);
+                                    stTargetData = mMyData.arrUserAll_New.get(position);
                                     break;
                             }
 
