@@ -57,10 +57,11 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
        // holder.textView.setText("핫멤버, 25, 20km");
-        //holder.imageView.setImageResource(R.drawable.bg1);
+        //holder.iv_profile.setImageResource(R.drawable.bg1);
 
-        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
+        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
         holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
+        holder.iv_honey_rank.setVisibility(View.INVISIBLE);
 
 
 
@@ -78,7 +79,7 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
                         .load(mMyData.arrUserMan_Hot.get(i).Img)
                         .thumbnail(0.1f)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(holder.imageView);
+                        .into(holder.iv_profile);
                 break;
             // 여자 탐색
             case 2:
@@ -89,7 +90,7 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
                         .load(mMyData.arrUserWoman_Hot.get(i).Img)
                         .thumbnail(0.1f)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(holder.imageView);
+                        .into(holder.iv_profile);
 
                 break;
             case 3:
@@ -100,7 +101,7 @@ class HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
                         .load(mMyData.arrUserAll_Hot.get(i).Img)
                         .thumbnail(0.1f)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(holder.imageView);
+                        .into(holder.iv_profile);
 
                 break;
             default:

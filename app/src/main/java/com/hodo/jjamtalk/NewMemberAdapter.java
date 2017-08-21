@@ -45,10 +45,11 @@ public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
 
-        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
+        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
         holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
         //holder.textView.setText("뉴멤버, 25, 20km");
-        holder.imageView.setImageResource(R.mipmap.ic_launcher);
+        holder.iv_profile.setImageResource(R.mipmap.ic_launcher);
+        holder.iv_honey_rank.setVisibility(View.INVISIBLE);
 
         int i = position;
 
@@ -63,7 +64,7 @@ public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
                         .load(mMyData.arrUserMan_New.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
-                        .into(holder.imageView);
+                        .into(holder.iv_profile);
                 break;
             // 여자 탐색
             case 2:
@@ -74,7 +75,7 @@ public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
                         .load(mMyData.arrUserWoman_New.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
-                        .into(holder.imageView);
+                        .into(holder.iv_profile);
                 break;
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
@@ -84,7 +85,7 @@ public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
                         .load(mMyData.arrUserAll_New.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
-                        .into(holder.imageView);
+                        .into(holder.iv_profile);
                 break;
             default:
                 break;

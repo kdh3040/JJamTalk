@@ -34,7 +34,7 @@ public class HoneyGetAdapter extends RecyclerView.Adapter<HoneyGetViewHolder>{
         holder.tv_nickname.setText("나애리");
 
 
-        // holder.imageView.setImageResource(R.mipmap.girl1);
+        // holder.iv_profile.setImageResource(R.mipmap.girl1);
     }
 
     @Override

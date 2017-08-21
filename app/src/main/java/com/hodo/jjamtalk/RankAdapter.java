@@ -51,10 +51,11 @@ public class RankAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
 
-        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
+        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
         holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
-    //   holder.textView.setText("랭커, 25, 20km");
-        holder.imageView.setImageResource(R.mipmap.girl1);
+
+        holder.iv_profile.setImageResource(R.mipmap.girl1);
+        holder.textView.setVisibility(View.INVISIBLE);
 
         Log.d("Guide !!!! ", "Start");
         int i = position;
@@ -65,33 +66,38 @@ public class RankAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
             case 1:
                 float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Rank.get(i).Lat, mMyData.arrUserMan_Rank.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-                holder.textView.setText(/*mMyData.arrUserMan_Rank.get(i).NickName + ", " + mMyData.arrUserMan_Rank.get(i).Age + "세, " + (int)Dist + "km"*/mMyData.getUserRank()+"");
+                holder.iv_honey_rank.setImageResource(R.drawable.platinum_bee);
+
+                //holder.textView.setText(/*mMyData.arrUserMan_Rank.get(i).NickName + ", " + mMyData.arrUserMan_Rank.get(i).Age + "세, " + (int)Dist + "km"*/mMyData.getUserRank()+"");
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_Rank.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
-                        .into(holder.imageView);
+                        .into(holder.iv_profile);
                 break;
             // 여자 탐색
             case 2:
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Rank.get(i).Lat, mMyData.arrUserWoman_Rank.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
-                holder.textView.setText(mMyData.getUserRank()+"");
+                holder.iv_honey_rank.setImageResource(R.drawable.gold_bee);
+
+                //holder.textView.setText(mMyData.getUserRank()+"");
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Rank.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
-                        .into(holder.imageView);
+                        .into(holder.iv_profile);
                 break;
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Rank.get(i).Lat, mMyData.arrUserAll_Rank.get(i).Lon);
-                holder.textView.setText(mMyData.getUserRank()+"");
+
+                holder.iv_honey_rank.setImageResource(R.drawable.bronze_bee);
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Rank.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
-                        .into(holder.imageView);
+                        .into(holder.iv_profile);
                 break;
             default:
                 break;
