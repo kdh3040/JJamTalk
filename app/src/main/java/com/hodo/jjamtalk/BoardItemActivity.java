@@ -88,11 +88,10 @@ public class BoardItemActivity extends AppCompatActivity{
                 tempReply.Idx = mMyData.getUserIdx();
                 tempReply.NickName = mMyData.getUserNick();
                 tempReply.Img = mMyData.getUserImg();
+                tempReply.Key =  mBoardData.arrBoardList.get(nTargetIdx).Key;
 
+                //mFireBaseData.SaveBoardReplyData(tempReply);
                 mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.add(tempReply);
-
-                mFireBaseData.SaveBoardReplyData(tempReply);
-
                 Adapter.notifyDataSetChanged();
             }
         });

@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk.Firebase;
 
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SendData;
 import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
@@ -98,7 +100,7 @@ public class FirebaseData {
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Board");
+        DatabaseReference table = database.getReference("Board").push();
 
         TempBoardData sendData = new TempBoardData();
 
@@ -114,8 +116,9 @@ public class FirebaseData {
 
         sendData.Date = ctime.format(new Date(time));
         sendData.Msg = strMemo;
+        sendData.Key = table.getKey();
 
-        table.push().setValue(sendData);
+        table.setValue(sendData);
 
         return  true;
     }
@@ -128,23 +131,21 @@ public class FirebaseData {
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Board");
+        DatabaseReference table = database.getReference("Board").child(strMemo.Key);
 
-        TempBoardData sendData = new TempBoardData();
+        TempBoard_ReplyData tempData = new TempBoard_ReplyData();
 
-        sendData.Idx = strMemo.Idx;
-        sendData.NickName = strMemo.NickName;
-        sendData.Age = strMemo.Age;
-        sendData.Img = strMemo.Img;
-        //sendData. = mMyData.getUserImg();
+        tempData.Idx = strMemo.Idx;
+        tempData.NickName = strMemo.NickName;
+        tempData.Age = strMemo.Age;
+        tempData.Img = strMemo.Img;
+        tempData.Msg = strMemo.Msg;
 
-        long time = System.currentTimeMillis();
-        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
-
-        sendData.Date = ctime.format(new Date(time));
-        sendData.Msg = strMemo.Msg;
-
-        table.push().setValue(sendData);
+        table.child("arrReplyList").push().setValue(tempData);
+/*
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("arrReplyList", sendData.arrReplyList);
+        table.updateChildren(updateMap);*/
 
         return  true;
     }

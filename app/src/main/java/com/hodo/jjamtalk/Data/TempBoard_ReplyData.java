@@ -10,4 +10,5 @@ public class TempBoard_ReplyData {
     public String Age;
     public String Msg;
     public String Img;
+    public String Key;
 }

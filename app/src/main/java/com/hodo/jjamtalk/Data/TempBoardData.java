@@ -13,7 +13,7 @@ public class TempBoardData {
     public String NickName;
     public String Age;
     public String Job;
-    public String Info;
+    public String Key;
     public String Date;
     public String Msg;
 
