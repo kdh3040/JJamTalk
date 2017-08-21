@@ -91,8 +91,37 @@ public class FirebaseData {
         user.child("Title").setValue(mMyData.getUserTitle());
 
     }
-
     public boolean SaveBoardData(String strMemo) {
+
+        Random rand = new Random();
+        rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Board");
+
+        TempBoardData sendData = new TempBoardData();
+
+        sendData.Idx = mMyData.getUserIdx();
+        sendData.NickName = mMyData.getUserNick();
+        sendData.Age = mMyData.getUserAge();
+        sendData.Img = mMyData.getUserImg();
+        sendData.Job = mMyData.getUserCompany();
+        //sendData. = mMyData.getUserImg();
+
+        long time = System.currentTimeMillis();
+        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
+
+        sendData.Date = ctime.format(new Date(time));
+        sendData.Msg = strMemo;
+
+        table.push().setValue(sendData);
+
+        return  true;
+    }
+
+
+
+    public boolean SaveBoardReplyData(String strMemo) {
 
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성

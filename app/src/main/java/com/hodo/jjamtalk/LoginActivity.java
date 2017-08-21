@@ -508,6 +508,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         UserData stRecvData = new UserData ();
                         stRecvData = dataSnapshot.getValue(UserData.class);
                         if(stRecvData != null) {
+
+                            if(stRecvData.Img == null)
+                                stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
                             mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3, stRecvData.ImgGroup4,
                                     stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Honey, stRecvData.Rank, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
@@ -534,6 +539,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         UserData stRecvData = new UserData ();
                         stRecvData = dataSnapshot.getValue(UserData.class);
                         if(stRecvData != null) {
+
+
+                            if(stRecvData.Img == null)
+                                stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
                             mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3, stRecvData.ImgGroup4,
                                     stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Honey, stRecvData.Rank, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
@@ -566,6 +577,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
+
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
+
                                 mMyData.arrUserMan_Rank.add(stRecvData);
                                 mMyData.arrUserAll_Rank.add(stRecvData);
                                 Log.d("Login Man_Rank : ", mMyData.arrUserMan_Rank.get(i).NickName);
@@ -601,6 +619,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
+
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
+
                                 mMyData.arrUserWoman_Rank.add(stRecvData);
                                 mMyData.arrUserAll_Rank.add(stRecvData);
                                 Log.d("Login Woman_Rank : ", mMyData.arrUserWoman_Rank.get(i).NickName);
@@ -638,6 +663,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
                                 mMyData.arrUserMan_Hot.add(stRecvData);
                                 mMyData.arrUserAll_Hot.add(stRecvData);
                                 Log.d("Login arrUserMan_Hot : ", mMyData.arrUserMan_Hot.get(i).NickName);
@@ -672,6 +702,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
                                 mMyData.arrUserWoman_Hot.add(stRecvData);
                                 mMyData.arrUserAll_Hot.add(stRecvData);
                                 Log.d("Login Woman_Hot : ", mMyData.arrUserWoman_Hot.get(i).NickName);
@@ -715,6 +750,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
                                 mMyData.arrUserMan_New.add(stRecvData);
                                 mMyData.arrUserAll_New.add(stRecvData);
                                 Log.d("Login arrUserMan_New : ", mMyData.arrUserMan_New.get(i).NickName);
@@ -750,6 +790,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
                                 mMyData.arrUserWoman_New.add(stRecvData);
                                 mMyData.arrUserAll_New.add(stRecvData);
                                 Log.d("Login Woman_New : ", mMyData.arrUserWoman_New.get(i).NickName);
@@ -799,6 +844,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
                                 mMyData.arrUserMan_Near.add(stRecvData);
                                 mMyData.arrUserAll_Near.add(stRecvData);
                                 Log.d("Login Man_Near : ", mMyData.arrUserMan_Near.get(i).NickName);
@@ -836,6 +886,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
                                 mMyData.arrUserWoman_Near.add(stRecvData);
                                 mMyData.arrUserAll_Near.add(stRecvData);
                                 Log.d("Login Woman_Near : ", mMyData.arrUserWoman_Near.get(i).NickName);

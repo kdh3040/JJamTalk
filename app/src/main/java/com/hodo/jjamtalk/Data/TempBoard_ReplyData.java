@@ -8,8 +8,6 @@ public class TempBoard_ReplyData {
     public String Idx;
     public String NickName;
     public String Age;
-    public String Job;
-    public String Info;
-    public String Date;
     public String Msg;
+    public String Img;
 }

@@ -21,4 +21,6 @@ public class TempBoardData {
     public int LikeCnt;
 
     public ArrayList<TempBoard_ReplyData> arrReplyList = new ArrayList<>();
+
+
 }
