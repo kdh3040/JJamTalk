@@ -4,14 +4,22 @@
 
     <style name = "CustomActionBarTheme"
         parent = "Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name = "android:actionBarStyle">@style/MyActionBar</item>
     </style>
 
     <style name = "MyActionBar"
         parent = "@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name = "@android:background">#ffffff</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name = "NoTitleBar" parent="Theme.AppCompat.Light" >
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
         <item name ="windowNoTitle">true</item>
     </style>

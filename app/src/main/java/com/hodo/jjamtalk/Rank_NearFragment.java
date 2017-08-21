@@ -1,8 +1,6 @@
 package com.hodo.jjamtalk;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
@@ -23,12 +20,12 @@ import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NearFragment.OnFragmentInteractionListener} interface
+ * {@link Rank_NearFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NearFragment#newInstance} factory method to
+ * Use the {@link Rank_NearFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NearFragment extends Fragment {
+public class Rank_NearFragment extends Fragment {
 
     private MyData mMyData = MyData.getInstance();
     private SettingData mSetting = SettingData.getInstance();
@@ -36,7 +33,7 @@ public class NearFragment extends Fragment {
     public UserData stTargetData = new UserData();
 
     RecyclerView recyclerView;
-    NearAdapter nearAdapter;
+    Rank_NearAdapter rankNearAdapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -48,7 +45,7 @@ public class NearFragment extends Fragment {
 
 
 
-    public NearFragment() {
+    public Rank_NearFragment() {
         // Required empty public constructor
     }
 
@@ -58,11 +55,11 @@ public class NearFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NearFragment.
+     * @return A new instance of fragment Rank_NearFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NearFragment newInstance(String param1, String param2) {
-        NearFragment fragment = new NearFragment();
+    public static Rank_NearFragment newInstance(String param1, String param2) {
+        Rank_NearFragment fragment = new Rank_NearFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -84,7 +81,7 @@ public class NearFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_near, container, false);
         recyclerView = view.findViewById(R.id.near_recyclerview);
-        recyclerView.setAdapter(new NearAdapter(getContext()));
+        recyclerView.setAdapter(new Rank_NearAdapter(getContext()));
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
 
         recyclerView.addOnItemTouchListener(

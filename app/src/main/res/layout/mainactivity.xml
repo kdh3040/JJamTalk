@@ -19,7 +19,7 @@
         app:siIndicatorColors="@array/indicator_colors"
         app:siSelectedTextColor="@android:color/white"
         app:siTextColor="@color/colorPrimaryDark"
-        app:siTextSize="18sp" />
+        app:siTextSize="13sp" />
 
     <github.chenupt.springindicator.viewpager.ScrollerViewPager
         android:id="@+id/view_pager"

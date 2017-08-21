@@ -13,18 +13,15 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Data.UIData;
-import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AppStatus;
 import com.hodo.jjamtalk.Util.LocationFunc;
 import com.hodo.jjamtalk.ViewHolder.GridUserViewHolder;
-
-import java.util.ArrayList;
 
 /**
  * Created by mjk on 2017. 8. 10..
  */
 
-public class RankAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
+public class Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     Context mContext;
 
     private SettingData mSetting = SettingData.getInstance();
@@ -33,18 +30,30 @@ public class RankAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     private AppStatus mAppStatus = AppStatus.getInstance();
     private UIData mUIData = UIData.getInstance();
 
-    public UserData stTargetData = new UserData();
-    private ArrayList<UserData> arrTargetData_Man = new ArrayList<>();
-    private ArrayList<UserData> arrTargetData_Woman = new ArrayList<>();
-    private ArrayList<UserData> arrTargetData_All = new ArrayList<>();
 
-    public RankAdapter(Context context) {
+    public Rank_NearAdapter(Context context) {
+        super();
         mContext = context;
     }
 
     @Override
     public GridUserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.content_user,parent,false);
+      /*  view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mAppStatus.bCheckMultiSend == false) {
+
+                    Intent intent = new Intent(mContext, UserPageActivity.class);
+                    intent.putExtra("Target", stTargetData);
+                    mContext.startActivity(intent);
+                }
+                    //mContext.startActivity(new Intent(mContext,UserPageActivity.class));
+            }
+        });
+*/
+
+
         return new GridUserViewHolder(view);
     }
 
@@ -53,48 +62,42 @@ public class RankAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
 
         holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
         holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
+        holder.iv_honey_rank.setVisibility(View.INVISIBLE);
 
-        holder.iv_profile.setImageResource(R.mipmap.girl1);
-        holder.textView.setVisibility(View.INVISIBLE);
 
-        Log.d("Guide !!!! ", "Start");
         int i = position;
 
         switch (mSetting.getnSearchSetting())
         {
             //  남자 탐색
             case 1:
-                float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Rank.get(i).Lat, mMyData.arrUserMan_Rank.get(i).Lon);
+                float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Near.get(i).Lat, mMyData.arrUserMan_Near.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-                holder.iv_honey_rank.setImageResource(R.drawable.platinum_bee);
-
-                //holder.textView.setText(/*mMyData.arrUserMan_Rank.get(i).NickName + ", " + mMyData.arrUserMan_Rank.get(i).Age + "세, " + (int)Dist + "km"*/mMyData.getUserRank()+"");
+                holder.textView.setText(/*mMyData.arrUserMan_Near.get(i).NickName + ", " + mMyData.arrUserMan_Near.get(i).Age + "세, " + */(int)Dist + "km");
                 Glide.with(mContext)
-                        .load(mMyData.arrUserMan_Rank.get(i).Img)
+                        .load(mMyData.arrUserMan_Near.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
             // 여자 탐색
             case 2:
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Rank.get(i).Lat, mMyData.arrUserWoman_Rank.get(i).Lon);
+                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Near.get(i).Lat, mMyData.arrUserWoman_Near.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
-                holder.iv_honey_rank.setImageResource(R.drawable.gold_bee);
-
-                //holder.textView.setText(mMyData.getUserRank()+"");
+                holder.textView.setText(/*mMyData.arrUserWoman_Near.get(i).NickName + ", " + mMyData.arrUserWoman_Near.get(i).Age + "세, " + */(int)Dist + "km");
                 Glide.with(mContext)
-                        .load(mMyData.arrUserWoman_Rank.get(i).Img)
+                        .load(mMyData.arrUserWoman_Near.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
+
                 break;
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Rank.get(i).Lat, mMyData.arrUserAll_Rank.get(i).Lon);
-
-                holder.iv_honey_rank.setImageResource(R.drawable.bronze_bee);
+                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Near.get(i).Lat, mMyData.arrUserAll_Near.get(i).Lon);
+                holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
                 Glide.with(mContext)
-                        .load(mMyData.arrUserAll_Rank.get(i).Img)
+                        .load(mMyData.arrUserAll_Near.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
@@ -102,6 +105,7 @@ public class RankAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
             default:
                 break;
         }
+
     }
 
     @Override
@@ -109,15 +113,14 @@ public class RankAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
         int rtValue = 0;
         if (mSetting.getnSearchSetting() == 1) {
             Log.d("Guide !!!! ", "getItem 1");
-            rtValue = mMyData.arrUserMan_Rank.size();
+            rtValue = mMyData.arrUserMan_Near.size();
         } else if (mSetting.getnSearchSetting() == 2) {
             Log.d("Guide !!!! ", "getItem 2");
-            rtValue = mMyData.arrUserWoman_Rank.size();
+            rtValue = mMyData.arrUserWoman_Near.size();
         } else if (mSetting.getnSearchSetting() == 3) {
             Log.d("Guide !!!! ", "getItem 3");
-            rtValue = mMyData.arrUserAll_Rank.size();
+            rtValue = mMyData.arrUserAll_Near.size();
         }
         return rtValue;
     }
-
 }

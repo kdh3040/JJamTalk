@@ -116,10 +116,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         PagerModelManager manager = new PagerModelManager();
-        manager.addFragment(new NearFragment(),"Near");
-        manager.addFragment(new NewMemberFragment(),"New");
-        manager.addFragment(new HotFragment(),"Hot");
-        manager.addFragment(new RankFragment(),"Rank");
+        manager.addFragment(new Rank_NearFragment(),"Near");
+        manager.addFragment(new Rank_NewMemberFragment(),"New");
+        manager.addFragment(new Rank_HotFragment(),"인기");
+        manager.addFragment(new Rank_RichFragment(),"꿀 부자");
+        manager.addFragment(new Rank_HoneyReceiveFragment(),"받은 꿀");
 
         final ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);
         viewPager.setAdapter(adapter);

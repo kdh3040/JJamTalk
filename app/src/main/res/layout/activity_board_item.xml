@@ -88,8 +88,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:singleLine="true"
+
                 android:text="안녕 나 심심한데 같이 놀사람 없어" />
+            <View style="@style/Divider"/>
 
             <LinearLayout
                 android:id="@+id/layout_imageview"
@@ -156,7 +157,8 @@
                     android:id="@+id/tv_pagecount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentEnd="false"
+                    android:layout_alignParentRight="true"
                     android:text="조회수 1250" />
             </RelativeLayout>
 

@@ -22,7 +22,7 @@ import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
  * Created by mjk on 2017. 8. 10..
  */
 
-public class NewMemberFragment extends Fragment {
+public class Rank_HotFragment extends Fragment {
 
     private MyData mMyData = MyData.getInstance();
     private SettingData mSetting = SettingData.getInstance();
@@ -33,26 +33,28 @@ public class NewMemberFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_newmember, container, false);
-        recyclerView = view.findViewById(R.id.newmember_recyclerview);
-        recyclerView.setAdapter(new NewMemberAdapter(getContext()));
+        View view = inflater.inflate(R.layout.fragment_hot, container, false);
+        recyclerView = view.findViewById(R.id.hot_recyclerview);
+        recyclerView.setAdapter(new Rank_HotAdapter(getContext()));
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Toast.makeText(view.getContext(), position + "번 째 아이템 클릭", Toast.LENGTH_SHORT).show();
-                        if (mAppStatus.bCheckMultiSend == false) {
-                            switch (mSetting.getnSearchSetting()) {
+                          Toast.makeText(view.getContext(), position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
+                        if(mAppStatus.bCheckMultiSend == false) {
+                            switch (mSetting.getnSearchSetting())
+                            {
                                 case 1:
-                                    stTargetData = mMyData.arrUserMan_New.get(position);
+                                    stTargetData = mMyData.arrUserMan_Hot.get(position);
                                     break;
                                 case 2:
-                                    stTargetData = mMyData.arrUserWoman_New.get(position);
+                                    stTargetData = mMyData.arrUserWoman_Hot.get(position);
                                     break;
                                 case 3:
-                                    stTargetData = mMyData.arrUserAll_New.get(position);
+                                    stTargetData = mMyData.arrUserAll_Hot.get(position);
                                     break;
                             }
 
@@ -72,7 +74,8 @@ public class NewMemberFragment extends Fragment {
         return view;
     }
 
-    public NewMemberFragment() {
+    public Rank_HotFragment() {
         super();
     }
+
 }
