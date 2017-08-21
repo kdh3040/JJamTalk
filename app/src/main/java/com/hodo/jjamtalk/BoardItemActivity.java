@@ -28,6 +28,7 @@ import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
+import com.hodo.jjamtalk.ViewHolder.BoardReplyPrivateHolder;
 import com.hodo.jjamtalk.ViewHolder.BoardReplyViewHolder;
 import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
 
@@ -41,6 +42,7 @@ public class BoardItemActivity extends AppCompatActivity{
     private BoardData mBoardData = BoardData.getInstance();
 
     RecyclerView recyclerView_board_reply;
+    RecyclerView recyclerView_board_reply_private;
     Button btn_send;
     ImageButton ib_vote_like,ib_warn;
     EditText et_reply;
@@ -54,6 +56,7 @@ public class BoardItemActivity extends AppCompatActivity{
     int nTargetIdx;
 
     BoardItemActivity.ReplyAdapter Adapter = new BoardItemActivity.ReplyAdapter();
+    BoardItemActivity.ReplyPrivateAdapter AdapterPrivate = new BoardItemActivity.ReplyPrivateAdapter();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,9 +101,7 @@ public class BoardItemActivity extends AppCompatActivity{
 
 
 
-        recyclerView_board_reply = (RecyclerView)findViewById(R.id.recyclerview_board_reply);
-        recyclerView_board_reply.setAdapter(Adapter);
-        recyclerView_board_reply.setLayoutManager(new LinearLayoutManager(this));
+
 
         tv_Name = (TextView)findViewById(R.id.tv_nickname);
         tv_Info = (TextView)findViewById(R.id.tv_info);
@@ -127,6 +128,22 @@ public class BoardItemActivity extends AppCompatActivity{
                 startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
             }
         });
+
+
+        if(mMyData.getUserIdx().equals(mBoardData.arrBoardList.get(nTargetIdx).Idx))
+        {
+            recyclerView_board_reply = (RecyclerView)findViewById(R.id.recyclerview_board_reply);
+            recyclerView_board_reply.setAdapter(Adapter);
+            recyclerView_board_reply.setLayoutManager(new LinearLayoutManager(this));
+        }
+
+        else
+        {
+            recyclerView_board_reply = (RecyclerView)findViewById(R.id.recyclerview_board_reply);
+            recyclerView_board_reply.setAdapter(AdapterPrivate);
+            recyclerView_board_reply.setLayoutManager(new LinearLayoutManager(this));
+        }
+
 
 
 
@@ -167,7 +184,9 @@ public class BoardItemActivity extends AppCompatActivity{
     private class ReplyAdapter extends RecyclerView.Adapter<BoardReplyViewHolder> {
         @Override
         public BoardReplyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_board_reply,parent,false);
+            View view;
+
+            view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_board_reply,parent,false);
 
             return new BoardReplyViewHolder(view);
         }
@@ -176,8 +195,7 @@ public class BoardItemActivity extends AppCompatActivity{
         @Override
         public void onBindViewHolder(BoardReplyViewHolder holder, final int position) {
             //holder.idTextView.setText("호근 ,37, 20km");
-        //    for(int i =0; i<mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.size(); i++)
-            {
+
                 holder.idTextView.setText(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).NickName + ", " + mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Age);// + ", " +  mBoardData.arrBoardList.get(position).Dist);
                 holder.messageTextView.setText(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Msg);
                 //holder.imageView.setImageResource(R.drawable.bg1);
@@ -185,8 +203,35 @@ public class BoardItemActivity extends AppCompatActivity{
                         .load(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(holder.imageView);
-            }
+        }
 
+        @Override
+        public int getItemCount() {
+            return mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.size();
+        }
+    }
+
+
+    private class ReplyPrivateAdapter extends RecyclerView.Adapter<BoardReplyPrivateHolder> {
+        @Override
+        public BoardReplyPrivateHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view;
+            view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_board_reply_private,parent,false);
+
+            return new BoardReplyPrivateHolder(view);
+        }
+
+
+        @Override
+        public void onBindViewHolder(BoardReplyPrivateHolder holder, final int position) {
+            //holder.idTextView.setText("호근 ,37, 20km");
+
+            holder.messageTextView.setText("댓글은 본인만 확인 가능합니다.");
+            holder.imageView.setImageResource(R.drawable.icon_camera);
+/*            Glide.with(getApplicationContext())
+                    .load(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Img)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.imageView);*/
         }
 
         @Override
