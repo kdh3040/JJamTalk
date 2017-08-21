@@ -22,7 +22,7 @@ import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
  * Created by mjk on 2017. 8. 10..
  */
 
-public class RankFragment extends Fragment {
+public class Rank_RichFragment extends Fragment {
 
     private MyData mMyData = MyData.getInstance();
     private SettingData mSetting = SettingData.getInstance();
@@ -35,7 +35,7 @@ public class RankFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rank, container, false);
         recyclerView = view.findViewById(R.id.rank_recyclerview);
-        recyclerView.setAdapter(new RankAdapter(getContext()));
+        recyclerView.setAdapter(new Rank_RichAdapter(getContext()));
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
 
         recyclerView.addOnItemTouchListener(
@@ -73,7 +73,7 @@ public class RankFragment extends Fragment {
         return view;
     }
 
-    public RankFragment() {
+    public Rank_RichFragment() {
         super();
     }
 }

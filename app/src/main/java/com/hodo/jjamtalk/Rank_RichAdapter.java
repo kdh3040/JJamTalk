@@ -13,16 +13,18 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AppStatus;
 import com.hodo.jjamtalk.Util.LocationFunc;
 import com.hodo.jjamtalk.ViewHolder.GridUserViewHolder;
+
+import java.util.ArrayList;
 
 /**
  * Created by mjk on 2017. 8. 10..
  */
 
-public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
-
+public class Rank_RichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     Context mContext;
 
     private SettingData mSetting = SettingData.getInstance();
@@ -31,8 +33,12 @@ public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     private AppStatus mAppStatus = AppStatus.getInstance();
     private UIData mUIData = UIData.getInstance();
 
+    public UserData stTargetData = new UserData();
+    private ArrayList<UserData> arrTargetData_Man = new ArrayList<>();
+    private ArrayList<UserData> arrTargetData_Woman = new ArrayList<>();
+    private ArrayList<UserData> arrTargetData_All = new ArrayList<>();
 
-    public NewMemberAdapter(Context context) {
+    public Rank_RichAdapter(Context context) {
         mContext = context;
     }
 
@@ -47,42 +53,48 @@ public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
 
         holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
         holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
-        //holder.textView.setText("뉴멤버, 25, 20km");
-        holder.iv_profile.setImageResource(R.mipmap.ic_launcher);
-        holder.iv_honey_rank.setVisibility(View.INVISIBLE);
 
+        holder.iv_profile.setImageResource(R.mipmap.girl1);
+        holder.textView.setVisibility(View.INVISIBLE);
+
+        Log.d("Guide !!!! ", "Start");
         int i = position;
 
         switch (mSetting.getnSearchSetting())
         {
             //  남자 탐색
             case 1:
-                float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_New.get(i).Lat, mMyData.arrUserMan_New.get(i).Lon);
+                float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Rank.get(i).Lat, mMyData.arrUserMan_Rank.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-                holder.textView.setText(mMyData.arrUserMan_New.get(i).NickName + ", " + mMyData.arrUserMan_New.get(i).Age + "세, " + (int)Dist + "km");
+                holder.iv_honey_rank.setImageResource(R.drawable.platinum_bee);
+
+                //holder.textView.setText(/*mMyData.arrUserMan_Rank.get(i).NickName + ", " + mMyData.arrUserMan_Rank.get(i).Age + "세, " + (int)Dist + "km"*/mMyData.getUserRank()+"");
                 Glide.with(mContext)
-                        .load(mMyData.arrUserMan_New.get(i).Img)
+                        .load(mMyData.arrUserMan_Rank.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
             // 여자 탐색
             case 2:
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_New.get(i).Lat, mMyData.arrUserWoman_New.get(i).Lon);
+                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Rank.get(i).Lat, mMyData.arrUserWoman_Rank.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
-                holder.textView.setText(mMyData.arrUserWoman_New.get(i).NickName + ", " + mMyData.arrUserWoman_New.get(i).Age + "세, " + (int)Dist + "km");
+                holder.iv_honey_rank.setImageResource(R.drawable.gold_bee);
+
+                //holder.textView.setText(mMyData.getUserRank()+"");
                 Glide.with(mContext)
-                        .load(mMyData.arrUserWoman_New.get(i).Img)
+                        .load(mMyData.arrUserWoman_Rank.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_New.get(i).Lat, mMyData.arrUserAll_New.get(i).Lon);
-                holder.textView.setText(mMyData.arrUserAll_New.get(i).NickName + ", " + mMyData.arrUserAll_New.get(i).Age + "세, " + (int)Dist + "km");
+                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Rank.get(i).Lat, mMyData.arrUserAll_Rank.get(i).Lon);
+
+                holder.iv_honey_rank.setImageResource(R.drawable.bronze_bee);
                 Glide.with(mContext)
-                        .load(mMyData.arrUserAll_New.get(i).Img)
+                        .load(mMyData.arrUserAll_Rank.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
@@ -97,14 +109,15 @@ public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
         int rtValue = 0;
         if (mSetting.getnSearchSetting() == 1) {
             Log.d("Guide !!!! ", "getItem 1");
-            rtValue = mMyData.arrUserMan_New.size();
+            rtValue = mMyData.arrUserMan_Rank.size();
         } else if (mSetting.getnSearchSetting() == 2) {
             Log.d("Guide !!!! ", "getItem 2");
-            rtValue = mMyData.arrUserWoman_New.size();
+            rtValue = mMyData.arrUserWoman_Rank.size();
         } else if (mSetting.getnSearchSetting() == 3) {
             Log.d("Guide !!!! ", "getItem 3");
-            rtValue = mMyData.arrUserAll_New.size();
+            rtValue = mMyData.arrUserAll_Rank.size();
         }
         return rtValue;
     }
+
 }
