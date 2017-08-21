@@ -48,6 +48,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mFireBaseData.SaveBoardData(txt_Memo.getText().toString());
+                        txt_Memo.setText("");
                         startActivity(new Intent(getApplicationContext(),BoardActivity.class));
                         finish();
                     }

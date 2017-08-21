@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoardData;
+import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AwsFunc;
 import com.kakao.usermgmt.response.model.User;
@@ -121,7 +122,7 @@ public class FirebaseData {
 
 
 
-    public boolean SaveBoardReplyData(String strMemo) {
+    public boolean SaveBoardReplyData(TempBoard_ReplyData strMemo) {
 
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
@@ -131,18 +132,17 @@ public class FirebaseData {
 
         TempBoardData sendData = new TempBoardData();
 
-        sendData.Idx = mMyData.getUserIdx();
-        sendData.NickName = mMyData.getUserNick();
-        sendData.Age = mMyData.getUserAge();
-        sendData.Img = mMyData.getUserImg();
-        sendData.Job = mMyData.getUserCompany();
+        sendData.Idx = strMemo.Idx;
+        sendData.NickName = strMemo.NickName;
+        sendData.Age = strMemo.Age;
+        sendData.Img = strMemo.Img;
         //sendData. = mMyData.getUserImg();
 
         long time = System.currentTimeMillis();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
 
         sendData.Date = ctime.format(new Date(time));
-        sendData.Msg = strMemo;
+        sendData.Msg = strMemo.Msg;
 
         table.push().setValue(sendData);
 
