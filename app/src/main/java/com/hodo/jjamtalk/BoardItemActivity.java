@@ -28,6 +28,8 @@ import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
+import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 import com.hodo.jjamtalk.ViewHolder.BoardReplyPrivateHolder;
 import com.hodo.jjamtalk.ViewHolder.BoardReplyViewHolder;
 import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
@@ -40,6 +42,7 @@ public class BoardItemActivity extends AppCompatActivity{
 
     private MyData mMyData = MyData.getInstance();
     private BoardData mBoardData = BoardData.getInstance();
+    private FirebaseData mFireBaseData = FirebaseData.getInstance();
 
     RecyclerView recyclerView_board_reply;
     RecyclerView recyclerView_board_reply_private;
@@ -54,9 +57,9 @@ public class BoardItemActivity extends AppCompatActivity{
     ImageView iv_Profile;
 
     int nTargetIdx;
+    boolean bReply;
 
     BoardItemActivity.ReplyAdapter Adapter = new BoardItemActivity.ReplyAdapter();
-    BoardItemActivity.ReplyPrivateAdapter AdapterPrivate = new BoardItemActivity.ReplyPrivateAdapter();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +75,7 @@ public class BoardItemActivity extends AppCompatActivity{
 
         //getSupportActionBar().setHomeAsUpIndicator(R.drawable.board_icon);
         //setSupportActionBar(toolbar);
+        bReply = false;
         et_reply = (EditText)findViewById(R.id.et_reply);
 
         btn_send = (Button) findViewById(R.id.btn_send);
@@ -86,10 +90,12 @@ public class BoardItemActivity extends AppCompatActivity{
                 tempReply.Img = mMyData.getUserImg();
 
                 mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.add(tempReply);
+
+                mFireBaseData.SaveBoardReplyData(tempReply);
+
                 Adapter.notifyDataSetChanged();
             }
         });
-
 
         ib_vote_like = (ImageButton) findViewById(R.id.ib_vote_like);
         ib_vote_like.setOnClickListener(new View.OnClickListener() {
@@ -98,10 +104,6 @@ public class BoardItemActivity extends AppCompatActivity{
                 Toast.makeText(getApplicationContext(),"좋아요를 눌렀습니다",Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
-
 
         tv_Name = (TextView)findViewById(R.id.tv_nickname);
         tv_Info = (TextView)findViewById(R.id.tv_info);
@@ -129,24 +131,24 @@ public class BoardItemActivity extends AppCompatActivity{
             }
         });
 
-
-        if(mMyData.getUserIdx().equals(mBoardData.arrBoardList.get(nTargetIdx).Idx))
-        {
             recyclerView_board_reply = (RecyclerView)findViewById(R.id.recyclerview_board_reply);
             recyclerView_board_reply.setAdapter(Adapter);
             recyclerView_board_reply.setLayoutManager(new LinearLayoutManager(this));
-        }
 
-        else
-        {
-            recyclerView_board_reply = (RecyclerView)findViewById(R.id.recyclerview_board_reply);
-            recyclerView_board_reply.setAdapter(AdapterPrivate);
-            recyclerView_board_reply.setLayoutManager(new LinearLayoutManager(this));
-        }
+        recyclerView_board_reply.addOnItemTouchListener(
+                new RecyclerItemClickListener(getApplicationContext(), recyclerView_board_reply, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
+                        et_reply.setText(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).NickName);
+                        bReply = true;
+                    }
 
-
-
-
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 롱 클릭",Toast.LENGTH_SHORT).show();
+                    }
+                }));
     }
 
     @Override
@@ -186,16 +188,22 @@ public class BoardItemActivity extends AppCompatActivity{
         public BoardReplyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view;
 
-            view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_board_reply,parent,false);
+            if(bReply == true)
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_board_reply_reply,parent,false);
+
+            else
+            {
+                view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_board_reply,parent,false);
+            }
 
             return new BoardReplyViewHolder(view);
         }
-
 
         @Override
         public void onBindViewHolder(BoardReplyViewHolder holder, final int position) {
             //holder.idTextView.setText("호근 ,37, 20km");
 
+            if (bReply == true) {
                 holder.idTextView.setText(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).NickName + ", " + mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Age);// + ", " +  mBoardData.arrBoardList.get(position).Dist);
                 holder.messageTextView.setText(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Msg);
                 //holder.imageView.setImageResource(R.drawable.bg1);
@@ -203,35 +211,26 @@ public class BoardItemActivity extends AppCompatActivity{
                         .load(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(holder.imageView);
-        }
 
-        @Override
-        public int getItemCount() {
-            return mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.size();
-        }
-    }
+                bReply = false;
+
+            } else {
+                if (mMyData.getUserIdx().equals(mBoardData.arrBoardList.get(nTargetIdx).Idx) || mMyData.getUserIdx().equals(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Idx)) {
+                    holder.idTextView.setText(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).NickName + ", " + mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Age);// + ", " +  mBoardData.arrBoardList.get(position).Dist);
+                    holder.messageTextView.setText(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Msg);
+                    //holder.imageView.setImageResource(R.drawable.bg1);
+                    Glide.with(getApplicationContext())
+                            .load(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Img)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(holder.imageView);
+                }
+                else {
+                    holder.messageTextView.setText("댓글은 본인만 확인 가능합니다.");
+                    holder.imageView.setImageResource(R.drawable.icon_camera);
+                }
+            }
 
 
-    private class ReplyPrivateAdapter extends RecyclerView.Adapter<BoardReplyPrivateHolder> {
-        @Override
-        public BoardReplyPrivateHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view;
-            view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_board_reply_private,parent,false);
-
-            return new BoardReplyPrivateHolder(view);
-        }
-
-
-        @Override
-        public void onBindViewHolder(BoardReplyPrivateHolder holder, final int position) {
-            //holder.idTextView.setText("호근 ,37, 20km");
-
-            holder.messageTextView.setText("댓글은 본인만 확인 가능합니다.");
-            holder.imageView.setImageResource(R.drawable.icon_camera);
-/*            Glide.with(getApplicationContext())
-                    .load(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).Img)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(holder.imageView);*/
         }
 
         @Override
