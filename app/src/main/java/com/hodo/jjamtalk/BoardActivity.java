@@ -97,7 +97,7 @@ public class BoardActivity extends AppCompatActivity {
             //holder.idTextView.setText("호근 ,37, 20km");
             holder.idTextView.setText(mBoardData.arrBoardList.get(position).NickName + ", " + mBoardData.arrBoardList.get(position).Age);// + ", " +  mBoardData.arrBoardList.get(position).Dist);
             holder.messageTextView.setText(mBoardData.arrBoardList.get(position).Msg);
-            //holder.imageView.setImageResource(R.drawable.bg1);
+            //holder.iv_profile.setImageResource(R.drawable.bg1);
             Glide.with(getApplicationContext())
                     .load(mBoardData.arrBoardList.get(position).Img)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)

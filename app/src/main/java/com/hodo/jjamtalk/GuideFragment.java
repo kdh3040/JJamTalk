@@ -99,8 +99,8 @@ public class GuideFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d ( "Guide @@@", "페이지 전환 3  "  + view.getContext());
 
-        //imageView = (ImageView) getView().findViewById(R.id.image);
-        //imageView.setBackgroundResource(bgRes);
+        //iv_profile = (ImageView) getView().findViewById(R.id.image);
+        //iv_profile.setBackgroundResource(bgRes);
         //gridView.setAdapter((ListAdapter) mainAdapter);
     }
     class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{

@@ -33,21 +33,21 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:background="?android:attr/colorPressedHighlight"
+        android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/ib_home"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="?android:attr/colorPressedHighlight"
+            android:background="@color/colorPrimary"
             app:srcCompat="@drawable/icon_home" />
 
         <ImageButton
             android:id="@+id/ib_honey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="?android:attr/colorPressedHighlight"
+            android:background="@color/colorPrimary"
             android:padding="5dp"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/honeyicon" />
@@ -56,21 +56,21 @@
             android:id="@+id/ib_cardlist"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="?android:attr/colorPressedHighlight"
+            android:background="@color/colorPrimary"
             app:srcCompat="@drawable/mycard_icon" />
 
         <ImageButton
             android:id="@+id/ib_chatlist"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="?android:attr/colorPressedHighlight"
+            android:background="@color/colorPrimary"
             app:srcCompat="@drawable/icon_msg" />
 
         <ImageButton
             android:id="@+id/ib_board"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="?android:attr/colorPressedHighlight"
+            android:background="@color/colorPrimary"
             app:srcCompat="@drawable/icon_board" />
     </LinearLayout>
 </LinearLayout>

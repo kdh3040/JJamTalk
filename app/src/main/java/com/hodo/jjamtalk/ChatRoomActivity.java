@@ -1,18 +1,18 @@
 package com.hodo.jjamtalk;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.hodo.jjamtalk.Data.ChatData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
-import com.hodo.jjamtalk.Data.UserData;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -200,4 +199,36 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.board_item,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.btn_report:
+                AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).
+                        setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        }).setMessage("이 사람을 차단하시겠습니까? \n(차단과 함께 대화방이 삭제됩니다. 앞으로 이 사람으로부터 쪽지 및 선물을 받지 않습니다.)")
+                        .setTitle("차단하기");
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
+
+        }
+        return true;
+    }
+
 }
