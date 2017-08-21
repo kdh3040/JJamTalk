@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -60,8 +60,8 @@ public class NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
 
-        holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
-        holder.textView.setLayoutParams(new LinearLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
+        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
+        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
 
 
         int i = position;
@@ -72,7 +72,7 @@ public class NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
             case 1:
                 float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Near.get(i).Lat, mMyData.arrUserMan_Near.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-                holder.textView.setText(mMyData.arrUserMan_Near.get(i).NickName + ", " + mMyData.arrUserMan_Near.get(i).Age + "세, " + (int)Dist + "km");
+                holder.textView.setText(/*mMyData.arrUserMan_Near.get(i).NickName + ", " + mMyData.arrUserMan_Near.get(i).Age + "세, " + */(int)Dist + "km");
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_Near.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -83,7 +83,7 @@ public class NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
             case 2:
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Near.get(i).Lat, mMyData.arrUserWoman_Near.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
-                holder.textView.setText(mMyData.arrUserWoman_Near.get(i).NickName + ", " + mMyData.arrUserWoman_Near.get(i).Age + "세, " + (int)Dist + "km");
+                holder.textView.setText(/*mMyData.arrUserWoman_Near.get(i).NickName + ", " + mMyData.arrUserWoman_Near.get(i).Age + "세, " + */(int)Dist + "km");
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Near.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -94,7 +94,7 @@ public class NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Near.get(i).Lat, mMyData.arrUserAll_Near.get(i).Lon);
-                holder.textView.setText(mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + (int)Dist + "km");
+                holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Near.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)

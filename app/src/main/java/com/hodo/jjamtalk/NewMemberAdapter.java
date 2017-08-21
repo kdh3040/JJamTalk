@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -45,8 +45,8 @@ public class NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
 
-        holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
-        holder.textView.setLayoutParams(new LinearLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
+        holder.imageView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
+        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
         //holder.textView.setText("뉴멤버, 25, 20km");
         holder.imageView.setImageResource(R.mipmap.ic_launcher);
 
