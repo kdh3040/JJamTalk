@@ -184,7 +184,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="댓글 달기" />
+            android:hint="댓글 달기" />
 
         <Button
             android:id="@+id/btn_send"

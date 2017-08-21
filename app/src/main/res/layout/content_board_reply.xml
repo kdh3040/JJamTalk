@@ -6,39 +6,40 @@
     android:layout_margin="2dp">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/Reply_ImgProfile"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         app:srcCompat="@mipmap/hdvd" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/Reply_txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_toRightOf="@+id/imageView3"
+        android:layout_toRightOf="@+id/Reply_ImgProfile"
         android:text="호수같은 여자"
         android:textColor="@android:color/holo_red_light"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/Reply_txtDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView21"
+        android:layout_above="@+id/Reply_txtMemo"
         android:layout_margin="10dp"
-        android:layout_toRightOf="@+id/textView20"
+        android:layout_toRightOf="@+id/Reply_txtName"
         android:text="2017.08.21.07.57"
         android:textSize="10sp" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/Reply_txtMemo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView20"
+        android:layout_below="@+id/Reply_txtName"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/imageView3"
+        android:textColor="#000000"
+        android:layout_toRightOf="@+id/Reply_ImgProfile"
         android:text="안녕하세요 안양사는 범계 지하철 타고 노는 80세 할아버지 랩퍼 호수같은 여자같은 사람입니다 야호 기분디게좋네 아줌마 안그래 뭘봐?"
         android:textSize="14sp" />
 </RelativeLayout>
