@@ -36,7 +36,7 @@ public class Rank_NewMemberFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_newmember, container, false);
         recyclerView = view.findViewById(R.id.newmember_recyclerview);
         recyclerView.setAdapter(new Rank_NewMemberAdapter(getContext()));
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {

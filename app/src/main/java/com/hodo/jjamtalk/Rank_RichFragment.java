@@ -36,7 +36,7 @@ public class Rank_RichFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rank, container, false);
         recyclerView = view.findViewById(R.id.rank_recyclerview);
         recyclerView.setAdapter(new Rank_RichAdapter(getContext()));
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
