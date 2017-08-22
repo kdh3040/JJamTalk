@@ -1,12 +1,14 @@
 package com.hodo.jjamtalk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.webkit.ServiceWorkerClient;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
@@ -31,6 +33,8 @@ public class SettingActivity extends AppCompatActivity {
     private Switch sw_AlarmNoti;
     private Switch sw_AlarmFollow;
     private Switch sw_AlarmLike;
+
+    private TextView tv_blocklist;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -163,6 +167,13 @@ public class SettingActivity extends AppCompatActivity {
                     else if(sw_AlarmNoti.isChecked() == false && sw_AlarmFollow.isChecked() == false) // 0 0 0
                         mSetting.setnAlarmSetting(0);
                 }
+            }
+        });
+        tv_blocklist = (TextView)findViewById(R.id.tv_blocklist);
+        tv_blocklist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),BlockListActivity.class));
             }
         });
     }

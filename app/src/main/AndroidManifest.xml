@@ -105,6 +105,9 @@
         <activity android:name=".HoneyActivity"
             android:label="나의 꿀"
             android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".BlockListActivity"
+            android:label="차단 목록"
+            android:parentActivityName=".SettingActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
