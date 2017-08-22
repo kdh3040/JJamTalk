@@ -86,11 +86,24 @@ public class MyProfileActivity extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(Img_Sum);
 
-        for(int i = 0; i< mMyData.arrImgList.size(); i++) {
-            Glide.with(getApplicationContext())
-                    .load(mMyData.arrImgList.get(i))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(Img_Profiles[i]);
+        //for(int i = 0; i< mMyData.arrImgList.size(); i++) {
+        for(int i = 0; i< 5; i++) {
+            if(mMyData.arrImgList.get(i) == null)
+            {
+                Glide.with(getApplicationContext())
+                        .load("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg")
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(Img_Profiles[i]);
+
+            }
+            else
+            {
+                Glide.with(getApplicationContext())
+                        .load(mMyData.arrImgList.get(i))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(Img_Profiles[i]);
+            }
+
         }
         txt_Memo = (EditText)findViewById(R.id.MyProfile_Memo);
         txt_School = (EditText)findViewById(R.id.MyProfile_School);

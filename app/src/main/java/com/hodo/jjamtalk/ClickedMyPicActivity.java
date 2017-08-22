@@ -9,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 
 import org.w3c.dom.Text;
@@ -29,6 +31,11 @@ public class ClickedMyPicActivity extends AppCompatActivity {
 
         txt_Memo = (TextView)findViewById(R.id.MyPic_Memo);
         Img_Profile = (ImageView)findViewById(R.id.MyPic_Img);
+
+        Glide.with(getApplicationContext())
+                .load(mMyData.getUserImg())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(Img_Profile);
 
         txt_Memo.setText(mMyData.getUserNick() + ", "+ mMyData.getUserAge() + "\n" + mMyData.getUserMemo());
     }

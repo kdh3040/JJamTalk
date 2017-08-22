@@ -5,7 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.ViewHolder.BlockListViewHolder;
 
 /**
@@ -13,6 +17,8 @@ import com.hodo.jjamtalk.ViewHolder.BlockListViewHolder;
  */
 
 public class BlockListAdapter extends RecyclerView.Adapter<BlockListViewHolder> {
+
+    private MyData mMyData = MyData.getInstance();
 
     Context mContext;
 
@@ -31,12 +37,21 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(BlockListViewHolder holder, int position) {
+    public void onBindViewHolder(BlockListViewHolder holder, final int position) {
 
+
+        Glide.with(mContext)
+                .load(mMyData.arrBlockDataList.get(position).strTargetImg)
+                .thumbnail(0.1f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.Img_Profile);
+
+        holder.txt_Name.setText(mMyData.arrBlockDataList.get(position).strTargetNick);
         holder.btn_unblock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //차단 해제
+                Toast.makeText(mContext, position + "번", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -46,6 +61,6 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 10;
+        return  mMyData.arrBlockDataList.size();
     }
 }

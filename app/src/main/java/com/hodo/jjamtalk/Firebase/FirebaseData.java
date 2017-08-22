@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -150,9 +151,9 @@ public class FirebaseData {
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Heart", stTargetData.Heart+1);
         user.updateChildren(updateMap);
-
-
     }
+
+
 
     public void setHoney(UserData stTargetData, int nGiftCnt) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -162,6 +163,71 @@ public class FirebaseData {
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Honey", stTargetData.Honey+nGiftCnt);
         user.updateChildren(updateMap);
+    }
+
+    public void DelChatData(String Idx)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        Query queryRef = database.getReference("ChatData").orderByValue().equalTo(Idx).getRef();
+
+        queryRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                snapshot.getRef().setValue(null);
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+    }
+
+    public void DelSendData(String Idx)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        Query queryRef = database.getReference("SendList").orderByChild("strSendName").equalTo(Idx).getRef();
+
+        queryRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                snapshot.getRef().setValue(null);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }
