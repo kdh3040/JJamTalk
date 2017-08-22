@@ -12,8 +12,10 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
@@ -31,7 +33,12 @@ import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 public class MainActivity extends AppCompatActivity {
     SpringIndicator springIndicator;
     ScrollerViewPager viewPager;
-    ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board;
+    ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage;
+    TextView tv_MainTitle;
+    LinearLayout layout_lowbar,layout_topbar;
+    FrameLayout layout_Ad;
+
+
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private MyData mMyData = MyData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
@@ -62,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         //int mHeight = mUIData.getHeight();
         int mWidth = mUIData.getWidth();
+        int mHeight = mUIData.getHeight();
 
         Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
 
@@ -71,6 +79,39 @@ public class MainActivity extends AppCompatActivity {
         springIndicator = (SpringIndicator)findViewById(R.id.indicator);
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(mWidth/5,LinearLayout.LayoutParams.MATCH_PARENT);
+
+        LinearLayout.LayoutParams lpForTopBar = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (mHeight*0.05));
+        LinearLayout.LayoutParams lpForAd = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (mHeight*0.1));
+        LinearLayout.LayoutParams lpForindicator = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (mHeight*0.05));
+        LinearLayout.LayoutParams lpForViewPager = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (mHeight*0.66));
+
+        LinearLayout.LayoutParams lpForIconMyPage = new LinearLayout.LayoutParams((int)(mWidth*0.1),LinearLayout.LayoutParams.MATCH_PARENT);
+
+        LinearLayout.LayoutParams lpForMainTitle = new LinearLayout.LayoutParams((int) (mWidth*0.8),LinearLayout.LayoutParams.MATCH_PARENT);
+
+        tv_MainTitle = (TextView)findViewById(R.id.tv_maintitle);
+        tv_MainTitle.setLayoutParams(lpForMainTitle);
+
+        ib_myPage = (ImageButton)findViewById(R.id.ib_mypage);
+        ib_myPage.setLayoutParams(lpForIconMyPage);
+        ib_myPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
+
+            }
+        });
+
+        viewPager.setLayoutParams(lpForViewPager);
+        springIndicator.setLayoutParams(lpForindicator);
+        layout_topbar = (LinearLayout)findViewById(R.id.layout_topbar);
+        layout_topbar.setLayoutParams(lpForTopBar);
+
+        layout_Ad = (FrameLayout) findViewById(R.id.flayout_ad);
+        layout_Ad.setLayoutParams(lpForAd);
+
+        layout_lowbar = (LinearLayout)findViewById(R.id.layout_lowbar);
+
 
         ib_home = (ImageButton) findViewById(R.id.ib_home);
         ib_home.setLayoutParams(lp);
@@ -153,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
+
             }
         });
 
@@ -167,4 +208,5 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
 }

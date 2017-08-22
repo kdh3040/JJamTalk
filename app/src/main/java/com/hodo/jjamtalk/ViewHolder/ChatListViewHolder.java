@@ -14,10 +14,11 @@ import com.hodo.jjamtalk.R;
 public class ChatListViewHolder extends RecyclerView.ViewHolder {
 
     public  ImageView imageView;
-    public TextView textView;
+    public TextView textView,nickname;
 
     public ChatListViewHolder(View itemView) {
         super(itemView);
+        nickname = itemView.findViewById(R.id.tv_nickname);
         imageView = itemView.findViewById(R.id.iv_chat_list);
         textView = itemView.findViewById(R.id.tv_chat_list);
 

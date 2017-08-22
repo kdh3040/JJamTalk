@@ -82,7 +82,7 @@ public class Rank_NearFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_near, container, false);
         recyclerView = view.findViewById(R.id.near_recyclerview);
         recyclerView.setAdapter(new Rank_NearAdapter(getContext()));
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),4));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {

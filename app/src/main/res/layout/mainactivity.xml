@@ -5,16 +5,60 @@
 
     android:layout_height="match_parent"
 
+
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/layout_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="#f9c901"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ib_mypage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/bee" />
+
+        <TextView
+            android:id="@+id/tv_maintitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="꿀톡" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/board_icon" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/flayout_ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/imagesadd2" />
+    </FrameLayout>
 
     <github.chenupt.springindicator.SpringIndicator xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/indicator"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+
         app:siIndicatorColor="@color/colorPrimary"
         app:siIndicatorColors="@array/indicator_colors"
         app:siSelectedTextColor="@android:color/white"
@@ -24,15 +68,15 @@
     <github.chenupt.springindicator.viewpager.ScrollerViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:layout_weight="8" />
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center" />
 
     <LinearLayout
+        android:id="@+id/layout_lowbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
@@ -73,4 +117,5 @@
             android:background="@color/colorPrimary"
             app:srcCompat="@drawable/icon_board" />
     </LinearLayout>
+
 </LinearLayout>

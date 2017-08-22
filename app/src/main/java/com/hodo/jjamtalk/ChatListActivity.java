@@ -7,12 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
-import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.ChatListViewHolder;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ChatListActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
     private ArrayList<String> arrChatNameData = new ArrayList<>();
     private ArrayList<SendData> arrChatData = new ArrayList<>();
+    Menu mMenu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class ChatListActivity extends AppCompatActivity {
         chatListRecyclerView.setLayoutManager(new LinearLayoutManager(this,1,false));
 
     }
+
+
 
     private class ChatListAdapter extends RecyclerView.Adapter<ChatListViewHolder> {
         @Override
@@ -53,9 +57,12 @@ public class ChatListActivity extends AppCompatActivity {
 
             holder.imageView.setImageResource(R.mipmap.girl1);
 
+
+
             arrChatNameData.add(mMyData.arrSendDataList.get(i).strSendName);
             arrChatData.add(mMyData.arrSendDataList.get(i));
             holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
+            holder.nickname.setText(mMyData.arrSendDataList.get(i).strTargetNick);
             holder.textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -76,5 +83,36 @@ public class ChatListActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_chat_list,menu);
+
+        //View v = menu.findItem(R.id.tv_leave).getActionView();
+
+
+
+
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int curId = item.getItemId();
+        switch(curId){
+            case R.id.clickAll:
+
+
+
+
+
+
+
+                //setDateVisiblity(false);
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
