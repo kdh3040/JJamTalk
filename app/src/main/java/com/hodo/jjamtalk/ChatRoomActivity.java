@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.hodo.jjamtalk.Data.ChatData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,6 +37,8 @@ import java.util.Date;
 public class ChatRoomActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
+    private FirebaseData mFireBaseData = FirebaseData.getInstance();
+
     private static final int REQUEST_IMAGE = 1001;
     Button btn_send,btn_plus;
     EditText txt_msg;
@@ -213,7 +216,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        mMyData.makeBlockList(tempChatData);
 
+                        mFireBaseData.DelChatData(tempChatData.strSendName);
+                        mFireBaseData.DelSendData(tempChatData.strSendName);
+                        finish();
                     }
                 }).
                         setNegativeButton("취소", new DialogInterface.OnClickListener() {

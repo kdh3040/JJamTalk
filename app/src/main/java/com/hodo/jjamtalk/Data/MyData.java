@@ -27,6 +27,7 @@ import java.util.Map;
 public class MyData {
 
     private static MyData _Instance;
+    private BlockData blockList;
 
     public static MyData getInstance()
     {
@@ -75,6 +76,10 @@ public class MyData {
     private String strTitle;
 
     public ArrayList<String> arrImgList = new ArrayList<>();
+
+    public ArrayList<String> arrBlockNameList = new ArrayList<>();
+    public ArrayList<BlockData> arrBlockDataList = new ArrayList<>();
+
 
     public ArrayList<String> arrRecvHoneyNameList = new ArrayList<>();
     public ArrayList<SendData> arrRecvHoneyDataList = new ArrayList<>();
@@ -550,5 +555,71 @@ public class MyData {
         return rtValue;
     }
 
+    public void makeBlockList(SendData blockList) {
+
+
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("BlockList");
+
+        BlockData tempData = new BlockData();
+
+        tempData.strTargetImg = blockList.strTargetImg;
+        tempData.strTargetNick = blockList.strTargetNick;
+        tempData.strTargetMsg = blockList.strTargetMsg;
+        tempData.strSendName = blockList.strSendName;
+
+        int idx = blockList.strSendName.indexOf("_");
+        String temp1 = blockList.strSendName.substring(0, idx);
+        String temp2 = blockList.strSendName.substring(idx+1);
+
+        if(getUserIdx().equals(temp1))
+            tempData.strTargetName = temp2;
+        else
+            tempData.strTargetName = temp1;
+
+        user = table.child(strIdx);
+        user.push().setValue(tempData);
+    }
+
+    public void getBlockList() {
+        String MyID =  strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("BlockList");
+        user = table.child(strIdx);
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+                blockList= dataSnapshot.getValue(BlockData.class);
+                arrBlockDataList.add(blockList);
+                //arrCardList.add(CardList);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa =0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
 
 }
