@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
-            app:srcCompat="@drawable/icon_home" />
+            app:srcCompat="@drawable/icon_postbox" />
 
         <ImageButton
             android:id="@+id/ib_honey"

@@ -90,7 +90,7 @@
                 android:layout_margin="20dp"
 
                 android:text="안녕 나 심심한데 같이 놀사람 없어" />
-            <View style="@style/Divider"/>
+
 
             <LinearLayout
                 android:id="@+id/layout_imageview"
@@ -119,6 +119,7 @@
                     android:scaleType="centerCrop"
                     app:srcCompat="@mipmap/girl1" />
             </LinearLayout>
+            <View style="@style/Divider"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

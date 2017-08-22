@@ -18,10 +18,10 @@ public class MailboxActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mailbox);
-        mailBoxAdapter = new MailBoxAdapter(getApplicationContext());
+        mailBoxAdapter = new MailBoxAdapter(this);
         recyclerView = (RecyclerView)findViewById(R.id.rv_mailbox);
         recyclerView.setAdapter(mailBoxAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
     }

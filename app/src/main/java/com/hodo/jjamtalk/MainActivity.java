@@ -115,6 +115,12 @@ public class MainActivity extends AppCompatActivity {
 
         ib_home = (ImageButton) findViewById(R.id.ib_home);
         ib_home.setLayoutParams(lp);
+        ib_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
+            }
+        });
 
         //ib_home.setLayoutParams(params);
         ib_board = (ImageButton)findViewById(R.id.ib_board);
