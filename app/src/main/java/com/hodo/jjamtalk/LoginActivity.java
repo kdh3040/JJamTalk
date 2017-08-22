@@ -541,6 +541,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             mMyData.getCardList();
                             mMyData.getSendList();
+                            mMyData.getSendHoneyList();
+                            mMyData.getRecvHoneyList();
                             InitData_Rank();
                             InitData_New();
                             InitData_Hot();
@@ -577,6 +579,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             mMyData.getCardList();
                             mMyData.getSendList();
+                            mMyData.getSendHoneyList();
+                            mMyData.getRecvHoneyList();
                             //mMyData.getSendData();
                             InitData_Rank();
                             InitData_New();

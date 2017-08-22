@@ -177,7 +177,17 @@ public class UserPageActivity extends AppCompatActivity {
                         btn_gift_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+
+                                boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0]);
+                                rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0]);
+
+                                if(rtValuew == true) {
+                                    mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                    mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
+                                    Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                }
+
+
                             }
                         });
                         Button btn_gift_cancel= giftView.findViewById(R.id.btn_gift_cancel);

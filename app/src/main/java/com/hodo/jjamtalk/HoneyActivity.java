@@ -27,13 +27,12 @@ public class HoneyActivity extends AppCompatActivity {
 
         manager = getSupportFragmentManager();
 
-
+        manager.beginTransaction().replace(R.id.fl_honey,honeySentFragment).commit();
 
         btn_honey_get = (Button)findViewById(R.id.btn_honey_get);
         btn_honey_get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 manager.beginTransaction().replace(R.id.fl_honey,honeyGetFragment).commit();
             }
         });
@@ -42,9 +41,7 @@ public class HoneyActivity extends AppCompatActivity {
         btn_honey_sent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 manager.beginTransaction().replace(R.id.fl_honey,honeySentFragment).commit();
-
             }
         });
     }

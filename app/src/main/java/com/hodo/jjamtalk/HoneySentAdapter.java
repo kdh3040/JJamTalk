@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.ViewHolder.HoneySentViewHoler;
 
 /**
@@ -15,6 +18,7 @@ import com.hodo.jjamtalk.ViewHolder.HoneySentViewHoler;
 public class HoneySentAdapter extends RecyclerView.Adapter<HoneySentViewHoler>{
 
     Context mContext;
+    private MyData mMyData = MyData.getInstance();
 
     public HoneySentAdapter(Context context) {
         mContext = context;
@@ -28,11 +32,17 @@ public class HoneySentAdapter extends RecyclerView.Adapter<HoneySentViewHoler>{
 
     @Override
     public void onBindViewHolder(HoneySentViewHoler holder, int position) {
+        holder.tv_Honeycount.setText(Integer.toString(mMyData.arrSendHoneyDataList.get(position).nSendHoney));
+        holder.tv_Nickname.setText(mMyData.arrSendHoneyDataList.get(position).strTargetNick);
+        Glide.with(mContext)
+                .load(mMyData.arrSendHoneyDataList.get(position).strTargetImg)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.img_Profile);
 
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return mMyData.arrSendHoneyDataList.size();
     }
 }

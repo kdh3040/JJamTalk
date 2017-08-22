@@ -14,5 +14,6 @@ public class SendData implements Serializable {
     public String strTargetImg;
     public String strTargetMsg;
     public String strSendName;
+    public int nSendHoney;
 
 }

@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.ViewHolder.HoneyGetViewHolder;
 
 /**
@@ -13,6 +16,8 @@ import com.hodo.jjamtalk.ViewHolder.HoneyGetViewHolder;
  */
 
 public class HoneyGetAdapter extends RecyclerView.Adapter<HoneyGetViewHolder>{
+
+    private MyData mMyData = MyData.getInstance();
 
     Context mContext;
 
@@ -30,15 +35,23 @@ public class HoneyGetAdapter extends RecyclerView.Adapter<HoneyGetViewHolder>{
 
     @Override
     public void onBindViewHolder(HoneyGetViewHolder holder, int position) {
-        holder.tv_honeycount.setText("3000");
-        holder.tv_nickname.setText("나애리");
+        //holder.tv_honeycount.setText("3000");
+        //holder.tv_nickname.setText("나애리");
 
+        holder.tv_honeycount.setText(Integer.toString(mMyData.arrRecvHoneyDataList.get(position).nSendHoney));
+        holder.tv_nickname.setText(mMyData.arrRecvHoneyDataList.get(position).strTargetNick);
 
-        // holder.iv_profile.setImageResource(R.mipmap.girl1);
+        holder.iv_profile.setImageResource(R.mipmap.girl1);
+
+        Glide.with(mContext)
+                .load(mMyData.arrRecvHoneyDataList.get(position).strTargetImg)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.iv_profile);
+
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mMyData.arrRecvHoneyDataList.size();
     }
 }

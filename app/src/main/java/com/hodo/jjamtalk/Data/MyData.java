@@ -76,6 +76,12 @@ public class MyData {
 
     public ArrayList<String> arrImgList = new ArrayList<>();
 
+    public ArrayList<String> arrRecvHoneyNameList = new ArrayList<>();
+    public ArrayList<SendData> arrRecvHoneyDataList = new ArrayList<>();
+
+    public ArrayList<String> arrSendHoneyNameList = new ArrayList<>();
+    public ArrayList<SendData> arrSendHoneyDataList = new ArrayList<>();
+
     public ArrayList<String> arrSendNameList = new ArrayList<>();
     public ArrayList<SendData> arrSendDataList = new ArrayList<>();
 
@@ -418,4 +424,131 @@ public class MyData {
         strCompany = company.toString();
         strTitle = title.toString();
     }
+
+    public void getRecvHoneyList() {
+        String MyID =  strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("RecvHoneyList");
+        user = table.child(strIdx);
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+                SendData SendList= dataSnapshot.getValue(SendData.class);
+                arrRecvHoneyNameList.add(SendList.strSendName);
+                arrRecvHoneyDataList.add(SendList);
+                //arrCardList.add(CardList);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa =0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
+    public void getSendHoneyList() {
+        String MyID =  strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("SendHoneyList");
+        user = table.child(strIdx);
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+                SendData SendList= dataSnapshot.getValue(SendData.class);
+                    arrSendHoneyNameList.add(SendList.strSendName);
+                    arrSendHoneyDataList.add(SendList);
+                //arrCardList.add(CardList);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa =0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+    public boolean makeSendHoneyList(UserData _UserData, int SendHoneyCnt) {
+        boolean rtValue = false;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("SendHoneyList");
+
+        user = table.child(strIdx);
+
+        SendData tempTargetSave = new SendData();
+        tempTargetSave.strTargetNick = _UserData.NickName;
+        tempTargetSave.strTargetImg = _UserData.Img;
+        tempTargetSave.strSendName = _UserData.Idx;
+        tempTargetSave.nSendHoney = SendHoneyCnt;
+
+        user.push().setValue(tempTargetSave);
+        rtValue = true;
+
+
+        return rtValue;
+    }
+
+    public boolean makeRecvHoneyList(UserData _UserData, int SendHoneyCnt) {
+        boolean rtValue = false;
+
+        UserData SaveUserData = _UserData;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, targetuser;
+        table = database.getReference("RecvHoneyList");
+
+        targetuser = table.child(_UserData.Idx);
+
+        SendData tempMySave = new SendData();
+        tempMySave.strTargetImg = getUserImg();
+        tempMySave.strTargetNick = getUserNick();
+        tempMySave.strSendName = getUserIdx();
+        tempMySave.nSendHoney = SendHoneyCnt;
+
+            targetuser.push().setValue(tempMySave);
+            rtValue = true;
+
+
+        return rtValue;
+    }
+
+
 }
