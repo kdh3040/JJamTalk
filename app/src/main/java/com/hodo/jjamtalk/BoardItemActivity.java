@@ -67,6 +67,8 @@ public class BoardItemActivity extends AppCompatActivity{
     int nTargetIdx;
     boolean bReply;
 
+    int nPosition;
+
     BoardItemActivity.ReplyAdapter Adapter = new BoardItemActivity.ReplyAdapter();
 
     @Override
@@ -104,7 +106,17 @@ public class BoardItemActivity extends AppCompatActivity{
                 tempReply.Img = mMyData.getUserImg();
                 tempReply.Key =  mBoardData.arrBoardList.get(nTargetIdx).Key;
 
-                mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.add(tempReply);
+                if(bReply == true)
+                {
+                    setReplyData(nPosition, tempReply);
+                    nPosition = 0;
+                    bReply = false;
+                }
+                else
+                {
+                    mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.add(tempReply);
+                }
+
                 mBoardData.arrBoardList.get(nTargetIdx).Reply.put(tempReply.Key, tempReply);
                 mFireBaseData.SaveBoardReplyData(tempReply);
                 Adapter.notifyDataSetChanged();
@@ -140,8 +152,6 @@ public class BoardItemActivity extends AppCompatActivity{
         tv_Memo = (TextView)findViewById(R.id.tv_content);
         iv_Profile = (ImageView)findViewById(R.id.iv_profile);
 
-
-
         tv_Name.setText(mBoardData.arrBoardList.get(nTargetIdx).NickName);
         tv_Info.setText(mBoardData.arrBoardList.get(nTargetIdx).Job);
         tv_Date.setText(mBoardData.arrBoardList.get(nTargetIdx).Date);
@@ -171,6 +181,11 @@ public class BoardItemActivity extends AppCompatActivity{
                     public void onItemClick(View view, int position) {
                         //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
                         et_reply.setText(mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.get(position).NickName);
+                        nPosition = position;
+
+                        InputMethodManager im = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+                        im.hideSoftInputFromWindow(et_reply.getWindowToken(), 1);
+
                         bReply = true;
                     }
 
@@ -181,9 +196,9 @@ public class BoardItemActivity extends AppCompatActivity{
                 }));
     }
 
-    private void setReplyData() {
-        for(HashMap.Entry<String, TempBoard_ReplyData> entry : mBoardData.arrBoardList.get(nTargetIdx).Reply.entrySet())
-            mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.add(entry.getValue());
+    private void setReplyData(int index, TempBoard_ReplyData reply) {
+//        for(HashMap.Entry<String, TempBoard_ReplyData> entry : mBoardData.arrBoardList.get(nTargetIdx).Reply.entrySet())
+            mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.add(index+1, reply);
     }
 
     @Override
