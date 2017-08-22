@@ -94,7 +94,7 @@ public class FirebaseData {
         user.child("Title").setValue(mMyData.getUserTitle());
 
     }
-    public boolean SaveBoardData(String strMemo) {
+    public boolean SaveBoardData(TempBoardData sendData) {
 
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
@@ -102,20 +102,12 @@ public class FirebaseData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Board").push();
 
-        TempBoardData sendData = new TempBoardData();
-
-        sendData.Idx = mMyData.getUserIdx();
-        sendData.NickName = mMyData.getUserNick();
-        sendData.Age = mMyData.getUserAge();
-        sendData.Img = mMyData.getUserImg();
-        sendData.Job = mMyData.getUserCompany();
-        //sendData. = mMyData.getUserImg();
+         //sendData. = mMyData.getUserImg();
 
         long time = System.currentTimeMillis();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
 
         sendData.Date = ctime.format(new Date(time));
-        sendData.Msg = strMemo;
         sendData.Key = table.getKey();
 
         table.setValue(sendData);
@@ -131,7 +123,7 @@ public class FirebaseData {
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Board").child(strMemo.Key);
+        DatabaseReference table = database.getReference("Board").child(strMemo.Key).child("Reply");
 
         TempBoard_ReplyData tempData = new TempBoard_ReplyData();
 
@@ -141,7 +133,7 @@ public class FirebaseData {
         tempData.Img = strMemo.Img;
         tempData.Msg = strMemo.Msg;
 
-        table.child("arrReplyList").push().setValue(tempData);
+        table.push().setValue(tempData);
 /*
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("arrReplyList", sendData.arrReplyList);

@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 
 /**
@@ -22,6 +24,7 @@ import com.hodo.jjamtalk.Firebase.FirebaseData;
 public class BoardWriteActivity extends AppCompatActivity {
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
+    private MyData mMydata = MyData.getInstance();
 
     Button btn_send;
     EditText txt_Memo;
@@ -47,7 +50,19 @@ public class BoardWriteActivity extends AppCompatActivity {
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        mFireBaseData.SaveBoardData(txt_Memo.getText().toString());
+                        TempBoardData sendData = new TempBoardData();
+
+                        sendData.LikeCnt = 0;
+                        sendData.PageCnt = 0;
+                        sendData.ReplyCnt = 0;
+
+                        sendData.NickName = mMydata.getUserNick();
+                        sendData.Age = mMydata.getUserAge();
+                        sendData.Idx = mMydata.getUserIdx();
+                        sendData.Img = mMydata.getUserImg();
+                        sendData.Msg = txt_Memo.getText().toString();
+
+                        mFireBaseData.SaveBoardData(sendData);
                         txt_Memo.setText("");
                         startActivity(new Intent(getApplicationContext(),BoardActivity.class));
                         finish();
