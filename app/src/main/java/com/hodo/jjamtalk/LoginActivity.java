@@ -66,6 +66,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoardData;
+import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AwsFunc;
 
@@ -78,7 +79,10 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kakao.auth.ISessionCallback;
 import com.kakao.util.exception.KakaoException;
@@ -336,19 +340,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         DatabaseReference refBoard;
         refBoard = FirebaseDatabase.getInstance().getReference().child("Board");
         refBoard.addChildEventListener(new ChildEventListener() {
-
+            int i = 0;
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 TempBoardData stRecvData = new TempBoardData();
                 stRecvData = dataSnapshot.getValue(TempBoardData.class);
+
                 if (stRecvData != null) {
-                    mBoardData.arrBoardList.add(stRecvData);
+                    if (stRecvData != null) {
+                        mBoardData.arrBoardList.add(stRecvData);
+                        for(LinkedHashMap.Entry<String, TempBoard_ReplyData> entry : mBoardData.arrBoardList.get(i).Reply.entrySet())
+                            mBoardData.arrBoardList.get(i).arrReplyList.add(entry.getValue());
+
+                        i++;
+                    }
                 }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
@@ -363,9 +373,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast toast = Toast.makeText(getApplicationContext(), "마이 데이터 cancelled", Toast.LENGTH_SHORT);
+
             }
         });
+
+
+        /*refBoard.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> td = (HashMap<String,Object>) dataSnapshot.getValue();
+
+                for( DataSnapshot dsp : dataSnapshot.getChildren())
+                {
+                    mBoardData.arrBoardList.add(dsp.getValue(TempBoardData.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast toast = Toast.makeText(getApplicationContext(), "마이 데이터 cancelled", Toast.LENGTH_SHORT);
+            }
+        });*/
     }
 
 

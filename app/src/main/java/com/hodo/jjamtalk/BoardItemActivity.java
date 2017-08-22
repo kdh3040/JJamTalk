@@ -9,11 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -34,6 +36,9 @@ import com.hodo.jjamtalk.ViewHolder.BoardReplyPrivateHolder;
 import com.hodo.jjamtalk.ViewHolder.BoardReplyViewHolder;
 import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by mjk on 2017. 8. 14..
  */
@@ -47,7 +52,10 @@ public class BoardItemActivity extends AppCompatActivity{
     RecyclerView recyclerView_board_reply;
     RecyclerView recyclerView_board_reply_private;
     Button btn_send;
+
+    TextView tv_Like, tv_Reply, tv_pagecount;
     ImageButton ib_vote_like,ib_warn;
+
     EditText et_reply;
     LinearLayout imageViewLayout;
     Toolbar toolbar;
@@ -75,8 +83,14 @@ public class BoardItemActivity extends AppCompatActivity{
 
         //getSupportActionBar().setHomeAsUpIndicator(R.drawable.board_icon);
         //setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        nTargetIdx = intent.getIntExtra("Target", 0);
+
+        mBoardData.arrBoardList.get(nTargetIdx).PageCnt += 1;
+
         bReply = false;
         et_reply = (EditText)findViewById(R.id.et_reply);
+        et_reply.setOnKeyListener(new EditMessageOnKeyListener());
 
         btn_send = (Button) findViewById(R.id.btn_send);
         btn_send.setOnClickListener(new View.OnClickListener() {
@@ -90,9 +104,15 @@ public class BoardItemActivity extends AppCompatActivity{
                 tempReply.Img = mMyData.getUserImg();
                 tempReply.Key =  mBoardData.arrBoardList.get(nTargetIdx).Key;
 
-                //mFireBaseData.SaveBoardReplyData(tempReply);
                 mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.add(tempReply);
+                mBoardData.arrBoardList.get(nTargetIdx).Reply.put(tempReply.Key, tempReply);
+                mFireBaseData.SaveBoardReplyData(tempReply);
                 Adapter.notifyDataSetChanged();
+                et_reply.setText("");
+
+                InputMethodManager im = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+                im.hideSoftInputFromWindow(et_reply.getWindowToken(), 0);
+
             }
         });
 
@@ -101,8 +121,18 @@ public class BoardItemActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"좋아요를 눌렀습니다",Toast.LENGTH_SHORT).show();
+                mBoardData.arrBoardList.get(nTargetIdx).LikeCnt += 1;
             }
         });
+
+        tv_Like = (TextView) findViewById(R.id.tv_like);
+        tv_Like.setText(Integer.toString(mBoardData.arrBoardList.get(nTargetIdx).LikeCnt));
+
+        tv_Reply = (TextView) findViewById(R.id.tv_reply);
+        tv_Reply.setText(Integer.toString( mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.size()));
+
+        tv_pagecount = (TextView) findViewById(R.id.tv_pagecount);
+        tv_pagecount.setText("조회수 : " + Integer.toString( mBoardData.arrBoardList.get(nTargetIdx).PageCnt));
 
         tv_Name = (TextView)findViewById(R.id.tv_nickname);
         tv_Info = (TextView)findViewById(R.id.tv_info);
@@ -111,8 +141,7 @@ public class BoardItemActivity extends AppCompatActivity{
         iv_Profile = (ImageView)findViewById(R.id.iv_profile);
 
 
-        Intent intent = getIntent();
-        nTargetIdx = intent.getIntExtra("Target", 0);
+
         tv_Name.setText(mBoardData.arrBoardList.get(nTargetIdx).NickName);
         tv_Info.setText(mBoardData.arrBoardList.get(nTargetIdx).Job);
         tv_Date.setText(mBoardData.arrBoardList.get(nTargetIdx).Date);
@@ -129,6 +158,8 @@ public class BoardItemActivity extends AppCompatActivity{
                 startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
             }
         });
+
+        //setReplyData();
 
             recyclerView_board_reply = (RecyclerView)findViewById(R.id.recyclerview_board_reply);
             recyclerView_board_reply.setAdapter(Adapter);
@@ -148,6 +179,11 @@ public class BoardItemActivity extends AppCompatActivity{
                         //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 롱 클릭",Toast.LENGTH_SHORT).show();
                     }
                 }));
+    }
+
+    private void setReplyData() {
+        for(HashMap.Entry<String, TempBoard_ReplyData> entry : mBoardData.arrBoardList.get(nTargetIdx).Reply.entrySet())
+            mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.add(entry.getValue());
     }
 
     @Override
@@ -224,6 +260,7 @@ public class BoardItemActivity extends AppCompatActivity{
                             .into(holder.imageView);
                 }
                 else {
+                    holder.idTextView.setText("비밀 댓글");
                     holder.messageTextView.setText("댓글은 본인만 확인 가능합니다.");
                     holder.imageView.setImageResource(R.drawable.icon_camera);
                 }
@@ -234,7 +271,36 @@ public class BoardItemActivity extends AppCompatActivity{
 
         @Override
         public int getItemCount() {
+
             return mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.size();
+        }
+    }
+
+    class EditMessageOnKeyListener implements View.OnKeyListener{
+
+        @Override
+        public boolean onKey(View view, int keycode, KeyEvent event) {
+
+           if(event.getAction() == KeyEvent.KEYCODE_ENTER){
+                TempBoard_ReplyData tempReply = new TempBoard_ReplyData();
+                tempReply.Msg = et_reply.getText().toString();
+                tempReply.Age = mMyData.getUserAge();
+                tempReply.Idx = mMyData.getUserIdx();
+                tempReply.NickName = mMyData.getUserNick();
+                tempReply.Img = mMyData.getUserImg();
+                tempReply.Key =  mBoardData.arrBoardList.get(nTargetIdx).Key;
+
+                mBoardData.arrBoardList.get(nTargetIdx).arrReplyList.add(tempReply);
+                mBoardData.arrBoardList.get(nTargetIdx).Reply.put(tempReply.Key, tempReply);
+                mFireBaseData.SaveBoardReplyData(tempReply);
+                Adapter.notifyDataSetChanged();
+                et_reply.setText("");
+
+                InputMethodManager im = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+                im.hideSoftInputFromWindow(et_reply.getWindowToken(), 0);
+            }
+
+            return false;
         }
     }
 }

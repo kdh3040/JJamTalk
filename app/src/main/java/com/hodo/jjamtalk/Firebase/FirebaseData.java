@@ -131,7 +131,7 @@ public class FirebaseData {
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Board").child(strMemo.Key);
+        DatabaseReference table = database.getReference("Board").child(strMemo.Key).child("Reply");
 
         TempBoard_ReplyData tempData = new TempBoard_ReplyData();
 
@@ -141,7 +141,7 @@ public class FirebaseData {
         tempData.Img = strMemo.Img;
         tempData.Msg = strMemo.Msg;
 
-        table.child("arrReplyList").push().setValue(tempData);
+        table.push().setValue(tempData);
 /*
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("arrReplyList", sendData.arrReplyList);
