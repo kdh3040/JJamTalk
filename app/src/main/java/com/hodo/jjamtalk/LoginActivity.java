@@ -129,6 +129,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     private Boolean bMySet = false;
+    private Boolean bSetManNear, bSetManNew, bSetManPop, bSetManRich, bSetManRecv = false;
+    private Boolean bSetWomanNear, bSetWomanNew, bSetWomanPop, bSetWomanRich, bSetWomanRecv = false;
+
     private int nUserSet = 0;
     private static final int RC_SIGN_IN = 9001;
     private static String TAG = "LoginActivity Log!!";
@@ -142,12 +145,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         // Set up the login form.
         mAuth = FirebaseAuth.getInstance();
+
+        bSetManNear = bSetManNew = bSetManPop = bSetManRich = false;
+
+        bSetWomanNear = bSetWomanNew = bSetWomanPop = bSetWomanRich = false;
+
+        bSetManRecv = true;
+        bSetWomanRecv = true;
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         provider = locationManager.getBestProvider(new Criteria(), false);
+
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
+        mTextView_SignUp = (TextView) findViewById(R.id.Login_SignUp);
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -161,84 +178,64 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         //populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.password);
-
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mTextView_NeedHelp = (TextView) findViewById(R.id.Login_NeedHelp);
 
-        mTextView_SignUp = (TextView)findViewById(R.id.Login_SignUp);
-        mTextView_SignUp.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        mTextView_NeedHelp = (TextView)findViewById(R.id.Login_NeedHelp);
-        mTextView_NeedHelp.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("LoginActivity", "mTextView_NeedHelp Clicked!");
-            }
-        });
-        //mKakaoSignInButton = (Button)findViewById(R.id.Login_Kakao);
-
-    /*    mKakaoSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });*/
-
-        mNaverSignInButton  = (Button)findViewById(R.id.Login_Naver);
-        mNaverSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("LoginActivity", "mTextView_NeedHelp Clicked!");
-            }
-        });
-
-        mGoogleSignInButton = (Button)findViewById(R.id.Login_Google);
-        mGoogleSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(signInIntent, RC_SIGN_IN);
-
-            }
-        });
-
+        mNaverSignInButton = (Button) findViewById(R.id.Login_Naver);
+        mGoogleSignInButton = (Button) findViewById(R.id.Login_Google);
+        mToMain = (Button) findViewById(R.id.btn_tomain);
 
         if(mAuth.getCurrentUser() != null){
+            showProgress(true);
+            strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
-            // 만약 회원이라면 메인으로 이동한다.
-            //GoMainPage();
-        } else {
-            Log.d(TAG, "Log out State");
+            InitData_Mine();
         }
 
+        else {
+            mEmailSignInButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    attemptLogin(null, null);
+                }
+            });
+            mTextView_SignUp.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            mTextView_NeedHelp.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("LoginActivity", "mTextView_NeedHelp Clicked!");
+                }
+            });
+            mNaverSignInButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("LoginActivity", "mTextView_NeedHelp Clicked!");
+                }
+            });
+            mGoogleSignInButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                    startActivityForResult(signInIntent, RC_SIGN_IN);
+                }
+            });
+            mToMain.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+            });
 
-        mToMain =(Button)findViewById(R.id.btn_tomain);
-        mToMain.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            }
-        });
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        }
 
     }
 
@@ -376,25 +373,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             }
         });
-
-
-        /*refBoard.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Object> td = (HashMap<String,Object>) dataSnapshot.getValue();
-
-                for( DataSnapshot dsp : dataSnapshot.getChildren())
-                {
-                    mBoardData.arrBoardList.add(dsp.getValue(TempBoardData.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast toast = Toast.makeText(getApplicationContext(), "마이 데이터 cancelled", Toast.LENGTH_SHORT);
-            }
-        });*/
     }
 
 
@@ -453,15 +431,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() {
+    private void attemptLogin(String Email, String PW) {
 
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String email = null;
+        String password = null;
+
+        if(Email == null)
+            email = mEmailView.getText().toString();
+        else
+            email = Email;
+
+
+        if (PW == null)
+            password = mPasswordView.getText().toString();
+        else
+            password = PW;
+
+
+
         strMyIdx = mAwsFunc.GetUserIdx(email);
        // String email;// = "tt@naver.com";
        // String password;// = "111111";
@@ -549,6 +541,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             mMyData.getCardList();
                             mMyData.getSendList();
+                            InitData_Rank();
+                            InitData_New();
+                            InitData_Hot();
+                            InitData_Near();
                         }
                     }
 
@@ -582,6 +578,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getCardList();
                             mMyData.getSendList();
                             //mMyData.getSendData();
+                            InitData_Rank();
+                            InitData_New();
+                            InitData_Hot();
+                            InitData_Near();
                         }
                     }
 
@@ -618,23 +618,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 Log.d("Login Man_Rank : ", mMyData.arrUserMan_Rank.get(i).NickName);
                             }
                             i++;
+
                         }
 
-                        if(nUserSet != 4)
-                            nUserSet+=1;
+                        bSetManRich = true;
 
-                        else if(nUserSet == 4 && bMySet == true){
+                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
+                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
                         }
+
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+
                     }
+
                 });
 
         refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
@@ -661,10 +663,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
                         }
 
+                        bSetWomanRich = true;
 
-                        if(nUserSet != 8)
-                            nUserSet += 1;
-                        else if(nUserSet == 7 && bMySet == true){
+                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
+                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -673,9 +675,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+
                     }
+
                 });
     }
 
@@ -704,9 +706,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             i++;
                         }
 
-                        if(nUserSet != 8)
-                            nUserSet += 1;
-                        if(nUserSet == 8 && bMySet == true){
+                        bSetManPop = true;
+
+                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
+                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -742,10 +745,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
                         }
 
+                        bSetWomanPop = true;
 
-                        if(nUserSet != 8)
-                            nUserSet += 1;
-                        if(nUserSet == 8 && bMySet == true){
+                      if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true/* && bSetWomanRecv == true */&& bMySet == true
+                         && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true /*&& bSetManRecv == true */&& bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -791,10 +794,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             i++;
                         }
 
-
-                        if(nUserSet != 8)
-                            nUserSet += 1;
-                        if(nUserSet == 8 && bMySet == true){
+                        bSetManNew = true;
+                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
+                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -830,10 +832,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
                         }
 
-
-                        if(nUserSet != 8)
-                            nUserSet += 1;
-                        if(nUserSet == 8 && bMySet == true){
+                        bSetWomanNew = true;
+                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
+                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -851,11 +852,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     // 경위도 +- 1 씩
     private void InitData_Near() {
 
-        Double lStartLon = mMyData.getUserLon() - 1;
-        Double lStartLat = mMyData.getUserLat() - 1;
+        Double lStartLon = mMyData.getUserLon() - 10;
+        Double lStartLat = mMyData.getUserLat() - 10;
 
-        Double lEndLon = mMyData.getUserLon() + 1;
-        Double IEndLat = mMyData.getUserLon() + 1;
+        Double lEndLon = mMyData.getUserLon() + 10;
+        Double IEndLat = mMyData.getUserLon() + 10;
 
         DatabaseReference refMan, refWoman;
         refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
@@ -885,10 +886,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             i++;
                         }
 
+                        bSetManNear = true;
 
-                        if(nUserSet != 8)
-                            nUserSet += 1;
-                        if(nUserSet == 8 && bMySet == true){
+                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
+                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -926,10 +927,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
                         }
 
+                        bSetWomanNear= true;
 
-                        if(nUserSet != 8)
-                            nUserSet += 1;
-                        if(nUserSet == 8 && bMySet == true){
+                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
+                         && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
