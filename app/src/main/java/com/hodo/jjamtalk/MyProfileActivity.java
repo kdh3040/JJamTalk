@@ -1,10 +1,9 @@
 package com.hodo.jjamtalk;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -30,25 +27,29 @@ import com.hodo.jjamtalk.Firebase.FirebaseData;
 public class MyProfileActivity extends AppCompatActivity {
     private EditText txt_Memo, txt_School, txt_Company, txt_Title;
     private ImageView Img_Sum;
-    private ImageView[] Img_Profiles = new ImageView[5];
+    private ImageView[] Img_Profiles = new ImageView[4];
     private int nImgNumber;
     private MyData mMyData = MyData.getInstance();
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReferenceFromUrl("gs://jamtalk-cf526.appspot.com/");
+    Activity activity = this;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Img_Sum = (ImageView)findViewById(R.id.MyProfile_SumImg);
+
+
         Img_Profiles[0] = (ImageView)findViewById(R.id.MyProfile_Img1);
         Img_Profiles[1] = (ImageView)findViewById(R.id.MyProfile_Img2);
         Img_Profiles[2] = (ImageView)findViewById(R.id.MyProfile_Img3);
         Img_Profiles[3] = (ImageView)findViewById(R.id.MyProfile_Img4);
-        Img_Profiles[4] = (ImageView)findViewById(R.id.MyProfile_Img5);
+        //Img_Profiles[4] = (ImageView)findViewById(R.id.MyProfile_Img5);
 
 
         View.OnClickListener listener = new View.OnClickListener()
@@ -56,37 +57,48 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
+
+                    case R.id.MyProfile_SumImg:
+                        startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
+
+                        //LoadImage(view, 5);
+                        break;
                     case R.id.MyProfile_Img1:
-                        LoadImage(view, 1);
+                        popUp();
+                    
+                        //LoadImage(view, 1);
                         break;
                     case R.id.MyProfile_Img2:
-                        LoadImage(view, 2);
+                        popUp();
+                        //LoadImage(view, 2);
                         break;
                     case R.id.MyProfile_Img3:
-                        LoadImage(view, 3);
+                        popUp();
+                        //LoadImage(view, 3);
                         break;
                     case R.id.MyProfile_Img4:
-                        LoadImage(view, 4);
+                        popUp();
+                        //LoadImage(view, 4);
                         break;
-                    case R.id.MyProfile_Img5:
-                        LoadImage(view, 5);
-                        break;
+
                 }
             }
         };
 
+        Img_Sum.setOnClickListener(listener);
         Img_Profiles[0].setOnClickListener(listener);
         Img_Profiles[1].setOnClickListener(listener);
         Img_Profiles[2].setOnClickListener(listener);
         Img_Profiles[3].setOnClickListener(listener);
-        Img_Profiles[4].setOnClickListener(listener);
+        //Img_Profiles[4].setOnClickListener(listener);*/
 
-        Glide.with(getApplicationContext())
+        /*Glide.with(getApplicationContext())
                 .load(mMyData.getUserImg())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(Img_Sum);
+                .into(Img_Sum);*/
 
         //for(int i = 0; i< mMyData.arrImgList.size(); i++) {
+        /*
         for(int i = 0; i< 5; i++) {
             if(mMyData.arrImgList.get(i) == null)
             {
@@ -113,10 +125,19 @@ public class MyProfileActivity extends AppCompatActivity {
         txt_Memo.setText(mMyData.getUserMemo());
         txt_School.setText(mMyData.getUserSchool());
         txt_Company.setText(mMyData.getUserCompany());
-        txt_Title.setText(mMyData.getUserTitle());
+        txt_Title.setText(mMyData.getUserTitle());*/
 
     }
 
+    private void popUp() {
+
+
+        ViewClickDialog dialog = new ViewClickDialog(activity);
+        dialog.show();
+
+
+    }
+/*
     @Override
     public void onBackPressed(){
 
@@ -126,10 +147,11 @@ public class MyProfileActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MyPageActivity.class);
         startActivity(intent);
         finish();
-    }
+    }*/
 
 
     private void LoadImage(View view, int i) {
+        
         nImgNumber = i;
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/"+mMyData.getUserIdx() + "/*");
@@ -189,5 +211,8 @@ public class MyProfileActivity extends AppCompatActivity {
         else
             mMyData.arrImgList.set(nImgNumber-1, uri.toString());
     }
+
+
+
 
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +21,6 @@ import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.NotiFunc;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -63,6 +60,12 @@ public class UserPageActivity extends AppCompatActivity {
         //private TextView txtProfile;
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
+            }
+        });
         Glide.with(getApplicationContext())
                 .load(stTargetData.Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

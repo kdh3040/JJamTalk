@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage;
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
-    FrameLayout layout_Ad;
 
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
@@ -80,10 +78,10 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(mWidth/5,LinearLayout.LayoutParams.MATCH_PARENT);
 
-        LinearLayout.LayoutParams lpForTopBar = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (mHeight*0.05));
-        LinearLayout.LayoutParams lpForAd = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (mHeight*0.1));
+        LinearLayout.LayoutParams lpForTopBar = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (mHeight*0.08));
+
         LinearLayout.LayoutParams lpForindicator = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (mHeight*0.05));
-        LinearLayout.LayoutParams lpForViewPager = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (mHeight*0.66));
+        LinearLayout.LayoutParams lpForViewPager = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (mHeight*0.72));
 
         LinearLayout.LayoutParams lpForIconMyPage = new LinearLayout.LayoutParams((int)(mWidth*0.1),LinearLayout.LayoutParams.MATCH_PARENT);
 
@@ -107,8 +105,7 @@ public class MainActivity extends AppCompatActivity {
         layout_topbar = (LinearLayout)findViewById(R.id.layout_topbar);
         layout_topbar.setLayoutParams(lpForTopBar);
 
-        layout_Ad = (FrameLayout) findViewById(R.id.flayout_ad);
-        layout_Ad.setLayoutParams(lpForAd);
+
 
         layout_lowbar = (LinearLayout)findViewById(R.id.layout_lowbar);
 
