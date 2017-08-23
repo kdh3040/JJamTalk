@@ -135,10 +135,6 @@ public class FirebaseData {
         tempData.Msg = strMemo.Msg;
 
         table.push().setValue(tempData);
-/*
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("arrReplyList", sendData.arrReplyList);
-        table.updateChildren(updateMap);*/
 
         return  true;
     }
@@ -168,13 +164,12 @@ public class FirebaseData {
     public void DelChatData(String Idx)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        Query queryRef = database.getReference("ChatData").orderByValue().equalTo(Idx).getRef();
+        Query queryRef = database.getReference("ChatData").orderByValue().equalTo(Idx);
 
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                snapshot.getRef().setValue(null);
-
+                snapshot.getRef().removeValue();
             }
 
             @Override
@@ -183,7 +178,6 @@ public class FirebaseData {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
             }
 
             @Override
@@ -200,7 +194,7 @@ public class FirebaseData {
     public void DelSendData(String Idx)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        Query queryRef = database.getReference("SendList").orderByChild("strSendName").equalTo(Idx).getRef();
+        Query queryRef = database.getReference("SendList").child(mMyData.getUserIdx()).orderByChild("strSendName").equalTo(Idx);
 
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override

@@ -29,15 +29,16 @@ public class ChatListActivity extends AppCompatActivity {
     private ArrayList<SendData> arrChatData = new ArrayList<>();
     Menu mMenu;
 
+    ChatListAdapter mAdapter = new ChatListAdapter();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
         chatListRecyclerView = (RecyclerView)findViewById(R.id.chat_list_recy);
 
-        chatListRecyclerView.setAdapter(new ChatListAdapter());
+        chatListRecyclerView.setAdapter(mAdapter);
         chatListRecyclerView.setLayoutManager(new LinearLayoutManager(this,1,false));
-
+        mAdapter.notifyDataSetChanged();
     }
 
 
@@ -72,6 +73,7 @@ public class ChatListActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
                     intent.putExtra("ChatData", mSendData);
                     startActivity(intent);
+                    finish();
 
                 }
             });

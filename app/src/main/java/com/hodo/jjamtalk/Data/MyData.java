@@ -18,6 +18,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -337,12 +338,26 @@ public class MyData {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                int saa =0;
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 int saa =0;
+                SendData SendList= dataSnapshot.getValue(SendData.class);
+                int index = arrSendNameList.indexOf(SendList.strSendName);
+                arrSendNameList.remove(index);
+
+                for(Iterator<SendData> it = arrSendDataList.iterator(); it.hasNext() ; )
+                {
+                    String value = it.next().strSendName;
+
+                    if(value.equals(SendList.strSendName))
+                    {
+                        it.remove();
+                    }
+                }
+
             }
 
             @Override

@@ -186,7 +186,7 @@ public class UserPageActivity extends AppCompatActivity {
                                     mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
                                     Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                 }
-
+                                dialog.dismiss();
 
                             }
                         });
@@ -235,13 +235,15 @@ public class UserPageActivity extends AppCompatActivity {
                                         mMyData.setUserHoney(mMyData.getUserHoney() - 5);
                                         Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                     }
+                                    alertDialog.dismiss();
                                 }
                             });
+
                         }
 
                         else
                         {
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                             alertDialogBuilder.setTitle("하트가 부족 합니다");
                             alertDialogBuilder.setMessage("하트를 구매하시겠습니까?")
                                     .setCancelable(true)
@@ -256,6 +258,7 @@ public class UserPageActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
                                                     startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+
                                                 }
                                             });
                             AlertDialog alertDialog = alertDialogBuilder.create();
@@ -277,7 +280,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     private void buildalertDialog(String s, String s1, String s2) {
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setTitle(s);
         alertDialogBuilder.setMessage(s1)
                 .setCancelable(true)
