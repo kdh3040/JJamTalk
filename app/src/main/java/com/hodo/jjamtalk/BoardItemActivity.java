@@ -1,43 +1,22 @@
 package com.hodo.jjamtalk;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.MyData;
-import com.hodo.jjamtalk.Data.TempBoardData;
-import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
-import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
-import com.hodo.jjamtalk.ViewHolder.BoardReplyPrivateHolder;
-import com.hodo.jjamtalk.ViewHolder.BoardReplyViewHolder;
-import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by mjk on 2017. 8. 14..
@@ -52,13 +31,14 @@ public class BoardItemActivity extends AppCompatActivity{
     RecyclerView recyclerView_board_reply;
     RecyclerView recyclerView_board_reply_private;
     Button btn_send;
-
+    ListView listView;
     TextView tv_Like, tv_Reply, tv_pagecount;
     ImageButton ib_vote_like,ib_warn;
 
     EditText et_reply;
     LinearLayout imageViewLayout;
     Toolbar toolbar;
+    BoardListAdapter adapter;
 
 
     TextView tv_Name, tv_Info, tv_Date, tv_Memo;
@@ -69,13 +49,23 @@ public class BoardItemActivity extends AppCompatActivity{
 
     int nPosition;
 
-    BoardItemActivity.ReplyAdapter Adapter = new BoardItemActivity.ReplyAdapter();
+    //BoardItemActivity.ReplyAdapter Adapter = new BoardItemActivity.ReplyAdapter();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_item);
 
+        View header = getLayoutInflater().inflate(R.layout.header_board_item,null,false);
+        View footer = getLayoutInflater().inflate(R.layout.footer_board_item,null,false);
+        listView = (ListView)findViewById(R.id.listview_board_reply);
+        adapter = new BoardListAdapter(getApplicationContext());
+        listView.addHeaderView(header);
+        listView.addFooterView(footer);
+        listView.setAdapter(adapter);
+
+
+        /*
         //toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         //toolbar.setTitle("허허참");
@@ -170,10 +160,19 @@ public class BoardItemActivity extends AppCompatActivity{
         });
 
         //setReplyData();
-
+        /*
             recyclerView_board_reply = (RecyclerView)findViewById(R.id.recyclerview_board_reply);
             recyclerView_board_reply.setAdapter(Adapter);
-            recyclerView_board_reply.setLayoutManager(new LinearLayoutManager(this));
+
+        //스크롤 못하게
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this){
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+
+        recyclerView_board_reply.setLayoutManager(linearLayoutManager);
 
         recyclerView_board_reply.addOnItemTouchListener(
                 new RecyclerItemClickListener(getApplicationContext(), recyclerView_board_reply, new RecyclerItemClickListener.OnItemClickListener() {
@@ -316,6 +315,6 @@ public class BoardItemActivity extends AppCompatActivity{
             }
 
             return false;
-        }
+        }*/
     }
 }
