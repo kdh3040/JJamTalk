@@ -81,6 +81,8 @@ public class MyData {
     public ArrayList<String> arrBlockNameList = new ArrayList<>();
     public ArrayList<BlockData> arrBlockDataList = new ArrayList<>();
 
+    public ArrayList<BlockData> arrBlockedDataList = new ArrayList<>();
+
 
     public ArrayList<String> arrRecvHoneyNameList = new ArrayList<>();
     public ArrayList<SendData> arrRecvHoneyDataList = new ArrayList<>();
@@ -572,11 +574,10 @@ public class MyData {
 
     public void makeBlockList(SendData blockList) {
 
-
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, user;
+        DatabaseReference table, user, target;
         table = database.getReference("BlockList");
+
 
         BlockData tempData = new BlockData();
 
@@ -585,17 +586,34 @@ public class MyData {
         tempData.strTargetMsg = blockList.strTargetMsg;
         tempData.strSendName = blockList.strSendName;
 
+        BlockData targetData = new BlockData();
+
+        targetData.strTargetImg = getUserImg();
+        targetData.strTargetNick = getUserNick();
+        targetData.strTargetMsg = getUserMemo();
+        targetData.strSendName = getUserIdx();
+
         int idx = blockList.strSendName.indexOf("_");
         String temp1 = blockList.strSendName.substring(0, idx);
         String temp2 = blockList.strSendName.substring(idx+1);
 
         if(getUserIdx().equals(temp1))
+        {
             tempData.strTargetName = temp2;
+            targetData.strTargetName = temp1;
+        }
         else
+        {
             tempData.strTargetName = temp1;
+            targetData.strTargetName = temp2;
+        }
 
         user = table.child(strIdx);
         user.push().setValue(tempData);
+
+        target = database.getReference("BlockedList").child(targetData.strTargetName );
+        //target = table
+        target.push().setValue(targetData);
     }
 
     public void getBlockList() {
@@ -613,6 +631,45 @@ public class MyData {
                 int saa =0;
                 blockList= dataSnapshot.getValue(BlockData.class);
                 arrBlockDataList.add(blockList);
+                //arrCardList.add(CardList);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa =0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
+    public void getBlockedList() {
+        String MyID =  strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("BlockedList");
+        user = table.child(strIdx);
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+                blockList= dataSnapshot.getValue(BlockData.class);
+                arrBlockedDataList.add(blockList);
                 //arrCardList.add(CardList);
             }
 

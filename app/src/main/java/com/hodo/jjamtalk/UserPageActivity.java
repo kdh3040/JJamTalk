@@ -97,115 +97,158 @@ public class UserPageActivity extends AppCompatActivity {
                         break;
                     case R.id.UserPage_btnGift:
 
-                        final int[] nSendHoneyCnt = new int[1];
-                        nSendHoneyCnt[0] = 0;
-                        View giftView = inflater.inflate(R.layout.alert_send_heart,null);
-                        builder.setView(giftView);
-                        final AlertDialog dialog = builder.create();
-                        dialog.show();
+                        int nSize =mMyData.arrBlockedDataList.size();
 
-                        TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
-                         Button btnHeartCharge =  giftView.findViewById(R.id.HeartPop_Charge);
-                         Button btnHeart100 = giftView.findViewById(R.id.HeartPop_100);
-                         Button btnHeart200 = giftView.findViewById(R.id.HeartPop_200);
-                         Button btnHeart300 = giftView.findViewById(R.id.HeartPop_300);
-                         Button btnHeart500 = giftView.findViewById(R.id.HeartPop_500);
-                         Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_1000);
-                         Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_5000);
-                        final TextView Msg = giftView.findViewById(R.id.HeartPop_Msg);
+                        for(int i = 0; i<nSize; i++) {
+                            if (mMyData.arrBlockedDataList.get(i).strTargetName.equals(stTargetData.Idx)) {
+                                // 블락됬습니다 표시
+                                final int[] nSendHoneyCnt = new int[1];
+                                nSendHoneyCnt[0] = 0;
+                                View giftView = inflater.inflate(R.layout.alert_send_heart,null);
+                                builder.setView(giftView);
+                                final AlertDialog dialog = builder.create();
+                                dialog.show();
 
-                        tvHeartCnt.setText("꿀 : " +  Integer.toString(mMyData.getUserHoney()) + " 개");
-                        Msg.setText("몇 개의 꿀을 보내시겠습니까?");
+                                TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
+                                tvHeartCnt.setText("선물 실패");
+                                final TextView Msg = giftView.findViewById(R.id.HeartPop_Msg);
+                                Msg.setText("당신은 차단되었습니다");
 
-
-                         btnHeartCharge.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+                                break;
                             }
-                        });
-
-                        btnHeart100.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 100;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                            }
-                        });
-
-                        btnHeart200.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 200;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                            }
-                        });
-
-                        btnHeart300.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 300;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                            }
-                        });
-
-                        btnHeart500.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 500;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                            }
-                        });
-
-                        btnHeart1000.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 1000;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                            }
-                        });
-
-                        btnHeart5000.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 5000;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                            }
-                        });
+                        }
 
 
+                                final int[] nSendHoneyCnt = new int[1];
+                                nSendHoneyCnt[0] = 0;
+                                View giftView = inflater.inflate(R.layout.alert_send_heart,null);
+                                builder.setView(giftView);
+                                final AlertDialog dialog = builder.create();
+                                dialog.show();
+
+                                TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
+                                Button btnHeartCharge =  giftView.findViewById(R.id.HeartPop_Charge);
+                                Button btnHeart100 = giftView.findViewById(R.id.HeartPop_100);
+                                Button btnHeart200 = giftView.findViewById(R.id.HeartPop_200);
+                                Button btnHeart300 = giftView.findViewById(R.id.HeartPop_300);
+                                Button btnHeart500 = giftView.findViewById(R.id.HeartPop_500);
+                                Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_1000);
+                                Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_5000);
+                                final TextView Msg = giftView.findViewById(R.id.HeartPop_Msg);
+
+                                tvHeartCnt.setText("꿀 : " +  Integer.toString(mMyData.getUserHoney()) + " 개");
+                                Msg.setText("몇 개의 꿀을 보내시겠습니까?");
 
 
-                        Button btn_gift_send= giftView.findViewById(R.id.btn_gift_send);
-                        btn_gift_send.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
+                                btnHeartCharge.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+                                    }
+                                });
 
-                                boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0]);
-                                rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0]);
+                                btnHeart100.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        nSendHoneyCnt[0] = 100;
+                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                    }
+                                });
 
-                                if(rtValuew == true) {
-                                    mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
-                                    mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
-                                    Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
-                                }
-                                dialog.dismiss();
+                                btnHeart200.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        nSendHoneyCnt[0] = 200;
+                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                    }
+                                });
 
-                            }
-                        });
-                        Button btn_gift_cancel= giftView.findViewById(R.id.btn_gift_cancel);
-                        btn_gift_cancel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
+                                btnHeart300.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        nSendHoneyCnt[0] = 300;
+                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                    }
+                                });
 
-                                dialog.dismiss();
+                                btnHeart500.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        nSendHoneyCnt[0] = 500;
+                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                    }
+                                });
 
-                            }
-                        });
+                                btnHeart1000.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        nSendHoneyCnt[0] = 1000;
+                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                    }
+                                });
+
+                                btnHeart5000.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        nSendHoneyCnt[0] = 5000;
+                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                    }
+                                });
+
+                                Button btn_gift_send= giftView.findViewById(R.id.btn_gift_send);
+                                btn_gift_send.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0]);
+                                        rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0]);
+
+                                        if(rtValuew == true) {
+                                            mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                            mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
+                                            Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                        }
+                                        dialog.dismiss();
+
+                                    }
+                                });
+                                Button btn_gift_cancel= giftView.findViewById(R.id.btn_gift_cancel);
+                                btn_gift_cancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        dialog.dismiss();
+
+                                    }
+                                });
+
                         //ClickBtnSendHeart();
                         break;
 
                     case R.id.UserPage_btnMessage:
+
+                        nSize =mMyData.arrBlockedDataList.size();
+
+                        for(int i = 0; i<nSize; i++) {
+                            if (mMyData.arrBlockedDataList.get(i).strTargetName.equals(stTargetData.Idx)) {
+                                // 블락됬습니다 표시
+                                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                                alertDialogBuilder.setTitle("쪽지 전송 실패");
+                                alertDialogBuilder.setMessage("차단 되었습니다")
+                                        .setCancelable(true)
+                                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.cancel();
+                                            }
+                                        });
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                alertDialog.show();
+
+                                break;
+                            }
+                        }
+
 
                         if(mMyData.getUserHoney() > 5)
                         {
