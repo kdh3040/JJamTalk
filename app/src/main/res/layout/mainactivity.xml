@@ -29,14 +29,16 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="꿀톡" />
+            android:text="꿀톡"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/iv_refresh"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/board_icon" />
+            app:srcCompat="@drawable/icon_refresh" />
 
     </LinearLayout>
 
@@ -66,13 +68,6 @@
 
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/ib_home"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
-            app:srcCompat="@drawable/icon_postbox" />
 
         <ImageButton
             android:id="@+id/ib_honey"

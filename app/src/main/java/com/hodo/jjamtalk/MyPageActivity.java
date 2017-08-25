@@ -82,6 +82,8 @@ public class MyPageActivity extends AppCompatActivity {
         });
     }
 
+
+
     @Override
     public void onStart()
     {

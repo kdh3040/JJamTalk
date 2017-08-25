@@ -3,24 +3,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@android:style/Widget.DeviceDefault.Light.ScrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-        <Button
-            android:id="@+id/Setting_btnHeart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-            android:text="하트 구입하기"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,20 +86,59 @@
         </LinearLayout>
 
 
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="화면 보기 개수"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_blocklist"
-                android:layout_width="match_parent"
+            <RadioButton
+                android:id="@+id/rb_2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="차단 목록 관리"
-                android:textColor="@android:color/holo_red_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_weight="1"
+                android:text="2개씩" />
+
+            <RadioButton
+                android:id="@+id/rb_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="3개씩" />
+
+            <RadioButton
+                android:id="@+id/rb_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="4개씩" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_blocklist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="차단 목록 관리"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="잼톡 공유하기" />
 
         <Button
             android:id="@+id/Setting_btnHelp"
@@ -119,13 +148,13 @@
             android:background="@color/white"
             android:text="도움말 및 고객 지원" />
 
-        <TextView
-            android:id="@+id/Setting_txtShare"
+        <Button
+            android:id="@+id/Setting_btnHeart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@color/white"
-            android:text="잼톡 공유하기 텍스트 온클릭"
+            android:text="하트 구입하기"
             android:textColor="@android:color/holo_red_light"
             android:textSize="18sp"
             android:textStyle="bold" />
