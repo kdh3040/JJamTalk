@@ -52,10 +52,12 @@ public class Rank_RichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
 
         holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(mUIData.getWidth()/mSetting.getViewCount())));
-        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
-
+        //holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
+        //holder.iv_honey_rank.setLayoutParams(new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2)));
         holder.iv_profile.setImageResource(R.mipmap.girl1);
-        holder.textView.setVisibility(View.INVISIBLE);
+
+        holder.iv_honey_rank.setImageResource(R.drawable.vip);
+        //holder.textView.setVisibility(View.INVISIBLE);
 
         Log.d("Guide !!!! ", "Start");
         int i = position;
