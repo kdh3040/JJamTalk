@@ -23,9 +23,9 @@
         android:id="@+id/tv_honeycount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/iv_honeyjar"
+        android:layout_alignBottom="@+id/iv_my_card"
         android:layout_alignParentRight="false"
-        android:layout_toLeftOf="@+id/iv_honeyjar"
+        android:layout_toLeftOf="@+id/iv_my_card"
         android:gravity="center"
         android:text="3470"
         android:textColor="@color/colorAccent"
@@ -33,7 +33,7 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/iv_honeyjar"
+        android:id="@+id/iv_my_card"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
