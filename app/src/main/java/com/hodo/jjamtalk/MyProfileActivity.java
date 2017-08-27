@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -210,6 +212,21 @@ public class MyProfileActivity extends AppCompatActivity {
             mMyData.arrImgList.add(uri.toString());
         else
             mMyData.arrImgList.set(nImgNumber-1, uri.toString());
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_edit_profile,menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_save){
+            //프로필 저장 구현
+            Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

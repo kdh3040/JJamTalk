@@ -39,7 +39,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     private Button btnRegister;
     private Button btnGift;
-    private Button btnLike;
+
     private Button btnMessage;
 
     private ImageView imgProfile;
@@ -77,7 +77,7 @@ public class UserPageActivity extends AppCompatActivity {
 
         btnRegister = (Button) findViewById(R.id.UserPage_btnRegister);
         btnGift = (Button) findViewById(R.id.UserPage_btnGift);
-        btnLike = (Button) findViewById(R.id.UserPage_btnLike);
+
         btnMessage = (Button) findViewById(R.id.UserPage_btnMessage);
 
 
@@ -224,12 +224,7 @@ public class UserPageActivity extends AppCompatActivity {
 
                         //ClickBtnSendHeart();
                         break;
-                    case R.id.UserPage_btnLike:
 
-                        Toast.makeText(context,"좋아요를 눌렀습니다",Toast.LENGTH_SHORT).show();
-                        mNotiFunc.SendHeartToFCM(stTargetData, 1);
-
-                        break;
                     case R.id.UserPage_btnMessage:
 
                         nSize =mMyData.arrBlockedDataList.size();
@@ -319,7 +314,7 @@ public class UserPageActivity extends AppCompatActivity {
 
         btnRegister.setOnClickListener(listener);
         btnGift.setOnClickListener(listener);
-        btnLike.setOnClickListener(listener);
+
         btnMessage.setOnClickListener(listener);
 
     }

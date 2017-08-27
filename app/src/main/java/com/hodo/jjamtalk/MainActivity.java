@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     SpringIndicator springIndicator;
     ScrollerViewPager viewPager;
     ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage;
+    ImageView iv_refresh;
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
 
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ScrollerViewPager)findViewById(R.id.view_pager);
         springIndicator = (SpringIndicator)findViewById(R.id.indicator);
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(mWidth/5,LinearLayout.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(mWidth/4,LinearLayout.LayoutParams.MATCH_PARENT);
 
         LinearLayout.LayoutParams lpForTopBar = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (mHeight*0.08));
 
@@ -86,6 +88,13 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout.LayoutParams lpForIconMyPage = new LinearLayout.LayoutParams((int)(mWidth*0.1),LinearLayout.LayoutParams.MATCH_PARENT);
 
         LinearLayout.LayoutParams lpForMainTitle = new LinearLayout.LayoutParams((int) (mWidth*0.8),LinearLayout.LayoutParams.MATCH_PARENT);
+
+        iv_refresh = (ImageView)findViewById(R.id.iv_refresh);
+        iv_refresh.setLayoutParams(lpForIconMyPage);
+
+
+
+
 
         tv_MainTitle = (TextView)findViewById(R.id.tv_maintitle);
         tv_MainTitle.setLayoutParams(lpForMainTitle);
@@ -110,14 +119,14 @@ public class MainActivity extends AppCompatActivity {
         layout_lowbar = (LinearLayout)findViewById(R.id.layout_lowbar);
 
 
-        ib_home = (ImageButton) findViewById(R.id.ib_home);
+        /*ib_home = (ImageButton) findViewById(R.id.ib_home);
         ib_home.setLayoutParams(lp);
         ib_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
             }
-        });
+        });*/
 
         //ib_home.setLayoutParams(params);
         ib_board = (ImageButton)findViewById(R.id.ib_board);
@@ -162,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         PagerModelManager manager = new PagerModelManager();
         manager.addFragment(new Rank_NearFragment(),"Near");
         manager.addFragment(new Rank_NewMemberFragment(),"New");
-        manager.addFragment(new Rank_HotFragment(),"인기");
+        //manager.addFragment(new Rank_HotFragment(),"인기");
         manager.addFragment(new Rank_RichFragment(),"꿀 부자");
         manager.addFragment(new Rank_HoneyReceiveFragment(),"받은 꿀");
 
