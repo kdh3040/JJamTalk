@@ -1,8 +1,11 @@
 package com.hodo.jjamtalk;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
@@ -28,17 +32,21 @@ public class ChatListActivity extends AppCompatActivity {
     private ArrayList<String> arrChatNameData = new ArrayList<>();
     private ArrayList<SendData> arrChatData = new ArrayList<>();
     Menu mMenu;
+    Context mContext;
+    LinearLayout layout_chatlist;
 
     ChatListAdapter mAdapter = new ChatListAdapter();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
+        mContext = this;
         chatListRecyclerView = (RecyclerView)findViewById(R.id.chat_list_recy);
 
         chatListRecyclerView.setAdapter(mAdapter);
         chatListRecyclerView.setLayoutManager(new LinearLayoutManager(this,1,false));
         mAdapter.notifyDataSetChanged();
+
     }
 
 
@@ -49,6 +57,7 @@ public class ChatListActivity extends AppCompatActivity {
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_chat_list,parent,false);
 
 
+
             return new ChatListViewHolder(view);
         }
 
@@ -57,6 +66,31 @@ public class ChatListActivity extends AppCompatActivity {
             int i = position;
 
             holder.imageView.setImageResource(R.mipmap.girl1);
+            holder.linearLayout.setLongClickable(true);
+
+            holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    AlertDialog.Builder br = new AlertDialog.Builder(mContext);
+                    br.setTitle("채팅방에서 나가시겠습니까?");
+                    br.setMessage("나가기를 하면 대화 내용 및 채팅방 정보가 모두 삭제됩니다.");
+                    br.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // 취소 구현
+                        }
+                    }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //확인 구현
+                        }
+                    });
+                    AlertDialog dialog = br.create();
+                    dialog.show();
+                    return false;
+                }
+            });
+
 
 
 
@@ -64,7 +98,7 @@ public class ChatListActivity extends AppCompatActivity {
             arrChatData.add(mMyData.arrSendDataList.get(i));
             holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
             holder.nickname.setText(mMyData.arrSendDataList.get(i).strTargetNick);
-            holder.textView.setOnClickListener(new View.OnClickListener() {
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String strCharName = arrChatNameData.get(position);
@@ -73,7 +107,7 @@ public class ChatListActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
                     intent.putExtra("ChatData", mSendData);
                     startActivity(intent);
-                    finish();
+                    //finish();
 
                 }
             });

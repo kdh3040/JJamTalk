@@ -18,7 +18,7 @@ public class MailboxViewHolder extends RecyclerView.ViewHolder{
 
     public MailboxViewHolder(View itemView) {
         super(itemView);
-        imageView = itemView.findViewById(R.id.iv_honeyjar);
+        imageView = itemView.findViewById(R.id.iv_my_card);
         textView = itemView.findViewById(R.id.tv_honeycount);
     }
 }
