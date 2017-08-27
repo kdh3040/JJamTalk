@@ -4,228 +4,225 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-<LinearLayout
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/UserPage_ImgProfile"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@mipmap/hdvd" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentRight="true"
-            android:layout_weight="7"
-            app:srcCompat="@drawable/honeyicon" />
-
-        <TextView
-            android:id="@+id/UserPage_txtHeart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/UserPage_ImgProfile"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentTop="false"
-            android:layout_toLeftOf="@+id/imageView4"
-            android:layout_weight="7"
-            android:text="300"
-            android:textColor="@color/white" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        >
-
-        <TextView
-            android:id="@+id/UserPage_txtProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_weight="7"
-            android:text="상희, 28"
-            android:textSize="24sp" />
-
-        <ImageButton
-            android:id="@+id/UserPage_btnShared"
-            style="@android:style/Widget.Holo.Light.ImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:elevation="0dp"
-            android:outlineProvider="bounds"
-            app:srcCompat="@drawable/share_icon" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/UserPage_txtMemo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:text="한국대학교에 다니고요 학생이고요\n같이놉시다" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView33"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="상희 님의 꿀팬"
-                android:textColor="@android:color/holo_purple"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView32"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="선수" />
-
-            <TextView
-                android:id="@+id/textView31"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="광희" />
-
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="나미" />
-
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="기자" />
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="뚝배" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="100dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView38"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="오늘의 꿀팬"
-                android:textColor="@android:color/holo_red_light"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textView39"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="히코" />
-
-            <TextView
-                android:id="@+id/textView37"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="울보" />
-
-            <TextView
-                android:id="@+id/textView36"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="영득" />
-
-            <TextView
-                android:id="@+id/textView35"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="코모리" />
-
-            <TextView
-                android:id="@+id/textView34"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="아쟁" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/UserPage_ImgProfile"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@mipmap/hdvd" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentRight="true"
+                android:layout_weight="7"
+                app:srcCompat="@drawable/honeyicon" />
+
+            <TextView
+                android:id="@+id/UserPage_txtHeart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/UserPage_ImgProfile"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentTop="false"
+                android:layout_toLeftOf="@+id/imageView4"
+                android:layout_weight="7"
+                android:text="300"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/iv_rank"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/vip" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/UserPage_txtProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_weight="7"
+                android:text="상희, 28"
+                android:textSize="24sp" />
+
+            <ImageButton
+                android:id="@+id/UserPage_btnShared"
+                style="@android:style/Widget.Holo.Light.ImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:elevation="0dp"
+                android:outlineProvider="bounds"
+                app:srcCompat="@drawable/share_icon" />
+
+        </RelativeLayout>
+
         <TextView
-            android:id="@+id/UserPage_Insta"
+            android:id="@+id/textView34"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="140장의 instagram 사진" />
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="7dp"
+            android:text="15km 거리에 있음" />
+        <View style="@style/Divider" />
 
-        <GridView
+        <TextView
+            android:id="@+id/UserPage_txtMemo"
             android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:text="한국대학교에 다니고요 학생이고요\n같이놉시다" />
+        <View style="@style/Divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView33"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="상희 님의 꿀팬"
+                    android:textColor="@android:color/holo_purple"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="선수" />
+
+                <TextView
+                    android:id="@+id/textView31"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="광희" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="나미" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="기자" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="뚝배" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="100dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView38"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="오늘의 최다 선물"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView39"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3000꿀" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <View style="@style/Divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/UserPage_Insta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="140장의 instagram 사진" />
+
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/UserPage_btnRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="내 카드에 등록" />
+
+            <Button
+                android:id="@+id/UserPage_btnGift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="선물하기" />
+
+            <Button
+                android:id="@+id/UserPage_btnMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="쪽지쓰기" />
+
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/UserPage_btnRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="내 카드에 등록" />
-
-        <Button
-            android:id="@+id/UserPage_btnGift"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="선물하기" />
-
-        <Button
-            android:id="@+id/UserPage_btnMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="쪽지쓰기" />
-
-    </LinearLayout>
-</LinearLayout>
 </ScrollView>

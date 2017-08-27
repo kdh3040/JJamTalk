@@ -12,78 +12,60 @@
         android:orientation="vertical">
 
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView23"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-            android:orientation="vertical">
+            android:layout_marginBottom="7dp"
+            android:text="검색"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView23"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:text="검색"
-                android:textColor="@android:color/holo_red_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <Switch
-                android:id="@+id/Setting_swMan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:text="남자" />
-
-            <Switch
-                android:id="@+id/Setting_swWoman"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:text="여자" />
-        </LinearLayout>
-
-        <LinearLayout
+        <Switch
+            android:id="@+id/Setting_swWoman"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-            android:orientation="vertical">
+            android:layout_marginBottom="7dp"
+            android:text="여자" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:text="알림"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="@android:color/holo_red_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+        <Switch
+            android:id="@+id/Setting_swMan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:text="남자" />
 
-            <Switch
-                android:id="@+id/Setting_swNoti"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:text="쪽지" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:text="알림"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <Switch
-                android:id="@+id/Setting_swFollow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:text="팔로우" />
+        <Switch
+            android:id="@+id/Setting_swLike"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="좋아요" />
 
-            <Switch
-                android:id="@+id/Setting_swLike"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="좋아요" />
+        <Switch
+            android:id="@+id/Setting_swFollow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:text="팔로우" />
 
-
-        </LinearLayout>
+        <Switch
+            android:id="@+id/Setting_swNoti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:text="쪽지" />
 
 
         <TextView
@@ -138,7 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:text="잼톡 공유하기" />
+            android:text="꿀톡 공유하기" />
 
         <Button
             android:id="@+id/Setting_btnHelp"
@@ -159,43 +141,34 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView13"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="법적 고지"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="법적 고지"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="라이선스" />
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="라이선스" />
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="개인정보 취급방침" />
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="개인정보 취급방침" />
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="이용약관" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="이용약관" />
 
         <Button
             android:id="@+id/Setting_btnLogout"
