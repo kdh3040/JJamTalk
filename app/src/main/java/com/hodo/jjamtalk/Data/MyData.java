@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
@@ -75,6 +76,10 @@ public class MyData {
     private String strSchool;
     private String strCompany;
     private String strTitle;
+
+    public int nSearchMode;
+    public int nAlarmMode;
+    public int nViewMode;
 
     public ArrayList<String> arrImgList = new ArrayList<>();
 
@@ -447,6 +452,12 @@ public class MyData {
         strTitle = title.toString();
     }
 
+    public void setSettingData(int SearchMode, int AlarmMode, int ViewMode) {
+        nSearchMode = SearchMode;
+        nAlarmMode= AlarmMode;
+        nViewMode = ViewMode;
+    }
+
     public void getRecvHoneyList() {
         String MyID =  strIdx;
 
@@ -611,7 +622,7 @@ public class MyData {
         user = table.child(strIdx);
         user.push().setValue(tempData);
 
-        target = database.getReference("BlockedList").child(targetData.strTargetName );
+        target = database.getReference("BlockedList").child(tempData.strTargetName );
         //target = table
         target.push().setValue(targetData);
     }
@@ -694,4 +705,79 @@ public class MyData {
         });
     }
 
+
+    public void delBlockList(SendData blockList) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user, target;
+        table = database.getReference("BlockList");
+
+
+        BlockData tempData = new BlockData();
+
+        tempData.strTargetImg = blockList.strTargetImg;
+        tempData.strTargetNick = blockList.strTargetNick;
+        tempData.strTargetMsg = blockList.strTargetMsg;
+        tempData.strSendName = blockList.strSendName;
+
+        BlockData targetData = new BlockData();
+
+        targetData.strTargetImg = getUserImg();
+        targetData.strTargetNick = getUserNick();
+        targetData.strTargetMsg = getUserMemo();
+        targetData.strSendName = getUserIdx();
+
+        int idx = blockList.strSendName.indexOf("_");
+        String temp1 = blockList.strSendName.substring(0, idx);
+        String temp2 = blockList.strSendName.substring(idx+1);
+
+        if(getUserIdx().equals(temp1))
+        {
+            tempData.strTargetName = temp2;
+            targetData.strTargetName = temp1;
+        }
+        else
+        {
+            tempData.strTargetName = temp1;
+            targetData.strTargetName = temp2;
+        }
+
+        user = table.child(strIdx);
+        user.push().setValue(tempData);
+
+        target = database.getReference("BlockedList").child(tempData.strTargetName );
+        //target = table
+        target.push().setValue(targetData);
+    }
+
+    public void getSetting() {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("Setting");
+        user = table.child(strIdx);
+
+
+        user.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        TempSettingData stRecvData = new TempSettingData ();
+                        stRecvData = dataSnapshot.getValue(TempSettingData.class);
+                        if(stRecvData != null) {
+                            nSearchMode = stRecvData.SearchMode;
+                            nAlarmMode = stRecvData.AlarmMode;
+                            nViewMode = stRecvData.ViewMode;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                    }
+                });
+
+    }
 }

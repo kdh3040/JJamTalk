@@ -28,6 +28,7 @@ public class Rank_RichFragment extends Fragment {
     private SettingData mSetting = SettingData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
     public UserData stTargetData = new UserData();
+    private SettingData mSettingData = SettingData.getInstance();
 
     RecyclerView recyclerView;
     @Nullable
@@ -36,7 +37,7 @@ public class Rank_RichFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rank, container, false);
         recyclerView = view.findViewById(R.id.rank_recyclerview);
         recyclerView.setAdapter(new Rank_RichAdapter(getContext()));
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {

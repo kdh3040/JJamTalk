@@ -36,7 +36,7 @@ public class Rank_HotFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_hot, container, false);
         recyclerView = view.findViewById(R.id.hot_recyclerview);
         recyclerView.setAdapter(new Rank_HotAdapter(getContext()));
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSetting.getViewCount()));
 
 
         recyclerView.addOnItemTouchListener(

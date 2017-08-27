@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.AppStatus;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
     private UIData mUIData = UIData.getInstance();
+    private SettingData mSetting = SettingData.getInstance();
 
     ArrayList<Class> arrFragment = new ArrayList<>();
 
