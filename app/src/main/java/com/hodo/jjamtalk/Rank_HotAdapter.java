@@ -59,8 +59,8 @@ class Rank_HotAdapter extends RecyclerView.Adapter <GridUserViewHolder>
        // holder.textView.setText("핫멤버, 25, 20km");
         //holder.iv_profile.setImageResource(R.drawable.bg1);
 
-        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(mUIData.getWidth()/3)));
-        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
+        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(mUIData.getWidth()/mSetting.getViewCount())));
+        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
         holder.iv_honey_rank.setVisibility(View.INVISIBLE);
 
 

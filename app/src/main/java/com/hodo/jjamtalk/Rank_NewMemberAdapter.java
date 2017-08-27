@@ -45,8 +45,8 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
 
-        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/2,(int)((mUIData.getWidth()/2)*1.2)));
-        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/2,(int)((mUIData.getWidth()/2)*0.2)));
+        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*1.2)));
+        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
         //holder.textView.setText("뉴멤버, 25, 20km");
         holder.iv_profile.setImageResource(R.mipmap.ic_launcher);
         holder.iv_honey_rank.setVisibility(View.INVISIBLE);

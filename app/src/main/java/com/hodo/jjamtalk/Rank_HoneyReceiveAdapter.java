@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Util.AppStatus;
 import com.hodo.jjamtalk.ViewHolder.GridUserViewHolder;
@@ -20,6 +21,7 @@ public class Rank_HoneyReceiveAdapter extends RecyclerView.Adapter<GridUserViewH
     Context mContext;
     private AppStatus mAppStatus = AppStatus.getInstance();
     private UIData mUIData = UIData.getInstance();
+    private SettingData mSetting = SettingData.getInstance();
 
     public Rank_HoneyReceiveAdapter(Context context) {
         mContext = context;
@@ -47,8 +49,8 @@ public class Rank_HoneyReceiveAdapter extends RecyclerView.Adapter<GridUserViewH
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, int position) {
 
-        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*1.2)));
-        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
+        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*1.2)));
+        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
         holder.textView.setText("100만 꿀");
         holder.iv_honey_rank.setVisibility(View.INVISIBLE);
 

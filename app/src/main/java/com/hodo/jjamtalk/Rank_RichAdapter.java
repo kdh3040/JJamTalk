@@ -51,8 +51,8 @@ public class Rank_RichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
 
-        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/2,(mUIData.getWidth()/2)));
-        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/3,(int)((mUIData.getWidth()/3)*0.2)));
+        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(mUIData.getWidth()/mSetting.getViewCount())));
+        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
 
         holder.iv_profile.setImageResource(R.mipmap.girl1);
         holder.textView.setVisibility(View.INVISIBLE);
