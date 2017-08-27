@@ -64,6 +64,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.BoardData;
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
@@ -504,6 +505,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     Log.d(TAG, "Sing in Account:" + task.isSuccessful());
                                     if(task.isSuccessful()){
+                                        InitData_Fan();
                                         InitData_Recv();
                                         InitData_Send();
                                         InitData_New();
@@ -547,6 +549,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getBlockList();
                             mMyData.getBlockedList();
 
+                            InitData_Fan();
                             InitData_Recv();
                             InitData_Send();
                             InitData_New();
@@ -591,6 +594,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getBlockList();
                             mMyData.getBlockedList();
                             //mMyData.getSendData();
+                            InitData_Fan();
                             InitData_Recv();
                             InitData_Send();
                             InitData_New();
@@ -604,6 +608,38 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
                     }
                 });
+    }
+
+    private void InitData_Fan() {
+        DatabaseReference refMan, refWoman;
+        refMan = FirebaseDatabase.getInstance().getReference().child("FanList").child(mMyData.getUserIdx());
+        Query query=refMan.orderByChild("Count");//키가 id와 같은걸 쿼리로 가져옴
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                            FanData stRecvData = new FanData ();
+                            stRecvData = fileSnapshot.getValue(FanData.class);
+                            if(stRecvData != null) {
+
+                                mMyData.arrUserAll_Fan.add(stRecvData);
+                                Log.d("Login Man_Rank : ", mMyData.arrUserMan_Recv.get(i).NickName);
+                            }
+                            i++;
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+
+                });
+
+
     }
 
     private void InitData_Recv() {
