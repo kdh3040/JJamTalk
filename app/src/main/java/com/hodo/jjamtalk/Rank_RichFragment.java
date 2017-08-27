@@ -25,7 +25,6 @@ import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 public class Rank_RichFragment extends Fragment {
 
     private MyData mMyData = MyData.getInstance();
-    private SettingData mSetting = SettingData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
     public UserData stTargetData = new UserData();
     private SettingData mSettingData = SettingData.getInstance();
@@ -45,16 +44,16 @@ public class Rank_RichFragment extends Fragment {
                     public void onItemClick(View view, int position) {
                         Toast.makeText(view.getContext(), position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
                         if(mAppStatus.bCheckMultiSend == false) {
-                            switch (mSetting.getnSearchSetting())
+                            switch (mSettingData.getnSearchSetting())
                             {
                                 case 1:
-                                    stTargetData = mMyData.arrUserMan_Rank.get(position);
+                                    stTargetData = mMyData.arrUserMan_Send.get(position);
                                     break;
                                 case 2:
-                                    stTargetData = mMyData.arrUserWoman_Rank.get(position);
+                                    stTargetData = mMyData.arrUserWoman_Send.get(position);
                                     break;
                                 case 3:
-                                    stTargetData = mMyData.arrUserAll_Rank.get(position);
+                                    stTargetData = mMyData.arrUserAll_Send.get(position);
                                     break;
                             }
 

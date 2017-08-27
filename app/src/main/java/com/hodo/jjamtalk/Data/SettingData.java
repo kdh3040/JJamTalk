@@ -36,7 +36,16 @@ public class SettingData {
     }
     public int getnAlarmSetting()
     {
-        return   mMyData.nAlarmMode;
+        int rtValue = 0;
+
+/*        if(mMyData.nAlarmMode == 0)
+        {
+            rtValue = 7;
+        }
+        else*/
+            rtValue = mMyData.nAlarmMode;
+
+        return   rtValue;
     }
 
     public  void setnSearchSetting(int Option)
@@ -46,7 +55,18 @@ public class SettingData {
     }
     public int getnSearchSetting()
     {
-        return  mMyData.nSearchMode;
+        int rtValue = 0;
+        if(mMyData.nSearchMode == 0)
+        {
+            if(mMyData.getUserGender().equals("여자"))
+                rtValue = 1;
+            else
+                rtValue = 2;
+        }
+        else
+            rtValue = mMyData.nSearchMode;
+
+        return  rtValue;
     }
 
     public  void setnViewSetting(int Option)
@@ -56,7 +76,15 @@ public class SettingData {
     }
     public int getnViewSetting()
     {
-        return  mMyData.nViewMode;
+        int rtValue = 0;
+        if(mMyData.nViewMode == 0)
+        {
+           rtValue = 1;
+        }
+        else
+            rtValue = mMyData.nViewMode;
+
+        return  rtValue;
     }
     public int getViewCount()
     {

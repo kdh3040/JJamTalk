@@ -175,9 +175,9 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.setUserNick(strNickName);
                     mFireBaseData.SaveData(mMyData.getUserIdx());
                     bMySet = true;
-                    InitData_Rank();
+                    InitData_Recv();
                     InitData_New();
-                    InitData_Hot();
+                    InitData_Send();
                     InitData_Near();
                     /*Intent intent = new Intent(InputProfile.this, MainActivity.class);
                     startActivity(intent);*/
@@ -202,10 +202,10 @@ public class InputProfile extends AppCompatActivity {
     }
 
 
-    private void InitData_Rank() {
+    private void InitData_Recv() {
         DatabaseReference refMan, refWoman;
         refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
-        Query query=refMan.orderByChild("Rank");//키가 id와 같은걸 쿼리로 가져옴
+        Query query=refMan.orderByChild("RecvCount");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -215,67 +215,39 @@ public class InputProfile extends AppCompatActivity {
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
-                                mMyData.arrUserMan_Rank.add(stRecvData);
-                                mMyData.arrUserAll_Rank.add(stRecvData);
-                                Log.d("Login Man_Rank : ", mMyData.arrUserMan_Rank.get(i).NickName);
+
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
+
+                                mMyData.arrUserMan_Recv.add(stRecvData);
+                                mMyData.arrUserAll_Recv.add(stRecvData);
+                                Log.d("Login Man_Rank : ", mMyData.arrUserMan_Recv.get(i).NickName);
                             }
                             i++;
+
                         }
-
-                        if(nUserSet != 4)
-                            nUserSet+=1;
-
-                        else if(nUserSet == 4 && bMySet == true){
-                            Log.d(TAG, "Account Log in  Complete");
-                            GoMainPage();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                    }
-                });
-
-        refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
-        query=refWoman.orderByChild("Rank");//키가 id와 같은걸 쿼리로 가져옴
-        query.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
-                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
-                                mMyData.arrUserWoman_Rank.add(stRecvData);
-                                mMyData.arrUserAll_Rank.add(stRecvData);
-                                Log.d("Login Woman_Rank : ", mMyData.arrUserWoman_Rank.get(i).NickName);
-                            }
-                        }
-
 
                         if(nUserSet != 8)
                             nUserSet += 1;
-                        else if(nUserSet == 7 && bMySet == true){
+                        if(nUserSet == 8 && bMySet == true){
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
                         }
+
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                    }
-                });
-    }
 
-    private void InitData_Hot() {
-        DatabaseReference refMan, refWoman;
-        refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
-        Query query=refMan.orderByChild("Hot");//키가 id와 같은걸 쿼리로 가져옴
+                    }
+
+                });
+
+        refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
+        query=refWoman.orderByChild("RecvCount");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -285,9 +257,56 @@ public class InputProfile extends AppCompatActivity {
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
-                                mMyData.arrUserMan_Hot.add(stRecvData);
-                                mMyData.arrUserAll_Hot.add(stRecvData);
-                                Log.d("Login arrUserMan_Hot : ", mMyData.arrUserMan_Hot.get(i).NickName);
+
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
+
+                                mMyData.arrUserWoman_Recv.add(stRecvData);
+                                mMyData.arrUserAll_Recv.add(stRecvData);
+                                Log.d("Login Woman_Rank : ", mMyData.arrUserWoman_Recv.get(i).NickName);
+                            }
+                        }
+
+                        if(nUserSet != 8)
+                            nUserSet += 1;
+                        if(nUserSet == 8 && bMySet == true){
+                            Log.d(TAG, "Account Log in  Complete");
+                            GoMainPage();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+
+                });
+    }
+
+    private void InitData_Send() {
+        DatabaseReference refMan, refWoman;
+        refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
+        Query query=refMan.orderByChild("SendCount");//키가 id와 같은걸 쿼리로 가져옴
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                            UserData stRecvData = new UserData ();
+                            stRecvData = fileSnapshot.getValue(UserData.class);
+                            if(stRecvData != null) {
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
+                                mMyData.arrUserMan_Send.add(stRecvData);
+                                mMyData.arrUserAll_Send.add(stRecvData);
+                                Log.d("Login arrUserMan_Hot : ", mMyData.arrUserMan_Send.get(i).NickName);
                             }
                             i++;
                         }
@@ -308,7 +327,7 @@ public class InputProfile extends AppCompatActivity {
                 });
 
         refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
-        query=refWoman.orderByChild("Hot");//키가 id와 같은걸 쿼리로 가져옴
+        query=refWoman.orderByChild("SendCount");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -318,12 +337,16 @@ public class InputProfile extends AppCompatActivity {
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
                             if(stRecvData != null) {
-                                mMyData.arrUserWoman_Hot.add(stRecvData);
-                                mMyData.arrUserAll_Hot.add(stRecvData);
-                                Log.d("Login Woman_Hot : ", mMyData.arrUserWoman_Hot.get(i).NickName);
+
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+
+                                mMyData.arrUserWoman_Send.add(stRecvData);
+                                mMyData.arrUserAll_Send.add(stRecvData);
+                                Log.d("Login Woman_Hot : ", mMyData.arrUserWoman_Send.get(i).NickName);
                             }
                         }
-
 
                         if(nUserSet != 8)
                             nUserSet += 1;

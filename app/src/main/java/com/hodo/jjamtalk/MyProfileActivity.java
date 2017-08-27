@@ -226,7 +226,7 @@ public class MyProfileActivity extends AppCompatActivity {
             //프로필 저장 구현
             Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
 
-            mMyData.setProfileData(txt_Memo.getText(), txt_School.getText(), txt_Company.getText(), txt_Title.getText());
+            mMyData.setProfileData(txt_Memo.getText());
             mFireBaseData.SaveData(mMyData.getUserIdx());
 
         }

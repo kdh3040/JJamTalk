@@ -47,13 +47,13 @@ public class MyData {
     public ArrayList<UserData> arrUserWoman_New = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_New = new ArrayList<>();
 
-    public ArrayList<UserData> arrUserMan_Hot = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Hot = new ArrayList<>();
-    public ArrayList<UserData> arrUserAll_Hot = new ArrayList<>();
+    public ArrayList<UserData> arrUserMan_Send = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Send = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Send = new ArrayList<>();
 
-    public ArrayList<UserData> arrUserMan_Rank = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Rank = new ArrayList<>();
-    public ArrayList<UserData> arrUserAll_Rank = new ArrayList<>();
+    public ArrayList<UserData> arrUserMan_Recv = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
 
 
     private String strIdx;
@@ -66,20 +66,17 @@ public class MyData {
     private double lLat;
     private double lLon;
 
-    public int nHeart;
     public int nHoney;
-    public int nRank;
+    public int nSendCount;
+    public int nRecvCount;
 
     public String strDate;
 
     private String strMemo;
-    private String strSchool;
-    private String strCompany;
-    private String strTitle;
 
     public int nSearchMode;
-    public int nAlarmMode;
-    public int nViewMode;
+    public int nAlarmMode = 7;
+    public int nViewMode =1;
 
     public ArrayList<String> arrImgList = new ArrayList<>();
 
@@ -109,20 +106,17 @@ public class MyData {
         strAge = null;
         lLon = 0f;
         lLat = 0f;
-        nHeart = 0;
         nHoney = 0;
-        nRank = 0;
         strDate = null;
 
         strMemo = null;
-        strSchool = null;
-        strCompany = null;
-        strTitle = null;
+
     }
 
     public void setMyData(String _UserIdx, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3, String _UserImgGroup4,
-                          String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat, int _UserHeart, int _UserHoney, int _UserRank, String _UserDate,
-                          String _UserMemo, String _UserSchool, String _UserCompany, String _UserTitle)
+                          String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
+                          int _UserHoney,  String _UserDate,
+                          String _UserMemo)
     {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
@@ -136,15 +130,10 @@ public class MyData {
         strAge = _UserAge;
         lLon = _UserLon;
         lLat = _UserLat;
-        nHeart = _UserHeart;
         nHoney = _UserHoney;
-        nRank = _UserRank;
         strDate = _UserDate;
 
         strMemo = _UserMemo;
-        strSchool = _UserSchool;
-        strCompany = _UserCompany;
-        strTitle = _UserTitle;
 
         arrImgList.add(_UserImgGroup0);
         arrImgList.add(_UserImgGroup1);
@@ -213,24 +202,6 @@ public class MyData {
     }
     public Double getUserLat() { return lLat;   }
 
-    public void setUserHeart(int userHeart) {
-        nHeart = userHeart;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table;
-        if(strGender.equals("여자"))
-            table = database.getReference("Users/여자/"+ strIdx);
-        else
-            table = database.getReference("Users/남자/"+ strIdx);
-
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Heart", nHeart);
-        table.updateChildren(updateMap);
-
-    }
-    public int getUserHeart() {
-        return nHeart;
-    }
-
     public void setUserHoney(int userHoney) {
         nHoney = userHoney;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -243,17 +214,40 @@ public class MyData {
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Honey", nHoney);
         table.updateChildren(updateMap);
-
     }
+
     public int getUserHoney() {
         return nHoney;
     }
 
-    public void setUserRank(int userRank) {
-        nRank = userRank;
+    public void setSendHoneyCnt(int sendHoneyCnt) {
+        nSendCount -= sendHoneyCnt;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table;
+        if(strGender.equals("여자"))
+            table = database.getReference("Users/여자/"+ strIdx);
+        else
+            table = database.getReference("Users/남자/"+ strIdx);
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("SendCount", nSendCount);
+        table.updateChildren(updateMap);
     }
-    public int getUserRank() {
-        return nRank;
+
+    public void setRecvHoneyCnt(int recvHoneyCnt) {
+        nRecvCount -= recvHoneyCnt;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table;
+        if(strGender.equals("여자"))
+            table = database.getReference("Users/여자/"+ strIdx);
+        else
+            table = database.getReference("Users/남자/"+ strIdx);
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("RecvCount", nRecvCount);
+        table.updateChildren(updateMap);
     }
 
     public void setUserMemo(String userMemo) {
@@ -261,27 +255,6 @@ public class MyData {
     }
     public String getUserMemo() {
         return strMemo;
-    }
-
-    public void setUserSchool(String userSchool) {
-        strSchool = userSchool;
-    }
-    public String getUserSchool() {
-        return strSchool;
-    }
-
-    public void setUserCompany(String userCompany) {
-        strCompany = userCompany;
-    }
-    public String getUserCompany() {
-        return strCompany;
-    }
-
-    public void setUserTitle(String userTitle) {
-        strTitle = userTitle;
-    }
-    public String getUserTitle() {
-        return strTitle;
     }
 
     public boolean makeSendList(UserData _UserData, Editable _strSend)
@@ -445,11 +418,8 @@ public class MyData {
         });
     }
 
-    public void setProfileData(Editable memo, Editable school, Editable company, Editable title) {
+    public void setProfileData(Editable memo) {
         strMemo = memo.toString();
-        strSchool = school.toString();
-        strCompany = company.toString();
-        strTitle = title.toString();
     }
 
     public void setSettingData(int SearchMode, int AlarmMode, int ViewMode) {
@@ -780,4 +750,5 @@ public class MyData {
                 });
 
     }
+
 }

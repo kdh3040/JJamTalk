@@ -66,37 +66,37 @@ public class Rank_RichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
         {
             //  남자 탐색
             case 1:
-                float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Rank.get(i).Lat, mMyData.arrUserMan_Rank.get(i).Lon);
+                float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
                 holder.iv_honey_rank.setImageResource(R.drawable.platinum_bee);
 
                 //holder.textView.setText(/*mMyData.arrUserMan_Rank.get(i).NickName + ", " + mMyData.arrUserMan_Rank.get(i).Age + "세, " + (int)Dist + "km"*/mMyData.getUserRank()+"");
                 Glide.with(mContext)
-                        .load(mMyData.arrUserMan_Rank.get(i).Img)
+                        .load(mMyData.arrUserMan_Send.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
             // 여자 탐색
             case 2:
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Rank.get(i).Lat, mMyData.arrUserWoman_Rank.get(i).Lon);
+                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Send.get(i).Lat, mMyData.arrUserWoman_Send.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
                 holder.iv_honey_rank.setImageResource(R.drawable.gold_bee);
 
                 //holder.textView.setText(mMyData.getUserRank()+"");
                 Glide.with(mContext)
-                        .load(mMyData.arrUserWoman_Rank.get(i).Img)
+                        .load(mMyData.arrUserWoman_Send.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Rank.get(i).Lat, mMyData.arrUserAll_Rank.get(i).Lon);
+                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon);
 
                 holder.iv_honey_rank.setImageResource(R.drawable.bronze_bee);
                 Glide.with(mContext)
-                        .load(mMyData.arrUserAll_Rank.get(i).Img)
+                        .load(mMyData.arrUserAll_Send.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
@@ -111,13 +111,13 @@ public class Rank_RichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
         int rtValue = 0;
         if (mSetting.getnSearchSetting() == 1) {
             Log.d("Guide !!!! ", "getItem 1");
-            rtValue = mMyData.arrUserMan_Rank.size();
+            rtValue = mMyData.arrUserMan_Send.size();
         } else if (mSetting.getnSearchSetting() == 2) {
             Log.d("Guide !!!! ", "getItem 2");
-            rtValue = mMyData.arrUserWoman_Rank.size();
+            rtValue = mMyData.arrUserWoman_Send.size();
         } else if (mSetting.getnSearchSetting() == 3) {
             Log.d("Guide !!!! ", "getItem 3");
-            rtValue = mMyData.arrUserAll_Rank.size();
+            rtValue = mMyData.arrUserAll_Send.size();
         }
         return rtValue;
     }

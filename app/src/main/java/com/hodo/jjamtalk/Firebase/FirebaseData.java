@@ -68,6 +68,7 @@ public class FirebaseData {
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
+
         mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
         user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         user.child("Img").setValue(mMyData.getUserImg());
@@ -82,17 +83,14 @@ public class FirebaseData {
         user.child("Lon").setValue(mMyData.getUserLon());
         user.child("Lat").setValue(mMyData.getUserLat());
 
-        user.child("Rank").setValue(rand.nextInt(100));
-        user.child("Hot").setValue(rand.nextInt(30));
+        user.child("SendCount").setValue(-1 * rand.nextInt(100));
+        user.child("RecvCount").setValue(-1 * rand.nextInt(30));
 
         long time = System.currentTimeMillis();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
         user.child("Date").setValue(ctime.format(new Date(time)));
 
         user.child("Memo").setValue(mMyData.getUserMemo());
-        user.child("Scool").setValue(mMyData.getUserSchool());
-        user.child("Company").setValue(mMyData.getUserCompany());
-        user.child("Title").setValue(mMyData.getUserTitle());
 
     }
     public boolean SaveBoardData(TempBoardData sendData) {

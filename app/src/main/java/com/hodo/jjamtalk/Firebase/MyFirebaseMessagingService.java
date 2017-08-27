@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.LoginActivity;
 import com.hodo.jjamtalk.R;
@@ -28,6 +29,8 @@ import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private final static String TAG = "FCM_MESSAGE";
+    private MyData mMyData = MyData.getInstance();
+
 
     private String strSenderImg;
     private String strSenderName;
@@ -39,10 +42,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private int nHeartCnt;
     private int nHoneyCnt;
+    private int nRecvHoneyCnt;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
         if (remoteMessage.getNotification() != null) {
             String body = remoteMessage.getNotification().getBody();
             Log.d(TAG, "Notification Body: " + body);
@@ -117,17 +122,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                                 Map<String, Object> updateMap = new HashMap<>();
 
-                                nHeartCnt = stRecvData.Heart;
-                                nHoneyCnt = stRecvData.Honey;
 
-                                if(strSenderHoney != null) {
-                                    nHoneyCnt += Integer.valueOf(strSenderHoney);
-                                    updateMap.put("Honey", nHoneyCnt);
-                                }
-                                if(strSenderHeart != null) {
-                                    nHeartCnt += Integer.valueOf(strSenderHeart);
-                                    updateMap.put("Heart", nHeartCnt);
-                                }
+                                nRecvHoneyCnt = stRecvData.RecvCount;
+
+                                nRecvHoneyCnt -= Integer.valueOf(strSenderHoney);
+                                updateMap.put("RecvCount", nRecvHoneyCnt);
+
 
                                 ref.updateChildren(updateMap);
                             }
@@ -154,17 +154,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                                 Map<String, Object> updateMap = new HashMap<>();
 
-                                nHeartCnt = stRecvData.Heart;
-                                nHoneyCnt = stRecvData.Honey;
+                                nRecvHoneyCnt = stRecvData.RecvCount;
 
-                                if(strSenderHoney != null) {
-                                    nHoneyCnt += Integer.valueOf(strSenderHoney);
-                                    updateMap.put("Honey", nHoneyCnt);
-                                }
-                                if(strSenderHeart != null) {
-                                    nHeartCnt += Integer.valueOf(strSenderHeart);
-                                    updateMap.put("Heart", nHeartCnt);
-                                }
+                                nRecvHoneyCnt -= Integer.valueOf(strSenderHoney);
+                                updateMap.put("RecvCount", nRecvHoneyCnt);
 
                                 ref.updateChildren(updateMap);
                             }
