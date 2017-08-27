@@ -224,4 +224,18 @@ public class FirebaseData {
         });
     }
 
+    public void SaveSettingData(String userIdx, int SearchMode, int AlarmMode, int ViewMode) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Setting");
+
+        // DatabaseReference user = table.child( userIdx);
+        final DatabaseReference user = table.child(mMyData.getUserIdx());
+
+        user.child("SearchMode").setValue(SearchMode);
+        user.child("AlarmMode").setValue(AlarmMode);
+        user.child("ViewMode").setValue(ViewMode);
+
+
+    }
 }

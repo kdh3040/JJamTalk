@@ -539,6 +539,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
                             bMySet = true;
 
+                            mMyData.getSetting();
                             mMyData.getCardList();
                             mMyData.getSendList();
                             mMyData.getSendHoneyList();
@@ -578,6 +579,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Honey, stRecvData.Rank, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
                             bMySet = true;
+
+                            mMyData.getSetting();
 
                             mMyData.getCardList();
                             mMyData.getSendList();

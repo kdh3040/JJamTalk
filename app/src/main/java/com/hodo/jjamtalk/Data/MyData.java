@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
@@ -75,6 +76,10 @@ public class MyData {
     private String strSchool;
     private String strCompany;
     private String strTitle;
+
+    public int nSearchMode;
+    public int nAlarmMode;
+    public int nViewMode;
 
     public ArrayList<String> arrImgList = new ArrayList<>();
 
@@ -447,6 +452,12 @@ public class MyData {
         strTitle = title.toString();
     }
 
+    public void setSettingData(int SearchMode, int AlarmMode, int ViewMode) {
+        nSearchMode = SearchMode;
+        nAlarmMode= AlarmMode;
+        nViewMode = ViewMode;
+    }
+
     public void getRecvHoneyList() {
         String MyID =  strIdx;
 
@@ -739,4 +750,34 @@ public class MyData {
         target.push().setValue(targetData);
     }
 
+    public void getSetting() {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("Setting");
+        user = table.child(strIdx);
+
+
+        user.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        TempSettingData stRecvData = new TempSettingData ();
+                        stRecvData = dataSnapshot.getValue(TempSettingData.class);
+                        if(stRecvData != null) {
+                            nSearchMode = stRecvData.SearchMode;
+                            nAlarmMode = stRecvData.AlarmMode;
+                            nViewMode = stRecvData.ViewMode;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                    }
+                });
+
+    }
 }

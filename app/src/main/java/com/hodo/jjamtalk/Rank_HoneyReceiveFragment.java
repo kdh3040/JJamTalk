@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hodo.jjamtalk.Data.SettingData;
+
 /**
  * Created by mjk on 2017. 8. 21..
  */
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 public class Rank_HoneyReceiveFragment extends Fragment {
 
     RecyclerView recyclerView;
+    private SettingData mSettingData = SettingData.getInstance();
 
     @Nullable
     @Override
@@ -23,7 +26,7 @@ public class Rank_HoneyReceiveFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rank_honey_receive,container,false);
         recyclerView = view.findViewById(R.id.rank_honey_receive);
         recyclerView.setAdapter(new Rank_HoneyReceiveAdapter(getContext()));
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));
         return view;
     }
 }

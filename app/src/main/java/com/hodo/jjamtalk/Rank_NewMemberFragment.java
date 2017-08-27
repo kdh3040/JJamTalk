@@ -25,6 +25,8 @@ import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 public class Rank_NewMemberFragment extends Fragment {
 
     private MyData mMyData = MyData.getInstance();
+    private SettingData mSettingData = SettingData.getInstance();
+
     private SettingData mSetting = SettingData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
     public UserData stTargetData = new UserData();
@@ -36,7 +38,7 @@ public class Rank_NewMemberFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_newmember, container, false);
         recyclerView = view.findViewById(R.id.newmember_recyclerview);
         recyclerView.setAdapter(new Rank_NewMemberAdapter(getContext()));
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {

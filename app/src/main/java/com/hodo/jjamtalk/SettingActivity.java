@@ -2,6 +2,7 @@ package com.hodo.jjamtalk;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -9,12 +10,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
 
 /**
  * Created by mjk on 2017. 8. 4..
@@ -24,11 +27,16 @@ public class SettingActivity extends AppCompatActivity {
 
     private SettingData mSetting = SettingData.getInstance();
     private MyData mMyData = MyData.getInstance();
+    private FirebaseData mFireBaseData = FirebaseData.getInstance();
 
     private Button btn_PurchaseHeart;
     private Button btn_Help;
     private Button btn_LogOut;
     private Button btn_Delete;
+
+    private RadioButton btn_ViewMode_2;
+    private RadioButton btn_ViewMode_3;
+    private RadioButton btn_ViewMode_4;
 
     private Switch sw_SearchMan;
     private Switch sw_SearchWoman;
@@ -50,6 +58,8 @@ public class SettingActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.action_save){
             //프로필 저장 구현
             Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
+            mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting());
+            mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting());
         }
         return super.onOptionsItemSelected(item);
     }
@@ -67,6 +77,30 @@ public class SettingActivity extends AppCompatActivity {
         btn_LogOut = (Button)findViewById(R.id.Setting_btnLogout);
         btn_Delete = (Button)findViewById(R.id.Setting_btnDel);
 
+        btn_ViewMode_2 = (RadioButton) findViewById(R.id.rb_2);
+
+        btn_ViewMode_3 = (RadioButton) findViewById(R.id.rb_3);
+        btn_ViewMode_4 = (RadioButton) findViewById(R.id.rb_4);
+
+
+        RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(btn_ViewMode_2.isChecked())
+                    mSetting.setnViewSetting(0);
+                else if(btn_ViewMode_3.isChecked())
+                    mSetting.setnViewSetting(1);
+                else if(btn_ViewMode_4.isChecked())
+                    mSetting.setnViewSetting(2);
+            }
+        };
+
+        btn_ViewMode_2.setOnClickListener(optionOnClickListener);
+        btn_ViewMode_3.setOnClickListener(optionOnClickListener);
+        btn_ViewMode_4.setOnClickListener(optionOnClickListener);
+
+
         sw_SearchMan = (Switch)findViewById(R.id.Setting_swMan);
         sw_SearchWoman = (Switch)findViewById(R.id.Setting_swWoman);
 
@@ -76,6 +110,7 @@ public class SettingActivity extends AppCompatActivity {
 
         initSearchValue();
         initNotiValue();
+        initViewValue();
 
         sw_SearchMan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -260,4 +295,18 @@ public class SettingActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    private void initViewValue() {
+
+        if(mSetting.getnViewSetting() == 0) {
+            btn_ViewMode_2.setChecked(true);
+        }
+        else if(mSetting.getnViewSetting() == 1) {
+            btn_ViewMode_3.setChecked(true);
+        }
+        else{
+            btn_ViewMode_4.setChecked(true);
+        }
+    }
+
 }
