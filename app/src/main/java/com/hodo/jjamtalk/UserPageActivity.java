@@ -206,6 +206,7 @@ public class UserPageActivity extends AppCompatActivity {
                                         if(rtValuew == true) {
                                             mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                                             mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
+                                            mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
                                             mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
                                             Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                         }

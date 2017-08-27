@@ -55,6 +55,8 @@ public class MyData {
     public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
 
+    public ArrayList<FanData> arrUserAll_Fan = new ArrayList<>();
+
 
     private String strIdx;
     private String strToken;
@@ -219,6 +221,31 @@ public class MyData {
     public int getUserHoney() {
         return nHoney;
     }
+
+
+
+    public void makeFanList(UserData stTargetData, int SendCount) {
+
+
+        int nTotalSendCnt = 0;
+        for(int i=0; i<arrSendHoneyDataList.size(); i++)
+        {
+            if(arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
+                nTotalSendCnt -= arrSendHoneyDataList.get(i).nSendHoney;
+        }
+
+        nTotalSendCnt -= SendCount;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table;
+        table = database.getReference("FanList/"+ stTargetData.Idx);
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("Count", nTotalSendCnt);
+        updateMap.put("Nick", getUserNick());
+        table.child(strIdx).updateChildren(updateMap);
+    }
+
 
     public void setSendHoneyCnt(int sendHoneyCnt) {
         nSendCount -= sendHoneyCnt;
@@ -507,6 +534,7 @@ public class MyData {
 
         });
     }
+
     public boolean makeSendHoneyList(UserData _UserData, int SendHoneyCnt) {
         boolean rtValue = false;
 
