@@ -611,7 +611,7 @@ public class MyData {
         user = table.child(strIdx);
         user.push().setValue(tempData);
 
-        target = database.getReference("BlockedList").child(targetData.strTargetName );
+        target = database.getReference("BlockedList").child(tempData.strTargetName );
         //target = table
         target.push().setValue(targetData);
     }
@@ -692,6 +692,51 @@ public class MyData {
             }
 
         });
+    }
+
+
+    public void delBlockList(SendData blockList) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user, target;
+        table = database.getReference("BlockList");
+
+
+        BlockData tempData = new BlockData();
+
+        tempData.strTargetImg = blockList.strTargetImg;
+        tempData.strTargetNick = blockList.strTargetNick;
+        tempData.strTargetMsg = blockList.strTargetMsg;
+        tempData.strSendName = blockList.strSendName;
+
+        BlockData targetData = new BlockData();
+
+        targetData.strTargetImg = getUserImg();
+        targetData.strTargetNick = getUserNick();
+        targetData.strTargetMsg = getUserMemo();
+        targetData.strSendName = getUserIdx();
+
+        int idx = blockList.strSendName.indexOf("_");
+        String temp1 = blockList.strSendName.substring(0, idx);
+        String temp2 = blockList.strSendName.substring(idx+1);
+
+        if(getUserIdx().equals(temp1))
+        {
+            tempData.strTargetName = temp2;
+            targetData.strTargetName = temp1;
+        }
+        else
+        {
+            tempData.strTargetName = temp1;
+            targetData.strTargetName = temp2;
+        }
+
+        user = table.child(strIdx);
+        user.push().setValue(tempData);
+
+        target = database.getReference("BlockedList").child(tempData.strTargetName );
+        //target = table
+        target.push().setValue(targetData);
     }
 
 }

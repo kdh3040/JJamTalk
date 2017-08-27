@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SendData;
 import com.hodo.jjamtalk.ViewHolder.BlockListViewHolder;
 
 /**
@@ -51,6 +52,8 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListViewHolder> 
             @Override
             public void onClick(View view) {
                 //차단 해제
+                SendData tempSendData = new SendData();
+                mMyData.delBlockList(tempSendData);
                 Toast.makeText(mContext, position + "번", Toast.LENGTH_SHORT).show();
             }
         });
