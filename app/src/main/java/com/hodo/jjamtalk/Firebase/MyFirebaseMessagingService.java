@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.LoginActivity;
 import com.hodo.jjamtalk.R;
@@ -28,6 +29,8 @@ import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private final static String TAG = "FCM_MESSAGE";
+    private MyData mMyData = MyData.getInstance();
+
 
     private String strSenderImg;
     private String strSenderName;
@@ -43,6 +46,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
         if (remoteMessage.getNotification() != null) {
             String body = remoteMessage.getNotification().getBody();
             Log.d(TAG, "Notification Body: " + body);

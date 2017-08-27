@@ -78,8 +78,8 @@ public class MyData {
     private String strTitle;
 
     public int nSearchMode;
-    public int nAlarmMode;
-    public int nViewMode;
+    public int nAlarmMode = 7;
+    public int nViewMode =1;
 
     public ArrayList<String> arrImgList = new ArrayList<>();
 
