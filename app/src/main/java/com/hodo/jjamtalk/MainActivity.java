@@ -34,7 +34,7 @@ import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 public class MainActivity extends AppCompatActivity {
     SpringIndicator springIndicator;
     ScrollerViewPager viewPager;
-    ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage;
+    ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage,ib_fan;
     ImageView iv_refresh;
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
@@ -158,12 +158,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        ib_honey = (ImageButton)findViewById(R.id.ib_honey);
-        ib_honey.setLayoutParams(lp);
-        ib_honey.setOnClickListener(new View.OnClickListener() {
+        ib_fan = (ImageButton)findViewById(R.id.ib_fan);
+        ib_fan.setLayoutParams(lp);
+        ib_fan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),HoneyActivity.class));
+                startActivity(new Intent(getApplicationContext(),FanActivity.class));
             }
         });
         //m_GridView = (GridView)findViewById(R.id.main_gridview);

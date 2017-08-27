@@ -103,8 +103,8 @@
             android:theme ="@style/NoTitleBar"></activity>
 
         <activity android:name=".HoneyActivity"
-            android:label="나의 꿀"
-            android:parentActivityName=".MainActivity"></activity>
+            android:label="선물 내역"
+            android:parentActivityName=".MyPageActivity"></activity>
 
         <activity android:name=".BlockListActivity"
             android:label="차단 목록"
@@ -117,6 +117,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <activity android:name=".FanActivity"
+            android:label= "팬 관리"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

@@ -22,7 +22,7 @@ public class MyPageActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
 
-    ImageButton btn_Setting,btn_my_profile;
+    ImageButton btn_Setting,btn_my_profile,btn_history;
     Button btn_heart;
     ImageView img_Mypic;
 
@@ -39,7 +39,7 @@ public class MyPageActivity extends AppCompatActivity {
         txt_MyProfile.setText(mMyData.getUserNick() + "," + mMyData.getUserAge());
 
         txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
-        txt_MyHeartCnt.setText("소지하고 있는 꿀 개수 : " + mMyData.getUserHoney() + " 개");
+        txt_MyHeartCnt.setText("현재 보유 골드: " + mMyData.getUserHoney() + " 골드");
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
         btn_Setting.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +54,14 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+            }
+        });
+
+        btn_history = (ImageButton)findViewById(R.id.ib_history);
+        btn_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),HoneyActivity.class));
             }
         });
 
@@ -77,7 +85,7 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));
-                finish();
+                //finish();
             }
         });
     }
@@ -89,6 +97,6 @@ public class MyPageActivity extends AppCompatActivity {
     {
         super.onStart();
         txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
-        txt_MyHeartCnt.setText("소지하고 있는 꿀 개수 : " + mMyData.getUserHoney() + " 개");
+        txt_MyHeartCnt.setText("현재 보유 골드 : " + mMyData.getUserHoney() + " 골드");
     }
 }
