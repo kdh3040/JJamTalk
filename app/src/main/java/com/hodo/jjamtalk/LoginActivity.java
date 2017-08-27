@@ -504,9 +504,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     Log.d(TAG, "Sing in Account:" + task.isSuccessful());
                                     if(task.isSuccessful()){
-                                        InitData_Rank();
+                                        InitData_Recv();
+                                        InitData_Send();
                                         InitData_New();
-                                        InitData_Hot();
                                         InitData_Near();
                                     }else {
                                         Toast.makeText(LoginActivity.this,
@@ -535,8 +535,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
                             mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3, stRecvData.ImgGroup4,
-                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Honey, stRecvData.Rank, stRecvData.Date,
-                                    stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
+                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Honey,stRecvData.Date,
+                                    stRecvData.Memo);
                             bMySet = true;
 
                             mMyData.getSetting();
@@ -546,9 +546,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getRecvHoneyList();
                             mMyData.getBlockList();
                             mMyData.getBlockedList();
-                            InitData_Rank();
+
+                            InitData_Recv();
+                            InitData_Send();
                             InitData_New();
-                            InitData_Hot();
                             InitData_Near();
                         }
                     }
@@ -576,8 +577,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
                             mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3, stRecvData.ImgGroup4,
-                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Heart, stRecvData.Honey, stRecvData.Rank, stRecvData.Date,
-                                    stRecvData.Memo, stRecvData.School, stRecvData.Company, stRecvData.Title);
+                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age,
+                                    stRecvData.Lon, stRecvData.Lat,  stRecvData.Honey, stRecvData.Date,
+                                    stRecvData.Memo);
                             bMySet = true;
 
                             mMyData.getSetting();
@@ -589,9 +591,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getBlockList();
                             mMyData.getBlockedList();
                             //mMyData.getSendData();
-                            InitData_Rank();
+                            InitData_Recv();
+                            InitData_Send();
                             InitData_New();
-                            InitData_Hot();
                             InitData_Near();
                         }
                     }
@@ -604,10 +606,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 });
     }
 
-    private void InitData_Rank() {
+    private void InitData_Recv() {
         DatabaseReference refMan, refWoman;
         refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
-        Query query=refMan.orderByChild("Rank");//키가 id와 같은걸 쿼리로 가져옴
+        Query query=refMan.orderByChild("RecvCount");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -624,9 +626,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-                                mMyData.arrUserMan_Rank.add(stRecvData);
-                                mMyData.arrUserAll_Rank.add(stRecvData);
-                                Log.d("Login Man_Rank : ", mMyData.arrUserMan_Rank.get(i).NickName);
+                                mMyData.arrUserMan_Recv.add(stRecvData);
+                                mMyData.arrUserAll_Recv.add(stRecvData);
+                                Log.d("Login Man_Rank : ", mMyData.arrUserMan_Recv.get(i).NickName);
                             }
                             i++;
 
@@ -651,7 +653,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 });
 
         refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
-        query=refWoman.orderByChild("Rank");//키가 id와 같은걸 쿼리로 가져옴
+        query=refWoman.orderByChild("RecvCount");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -668,9 +670,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-                                mMyData.arrUserWoman_Rank.add(stRecvData);
-                                mMyData.arrUserAll_Rank.add(stRecvData);
-                                Log.d("Login Woman_Rank : ", mMyData.arrUserWoman_Rank.get(i).NickName);
+                                mMyData.arrUserWoman_Recv.add(stRecvData);
+                                mMyData.arrUserAll_Recv.add(stRecvData);
+                                Log.d("Login Woman_Rank : ", mMyData.arrUserWoman_Recv.get(i).NickName);
                             }
                         }
 
@@ -692,10 +694,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 });
     }
 
-    private void InitData_Hot() {
+    private void InitData_Send() {
         DatabaseReference refMan, refWoman;
         refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
-        Query query=refMan.orderByChild("Heart");//키가 id와 같은걸 쿼리로 가져옴
+        Query query=refMan.orderByChild("SendCount");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -710,9 +712,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
 
-                                mMyData.arrUserMan_Hot.add(stRecvData);
-                                mMyData.arrUserAll_Hot.add(stRecvData);
-                                Log.d("Login arrUserMan_Hot : ", mMyData.arrUserMan_Hot.get(i).NickName);
+                                mMyData.arrUserMan_Send.add(stRecvData);
+                                mMyData.arrUserAll_Send.add(stRecvData);
+                                Log.d("Login arrUserMan_Hot : ", mMyData.arrUserMan_Send.get(i).NickName);
                             }
                             i++;
                         }
@@ -735,7 +737,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 });
 
         refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
-        query=refWoman.orderByChild("Heart");//키가 id와 같은걸 쿼리로 가져옴
+        query=refWoman.orderByChild("SendCount");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -750,9 +752,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
 
-                                mMyData.arrUserWoman_Hot.add(stRecvData);
-                                mMyData.arrUserAll_Hot.add(stRecvData);
-                                Log.d("Login Woman_Hot : ", mMyData.arrUserWoman_Hot.get(i).NickName);
+                                mMyData.arrUserWoman_Send.add(stRecvData);
+                                mMyData.arrUserAll_Send.add(stRecvData);
+                                Log.d("Login Woman_Hot : ", mMyData.arrUserWoman_Send.get(i).NickName);
                             }
                         }
 
@@ -836,7 +838,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 if(stRecvData.Img == null)
                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-
                                 mMyData.arrUserWoman_New.add(stRecvData);
                                 mMyData.arrUserAll_New.add(stRecvData);
                                 Log.d("Login Woman_New : ", mMyData.arrUserWoman_New.get(i).NickName);
@@ -888,7 +889,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                 if(stRecvData.Img == null)
                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
 
                                 mMyData.arrUserMan_Near.add(stRecvData);
                                 mMyData.arrUserAll_Near.add(stRecvData);

@@ -25,14 +25,16 @@ public class UserData implements Serializable {
     public int Honey;
     public int Heart;
     public int Rank;
+    public int SendCount;
+    public int RecvCount;
 
     public String Date;
 
     public String SendMSG;
     public String Memo;
-    public String School;
-    public String Company;
-    public String Title;
+    //public String School;
+    //public String Company;
+    //public String Title;
 
     public String ImgGroup0;
     public String ImgGroup1;

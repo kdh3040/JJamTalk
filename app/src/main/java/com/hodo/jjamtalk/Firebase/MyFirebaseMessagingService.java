@@ -42,6 +42,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private int nHeartCnt;
     private int nHoneyCnt;
+    private int nRecvHoneyCnt;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -121,17 +122,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                                 Map<String, Object> updateMap = new HashMap<>();
 
-                                nHeartCnt = stRecvData.Heart;
-                                nHoneyCnt = stRecvData.Honey;
 
-                                if(strSenderHoney != null) {
-                                    nHoneyCnt += Integer.valueOf(strSenderHoney);
-                                    updateMap.put("Honey", nHoneyCnt);
-                                }
-                                if(strSenderHeart != null) {
-                                    nHeartCnt += Integer.valueOf(strSenderHeart);
-                                    updateMap.put("Heart", nHeartCnt);
-                                }
+                                nRecvHoneyCnt = stRecvData.RecvCount;
+
+                                nRecvHoneyCnt -= Integer.valueOf(strSenderHoney);
+                                updateMap.put("RecvCount", nRecvHoneyCnt);
+
 
                                 ref.updateChildren(updateMap);
                             }
@@ -158,17 +154,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                                 Map<String, Object> updateMap = new HashMap<>();
 
-                                nHeartCnt = stRecvData.Heart;
-                                nHoneyCnt = stRecvData.Honey;
+                                nRecvHoneyCnt = stRecvData.RecvCount;
 
-                                if(strSenderHoney != null) {
-                                    nHoneyCnt += Integer.valueOf(strSenderHoney);
-                                    updateMap.put("Honey", nHoneyCnt);
-                                }
-                                if(strSenderHeart != null) {
-                                    nHeartCnt += Integer.valueOf(strSenderHeart);
-                                    updateMap.put("Heart", nHeartCnt);
-                                }
+                                nRecvHoneyCnt -= Integer.valueOf(strSenderHoney);
+                                updateMap.put("RecvCount", nRecvHoneyCnt);
 
                                 ref.updateChildren(updateMap);
                             }
