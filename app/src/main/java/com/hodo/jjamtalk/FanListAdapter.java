@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,15 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
     @Override
     public void onBindViewHolder(FanViewHolder holder, int position) {
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(mUIData.getHeight()/7)));
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext.startActivity(new Intent(mContext,UserPageActivity.class));
+
+
+
+            }
+        });
         holder.nickname.setText("아이유");
         holder.giftranking.setText("1위");
         holder.giftCount.setText("313123꿀");

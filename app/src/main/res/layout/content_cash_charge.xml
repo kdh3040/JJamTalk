@@ -19,4 +19,5 @@
         android:layout_weight="0"
         android:gravity="center"
         android:text="70하트                9800원" />
+    <View style="@style/Divider" />
 </LinearLayout>

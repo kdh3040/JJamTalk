@@ -49,7 +49,8 @@
         </service>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MyPageActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:label="내 페이지"/>
 
         <activity android:name=".SettingActivity"
             android:label="설정"
@@ -102,10 +103,6 @@
         <activity android:name=".ImageViewPager"
             android:theme ="@style/NoTitleBar"></activity>
 
-        <activity android:name=".HoneyActivity"
-            android:label="선물 내역"
-            android:parentActivityName=".MyPageActivity"></activity>
-
         <activity android:name=".BlockListActivity"
             android:label="차단 목록"
             android:parentActivityName=".SettingActivity"></activity>
@@ -120,6 +117,12 @@
         <activity android:name=".FanActivity"
             android:label= "팬 관리"
             android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".HoneyGetHistoryActivity"
+            android:label= "받은 꿀"
+            android:parentActivityName=".MyPageActivity"></activity>
+        <activity android:name=".HoneySentHistoryActivity"
+            android:label= "선물한 꿀"
+            android:parentActivityName=".MyPageActivity"></activity>
     </application>
 
 </manifest>

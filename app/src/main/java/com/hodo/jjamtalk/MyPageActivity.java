@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -28,6 +29,8 @@ public class MyPageActivity extends AppCompatActivity {
 
     TextView txt_MyProfile;
     TextView txt_MyHeartCnt;
+
+    LinearLayout ll_gift_get,ll_gift_sent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,13 +60,7 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
 
-        btn_history = (ImageButton)findViewById(R.id.ib_history);
-        btn_history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),HoneyActivity.class));
-            }
-        });
+
 
         img_Mypic = (ImageView)findViewById(R.id.img_mypic);
 
@@ -86,6 +83,24 @@ public class MyPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));
                 //finish();
+            }
+        });
+
+        ll_gift_get = (LinearLayout)findViewById(R.id.layout_gift_get_history);
+        ll_gift_get.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),HoneyGetHistoryActivity.class));
+
+            }
+        });
+
+        ll_gift_sent = (LinearLayout)findViewById(R.id.layout_gift_sent_history);
+        ll_gift_sent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),HoneySentHistoryActivity.class));
+
             }
         });
     }

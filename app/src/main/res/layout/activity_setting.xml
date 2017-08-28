@@ -37,38 +37,6 @@
             android:text="남자" />
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp"
-            android:text="알림"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Switch
-            android:id="@+id/Setting_swLike"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="좋아요" />
-
-        <Switch
-            android:id="@+id/Setting_swFollow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp"
-            android:text="팔로우" />
-
-        <Switch
-            android:id="@+id/Setting_swNoti"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp"
-            android:text="쪽지" />
-
-
-        <TextView
             android:id="@+id/textView28"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,6 +80,61 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:text="알림"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/Setting_swNoti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Switch" />
+
+        <Switch
+            android:id="@+id/Setting_swLike"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="좋아요" />
+
+        <Switch
+            android:id="@+id/Setting_swFollow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:text="팔로우" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="수신 거부"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="쪽지 수신 거부" />
+
+        </LinearLayout>
+
+
+        <TextView
             android:id="@+id/tv_blocklist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -142,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@color/white"
-            android:text="하트 구입하기"
+            android:text="골드 구입하기"
             android:textColor="@android:color/holo_red_light"
             android:textSize="18sp"
             android:textStyle="bold" />

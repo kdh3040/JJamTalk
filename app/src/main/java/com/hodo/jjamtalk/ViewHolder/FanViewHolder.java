@@ -20,6 +20,7 @@ public class FanViewHolder extends RecyclerView.ViewHolder{
     public LinearLayout linearLayout;
 
 
+
     public FanViewHolder(View itemView) {
 
         super(itemView);
@@ -28,5 +29,6 @@ public class FanViewHolder extends RecyclerView.ViewHolder{
         giftranking = itemView.findViewById(R.id.tv_gift_ranking);
         giftCount = itemView.findViewById(R.id.tv_gift_count);
         imageView = itemView.findViewById(R.id.iv_fan);
+
     }
 }

@@ -24,4 +24,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="차단 해제" />
+    <View style="@style/Divider" />
 </LinearLayout>
