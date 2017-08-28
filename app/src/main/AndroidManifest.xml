@@ -115,7 +115,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <activity android:name=".FanActivity"
-            android:label= "팬 관리"
+            android:label= "팬"
             android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".HoneyGetHistoryActivity"
             android:label= "받은 꿀"

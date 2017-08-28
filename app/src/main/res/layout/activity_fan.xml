@@ -3,17 +3,24 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView35"
+    <github.chenupt.springindicator.SpringIndicator xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/indicator_fan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="나의 팬"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_height="50dp"
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_fanlist"
+        app:siIndicatorColor="@color/colorPrimary"
+        app:siIndicatorColors="@array/indicator_colors"
+        app:siSelectedTextColor="@android:color/white"
+        app:siTextColor="@color/colorPrimaryDark"
+        app:siTextSize="13sp" />
+
+    <github.chenupt.springindicator.viewpager.ScrollerViewPager
+        android:id="@+id/vp_fan"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+
+        android:layout_gravity="center" />
+
+
 </LinearLayout>
