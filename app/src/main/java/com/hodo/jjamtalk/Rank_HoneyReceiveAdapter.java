@@ -69,7 +69,7 @@ public class Rank_HoneyReceiveAdapter extends RecyclerView.Adapter<GridUserViewH
 
                 //holder.textView.setText(/*mMyData.arrUserMan_Rank.get(i).NickName + ", " + mMyData.arrUserMan_Rank.get(i).Age + "세, " + (int)Dist + "km"*/mMyData.getUserRank()+"");
                 Glide.with(mContext)
-                        .load(mMyData.arrUserMan_Send.get(i).Img)
+                        .load(mMyData.arrUserMan_Recv.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
@@ -77,14 +77,14 @@ public class Rank_HoneyReceiveAdapter extends RecyclerView.Adapter<GridUserViewH
             // 여자 탐색
             case 2:
                 Glide.with(mContext)
-                        .load(mMyData.arrUserWoman_Send.get(i).Img)
+                        .load(mMyData.arrUserWoman_Recv.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
             case 3:
                 Glide.with(mContext)
-                        .load(mMyData.arrUserAll_Send.get(i).Img)
+                        .load(mMyData.arrUserAll_Recv.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
