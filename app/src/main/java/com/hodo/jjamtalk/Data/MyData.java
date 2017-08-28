@@ -62,7 +62,13 @@ public class MyData {
 
     private String strIdx;
     private String strToken;
+
     private String strImg;
+    private String strImg1;
+    private String strImg2;
+    private String strImg3;
+    private String strImg4;
+
     private String strNick;
     private String strGender;
     private String strAge;

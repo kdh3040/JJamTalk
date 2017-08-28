@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -27,7 +29,7 @@ import com.hodo.jjamtalk.Firebase.FirebaseData;
  */
 
 public class MyProfileActivity extends AppCompatActivity {
-    private EditText txt_Memo, txt_School, txt_Company, txt_Title;
+    private EditText et_Memo, et_NickName;
     private ImageView Img_Sum;
     private ImageView[] Img_Profiles = new ImageView[4];
     private int nImgNumber;
@@ -53,6 +55,11 @@ public class MyProfileActivity extends AppCompatActivity {
         Img_Profiles[3] = (ImageView)findViewById(R.id.MyProfile_Img4);
         //Img_Profiles[4] = (ImageView)findViewById(R.id.MyProfile_Img5);
 
+        et_Memo = (EditText)findViewById(R.id.MyProfile_Memo);
+        et_Memo.setText("같이 놀아요");
+
+        et_NickName = (EditText)findViewById(R.id.MyProfile_NickName);
+        et_NickName.setText(mMyData.getUserNick());
 
         View.OnClickListener listener = new View.OnClickListener()
         {
@@ -94,19 +101,25 @@ public class MyProfileActivity extends AppCompatActivity {
         Img_Profiles[3].setOnClickListener(listener);
         //Img_Profiles[4].setOnClickListener(listener);*/
 
-        /*Glide.with(getApplicationContext())
+        Glide.with(getApplicationContext())
                 .load(mMyData.getUserImg())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(Img_Sum);*/
+                .thumbnail(0.1f)
+                .into(Img_Sum);
 
-        //for(int i = 0; i< mMyData.arrImgList.size(); i++) {
-        /*
-        for(int i = 0; i< 5; i++) {
+/*        Glide.with(getApplicationContext())
+                .load(mMyData.arrImgList.get(0))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(Img_Profiles[0]);*/
+
+
+        for(int i = 0; i< 4; i++) {
             if(mMyData.arrImgList.get(i) == null)
             {
                 Glide.with(getApplicationContext())
                         .load("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg")
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
 
             }
@@ -115,29 +128,16 @@ public class MyProfileActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(mMyData.arrImgList.get(i))
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
             }
 
         }
-        txt_Memo = (EditText)findViewById(R.id.MyProfile_Memo);
-        txt_School = (EditText)findViewById(R.id.MyProfile_School);
-        txt_Company = (EditText)findViewById(R.id.MyProfile_Company);
-        txt_Title = (EditText)findViewById(R.id.MyProfile_Title);
-
-        txt_Memo.setText(mMyData.getUserMemo());
-        txt_School.setText(mMyData.getUserSchool());
-        txt_Company.setText(mMyData.getUserCompany());
-        txt_Title.setText(mMyData.getUserTitle());*/
-
     }
 
     private void popUp() {
-
-
         ViewClickDialog dialog = new ViewClickDialog(activity);
         dialog.show();
-
-
     }
 /*
     @Override
@@ -226,7 +226,8 @@ public class MyProfileActivity extends AppCompatActivity {
             //프로필 저장 구현
             Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
 
-            mMyData.setProfileData(txt_Memo.getText());
+            mMyData.setUserNick(et_NickName.getText().toString());
+            mMyData.setProfileData(et_Memo.getText());
             mFireBaseData.SaveData(mMyData.getUserIdx());
 
         }

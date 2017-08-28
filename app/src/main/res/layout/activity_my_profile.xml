@@ -68,7 +68,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/MyProfile_NickName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -95,13 +95,13 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/MyProfile_Age_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/MyProfile_Age_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
