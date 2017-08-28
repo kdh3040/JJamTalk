@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,10 +18,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.NotiFunc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -28,6 +33,8 @@ import com.hodo.jjamtalk.Util.NotiFunc;
 
 public class UserPageActivity extends AppCompatActivity {
     private UserData stTargetData;
+    public ArrayList<FanData> FanList = new ArrayList<>();
+
     private MyData mMyData = MyData.getInstance();
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
     private FirebaseData mFireBase = FirebaseData.getInstance();
@@ -36,6 +43,16 @@ public class UserPageActivity extends AppCompatActivity {
     private TextView txtMemo;
     private TextView txtHeart;
     //private TextView txtProfile;
+
+    private TextView txt_FanTitle;
+    private TextView[] txt_Fan = new TextView[5];
+
+    private TextView txt_Fan_0;
+    private TextView txt_Fan_1;
+    private TextView txt_Fan_2;
+    private TextView txt_Fan_3;
+    private TextView txt_Fan_4;
+
 
     private Button btnRegister;
     private Button btnGift;
@@ -51,13 +68,40 @@ public class UserPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_page);
 
         Intent intent = getIntent();
-        stTargetData = (UserData)intent.getExtras().getSerializable("Target");
+        //stTargetData = (UserData)intent.getExtras().getSerializable("Target");
+      //  stTargetData = (UserData)intent.getParcelableExtra("Target");
+
+        Bundle bundle = getIntent().getExtras();
+        stTargetData = (UserData)bundle.getSerializable("Target");
+        FanList = (ArrayList<FanData>)getIntent().getSerializableExtra("FanList");
+
+       // ArrayList<Parcelable> temp= bundle.getParcelableArrayList("FanList");
+      //  FanList = (ArrayList<FanData>) temp.clone();
+
 
         txtProfile = (TextView)findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
         txtMemo = (TextView)findViewById(R.id.UserPage_txtMemo);
         txtMemo.setText(stTargetData.Memo);
         //private TextView txtProfile;
+
+        txt_FanTitle = (TextView)findViewById(R.id.UserPage_FanTitle);
+        txt_FanTitle.setText(stTargetData.NickName + "님의 팬클럽");
+
+        txt_Fan[0]= (TextView)findViewById(R.id.UserPage_Fan_0);
+        txt_Fan[1]= (TextView)findViewById(R.id.UserPage_Fan_1);
+        txt_Fan[2]= (TextView)findViewById(R.id.UserPage_Fan_2);
+        txt_Fan[3]= (TextView)findViewById(R.id.UserPage_Fan_3);
+        txt_Fan[4]= (TextView)findViewById(R.id.UserPage_Fan_4);
+
+        for(int i = 0; i < FanList.size(); i++)
+        {
+            txt_Fan[i].setText(FanList.get(i).Nick);
+        }
+
+
+
+
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +251,6 @@ public class UserPageActivity extends AppCompatActivity {
                                             mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                                             mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
                                             mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
-                                            mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
                                             Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                         }
                                         dialog.dismiss();

@@ -115,7 +115,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView33"
+                    android:id="@+id/UserPage_FanTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="상희 님의 꿀팬"
@@ -124,34 +124,39 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView32"
+                    android:id="@+id/UserPage_Fan_0"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="선수" />
+                    android:textColor="@android:color/holo_blue_dark"
+                     />
 
                 <TextView
-                    android:id="@+id/textView31"
+                    android:id="@+id/UserPage_Fan_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="광희" />
+                    android:textColor="@android:color/holo_blue_dark"
+                     />
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/UserPage_Fan_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="나미" />
+                    android:textColor="@android:color/holo_blue_dark"
+                    />
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/UserPage_Fan_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="기자" />
+                    android:textColor="@android:color/holo_blue_dark"
+                     />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/UserPage_Fan_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="뚝배" />
+                    android:textColor="@android:color/holo_blue_dark"
+                     />
             </LinearLayout>
 
             <LinearLayout

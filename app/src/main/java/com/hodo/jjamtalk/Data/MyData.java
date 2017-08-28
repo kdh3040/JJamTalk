@@ -238,12 +238,13 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        table = database.getReference("FanList/"+ stTargetData.Idx);
+        table = database.getReference("User/"+ stTargetData.Idx);
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Count", nTotalSendCnt);
         updateMap.put("Nick", getUserNick());
-        table.child(strIdx).updateChildren(updateMap);
+        table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
+
     }
 
 
@@ -252,10 +253,8 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        if(strGender.equals("여자"))
-            table = database.getReference("Users/여자/"+ strIdx);
-        else
-            table = database.getReference("Users/남자/"+ strIdx);
+
+        table = database.getReference("User/"+ strIdx);
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("SendCount", nSendCount);
@@ -267,10 +266,7 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        if(strGender.equals("여자"))
-            table = database.getReference("Users/여자/"+ strIdx);
-        else
-            table = database.getReference("Users/남자/"+ strIdx);
+        table = database.getReference("User/"+ strIdx);
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("RecvCount", nRecvCount);

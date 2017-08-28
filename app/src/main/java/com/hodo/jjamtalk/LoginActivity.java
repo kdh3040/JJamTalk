@@ -129,9 +129,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     DatabaseReference ref;
 
 
-    private Boolean bMySet = false;
-    private Boolean bSetManNear, bSetManNew, bSetManPop, bSetManRich, bSetManRecv = false;
-    private Boolean bSetWomanNear, bSetWomanNew, bSetWomanPop, bSetWomanRich, bSetWomanRecv = false;
+    private boolean bMySet = false;
+    private boolean bSetNear, bSetNew, bSetRich, bSetRecv = false;
 
     private int nUserSet = 0;
     private static final int RC_SIGN_IN = 9001;
@@ -146,18 +145,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        bSetNear = bSetNew = bSetRich = bSetRecv = false;
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         // Set up the login form.
         mAuth = FirebaseAuth.getInstance();
-
-        bSetManNear = bSetManNew = bSetManPop = bSetManRich = false;
-
-        bSetWomanNear = bSetWomanNew = bSetWomanPop = bSetWomanRich = false;
-
-        bSetManRecv = true;
-        bSetWomanRecv = true;
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -188,14 +182,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mGoogleSignInButton = (Button) findViewById(R.id.Login_Google);
         mToMain = (Button) findViewById(R.id.btn_tomain);
 
-        if(mAuth.getCurrentUser() != null){
+   /*     if(mAuth.getCurrentUser() != null){
             showProgress(true);
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
         }
 
-        else {
+        else */
+            {
             mEmailSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -493,7 +488,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             //strMyIdx = "87";
             //strMyIdx = "81";
 
-            InitData_Mine();
+
   //          InitData_Near();
  //           InitData_New();
 //            InitData_Hot();
@@ -505,11 +500,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     Log.d(TAG, "Sing in Account:" + task.isSuccessful());
                                     if(task.isSuccessful()){
-                                        InitData_Fan();
-                                        InitData_Recv();
+                                        InitData_Mine();
+                                        //InitData_Fan();
+                                     /*   InitData_Recv();
                                         InitData_Send();
                                         InitData_New();
-                                        InitData_Near();
+                                        InitData_Near();*/
                                     }else {
                                         Toast.makeText(LoginActivity.this,
                                                 "Log In Failed", Toast.LENGTH_LONG).show();
@@ -522,7 +518,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void InitData_Mine() {
 
 
-        ref = FirebaseDatabase.getInstance().getReference().child("Users").child("여자").child(strMyIdx);
+        ref = FirebaseDatabase.getInstance().getReference().child("User").child(strMyIdx);
         ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -549,52 +545,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getBlockList();
                             mMyData.getBlockedList();
 
-                            InitData_Fan();
-                            InitData_Recv();
-                            InitData_Send();
-                            InitData_New();
-                            InitData_Near();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                    }
-                });
-
-        ref = FirebaseDatabase.getInstance().getReference().child("Users").child("남자").child(strMyIdx);
-        ref.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
-                        UserData stRecvData = new UserData ();
-                        stRecvData = dataSnapshot.getValue(UserData.class);
-                        if(stRecvData != null) {
-
-
-                            if(stRecvData.Img == null)
-                                stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-
-                            mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3, stRecvData.ImgGroup4,
-                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age,
-                                    stRecvData.Lon, stRecvData.Lat,  stRecvData.Honey, stRecvData.Date,
-                                    stRecvData.Memo);
-                            bMySet = true;
-
-                            mMyData.getSetting();
-
-                            mMyData.getCardList();
-                            mMyData.getSendList();
-                            mMyData.getSendHoneyList();
-                            mMyData.getRecvHoneyList();
-                            mMyData.getBlockList();
-                            mMyData.getBlockedList();
-                            //mMyData.getSendData();
-                            InitData_Fan();
+                            //InitData_Fan();
                             InitData_Recv();
                             InitData_Send();
                             InitData_New();
@@ -612,7 +563,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void InitData_Fan() {
         DatabaseReference refMan, refWoman;
-        refMan = FirebaseDatabase.getInstance().getReference().child("FanList").child(mMyData.getUserIdx());
+        refMan = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx());
         Query query=refMan.orderByChild("Count");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -623,13 +574,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             FanData stRecvData = new FanData ();
                             stRecvData = fileSnapshot.getValue(FanData.class);
                             if(stRecvData != null) {
-
                                 mMyData.arrUserAll_Fan.add(stRecvData);
-                                Log.d("Login Man_Rank : ", mMyData.arrUserMan_Recv.get(i).NickName);
+
                             }
                             i++;
                         }
-
                     }
 
                     @Override
@@ -643,14 +592,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void InitData_Recv() {
-        DatabaseReference refMan, refWoman;
-        refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
-        Query query=refMan.orderByChild("RecvCount");//키가 id와 같은걸 쿼리로 가져옴
+        DatabaseReference ref;
+        ref = FirebaseDatabase.getInstance().getReference().child("User");
+        Query query=ref.orderByChild("RecvCount");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
+                        int i = 0, j=0, k=0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
@@ -660,62 +609,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 if(stRecvData.Img == null)
                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-
-
-                                mMyData.arrUserMan_Recv.add(stRecvData);
                                 mMyData.arrUserAll_Recv.add(stRecvData);
-                                Log.d("Login Man_Rank : ", mMyData.arrUserMan_Recv.get(i).NickName);
+                                for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserAll_Recv.get(i).FanList.entrySet())
+                                    mMyData.arrUserAll_Recv.get(i).arrFanList.add(entry.getValue());
+
+                                if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                {
+                                    mMyData.arrUserWoman_Recv.add(stRecvData);
+                            //        for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserWoman_Recv.get(j).FanList.entrySet())
+                             //           mMyData.arrUserWoman_Recv.get(j).arrFanList.add(entry.getValue());
+
+                                    j++;
+                                }
+                                else {
+                                    mMyData.arrUserMan_Recv.add(stRecvData);
+                             //       for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_Recv.get(k).FanList.entrySet())
+                             //           mMyData.arrUserMan_Recv.get(k).arrFanList.add(entry.getValue());
+
+                                    k++;
+                                }
+
+
                             }
                             i++;
 
                         }
 
-                        bSetManRich = true;
+                        bSetRecv = true;
 
-                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
-                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
-                            showProgress(false);
-                            Log.d(TAG, "Account Log in  Complete");
-                            GoMainPage();
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-
-                });
-
-        refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
-        query=refWoman.orderByChild("RecvCount");//키가 id와 같은걸 쿼리로 가져옴
-        query.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
-                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
-
-
-                                if(stRecvData.Img == null)
-                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-
-
-                                mMyData.arrUserWoman_Recv.add(stRecvData);
-                                mMyData.arrUserAll_Recv.add(stRecvData);
-                                Log.d("Login Woman_Rank : ", mMyData.arrUserWoman_Recv.get(i).NickName);
-                            }
-                        }
-
-                        bSetWomanRich = true;
-
-                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
-                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
+                        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -724,21 +646,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
-
                 });
     }
 
     private void InitData_Send() {
-        DatabaseReference refMan, refWoman;
-        refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
-        Query query=refMan.orderByChild("SendCount");//키가 id와 같은걸 쿼리로 가져옴
+        DatabaseReference ref;
+        ref = FirebaseDatabase.getInstance().getReference().child("User");
+        Query query= ref.orderByChild("SendCount");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
+                        int i = 0, j=0, k=0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
@@ -747,57 +667,34 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 if(stRecvData.Img == null)
                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-
-                                mMyData.arrUserMan_Send.add(stRecvData);
                                 mMyData.arrUserAll_Send.add(stRecvData);
-                                Log.d("Login arrUserMan_Hot : ", mMyData.arrUserMan_Send.get(i).NickName);
+                               for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserAll_Send.get(i).FanList.entrySet())
+                                    mMyData.arrUserAll_Send.get(i).arrFanList.add(entry.getValue());
+
+
+                                if(mMyData.arrUserAll_Send.get(i).Gender.equals("여자"))
+                                {
+                                    mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
+                                //   for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserWoman_Send.get(j).FanList.entrySet())
+                                //        mMyData.arrUserWoman_Send.get(j).arrFanList.add(entry.getValue());
+
+                                    j++;
+                                }
+                                else {
+                                    mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
+                              //      for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_Send.get(k).FanList.entrySet())
+                              //          mMyData.arrUserMan_Send.get(k).arrFanList.add(entry.getValue());
+
+                                    k++;
+                                }
+
                             }
                             i++;
                         }
 
-                        bSetManPop = true;
+                        bSetRich = true;
 
-                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
-                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
-                            showProgress(false);
-                            Log.d(TAG, "Account Log in  Complete");
-                            GoMainPage();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                    }
-                });
-
-        refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
-        query=refWoman.orderByChild("SendCount");//키가 id와 같은걸 쿼리로 가져옴
-        query.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
-                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
-
-                                if(stRecvData.Img == null)
-                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-
-                                mMyData.arrUserWoman_Send.add(stRecvData);
-                                mMyData.arrUserAll_Send.add(stRecvData);
-                                Log.d("Login Woman_Hot : ", mMyData.arrUserWoman_Send.get(i).NickName);
-                            }
-                        }
-
-                        bSetWomanPop = true;
-
-                      if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true/* && bSetWomanRecv == true */&& bMySet == true
-                         && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true /*&& bSetManRecv == true */&& bMySet == true){
+                        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -819,14 +716,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int nTodayDate =  Integer.parseInt(ctime.format(new Date(time)));
         int nStartDate = nTodayDate - 7;
 
-        DatabaseReference refMan, refWoman;
-        refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
-        Query query=refMan.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
+        DatabaseReference ref;
+        ref = FirebaseDatabase.getInstance().getReference().child("User");
+        Query query=ref.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
+                        int i = 0, j=0, k=0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
@@ -835,54 +732,32 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 if(stRecvData.Img == null)
                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-
-                                mMyData.arrUserMan_New.add(stRecvData);
                                 mMyData.arrUserAll_New.add(stRecvData);
-                                Log.d("Login arrUserMan_New : ", mMyData.arrUserMan_New.get(i).NickName);
+                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_New.get(i).FanList.entrySet())
+                                    mMyData.arrUserAll_New.get(i).arrFanList.add(entry.getValue());
+
+                                if(mMyData.arrUserAll_New.get(i).Gender.equals("여자"))
+                                {
+                                    mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
+                          //          for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserWoman_New.get(j).FanList.entrySet())
+                           //             mMyData.arrUserWoman_New.get(j).arrFanList.add(entry.getValue());
+
+                                    j++;
+                                }
+                                else {
+                                    mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
+                         //           for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_New.get(k).FanList.entrySet())
+                            //            mMyData.arrUserMan_New.get(k).arrFanList.add(entry.getValue());
+
+                                    k++;
+                                }
+
                             }
                             i++;
                         }
 
-                        bSetManNew = true;
-                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
-                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
-                            showProgress(false);
-                            Log.d(TAG, "Account Log in  Complete");
-                            GoMainPage();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                    }
-                });
-
-        refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
-        query=refWoman.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
-        query.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
-                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
-
-                                if(stRecvData.Img == null)
-                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                                mMyData.arrUserWoman_New.add(stRecvData);
-                                mMyData.arrUserAll_New.add(stRecvData);
-                                Log.d("Login Woman_New : ", mMyData.arrUserWoman_New.get(i).NickName);
-                            }
-                        }
-
-                        bSetWomanNew = true;
-                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
-                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
+                        bSetNew = true;
+                        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
@@ -906,9 +781,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Double lEndLon = mMyData.getUserLon() + 10;
         Double IEndLat = mMyData.getUserLon() + 10;
 
-        DatabaseReference refMan, refWoman;
-        refMan = FirebaseDatabase.getInstance().getReference().child("Users").child("남자");
-        Query query=refMan
+        DatabaseReference ref;
+        ref = FirebaseDatabase.getInstance().getReference().child("User");
+        Query query=ref
                 .orderByChild("Lon")
                 .startAt(lStartLon).endAt(lEndLon);
 
@@ -917,7 +792,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
+                        int i = 0, j=0, k=0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                             UserData stRecvData = new UserData ();
                             stRecvData = fileSnapshot.getValue(UserData.class);
@@ -926,58 +801,33 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 if(stRecvData.Img == null)
                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                mMyData.arrUserMan_Near.add(stRecvData);
                                 mMyData.arrUserAll_Near.add(stRecvData);
-                                Log.d("Login Man_Near : ", mMyData.arrUserMan_Near.get(i).NickName);
+                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_Near.get(i).FanList.entrySet())
+                                   mMyData.arrUserAll_Near.get(i).arrFanList.add(entry.getValue());
+
+                                if(mMyData.arrUserAll_Near.get(i).Gender.equals("여자"))
+                                {
+                                    mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                  //  for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserWoman_Near.get(j).FanList.entrySet())
+                                  //     mMyData.arrUserWoman_Near.get(j).arrFanList.add(entry.getValue());
+
+                                    j++;
+                                }
+                                else {
+                                    mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
+                                  //  for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_Near.get(k).FanList.entrySet())
+                                   //     mMyData.arrUserMan_Near.get(k).arrFanList.add(entry.getValue());
+
+                                    k++;
+                                }
+
                             }
                             i++;
                         }
 
-                        bSetManNear = true;
+                        bSetNear = true;
 
-                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
-                                && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
-                            showProgress(false);
-                            Log.d(TAG, "Account Log in  Complete");
-                            GoMainPage();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                    }
-                });
-
-        refWoman = FirebaseDatabase.getInstance().getReference().child("Users").child("여자");
-        query=refWoman
-                .orderByChild("Lon")
-                .startAt(lStartLon).endAt(lEndLon);
-        query.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
-                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
-
-                                if(stRecvData.Img == null)
-                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-
-                                mMyData.arrUserWoman_Near.add(stRecvData);
-                                mMyData.arrUserAll_Near.add(stRecvData);
-                                Log.d("Login Woman_Near : ", mMyData.arrUserWoman_Near.get(i).NickName);
-                            }
-                        }
-
-                        bSetWomanNear= true;
-
-                        if(bSetWomanNear == true && bSetWomanNew == true && bSetWomanPop == true && bSetManRich == true && bSetWomanRecv == true && bMySet == true
-                         && bSetManNear == true && bSetManNew == true && bSetManPop == true && bSetManRich == true && bSetManRecv == true && bMySet == true){
+                        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
                             showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();

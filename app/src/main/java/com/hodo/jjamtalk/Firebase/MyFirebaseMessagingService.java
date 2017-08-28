@@ -108,9 +108,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     {
         final DatabaseReference ref;
 
-        if(Gender.equals("여자"))
-        {
-            ref = FirebaseDatabase.getInstance().getReference().child("Users").child("여자").child(idx);
+            ref = FirebaseDatabase.getInstance().getReference().child("User").child(idx);
             ref.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -139,38 +137,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
                         }
                     });
-        }
-        else
-        {
-            ref = FirebaseDatabase.getInstance().getReference().child("Users").child("남자").child(idx);
-            ref.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            int i = 0;
-                            UserData stRecvData = new UserData ();
-                            stRecvData = dataSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
-
-                                Map<String, Object> updateMap = new HashMap<>();
-
-                                nRecvHoneyCnt = stRecvData.RecvCount;
-
-                                nRecvHoneyCnt -= Integer.valueOf(strSenderHoney);
-                                updateMap.put("RecvCount", nRecvHoneyCnt);
-
-                                ref.updateChildren(updateMap);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //handle databaseError
-                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                        }
-                    });
-        }
-
     }
 
 }

@@ -2,6 +2,7 @@ package com.hodo.jjamtalk;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,11 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AppStatus;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
+
+import java.util.ArrayList;
 
 
 /**
@@ -106,7 +110,12 @@ public class Rank_NearFragment extends Fragment {
 
                             Log.d("Guide !!!! ", "Start : " + position);
                             Intent intent = new Intent(view.getContext(), UserPageActivity.class);
-                            intent.putExtra("Target", stTargetData);
+                            Bundle bundle = new Bundle();
+
+                            bundle.putSerializable("Target", stTargetData);
+                            intent.putExtra("FanList", stTargetData.arrFanList);
+                            intent.putExtras(bundle);
+
                             view.getContext().startActivity(intent);
                         }
                     }

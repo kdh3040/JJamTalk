@@ -61,7 +61,7 @@ public class FirebaseData {
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Users").child(mMyData.getUserGender());
+        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
         userIdx = Integer.toString(rand.nextInt(100));
 

@@ -24,7 +24,7 @@ public class MyFirebaseInstanceIdSerivce extends FirebaseInstanceIdService {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference table = database.getReference("Users").child(mMyData.getUserGender());
+        DatabaseReference table = database.getReference("User");
         final DatabaseReference user = table.child(mMyData.getUserIdx());
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Token", refreshedToken);

@@ -2,6 +2,7 @@ package com.hodo.jjamtalk;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -58,9 +59,13 @@ public class Rank_HoneyReceiveFragment extends Fragment {
                                     break;
                             }
 
-                            Log.d("Guide !!!! ", "Start : " + position);
                             Intent intent = new Intent(view.getContext(), UserPageActivity.class);
-                            intent.putExtra("Target", stTargetData);
+                            Bundle bundle = new Bundle();
+
+                            bundle.putSerializable("Target", stTargetData);
+                            intent.putExtra("FanList", stTargetData.arrFanList);
+                            intent.putExtras(bundle);
+
                             view.getContext().startActivity(intent);
                         }
                     }
