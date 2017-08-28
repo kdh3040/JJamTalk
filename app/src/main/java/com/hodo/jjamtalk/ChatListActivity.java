@@ -3,6 +3,9 @@ package com.hodo.jjamtalk;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -15,9 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
+import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.ViewHolder.ChatListViewHolder;
 
 import java.util.ArrayList;
@@ -33,6 +38,7 @@ public class ChatListActivity extends AppCompatActivity {
     private ArrayList<SendData> arrChatData = new ArrayList<>();
     Menu mMenu;
     Context mContext;
+    UIData mUIData = UIData.getInstance();
     LinearLayout layout_chatlist;
 
     ChatListAdapter mAdapter = new ChatListAdapter();
@@ -55,7 +61,10 @@ public class ChatListActivity extends AppCompatActivity {
         @Override
         public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_chat_list,parent,false);
-
+            int width = mUIData.getWidth()/4;
+            Toast.makeText(getApplicationContext(),"width:"+width,Toast.LENGTH_LONG).show();
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,width);
+            view.setLayoutParams(lp);
 
 
             return new ChatListViewHolder(view);
@@ -65,7 +74,30 @@ public class ChatListActivity extends AppCompatActivity {
         public void onBindViewHolder(ChatListViewHolder holder, final int position) {
             int i = position;
 
+
+
+
+
+
+            //LinearLayout.LayoutParams lpForLL = new LinearLayout.LayoutParams((int)(mUIData.getWidth()*0.6),(int)(mUIData.getWidth()*0.2));
+            //holder.imageView.setLayoutParams(lp);
+            //holder.linearLayout.setLayoutParams(lp);
+
+            //holder.ll_text.setLayoutParams(lpForLL);
+
+            /*GradientDrawable drawable = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                drawable = (GradientDrawable)getDrawable(R.drawable.background_rounding);
+            }*/
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                holder.imageView.setBackground(new ShapeDrawable(new OvalShape()));
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                holder.imageView.setClipToOutline(true);
+            }
             holder.imageView.setImageResource(R.mipmap.girl1);
+
             holder.linearLayout.setLongClickable(true);
 
             holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
