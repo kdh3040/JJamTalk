@@ -15,6 +15,8 @@ import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.ViewHolder.FanViewHolder;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by mjk on 2017. 8. 27..
  */
@@ -64,6 +66,7 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
         Glide.with(mContext)
                 .load(mMyData.arrMyFanDataList.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(mContext))
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 

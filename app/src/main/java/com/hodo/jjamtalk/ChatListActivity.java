@@ -20,12 +20,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.ViewHolder.ChatListViewHolder;
 
 import java.util.ArrayList;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by mjk on 2017. 8. 10..
@@ -96,7 +101,15 @@ public class ChatListActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 holder.imageView.setClipToOutline(true);
             }
-            holder.imageView.setImageResource(R.mipmap.girl1);
+            //holder.imageView.setImageResource(R.mipmap.girl1);
+
+            Glide.with(mContext)
+                    .load(mMyData.arrSendDataList.get(position).strTargetImg)
+                    .bitmapTransform(new CropCircleTransformation(ChatListActivity.this))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .thumbnail(0.1f)
+                    .into(holder.imageView);
+
 
             holder.linearLayout.setLongClickable(true);
 

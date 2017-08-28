@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by mjk on 2017. 8. 4..
  */
@@ -68,6 +70,7 @@ public class MyPageActivity extends AppCompatActivity {
                 .load(mMyData.getUserImg())
                 .thumbnail(0.1f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(img_Mypic);
 
         img_Mypic.setOnClickListener(new View.OnClickListener() {
