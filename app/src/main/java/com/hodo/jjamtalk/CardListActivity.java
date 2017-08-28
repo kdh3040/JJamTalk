@@ -17,10 +17,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 
 import java.util.ArrayList;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by mjk on 2017. 8. 10..
@@ -58,7 +62,14 @@ public class CardListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
             int i = position;
-            holder.image.setImageResource(R.mipmap.girl1);
+            //holder.image.setImageResource(R.mipmap.girl1);
+
+            Glide.with(mContext)
+                    .load(mMyData.arrCardList.get(position).Img)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .bitmapTransform(new CropCircleTransformation(mContext))
+                    .thumbnail(0.1f)
+                    .into(holder.image);
 
             holder.textView.setText(mMyData.arrCardList.get(i).NickName + ", " + mMyData.arrCardList.get(i).Age + "세");
             holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
@@ -92,9 +103,13 @@ public class CardListActivity extends AppCompatActivity {
                     //startActivity(new Intent(getApplicationContext(),UserPageActivity.class));
                     stTargetData = arrTargetData.get(position);
                     Intent intent = new Intent(getApplicationContext(), UserPageActivity.class);
-                    intent.putExtra("Target", (Parcelable) stTargetData);
-                    startActivity(intent);
+                    Bundle bundle = new Bundle();
 
+                    bundle.putSerializable("Target", stTargetData);
+                    intent.putExtra("FanList", stTargetData.arrFanList);
+                    intent.putExtras(bundle);
+
+                    startActivity(intent);
                 }
             });
 

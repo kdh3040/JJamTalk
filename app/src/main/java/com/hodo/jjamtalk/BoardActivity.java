@@ -28,6 +28,8 @@ import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by mjk on 2017. 8. 10..
  */
@@ -100,6 +102,7 @@ public class BoardActivity extends AppCompatActivity {
             //holder.iv_profile.setImageResource(R.drawable.bg1);
             Glide.with(getApplicationContext())
                     .load(mBoardData.arrBoardList.get(position).Img)
+                    .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.imageView);
         }

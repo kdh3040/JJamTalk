@@ -1,15 +1,19 @@
 package com.hodo.jjamtalk;
 
+import android.*;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.database.Cursor;
 import android.location.Criteria;
 import android.location.Location;
@@ -21,10 +25,13 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -63,13 +70,24 @@ import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AwsFunc;
-import com.hodo.jjamtalk.Util.LocationFunc;
 
+import com.hodo.jjamtalk.Kakao.KakaoSignupActivity;
+import com.hodo.jjamtalk.Util.LocationFunc;
+import com.kakao.auth.Session;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.kakao.auth.ISessionCallback;
+import com.kakao.util.exception.KakaoException;
+import com.kakao.util.helper.log.Logger;
 /**
  * A login screen that offers login via email/password.
  */
@@ -164,7 +182,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mGoogleSignInButton = (Button) findViewById(R.id.Login_Google);
         mToMain = (Button) findViewById(R.id.btn_tomain);
 
-        if(mAuth.getCurrentUser() != null){
+       if(mAuth.getCurrentUser() != null){
             showProgress(true);
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
@@ -519,6 +537,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     stRecvData.Memo);
                             bMySet = true;
 
+                            for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet())
+                                mMyData.arrMyFanList.add(entry.getValue());
+
+                            mMyData.getMyfanData();
                             mMyData.getSetting();
                             mMyData.getCardList();
                             mMyData.getSendList();
@@ -542,7 +564,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 });
     }
-
+/*
     private void InitData_Fan() {
         DatabaseReference refMan, refWoman;
         refMan = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx());
@@ -571,7 +593,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 });
 
 
-    }
+    }*/
 
     private void InitData_Recv() {
         DatabaseReference ref;

@@ -11,4 +11,5 @@ public class FanData implements Serializable{
 
     public int Count;
     public String Nick;
+    public String Idx;
 }
