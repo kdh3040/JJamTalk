@@ -92,9 +92,13 @@ public class CardListActivity extends AppCompatActivity {
                     //startActivity(new Intent(getApplicationContext(),UserPageActivity.class));
                     stTargetData = arrTargetData.get(position);
                     Intent intent = new Intent(getApplicationContext(), UserPageActivity.class);
-                    intent.putExtra("Target", (Parcelable) stTargetData);
-                    startActivity(intent);
+                    Bundle bundle = new Bundle();
 
+                    bundle.putSerializable("Target", stTargetData);
+                    intent.putExtra("FanList", stTargetData.arrFanList);
+                    intent.putExtras(bundle);
+
+                    startActivity(intent);
                 }
             });
 

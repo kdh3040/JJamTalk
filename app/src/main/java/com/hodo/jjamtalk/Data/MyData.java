@@ -55,7 +55,7 @@ public class MyData {
     public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
 
-    public ArrayList<FanData> arrUserAll_Fan = new ArrayList<>();
+    public ArrayList<FanData> arrMyFanList = new ArrayList<>();
 
 
     private String strIdx;

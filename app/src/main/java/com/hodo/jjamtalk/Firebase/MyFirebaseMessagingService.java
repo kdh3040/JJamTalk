@@ -121,11 +121,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                 Map<String, Object> updateMap = new HashMap<>();
 
 
-                                nRecvHoneyCnt = stRecvData.RecvCount;
-
-                                nRecvHoneyCnt -= Integer.valueOf(strSenderHoney);
-                                updateMap.put("RecvCount", nRecvHoneyCnt);
-
+                                if(strSenderHoney != null) {
+                                    nRecvHoneyCnt = stRecvData.RecvCount;
+                                    nRecvHoneyCnt -= Integer.valueOf(strSenderHoney);
+                                    updateMap.put("RecvCount", nRecvHoneyCnt);
+                                }
 
                                 ref.updateChildren(updateMap);
                             }

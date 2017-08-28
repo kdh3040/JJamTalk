@@ -537,6 +537,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     stRecvData.Memo);
                             bMySet = true;
 
+                            for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet())
+                                mMyData.arrMyFanList.add(entry.getValue());
+
                             mMyData.getSetting();
                             mMyData.getCardList();
                             mMyData.getSendList();
@@ -560,7 +563,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 });
     }
-
+/*
     private void InitData_Fan() {
         DatabaseReference refMan, refWoman;
         refMan = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx());
@@ -589,7 +592,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 });
 
 
-    }
+    }*/
 
     private void InitData_Recv() {
         DatabaseReference ref;
