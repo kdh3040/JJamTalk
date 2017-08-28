@@ -20,6 +20,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -56,6 +57,7 @@ public class MyData {
     public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
 
     public ArrayList<FanData> arrMyFanList = new ArrayList<>();
+    public ArrayList<UserData> arrMyFanDataList = new ArrayList<>();
 
 
     private String strIdx;
@@ -243,6 +245,7 @@ public class MyData {
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Count", nTotalSendCnt);
         updateMap.put("Nick", getUserNick());
+        updateMap.put("Idx", getUserIdx());
         table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
 
     }
@@ -775,4 +778,33 @@ public class MyData {
 
     }
 
+    public void getMyfanData() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("User");
+
+        for(int i=0; i<arrMyFanList.size(); i++)
+        {
+            strTargetIdx = arrMyFanList.get(i).Idx;
+
+            final int finalI = i;
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int saa =0;
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    arrMyFanDataList.add(tempUserData);
+
+                    for(LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                        arrMyFanDataList.get(finalI).arrFanList.add(entry.getValue());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+        }
+    }
 }
