@@ -216,10 +216,7 @@ public class MyData {
         nHoney = userHoney;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        if(strGender.equals("여자"))
-            table = database.getReference("Users/여자/"+ strIdx);
-        else
-            table = database.getReference("Users/남자/"+ strIdx);
+        table = database.getReference("User/"+ strIdx);
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Honey", nHoney);
