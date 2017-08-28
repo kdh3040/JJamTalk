@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +25,6 @@ import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.NotiFunc;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -60,6 +59,7 @@ public class UserPageActivity extends AppCompatActivity {
     private Button btnMessage;
 
     private ImageView imgProfile;
+    ListView listView;
     final Context context = this;
 
     @Override
@@ -87,7 +87,7 @@ public class UserPageActivity extends AppCompatActivity {
 
         txt_FanTitle = (TextView)findViewById(R.id.UserPage_FanTitle);
         txt_FanTitle.setText(stTargetData.NickName + "님의 팬클럽");
-
+        /*
         txt_Fan[0]= (TextView)findViewById(R.id.UserPage_Fan_0);
         txt_Fan[1]= (TextView)findViewById(R.id.UserPage_Fan_1);
         txt_Fan[2]= (TextView)findViewById(R.id.UserPage_Fan_2);
@@ -97,7 +97,7 @@ public class UserPageActivity extends AppCompatActivity {
         for(int i = 0; i < FanList.size(); i++)
         {
             txt_Fan[i].setText(FanList.get(i).Nick);
-        }
+        }*/
 
 
 
@@ -361,6 +361,10 @@ public class UserPageActivity extends AppCompatActivity {
         btnGift.setOnClickListener(listener);
 
         btnMessage.setOnClickListener(listener);
+
+        listView = (ListView)findViewById(R.id.lv_fan);
+        UserPageFanAdapter fanAdapter = new UserPageFanAdapter(this);
+        listView.setAdapter(fanAdapter);
 
     }
 

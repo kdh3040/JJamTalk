@@ -12,13 +12,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
@@ -40,6 +41,8 @@ public class ChatListActivity extends AppCompatActivity {
     Context mContext;
     UIData mUIData = UIData.getInstance();
     LinearLayout layout_chatlist;
+    RelativeLayout.LayoutParams lp,lpForIv;
+    int height;
 
     ChatListAdapter mAdapter = new ChatListAdapter();
     @Override
@@ -52,6 +55,12 @@ public class ChatListActivity extends AppCompatActivity {
         chatListRecyclerView.setAdapter(mAdapter);
         chatListRecyclerView.setLayoutManager(new LinearLayoutManager(this,1,false));
         mAdapter.notifyDataSetChanged();
+        height = mUIData.getWidth()/5;
+        lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height);
+        lpForIv = new RelativeLayout.LayoutParams(height,height);
+        //lpForIv.setMargins(10,10,10,10);
+
+
 
     }
 
@@ -61,11 +70,9 @@ public class ChatListActivity extends AppCompatActivity {
         @Override
         public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_chat_list,parent,false);
-            int width = mUIData.getWidth()/4;
-            Toast.makeText(getApplicationContext(),"width:"+width,Toast.LENGTH_LONG).show();
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,width);
-            view.setLayoutParams(lp);
 
+
+            Log.d("hngpic","chatlistViewHolder");
 
             return new ChatListViewHolder(view);
         }
@@ -73,13 +80,8 @@ public class ChatListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(ChatListViewHolder holder, final int position) {
             int i = position;
-
-
-
-
-
-
-            //LinearLayout.LayoutParams lpForLL = new LinearLayout.LayoutParams((int)(mUIData.getWidth()*0.6),(int)(mUIData.getWidth()*0.2));
+            Log.d("hngpic","onBindViewholder");
+            holder.relativeLayout.setLayoutParams(lp);
             //holder.imageView.setLayoutParams(lp);
             //holder.linearLayout.setLayoutParams(lp);
 
@@ -96,11 +98,16 @@ public class ChatListActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 holder.imageView.setClipToOutline(true);
             }
-            holder.imageView.setImageResource(R.mipmap.girl1);
+            holder.imageView.setImageResource(R.mipmap.hdvd);
+            holder.imageView.setLayoutParams(lpForIv);
+            ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) holder.imageView.getLayoutParams();
+            marginLayoutParams.setMargins(10,10,10,10);
 
-            holder.linearLayout.setLongClickable(true);
 
-            holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+
+            holder.relativeLayout.setLongClickable(true);
+
+            holder.relativeLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     AlertDialog.Builder br = new AlertDialog.Builder(mContext);
@@ -130,7 +137,7 @@ public class ChatListActivity extends AppCompatActivity {
             arrChatData.add(mMyData.arrSendDataList.get(i));
             holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
             holder.nickname.setText(mMyData.arrSendDataList.get(i).strTargetNick);
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String strCharName = arrChatNameData.get(position);
