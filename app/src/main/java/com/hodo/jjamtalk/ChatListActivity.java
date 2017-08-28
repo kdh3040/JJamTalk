@@ -3,9 +3,6 @@ package com.hodo.jjamtalk;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -18,11 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
 import com.hodo.jjamtalk.Data.UIData;
@@ -66,9 +61,9 @@ public class ChatListActivity extends AppCompatActivity {
         @Override
         public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_chat_list,parent,false);
-            int width = mUIData.getWidth()/4;
-            Toast.makeText(getApplicationContext(),"width:"+width,Toast.LENGTH_LONG).show();
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,width);
+            int height = mUIData.getWidth()/4;
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height);
             view.setLayoutParams(lp);
 
 
@@ -95,12 +90,12 @@ public class ChatListActivity extends AppCompatActivity {
                 drawable = (GradientDrawable)getDrawable(R.drawable.background_rounding);
             }*/
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 holder.imageView.setBackground(new ShapeDrawable(new OvalShape()));
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 holder.imageView.setClipToOutline(true);
-            }
+            }*/
             //holder.imageView.setImageResource(R.mipmap.girl1);
 
             Glide.with(mContext)

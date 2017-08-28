@@ -17,12 +17,12 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
 
     public  ImageView imageView;
     public TextView textView,nickname;
-    public RelativeLayout relativeLayout;
+    public LinearLayout linearLayout;
 
     public ChatListViewHolder(View itemView) {
         super(itemView);
 
-        relativeLayout = (RelativeLayout)itemView.findViewById(R.id.layout_chat_list);
+        linearLayout = (LinearLayout) itemView.findViewById(R.id.layout_chat_list);
 
 
 
