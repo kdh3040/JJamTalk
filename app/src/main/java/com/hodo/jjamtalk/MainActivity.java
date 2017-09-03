@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         mUIData.setHeight(height);
         mUIData.setWidth(width);
+        mUIData.setLlp_ListItem(new LinearLayout.LayoutParams(width,height/7));
 
         //int mHeight = mUIData.getHeight();
         int mWidth = mUIData.getWidth();

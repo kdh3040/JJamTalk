@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 
 import java.util.ArrayList;
@@ -39,6 +39,7 @@ public class CardListActivity extends AppCompatActivity {
     RecyclerView card_recylerview;
     private CardListAdapter cardListAdapter;
     private Context mContext;
+    private UIData mUIData = UIData.getInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class CardListActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_my_card,parent,false);
+            view.setLayoutParams(mUIData.getLLP_ListItem());
 
             return new ViewHolder(view);
 
@@ -97,6 +99,8 @@ public class CardListActivity extends AppCompatActivity {
             });
             arrTargetData.add(mMyData.arrCardList.get(i));
 
+            holder.linearLayout.setLayoutParams(mUIData.getLLP_ListItem());
+
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -128,7 +132,7 @@ public class CardListActivity extends AppCompatActivity {
                 super(itemView);
                 image = (ImageView)itemView.findViewById(R.id.iv_my_card);
                 textView = (TextView)itemView.findViewById(R.id.tv_nickname);
-                linearLayout = itemView.findViewById(R.id.layout_my_card);
+                linearLayout = itemView.findViewById(R.id.layout_mycard_item);
 
             }
         }

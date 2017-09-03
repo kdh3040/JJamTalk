@@ -27,12 +27,19 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
     @Override
     public MyLikeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.content_my_like,parent,false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //유저페이지 액티비티
+            }
+        });
 
         return new MyLikeViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyLikeViewHolder holder, int position) {
+
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(mUIData.getHeight()/7)));
         holder.imageView.setImageResource(R.mipmap.hdvd);
         holder.tv_nickname.setText("상희");

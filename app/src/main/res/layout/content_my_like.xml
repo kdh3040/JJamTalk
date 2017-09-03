@@ -5,55 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <View
+        android:id="@+id/view2"
+        style="@style/Divider" />
 
     <LinearLayout
         android:id="@+id/ll_my_fan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
+
         android:orientation="horizontal"
-        android:weightSum="10">
+        android:weightSum="5">
 
         <ImageView
             android:id="@+id/iv_my_like"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="1"
             app:srcCompat="@drawable/hedfvb" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:orientation="vertical">
 
 
             <TextView
                 android:id="@+id/tv_nickname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="아이유" />
+                android:text="아이유"
+                android:textColor="@android:color/holo_purple"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_gift_count"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="3500" />
+                android:text="3500꿀"
+                android:textColor="?android:attr/colorMultiSelectHighlight" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_gift_ranking"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:text="13위" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="13위"
+            android:textColor="@android:color/holo_blue_dark" />
 
     </LinearLayout>
 
-    <View style="@style/Divider" />
+
 
 </LinearLayout>

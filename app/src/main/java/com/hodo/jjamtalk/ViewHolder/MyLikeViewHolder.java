@@ -20,7 +20,7 @@ public class MyLikeViewHolder extends RecyclerView.ViewHolder{
 
     public MyLikeViewHolder(View itemView) {
         super(itemView);
-        linearLayout = itemView.findViewById(R.id.ll_my_fan);
+        linearLayout = itemView.findViewById(R.id.layout_fan);
         imageView = itemView.findViewById(R.id.iv_my_like);
         tv_nickname = itemView.findViewById(R.id.tv_nickname);
         tv_honeycount =itemView.findViewById(R.id.tv_gift_count);

@@ -295,8 +295,7 @@ public class UserPageActivity extends AppCompatActivity {
                         }
 
 
-                        if(mMyData.getUserHoney() > 5)
-                        {
+//쪽지 공짜
                             View view1= inflater.inflate(R.layout.alert_send_msg,null);
                             Button btn_cancel = view1.findViewById(R.id.btn_cancel);
                             final EditText et_msg = view1.findViewById(R.id.et_msg);
@@ -325,8 +324,8 @@ public class UserPageActivity extends AppCompatActivity {
                                 }
                             });
 
-                        }
 
+                        /*
                         else
                         {
                             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -352,7 +351,7 @@ public class UserPageActivity extends AppCompatActivity {
                         }
 
                         //ClickBtnSendHeart();
-                        break;
+                        break;*/
                 }
             }
         };
