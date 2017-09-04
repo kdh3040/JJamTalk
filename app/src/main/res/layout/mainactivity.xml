@@ -5,29 +5,32 @@
 
     android:layout_height="match_parent"
 
-
+    android:weightSum="20"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:id="@+id/layout_topbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:background="#f9c901"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="10">
 
         <ImageButton
             android:id="@+id/ib_mypage"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/bee" />
 
         <TextView
             android:id="@+id/tv_maintitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="8"
             android:gravity="center"
             android:text="꿀톡"
             android:textSize="20sp"
@@ -35,7 +38,7 @@
 
         <ImageView
             android:id="@+id/iv_refresh"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@drawable/icon_refresh" />
@@ -46,8 +49,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/indicator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
 
+        android:layout_weight="1"
         app:siIndicatorColor="@color/colorPrimary"
         app:siIndicatorColors="@array/indicator_colors"
         app:siSelectedTextColor="@android:color/white"
@@ -57,31 +61,26 @@
     <github.chenupt.springindicator.viewpager.ScrollerViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
 
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_weight="14" />
 
     <LinearLayout
         android:id="@+id/layout_lowbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
 
+        android:layout_weight="3"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/ib_fan"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
-            android:padding="5dp"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/icon_fan" />
+        android:orientation="horizontal"
+        android:weightSum="4">
 
         <ImageButton
             android:id="@+id/ib_cardlist"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/colorPrimary"
             app:srcCompat="@drawable/mycard_icon" />
 
@@ -89,13 +88,25 @@
             android:id="@+id/ib_chatlist"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/colorPrimary"
             app:srcCompat="@drawable/icon_msg" />
+
+        <ImageButton
+            android:id="@+id/ib_fan"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/icon_fan" />
 
         <ImageButton
             android:id="@+id/ib_board"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/colorPrimary"
             app:srcCompat="@drawable/icon_board" />
     </LinearLayout>
