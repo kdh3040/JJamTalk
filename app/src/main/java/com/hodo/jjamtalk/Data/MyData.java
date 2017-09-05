@@ -17,8 +17,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.kakao.usermgmt.response.model.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -848,12 +851,14 @@ public class MyData {
             if (arrMyStarList.get(i).Nick.equals(tempStarList.Nick)) {
                 bSame = true;
                 arrMyStarList.get(i).Count = nTotalSendCnt;
+                sortStarData();
                 break;
             }
         }
 
         if (bSame == false) {
             arrMyStarList.add(tempStarList);
+            sortStarData();
             getMyStarData();
         }
 
@@ -897,6 +902,12 @@ public class MyData {
 
             });
         }
+
+    }
+
+    public void sortStarData()
+    {
+        Collections.sort(arrMyStarList);
     }
 
 

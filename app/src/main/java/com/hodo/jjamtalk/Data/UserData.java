@@ -2,6 +2,7 @@ package com.hodo.jjamtalk.Data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -123,4 +124,5 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeString(ImgGroup3);
         parcel.writeString(ImgGroup4);
     }
+
 }
