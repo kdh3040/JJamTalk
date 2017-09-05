@@ -3,55 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_fan"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
-        android:weightSum="10">
+        android:weightSum="8">
 
         <TextView
             android:id="@+id/tv_gift_ranking"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="1" />
 
         <ImageView
             android:id="@+id/iv_fan"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="3"
             app:srcCompat="@drawable/hedfvb" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="vertical">
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:weightSum="4">
 
 
             <TextView
                 android:id="@+id/tv_nickname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="아이유" />
+                android:maxLines="1"
+                android:text="아이유"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/tv_gift_count"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:layout_weight="3"
                 android:gravity="center"
-                android:text="3500" />
+                android:maxLines="1"
+                android:text="3500"
+                android:textColor="@android:color/holo_purple"
+                android:textSize="18sp" />
 
         </LinearLayout>
     </LinearLayout>
 
-    <View style="@style/Divider" />
+    <View
+        style="@style/Divider"
+        android:layout_marginLeft="100dp" />
 
 </LinearLayout>
