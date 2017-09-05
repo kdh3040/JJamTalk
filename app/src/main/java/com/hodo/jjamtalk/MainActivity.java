@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     SpringIndicator springIndicator;
     ScrollerViewPager viewPager;
     ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage,ib_fan;
-    ImageView iv_refresh;
+    ImageView iv_refresh,iv_honeybox;
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
 
@@ -75,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
         int mHeight = mUIData.getHeight();
 
         Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
+
+        iv_honeybox = (ImageView)findViewById(R.id.iv_honeybox);
+        iv_honeybox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
+
+            }
+        });
 
 
 

@@ -30,11 +30,18 @@
             android:id="@+id/tv_maintitle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="8"
+            android:layout_weight="7"
             android:gravity="center"
             android:text="꿀톡"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_honeybox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/honeyicon" />
 
         <ImageView
             android:id="@+id/iv_refresh"
@@ -58,13 +65,13 @@
         app:siTextColor="@color/colorPrimaryDark"
         app:siTextSize="13sp" />
 
-    <github.chenupt.springindicator.viewpager.ScrollerViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        <github.chenupt.springindicator.viewpager.ScrollerViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
 
-        android:layout_gravity="center"
-        android:layout_weight="24" />
+            android:layout_gravity="center"
+            android:layout_weight="24" />
 
     <LinearLayout
         android:id="@+id/layout_lowbar"
@@ -128,7 +135,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="내 카드" />
+            android:text="카드" />
 
         <TextView
             android:id="@+id/textView35"
@@ -155,4 +162,7 @@
             android:text="게시판" />
     </LinearLayout>
 
-</LinearLayout>
+
+    </LinearLayout>
+
+
