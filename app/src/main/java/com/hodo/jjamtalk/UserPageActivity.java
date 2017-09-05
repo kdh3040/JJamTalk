@@ -86,7 +86,7 @@ public class UserPageActivity extends AppCompatActivity {
         //private TextView txtProfile;
 
         txt_FanTitle = (TextView)findViewById(R.id.UserPage_FanTitle);
-        txt_FanTitle.setText(stTargetData.NickName + "님의 팬클럽");
+        //txt_FanTitle.setText("팬클럽");
         /*
         txt_Fan[0]= (TextView)findViewById(R.id.UserPage_Fan_0);
         txt_Fan[1]= (TextView)findViewById(R.id.UserPage_Fan_1);
@@ -148,7 +148,7 @@ public class UserPageActivity extends AppCompatActivity {
                                 // 블락됬습니다 표시
                                 final int[] nSendHoneyCnt = new int[1];
                                 nSendHoneyCnt[0] = 0;
-                                View giftView = inflater.inflate(R.layout.alert_send_heart,null);
+                                View giftView = inflater.inflate(R.layout.alert_send_gift,null);
                                 builder.setView(giftView);
                                 final AlertDialog dialog = builder.create();
                                 dialog.show();
@@ -165,7 +165,7 @@ public class UserPageActivity extends AppCompatActivity {
 
                                 final int[] nSendHoneyCnt = new int[1];
                                 nSendHoneyCnt[0] = 0;
-                                View giftView = inflater.inflate(R.layout.alert_send_heart,null);
+                                View giftView = inflater.inflate(R.layout.alert_send_gift,null);
                                 builder.setView(giftView);
                                 final AlertDialog dialog = builder.create();
                                 dialog.show();

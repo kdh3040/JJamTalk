@@ -120,7 +120,7 @@
                     android:id="@+id/UserPage_FanTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="상희 님의 꿀팬"
+                    android:text="꿀팬"
                     android:textColor="@android:color/holo_purple"
                     android:textSize="18sp"
                     android:textStyle="bold" />

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -46,11 +47,14 @@ public class ChatListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         mContext = this;
         chatListRecyclerView = (RecyclerView)findViewById(R.id.chat_list_recy);
 
         chatListRecyclerView.setAdapter(mAdapter);
-        chatListRecyclerView.setLayoutManager(new LinearLayoutManager(this,1,false));
+        chatListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter.notifyDataSetChanged();
 
     }
@@ -63,7 +67,7 @@ public class ChatListActivity extends AppCompatActivity {
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_chat_list,parent,false);
 
 
-            view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
+            view.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
 
 
 
@@ -178,14 +182,9 @@ public class ChatListActivity extends AppCompatActivity {
         switch(curId){
             case R.id.clickAll:
 
-
-
-
-
-
-
                 //setDateVisiblity(false);
                 break;
+
 
         }
         return super.onOptionsItemSelected(item);

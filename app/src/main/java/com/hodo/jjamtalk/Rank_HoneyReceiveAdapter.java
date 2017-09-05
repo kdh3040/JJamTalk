@@ -54,7 +54,7 @@ public class Rank_HoneyReceiveAdapter extends RecyclerView.Adapter<GridUserViewH
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, int position) {
 
-        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*1.2)));
+        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),mUIData.getWidth()/mSetting.getViewCount()));
         holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
         //holder.textView.setText("100만 꿀");
         holder.iv_honey_rank.setVisibility(View.INVISIBLE);

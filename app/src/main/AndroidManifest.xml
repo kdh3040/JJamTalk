@@ -79,7 +79,7 @@
 
         <activity android:name=".ChatListActivity"
             android:label="쪽지함"
-            android:parentActivityName=".MainActivity"></activity>
+            ></activity>
         <activity android:name=".ChatRoomActivity"
             android:parentActivityName=".ChatListActivity"
 

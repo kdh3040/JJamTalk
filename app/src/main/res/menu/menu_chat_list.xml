@@ -6,11 +6,7 @@
         android:title="편집"
 
         ></item>
-    <item
-        android:id="@+id/leave"
-        android:title="나가기"
-        android:visible="false"
-        app:showAsAction="always"></item>
+
 
 
 
