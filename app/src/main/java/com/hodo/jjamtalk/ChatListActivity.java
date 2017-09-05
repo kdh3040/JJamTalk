@@ -61,10 +61,10 @@ public class ChatListActivity extends AppCompatActivity {
         @Override
         public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_chat_list,parent,false);
-            int height = mUIData.getWidth()/4;
 
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height);
-            view.setLayoutParams(lp);
+
+            view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
+
 
 
             return new ChatListViewHolder(view);

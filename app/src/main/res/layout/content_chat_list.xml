@@ -3,19 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="0dp"
     android:clickable="true"
     android:orientation="vertical">
-
-    <View
-        android:id="@+id/view"
-        style="@style/Divider"
-        android:layout_toRightOf="@+id/iv_chat_list" />
 
     <LinearLayout
         android:id="@+id/layout_chat_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="horizontal"
         android:weightSum="10">
@@ -69,5 +64,10 @@
             android:layout_weight="2"
             android:text="17/8/19" />
     </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        style="@style/Divider"
+        android:layout_toRightOf="@+id/iv_chat_list" />
 
 </LinearLayout>

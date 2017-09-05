@@ -1,6 +1,5 @@
 package com.hodo.jjamtalk;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,21 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.BoardData;
-import com.hodo.jjamtalk.Data.TempBoardData;
+import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
 
@@ -40,6 +31,7 @@ public class BoardActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     Button btn_write,btn_myList;
+    UIData mUIData = UIData.getInstance();
 
     int nPosition;
     LinearLayout contentlayout;
@@ -90,6 +82,7 @@ public class BoardActivity extends AppCompatActivity {
         @Override
         public BoardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_board,parent,false);
+            view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
 
             return new BoardViewHolder(view);
         }

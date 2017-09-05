@@ -55,7 +55,7 @@ public class CardListActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_my_card,parent,false);
-            view.setLayoutParams(mUIData.getLLP_ListItem());
+            view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
 
             return new ViewHolder(view);
 
@@ -99,7 +99,7 @@ public class CardListActivity extends AppCompatActivity {
             });
             arrTargetData.add(mMyData.arrCardList.get(i));
 
-            holder.linearLayout.setLayoutParams(mUIData.getLLP_ListItem());
+            //holder.linearLayout.setLayoutParams(mUIData.getLLP_ListItem());
 
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
