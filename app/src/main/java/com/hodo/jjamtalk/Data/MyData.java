@@ -2,6 +2,7 @@ package com.hodo.jjamtalk.Data;
 
 import android.support.annotation.NonNull;
 import android.text.Editable;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -58,6 +59,9 @@ public class MyData {
 
     public ArrayList<FanData> arrMyFanList = new ArrayList<>();
     public ArrayList<UserData> arrMyFanDataList = new ArrayList<>();
+
+    public ArrayList<FanData> arrMyStarList = new ArrayList<>();
+    public ArrayList<UserData> arrMyStarDataList = new ArrayList<>();
 
 
     private String strIdx;
@@ -229,29 +233,7 @@ public class MyData {
 
 
 
-    public void makeFanList(UserData stTargetData, int SendCount) {
 
-
-        int nTotalSendCnt = 0;
-        for(int i=0; i<arrSendHoneyDataList.size(); i++)
-        {
-            if(arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
-                nTotalSendCnt -= arrSendHoneyDataList.get(i).nSendHoney;
-        }
-
-        nTotalSendCnt -= SendCount;
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table;
-        table = database.getReference("User/"+ stTargetData.Idx);
-
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Count", nTotalSendCnt);
-        updateMap.put("Nick", getUserNick());
-        updateMap.put("Idx", getUserIdx());
-        table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
-
-    }
 
 
     public void setSendHoneyCnt(int sendHoneyCnt) {
@@ -780,6 +762,29 @@ public class MyData {
                 });
 
     }
+    public void makeFanList(UserData stTargetData, int SendCount) {
+
+
+        int nTotalSendCnt = 0;
+        for(int i=0; i<arrSendHoneyDataList.size(); i++)
+        {
+            if(arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
+                nTotalSendCnt -= arrSendHoneyDataList.get(i).nSendHoney;
+        }
+
+        nTotalSendCnt -= SendCount;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table;
+        table = database.getReference("User/"+ stTargetData.Idx);
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("Count", nTotalSendCnt);
+        updateMap.put("Nick", getUserNick());
+        updateMap.put("Idx", getUserIdx());
+        table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
+
+    }
 
     public void getMyfanData() {
         String strTargetIdx;
@@ -787,6 +792,8 @@ public class MyData {
         DatabaseReference table = null;
         table = database.getReference("User");
 
+
+        //user.addChildEventListener(new ChildEventListener() {
         for(int i=0; i<arrMyFanList.size(); i++)
         {
             strTargetIdx = arrMyFanList.get(i).Idx;
@@ -810,4 +817,87 @@ public class MyData {
             });
         }
     }
+
+    public void makeStarList(UserData stTargetData, int SendCount) {
+        int nTotalSendCnt = 0;
+        for (int i = 0; i < arrSendHoneyDataList.size(); i++) {
+            if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
+                nTotalSendCnt -= arrSendHoneyDataList.get(i).nSendHoney;
+        }
+
+        nTotalSendCnt -= SendCount;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table;
+        table = database.getReference("User/" + getUserIdx());
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("Count", nTotalSendCnt);
+        updateMap.put("Nick", stTargetData.NickName);
+        updateMap.put("Idx", stTargetData.Idx);
+        table.child("StarList").child(stTargetData.Idx).updateChildren(updateMap);
+
+        FanData tempStarList = new FanData();
+        tempStarList.Nick = stTargetData.NickName;
+        tempStarList.Idx = stTargetData.Idx;
+        tempStarList.Count = nTotalSendCnt;
+
+
+        boolean bSame = false;
+        for (int i = 0; i < arrMyStarList.size(); i++) {
+            if (arrMyStarList.get(i).Nick.equals(tempStarList.Nick)) {
+                bSame = true;
+                arrMyStarList.get(i).Count = nTotalSendCnt;
+                break;
+            }
+        }
+
+        if (bSame == false) {
+            arrMyStarList.add(tempStarList);
+            getMyStarData();
+        }
+
+    }
+
+
+    public void getMyStarData() {
+
+        arrMyStarDataList.clear();
+
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("User");
+        Log.d("!!!!!!", "getMyStarData  " + arrMyStarList.size());
+
+        for(int i=0; i<arrMyStarList.size(); i++)
+        {
+            strTargetIdx = arrMyStarList.get(i).Idx;
+
+
+            Log.d("!!!!!!", "size OK  " + arrMyStarList.size());
+            final int finalI = i;
+
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    arrMyStarDataList.add(tempUserData);
+
+                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                        //  if(!arrMyStarDataList.get(finalI).arrStarList.contains(entry.getValue().Nick))
+                        arrMyStarDataList.get(finalI).arrStarList.add(entry.getValue());
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+        }
+    }
+
+
 }

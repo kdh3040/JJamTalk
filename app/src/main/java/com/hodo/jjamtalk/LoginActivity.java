@@ -497,12 +497,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+    static boolean bInit = false;
+
     private void InitData_Mine() {
 
-
         ref = FirebaseDatabase.getInstance().getReference().child("User").child(strMyIdx);
+        //ref.addValueEventListener(
         ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int i = 0;
@@ -519,9 +522,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     stRecvData.Memo);
                             bMySet = true;
 
-                            for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet())
-                                mMyData.arrMyFanList.add(entry.getValue());
 
+                            for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet()) {
+                                    mMyData.arrMyFanList.add(entry.getValue());
+                            }
+
+                            for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.StarList.entrySet()) {
+                                mMyData.arrMyStarList.add(entry.getValue());
+                            }
+
+                            mMyData.getMyStarData();
                             mMyData.getMyfanData();
                             mMyData.getSetting();
                             mMyData.getCardList();
@@ -531,11 +541,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getBlockList();
                             mMyData.getBlockedList();
 
-                            //InitData_Fan();
-                            InitData_Recv();
-                            InitData_Send();
-                            InitData_New();
-                            InitData_Near();
+
+                                //InitData_Fan();
+                                InitData_Recv();
+                                InitData_Send();
+                                InitData_New();
+                                InitData_Near();
+                                bInit = true;
+
+
                         }
                     }
 

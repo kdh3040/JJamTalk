@@ -50,6 +50,10 @@ public class UserData implements Serializable,Parcelable {
     public  Map<String, FanData> FanList = new LinkedHashMap<String, FanData>();
     public  ArrayList<FanData> arrFanList = new ArrayList<>();
 
+    public  Map<String, FanData> StarList = new LinkedHashMap<String, FanData>();
+    public  ArrayList<FanData> arrStarList = new ArrayList<>();
+
+
     public UserData() {
 
     }
