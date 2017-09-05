@@ -2,6 +2,7 @@ package com.hodo.jjamtalk.Data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -49,6 +50,10 @@ public class UserData implements Serializable,Parcelable {
 
     public  Map<String, FanData> FanList = new LinkedHashMap<String, FanData>();
     public  ArrayList<FanData> arrFanList = new ArrayList<>();
+
+    public  Map<String, FanData> StarList = new LinkedHashMap<String, FanData>();
+    public  ArrayList<FanData> arrStarList = new ArrayList<>();
+
 
     public UserData() {
 
@@ -119,4 +124,5 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeString(ImgGroup3);
         parcel.writeString(ImgGroup4);
     }
+
 }
