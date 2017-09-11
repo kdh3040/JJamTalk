@@ -58,6 +58,13 @@
 
 
         </activity>
+        <activity android:name=".PublicChatRoom"
+            android:label="공개채팅방"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            >
+
+
+        </activity>
         <activity android:name=".MyProfileActivity"
             android:parentActivityName=".MyPageActivity"
 

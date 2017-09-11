@@ -57,6 +57,7 @@ public class UserPageActivity extends AppCompatActivity {
     private Button btnGift;
 
     private Button btnMessage;
+    private Button btnPublicChat;
 
     private ImageView imgProfile;
     ListView listView;
@@ -96,6 +97,9 @@ public class UserPageActivity extends AppCompatActivity {
 
 
 
+
+
+
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +120,13 @@ public class UserPageActivity extends AppCompatActivity {
         btnGift = (Button) findViewById(R.id.UserPage_btnGift);
 
         btnMessage = (Button) findViewById(R.id.UserPage_btnMessage);
+        btnPublicChat = (Button)findViewById(R.id.UserPage_btnPublicChat);
+        btnPublicChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),PublicChatRoom.class));
+            }
+        });
 
 
 
@@ -127,6 +138,10 @@ public class UserPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 switch (view.getId())
                 {
+                    case R.id.UserPage_btnPublicChat:
+
+                        break;
+
                     case R.id.UserPage_btnRegister:
                         buildalertDialog("내카드에 등록", "내 카드에 등록하시겠습니까?","등록한다!");
 
