@@ -160,7 +160,7 @@
                 app:srcCompat="@drawable/gold_bee" />
 
             <TextView
-                android:id="@+id/textView30"
+                android:id="@+id/MyPage_SendHoney"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
@@ -185,7 +185,7 @@
                 app:srcCompat="@drawable/bronze_bee" />
 
             <TextView
-                android:id="@+id/textView29"
+                android:id="@+id/MyPage_RecvHoney"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"

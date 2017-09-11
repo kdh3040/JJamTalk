@@ -137,7 +137,7 @@ public class MyData {
 
     public void setMyData(String _UserIdx, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3, String _UserImgGroup4,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
-                          int _UserHoney,  String _UserDate,
+                          int _UserHoney,  int _UserSendCount,  int _UserRecvCount,  String _UserDate,
                           String _UserMemo)
     {
         strIdx = _UserIdx;
@@ -156,6 +156,9 @@ public class MyData {
         strDate = _UserDate;
 
         strMemo = _UserMemo;
+
+        nSendCount = _UserSendCount;
+        nRecvCount = _UserRecvCount;
 
         arrImgList.add(_UserImgGroup0);
         arrImgList.add(_UserImgGroup1);
@@ -239,6 +242,12 @@ public class MyData {
         return nHoney;
     }
 
+    public int getRecvHoney() {
+        return nRecvCount;
+    }
+    public int getSendHoney() {
+        return nSendCount;
+    }
 
 
 
@@ -605,7 +614,7 @@ public class MyData {
         });
     }
 
-    public boolean makeSendHoneyList(UserData _UserData, int SendHoneyCnt) {
+    public boolean makeSendHoneyList(UserData _UserData, int SendHoneyCnt, String SendMsg) {
         boolean rtValue = false;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -619,6 +628,14 @@ public class MyData {
         tempTargetSave.strTargetImg = _UserData.Img;
         tempTargetSave.strSendName = _UserData.Idx;
         tempTargetSave.nSendHoney = SendHoneyCnt;
+        tempTargetSave.strTargetMsg = SendMsg;
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String getTime = sdf.format(date);
+
+        tempTargetSave.strSendDate = getTime;
 
         user.push().setValue(tempTargetSave);
         rtValue = true;
