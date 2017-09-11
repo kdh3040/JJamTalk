@@ -33,7 +33,6 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
 
     public MailBoxAdapter(Activity activity) {
         mActivity = activity;
-
     }
 
     @Override
@@ -43,59 +42,8 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(final MailboxViewHolder holder, final int position) {
-/*        holder.imageView.setImageResource(R.drawable.honeyicon);
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View giftView = LayoutInflater.from(mActivity).inflate(R.layout.alert_open_mail,null);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                builder.setView(giftView);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
-
-            }
-        });*/
-
-
-        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(mUIData.getHeight()/8)));
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //mContext.startActivity(new Intent(mContext,UserPageActivity.class));
-
-                View giftView = LayoutInflater.from(mActivity).inflate(R.layout.alert_open_mail,null);
-
-                ImageView popup_ImageView  = giftView.findViewById(R.id.iv_mailfrom);
-                TextView popup_textcount  = giftView.findViewById(R.id.tv_mailbox_sendcount);
-                TextView popup_textMsg  = giftView.findViewById(R.id.tv_mailbox_sendmsg);
-
-                Glide.with(mActivity)
-                        .load(mMyData.arrGiftHoneyDataList.get(position).strTargetImg)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(popup_ImageView);
-
-                popup_textcount.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney));
-                popup_textMsg.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney));
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                builder.setView(giftView);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
-
-
-            }
-        });
-        //holder.imageView.setImageResource(R.mipmap.hdvd);
-
-        Glide.with(mActivity)
-                .load(mMyData.arrGiftHoneyDataList.get(position).strTargetImg)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.imageView);
-
-        holder.textView.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney));
-
+    public void onBindViewHolder(MailboxViewHolder holder, int position) {
+        holder.imageView.setImageResource(R.drawable.male2);
     }
 
     @Override

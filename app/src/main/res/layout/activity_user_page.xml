@@ -50,18 +50,20 @@
                 app:srcCompat="@drawable/vip" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:weightSum="8">
 
             <TextView
                 android:id="@+id/UserPage_txtProfile"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+
                 android:layout_weight="7"
                 android:text="상희, 28"
                 android:textSize="24sp" />
@@ -69,26 +71,43 @@
             <ImageButton
                 android:id="@+id/UserPage_btnShared"
                 style="@android:style/Widget.Holo.Light.ImageButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:elevation="0dp"
                 android:outlineProvider="bounds"
                 app:srcCompat="@drawable/share_icon" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView34"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="7dp"
-            android:text="15km 거리에 있음" />
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_location" />
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_weight="9"
+                android:text="15km 거리에 있음" />
+        </LinearLayout>
+
         <View style="@style/Divider" />
 
         <TextView
@@ -102,18 +121,19 @@
         <View style="@style/Divider" />
 
         <LinearLayout
+            android:id="@+id/ll_fan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="5">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:orientation="vertical">
 
                 <TextView
@@ -133,10 +153,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="100dp"
-                android:layout_weight="1"
+
+                android:layout_weight="2"
                 android:orientation="vertical">
 
                 <TextView
@@ -179,26 +199,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <Button
+                android:id="@+id/UserPage_btnPublicChat"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="공개채팅방 입장" />
 
             <Button
                 android:id="@+id/UserPage_btnRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="내 카드에 등록" />
 
             <Button
                 android:id="@+id/UserPage_btnGift"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="선물하기" />
 
             <Button
                 android:id="@+id/UserPage_btnMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="쪽지쓰기" />
 

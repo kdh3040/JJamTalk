@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="님이 보내신" />
+            android:text="님이" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,21 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="을 받으시겠습니까?" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_accept_honey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="받기" />
-
+            android:text="을 보내셨습니다" />
     </LinearLayout>
 
     <TextView
@@ -83,4 +69,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="안녕하세요 너무 마음에 들어서요 꿀통 보내요 저랑 만나요 영화나 볼까요 일단 대화할까요 ?" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_accept_honey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="대화하기" />
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="확인" />
+
+    </LinearLayout>
 </LinearLayout>
