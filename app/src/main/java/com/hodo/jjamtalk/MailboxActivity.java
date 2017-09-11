@@ -11,6 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
+
 /**
  * Created by mjk on 2017. 8. 22..
  */
@@ -19,6 +24,8 @@ public class MailboxActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     MailBoxAdapter mailBoxAdapter;
+    private MyData mMyData = MyData.getInstance();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +52,15 @@ public class MailboxActivity extends AppCompatActivity {
         int curId = item.getItemId();
         switch (curId) {
             case 1:
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference Ref = database.getReference("GiftHoneyList");
+                Ref.child(mMyData.getUserIdx()).removeValue();
+                mMyData.arrGiftHoneyNameList.clear();
+                mMyData.arrGiftHoneyDataList.clear();
+                mMyData.arrGiftUserDataList.clear();
+                mailBoxAdapter.notifyDataSetChanged();
 
+                Toast.makeText(getApplicationContext(),"삭제되었습니다",Toast.LENGTH_LONG).show();
                 break;
             case 2:
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -67,7 +82,6 @@ public class MailboxActivity extends AppCompatActivity {
                                 });
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
-
                 break;
 
         }
