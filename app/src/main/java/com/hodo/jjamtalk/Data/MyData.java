@@ -135,7 +135,7 @@ public class MyData {
 
     }
 
-    public void setMyData(String _UserIdx, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3, String _UserImgGroup4,
+    public void setMyData(String _UserIdx, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney,  int _UserSendCount,  int _UserRecvCount,  String _UserDate,
                           String _UserMemo)
@@ -160,11 +160,14 @@ public class MyData {
         nSendCount = _UserSendCount;
         nRecvCount = _UserRecvCount;
 
-        arrImgList.add(_UserImgGroup0);
-        arrImgList.add(_UserImgGroup1);
-        arrImgList.add(_UserImgGroup2);
-        arrImgList.add(_UserImgGroup3);
-        arrImgList.add(_UserImgGroup4);
+        arrImgList.add(_UserImg);
+
+        if(_UserImgGroup1 != null)
+            arrImgList.add(_UserImgGroup1);
+        if(_UserImgGroup2 != null)
+            arrImgList.add(_UserImgGroup2);
+        if(_UserImgGroup3 != null)
+            arrImgList.add(_UserImgGroup3);
     }
 
     public void setUserIdx(String userIdx) {

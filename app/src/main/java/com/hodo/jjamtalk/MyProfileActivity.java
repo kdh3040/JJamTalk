@@ -2,16 +2,21 @@ package com.hodo.jjamtalk;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -33,7 +38,10 @@ public class MyProfileActivity extends AppCompatActivity {
     private ImageView Img_Sum;
     private ImageView[] Img_Profiles = new ImageView[4];
     private int nImgNumber;
+    private Spinner Spinner_Age1, Spinner_Age2;
+    private  int nAge1, nAge2;
     private MyData mMyData = MyData.getInstance();
+
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReferenceFromUrl("gs://jamtalk-cf526.appspot.com/");
@@ -45,9 +53,40 @@ public class MyProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_profile);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Spinner_Age1 = (Spinner)findViewById(R.id.MyProfile_Age_1);
+        String strUserAge = mMyData.getUserAge();
+        int nUserAge = Integer.parseInt(strUserAge);
+
+        Spinner_Age1.setSelection(nUserAge / 10);
+        Spinner_Age1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                nAge1 = position;
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        nUserAge = nUserAge - ((nUserAge / 10) *10);
+        Spinner_Age2 = (Spinner)findViewById(R.id.MyProfile_Age_2);
+        Spinner_Age2.setSelection(nUserAge);
+        Spinner_Age2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                nAge2 = position;
+                String strAge = nAge1 +""+ nAge2;
+
+                mMyData.setUserAge(strAge);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
 
         Img_Sum = (ImageView)findViewById(R.id.MyProfile_SumImg);
-
 
         Img_Profiles[0] = (ImageView)findViewById(R.id.MyProfile_Img1);
         Img_Profiles[1] = (ImageView)findViewById(R.id.MyProfile_Img2);
@@ -56,7 +95,7 @@ public class MyProfileActivity extends AppCompatActivity {
         //Img_Profiles[4] = (ImageView)findViewById(R.id.MyProfile_Img5);
 
         et_Memo = (EditText)findViewById(R.id.MyProfile_Memo);
-        et_Memo.setText("같이 놀아요");
+        et_Memo.setText(mMyData.getUserMemo());
 
         et_NickName = (EditText)findViewById(R.id.MyProfile_NickName);
         et_NickName.setText(mMyData.getUserNick());
@@ -73,20 +112,20 @@ public class MyProfileActivity extends AppCompatActivity {
                         //LoadImage(view, 5);
                         break;
                     case R.id.MyProfile_Img1:
-                        popUp();
+                        popUp(1);
                     
                         //LoadImage(view, 1);
                         break;
                     case R.id.MyProfile_Img2:
-                        popUp();
+                        popUp(2);
                         //LoadImage(view, 2);
                         break;
                     case R.id.MyProfile_Img3:
-                        popUp();
+                        popUp(3);
                         //LoadImage(view, 3);
                         break;
                     case R.id.MyProfile_Img4:
-                        popUp();
+                        popUp(4);
                         //LoadImage(view, 4);
                         break;
 
@@ -107,13 +146,19 @@ public class MyProfileActivity extends AppCompatActivity {
                 .thumbnail(0.1f)
                 .into(Img_Sum);
 
+        Glide.with(getApplicationContext())
+                .load(mMyData.getUserImg())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .into(Img_Profiles[0]);
+
 /*        Glide.with(getApplicationContext())
                 .load(mMyData.arrImgList.get(0))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(Img_Profiles[0]);*/
 
 
-        for(int i = 0; i< 4; i++) {
+        for(int i = 0; i< mMyData.arrImgList.size(); i++) {
             if(mMyData.arrImgList.get(i) == null)
             {
                 Glide.with(getApplicationContext())
@@ -135,22 +180,44 @@ public class MyProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void popUp() {
-        ViewClickDialog dialog = new ViewClickDialog(activity);
+    private void popUp(final int index) {
+        final ViewClickDialog dialog = new ViewClickDialog(activity, index);
         dialog.show();
+
+        dialog.tv_see.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 사진 보기
+                startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
+                dialog.dismiss();
+            }
+        });
+
+        dialog.tv_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 카메라로 찍기
+
+            }
+        });
+        dialog.tv_album.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 앨범 선택
+                LoadImage(view, index);
+                dialog.dismiss();
+            }
+        });
+        dialog.tv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 사진 삭제
+                DeleteData(index);
+                dialog.dismiss();
+            }
+        });
+
     }
-/*
-    @Override
-    public void onBackPressed(){
-
-        mMyData.setProfileData(txt_Memo.getText(), txt_School.getText(), txt_Company.getText(), txt_Title.getText());
-
-        mFireBaseData.SaveData(mMyData.getUserIdx());
-        Intent intent = new Intent(this, MyPageActivity.class);
-        startActivity(intent);
-        finish();
-    }*/
-
 
     private void LoadImage(View view, int i) {
         
@@ -166,11 +233,11 @@ public class MyProfileActivity extends AppCompatActivity {
             if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
                 Uri uri = data.getData();
 
-               /* Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+         /*       Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
                 int nh = (int) (bitmap.getHeight() * (1024.0 / bitmap.getWidth()));
                 Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 1024, nh, true);
 
-                ImgProfile.setImageBitmap(scaled);*/
+                Img_Profiles[nImgNumber-1].setImageBitmap(scaled);*/
 
                 UploadImage_Firebase(uri);
 
@@ -187,7 +254,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private void UploadImage_Firebase(Uri file) {
 
-        StorageReference riversRef = storageRef.child("images/"+file.getLastPathSegment());
+
+        StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" + nImgNumber );//file.getLastPathSegment());
         UploadTask uploadTask = riversRef.putFile(file);
 
 // Register observers to listen for when the download is done or if it fails
@@ -212,6 +280,13 @@ public class MyProfileActivity extends AppCompatActivity {
             mMyData.arrImgList.add(uri.toString());
         else
             mMyData.arrImgList.set(nImgNumber-1, uri.toString());
+
+        Glide.with(getApplicationContext())
+                .load(mMyData.arrImgList.get(nImgNumber-1))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .into(Img_Profiles[nImgNumber-1]);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -233,13 +308,41 @@ public class MyProfileActivity extends AppCompatActivity {
         }
         if(item.getItemId() == android.R.id.home)
         {
-            onBackPressed();
+            mMyData.setUserNick(et_NickName.getText().toString());
+            mMyData.setProfileData(et_Memo.getText());
+            mFireBaseData.SaveData(mMyData.getUserIdx());
+            //onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
 
+    public  void DeleteData(final int Index)
+    {
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://");
+        StorageReference desertRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" + Index );//file.getLastPathSegment());
+
+// Delete the file
+        desertRef.delete().addOnSuccessListener(new OnSuccessListener() {
+            @Override
+            public void onSuccess(Object o) {
+                mMyData.arrImgList.remove(Index);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Uh-oh, an error occurred!
+            }
+        });
+
+        Glide.with(getApplicationContext())
+                .load("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg")
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .into(Img_Profiles[Index]);
+
+    }
 
 
 }

@@ -98,13 +98,15 @@
                 android:id="@+id/MyProfile_Age_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:entries="@array/MyProfire_Age" />
 
             <Spinner
                 android:id="@+id/MyProfile_Age_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:entries="@array/MyProfire_Age" />
         </LinearLayout>
 
         <TextView

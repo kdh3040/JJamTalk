@@ -8,11 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hodo.jjamtalk.Data.MyData;
+
 /**
  * Created by mjk on 2017. 8. 16..
  */
 
 public class CustomPagerAdapter extends PagerAdapter{
+
+    private MyData mMyData = MyData.getInstance();
 
     Context mContext;
     LayoutInflater mLayoutInflater;
@@ -26,7 +32,7 @@ public class CustomPagerAdapter extends PagerAdapter{
 
     @Override
     public int getCount() {
-        return mResources.length;
+        return mMyData.arrImgList.size();
     }
 
     @Override
@@ -38,7 +44,12 @@ public class CustomPagerAdapter extends PagerAdapter{
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item,container,false);
         ImageView imageView = (ImageView)itemView.findViewById(R.id.imageView);
-        imageView.setImageResource(mResources[position]);
+
+        Glide.with(mContext)
+                .load(mMyData.arrImgList.get(position))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .into(imageView);
 
         container.addView(itemView);
 
