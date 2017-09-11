@@ -259,7 +259,7 @@ public class UserPageActivity extends AppCompatActivity {
                                         if(strSendMsg.equals(""))
                                             strSendMsg = "꿀 보내드려요";
 
-                                        boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0]);
+                                        boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                         rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
 
                                         if(rtValuew == true) {

@@ -13,13 +13,14 @@ import com.hodo.jjamtalk.R;
 
 public class HoneySentViewHoler extends RecyclerView.ViewHolder {
 
-    public TextView tv_Nickname,tv_Honeycount;
+    public TextView tv_Nickname,tv_Honeycount, tv_Date;
     public ImageView img_Profile;
 
     public HoneySentViewHoler(View itemView) {
         super(itemView);
         tv_Nickname = itemView.findViewById(R.id.tv_nickname);
         tv_Honeycount = itemView.findViewById(R.id.tv_honeycount);
+        tv_Date = itemView.findViewById(R.id.tv_date);
         img_Profile = itemView.findViewById(R.id.iv_profile);
 
     }

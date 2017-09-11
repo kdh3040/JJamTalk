@@ -34,6 +34,7 @@ public class HoneySentAdapter extends RecyclerView.Adapter<HoneySentViewHoler>{
     public void onBindViewHolder(HoneySentViewHoler holder, int position) {
         holder.tv_Honeycount.setText(Integer.toString(mMyData.arrSendHoneyDataList.get(position).nSendHoney));
         holder.tv_Nickname.setText(mMyData.arrSendHoneyDataList.get(position).strTargetNick);
+        holder.tv_Date.setText(mMyData.arrSendHoneyDataList.get(position).strSendDate);
         Glide.with(mContext)
                 .load(mMyData.arrSendHoneyDataList.get(position).strTargetImg)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

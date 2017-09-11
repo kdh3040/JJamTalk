@@ -125,6 +125,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                     nRecvHoneyCnt = stRecvData.RecvCount;
                                     nRecvHoneyCnt -= Integer.valueOf(strSenderHoney);
                                     updateMap.put("RecvCount", nRecvHoneyCnt);
+                                    mMyData.setRecvHoneyCnt(Integer.valueOf(strSenderHoney));
                                 }
 
                                 ref.updateChildren(updateMap);

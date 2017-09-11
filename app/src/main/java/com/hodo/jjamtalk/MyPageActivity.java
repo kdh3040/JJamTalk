@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -32,6 +33,9 @@ public class MyPageActivity extends AppCompatActivity {
     TextView txt_MyProfile;
     TextView txt_MyHeartCnt;
 
+    TextView txt_MySendHoney;
+    TextView txt_MyRecvHoney;
+
     LinearLayout ll_gift_get,ll_gift_sent;
 
     @Override
@@ -43,8 +47,9 @@ public class MyPageActivity extends AppCompatActivity {
         txt_MyProfile = (TextView)findViewById(R.id.MyPage_txtProfile);
         txt_MyProfile.setText(mMyData.getUserNick() + "," + mMyData.getUserAge());
 
+        int nGold = mMyData.getUserHoney();
         txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
-        txt_MyHeartCnt.setText("현재 보유 골드: " + mMyData.getUserHoney() + " 골드");
+        txt_MyHeartCnt.setText("현재 보유 골드: " + nGold + " 골드");
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
         btn_Setting.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +94,10 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
 
+        txt_MyRecvHoney = (TextView)findViewById(R.id.MyPage_RecvHoney);
+        int nRecvCount = mMyData.getRecvHoney() * -1;
+        txt_MyRecvHoney.setText("받은 꿀 : " + nRecvCount);
+
         ll_gift_get = (LinearLayout)findViewById(R.id.layout_gift_get_history);
         ll_gift_get.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +106,10 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
+
+        txt_MySendHoney = (TextView)findViewById(R.id.MyPage_SendHoney);
+        int nSendCount = mMyData.getSendHoney() * -1;
+        txt_MySendHoney.setText("선물한 꿀 : " + nSendCount);
 
         ll_gift_sent = (LinearLayout)findViewById(R.id.layout_gift_sent_history);
         ll_gift_sent.setOnClickListener(new View.OnClickListener() {
@@ -108,13 +121,22 @@ public class MyPageActivity extends AppCompatActivity {
         });
     }
 
-
+ /*   @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+               break;
+        }
+        return super.onOptionsItemSelected(item);
+    }*/
 
     @Override
     public void onStart()
     {
         super.onStart();
+        int nGold = mMyData.getUserHoney();
         txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
-        txt_MyHeartCnt.setText("현재 보유 골드 : " + mMyData.getUserHoney() + " 골드");
+        txt_MyHeartCnt.setText("현재 보유 골드 : " + nGold + " 골드");
     }
 }

@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -34,7 +35,7 @@ public class MailboxActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.rv_mailbox);
         recyclerView.setAdapter(mailBoxAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -51,6 +52,9 @@ public class MailboxActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int curId = item.getItemId();
         switch (curId) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
             case 1:
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference Ref = database.getReference("GiftHoneyList");
@@ -87,4 +91,5 @@ public class MailboxActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

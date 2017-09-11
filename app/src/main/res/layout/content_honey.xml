@@ -15,6 +15,7 @@
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/hedfvb" />
 
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -27,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/iv_profile"
+            android:textColor="#000000"
             android:text="나애리,28" />
 
         <TextView
@@ -35,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_nickname"
             android:layout_toRightOf="@+id/iv_profile"
+            android:textColor="#000000"
             android:text="17/8/13" />
     </LinearLayout>
 
@@ -45,6 +48,7 @@
         android:layout_alignParentRight="true"
         android:layout_weight="1"
         app:srcCompat="@drawable/honeyicon" />
+
 
     <TextView
         android:id="@+id/tv_honeycount"

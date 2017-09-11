@@ -40,8 +40,7 @@ public class HoneyGetAdapter extends RecyclerView.Adapter<HoneyGetViewHolder>{
 
         holder.tv_honeycount.setText(Integer.toString(mMyData.arrRecvHoneyDataList.get(position).nSendHoney));
         holder.tv_nickname.setText(mMyData.arrRecvHoneyDataList.get(position).strTargetNick);
-
-        holder.iv_profile.setImageResource(R.mipmap.girl1);
+        holder.tv_date.setText(mMyData.arrRecvHoneyDataList.get(position).strSendDate);
 
         Glide.with(mContext)
                 .load(mMyData.arrRecvHoneyDataList.get(position).strTargetImg)

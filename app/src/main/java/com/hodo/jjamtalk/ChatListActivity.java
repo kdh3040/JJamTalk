@@ -184,7 +184,9 @@ public class ChatListActivity extends AppCompatActivity {
 
                 //setDateVisiblity(false);
                 break;
-
+            case android.R.id.home:
+                onBackPressed();
+                break;
 
         }
         return super.onOptionsItemSelected(item);

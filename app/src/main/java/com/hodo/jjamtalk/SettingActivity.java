@@ -61,6 +61,10 @@ public class SettingActivity extends AppCompatActivity {
             mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting());
             mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting());
         }
+        if(item.getItemId() == android.R.id.home)
+        {
+            onBackPressed();
+        }
         return super.onOptionsItemSelected(item);
     }
 

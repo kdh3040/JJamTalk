@@ -53,22 +53,17 @@
             android:label="내 페이지"/>
 
         <activity android:name=".SettingActivity"
-            android:label="설정"
-            android:parentActivityName=".MyPageActivity">
-
-
+            android:label="설정">
         </activity>
         <activity android:name=".PublicChatRoom"
             android:label="공개채팅방"
             android:windowSoftInputMode="stateAlwaysHidden"
             >
 
-
         </activity>
         <activity android:name=".MyProfileActivity"
-            android:parentActivityName=".MyPageActivity"
-
-            android:label="프로필 편집"></activity>
+            android:label="프로필 편집">
+        </activity>
         <activity android:name=".HeartActivity" />
         <activity android:name=".Kakao.KakaoSignupActivity" />
         <activity android:name=".ClickedMyPicActivity"
@@ -78,58 +73,42 @@
         <activity android:name=".UserPageActivity"
             android:theme="@style/NoTitleBar"></activity>
         <activity android:name=".BoardActivity"
-            android:label="게시판"
-            android:parentActivityName=".MainActivity"></activity>
+            android:label="게시판"></activity>
         <activity android:name=".CardListActivity"
-            android:label="내 카드"
-            android:parentActivityName=".MainActivity"></activity>
+            android:label="내 카드"></activity>
 
         <activity android:name=".ChatListActivity"
             android:label="쪽지함"
             ></activity>
         <activity android:name=".ChatRoomActivity"
-            android:parentActivityName=".ChatListActivity"
-
             ></activity>
         <activity android:name=".BoardItemActivity"
             android:label="허허참"
-            android:parentActivityName=".BoardActivity"
-
-
             ></activity>
         <activity android:name=".BoardWriteActivity"
             android:label="글쓰기"
-            android:parentActivityName=".BoardActivity"
-
             ></activity>
         <activity android:name=".BoardMyListActivity"
             android:label="내가 쓴 글"
-            android:parentActivityName=".BoardActivity"
-
             ></activity>
         <activity android:name=".ImageViewPager"
             android:theme ="@style/NoTitleBar"></activity>
 
         <activity android:name=".BlockListActivity"
-            android:label="차단 목록"
-            android:parentActivityName=".SettingActivity"></activity>
+            android:label="차단 목록"></activity>
 
         <activity android:name=".MailboxActivity"
-            android:label="우체통"
-            android:parentActivityName=".MainActivity"></activity>
+            android:label="우체통"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <activity android:name=".FanActivity"
-            android:label= "팬"
-            android:parentActivityName=".MainActivity"></activity>
+            android:label= "팬"></activity>
         <activity android:name=".HoneyGetHistoryActivity"
-            android:label= "받은 꿀"
-            android:parentActivityName=".MyPageActivity"></activity>
+            android:label= "받은 꿀"></activity>
         <activity android:name=".HoneySentHistoryActivity"
-            android:label= "선물한 꿀"
-            android:parentActivityName=".MyPageActivity"></activity>
+            android:label= "선물한 꿀"></activity>
     </application>
 
 </manifest>
