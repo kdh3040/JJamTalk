@@ -87,18 +87,11 @@ public class UserPageActivity extends AppCompatActivity {
         //private TextView txtProfile;
 
         txt_FanTitle = (TextView)findViewById(R.id.UserPage_FanTitle);
-        //txt_FanTitle.setText("팬클럽");
-        /*
-        txt_Fan[0]= (TextView)findViewById(R.id.UserPage_Fan_0);
-        txt_Fan[1]= (TextView)findViewById(R.id.UserPage_Fan_1);
-        txt_Fan[2]= (TextView)findViewById(R.id.UserPage_Fan_2);
-        txt_Fan[3]= (TextView)findViewById(R.id.UserPage_Fan_3);
-        txt_Fan[4]= (TextView)findViewById(R.id.UserPage_Fan_4);
 
-        for(int i = 0; i < FanList.size(); i++)
-        {
-            txt_Fan[i].setText(FanList.get(i).Nick);
-        }*/
+            //txt_FanTitle.setText("팬클럽");
+        /*
+
+     }*/
 
 
 
@@ -179,8 +172,8 @@ public class UserPageActivity extends AppCompatActivity {
 
 
                                 final int[] nSendHoneyCnt = new int[1];
-                                nSendHoneyCnt[0] = 0;
-                                View giftView = inflater.inflate(R.layout.alert_send_gift,null);
+                                nSendHoneyCnt[0] = 100;
+                                final View giftView = inflater.inflate(R.layout.alert_send_gift,null);
                                 builder.setView(giftView);
                                 final AlertDialog dialog = builder.create();
                                 dialog.show();
@@ -193,10 +186,10 @@ public class UserPageActivity extends AppCompatActivity {
                                 Button btnHeart500 = giftView.findViewById(R.id.HeartPop_500);
                                 Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_1000);
                                 Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_5000);
-                                final TextView Msg = giftView.findViewById(R.id.HeartPop_Msg);
+                                final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
 
                                 tvHeartCnt.setText("꿀 : " +  Integer.toString(mMyData.getUserHoney()) + " 개");
-                                Msg.setText("몇 개의 꿀을 보내시겠습니까?");
+                                Msg.setText("100개의 꿀을 보내시겠습니까?");
 
 
                                 btnHeartCharge.setOnClickListener(new View.OnClickListener() {
@@ -254,13 +247,20 @@ public class UserPageActivity extends AppCompatActivity {
                                     }
                                 });
 
+
+                        final EditText SendMsg = giftView.findViewById(R.id.HeartPop_Msg);
+
                                 Button btn_gift_send= giftView.findViewById(R.id.btn_gift_send);
                                 btn_gift_send.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
 
+                                        String strSendMsg = SendMsg.getText().toString();
+                                        if(strSendMsg.equals(""))
+                                            strSendMsg = "꿀 보내드려요";
+
                                         boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0]);
-                                        rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0]);
+                                        rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
 
                                         if(rtValuew == true) {
                                             mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
@@ -330,10 +330,9 @@ public class UserPageActivity extends AppCompatActivity {
                             btn_send.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText());
+                                    boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
                                     if(rtValuew == true) {
                                         mNotiFunc.SendMSGToFCM(stTargetData);
-                                        mMyData.setUserHoney(mMyData.getUserHoney() - 5);
                                         Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                     }
                                     alertDialog.dismiss();

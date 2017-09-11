@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_mailbox"
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:orientation="vertical">
@@ -30,7 +31,7 @@
             android:text="3000개" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/tv_senddate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

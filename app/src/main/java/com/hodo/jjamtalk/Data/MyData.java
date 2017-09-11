@@ -19,9 +19,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.usermgmt.response.model.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -102,6 +104,9 @@ public class MyData {
 
     public ArrayList<BlockData> arrBlockedDataList = new ArrayList<>();
 
+    public ArrayList<String> arrGiftHoneyNameList = new ArrayList<>();
+    public ArrayList<SendData> arrGiftHoneyDataList = new ArrayList<>();
+    public ArrayList<UserData> arrGiftUserDataList = new ArrayList<>();
 
     public ArrayList<String> arrRecvHoneyNameList = new ArrayList<>();
     public ArrayList<SendData> arrRecvHoneyDataList = new ArrayList<>();
@@ -271,7 +276,7 @@ public class MyData {
         return strMemo;
     }
 
-    public boolean makeSendList(UserData _UserData, Editable _strSend)
+    public boolean makeSendList(UserData _UserData, String _strSend)
     {
         boolean rtValue = false;
 
@@ -442,10 +447,85 @@ public class MyData {
         nViewMode = ViewMode;
     }
 
-    public void getRecvHoneyList() {
+    public void getGiftData(String Idx) {
+
+        arrMyStarDataList.clear();
+
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("User");
+        Log.d("!!!!!!", "getMyStarData  " + arrMyStarList.size());
+
+            strTargetIdx = Idx;
+
+            Log.d("!!!!!!", "size OK  " + arrMyStarList.size());
+
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    arrGiftUserDataList.add(tempUserData);
+
+                    int i = arrGiftUserDataList.size();
+                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                        //  if(!arrMyStarDataList.get(finalI).arrStarList.contains(entry.getValue().Nick))
+                        arrGiftUserDataList.get(i-1).arrStarList.add(entry.getValue());
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+    }
+
+    public void getGiftHoneyList() {
         String MyID =  strIdx;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("GiftHoneyList");
+        user = table.child(strIdx);
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+                SendData SendList= dataSnapshot.getValue(SendData.class);
+                arrGiftHoneyNameList.add(SendList.strSendName);
+                arrGiftHoneyDataList.add(SendList);
+                getGiftData(SendList.strSendName);
+                //arrCardList.add(CardList);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa =0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
+    public void getRecvHoneyList() {
+        String MyID =  strIdx;
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
         table = database.getReference("RecvHoneyList");
         user = table.child(strIdx);
@@ -456,6 +536,8 @@ public class MyData {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 int saa =0;
                 SendData SendList= dataSnapshot.getValue(SendData.class);
+                SendList.strFireBaseKey = dataSnapshot.getKey();
+
                 arrRecvHoneyNameList.add(SendList.strSendName);
                 arrRecvHoneyDataList.add(SendList);
                 //arrCardList.add(CardList);
@@ -467,6 +549,7 @@ public class MyData {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+
                 int saa =0;
             }
 
@@ -544,8 +627,10 @@ public class MyData {
         return rtValue;
     }
 
-    public boolean makeRecvHoneyList(UserData _UserData, int SendHoneyCnt) {
+    public boolean makeRecvHoneyList(UserData _UserData, int SendHoneyCnt, String SendMsg) {
         boolean rtValue = false;
+
+        makeGiftHoneyList(_UserData,SendHoneyCnt,SendMsg);
 
         UserData SaveUserData = _UserData;
 
@@ -560,9 +645,49 @@ public class MyData {
         tempMySave.strTargetNick = getUserNick();
         tempMySave.strSendName = getUserIdx();
         tempMySave.nSendHoney = SendHoneyCnt;
+        tempMySave.strTargetMsg = SendMsg;
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String getTime = sdf.format(date);
+
+        tempMySave.strSendDate = getTime;
 
             targetuser.push().setValue(tempMySave);
             rtValue = true;
+
+
+        return rtValue;
+    }
+
+    public boolean makeGiftHoneyList(UserData _UserData, int SendHoneyCnt, String SendMsg) {
+        boolean rtValue = false;
+
+        UserData SaveUserData = _UserData;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, targetuser;
+        table = database.getReference("GiftHoneyList");
+
+        targetuser = table.child(_UserData.Idx);
+
+        SendData tempMySave = new SendData();
+        tempMySave.strTargetImg = getUserImg();
+        tempMySave.strTargetNick = getUserNick();
+        tempMySave.strSendName = getUserIdx();
+        tempMySave.nSendHoney = SendHoneyCnt;
+        tempMySave.strTargetMsg = SendMsg;
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String getTime = sdf.format(date);
+
+        tempMySave.strSendDate = getTime;
+
+        targetuser.push().setValue(tempMySave);
+        rtValue = true;
 
 
         return rtValue;
