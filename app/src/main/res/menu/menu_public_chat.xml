@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <item android:id="@+id/current_user"
+
+        android:title="현재 참가자" />
+
+    <item android:id="@+id/banlist"
+
+        android:title="차단 리스트" />
+
+
+</menu>
+
+

@@ -124,7 +124,7 @@ public class UserPageActivity extends AppCompatActivity {
         btnPublicChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),PublicChatRoom.class));
+                startActivity(new Intent(getApplicationContext(),PublicChatRoomActivity.class));
             }
         });
 
