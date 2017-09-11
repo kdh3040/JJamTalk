@@ -2,66 +2,75 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <RelativeLayout
+    android:layout_height="match_parent"
+    android:weightSum="10">
+    <RelativeLayout android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:layout_weight="3">
 
-        <TextView
-            android:id="@+id/textView37"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="TextView"
-            android:textColor="@color/white" />
-
         <ImageView
-            android:id="@+id/imageView15"
+            android:id="@+id/iv_host"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/hedfvb" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_host"
+        android:layout_alignParentBottom="false"
+        android:text="호스트가 하고 싶은말"
+        android:textColor="@color/white" />
     </RelativeLayout>
 
     <ListView
         android:id="@+id/lv_pcr"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_above="@+id/ll_chat"
+        android:layout_below="@+id/iv_host"
+        android:layout_weight="7"
         android:divider="@null" />
 
     <LinearLayout
+
+        android:id="@+id/ll_chat"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:weightSum="10">
+        android:weightSum="9">
 
-        <Button
-            android:id="@+id/button10"
+        <ImageView
+            android:id="@+id/iv_gift"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="+" />
+            app:srcCompat="@drawable/honeyicon" />
 
         <EditText
             android:id="@+id/editText2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:autoText="false"
+            android:layout_weight="7"
+
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:gravity="bottom|left"
+            android:inputType="textPersonName"
+            android:maxLines="8" />
 
         <Button
             android:id="@+id/button8"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="전송" />
 
     </LinearLayout>
+
 </LinearLayout>
