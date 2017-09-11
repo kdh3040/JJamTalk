@@ -231,6 +231,11 @@ public class MyProfileActivity extends AppCompatActivity {
             mFireBaseData.SaveData(mMyData.getUserIdx());
 
         }
+        if(item.getItemId() == android.R.id.home)
+        {
+            onBackPressed();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

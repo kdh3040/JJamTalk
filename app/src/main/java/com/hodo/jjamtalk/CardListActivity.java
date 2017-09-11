@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -49,6 +50,17 @@ public class CardListActivity extends AppCompatActivity {
         card_recylerview = (RecyclerView) findViewById(R.id.cardlist_recy);
         card_recylerview.setAdapter(new CardListAdapter());
         card_recylerview.setLayoutManager(new LinearLayoutManager(this));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHolder> {
@@ -60,6 +72,7 @@ public class CardListActivity extends AppCompatActivity {
             return new ViewHolder(view);
 
         }
+
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
