@@ -2,7 +2,6 @@ package com.hodo.jjamtalk;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,19 +30,9 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
 
     @Override
     public void onBindViewHolder(MailboxViewHolder holder, int position) {
-        holder.imageView.setImageResource(R.drawable.honeyicon);
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View giftView = LayoutInflater.from(mActivity).inflate(R.layout.alert_open_mail,null);
+        holder.imageView.setImageResource(R.drawable.male2);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                builder.setView(giftView);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
 
-            }
-        });
 
 
 

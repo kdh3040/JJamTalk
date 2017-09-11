@@ -34,8 +34,8 @@ public class MailboxActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        menu.add(10,1,1,"전체 받기");
-        menu.add(10,2,2,"전체 삭제");
+        menu.add(10,1,1,"전체 삭제");
+
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -49,9 +49,8 @@ public class MailboxActivity extends AppCompatActivity {
                 break;
             case 2:
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle("선물 전체 삭제하기");
-                alertDialogBuilder.setMessage("삭제하면 되돌릴 수 없습니다")
-                        .setCancelable(true)
+                alertDialogBuilder.setTitle("전체 삭제하기");
+                alertDialogBuilder.setCancelable(true)
                         .setPositiveButton("취소", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
