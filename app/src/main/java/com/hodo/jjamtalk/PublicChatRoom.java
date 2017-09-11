@@ -21,7 +21,7 @@ public class PublicChatRoom extends AppCompatActivity{
         setContentView(R.layout.activity_public_chat);
         mContext = getApplicationContext();
         listView = (ListView)findViewById(R.id.lv_pcr);
-        pcrAdapter = new PublicChatRoomAdapter(mContext);
+        pcrAdapter = new PublicChatRoomAdapter(mContext,this);
         listView.setAdapter(pcrAdapter);
     }
 }
