@@ -49,6 +49,7 @@
         </service>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MyPageActivity"
+            android:parentActivityName=".MainActivity"
             android:label="내 페이지"/>
 
         <activity android:name=".SettingActivity"
