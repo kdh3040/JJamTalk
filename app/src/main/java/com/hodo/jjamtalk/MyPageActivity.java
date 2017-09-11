@@ -121,7 +121,7 @@ public class MyPageActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+ /*   @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -129,7 +129,7 @@ public class MyPageActivity extends AppCompatActivity {
                break;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public void onStart()
