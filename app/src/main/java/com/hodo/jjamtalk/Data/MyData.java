@@ -102,6 +102,8 @@ public class MyData {
 
     public ArrayList<BlockData> arrBlockedDataList = new ArrayList<>();
 
+    public ArrayList<String> arrGiftHoneyNameList = new ArrayList<>();
+    public ArrayList<SendData> arrGiftHoneyDataList = new ArrayList<>();
 
     public ArrayList<String> arrRecvHoneyNameList = new ArrayList<>();
     public ArrayList<SendData> arrRecvHoneyDataList = new ArrayList<>();
@@ -442,6 +444,46 @@ public class MyData {
         nViewMode = ViewMode;
     }
 
+    public void getGiftHoneyList() {
+        String MyID =  strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("GiftHoneyList");
+        user = table.child(strIdx);
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+                SendData SendList= dataSnapshot.getValue(SendData.class);
+                arrRecvHoneyNameList.add(SendList.strSendName);
+                arrRecvHoneyDataList.add(SendList);
+                //arrCardList.add(CardList);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa =0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa =0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
     public void getRecvHoneyList() {
         String MyID =  strIdx;
 
@@ -458,6 +500,7 @@ public class MyData {
                 SendData SendList= dataSnapshot.getValue(SendData.class);
                 arrRecvHoneyNameList.add(SendList.strSendName);
                 arrRecvHoneyDataList.add(SendList);
+                arrGiftHoneyDataList.add(SendList);
                 //arrCardList.add(CardList);
             }
 
