@@ -38,12 +38,11 @@ public class MyData {
     private static MyData _Instance;
     private BlockData blockList;
 
-    public static MyData getInstance()
-    {
-        if(_Instance == null)
+    public static MyData getInstance() {
+        if (_Instance == null)
             _Instance = new MyData();
 
-        return  _Instance;
+        return _Instance;
     }
 
     public ArrayList<UserData> arrUserMan_Near = new ArrayList<>();
@@ -91,7 +90,7 @@ public class MyData {
 
     public int nSearchMode;
     public int nAlarmMode = 7;
-    public int nViewMode =1;
+    public int nViewMode = 1;
     public int nRecvMsg = 0;
 
     public int nImgCount;
@@ -119,8 +118,7 @@ public class MyData {
     public ArrayList<String> arrCardNameList = new ArrayList<>();
     public ArrayList<UserData> arrCardList = new ArrayList<>();
 
-    private MyData()
-    {
+    private MyData() {
         strImg = null;
         strNick = null;
         strGender = null;
@@ -130,8 +128,7 @@ public class MyData {
         nHoney = 0;
         strDate = null;
 
-        for(int i = 0 ; i< 4; i++)
-        {
+        for (int i = 0; i < 4; i++) {
             strProfileImg[i] = "http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg";
         }
 //        strProfileImg = null;
@@ -142,14 +139,12 @@ public class MyData {
 
     public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
-                          int _UserHoney,  int _UserSendCount,  int _UserRecvCount,  String _UserDate,
-                          String _UserMemo, int _UserRecvMsg)
-    {
+                          int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
+                          String _UserMemo, int _UserRecvMsg) {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
         //strToken = com.google.firebase.iid.FirebaseInstanceId.getInstance().getToken();
-
 
 
         strNick = _UserNick;
@@ -180,6 +175,7 @@ public class MyData {
     public void setUserIdx(String userIdx) {
         strIdx = userIdx;
     }
+
     public String getUserIdx() {
         return strIdx;
     }
@@ -187,6 +183,7 @@ public class MyData {
     public void setUserToken(String userToken) {
         strToken = userToken;
     }
+
     public String getUserToken() {
         return strToken;
     }
@@ -194,6 +191,7 @@ public class MyData {
     public void setUserImgCnt(int userCnt) {
         nImgCount = userCnt;
     }
+
     public int getUserImgCnt() {
         return nImgCount;
     }
@@ -201,6 +199,7 @@ public class MyData {
     public void setUserImg(String userImg) {
         strImg = userImg;
     }
+
     public String getUserImg() {
         return strImg;
     }
@@ -208,6 +207,7 @@ public class MyData {
     public void setUserProfileImg(int Index, String userImg) {
         strProfileImg[Index] = userImg;
     }
+
     public String getUserProfileImg(int Index) {
         return strProfileImg[Index];
     }
@@ -215,6 +215,7 @@ public class MyData {
     public void setUserNick(String userNick) {
         strNick = userNick;
     }
+
     public String getUserNick() {
         return strNick;
     }
@@ -222,6 +223,7 @@ public class MyData {
     public void setUserGender(String userGender) {
         strGender = userGender;
     }
+
     public String getUserGender() {
         return strGender;
     }
@@ -229,11 +231,15 @@ public class MyData {
     public void setUserAge(String userAge) {
         strAge = userAge;
     }
+
     public String getUserAge() {
         return strAge;
     }
 
-    public void setUserLon(Double userLon) { lLon = userLon;}
+    public void setUserLon(Double userLon) {
+        lLon = userLon;
+    }
+
     public Double getUserLon() {
         return lLon;
     }
@@ -241,13 +247,16 @@ public class MyData {
     public void setUserLat(Double userLat) {
         lLat = userLat;
     }
-    public Double getUserLat() { return lLat;   }
+
+    public Double getUserLat() {
+        return lLat;
+    }
 
     public void setUserHoney(int userHoney) {
         nHoney = userHoney;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        table = database.getReference("User/"+ strIdx);
+        table = database.getReference("User/" + strIdx);
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Honey", nHoney);
@@ -261,6 +270,7 @@ public class MyData {
     public int getRecvHoney() {
         return nRecvCount;
     }
+
     public int getSendHoney() {
         return nSendCount;
     }
@@ -269,10 +279,10 @@ public class MyData {
     public void setnRecvMsg(int option) {
         nRecvMsg = option;
     }
+
     public int getnRecvMsg() {
         return nRecvMsg;
     }
-
 
 
     public void setSendHoneyCnt(int sendHoneyCnt) {
@@ -281,7 +291,7 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
 
-        table = database.getReference("User/"+ strIdx);
+        table = database.getReference("User/" + strIdx);
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("SendCount", nSendCount);
@@ -293,7 +303,7 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        table = database.getReference("User/"+ strIdx);
+        table = database.getReference("User/" + strIdx);
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("RecvCount", nRecvCount);
@@ -303,12 +313,12 @@ public class MyData {
     public void setUserMemo(String userMemo) {
         strMemo = userMemo;
     }
+
     public String getUserMemo() {
         return strMemo;
     }
 
-    public boolean makeSendList(UserData _UserData, String _strSend)
-    {
+    public boolean makeSendList(UserData _UserData, String _strSend) {
         boolean rtValue = false;
 
         UserData SaveUserData = _UserData;
@@ -333,20 +343,19 @@ public class MyData {
         tempTargetSave.strSendName = strCheckName;
         tempTargetSave.strTargetMsg = _strSend.toString();
 
-        if(!arrSendNameList.contains(strCheckName)) {
+        if (!arrSendNameList.contains(strCheckName)) {
             user.push().setValue(tempTargetSave);
             targetuser.push().setValue(tempMySave);
             rtValue = true;
 
-        }
-        else
+        } else
             return rtValue;
 
         return rtValue;
     }
 
     public void getSendList() {
-        String MyID =  strIdx;
+        String MyID = strIdx;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
@@ -355,11 +364,12 @@ public class MyData {
 
         user.addChildEventListener(new ChildEventListener() {
             int i = 0;
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
-                SendData SendList= dataSnapshot.getValue(SendData.class);
-                if(!arrSendNameList.contains(SendList.strSendName)) {
+                int saa = 0;
+                SendData SendList = dataSnapshot.getValue(SendData.class);
+                if (!arrSendNameList.contains(SendList.strSendName)) {
                     arrSendNameList.add(SendList.strSendName);
                     arrSendDataList.add(SendList);
                 }
@@ -368,22 +378,20 @@ public class MyData {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int saa =0;
-                SendData SendList= dataSnapshot.getValue(SendData.class);
+                int saa = 0;
+                SendData SendList = dataSnapshot.getValue(SendData.class);
                 int index = arrSendNameList.indexOf(SendList.strSendName);
                 arrSendNameList.remove(index);
 
-                for(Iterator<SendData> it = arrSendDataList.iterator(); it.hasNext() ; )
-                {
+                for (Iterator<SendData> it = arrSendDataList.iterator(); it.hasNext(); ) {
                     String value = it.next().strSendName;
 
-                    if(value.equals(SendList.strSendName))
-                    {
+                    if (value.equals(SendList.strSendName)) {
                         it.remove();
                     }
                 }
@@ -392,7 +400,7 @@ public class MyData {
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
@@ -404,8 +412,7 @@ public class MyData {
     }
 
 
-    public boolean makeCardList(UserData _UserData)
-    {
+    public boolean makeCardList(UserData _UserData) {
         boolean rtValue = false;
 
         UserData SaveUserData = _UserData;
@@ -416,11 +423,10 @@ public class MyData {
 
         user = table.child(strIdx).child(_UserData.Idx);
 
-        if(!arrCardNameList.contains(_UserData.Idx)) {
+        if (!arrCardNameList.contains(_UserData.Idx)) {
             user.setValue(_UserData);
             rtValue = true;
-        }
-        else
+        } else
             return rtValue;
 
         return rtValue;
@@ -428,7 +434,7 @@ public class MyData {
     }
 
     public void getCardList() {
-        String MyID =  strIdx;
+        String MyID = strIdx;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
@@ -437,13 +443,14 @@ public class MyData {
 
         user.addChildEventListener(new ChildEventListener() {
             int i = 0;
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
-                UserData CardList= dataSnapshot.getValue(UserData.class);
-                if(!arrCardNameList.contains(CardList.Idx))
+                int saa = 0;
+                UserData CardList = dataSnapshot.getValue(UserData.class);
+                if (!arrCardNameList.contains(CardList.Idx))
                     arrCardNameList.add(CardList.Idx);
-                    arrCardList.add(CardList);
+                arrCardList.add(CardList);
             }
 
             @Override
@@ -453,12 +460,12 @@ public class MyData {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
@@ -474,7 +481,7 @@ public class MyData {
 
     public void setSettingData(int SearchMode, int AlarmMode, int ViewMode, int RecvMsg) {
         nSearchMode = SearchMode;
-        nAlarmMode= AlarmMode;
+        nAlarmMode = AlarmMode;
         nViewMode = ViewMode;
         nRecvMsg = RecvMsg;
     }
@@ -489,32 +496,32 @@ public class MyData {
         table = database.getReference("User");
         Log.d("!!!!!!", "getMyStarData  " + arrMyStarList.size());
 
-            strTargetIdx = Idx;
+        strTargetIdx = Idx;
 
-            Log.d("!!!!!!", "size OK  " + arrMyStarList.size());
+        Log.d("!!!!!!", "size OK  " + arrMyStarList.size());
 
-            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+        table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    arrGiftUserDataList.add(tempUserData);
+                UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                arrGiftUserDataList.add(tempUserData);
 
-                    int i = arrGiftUserDataList.size();
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
-                        //  if(!arrMyStarDataList.get(finalI).arrStarList.contains(entry.getValue().Nick))
-                        arrGiftUserDataList.get(i-1).arrStarList.add(entry.getValue());
-                    }
+                int i = arrGiftUserDataList.size();
+                for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                    //  if(!arrMyStarDataList.get(finalI).arrStarList.contains(entry.getValue().Nick))
+                    arrGiftUserDataList.get(i - 1).arrStarList.add(entry.getValue());
                 }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     public void getGiftHoneyList() {
-        String MyID =  strIdx;
+        String MyID = strIdx;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
@@ -523,10 +530,11 @@ public class MyData {
 
         user.addChildEventListener(new ChildEventListener() {
             int i = 0;
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
-                SendData SendList= dataSnapshot.getValue(SendData.class);
+                int saa = 0;
+                SendData SendList = dataSnapshot.getValue(SendData.class);
                 arrGiftHoneyNameList.add(SendList.strSendName);
                 arrGiftHoneyDataList.add(SendList);
                 getGiftData(SendList.strSendName);
@@ -539,12 +547,12 @@ public class MyData {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
@@ -555,7 +563,7 @@ public class MyData {
     }
 
     public void getRecvHoneyList() {
-        String MyID =  strIdx;
+        String MyID = strIdx;
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
@@ -564,10 +572,11 @@ public class MyData {
 
         user.addChildEventListener(new ChildEventListener() {
             int i = 0;
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
-                SendData SendList= dataSnapshot.getValue(SendData.class);
+                int saa = 0;
+                SendData SendList = dataSnapshot.getValue(SendData.class);
                 SendList.strFireBaseKey = dataSnapshot.getKey();
 
                 arrRecvHoneyNameList.add(SendList.strSendName);
@@ -582,12 +591,12 @@ public class MyData {
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
@@ -598,7 +607,7 @@ public class MyData {
     }
 
     public void getSendHoneyList() {
-        String MyID =  strIdx;
+        String MyID = strIdx;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
@@ -607,12 +616,13 @@ public class MyData {
 
         user.addChildEventListener(new ChildEventListener() {
             int i = 0;
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
-                SendData SendList= dataSnapshot.getValue(SendData.class);
-                    arrSendHoneyNameList.add(SendList.strSendName);
-                    arrSendHoneyDataList.add(SendList);
+                int saa = 0;
+                SendData SendList = dataSnapshot.getValue(SendData.class);
+                arrSendHoneyNameList.add(SendList.strSendName);
+                arrSendHoneyDataList.add(SendList);
                 //arrCardList.add(CardList);
             }
 
@@ -622,12 +632,12 @@ public class MyData {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
@@ -670,7 +680,7 @@ public class MyData {
     public boolean makeRecvHoneyList(UserData _UserData, int SendHoneyCnt, String SendMsg) {
         boolean rtValue = false;
 
-        makeGiftHoneyList(_UserData,SendHoneyCnt,SendMsg);
+        makeGiftHoneyList(_UserData, SendHoneyCnt, SendMsg);
 
         UserData SaveUserData = _UserData;
 
@@ -694,8 +704,8 @@ public class MyData {
 
         tempMySave.strSendDate = getTime;
 
-            targetuser.push().setValue(tempMySave);
-            rtValue = true;
+        targetuser.push().setValue(tempMySave);
+        rtValue = true;
 
 
         return rtValue;
@@ -756,15 +766,12 @@ public class MyData {
 
         int idx = blockList.strSendName.indexOf("_");
         String temp1 = blockList.strSendName.substring(0, idx);
-        String temp2 = blockList.strSendName.substring(idx+1);
+        String temp2 = blockList.strSendName.substring(idx + 1);
 
-        if(getUserIdx().equals(temp1))
-        {
+        if (getUserIdx().equals(temp1)) {
             tempData.strTargetName = temp2;
             targetData.strTargetName = temp1;
-        }
-        else
-        {
+        } else {
             tempData.strTargetName = temp1;
             targetData.strTargetName = temp2;
         }
@@ -772,13 +779,13 @@ public class MyData {
         user = table.child(strIdx);
         user.push().setValue(tempData);
 
-        target = database.getReference("BlockedList").child(tempData.strTargetName );
+        target = database.getReference("BlockedList").child(tempData.strTargetName);
         //target = table
         target.push().setValue(targetData);
     }
 
     public void getBlockList() {
-        String MyID =  strIdx;
+        String MyID = strIdx;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
@@ -787,10 +794,11 @@ public class MyData {
 
         user.addChildEventListener(new ChildEventListener() {
             int i = 0;
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
-                blockList= dataSnapshot.getValue(BlockData.class);
+                int saa = 0;
+                blockList = dataSnapshot.getValue(BlockData.class);
                 arrBlockDataList.add(blockList);
                 //arrCardList.add(CardList);
             }
@@ -801,12 +809,12 @@ public class MyData {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
@@ -817,7 +825,7 @@ public class MyData {
     }
 
     public void getBlockedList() {
-        String MyID =  strIdx;
+        String MyID = strIdx;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
@@ -826,10 +834,11 @@ public class MyData {
 
         user.addChildEventListener(new ChildEventListener() {
             int i = 0;
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
-                blockList= dataSnapshot.getValue(BlockData.class);
+                int saa = 0;
+                blockList = dataSnapshot.getValue(BlockData.class);
                 arrBlockedDataList.add(blockList);
                 //arrCardList.add(CardList);
             }
@@ -840,12 +849,12 @@ public class MyData {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                int saa =0;
+                int saa = 0;
             }
 
             @Override
@@ -879,15 +888,12 @@ public class MyData {
 
         int idx = blockList.strSendName.indexOf("_");
         String temp1 = blockList.strSendName.substring(0, idx);
-        String temp2 = blockList.strSendName.substring(idx+1);
+        String temp2 = blockList.strSendName.substring(idx + 1);
 
-        if(getUserIdx().equals(temp1))
-        {
+        if (getUserIdx().equals(temp1)) {
             tempData.strTargetName = temp2;
             targetData.strTargetName = temp1;
-        }
-        else
-        {
+        } else {
             tempData.strTargetName = temp1;
             targetData.strTargetName = temp2;
         }
@@ -895,7 +901,7 @@ public class MyData {
         user = table.child(strIdx);
         user.push().setValue(tempData);
 
-        target = database.getReference("BlockedList").child(tempData.strTargetName );
+        target = database.getReference("BlockedList").child(tempData.strTargetName);
         //target = table
         target.push().setValue(targetData);
     }
@@ -913,9 +919,9 @@ public class MyData {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int i = 0;
-                        TempSettingData stRecvData = new TempSettingData ();
+                        TempSettingData stRecvData = new TempSettingData();
                         stRecvData = dataSnapshot.getValue(TempSettingData.class);
-                        if(stRecvData != null) {
+                        if (stRecvData != null) {
                             nSearchMode = stRecvData.SearchMode;
                             nAlarmMode = stRecvData.AlarmMode;
                             nViewMode = stRecvData.ViewMode;
@@ -931,13 +937,13 @@ public class MyData {
                 });
 
     }
+
     public void makeFanList(UserData stTargetData, int SendCount) {
 
 
         int nTotalSendCnt = 0;
-        for(int i=0; i<arrSendHoneyDataList.size(); i++)
-        {
-            if(arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
+        for (int i = 0; i < arrSendHoneyDataList.size(); i++) {
+            if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
                 nTotalSendCnt -= arrSendHoneyDataList.get(i).nSendHoney;
         }
 
@@ -945,7 +951,7 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        table = database.getReference("User/"+ stTargetData.Idx);
+        table = database.getReference("User/" + stTargetData.Idx);
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Count", nTotalSendCnt);
@@ -963,19 +969,18 @@ public class MyData {
 
 
         //user.addChildEventListener(new ChildEventListener() {
-        for(int i=0; i<arrMyFanList.size(); i++)
-        {
+        for (int i = 0; i < arrMyFanList.size(); i++) {
             strTargetIdx = arrMyFanList.get(i).Idx;
 
             final int finalI = i;
             table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    int saa =0;
+                    int saa = 0;
                     UserData tempUserData = dataSnapshot.getValue(UserData.class);
                     arrMyFanDataList.add(tempUserData);
 
-                    for(LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
                         arrMyFanDataList.get(finalI).arrFanList.add(entry.getValue());
                 }
 
@@ -1041,8 +1046,7 @@ public class MyData {
         table = database.getReference("User");
         Log.d("!!!!!!", "getMyStarData  " + arrMyStarList.size());
 
-        for(int i=0; i<arrMyStarList.size(); i++)
-        {
+        for (int i = 0; i < arrMyStarList.size(); i++) {
             strTargetIdx = arrMyStarList.get(i).Idx;
 
 
@@ -1071,13 +1075,11 @@ public class MyData {
 
     }
 
-    public void sortStarData()
-    {
+    public void sortStarData() {
         Collections.sort(arrMyStarList);
     }
 
-    public boolean makePublicRoom()
-    {
+    public boolean makePublicRoom() {
         boolean rtValue = false;
 
         long now = System.currentTimeMillis();
@@ -1096,6 +1098,5 @@ public class MyData {
 
         return rtValue;
     }
-
 
 }

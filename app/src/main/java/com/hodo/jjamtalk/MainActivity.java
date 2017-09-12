@@ -156,7 +156,21 @@ public class MainActivity extends AppCompatActivity {
         ib_fan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),FanActivity.class));
+                //startActivity(new Intent(getApplicationContext(),FanActivity.class));
+         /*       Intent intent = new Intent(getApplicationContext(), FanActivity.class);
+                intent.putExtra("ViewMode", 0);
+                startActivity(intent);
+*/
+                Intent intent = new Intent(getApplicationContext(), FanActivity.class);
+                Bundle bundle = new Bundle();
+  /*              bundle.putSerializable("Target", stTargetData);
+                intent.putExtra("FanList", stTargetData.arrFanList);
+                intent.putExtra("StarList", stTargetData.arrStarList);*/
+                intent.putExtra("ViewMode", 0);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+
             }
         });
 

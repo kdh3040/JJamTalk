@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.kakao.usermgmt.response.model.User;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -53,9 +55,11 @@ public class UserData implements Serializable,Parcelable {
 
     public  Map<String, FanData> FanList = new LinkedHashMap<String, FanData>();
     public  ArrayList<FanData> arrFanList = new ArrayList<>();
+    public  ArrayList<UserData> arrFanData = new ArrayList<>();
 
     public  Map<String, FanData> StarList = new LinkedHashMap<String, FanData>();
     public  ArrayList<FanData> arrStarList = new ArrayList<>();
+    public  ArrayList<UserData> arrStarData = new ArrayList<>();
 
 
     public UserData() {
