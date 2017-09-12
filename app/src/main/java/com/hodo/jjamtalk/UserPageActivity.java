@@ -142,6 +142,8 @@ public class UserPageActivity extends AppCompatActivity {
                 {
                     case R.id.UserPage_btnPublicChat:
 
+
+
                         break;
 
                     case R.id.UserPage_btnRegister:
