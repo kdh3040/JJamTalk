@@ -2,6 +2,7 @@ package com.hodo.jjamtalk;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -115,6 +116,25 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
             case R.id.current_user:
                 startActivity(new Intent(getApplicationContext(),PublicChatOptionMenuUserListActivity.class));
                 break;
+            case R.id.finish:
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle("토크방 끝내기");
+                alertDialogBuilder.setMessage("토크방을 끝내시겠습니까?")
+                        .setCancelable(true)
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //확인 구현
+                            }
+                        })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
         }
         return super.onOptionsItemSelected(item);
     }

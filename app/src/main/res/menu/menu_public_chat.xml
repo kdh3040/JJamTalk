@@ -9,6 +9,9 @@
 
         android:title="차단 리스트" />
 
+    <item android:id="@+id/finish"
+        android:title="토크방 끝내기"></item>
+
 
 </menu>
 

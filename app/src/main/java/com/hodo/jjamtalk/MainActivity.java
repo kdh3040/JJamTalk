@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -165,12 +164,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         PagerModelManager manager = new PagerModelManager();
-        manager.addFragment(new Rank_NearFragment(),"근처에 있는");
-        manager.addFragment(new Rank_NewMemberFragment(),"새로 들어온");
+        manager.addFragment(new Rank_NearFragment(),"가까운 순");
 
 
-        manager.addFragment(new Rank_HoneyReceiveFragment(),"꿀 많이 받은 ");
-        manager.addFragment(new Rank_RichFragment(),"꿀 많이 준");
+
+        manager.addFragment(new Rank_HoneyReceiveFragment(),"실시간 인기 순");
+        manager.addFragment(new Rank_RichFragment(),"팬 보유 순");
+        manager.addFragment(new Rank_NewMemberFragment(),"새로운 순");
 
         final ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);
         viewPager.setAdapter(adapter);
