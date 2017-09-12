@@ -33,6 +33,7 @@ import java.util.ArrayList;
 public class UserPageActivity extends AppCompatActivity {
     private UserData stTargetData;
     public ArrayList<FanData> FanList = new ArrayList<>();
+    public ArrayList<FanData> StarList = new ArrayList<>();
 
     private MyData mMyData = MyData.getInstance();
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
@@ -75,6 +76,7 @@ public class UserPageActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         stTargetData = (UserData)bundle.getSerializable("Target");
         FanList = (ArrayList<FanData>)getIntent().getSerializableExtra("FanList");
+        StarList = (ArrayList<FanData>)getIntent().getSerializableExtra("StarList");
 
        // ArrayList<Parcelable> temp= bundle.getParcelableArrayList("FanList");
       //  FanList = (ArrayList<FanData>) temp.clone();
@@ -113,7 +115,7 @@ public class UserPageActivity extends AppCompatActivity {
                 .into(imgProfile);
 
         txtHeart = (TextView)findViewById(R.id.UserPage_txtHeart);
-        txtHeart.setText(Integer.toString(stTargetData.Heart));
+        txtHeart.setText(Integer.toString(stTargetData.Honey));
 
 
         btnRegister = (Button) findViewById(R.id.UserPage_btnRegister);
@@ -311,6 +313,22 @@ public class UserPageActivity extends AppCompatActivity {
                         }
 
 
+                        if(stTargetData.RecvMsg == 1) {
+                            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                            alertDialogBuilder.setTitle("쪽지 전송 실패");
+                            alertDialogBuilder.setMessage("상대방이 수신을 거부 하였습니다")
+                                    .setCancelable(true)
+                                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+
+                            break;
+                        }
 //쪽지 공짜
                             View view1= inflater.inflate(R.layout.alert_send_msg,null);
                             Button btn_cancel = view1.findViewById(R.id.btn_cancel);

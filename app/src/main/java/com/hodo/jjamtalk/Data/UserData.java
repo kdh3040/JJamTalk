@@ -34,6 +34,8 @@ public class UserData implements Serializable,Parcelable {
     public int SendCount;
     public int RecvCount;
 
+    public int RecvMsg;
+
     public String Date;
 
     public String SendMSG;
@@ -83,6 +85,7 @@ public class UserData implements Serializable,Parcelable {
         ImgGroup3 = in.readString();
         ImgGroup4 = in.readString();
         ImgCount = in.readInt();
+        RecvMsg = in.readInt();
     }
 
     public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -126,6 +129,8 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeString(ImgGroup3);
         parcel.writeString(ImgGroup4);
         parcel.writeInt(ImgCount);
+        parcel.writeInt(RecvMsg);
+
     }
 
 }

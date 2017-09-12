@@ -101,6 +101,7 @@ public class FirebaseData {
 
         user.child("Memo").setValue(mMyData.getUserMemo());
 
+        user.child("RecvMsg").setValue(mMyData.getnRecvMsg());
     }
     public boolean SaveBoardData(TempBoardData sendData) {
 
@@ -231,7 +232,7 @@ public class FirebaseData {
         });
     }
 
-    public void SaveSettingData(String userIdx, int SearchMode, int AlarmMode, int ViewMode) {
+    public void SaveSettingData(String userIdx, int SearchMode, int AlarmMode, int ViewMode, int RecvMsg) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Setting");
@@ -242,7 +243,9 @@ public class FirebaseData {
         user.child("SearchMode").setValue(SearchMode);
         user.child("AlarmMode").setValue(AlarmMode);
         user.child("ViewMode").setValue(ViewMode);
+        user.child("RecvMsg").setValue(RecvMsg);
 
+        SaveData(mMyData.getUserIdx());
 
     }
 

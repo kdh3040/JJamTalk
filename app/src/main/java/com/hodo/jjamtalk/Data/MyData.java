@@ -92,6 +92,7 @@ public class MyData {
     public int nSearchMode;
     public int nAlarmMode = 7;
     public int nViewMode =1;
+    public int nRecvMsg = 0;
 
     public int nImgCount;
     public String[] strProfileImg = new String[4];
@@ -142,7 +143,7 @@ public class MyData {
     public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney,  int _UserSendCount,  int _UserRecvCount,  String _UserDate,
-                          String _UserMemo)
+                          String _UserMemo, int _UserRecvMsg)
     {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
@@ -173,6 +174,7 @@ public class MyData {
         strProfileImg[2] = _UserImgGroup2;
         strProfileImg[3] = _UserImgGroup3;
 
+        nRecvMsg = _UserRecvMsg;
     }
 
     public void setUserIdx(String userIdx) {
@@ -264,6 +266,12 @@ public class MyData {
     }
 
 
+    public void setnRecvMsg(int option) {
+        nRecvMsg = option;
+    }
+    public int getnRecvMsg() {
+        return nRecvMsg;
+    }
 
 
 
@@ -464,10 +472,11 @@ public class MyData {
         strMemo = memo.toString();
     }
 
-    public void setSettingData(int SearchMode, int AlarmMode, int ViewMode) {
+    public void setSettingData(int SearchMode, int AlarmMode, int ViewMode, int RecvMsg) {
         nSearchMode = SearchMode;
         nAlarmMode= AlarmMode;
         nViewMode = ViewMode;
+        nRecvMsg = RecvMsg;
     }
 
     public void getGiftData(String Idx) {
@@ -910,6 +919,7 @@ public class MyData {
                             nSearchMode = stRecvData.SearchMode;
                             nAlarmMode = stRecvData.AlarmMode;
                             nViewMode = stRecvData.ViewMode;
+                            nRecvMsg = stRecvData.RecvMsg;
                         }
                     }
 

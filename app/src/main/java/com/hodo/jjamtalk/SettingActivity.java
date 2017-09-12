@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.Switch;
@@ -47,6 +48,8 @@ public class SettingActivity extends AppCompatActivity {
 
     private TextView tv_blocklist;
 
+    private CheckBox cbRecvMsg;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit_profile,menu);
@@ -58,8 +61,8 @@ public class SettingActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.action_save){
             //프로필 저장 구현
             Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
-            mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting());
-            mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting());
+            mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
+            mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
         }
         if(item.getItemId() == android.R.id.home)
         {
@@ -68,13 +71,29 @@ public class SettingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //1 이 차단 0이 디폴트
+        cbRecvMsg = (CheckBox)findViewById(R.id.checkBox2);
+        if(mSetting.getnRecvMsg() == 0)
+            cbRecvMsg.setChecked(false);
+        else
+            cbRecvMsg.setChecked(true);
+
+        cbRecvMsg.setOnClickListener(new CheckBox.OnClickListener() {
+            @Override public void onClick(View v) {
+                if(cbRecvMsg.isChecked() == true)
+                    mSetting.setnRecvMsg(1);
+                else
+                    mSetting.setnRecvMsg(0);
+                 }
+        }) ;
+
+
 
         btn_PurchaseHeart = (Button)findViewById(R.id.Setting_btnHeart);
         btn_Help = (Button)findViewById(R.id.Setting_btnHelp);
