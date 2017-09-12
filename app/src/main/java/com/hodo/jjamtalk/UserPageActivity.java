@@ -401,7 +401,7 @@ public class UserPageActivity extends AppCompatActivity {
         btnMessage.setOnClickListener(listener);
 
         listView = (ListView)findViewById(R.id.lv_fan);
-        UserPageFanAdapter fanAdapter = new UserPageFanAdapter(this);
+        UserPageFanAdapter fanAdapter = new UserPageFanAdapter(this, FanList);
         listView.setAdapter(fanAdapter);
 
 
