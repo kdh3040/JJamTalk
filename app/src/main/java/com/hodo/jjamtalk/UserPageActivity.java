@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,6 +19,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
@@ -25,6 +31,7 @@ import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.NotiFunc;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -33,7 +40,10 @@ import java.util.ArrayList;
 public class UserPageActivity extends AppCompatActivity {
     private UserData stTargetData;
     public ArrayList<FanData> FanList = new ArrayList<>();
+    public ArrayList<UserData> FanData = new ArrayList<>();
+
     public ArrayList<FanData> StarList = new ArrayList<>();
+    public ArrayList<UserData> StarData = new ArrayList<>();
 
     private MyData mMyData = MyData.getInstance();
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
@@ -77,6 +87,7 @@ public class UserPageActivity extends AppCompatActivity {
         stTargetData = (UserData)bundle.getSerializable("Target");
         FanList = (ArrayList<FanData>)getIntent().getSerializableExtra("FanList");
         StarList = (ArrayList<FanData>)getIntent().getSerializableExtra("StarList");
+        getTargetfanData();
 
        // ArrayList<Parcelable> temp= bundle.getParcelableArrayList("FanList");
       //  FanList = (ArrayList<FanData>) temp.clone();
@@ -89,11 +100,6 @@ public class UserPageActivity extends AppCompatActivity {
         //private TextView txtProfile;
 
         txt_FanTitle = (TextView)findViewById(R.id.UserPage_FanTitle);
-
-            //txt_FanTitle.setText("팬클럽");
-        /*
-
-     }*/
 
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
@@ -141,8 +147,6 @@ public class UserPageActivity extends AppCompatActivity {
                 switch (view.getId())
                 {
                     case R.id.UserPage_btnPublicChat:
-
-
 
                         break;
 
@@ -400,6 +404,31 @@ public class UserPageActivity extends AppCompatActivity {
         UserPageFanAdapter fanAdapter = new UserPageFanAdapter(this);
         listView.setAdapter(fanAdapter);
 
+
+        ViewGroup layout = (ViewGroup) findViewById(R.id.ll_fan);
+        layout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                Intent intent = new Intent(getApplicationContext(), FanActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", stTargetData);
+                intent.putExtra("FanList", FanList);
+                intent.putExtra("FanData", FanData);
+
+                intent.putExtra("StarList", StarList);
+                intent.putExtra("StarData", StarData);
+
+                intent.putExtra("ViewMode", 1);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+            }
+        });
+
+
     }
 
     private void buildalertDialog(String s, String s1, String s2) {
@@ -424,6 +453,40 @@ public class UserPageActivity extends AppCompatActivity {
                         });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
-
     }
+
+    public void getTargetfanData() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("User");
+
+        //user.addChildEventListener(new ChildEventListener() {
+        for (int i = 0; i < FanList.size(); i++) {
+            strTargetIdx = FanList.get(i).Idx;
+
+            if (strTargetIdx != null)
+            {
+
+                final int finalI = i;
+                table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int saa = 0;
+                        UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                        FanData.add(tempUserData);
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                            FanData.get(finalI).arrFanList.add(entry.getValue());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+
+                });
+            }
+        }
+    }
+
 }

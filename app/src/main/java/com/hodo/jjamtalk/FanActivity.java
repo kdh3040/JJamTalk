@@ -7,12 +7,17 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UserData;
+
+import java.util.ArrayList;
 
 import github.chenupt.multiplemodel.viewpager.ModelPagerAdapter;
 import github.chenupt.multiplemodel.viewpager.PagerModelManager;
@@ -26,9 +31,15 @@ import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 public class FanActivity extends AppCompatActivity {
     SpringIndicator indicator;
     ScrollerViewPager viewPager;
-
+    int nViewMode;
 
     private MyData mMyData = MyData.getInstance();
+    private UserData stTargetData;
+    public ArrayList<FanData> FanList = new ArrayList<>();
+    public ArrayList<UserData> FanData = new ArrayList<>();
+
+    public ArrayList<FanData> StarList = new ArrayList<>();
+    public ArrayList<UserData> StarData = new ArrayList<>();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,13 +57,43 @@ public class FanActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fan);
+
+
+
+
+
         indicator = (SpringIndicator) findViewById(R.id.indicator_fan);
 
         viewPager = (ScrollerViewPager) findViewById(R.id.vp_fan);
         PagerModelManager manager = new PagerModelManager();
 
-        manager.addFragment(new MyFanFragment(),"내 팬");
-        manager.addFragment(new MyLikeFragment(),"내가 좋아하는");
+        Intent intent = getIntent();
+
+        Bundle bundle = getIntent().getExtras();
+        nViewMode = intent.getIntExtra("ViewMode", 0);
+
+        if(nViewMode == 0)
+        {
+            manager.addFragment(new MyFanFragment(),"내 팬");
+            manager.addFragment(new MyLikeFragment(),"내가 좋아하는");
+        }
+        else
+        {
+            stTargetData = (UserData) bundle.getSerializable("Target");
+            FanList = (ArrayList<FanData>) getIntent().getSerializableExtra("FanList");
+            FanData = (ArrayList<UserData>) getIntent().getSerializableExtra("FanData");
+
+            StarList = (ArrayList<FanData>) getIntent().getSerializableExtra("StarList");
+            StarData = (ArrayList<UserData>) getIntent().getSerializableExtra("StarData");
+
+            stTargetData.arrFanList = FanList;
+            stTargetData.arrFanData= FanData;
+            stTargetData.arrStarList = StarList;
+            stTargetData.arrStarData = StarData;
+            manager.addFragment(new TargetFanFragment(stTargetData),"팬클럽");
+            manager.addFragment(new TargetLikeFragment(stTargetData),"가입한 팬클럽");
+        }
+
 
         final ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);
         viewPager.setAdapter(adapter);
@@ -60,6 +101,22 @@ public class FanActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        MenuItem register = menu.findItem(R.id.open_pcr);
+        if(nViewMode == 0)
+        {
+            register.setVisible(true);
+        }
+        else
+        {
+            register.setVisible(false);
+        }
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
