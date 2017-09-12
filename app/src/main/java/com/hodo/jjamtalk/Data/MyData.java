@@ -73,10 +73,6 @@ public class MyData {
     private String strToken;
 
     private String strImg;
-    private String strImg1;
-    private String strImg2;
-    private String strImg3;
-    private String strImg4;
 
     private String strNick;
     private String strGender;
@@ -97,7 +93,8 @@ public class MyData {
     public int nAlarmMode = 7;
     public int nViewMode =1;
 
-    public ArrayList<String> arrImgList = new ArrayList<>();
+    public String[] strProfileImg = new String[4];
+
 
     public ArrayList<String> arrBlockNameList = new ArrayList<>();
     public ArrayList<BlockData> arrBlockDataList = new ArrayList<>();
@@ -131,6 +128,12 @@ public class MyData {
         nHoney = 0;
         strDate = null;
 
+        for(int i = 0 ; i< 4; i++)
+        {
+            strProfileImg[i] = "http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg";
+        }
+//        strProfileImg = null;
+
         strMemo = null;
 
     }
@@ -146,7 +149,7 @@ public class MyData {
         //strToken = com.google.firebase.iid.FirebaseInstanceId.getInstance().getToken();
 
 
-        strImg = _UserImg;
+
         strNick = _UserNick;
         strGender = _UserGender;
         strAge = _UserAge;
@@ -160,14 +163,13 @@ public class MyData {
         nSendCount = _UserSendCount;
         nRecvCount = _UserRecvCount;
 
-        arrImgList.add(_UserImg);
+        strImg = _UserImg;
 
-        if(_UserImgGroup1 != null)
-            arrImgList.add(_UserImgGroup1);
-        if(_UserImgGroup2 != null)
-            arrImgList.add(_UserImgGroup2);
-        if(_UserImgGroup3 != null)
-            arrImgList.add(_UserImgGroup3);
+        strProfileImg[0] = _UserImg;
+        strProfileImg[1] = _UserImgGroup1;
+        strProfileImg[2] = _UserImgGroup2;
+        strProfileImg[3] = _UserImgGroup3;
+
     }
 
     public void setUserIdx(String userIdx) {
@@ -191,13 +193,12 @@ public class MyData {
         return strImg;
     }
 
-    public void setUserImgList(String userImg) {
-        arrImgList.add(userImg);
+    public void setUserProfileImg(int Index, String userImg) {
+        strProfileImg[Index] = userImg;
     }
-    public String getUserImgList(int i) {
-        return arrImgList.get(i);
+    public String getUserProfileImg(int Index) {
+        return strProfileImg[Index];
     }
-
 
     public void setUserNick(String userNick) {
         strNick = userNick;

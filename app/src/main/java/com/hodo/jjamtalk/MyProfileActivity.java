@@ -23,11 +23,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -38,7 +43,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private ImageView Img_Sum;
     private ImageView[] Img_Profiles = new ImageView[4];
     private int nImgNumber;
-    private Spinner Spinner_Age1, Spinner_Age2;
+    private Spinner Spinner_Age;
     private  int nAge1, nAge2;
     private MyData mMyData = MyData.getInstance();
 
@@ -47,85 +52,78 @@ public class MyProfileActivity extends AppCompatActivity {
     StorageReference storageRef = storage.getReferenceFromUrl("gs://jamtalk-cf526.appspot.com/");
     Activity activity = this;
 
+    DatabaseReference ref;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Spinner_Age1 = (Spinner)findViewById(R.id.MyProfile_Age_1);
+        Spinner_Age = (Spinner) findViewById(R.id.MyProfile_Age_1);
         String strUserAge = mMyData.getUserAge();
         int nUserAge = Integer.parseInt(strUserAge);
 
-        Spinner_Age1.setSelection(nUserAge / 10);
-        Spinner_Age1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        nUserAge -= 17;
+        Spinner_Age.setSelection(nUserAge);
+        Spinner_Age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 nAge1 = position;
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
-
-        nUserAge = nUserAge - ((nUserAge / 10) *10);
-        Spinner_Age2 = (Spinner)findViewById(R.id.MyProfile_Age_2);
-        Spinner_Age2.setSelection(nUserAge);
-        Spinner_Age2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                nAge2 = position;
-                String strAge = nAge1 +""+ nAge2;
-
+                nAge1 += 17;
+                String strAge = Integer.toString(nAge1);
                 mMyData.setUserAge(strAge);
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
+        Img_Sum = (ImageView) findViewById(R.id.MyProfile_SumImg);
 
-        Img_Sum = (ImageView)findViewById(R.id.MyProfile_SumImg);
-
-        Img_Profiles[0] = (ImageView)findViewById(R.id.MyProfile_Img1);
-        Img_Profiles[1] = (ImageView)findViewById(R.id.MyProfile_Img2);
-        Img_Profiles[2] = (ImageView)findViewById(R.id.MyProfile_Img3);
-        Img_Profiles[3] = (ImageView)findViewById(R.id.MyProfile_Img4);
+        Img_Profiles[0] = (ImageView) findViewById(R.id.MyProfile_Img1);
+        Img_Profiles[1] = (ImageView) findViewById(R.id.MyProfile_Img2);
+        Img_Profiles[2] = (ImageView) findViewById(R.id.MyProfile_Img3);
+        Img_Profiles[3] = (ImageView) findViewById(R.id.MyProfile_Img4);
         //Img_Profiles[4] = (ImageView)findViewById(R.id.MyProfile_Img5);
 
-        et_Memo = (EditText)findViewById(R.id.MyProfile_Memo);
+        et_Memo = (EditText) findViewById(R.id.MyProfile_Memo);
         et_Memo.setText(mMyData.getUserMemo());
 
-        et_NickName = (EditText)findViewById(R.id.MyProfile_NickName);
+        et_NickName = (EditText) findViewById(R.id.MyProfile_NickName);
         et_NickName.setText(mMyData.getUserNick());
 
-        View.OnClickListener listener = new View.OnClickListener()
-        {
+        View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
 
                     case R.id.MyProfile_SumImg:
-                        startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
+                        startActivity(new Intent(getApplicationContext(), ImageViewPager.class));
 
                         //LoadImage(view, 5);
                         break;
                     case R.id.MyProfile_Img1:
-                        popUp(1);
-                    
-                        //LoadImage(view, 1);
+                        popUp(0);
                         break;
                     case R.id.MyProfile_Img2:
-                        popUp(2);
-                        //LoadImage(view, 2);
+                        popUp(1);
                         break;
                     case R.id.MyProfile_Img3:
-                        popUp(3);
-                        //LoadImage(view, 3);
+                        popUp(2);
                         break;
                     case R.id.MyProfile_Img4:
-                        popUp(4);
+                        popUp(3);
+                       /* if(mMyData.arrImgList.size() < 1)
+                            popUp(0);
+                        else if (mMyData.arrImgList.size() < 2)
+                            popUp(1);
+                        else if (mMyData.arrImgList.size() < 3)
+                            popUp(2);
+                        else
+                            popUp(3);*/
                         //LoadImage(view, 4);
                         break;
 
@@ -143,12 +141,14 @@ public class MyProfileActivity extends AppCompatActivity {
         Glide.with(getApplicationContext())
                 .load(mMyData.getUserImg())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                //   .bitmapTransform(new RoundedCornersTransformation(getApplicationContext()))
                 .thumbnail(0.1f)
                 .into(Img_Sum);
 
         Glide.with(getApplicationContext())
                 .load(mMyData.getUserImg())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .thumbnail(0.1f)
                 .into(Img_Profiles[0]);
 
@@ -157,27 +157,25 @@ public class MyProfileActivity extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(Img_Profiles[0]);*/
 
-
-        for(int i = 0; i< mMyData.arrImgList.size(); i++) {
-            if(mMyData.arrImgList.get(i) == null)
-            {
+        for (int i = 0; i < 4; i++) {
+            if (mMyData.strProfileImg[i] == null) {
                 Glide.with(getApplicationContext())
                         .load("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg")
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
 
-            }
-            else
-            {
+            } else {
                 Glide.with(getApplicationContext())
-                        .load(mMyData.arrImgList.get(i))
+                        .load(mMyData.strProfileImg[i])
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
             }
-
         }
+
     }
 
     private void popUp(final int index) {
@@ -220,7 +218,7 @@ public class MyProfileActivity extends AppCompatActivity {
     }
 
     private void LoadImage(View view, int i) {
-        
+
         nImgNumber = i;
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/"+mMyData.getUserIdx() + "/*");
@@ -276,16 +274,18 @@ public class MyProfileActivity extends AppCompatActivity {
 
     public void Tr(Uri uri)
     {
-        if(mMyData.arrImgList.size() < nImgNumber)
-            mMyData.arrImgList.add(uri.toString());
-        else
-            mMyData.arrImgList.set(nImgNumber-1, uri.toString());
+        mMyData.setUserProfileImg(nImgNumber, uri.toString());
+
+        mFireBaseData.SaveData(mMyData.getUserIdx());
+//        else
+            //mMyData.arrImgList.set(nImgNumber, uri.toString());
 
         Glide.with(getApplicationContext())
-                .load(mMyData.arrImgList.get(nImgNumber-1))
+                .load(mMyData.getUserProfileImg(nImgNumber))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .thumbnail(0.1f)
-                .into(Img_Profiles[nImgNumber-1]);
+                .into(Img_Profiles[nImgNumber]);
 
     }
     @Override
@@ -317,17 +317,16 @@ public class MyProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public  void DeleteData(final int Index)
     {
-        StorageReference storageRef = storage.getReferenceFromUrl("gs://");
         StorageReference desertRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" + Index );//file.getLastPathSegment());
 
 // Delete the file
         desertRef.delete().addOnSuccessListener(new OnSuccessListener() {
             @Override
             public void onSuccess(Object o) {
-                mMyData.arrImgList.remove(Index);
+                DeleteFireBaseData(Index);
+                mMyData.setUserProfileImg(Index, "http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -335,14 +334,33 @@ public class MyProfileActivity extends AppCompatActivity {
                 // Uh-oh, an error occurred!
             }
         });
-
         Glide.with(getApplicationContext())
                 .load("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg")
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .thumbnail(0.1f)
                 .into(Img_Profiles[Index]);
-
     }
 
+    public  void DeleteFireBaseData(final int Index)
+    {
+        ref = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx());
+
+        switch (Index)
+        {
+            case 0:
+                ref.child("ImgGroup0").setValue("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
+                break;
+            case 1:
+                ref.child("ImgGroup1").setValue("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
+                break;
+            case 2:
+                ref.child("ImgGroup2").setValue("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
+                break;
+            case 3:
+                ref.child("ImgGroup3").setValue("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
+                break;
+        }
+
+    }
 
 }

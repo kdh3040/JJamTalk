@@ -32,7 +32,7 @@ public class CustomPagerAdapter extends PagerAdapter{
 
     @Override
     public int getCount() {
-        return mMyData.arrImgList.size();
+        return 4;
     }
 
     @Override
@@ -45,11 +45,13 @@ public class CustomPagerAdapter extends PagerAdapter{
         View itemView = mLayoutInflater.inflate(R.layout.pager_item,container,false);
         ImageView imageView = (ImageView)itemView.findViewById(R.id.imageView);
 
-        Glide.with(mContext)
-                .load(mMyData.arrImgList.get(position))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .thumbnail(0.1f)
-                .into(imageView);
+
+            Glide.with(mContext)
+                    .load(mMyData.strProfileImg[position])
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .thumbnail(0.1f)
+                    .into(imageView);
+
 
         container.addView(itemView);
 

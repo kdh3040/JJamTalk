@@ -80,8 +80,8 @@ public class FirebaseData {
         user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         user.child("Img").setValue(mMyData.getUserImg());
 
-        for(int i=0; i<mMyData.arrImgList.size(); i++)
-            user.child("ImgGroup"+Integer.toString(i)).setValue(mMyData.getUserImgList(i));
+        for(int i=0; i< 4 ; i++)
+            user.child("ImgGroup"+Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
 
         user.child("NickName").setValue(mMyData.getUserNick());
         user.child("Gender").setValue(mMyData.getUserGender());
@@ -90,8 +90,8 @@ public class FirebaseData {
         user.child("Lon").setValue(mMyData.getUserLon());
         user.child("Lat").setValue(mMyData.getUserLat());
 
-        user.child("SendCount").setValue(-1 * rand.nextInt(100));
-        user.child("RecvCount").setValue(-1 * rand.nextInt(30));
+        user.child("SendCount").setValue(mMyData.getSendHoney());
+        user.child("RecvCount").setValue(mMyData.getRecvHoney());
 
         long time = System.currentTimeMillis();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
