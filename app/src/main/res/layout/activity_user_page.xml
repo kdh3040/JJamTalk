@@ -128,19 +128,19 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:weightSum="5">
+            >
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/UserPage_FanTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="꿀팬"
+                    android:text="팬클럽"
                     android:textColor="@android:color/holo_purple"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -156,26 +156,25 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
 
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView38"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="오늘의 최다 선물"
+                    android:text="가입한 팬클럽"
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textView39"
+                <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="3000꿀" />
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
         </LinearLayout>
+
         <View style="@style/Divider" />
 
         <LinearLayout
