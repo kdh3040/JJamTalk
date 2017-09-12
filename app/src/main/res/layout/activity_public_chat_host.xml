@@ -2,67 +2,92 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+
+    >
 
     <RelativeLayout
+        android:id="@+id/rl_public_chat"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:textColor="@color/white" />
-
-        <ImageView
-            android:id="@+id/iv_host"
+        <LinearLayout
+            android:id="@+id/ll_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/hedfvb" />
-    </RelativeLayout>
+            android:orientation="horizontal">
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6"
-        android:dividerHeight="@null" />
+            <ImageView
+                android:id="@+id/iv_host"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/hedfvb" />
+
+            <ImageView
+                android:id="@+id/iv_gift"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/honeyicon" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ll_iv"
+            android:layout_alignParentBottom="false"
+            android:text="호스트가 하고 싶은말"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="10">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <ListView
+            android:id="@+id/lv_pcr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ll_chat"
+            android:layout_below="@+id/iv_host"
             android:layout_weight="1"
-            android:text="+" />
+            android:divider="@null" />
 
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:autoText="false"
-            android:ems="10"
-            android:inputType="textPersonName" />
+        <LinearLayout
 
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="전송" />
+            android:id="@+id/ll_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:weightSum="6">
 
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+
+                android:ems="10"
+                android:gravity="bottom|left"
+                android:inputType="textPersonName"
+                android:maxLines="1" />
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="전송" />
+
+        </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

@@ -55,7 +55,7 @@
         <activity android:name=".SettingActivity"
             android:label="설정">
         </activity>
-        <activity android:name=".PublicChatRoomActivity"
+        <activity android:name=".PublicChatRoomHostActivity"
             android:label="공개채팅방"
             android:windowSoftInputMode="stateAlwaysHidden"
             >
@@ -75,6 +75,8 @@
         </activity>
 
         <activity android:name=".HeartActivity" />
+        <activity android:name=".ImageActivity"
+            android:theme ="@style/NoTitleBar"/>
         <activity android:name=".Kakao.KakaoSignupActivity" />
         <activity android:name=".ClickedMyPicActivity"
             android:theme ="@style/NoTitleBar">
@@ -90,6 +92,9 @@
         <activity android:name=".ChatListActivity"
             android:label="쪽지함"
             ></activity>
+        <activity android:name=".PublicChatRoomActivity"
+
+            ></activity>
         <activity android:name=".ChatRoomActivity"
             ></activity>
         <activity android:name=".BoardItemActivity"
@@ -102,7 +107,7 @@
             android:label="내가 쓴 글"
             ></activity>
         <activity android:name=".ImageViewPager"
-            android:theme ="@style/NoTitleBar"></activity>
+            ></activity>
 
         <activity android:name=".BlockListActivity"
             android:label="차단 목록"></activity>
