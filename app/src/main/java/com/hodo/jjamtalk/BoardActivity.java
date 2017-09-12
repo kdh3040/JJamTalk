@@ -36,6 +36,15 @@ public class BoardActivity extends AppCompatActivity {
 
     int nPosition;
     LinearLayout contentlayout;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

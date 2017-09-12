@@ -1,7 +1,6 @@
 package com.hodo.jjamtalk;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hodo.jjamtalk.Data.MyData;
-import com.hodo.jjamtalk.Firebase.FirebaseData;
 
 /**
  * Created by mjk on 2017. 8. 22..
@@ -38,7 +36,13 @@ public class MailboxActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

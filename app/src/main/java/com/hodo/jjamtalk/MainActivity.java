@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -55,10 +54,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        android.os.Process.killProcess(android.os.Process.myPid());
+
+        String alertTitle = "종료";
+        new AlertDialog.Builder(this)
+                .setTitle(alertTitle)
+                .setMessage("프로그램을 종료하시겠습니까?")
+                .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
+                })
+                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                }).show();
+
     }
 
-    @Override
+    /*@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch(keyCode){
             case KeyEvent.KEYCODE_BACK:
@@ -80,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         }).show();
         }
         return super.onKeyDown(keyCode, event);
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
+                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
         });
@@ -158,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),BoardActivity.class));
-                overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity);
+                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
 
 
@@ -170,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),CardListActivity.class));
+                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
         });
@@ -179,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),ChatListActivity.class));
+                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
         });
@@ -188,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),FanActivity.class));
+                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
             }
         });
 

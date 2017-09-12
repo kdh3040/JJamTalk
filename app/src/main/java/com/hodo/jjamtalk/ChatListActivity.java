@@ -58,7 +58,13 @@ public class ChatListActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
 
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
+    }
 
 
     private class ChatListAdapter extends RecyclerView.Adapter<ChatListViewHolder> {

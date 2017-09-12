@@ -37,6 +37,7 @@ public class MyPageActivity extends AppCompatActivity {
 
     LinearLayout ll_gift_get,ll_gift_sent;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,13 +144,12 @@ public class MyPageActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        finish();
-    }
+
 }

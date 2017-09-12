@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
 
@@ -36,7 +35,13 @@ public class FanActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_fan_activity,menu);
         return super.onCreateOptionsMenu(menu);
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
