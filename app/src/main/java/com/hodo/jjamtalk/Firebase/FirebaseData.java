@@ -93,6 +93,8 @@ public class FirebaseData {
         user.child("SendCount").setValue(mMyData.getSendHoney());
         user.child("RecvCount").setValue(mMyData.getRecvHoney());
 
+        user.child("ImgCount").setValue(mMyData.getUserImgCnt());
+
         long time = System.currentTimeMillis();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
         user.child("Date").setValue(ctime.format(new Date(time)));

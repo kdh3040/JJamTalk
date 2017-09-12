@@ -94,19 +94,19 @@ public class UserPageActivity extends AppCompatActivity {
      }*/
 
 
-
-
-
-
-
-
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
+                Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", stTargetData);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
             }
         });
+
         Glide.with(getApplicationContext())
                 .load(stTargetData.Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UserData;
 
 /**
  * Created by mjk on 2017. 8. 16..
@@ -19,20 +20,29 @@ import com.hodo.jjamtalk.Data.MyData;
 public class CustomPagerAdapter extends PagerAdapter{
 
     private MyData mMyData = MyData.getInstance();
+    private UserData stTargetData;
+
+    String[] strImgGroup = new String[4];
 
     Context mContext;
     LayoutInflater mLayoutInflater;
     int[] mResources = {R.drawable.bg1,R.drawable.bg2,R.drawable.bg3,R.drawable.bg4};
 
-    public CustomPagerAdapter(Context context) {
+    public CustomPagerAdapter(Context context, UserData TargetData) {
         mContext = context;
         mLayoutInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        stTargetData = TargetData;
+
+        strImgGroup[0] = stTargetData.ImgGroup0;
+        strImgGroup[1] = stTargetData.ImgGroup1;
+        strImgGroup[2] = stTargetData.ImgGroup2;
+        strImgGroup[3] = stTargetData.ImgGroup3;
 
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return stTargetData.ImgCount;
     }
 
     @Override
@@ -47,7 +57,8 @@ public class CustomPagerAdapter extends PagerAdapter{
 
 
             Glide.with(mContext)
-                    .load(mMyData.strProfileImg[position])
+                    //.load(mMyData.strProfileImg[position])
+                    .load(strImgGroup[position])
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .thumbnail(0.1f)
                     .into(imageView);

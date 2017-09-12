@@ -93,6 +93,7 @@ public class MyData {
     public int nAlarmMode = 7;
     public int nViewMode =1;
 
+    public int nImgCount;
     public String[] strProfileImg = new String[4];
 
 
@@ -138,7 +139,7 @@ public class MyData {
 
     }
 
-    public void setMyData(String _UserIdx, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
+    public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney,  int _UserSendCount,  int _UserRecvCount,  String _UserDate,
                           String _UserMemo)
@@ -163,6 +164,8 @@ public class MyData {
         nSendCount = _UserSendCount;
         nRecvCount = _UserRecvCount;
 
+        nImgCount = _UserImgCount;
+
         strImg = _UserImg;
 
         strProfileImg[0] = _UserImg;
@@ -184,6 +187,13 @@ public class MyData {
     }
     public String getUserToken() {
         return strToken;
+    }
+
+    public void setUserImgCnt(int userCnt) {
+        nImgCount = userCnt;
+    }
+    public int getUserImgCnt() {
+        return nImgCount;
     }
 
     public void setUserImg(String userImg) {

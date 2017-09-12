@@ -29,7 +29,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
+import com.kakao.usermgmt.response.model.User;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
@@ -46,6 +48,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private Spinner Spinner_Age;
     private  int nAge1, nAge2;
     private MyData mMyData = MyData.getInstance();
+    private UserData stTargetData;
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -101,7 +104,21 @@ public class MyProfileActivity extends AppCompatActivity {
                 switch (view.getId()) {
 
                     case R.id.MyProfile_SumImg:
-                        startActivity(new Intent(getApplicationContext(), ImageViewPager.class));
+                      //  startActivity(new Intent(getApplicationContext(), ImageViewPager.class));
+
+                        stTargetData.ImgGroup0 = mMyData.getUserImg();
+                        stTargetData.ImgGroup1 = mMyData.strProfileImg[0];
+                        stTargetData.ImgGroup2 = mMyData.strProfileImg[1];
+                        stTargetData.ImgGroup3 = mMyData.strProfileImg[2];
+                        stTargetData.ImgGroup4 = mMyData.strProfileImg[3];
+
+                        stTargetData.ImgCount = mMyData.getUserImgCnt();
+
+                        Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", stTargetData);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
 
                         //LoadImage(view, 5);
                         break;
@@ -186,7 +203,21 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 사진 보기
-                startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
+                stTargetData.ImgGroup0 = mMyData.getUserImg();
+                stTargetData.ImgGroup1 = mMyData.strProfileImg[0];
+                stTargetData.ImgGroup2 = mMyData.strProfileImg[1];
+                stTargetData.ImgGroup3 = mMyData.strProfileImg[2];
+                stTargetData.ImgGroup4 = mMyData.strProfileImg[3];
+
+                stTargetData.ImgCount = mMyData.getUserImgCnt();
+
+                Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", stTargetData);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+                //startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
                 dialog.dismiss();
             }
         });
@@ -277,6 +308,8 @@ public class MyProfileActivity extends AppCompatActivity {
         mMyData.setUserProfileImg(nImgNumber, uri.toString());
 
         mFireBaseData.SaveData(mMyData.getUserIdx());
+        mMyData.setUserImgCnt(mMyData.getUserImgCnt()+1);
+
 //        else
             //mMyData.arrImgList.set(nImgNumber, uri.toString());
 
@@ -327,6 +360,7 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onSuccess(Object o) {
                 DeleteFireBaseData(Index);
                 mMyData.setUserProfileImg(Index, "http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
+                mMyData.setUserImgCnt(mMyData.getUserImgCnt()-1);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

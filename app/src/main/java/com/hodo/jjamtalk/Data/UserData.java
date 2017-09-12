@@ -42,6 +42,7 @@ public class UserData implements Serializable,Parcelable {
     //public String Company;
     //public String Title;
 
+    public int ImgCount = 1;
     public String ImgGroup0;
     public String ImgGroup1;
     public String ImgGroup2;
@@ -81,6 +82,7 @@ public class UserData implements Serializable,Parcelable {
         ImgGroup2 = in.readString();
         ImgGroup3 = in.readString();
         ImgGroup4 = in.readString();
+        ImgCount = in.readInt();
     }
 
     public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -123,6 +125,7 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeString(ImgGroup2);
         parcel.writeString(ImgGroup3);
         parcel.writeString(ImgGroup4);
+        parcel.writeInt(ImgCount);
     }
 
 }
