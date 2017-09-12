@@ -1076,5 +1076,26 @@ public class MyData {
         Collections.sort(arrMyStarList);
     }
 
+    public boolean makePublicRoom()
+    {
+        boolean rtValue = false;
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("HHMM");
+        String getTime = sdf.format(date);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("PublicRoom");
+
+        user = table.child(getUserIdx()).child(getTime);
+
+        user.push().setValue("asd");
+        rtValue = true;
+
+        return rtValue;
+    }
+
 
 }

@@ -36,12 +36,18 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
     LinearLayout ll_chat;
     RelativeLayout rl_public_chat;
 
+    int RoomLimit,RoomTime;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_chat_host);
         mContext = getApplicationContext();
+
+        Intent intent = new Intent(this.getIntent());
+        RoomLimit  = intent.getIntExtra("RoomLimit", 1);
+        RoomTime  = intent.getIntExtra("RoomTime", 1);
 
         //View header = getLayoutInflater().inflate(R.layout.header_board_item,null,false);
         //View footer = getLayoutInflater().inflate(R.layout.footer_pcr,null,false);
