@@ -1,11 +1,16 @@
 package com.hodo.jjamtalk.Firebase;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
 import com.hodo.jjamtalk.Data.TempBoardData;
@@ -73,8 +80,8 @@ public class FirebaseData {
         user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         user.child("Img").setValue(mMyData.getUserImg());
 
-        for(int i=0; i<mMyData.arrImgList.size(); i++)
-            user.child("ImgGroup"+Integer.toString(i)).setValue(mMyData.getUserImgList(i));
+        for(int i=0; i< 4 ; i++)
+            user.child("ImgGroup"+Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
 
         user.child("NickName").setValue(mMyData.getUserNick());
         user.child("Gender").setValue(mMyData.getUserGender());
@@ -83,8 +90,10 @@ public class FirebaseData {
         user.child("Lon").setValue(mMyData.getUserLon());
         user.child("Lat").setValue(mMyData.getUserLat());
 
-        user.child("SendCount").setValue(-1 * rand.nextInt(100));
-        user.child("RecvCount").setValue(-1 * rand.nextInt(30));
+        user.child("SendCount").setValue(mMyData.getSendHoney());
+        user.child("RecvCount").setValue(mMyData.getRecvHoney());
+
+        user.child("ImgCount").setValue(mMyData.getUserImgCnt());
 
         long time = System.currentTimeMillis();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
@@ -236,4 +245,7 @@ public class FirebaseData {
 
 
     }
+
+
+
 }

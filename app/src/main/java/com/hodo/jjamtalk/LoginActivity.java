@@ -517,7 +517,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
 
-                            mMyData.setMyData(stRecvData.Idx, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3, stRecvData.ImgGroup4,
+                            mMyData.setMyData(stRecvData.Idx, stRecvData.ImgCount, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3,
                                     stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvCount, stRecvData.Date,
                                     stRecvData.Memo);
                             bMySet = true;

@@ -512,6 +512,8 @@ public class InputProfile extends AppCompatActivity {
     public void Tr(Uri uri)
     {
         mMyData.setUserImg(uri.toString());
+        mMyData.setUserProfileImg(0, uri.toString());
+        mMyData.setUserImgCnt(1);
     }
 
     private void SetBoardMyData() {

@@ -73,10 +73,6 @@ public class MyData {
     private String strToken;
 
     private String strImg;
-    private String strImg1;
-    private String strImg2;
-    private String strImg3;
-    private String strImg4;
 
     private String strNick;
     private String strGender;
@@ -97,7 +93,9 @@ public class MyData {
     public int nAlarmMode = 7;
     public int nViewMode =1;
 
-    public ArrayList<String> arrImgList = new ArrayList<>();
+    public int nImgCount;
+    public String[] strProfileImg = new String[4];
+
 
     public ArrayList<String> arrBlockNameList = new ArrayList<>();
     public ArrayList<BlockData> arrBlockDataList = new ArrayList<>();
@@ -131,11 +129,17 @@ public class MyData {
         nHoney = 0;
         strDate = null;
 
+        for(int i = 0 ; i< 4; i++)
+        {
+            strProfileImg[i] = "http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg";
+        }
+//        strProfileImg = null;
+
         strMemo = null;
 
     }
 
-    public void setMyData(String _UserIdx, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3, String _UserImgGroup4,
+    public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney,  int _UserSendCount,  int _UserRecvCount,  String _UserDate,
                           String _UserMemo)
@@ -146,7 +150,7 @@ public class MyData {
         //strToken = com.google.firebase.iid.FirebaseInstanceId.getInstance().getToken();
 
 
-        strImg = _UserImg;
+
         strNick = _UserNick;
         strGender = _UserGender;
         strAge = _UserAge;
@@ -160,11 +164,15 @@ public class MyData {
         nSendCount = _UserSendCount;
         nRecvCount = _UserRecvCount;
 
-        arrImgList.add(_UserImgGroup0);
-        arrImgList.add(_UserImgGroup1);
-        arrImgList.add(_UserImgGroup2);
-        arrImgList.add(_UserImgGroup3);
-        arrImgList.add(_UserImgGroup4);
+        nImgCount = _UserImgCount;
+
+        strImg = _UserImg;
+
+        strProfileImg[0] = _UserImg;
+        strProfileImg[1] = _UserImgGroup1;
+        strProfileImg[2] = _UserImgGroup2;
+        strProfileImg[3] = _UserImgGroup3;
+
     }
 
     public void setUserIdx(String userIdx) {
@@ -181,6 +189,13 @@ public class MyData {
         return strToken;
     }
 
+    public void setUserImgCnt(int userCnt) {
+        nImgCount = userCnt;
+    }
+    public int getUserImgCnt() {
+        return nImgCount;
+    }
+
     public void setUserImg(String userImg) {
         strImg = userImg;
     }
@@ -188,13 +203,12 @@ public class MyData {
         return strImg;
     }
 
-    public void setUserImgList(String userImg) {
-        arrImgList.add(userImg);
+    public void setUserProfileImg(int Index, String userImg) {
+        strProfileImg[Index] = userImg;
     }
-    public String getUserImgList(int i) {
-        return arrImgList.get(i);
+    public String getUserProfileImg(int Index) {
+        return strProfileImg[Index];
     }
-
 
     public void setUserNick(String userNick) {
         strNick = userNick;
