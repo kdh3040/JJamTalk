@@ -217,6 +217,13 @@ public class MainActivity extends AppCompatActivity {
 */
                 Intent intent = new Intent(getApplicationContext(), FanActivity.class);
                 Bundle bundle = new Bundle();
+
+                intent.putExtra("FanList", mMyData.arrMyFanList);
+                intent.putExtra("FanData", mMyData.arrMyFanDataList);
+
+                intent.putExtra("StarList", mMyData.arrMyStarList);
+                intent.putExtra("StarData", mMyData.arrMyStarDataList);
+
   /*              bundle.putSerializable("Target", stTargetData);
                 intent.putExtra("FanList", stTargetData.arrFanList);
                 intent.putExtra("StarList", stTargetData.arrStarList);*/

@@ -48,7 +48,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private Spinner Spinner_Age;
     private  int nAge1, nAge2;
     private MyData mMyData = MyData.getInstance();
-    private UserData stTargetData;
+    private UserData stTargetData = new UserData();
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();

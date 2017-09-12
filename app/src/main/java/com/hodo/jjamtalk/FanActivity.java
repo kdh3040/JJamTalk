@@ -74,6 +74,11 @@ public class FanActivity extends AppCompatActivity {
 
         if(nViewMode == 0)
         {
+            FanList = (ArrayList<FanData>) getIntent().getSerializableExtra("FanList");
+            FanData = (ArrayList<UserData>) getIntent().getSerializableExtra("FanData");
+
+            StarList = (ArrayList<FanData>) getIntent().getSerializableExtra("StarList");
+            StarData = (ArrayList<UserData>) getIntent().getSerializableExtra("StarData");
             manager.addFragment(new MyFanFragment(),"내 팬");
             manager.addFragment(new MyLikeFragment(),"내가 좋아하는");
         }
