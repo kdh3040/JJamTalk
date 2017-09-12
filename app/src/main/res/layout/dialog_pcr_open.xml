@@ -27,7 +27,8 @@
         android:gravity="left|center_vertical"
         android:text="정원 수"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,25 +39,28 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/member_50"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="50명" />
+            android:text="50명"
+            android:textColor="@color/black" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/member_100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="100명" />
+            android:text="100명"
+            android:textColor="@color/black" />
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/member_200"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="200명" />
+            android:text="200명"
+            android:textColor="@color/black" />
     </LinearLayout>
 
     <TextView
@@ -68,7 +72,8 @@
         android:gravity="left|center_vertical"
         android:text="지속 시간"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,25 +84,28 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/time_30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="30분" />
+            android:text="30분"
+            android:textColor="@color/black"/>
 
         <RadioButton
-            android:id="@+id/radioButton6"
+            android:id="@+id/time_60"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="1시간" />
+            android:text="1시간"
+            android:textColor="@color/black"/>
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/time_120"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2시간" />
+            android:text="2시간"
+            android:textColor="@color/black"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
