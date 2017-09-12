@@ -124,6 +124,8 @@ public class CardListActivity extends AppCompatActivity {
 
                     bundle.putSerializable("Target", stTargetData);
                     intent.putExtra("FanList", stTargetData.arrFanList);
+                    intent.putExtra("StarList", stTargetData.arrStarList);
+
                     intent.putExtras(bundle);
 
                     startActivity(intent);

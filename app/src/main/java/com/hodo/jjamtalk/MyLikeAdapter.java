@@ -69,6 +69,7 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
 
                 bundle.putSerializable("Target", mMyData.arrMyStarDataList.get(position));
                 intent.putExtra("FanList", mMyData.arrMyStarDataList.get(position).arrStarList);
+                intent.putExtra("StarList", mMyData.arrMyStarDataList.get(position).arrStarList);
                 intent.putExtras(bundle);
 
                 view.getContext().startActivity(intent);

@@ -8,5 +8,6 @@ public class TempSettingData {
     public int AlarmMode = 0;
     public int SearchMode = 0;
     public int ViewMode = 0;
+    public int RecvMsg = 0;
 
 }

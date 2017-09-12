@@ -17,6 +17,7 @@ public class SettingData {
     private int nSearchSetting = 0;
     private int nAlarmSetting = 0;
     private int nViewSetting = 0;
+    private int nRecvMsg = 0;
 
     public static SettingData getInstance()
     {
@@ -98,4 +99,17 @@ public class SettingData {
 
             return  rtValue;
     }
+
+    public  void setnRecvMsg(int Option)
+    {
+        nRecvMsg = Option;
+        mMyData.nRecvMsg= nRecvMsg;
+    }
+    public int getnRecvMsg()
+    {
+        int rtValue = 0;
+        rtValue = mMyData.nRecvMsg;
+        return  rtValue;
+    }
+
 }

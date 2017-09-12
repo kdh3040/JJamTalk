@@ -114,6 +114,7 @@ public class Rank_NearFragment extends Fragment {
 
                             bundle.putSerializable("Target", stTargetData);
                             intent.putExtra("FanList", stTargetData.arrFanList);
+                            intent.putExtra("StarList", stTargetData.arrStarList);
                             intent.putExtras(bundle);
 
                             view.getContext().startActivity(intent);

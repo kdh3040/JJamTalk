@@ -54,6 +54,7 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
                 bundle.putSerializable("Target", mMyData.arrMyFanDataList.get(position));
                 intent.putExtra("FanList", mMyData.arrMyFanDataList.get(position).arrFanList);
+                intent.putExtra("StarList", mMyData.arrMyFanDataList.get(position).arrFanList);
                 intent.putExtras(bundle);
 
                 view.getContext().startActivity(intent);
