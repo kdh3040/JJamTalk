@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -83,6 +82,7 @@ public class MyPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),ClickedMyPicActivity.class));
 
+
             }
         });
         btn_my_profile = (ImageButton)findViewById(R.id.ib_my_profile);
@@ -90,6 +90,7 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));
+
                 //finish();
             }
         });
@@ -103,6 +104,7 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),HoneyGetHistoryActivity.class));
+
 
             }
         });
@@ -138,5 +140,16 @@ public class MyPageActivity extends AppCompatActivity {
         int nGold = mMyData.getUserHoney();
         txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
         txt_MyHeartCnt.setText("현재 보유 골드 : " + nGold + " 골드");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
     }
 }
