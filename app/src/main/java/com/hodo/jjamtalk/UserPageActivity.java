@@ -51,7 +51,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     private TextView txtProfile;
     private TextView txtMemo;
-    private TextView txtHeart;
+    //private TextView txtHeart;
     //private TextView txtProfile;
 
     private TextView txt_FanTitle;
@@ -120,8 +120,8 @@ public class UserPageActivity extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 
-        txtHeart = (TextView)findViewById(R.id.UserPage_txtHeart);
-        txtHeart.setText(Integer.toString(stTargetData.Honey));
+        //txtHeart = (TextView)findViewById(R.id.UserPage_txtHeart);
+        //txtHeart.setText(Integer.toString(stTargetData.Honey));
 
 
         btnRegister = (Button) findViewById(R.id.UserPage_btnRegister);
