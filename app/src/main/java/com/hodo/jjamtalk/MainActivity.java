@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
@@ -14,11 +15,13 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,11 +35,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage,ib_fan;
+    ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage,ib_fan,ib_pcr_open;
     ImageView iv_refresh,iv_honeybox;
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
     BoardFragment boardFragment;
+    Activity mActivity;
 
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainactivity);
+        mActivity = this;
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -74,6 +79,74 @@ public class MainActivity extends AppCompatActivity {
 
 
         Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
+        ib_pcr_open = (ImageButton)findViewById(R.id.ib_pcr_open);
+        ib_pcr_open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_pcr_open,null);
+
+                final RadioButton btn_Member_50 =  v.findViewById(R.id.member_50);
+                final RadioButton btn_Member_100 =  v.findViewById(R.id.member_100);
+                final RadioButton btn_Member_200 =  v.findViewById(R.id.member_200);
+
+                final int[] publicRoomMemberCnt = new int[1];
+
+                final RadioButton btn_time_30 =  v.findViewById(R.id.time_30);
+                final RadioButton btn_time_60 =  v.findViewById(R.id.time_60);
+                final RadioButton btn_time_120 =  v.findViewById(R.id.time_120);
+
+                final int[] publicRoomTime = new int[1];
+
+                RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        if(btn_Member_50.isChecked())
+                            publicRoomMemberCnt[0] = 50;
+                        else if(btn_Member_100.isChecked())
+                            publicRoomMemberCnt[0] = 100;
+                        else if(btn_Member_200.isChecked())
+                            publicRoomMemberCnt[0] = 200;
+
+                        else if(btn_time_30.isChecked())
+                            publicRoomTime[0] = 30;
+                        else if(btn_time_60.isChecked())
+                            publicRoomTime[0] = 60;
+                        else if(btn_time_120.isChecked())
+                            publicRoomTime[0] = 120;
+
+                    }
+                };
+
+                btn_time_30.setOnClickListener(optionOnClickListener);
+                btn_time_60.setOnClickListener(optionOnClickListener);
+                btn_time_120.setOnClickListener(optionOnClickListener);
+
+                btn_Member_50.setOnClickListener(optionOnClickListener);
+                btn_Member_100.setOnClickListener(optionOnClickListener);
+                btn_Member_200.setOnClickListener(optionOnClickListener);
+
+
+                Button btn_open_pcr = v.findViewById(R.id.btn_open_pcr);
+                btn_open_pcr.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        boolean rtValuew = mMyData.makePublicRoom();
+
+                        Intent intent= new Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
+                        intent.putExtra("RoomLimit", publicRoomMemberCnt[0]);
+                        intent.putExtra("RoomTime", publicRoomTime[0]);
+                        startActivity(intent);
+                    }
+                });
+                builder.setView(v);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
 
         ib_home = (ImageButton)findViewById(R.id.ib_home);
 
@@ -103,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        iv_refresh = (ImageView)findViewById(R.id.iv_refresh);
+
 
 
 
