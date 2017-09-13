@@ -2,7 +2,6 @@ package com.hodo.jjamtalk;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoardData;
@@ -64,8 +62,8 @@ public class BoardWriteActivity extends AppCompatActivity {
 
                         mFireBaseData.SaveBoardData(sendData);
                         txt_Memo.setText("");
-                        startActivity(new Intent(getApplicationContext(),BoardActivity.class));
-                        finish();
+                        //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
+                        //finish();
                     }
                 }).
                         setNegativeButton("취소", new DialogInterface.OnClickListener() {

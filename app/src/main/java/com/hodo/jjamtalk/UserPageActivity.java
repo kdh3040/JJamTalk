@@ -412,7 +412,7 @@ public class UserPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                Intent intent = new Intent(getApplicationContext(), FanActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FanFragment.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Target", stTargetData);
                 intent.putExtra("FanList", FanList);

@@ -1,17 +1,14 @@
 package com.hodo.jjamtalk;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.RadioButton;
+import android.view.ViewGroup;
 
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
@@ -28,7 +25,9 @@ import github.chenupt.springindicator.viewpager.ScrollerViewPager;
  * Created by mjk on 2017. 8. 28..
  */
 
-public class FanActivity extends AppCompatActivity {
+public class FanFragment extends Fragment {
+
+    Activity activity;
     SpringIndicator indicator;
     ScrollerViewPager viewPager;
     int nViewMode;
@@ -40,7 +39,59 @@ public class FanActivity extends AppCompatActivity {
 
     public ArrayList<FanData> StarList = new ArrayList<>();
     public ArrayList<UserData> StarData = new ArrayList<>();
+    FragmentManager fragmentManager;
 
+    public FanFragment(Activity activity) {
+        super();
+        this.activity = activity;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View fragView = inflater.inflate(R.layout.fragment_fan,container,false);
+        indicator = (SpringIndicator) fragView.findViewById(R.id.indicator_fan);
+        fragmentManager= getFragmentManager();
+
+        viewPager = (ScrollerViewPager) fragView.findViewById(R.id.vp_fan);
+        PagerModelManager manager = new PagerModelManager();
+
+        Intent intent = activity.getIntent();
+
+        Bundle bundle = activity.getIntent().getExtras();
+        nViewMode = intent.getIntExtra("ViewMode", 0);
+
+        if(nViewMode == 0)
+        {
+            manager.addFragment(new MyFanFragment(),"내 팬");
+            manager.addFragment(new MyLikeFragment(),"내가 좋아하는");
+        }
+        else
+        {
+            stTargetData = (UserData) bundle.getSerializable("Target");
+            FanList = (ArrayList<FanData>) activity.getIntent().getSerializableExtra("FanList");
+            FanData = (ArrayList<UserData>) activity.getIntent().getSerializableExtra("FanData");
+
+            StarList = (ArrayList<FanData>) activity.getIntent().getSerializableExtra("StarList");
+            StarData = (ArrayList<UserData>) activity.getIntent().getSerializableExtra("StarData");
+
+            stTargetData.arrFanList = FanList;
+            stTargetData.arrFanData= FanData;
+            stTargetData.arrStarList = StarList;
+            stTargetData.arrStarData = StarData;
+            manager.addFragment(new TargetFanFragment(stTargetData),"팬클럽");
+            manager.addFragment(new TargetLikeFragment(stTargetData),"가입한 팬클럽");
+        }
+
+
+        final ModelPagerAdapter adapter = new ModelPagerAdapter(fragmentManager,manager);
+        viewPager.setAdapter(adapter);
+        indicator.setViewPager(viewPager);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        return fragView;
+    }
+
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_fan_activity,menu);
@@ -188,5 +239,5 @@ public class FanActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

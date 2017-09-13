@@ -11,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -21,8 +19,6 @@ import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.MailboxViewHolder;
-
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by mjk on 2017. 8. 22..
@@ -88,7 +84,7 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
                     public void onClick(View view) {
                     // 대화방 만들기 또는 대화방으로 이동
                         boolean rtValuew = mMyData.makeSendList(stTargetData, mMyData.arrGiftHoneyDataList.get(position).strTargetMsg);
-                        mActivity.startActivity(new Intent(mActivity,ChatListActivity.class));
+                        //mActivity.startActivity(new Intent(mActivity,ChatListActivity.class));
                         mActivity.finish();
                     }
                 });

@@ -5,13 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -32,7 +31,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * Created by mjk on 2017. 8. 10..
  */
 
-public class ChatListActivity extends AppCompatActivity {
+public class ChatListFragment extends Fragment {
     RecyclerView chatListRecyclerView;
     private MyData mMyData = MyData.getInstance();
     private ArrayList<String> arrChatNameData = new ArrayList<>();
@@ -43,6 +42,7 @@ public class ChatListActivity extends AppCompatActivity {
     LinearLayout layout_chatlist;
 
     ChatListAdapter mAdapter = new ChatListAdapter();
+    /*
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +50,7 @@ public class ChatListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        mContext = this;
+
         chatListRecyclerView = (RecyclerView)findViewById(R.id.chat_list_recy);
 
         chatListRecyclerView.setAdapter(mAdapter);
@@ -58,19 +58,33 @@ public class ChatListActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
 
     }
+*/
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mContext = getContext();
+        View fragView = inflater.inflate(R.layout.fragment_chat_list,container,false);
+        chatListRecyclerView = fragView.findViewById(R.id.chat_list_recy);
+
+        chatListRecyclerView.setAdapter(mAdapter);
+        chatListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAdapter.notifyDataSetChanged();
+        return fragView;
+    }
+/*
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
         overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
-    }
+    }*/
 
 
     private class ChatListAdapter extends RecyclerView.Adapter<ChatListViewHolder> {
         @Override
         public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_chat_list,parent,false);
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.content_chat_list,parent,false);
 
 
             view.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
@@ -110,7 +124,7 @@ public class ChatListActivity extends AppCompatActivity {
 
             Glide.with(mContext)
                     .load(mMyData.arrSendDataList.get(position).strTargetImg)
-                    .bitmapTransform(new CropCircleTransformation(ChatListActivity.this))
+                    .bitmapTransform(new CropCircleTransformation(getActivity()))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .thumbnail(0.1f)
                     .into(holder.imageView);
@@ -121,7 +135,7 @@ public class ChatListActivity extends AppCompatActivity {
             holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    AlertDialog.Builder br = new AlertDialog.Builder(mContext);
+                    AlertDialog.Builder br = new AlertDialog.Builder(getActivity());
                     br.setTitle("채팅방에서 나가시겠습니까?");
                     br.setMessage("나가기를 하면 대화 내용 및 채팅방 정보가 모두 삭제됩니다.");
                     br.setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -154,7 +168,7 @@ public class ChatListActivity extends AppCompatActivity {
                     String strCharName = arrChatNameData.get(position);
                     SendData mSendData = arrChatData.get(position);
 
-                    Intent intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
+                    Intent intent = new Intent(getContext(),ChatRoomActivity.class);
                     intent.putExtra("ChatData", mSendData);
                     startActivity(intent);
                     //finish();
@@ -169,7 +183,7 @@ public class ChatListActivity extends AppCompatActivity {
         }
     }
 
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_chat_list,menu);
@@ -197,5 +211,5 @@ public class ChatListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+*/
 }

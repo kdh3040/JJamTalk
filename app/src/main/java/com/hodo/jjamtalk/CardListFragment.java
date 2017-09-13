@@ -5,12 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -31,7 +30,9 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * Created by mjk on 2017. 8. 10..
  */
 
-public class CardListActivity extends AppCompatActivity {
+public class CardListFragment extends Fragment {
+    @Nullable
+
 
     private MyData mMyData = MyData.getInstance();
     public UserData stTargetData = new UserData();
@@ -43,10 +44,21 @@ public class CardListActivity extends AppCompatActivity {
     private UIData mUIData = UIData.getInstance();
 
     @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View fragView = inflater.inflate(R.layout.fragment_card_list,container,false);
+        card_recylerview = fragView.findViewById(R.id.cardlist_recy);
+        card_recylerview.setAdapter(new CardListAdapter());
+        card_recylerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        mContext = getContext();
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        return fragView;
+    }
+    /*
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_list);
-        mContext = this;
+
         card_recylerview = (RecyclerView) findViewById(R.id.cardlist_recy);
         card_recylerview.setAdapter(new CardListAdapter());
         card_recylerview.setLayoutManager(new LinearLayoutManager(this));
@@ -68,7 +80,7 @@ public class CardListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+*/
     private class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHolder> {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -125,7 +137,7 @@ public class CardListActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     //startActivity(new Intent(getApplicationContext(),UserPageActivity.class));
                     stTargetData = arrTargetData.get(position);
-                    Intent intent = new Intent(getApplicationContext(), UserPageActivity.class);
+                    Intent intent = new Intent(getContext(), UserPageActivity.class);
                     Bundle bundle = new Bundle();
 
                     bundle.putSerializable("Target", stTargetData);

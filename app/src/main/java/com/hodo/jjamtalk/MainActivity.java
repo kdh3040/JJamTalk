@@ -28,18 +28,13 @@ import com.hodo.jjamtalk.Util.AppStatus;
 
 import java.util.ArrayList;
 
-import github.chenupt.multiplemodel.viewpager.ModelPagerAdapter;
-import github.chenupt.multiplemodel.viewpager.PagerModelManager;
-import github.chenupt.springindicator.SpringIndicator;
-import github.chenupt.springindicator.viewpager.ScrollerViewPager;
-
 public class MainActivity extends AppCompatActivity {
-    SpringIndicator springIndicator;
-    ScrollerViewPager viewPager;
+
     ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage,ib_fan;
     ImageView iv_refresh,iv_honeybox;
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
+    BoardFragment boardFragment;
 
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
@@ -49,55 +44,15 @@ public class MainActivity extends AppCompatActivity {
     private SettingData mSetting = SettingData.getInstance();
 
     ArrayList<Class> arrFragment = new ArrayList<>();
+    private CardListFragment cardListFragment;
+    private ChatListFragment chatListFragment;
+    private FanFragment fanFragment;
+    private HomeFragment homeFragment;
 
 
 
-    @Override
-    public void onBackPressed(){
 
-        String alertTitle = "종료";
-        new AlertDialog.Builder(this)
-                .setTitle(alertTitle)
-                .setMessage("프로그램을 종료하시겠습니까?")
-                .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                    }
-                })
-                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                }).show();
 
-    }
-
-    /*@Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch(keyCode){
-            case KeyEvent.KEYCODE_BACK:
-                String alertTitle = "종료";
-                new AlertDialog.Builder(this)
-                        .setTitle(alertTitle)
-                        .setMessage("프로그램을 종료하시겠습니까?")
-                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                            }
-                        }).show();
-        }
-        return super.onKeyDown(keyCode, event);
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,8 +72,20 @@ public class MainActivity extends AppCompatActivity {
         //int mHeight = mUIData.getHeight();
         int mWidth = mUIData.getWidth();
         int mHeight = mUIData.getHeight();
+        homeFragment = new HomeFragment();
+
+
 
         Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
+
+        ib_home = (ImageButton)findViewById(R.id.ib_home);
+        ib_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+
+            }
+        });
 
         iv_honeybox = (ImageView)findViewById(R.id.iv_honeybox);
         iv_honeybox.setOnClickListener(new View.OnClickListener() {
@@ -132,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        viewPager = (ScrollerViewPager)findViewById(R.id.view_pager);
-        springIndicator = (SpringIndicator)findViewById(R.id.indicator);
+        /*viewPager = (ScrollerViewPager)findViewById(R.id.view_pager);
+        springIndicator = (SpringIndicator)findViewById(R.id.indicator);*/
 
 
 
@@ -168,15 +135,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
+        fanFragment = new FanFragment(this);
+        boardFragment = new BoardFragment();
+        cardListFragment = new CardListFragment();
+        chatListFragment = new ChatListFragment();
         ib_board = (ImageButton)findViewById(R.id.ib_board);
 
         ib_board.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BoardActivity.class));
-                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
+                //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
+                //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
 
 
@@ -187,8 +158,9 @@ public class MainActivity extends AppCompatActivity {
         ib_cardList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),CardListActivity.class));
-                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
+                //startActivity(new Intent(getApplicationContext(),CardListActivity.class));
+                //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
         });
@@ -197,8 +169,9 @@ public class MainActivity extends AppCompatActivity {
         ib_chatList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),ChatListActivity.class));
-                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+                //startActivity(new Intent(getApplicationContext(),ChatListActivity.class));
+                //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
         });
@@ -215,16 +188,17 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("ViewMode", 0);
                 startActivity(intent);
 */
-                Intent intent = new Intent(getApplicationContext(), FanActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FanFragment.class);
                 Bundle bundle = new Bundle();
   /*              bundle.putSerializable("Target", stTargetData);
                 intent.putExtra("FanList", stTargetData.arrFanList);
                 intent.putExtra("StarList", stTargetData.arrStarList);*/
                 intent.putExtra("ViewMode", 0);
                 intent.putExtras(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment).commit();
 
-                startActivity(intent);
-                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+                //startActivity(intent);
+                //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
 
 
@@ -234,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        PagerModelManager manager = new PagerModelManager();
+        /*PagerModelManager manager = new PagerModelManager();
         manager.addFragment(new Rank_NearFragment(),"가까운 순");
 
 
@@ -246,7 +220,32 @@ public class MainActivity extends AppCompatActivity {
         final ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);
         viewPager.setAdapter(adapter);
         viewPager.fixScrollSpeed();
-        springIndicator.setViewPager(viewPager);
+        springIndicator.setViewPager(viewPager);*/
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        String alertTitle = "종료";
+        new AlertDialog.Builder(this)
+                .setTitle(alertTitle)
+                .setMessage("프로그램을 종료하시겠습니까?")
+                .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
+                })
+                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                }).show();
+
     }
 
 

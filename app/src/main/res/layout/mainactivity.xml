@@ -60,26 +60,14 @@
 
     </LinearLayout>
 
-    <github.chenupt.springindicator.SpringIndicator xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/indicator"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="25"
+        android:id="@+id/frag_container">
 
-        android:layout_weight="1"
-        app:siIndicatorColor="@color/colorPrimary"
-        app:siIndicatorColors="@array/indicator_colors"
-        app:siSelectedTextColor="@android:color/white"
-        app:siTextColor="@color/colorPrimaryDark"
-        app:siTextSize="13sp" />
-
-        <github.chenupt.springindicator.viewpager.ScrollerViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-
-            android:layout_gravity="center"
-            android:layout_weight="24" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_lowbar"
@@ -89,7 +77,14 @@
         android:layout_weight="2"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
-        android:weightSum="4">
+        android:weightSum="5">
+
+        <ImageButton
+            android:id="@+id/ib_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/icon_home" />
 
         <ImageButton
             android:id="@+id/ib_cardlist"
@@ -138,6 +133,14 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/textView39"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="홈" />
+
+        <TextView
             android:id="@+id/textView36"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -171,6 +174,6 @@
     </LinearLayout>
 
 
-    </LinearLayout>
+</LinearLayout>
 
 

@@ -221,8 +221,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                         mFireBaseData.DelChatData(tempChatData.strSendName);
                         mFireBaseData.DelSendData(tempChatData.strSendName);
 
-                        Intent intent = new Intent(getApplicationContext(),ChatListActivity.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(getApplicationContext(),ChatListActivity.class);
+                        //startActivity(intent);
                         finish();
                     }
                 }).
