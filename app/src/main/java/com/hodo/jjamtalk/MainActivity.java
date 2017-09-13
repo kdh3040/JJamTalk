@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -47,12 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private CardListFragment cardListFragment;
     private ChatListFragment chatListFragment;
     private FanFragment fanFragment;
-    private HomeFragment homeFragment;
-
-
-
-
-
+    private HomeFragment homeFragment;// = HomeFragment.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +76,11 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
 
         ib_home = (ImageButton)findViewById(R.id.ib_home);
+
         ib_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
 
             }

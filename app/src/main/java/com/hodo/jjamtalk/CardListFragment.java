@@ -42,14 +42,22 @@ public class CardListFragment extends Fragment {
     private CardListAdapter cardListAdapter;
     private Context mContext;
     private UIData mUIData = UIData.getInstance();
-
+    View fragView;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragView = inflater.inflate(R.layout.fragment_card_list,container,false);
-        card_recylerview = fragView.findViewById(R.id.cardlist_recy);
-        card_recylerview.setAdapter(new CardListAdapter());
-        card_recylerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        mContext = getContext();
+
+        if (fragView!= null) {
+
+        }
+        else
+        {
+            fragView = inflater.inflate(R.layout.fragment_card_list,container,false);
+            card_recylerview = fragView.findViewById(R.id.cardlist_recy);
+            card_recylerview.setAdapter(new CardListAdapter());
+            card_recylerview.setLayoutManager(new LinearLayoutManager(getContext()));
+            mContext = getContext();
+        }
+
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
     }
