@@ -42,7 +42,13 @@ public class CardListFragment extends Fragment {
     private CardListAdapter cardListAdapter;
     private Context mContext;
     private UIData mUIData = UIData.getInstance();
+
     View fragView;
+
+    public CardListFragment() {
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 

@@ -43,6 +43,10 @@ public class FanFragment extends Fragment {
 
     View fragView;
 
+    public FanFragment() {
+
+    }
+
     public FanFragment(Activity activity) {
         super();
         this.activity = activity;

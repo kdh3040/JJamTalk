@@ -44,23 +44,28 @@ public class ChatListFragment extends Fragment {
     View fragView;
 
     ChatListAdapter mAdapter = new ChatListAdapter();
-    /*
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_list);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
-        chatListRecyclerView = (RecyclerView)findViewById(R.id.chat_list_recy);
-
-        chatListRecyclerView.setAdapter(mAdapter);
-        chatListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter.notifyDataSetChanged();
+    public ChatListFragment() {
 
     }
-*/
+
+    /*
+        @Override
+        protected void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_chat_list);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+            chatListRecyclerView = (RecyclerView)findViewById(R.id.chat_list_recy);
+
+            chatListRecyclerView.setAdapter(mAdapter);
+            chatListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            mAdapter.notifyDataSetChanged();
+
+        }
+    */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
