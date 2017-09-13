@@ -18,6 +18,16 @@
         android:orientation="horizontal"
         >
 
+        <TextView
+            android:id="@+id/tv_maintitle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:gravity="left|center_vertical"
+            android:text="꿀톡"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <ImageButton
             android:id="@+id/ib_mypage"
             android:layout_width="0dp"
@@ -27,22 +37,12 @@
             app:srcCompat="@drawable/bee" />
 
         <ImageButton
-            android:id="@+id/ib_pcr"
+            android:id="@+id/ib_pcr_open"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/kakao_account_logo" />
-
-        <TextView
-            android:id="@+id/tv_maintitle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="7"
-            android:gravity="center"
-            android:text="꿀톡"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/iv_honeybox"
@@ -50,13 +50,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:srcCompat="@drawable/honeyicon" />
-
-        <ImageView
-            android:id="@+id/iv_refresh"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/icon_refresh" />
 
     </LinearLayout>
 
