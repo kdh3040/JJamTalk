@@ -488,7 +488,7 @@ public class MyData {
 
     public void getGiftData(String Idx) {
 
-        arrMyStarDataList.clear();
+       // arrMyStarDataList.clear();
 
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -1037,6 +1037,39 @@ public class MyData {
 
 
     public void getMyStarData() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("User");
+
+
+        //user.addChildEventListener(new ChildEventListener() {
+        for (int i = 0; i < arrMyStarList.size(); i++) {
+            strTargetIdx = arrMyStarList.get(i).Idx;
+
+            final int finalI = i;
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int saa = 0;
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    arrMyStarDataList.add(tempUserData);
+
+                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
+                        arrMyStarDataList.get(finalI).arrStarList.add(entry.getValue());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+        }
+    }
+
+/*
+
+    public void getMyStarData() {
 
         arrMyStarDataList.clear();
 
@@ -1069,11 +1102,10 @@ public class MyData {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
-
             });
         }
-
     }
+*/
 
     public void sortStarData() {
         Collections.sort(arrMyStarList);
