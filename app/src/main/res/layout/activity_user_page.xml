@@ -126,7 +126,8 @@
                 <ListView
                     android:id="@+id/lv_fan"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"/>
 
             </LinearLayout>
 
@@ -146,8 +147,10 @@
                     android:textSize="18sp" />
 
                 <ListView
+                    android:id="@+id/lv_star"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"/>
 
             </LinearLayout>
 

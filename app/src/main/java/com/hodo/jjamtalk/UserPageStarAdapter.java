@@ -8,8 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.FanData;
 
 import java.util.ArrayList;
@@ -18,12 +16,12 @@ import java.util.ArrayList;
  * Created by mjk on 2017. 8. 28..
  */
 
-public class UserPageFanAdapter extends BaseAdapter {
+public class UserPageStarAdapter extends BaseAdapter {
 
     ArrayList<FanData> arrayList = new ArrayList<>();
 
     Context mContext;
-    public UserPageFanAdapter(Context context, ArrayList<FanData> fanList) {
+    public UserPageStarAdapter(Context context, ArrayList<FanData> fanList) {
         super();
         mContext = context;
         arrayList = fanList;

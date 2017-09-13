@@ -615,6 +615,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserAll_Recv.get(i).FanList.entrySet())
                                     mMyData.arrUserAll_Recv.get(i).arrFanList.add(entry.getValue());
 
+                                for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserAll_Recv.get(i).StarList.entrySet())
+                                    mMyData.arrUserAll_Recv.get(i).arrStarList.add(entry.getValue());
+
                                 if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
                                 {
                                     mMyData.arrUserWoman_Recv.add(stRecvData);
@@ -673,6 +676,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserAll_Send.get(i).FanList.entrySet())
                                     mMyData.arrUserAll_Send.get(i).arrFanList.add(entry.getValue());
 
+                                for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserAll_Send.get(i).StarList.entrySet())
+                                    mMyData.arrUserAll_Send.get(i).arrStarList.add(entry.getValue());
 
                                 if(mMyData.arrUserAll_Send.get(i).Gender.equals("여자"))
                                 {
@@ -737,6 +742,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 mMyData.arrUserAll_New.add(stRecvData);
                                 for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_New.get(i).FanList.entrySet())
                                     mMyData.arrUserAll_New.get(i).arrFanList.add(entry.getValue());
+
+                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_New.get(i).StarList.entrySet())
+                                    mMyData.arrUserAll_New.get(i).arrStarList.add(entry.getValue());
 
                                 if(mMyData.arrUserAll_New.get(i).Gender.equals("여자"))
                                 {
@@ -806,6 +814,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 mMyData.arrUserAll_Near.add(stRecvData);
                                 for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_Near.get(i).FanList.entrySet())
                                    mMyData.arrUserAll_Near.get(i).arrFanList.add(entry.getValue());
+
+                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_Near.get(i).StarList.entrySet())
+                                    mMyData.arrUserAll_Near.get(i).arrStarList.add(entry.getValue());
 
                                 if(mMyData.arrUserAll_Near.get(i).Gender.equals("여자"))
                                 {

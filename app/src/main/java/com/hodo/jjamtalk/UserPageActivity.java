@@ -5,14 +5,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,7 +74,7 @@ public class UserPageActivity extends AppCompatActivity {
     private Button btnPublicChat;
 
     private ImageView imgProfile;
-    ListView listView;
+    ListView listView, listView_Star;
     final Context context = this;
 
     @Override
@@ -400,12 +403,16 @@ public class UserPageActivity extends AppCompatActivity {
 
         btnMessage.setOnClickListener(listener);
 
+
         listView = (ListView)findViewById(R.id.lv_fan);
         UserPageFanAdapter fanAdapter = new UserPageFanAdapter(this, FanList);
         listView.setAdapter(fanAdapter);
 
+        listView_Star = (ListView)findViewById(R.id.lv_star);
+        UserPageStarAdapter StarAdapter = new UserPageStarAdapter(this, StarList);
+        listView_Star.setAdapter(StarAdapter);
 
-        ViewGroup layout = (ViewGroup) findViewById(R.id.ll_fan);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
         layout.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -428,7 +435,23 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });
 
+        int nLayoutSize = 0;
+        if(FanList.size() > StarList.size())
+            nLayoutSize = FanList.size();
+        else if(FanList.size() < StarList.size())
+            nLayoutSize = StarList.size();
 
+        if(nLayoutSize == 0)
+        {
+            layout.setVisibility(View.GONE);
+        }
+        else
+        {
+            final int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50 , getResources().getDisplayMetrics());
+
+            //layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * nLayoutSize * LinearLayout.LayoutParams.MATCH_PARENT));
+            layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * height + 50));
+        }
     }
 
     private void buildalertDialog(String s, String s1, String s2) {
