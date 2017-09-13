@@ -43,6 +43,10 @@ public class CardListFragment extends Fragment {
     private Context mContext;
     private UIData mUIData = UIData.getInstance();
 
+    public CardListFragment() {
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragView = inflater.inflate(R.layout.fragment_card_list,container,false);

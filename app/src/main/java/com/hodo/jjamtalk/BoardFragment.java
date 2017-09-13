@@ -36,6 +36,10 @@ public class BoardFragment extends Fragment {
     int nPosition;
     LinearLayout contentlayout;
 
+    public BoardFragment() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

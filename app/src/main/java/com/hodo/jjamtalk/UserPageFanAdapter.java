@@ -8,8 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.FanData;
 
 import java.util.ArrayList;
@@ -59,7 +57,7 @@ public class UserPageFanAdapter extends BaseAdapter {
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
         ImageView FanGrade = (ImageView) convertView.findViewById(R.id.Userpage_Fanlist_Grade) ;
-        ImageView FanRank = (ImageView) convertView.findViewById(R.id.Userpage_Fanlist_Rank) ;
+        //ImageView FanRank = (ImageView) convertView.findViewById(R.id.Userpage_Fanlist_Rank) ;
         TextView FanName = (TextView) convertView.findViewById(R.id.Userpage_Fanlist_Name) ;
 
 /*        Glide.with(mContext)

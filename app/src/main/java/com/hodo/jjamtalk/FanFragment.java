@@ -41,6 +41,11 @@ public class FanFragment extends Fragment {
     public ArrayList<UserData> StarData = new ArrayList<>();
     FragmentManager fragmentManager;
 
+
+    public FanFragment() {
+
+    }
+
     public FanFragment(Activity activity) {
         super();
         this.activity = activity;
