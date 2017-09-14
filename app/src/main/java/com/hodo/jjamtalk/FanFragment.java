@@ -81,18 +81,9 @@ public class FanFragment extends Fragment {
             else
             {
                 stTargetData = (UserData) bundle.getSerializable("Target");
-                FanList = (ArrayList<FanData>) activity.getIntent().getSerializableExtra("FanList");
-                FanData = (ArrayList<UserData>) activity.getIntent().getSerializableExtra("FanData");
 
-                StarList = (ArrayList<FanData>) activity.getIntent().getSerializableExtra("StarList");
-                StarData = (ArrayList<UserData>) activity.getIntent().getSerializableExtra("StarData");
-
-                stTargetData.arrFanList = FanList;
-                stTargetData.arrFanData= FanData;
-                stTargetData.arrStarList = StarList;
-                stTargetData.arrStarData = StarData;
-                manager.addFragment(new TargetFanFragment(stTargetData),"팬클럽");
-                manager.addFragment(new TargetLikeFragment(stTargetData),"가입한 팬클럽");
+          /*      manager.addFragment(new TargetFanFragment(stTargetData),"팬클럽");
+                manager.addFragment(new TargetLikeFragment(stTargetData),"가입한 팬클럽");*/
             }
 
 

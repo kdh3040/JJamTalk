@@ -9,6 +9,7 @@ import com.kakao.usermgmt.response.model.User;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -90,6 +91,13 @@ public class UserData implements Serializable,Parcelable {
         ImgGroup4 = in.readString();
         ImgCount = in.readInt();
         RecvMsg = in.readInt();
+
+        arrFanList = (ArrayList<FanData>) in.readSerializable();
+        arrFanData = (ArrayList<UserData>) in.readSerializable();
+
+        arrStarList = (ArrayList<FanData>) in.readSerializable();
+        arrStarData = (ArrayList<UserData>) in.readSerializable();
+
     }
 
     public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -134,6 +142,12 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeString(ImgGroup4);
         parcel.writeInt(ImgCount);
         parcel.writeInt(RecvMsg);
+
+        parcel.writeSerializable(arrFanList);
+        parcel.writeSerializable(arrFanData);
+
+        parcel.writeSerializable(arrStarList);
+        parcel.writeSerializable(arrStarData);
 
     }
 

@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -8,6 +9,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.hodo.jjamtalk.Data.FanData;
+import com.hodo.jjamtalk.Data.UserData;
+
+import java.util.ArrayList;
 
 /**
  * Created by mjk on 2017. 9. 14..
@@ -18,6 +24,13 @@ public class FanClubActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
 
+    private UserData stTargetData;
+    public ArrayList<FanData> FanList = new ArrayList<>();
+    public ArrayList<UserData> FanData = new ArrayList<>();
+
+    public ArrayList<FanData> StarList = new ArrayList<>();
+    public ArrayList<UserData> StarData = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +38,12 @@ public class FanClubActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);
 
-        tabLayout.addTab(tabLayout.newTab().setText("내 팬클럽"));
+        Intent intent = getIntent();
+        Bundle bundle = this.getIntent().getExtras();
+        stTargetData = (UserData) bundle.getSerializable("Target");
+
+
+        tabLayout.addTab(tabLayout.newTab().setText("팬클럽"));
         tabLayout.addTab(tabLayout.newTab().setText("가입한 팬클럽"));
 
         viewPager = (ViewPager)findViewById(R.id.vp);
@@ -63,10 +81,9 @@ public class FanClubActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch(position){
                 case 0:
-                    return new MyFanFragment();
+                    return new TargetFanFragment(stTargetData.arrFanList);
                 case 1:
-                    return new MyLikeFragment();
-
+                    return new TargetLikeFragment(stTargetData.arrStarList);
             }
             return null;
         }

@@ -22,6 +22,7 @@ import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.FanViewHolder;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -34,12 +35,16 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
     Context mContext;
     UIData mUIData = UIData.getInstance();
-    private UserData stTargetData;
+    private ArrayList<FanData> stTargetData;
 
-    public TargetFanAdapter(Context context, UserData TargetData) {
+    private UserData tempFanData = new UserData();
+    private UserData tempSendUserData = new UserData();
+
+    public TargetFanAdapter(Context context, ArrayList<FanData> TargetData) {
         mContext = context;
         stTargetData = TargetData;
         getTargetfanData();
+      //  getTargetStarData();
     }
 
     @Override
@@ -62,9 +67,9 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
                 Intent intent = new Intent(mContext, UserPageActivity.class);
                 Bundle bundle = new Bundle();
 
-                bundle.putSerializable("Target", stTargetData.arrFanData.get(position));
-                intent.putExtra("FanList", stTargetData.arrFanData.get(position).arrFanList);
-                intent.putExtra("StarList", stTargetData.arrFanData.get(position).arrFanList);
+                bundle.putSerializable("Target", tempFanData.arrFanData.get(position));
+/*                intent.putExtra("FanList", stTargetData.arrFanData.get(position).arrFanList);
+                intent.putExtra("StarList", stTargetData.arrFanData.get(position).arrStarList);*/
                 intent.putExtras(bundle);
 
                 view.getContext().startActivity(intent);
@@ -72,19 +77,20 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
             }
         });
-        //holder.imageView.setImageResource(R.mipmap.hdvd);
+        
+        holder.imageView.setImageResource(R.mipmap.hdvd);
 
-        Glide.with(mContext)
+     /*   Glide.with(mContext)
                 .load(stTargetData.arrFanData.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .thumbnail(0.1f)
-                .into(holder.imageView);
+                .into(holder.imageView);*/
 
-        holder.nickname.setText(stTargetData.arrFanList.get(position).Nick);
+        holder.nickname.setText(stTargetData.get(position).Nick);
         holder.giftranking.setText((position + 1) + "위");
 
-        int SendCnt = stTargetData.arrFanList.get(position).Count * -1;
+        int SendCnt = stTargetData.get(position).Count * -1;
         holder.giftCount.setText(Integer.toString(SendCnt) + "꿀");
 
         /*holder.nickname.setText("아이유");
@@ -96,19 +102,20 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
     @Override
     public int getItemCount() {
-        return stTargetData.arrFanData.size();
+        return stTargetData.size();
     }
 
 
     public void getTargetfanData() {
+
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
         table = database.getReference("User");
 
         //user.addChildEventListener(new ChildEventListener() {
-        for (int i = 0; i < stTargetData.arrFanList.size(); i++) {
-            strTargetIdx = stTargetData.arrFanList.get(i).Idx;
+        for (int i = 0; i < stTargetData.size(); i++) {
+            strTargetIdx = stTargetData.get(i).Idx;
 
             if (strTargetIdx != null)
             {
@@ -119,10 +126,13 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int saa = 0;
                         UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                        stTargetData.arrFanData.add(tempUserData);
+                        tempFanData.arrFanData.add(tempUserData);
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
+                            tempFanData.arrFanData.get(finalI).arrStarList.add(entry.getValue());
 
                         for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
-                            stTargetData.arrFanData.get(finalI).arrFanList.add(entry.getValue());
+                            tempFanData.arrFanData.get(finalI).arrFanList.add(entry.getValue());
                     }
 
                     @Override

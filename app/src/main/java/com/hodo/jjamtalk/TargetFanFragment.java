@@ -11,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.kakao.usermgmt.response.model.User;
+
+import java.util.ArrayList;
 
 /**
  * Created by mjk on 2017. 8. 27..
@@ -25,9 +28,9 @@ public class TargetFanFragment extends Fragment {
     TargetFanAdapter fanListAdapter;
     Context mContext;
 
-    private UserData stTargetData;
+    private ArrayList<FanData> stTargetData;
 
-    public TargetFanFragment(UserData TargetData) {
+    public TargetFanFragment(ArrayList<FanData> TargetData) {
 
         stTargetData = TargetData;
 

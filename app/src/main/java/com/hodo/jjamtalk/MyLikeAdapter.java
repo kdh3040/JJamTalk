@@ -11,9 +11,13 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.ViewHolder.MyLikeViewHolder;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -67,9 +71,14 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
                 Intent intent = new Intent(mContext, UserPageActivity.class);
                 Bundle bundle = new Bundle();
 
+                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyStarDataList.get(position).FanList.entrySet())
+                    mMyData.arrMyStarDataList.get(position).arrFanList.add(entry.getValue());
+
+                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyStarDataList.get(position).StarList.entrySet())
+                    mMyData.arrMyStarDataList.get(position).arrStarList.add(entry.getValue());
+
                 bundle.putSerializable("Target", mMyData.arrMyStarDataList.get(position));
-                intent.putExtra("FanList", mMyData.arrMyStarDataList.get(position).arrStarList);
-                intent.putExtra("StarList", mMyData.arrMyStarDataList.get(position).arrStarList);
+
                 intent.putExtras(bundle);
 
                 view.getContext().startActivity(intent);

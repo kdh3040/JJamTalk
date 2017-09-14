@@ -40,11 +40,6 @@ import java.util.LinkedHashMap;
 
 public class UserPageActivity extends AppCompatActivity {
     private UserData stTargetData;
-    public ArrayList<FanData> FanList = new ArrayList<>();
-    public ArrayList<UserData> FanData = new ArrayList<>();
-
-    public ArrayList<FanData> StarList = new ArrayList<>();
-    public ArrayList<UserData> StarData = new ArrayList<>();
 
     private MyData mMyData = MyData.getInstance();
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
@@ -75,35 +70,33 @@ public class UserPageActivity extends AppCompatActivity {
     ListView listView, listView_Star;
     final Context context = this;
 
+    private UserData TempSendUserData = new UserData();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
 
         Intent intent = getIntent();
-        //stTargetData = (UserData)intent.getExtras().getSerializable("Target");
-      //  stTargetData = (UserData)intent.getParcelableExtra("Target");
 
         Bundle bundle = getIntent().getExtras();
-        stTargetData = (UserData)bundle.getSerializable("Target");
-        FanList = (ArrayList<FanData>)getIntent().getSerializableExtra("FanList");
-        StarList = (ArrayList<FanData>)getIntent().getSerializableExtra("StarList");
+        stTargetData = (UserData) bundle.getSerializable("Target");
+
+        TempSendUserData.arrStarList = stTargetData.arrStarList;
+        TempSendUserData.arrFanList = stTargetData.arrFanList;
         getTargetfanData();
+        getTargetstarData();
 
-       // ArrayList<Parcelable> temp= bundle.getParcelableArrayList("FanList");
-      //  FanList = (ArrayList<FanData>) temp.clone();
-
-
-        txtProfile = (TextView)findViewById(R.id.UserPage_txtProfile);
+        txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
-        txtMemo = (TextView)findViewById(R.id.UserPage_txtMemo);
+        txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
         txtMemo.setText(stTargetData.Memo);
         //private TextView txtProfile;
 
-        txt_FanTitle = (TextView)findViewById(R.id.UserPage_FanTitle);
+        txt_FanTitle = (TextView) findViewById(R.id.UserPage_FanTitle);
 
 
-        imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
+        imgProfile = (ImageView) findViewById(R.id.UserPage_ImgProfile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,43 +122,41 @@ public class UserPageActivity extends AppCompatActivity {
         btnGift = (Button) findViewById(R.id.UserPage_btnGift);
 
         btnMessage = (Button) findViewById(R.id.UserPage_btnMessage);
-        btnPublicChat = (Button)findViewById(R.id.UserPage_btnPublicChat);
+        btnPublicChat = (Button) findViewById(R.id.UserPage_btnPublicChat);
         btnPublicChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),PublicChatRoomActivity.class));
+                startActivity(new Intent(getApplicationContext(), PublicChatRoomActivity.class));
             }
         });
 
 
-
-        View.OnClickListener listener = new View.OnClickListener()
-        {
+        View.OnClickListener listener = new View.OnClickListener() {
             LayoutInflater inflater = LayoutInflater.from(context);
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
             @Override
             public void onClick(View view) {
-                switch (view.getId())
-                {
+                switch (view.getId()) {
                     case R.id.UserPage_btnPublicChat:
 
                         break;
 
                     case R.id.UserPage_btnRegister:
-                        buildalertDialog("내카드에 등록", "내 카드에 등록하시겠습니까?","등록한다!");
+                        buildalertDialog("내카드에 등록", "내 카드에 등록하시겠습니까?", "등록한다!");
 
                         //ClickBtnSendHeart();
                         break;
                     case R.id.UserPage_btnGift:
 
-                        int nSize =mMyData.arrBlockedDataList.size();
+                        int nSize = mMyData.arrBlockedDataList.size();
 
-                        for(int i = 0; i<nSize; i++) {
+                        for (int i = 0; i < nSize; i++) {
                             if (mMyData.arrBlockedDataList.get(i).strTargetName.equals(stTargetData.Idx)) {
                                 // 블락됬습니다 표시
                                 final int[] nSendHoneyCnt = new int[1];
                                 nSendHoneyCnt[0] = 0;
-                                View giftView = inflater.inflate(R.layout.alert_send_gift,null);
+                                View giftView = inflater.inflate(R.layout.alert_send_gift, null);
                                 builder.setView(giftView);
                                 final AlertDialog dialog = builder.create();
                                 dialog.show();
@@ -180,126 +171,126 @@ public class UserPageActivity extends AppCompatActivity {
                         }
 
 
-                                final int[] nSendHoneyCnt = new int[1];
+                        final int[] nSendHoneyCnt = new int[1];
+                        nSendHoneyCnt[0] = 100;
+                        final View giftView = inflater.inflate(R.layout.alert_send_gift, null);
+                        builder.setView(giftView);
+                        final AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                        TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
+                        Button btnHeartCharge = giftView.findViewById(R.id.HeartPop_Charge);
+                        Button btnHeart100 = giftView.findViewById(R.id.HeartPop_100);
+                        Button btnHeart200 = giftView.findViewById(R.id.HeartPop_200);
+                        Button btnHeart300 = giftView.findViewById(R.id.HeartPop_300);
+                        Button btnHeart500 = giftView.findViewById(R.id.HeartPop_500);
+                        Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_1000);
+                        Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_5000);
+                        final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
+
+                        tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
+                        Msg.setText("100개의 꿀을 보내시겠습니까?");
+
+
+                        btnHeartCharge.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(getApplicationContext(), HeartActivity.class));
+                            }
+                        });
+
+                        btnHeart100.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
                                 nSendHoneyCnt[0] = 100;
-                                final View giftView = inflater.inflate(R.layout.alert_send_gift,null);
-                                builder.setView(giftView);
-                                final AlertDialog dialog = builder.create();
-                                dialog.show();
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
 
-                                TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
-                                Button btnHeartCharge =  giftView.findViewById(R.id.HeartPop_Charge);
-                                Button btnHeart100 = giftView.findViewById(R.id.HeartPop_100);
-                                Button btnHeart200 = giftView.findViewById(R.id.HeartPop_200);
-                                Button btnHeart300 = giftView.findViewById(R.id.HeartPop_300);
-                                Button btnHeart500 = giftView.findViewById(R.id.HeartPop_500);
-                                Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_1000);
-                                Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_5000);
-                                final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
+                        btnHeart200.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nSendHoneyCnt[0] = 200;
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
 
-                                tvHeartCnt.setText("꿀 : " +  Integer.toString(mMyData.getUserHoney()) + " 개");
-                                Msg.setText("100개의 꿀을 보내시겠습니까?");
+                        btnHeart300.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nSendHoneyCnt[0] = 300;
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
 
+                        btnHeart500.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nSendHoneyCnt[0] = 500;
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
 
-                                btnHeartCharge.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        startActivity(new Intent(getApplicationContext(),HeartActivity.class));
-                                    }
-                                });
+                        btnHeart1000.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nSendHoneyCnt[0] = 1000;
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
 
-                                btnHeart100.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        nSendHoneyCnt[0] = 100;
-                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                                    }
-                                });
-
-                                btnHeart200.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        nSendHoneyCnt[0] = 200;
-                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                                    }
-                                });
-
-                                btnHeart300.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        nSendHoneyCnt[0] = 300;
-                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                                    }
-                                });
-
-                                btnHeart500.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        nSendHoneyCnt[0] = 500;
-                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                                    }
-                                });
-
-                                btnHeart1000.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        nSendHoneyCnt[0] = 1000;
-                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                                    }
-                                });
-
-                                btnHeart5000.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        nSendHoneyCnt[0] = 5000;
-                                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                                    }
-                                });
+                        btnHeart5000.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nSendHoneyCnt[0] = 5000;
+                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                            }
+                        });
 
 
                         final EditText SendMsg = giftView.findViewById(R.id.HeartPop_Msg);
 
-                                Button btn_gift_send= giftView.findViewById(R.id.btn_gift_send);
-                                btn_gift_send.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                        Button btn_gift_send = giftView.findViewById(R.id.btn_gift_send);
+                        btn_gift_send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                                        String strSendMsg = SendMsg.getText().toString();
-                                        if(strSendMsg.equals(""))
-                                            strSendMsg = "꿀 보내드려요";
+                                String strSendMsg = SendMsg.getText().toString();
+                                if (strSendMsg.equals(""))
+                                    strSendMsg = "꿀 보내드려요";
 
-                                        boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
-                                        rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
 
-                                        if(rtValuew == true) {
-                                            mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
-                                            mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                                            mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
-                                            mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
-                                            Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
-                                        }
-                                        dialog.dismiss();
+                                if (rtValuew == true) {
+                                    mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                    mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
+                                    mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
+                                    mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
+                                    Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                }
+                                dialog.dismiss();
 
-                                    }
-                                });
-                                Button btn_gift_cancel= giftView.findViewById(R.id.btn_gift_cancel);
-                                btn_gift_cancel.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                            }
+                        });
+                        Button btn_gift_cancel = giftView.findViewById(R.id.btn_gift_cancel);
+                        btn_gift_cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                                        dialog.dismiss();
+                                dialog.dismiss();
 
-                                    }
-                                });
+                            }
+                        });
 
                         //ClickBtnSendHeart();
                         break;
 
                     case R.id.UserPage_btnMessage:
 
-                        nSize =mMyData.arrBlockedDataList.size();
+                        nSize = mMyData.arrBlockedDataList.size();
 
-                        for(int i = 0; i<nSize; i++) {
+                        for (int i = 0; i < nSize; i++) {
                             if (mMyData.arrBlockedDataList.get(i).strTargetName.equals(stTargetData.Idx)) {
                                 // 블락됬습니다 표시
                                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -320,7 +311,7 @@ public class UserPageActivity extends AppCompatActivity {
                         }
 
 
-                        if(stTargetData.RecvMsg == 1) {
+                        if (stTargetData.RecvMsg == 1) {
                             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                             alertDialogBuilder.setTitle("쪽지 전송 실패");
                             alertDialogBuilder.setMessage("상대방이 수신을 거부 하였습니다")
@@ -337,32 +328,32 @@ public class UserPageActivity extends AppCompatActivity {
                             break;
                         }
 //쪽지 공짜
-                            View view1= inflater.inflate(R.layout.alert_send_msg,null);
-                            Button btn_cancel = view1.findViewById(R.id.btn_cancel);
-                            final EditText et_msg = view1.findViewById(R.id.et_msg);
+                        View view1 = inflater.inflate(R.layout.alert_send_msg, null);
+                        Button btn_cancel = view1.findViewById(R.id.btn_cancel);
+                        final EditText et_msg = view1.findViewById(R.id.et_msg);
 
-                            builder.setView(view1);
+                        builder.setView(view1);
 
-                            final AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
-                            btn_cancel.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    alertDialog.dismiss();
+                        final AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                        btn_cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alertDialog.dismiss();
+                            }
+                        });
+                        Button btn_send = view1.findViewById(R.id.btn_send);
+                        btn_send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
+                                if (rtValuew == true) {
+                                    mNotiFunc.SendMSGToFCM(stTargetData);
+                                    Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                            Button btn_send = view1.findViewById(R.id.btn_send);
-                            btn_send.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
-                                    if(rtValuew == true) {
-                                        mNotiFunc.SendMSGToFCM(stTargetData);
-                                        Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
-                                    }
-                                    alertDialog.dismiss();
-                                }
-                            });
+                                alertDialog.dismiss();
+                            }
+                        });
 
 
                         /*
@@ -402,12 +393,12 @@ public class UserPageActivity extends AppCompatActivity {
         btnMessage.setOnClickListener(listener);
 
 
-        listView = (ListView)findViewById(R.id.lv_fan);
-        UserPageFanAdapter fanAdapter = new UserPageFanAdapter(this, FanList);
+        listView = (ListView) findViewById(R.id.lv_fan);
+        UserPageFanAdapter fanAdapter = new UserPageFanAdapter(this, stTargetData.arrFanList);
         listView.setAdapter(fanAdapter);
 
-        listView_Star = (ListView)findViewById(R.id.lv_star);
-        UserPageStarAdapter StarAdapter = new UserPageStarAdapter(this, StarList);
+        listView_Star = (ListView) findViewById(R.id.lv_star);
+        UserPageStarAdapter StarAdapter = new UserPageStarAdapter(this, stTargetData.arrStarList);
         listView_Star.setAdapter(StarAdapter);
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
@@ -416,37 +407,35 @@ public class UserPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
-                /*
-                Intent intent = new Intent(getApplicationContext(), FanFragment.class);
+                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
+
+                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("Target", stTargetData);
-                intent.putExtra("FanList", FanList);
-                intent.putExtra("FanData", FanData);
 
-                intent.putExtra("StarList", StarList);
-                intent.putExtra("StarData", StarData);
 
-                intent.putExtra("ViewMode", 1);
+                bundle.putSerializable("Target", TempSendUserData);
+
+
+
+
+             //   intent.putExtra("StarData", StarData);
+
                 intent.putExtras(bundle);
-                startActivity(intent);*/
+                startActivity(intent);
 
             }
         });
 
         int nLayoutSize = 0;
-        if(FanList.size() > StarList.size())
-            nLayoutSize = FanList.size();
-        else if(FanList.size() < StarList.size())
-            nLayoutSize = StarList.size();
+        if (stTargetData.arrFanList.size() > stTargetData.arrStarList.size())
+            nLayoutSize = stTargetData.arrFanList.size();
+        else if (stTargetData.arrFanList.size() < stTargetData.arrStarList.size())
+            nLayoutSize = stTargetData.arrStarList.size();
 
-        if(nLayoutSize == 0)
-        {
+        if (nLayoutSize == 0) {
             layout.setVisibility(View.GONE);
-        }
-        else
-        {
-            final int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50 , getResources().getDisplayMetrics());
+        } else {
+            final int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
 
             //layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * nLayoutSize * LinearLayout.LayoutParams.MATCH_PARENT));
             layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * height + 50));
@@ -478,14 +467,17 @@ public class UserPageActivity extends AppCompatActivity {
     }
 
     public void getTargetfanData() {
+
+       // stTargetData.arrFanData.clear();
+
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
         table = database.getReference("User");
 
         //user.addChildEventListener(new ChildEventListener() {
-        for (int i = 0; i < FanList.size(); i++) {
-            strTargetIdx = FanList.get(i).Idx;
+        for (int i = 0; i < stTargetData.arrFanList.size(); i++) {
+            strTargetIdx = stTargetData.arrFanList.get(i).Idx;
 
             if (strTargetIdx != null)
             {
@@ -496,10 +488,14 @@ public class UserPageActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int saa = 0;
                         UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                        FanData.add(tempUserData);
+                        TempSendUserData.arrFanData.add(tempUserData);
 
                         for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
-                            FanData.get(finalI).arrFanList.add(entry.getValue());
+                            TempSendUserData.arrFanData.get(finalI).arrFanList.add(entry.getValue());
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
+                            TempSendUserData.arrFanData.get(finalI).arrStarList.add(entry.getValue());
+
                     }
 
                     @Override
@@ -511,4 +507,42 @@ public class UserPageActivity extends AppCompatActivity {
         }
     }
 
+    public void getTargetstarData() {
+        stTargetData.arrStarData.clear();
+
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("User");
+
+        //user.addChildEventListener(new ChildEventListener() {
+        for (int i = 0; i < stTargetData.arrStarList.size(); i++) {
+            strTargetIdx = stTargetData.arrStarList.get(i).Idx;
+
+            if (strTargetIdx != null)
+            {
+
+                final int finalI = i;
+                table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int saa = 0;
+                        UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                        TempSendUserData.arrStarData.add(tempUserData);
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                            TempSendUserData.arrStarData.get(finalI).arrFanList.add(entry.getValue());
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
+                            TempSendUserData.arrStarData.get(finalI).arrStarList.add(entry.getValue());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+
+                });
+            }
+        }
+    }
 }
