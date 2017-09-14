@@ -41,6 +41,8 @@ public class ChatListFragment extends Fragment {
     UIData mUIData = UIData.getInstance();
     LinearLayout layout_chatlist;
 
+    View fragView;
+
     ChatListAdapter mAdapter = new ChatListAdapter();
 
     public ChatListFragment() {
@@ -68,12 +70,21 @@ public class ChatListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getContext();
-        View fragView = inflater.inflate(R.layout.fragment_chat_list,container,false);
-        chatListRecyclerView = fragView.findViewById(R.id.chat_list_recy);
 
-        chatListRecyclerView.setAdapter(mAdapter);
-        chatListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter.notifyDataSetChanged();
+
+        if (fragView!= null) {
+
+        }
+        else
+        {
+            fragView = inflater.inflate(R.layout.fragment_chat_list,container,false);
+            chatListRecyclerView = fragView.findViewById(R.id.chat_list_recy);
+
+            chatListRecyclerView.setAdapter(mAdapter);
+            chatListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            mAdapter.notifyDataSetChanged();
+        }
+
         return fragView;
     }
 /*

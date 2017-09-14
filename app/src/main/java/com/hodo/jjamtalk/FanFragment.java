@@ -41,6 +41,7 @@ public class FanFragment extends Fragment {
     public ArrayList<UserData> StarData = new ArrayList<>();
     FragmentManager fragmentManager;
 
+    View fragView;
 
     public FanFragment() {
 
@@ -54,44 +55,52 @@ public class FanFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragView = inflater.inflate(R.layout.fragment_fan,container,false);
-        indicator = (SpringIndicator) fragView.findViewById(R.id.indicator_fan);
-        fragmentManager= getFragmentManager();
 
-        viewPager = (ScrollerViewPager) fragView.findViewById(R.id.vp_fan);
-        PagerModelManager manager = new PagerModelManager();
+        if (fragView!= null) {
 
-        Intent intent = activity.getIntent();
-
-        Bundle bundle = activity.getIntent().getExtras();
-        nViewMode = intent.getIntExtra("ViewMode", 0);
-
-        if(nViewMode == 0)
-        {
-            manager.addFragment(new MyFanFragment(),"내 팬");
-            manager.addFragment(new MyLikeFragment(),"내가 좋아하는");
         }
         else
         {
-            stTargetData = (UserData) bundle.getSerializable("Target");
-            FanList = (ArrayList<FanData>) activity.getIntent().getSerializableExtra("FanList");
-            FanData = (ArrayList<UserData>) activity.getIntent().getSerializableExtra("FanData");
+            fragView = inflater.inflate(R.layout.fragment_fan,container,false);
+            indicator = (SpringIndicator) fragView.findViewById(R.id.indicator_fan);
+            fragmentManager= getFragmentManager();
 
-            StarList = (ArrayList<FanData>) activity.getIntent().getSerializableExtra("StarList");
-            StarData = (ArrayList<UserData>) activity.getIntent().getSerializableExtra("StarData");
+            viewPager = (ScrollerViewPager) fragView.findViewById(R.id.vp_fan);
+            PagerModelManager manager = new PagerModelManager();
 
-            stTargetData.arrFanList = FanList;
-            stTargetData.arrFanData= FanData;
-            stTargetData.arrStarList = StarList;
-            stTargetData.arrStarData = StarData;
-            manager.addFragment(new TargetFanFragment(stTargetData),"팬클럽");
-            manager.addFragment(new TargetLikeFragment(stTargetData),"가입한 팬클럽");
+            Intent intent = activity.getIntent();
+
+            Bundle bundle = activity.getIntent().getExtras();
+            nViewMode = intent.getIntExtra("ViewMode", 0);
+
+            if(nViewMode == 0)
+            {
+                manager.addFragment(new MyFanFragment(),"내 팬");
+                manager.addFragment(new MyLikeFragment(),"내가 좋아하는");
+            }
+            else
+            {
+                stTargetData = (UserData) bundle.getSerializable("Target");
+                FanList = (ArrayList<FanData>) activity.getIntent().getSerializableExtra("FanList");
+                FanData = (ArrayList<UserData>) activity.getIntent().getSerializableExtra("FanData");
+
+                StarList = (ArrayList<FanData>) activity.getIntent().getSerializableExtra("StarList");
+                StarData = (ArrayList<UserData>) activity.getIntent().getSerializableExtra("StarData");
+
+                stTargetData.arrFanList = FanList;
+                stTargetData.arrFanData= FanData;
+                stTargetData.arrStarList = StarList;
+                stTargetData.arrStarData = StarData;
+                manager.addFragment(new TargetFanFragment(stTargetData),"팬클럽");
+                manager.addFragment(new TargetLikeFragment(stTargetData),"가입한 팬클럽");
+            }
+
+
+            final ModelPagerAdapter adapter = new ModelPagerAdapter(fragmentManager,manager);
+            viewPager.setAdapter(adapter);
+            indicator.setViewPager(viewPager);
         }
 
-
-        final ModelPagerAdapter adapter = new ModelPagerAdapter(fragmentManager,manager);
-        viewPager.setAdapter(adapter);
-        indicator.setViewPager(viewPager);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
     }

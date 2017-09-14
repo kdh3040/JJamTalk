@@ -35,6 +35,7 @@ public class BoardFragment extends Fragment {
 
     int nPosition;
     LinearLayout contentlayout;
+    View fragView;
 
     public BoardFragment() {
 
@@ -43,42 +44,50 @@ public class BoardFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragView = inflater.inflate(R.layout.fragment_board,container,false);
-        recyclerView = (RecyclerView)fragView.findViewById(R.id.board_recy);
-        recyclerView.setAdapter(new BoardAdapter());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        //getContext().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getContext(), BoardItemActivity.class);
-                        intent.putExtra("Target", position);
-                        startActivity(intent);
-                    }
+        if (fragView!= null) {
 
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-                        //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 롱 클릭",Toast.LENGTH_SHORT).show();
-                    }
-                }));
+        }
+        else
+        {
+            fragView = inflater.inflate(R.layout.fragment_board,container,false);
+            recyclerView = (RecyclerView)fragView.findViewById(R.id.board_recy);
+            recyclerView.setAdapter(new BoardAdapter());
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            //getContext().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        btn_write = (Button)fragView.findViewById(R.id.btn_write);
-        btn_write.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(),BoardWriteActivity.class));
-            }
-        });
-        btn_myList = (Button)fragView.findViewById(R.id.btn_mylist);
-        btn_myList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(),BoardMyListActivity.class));
-            }
-        });
+            recyclerView.addOnItemTouchListener(
+                    new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(), BoardItemActivity.class);
+                            intent.putExtra("Target", position);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onLongItemClick(View view, int position) {
+                            //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 롱 클릭",Toast.LENGTH_SHORT).show();
+                        }
+                    }));
+
+            btn_write = (Button)fragView.findViewById(R.id.btn_write);
+            btn_write.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getContext(),BoardWriteActivity.class));
+                }
+            });
+            btn_myList = (Button)fragView.findViewById(R.id.btn_mylist);
+            btn_myList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getContext(),BoardMyListActivity.class));
+                }
+            });
+        }
+
 
         return fragView;
     }
