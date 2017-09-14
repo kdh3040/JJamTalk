@@ -33,14 +33,17 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/bee" />
+            android:backgroundTintMode="src_over"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/vip" />
 
         <ImageButton
             android:id="@+id/ib_pcr_open"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorPrimary"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/kakao_account_logo" />
 

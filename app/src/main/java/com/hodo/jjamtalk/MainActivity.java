@@ -189,14 +189,14 @@ public class MainActivity extends AppCompatActivity {
 
         ib_myPage = (ImageButton)findViewById(R.id.ib_mypage);
 
-        ib_myPage.setOnClickListener(new View.OnClickListener() {
+        /*ib_myPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
                 overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
-        });
+        });*/
 
 
         layout_topbar = (LinearLayout)findViewById(R.id.layout_topbar);
