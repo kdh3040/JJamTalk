@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mybgcolor"
+    android:orientation="vertical">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
@@ -11,9 +13,9 @@
         android:layout_weight="1"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        app:tabSelectedTextColor="@color/white"
         app:tabIndicatorColor="@color/white"
-        app:tabTextColor="@color/brown"/>
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/brown" />
 
 
     <android.support.v4.view.ViewPager

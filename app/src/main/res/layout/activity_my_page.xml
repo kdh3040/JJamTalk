@@ -110,8 +110,7 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:weightSum="3">
+        android:paddingTop="10dp">
 
 
         <LinearLayout
@@ -131,66 +130,40 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/vvip_bee" />
+                app:srcCompat="@drawable/gold" />
 
             <TextView
                 android:id="@+id/MyPage_txtHeart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
-                android:gravity="left"
+                android:gravity="left|center_vertical"
                 android:text="보유 골드 : 0"
                 android:textSize="18sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_gift_sent_history"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="7">
-
-            <ImageView
-                android:id="@+id/imageView17"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/gold_bee" />
-
-            <TextView
-                android:id="@+id/MyPage_SendHoney"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:text="선물한 꿀: 290"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_gift_get_history"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="7">
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView16"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/bronze_bee" />
+                app:srcCompat="@drawable/vip" />
 
             <TextView
-                android:id="@+id/MyPage_RecvHoney"
+                android:id="@+id/textView37"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
-                android:text="받은 꿀: 3090"
-                android:textSize="18sp" />
+                android:gravity="center_vertical"
+                android:text="vip: 100/200" />
+
         </LinearLayout>
 
     </LinearLayout>

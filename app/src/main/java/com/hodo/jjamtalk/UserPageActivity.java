@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.NotiFunc;
@@ -74,6 +75,8 @@ public class UserPageActivity extends AppCompatActivity {
     private ImageView imgProfile;
     ListView listView, listView_Star;
     final Context context = this;
+    LinearLayout stickers_holder;
+    UIData mUIData = UIData.getInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,6 +107,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
+        imgProfile.setLayoutParams(mUIData.getRLP(1,0.6f));
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +119,9 @@ public class UserPageActivity extends AppCompatActivity {
 
             }
         });
+
+        stickers_holder = (LinearLayout)findViewById(R.id.stickers_holder);
+        stickers_holder.setLayoutParams(mUIData.getFLP(1,0.1f));
 
         Glide.with(getApplicationContext())
                 .load(stTargetData.Img)

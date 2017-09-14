@@ -3,7 +3,7 @@
         <color name="colorPrimary">#f9c901</color>
         <color name="colorPrimaryDark">#6b4701</color>
         <color name="colorPrimaryLight">#f6e000</color>
-        <color name="colorAccent">#ffc107</color>
+        <color name="colorAccent">#ebe6d6</color>
 
         <color name="white">#ffffff</color>
         <color name="black">#000000</color>
@@ -19,6 +19,7 @@
     <color name="fabPrimary">#45a1f5</color>
     <color name="fabPressed">#6EB5F7</color>
     <color name="fabRipple">#AED6FC</color>
+    <color name="mybgcolor">#f9af01</color>
 
 
     출처: http://codeman77.tistory.com/27 [☆]

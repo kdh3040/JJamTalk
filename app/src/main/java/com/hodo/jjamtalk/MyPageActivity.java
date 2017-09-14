@@ -95,7 +95,7 @@ public class MyPageActivity extends AppCompatActivity {
                 //finish();
             }
         });
-
+/*
         txt_MyRecvHoney = (TextView)findViewById(R.id.MyPage_RecvHoney);
         int nRecvCount = mMyData.getRecvHoney() * -1;
         txt_MyRecvHoney.setText("받은 꿀 : " + nRecvCount);
@@ -121,7 +121,7 @@ public class MyPageActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),HoneySentHistoryActivity.class));
 
             }
-        });
+        });*/
     }
 
  /*   @Override
