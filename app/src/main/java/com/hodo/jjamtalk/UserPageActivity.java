@@ -5,13 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -418,7 +416,8 @@ public class UserPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-
+                startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
+                /*
                 Intent intent = new Intent(getApplicationContext(), FanFragment.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Target", stTargetData);
@@ -430,7 +429,7 @@ public class UserPageActivity extends AppCompatActivity {
 
                 intent.putExtra("ViewMode", 1);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivity(intent);*/
 
             }
         });

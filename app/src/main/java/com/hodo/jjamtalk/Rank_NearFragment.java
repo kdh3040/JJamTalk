@@ -2,8 +2,8 @@ package com.hodo.jjamtalk;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,14 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AppStatus;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
-
-import java.util.ArrayList;
 
 
 /**
@@ -86,8 +83,14 @@ public class Rank_NearFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_near, container, false);
         recyclerView = view.findViewById(R.id.near_recyclerview);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),mSettingData.getViewCount());
+
+
+
+
+
         recyclerView.setAdapter(new Rank_NearAdapter(getContext()));
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));
+        recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
