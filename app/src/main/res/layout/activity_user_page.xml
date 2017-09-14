@@ -7,17 +7,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/UserPage_ImgProfile"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:srcCompat="@mipmap/hdvd" />
 
@@ -26,14 +26,29 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 app:srcCompat="@drawable/vip" />
+
+            <FrameLayout
+                android:id="@+id/fl_sticker_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <include
+                    android:id="@+id/stickers_holder"
+                    layout="@layout/layout_sticker_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></include>
+            </FrameLayout>
+
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="20dp"
+
             android:orientation="horizontal"
             android:weightSum="8">
 
@@ -62,27 +77,25 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="15dp"
             android:orientation="horizontal"
             android:weightSum="10">
 
             <ImageView
                 android:id="@+id/imageView14"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/icon_location" />
+                app:srcCompat="@mipmap/ic_locat" />
 
             <TextView
                 android:id="@+id/textView34"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="7dp"
+                android:layout_height="match_parent"
                 android:layout_weight="9"
+                android:gravity="left|center_vertical"
                 android:text="15km 거리에 있음" />
         </LinearLayout>
 
@@ -96,39 +109,41 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:text="한국대학교에 다니고요 학생이고요\n같이놉시다" />
+
         <View style="@style/Divider" />
 
         <LinearLayout
             android:id="@+id/ll_fan"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
             android:clickable="true"
-            >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@color/colorAccent"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/UserPage_FanTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="팬클럽"
-                    android:textColor="@android:color/holo_purple"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:gravity="center"
+                    android:text="나의 팬"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="18sp" />
 
                 <ListView
                     android:id="@+id/lv_fan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none"/>
+                    android:scrollbars="none" />
 
             </LinearLayout>
 
@@ -136,14 +151,17 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
 
+                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@color/colorAccent"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView38"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="가입한 팬클럽"
+                    android:gravity="center"
+                    android:text="내가 팬"
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="18sp" />
 
@@ -151,7 +169,7 @@
                     android:id="@+id/lv_star"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none"/>
+                    android:scrollbars="none" />
 
             </LinearLayout>
 
@@ -178,7 +196,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:orientation="horizontal"
             android:weightSum="4">

@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk.Data;
 
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -25,6 +26,14 @@ public class UIData {
     private LinearLayout.LayoutParams llp_ListItem;
 
     private RelativeLayout.LayoutParams rlp;
+
+    public RelativeLayout.LayoutParams getRLP(float w,float h){
+        return new RelativeLayout.LayoutParams((int)(getWidth()*w),(int)(getHeight()*h));
+
+    }
+    public FrameLayout.LayoutParams getFLP(int w,float h){
+        return new FrameLayout.LayoutParams((int)(getWidth()*w),(int)(getHeight()*h));
+    }
 
     public LinearLayout.LayoutParams getLLP_ListItem(){
         return llp_ListItem;

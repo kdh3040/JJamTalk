@@ -77,7 +77,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
             }
         });
-        
+
         holder.imageView.setImageResource(R.mipmap.hdvd);
 
      /*   Glide.with(mContext)

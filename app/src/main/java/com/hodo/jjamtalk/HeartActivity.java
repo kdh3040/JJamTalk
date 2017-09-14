@@ -1,17 +1,12 @@
 package com.hodo.jjamtalk;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -19,8 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -42,20 +35,20 @@ public class HeartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cash_charge);
 
         txt_heartStatus = (TextView)findViewById(R.id.Heart_MyHeart);
-        txt_heartStatus.setText("현재 보유 꿀 갯수 : " + mMyData.getUserHoney());
+        txt_heartStatus.setText("현재 보유 골드 : " + mMyData.getUserHoney());
 
         HeartChargeList = (ListView)findViewById(R.id.Heart_list);
 
         list = new ArrayList<HeartItem>();
 
         HeartItem mHeartItem;
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "꿀 50개 5천원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "5골드 5천원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "꿀 70개 7천원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "7골드 7천원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "꿀 100개 1만원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "100골드 1만원");
         list.add(mHeartItem);
 
         HeartItemAdapter adapter = new HeartItemAdapter(this, R.layout.content_cash_charge, list);
