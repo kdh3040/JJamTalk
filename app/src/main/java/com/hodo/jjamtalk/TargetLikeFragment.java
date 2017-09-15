@@ -9,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.UserData;
+
+import java.util.ArrayList;
 
 /**
  * Created by mjk on 2017. 8. 28..
@@ -17,7 +20,10 @@ import com.hodo.jjamtalk.Data.UserData;
 
 public class TargetLikeFragment extends Fragment{
 
-    public TargetLikeFragment(UserData TargetData) {
+    private ArrayList<FanData> stTargetData;
+
+    public TargetLikeFragment(ArrayList<FanData> TargetData) {
+        stTargetData = TargetData;
     }
 
     @Nullable
@@ -25,7 +31,7 @@ public class TargetLikeFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_like,container,false);
         RecyclerView recyclerView = view.findViewById(R.id.rv_my_like);
-        recyclerView.setAdapter(new TargetLikeAdapter(getContext()));
+        recyclerView.setAdapter(new TargetLikeAdapter(getContext(), stTargetData));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),1,false));
 
 

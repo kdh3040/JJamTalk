@@ -11,9 +11,19 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.MyLikeViewHolder;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -26,11 +36,14 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
     Context mContext;
     UIData mUIData = UIData.getInstance();
 
-    private MyData mMyData = MyData.getInstance();
+    private UserData tempSendUserData = new UserData();
+    private ArrayList<FanData> stTargetData;
 
-    public TargetLikeAdapter(Context context) {
+    public TargetLikeAdapter(Context context, ArrayList<FanData> TargetData) {
         mContext = context;
-
+        stTargetData = TargetData;
+        getTargetStarData();
+      //  getTargetfanData();
     }
 
     @Override
@@ -67,9 +80,9 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
                 Intent intent = new Intent(mContext, UserPageActivity.class);
                 Bundle bundle = new Bundle();
 
-                bundle.putSerializable("Target", mMyData.arrMyStarDataList.get(position));
-                intent.putExtra("FanList", mMyData.arrMyStarDataList.get(position).arrStarList);
-                intent.putExtra("StarList", mMyData.arrMyStarDataList.get(position).arrStarList);
+                bundle.putSerializable("Target", tempSendUserData.arrStarData.get(position));
+   /*             intent.putExtra("FanList", stTargetData.arrStarData.get(position).arrFanList);
+                intent.putExtra("StarList", stTargetData.arrStarData.get(position).arrStarList);*/
                 intent.putExtras(bundle);
 
                 view.getContext().startActivity(intent);
@@ -77,26 +90,64 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
 
             }
         });
-        //holder.imageView.setImageResource(R.mipmap.hdvd);
+         holder.imageView.setImageResource(R.mipmap.hdvd);
 
-        Glide.with(mContext)
-                .load(mMyData.arrMyStarDataList.get(position).Img)
+/*        Glide.with(mContext)
+                .load(stTargetData.arrStarData.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .thumbnail(0.1f)
-                .into(holder.imageView);
+                .into(holder.imageView);*/
 
-        holder.tv_nickname.setText(mMyData.arrMyStarList.get(position).Nick);
+        holder.tv_nickname.setText(stTargetData.get(position).Nick);
         holder.tv_rank.setText((position + 1) + "위");
 
-        int SendCnt = mMyData.arrMyStarList.get(position).Count * -1;
+        int SendCnt = stTargetData.get(position).Count * -1;
         holder.tv_honeycount.setText(Integer.toString(SendCnt) + "꿀");
 
 
     }
 
+    public void getTargetStarData() {
+       // stTargetData.arrStarData.clear();
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("User");
+
+        //user.addChildEventListener(new ChildEventListener() {
+        for (int i = 0; i < stTargetData.size(); i++) {
+            strTargetIdx = stTargetData.get(i).Idx;
+
+            if (strTargetIdx != null)
+            {
+
+                final int finalI = i;
+                table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int saa = 0;
+                        UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                        tempSendUserData.arrStarData.add(tempUserData);
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
+                            tempSendUserData.arrStarData.get(finalI).arrStarList.add(entry.getValue());
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                            tempSendUserData.arrStarData.get(finalI).arrFanList.add(entry.getValue());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+
+                });
+            }
+        }
+    }
+
     @Override
     public int getItemCount() {
-        return mMyData.arrMyStarDataList.size();
+        return stTargetData.size();
     }
 }

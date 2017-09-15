@@ -11,9 +11,12 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.ViewHolder.FanViewHolder;
+
+import java.util.LinkedHashMap;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -52,9 +55,15 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
                 Intent intent = new Intent(mContext, UserPageActivity.class);
                 Bundle bundle = new Bundle();
 
+                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyFanDataList.get(position).FanList.entrySet())
+                    mMyData.arrMyFanDataList.get(position).arrFanList.add(entry.getValue());
+
+                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyFanDataList.get(position).StarList.entrySet())
+                    mMyData.arrMyFanDataList.get(position).arrStarList.add(entry.getValue());
+
                 bundle.putSerializable("Target", mMyData.arrMyFanDataList.get(position));
-                intent.putExtra("FanList", mMyData.arrMyFanDataList.get(position).arrFanList);
-                intent.putExtra("StarList", mMyData.arrMyFanDataList.get(position).arrFanList);
+       /*         intent.putExtra("FanList", mMyData.arrMyFanDataList.get(position).arrFanList);
+                intent.putExtra("StarList", mMyData.arrMyFanDataList.get(position).arrStarList);*/
                 intent.putExtras(bundle);
 
                 view.getContext().startActivity(intent);
