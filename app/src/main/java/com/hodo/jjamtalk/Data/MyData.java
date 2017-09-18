@@ -1116,7 +1116,7 @@ public class MyData {
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
-        SimpleDateFormat sdf = new SimpleDateFormat("HHMM");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHMM");
         String getTime = sdf.format(date);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
