@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,7 +33,6 @@ import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.NotiFunc;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -62,7 +62,8 @@ public class UserPageActivity extends AppCompatActivity {
 
 
     private Button btnRegister;
-    private Button btnGift;
+    private Button btnGiftHoney;
+    private Button btnGiftJewel;
 
     private Button btnMessage;
     private Button btnPublicChat;
@@ -72,13 +73,14 @@ public class UserPageActivity extends AppCompatActivity {
     final Context context = this;
     LinearLayout stickers_holder;
     UIData mUIData = UIData.getInstance();
-
+    Activity mActivity;
     private UserData TempSendUserData = new UserData();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
+        mActivity = this;
 
         Intent intent = getIntent();
 
@@ -126,7 +128,9 @@ public class UserPageActivity extends AppCompatActivity {
 
 
         btnRegister = (Button) findViewById(R.id.UserPage_btnRegister);
-        btnGift = (Button) findViewById(R.id.UserPage_btnGift);
+        btnGiftHoney = (Button) findViewById(R.id.UserPage_btnGiftHoney);
+        btnGiftJewel = (Button)findViewById(R.id.UserPage_btnGiftJewel);
+
 
         btnMessage = (Button) findViewById(R.id.UserPage_btnMessage);
         btnPublicChat = (Button) findViewById(R.id.UserPage_btnPublicChat);
@@ -139,8 +143,8 @@ public class UserPageActivity extends AppCompatActivity {
 
 
         View.OnClickListener listener = new View.OnClickListener() {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            LayoutInflater inflater = LayoutInflater.from(mActivity);
+            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
 
             @Override
             public void onClick(View view) {
@@ -154,7 +158,15 @@ public class UserPageActivity extends AppCompatActivity {
 
                         //ClickBtnSendHeart();
                         break;
-                    case R.id.UserPage_btnGift:
+                    case R.id.UserPage_btnGiftJewel:
+                        View v = inflater.inflate(R.layout.dialog_give_jewel,null);
+                        builder.setView(v);
+                        builder.show();
+
+
+
+                        break;
+                    case R.id.UserPage_btnGiftHoney:
 
                         int nSize = mMyData.arrBlockedDataList.size();
 
@@ -395,7 +407,8 @@ public class UserPageActivity extends AppCompatActivity {
         };
 
         btnRegister.setOnClickListener(listener);
-        btnGift.setOnClickListener(listener);
+        btnGiftHoney.setOnClickListener(listener);
+        btnGiftJewel.setOnClickListener(listener);
 
         btnMessage.setOnClickListener(listener);
 
