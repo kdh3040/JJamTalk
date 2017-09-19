@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    >
 
 
     <ImageView
@@ -11,56 +13,56 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bee" />
+        app:srcCompat="@drawable/silverring" />
 
     <ImageView
         android:id="@+id/sticker2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bee" />
+        app:srcCompat="@drawable/goldring" />
 
     <ImageView
         android:id="@+id/sticker3"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bee" />
+        app:srcCompat="@drawable/pearl" />
 
     <ImageView
         android:id="@+id/sticker4"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bee" />
+        app:srcCompat="@drawable/opal" />
 
     <ImageView
         android:id="@+id/sticker5"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bee" />
+        app:srcCompat="@drawable/emerald" />
 
     <ImageView
         android:id="@+id/sticker6"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bee" />
+        app:srcCompat="@drawable/sapphire" />
 
     <ImageView
         android:id="@+id/sticker7"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bee" />
+        app:srcCompat="@drawable/ruby" />
 
     <ImageView
         android:id="@+id/sticker8"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bee" />
+        app:srcCompat="@drawable/diamod" />
 
 
 </LinearLayout>

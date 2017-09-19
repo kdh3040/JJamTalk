@@ -89,45 +89,45 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
+            app:srcCompat="@drawable/icon_home" />
 
         <ImageButton
             android:id="@+id/ib_cardlist"
+            style="@android:style/Widget.Holo.Light.ImageButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            app:srcCompat="@drawable/kakaostory_icon" />
+            app:srcCompat="@drawable/mycard_icon" />
 
         <ImageButton
             android:id="@+id/ib_chatlist"
+            style="@android:style/Widget.Material.Light.ImageButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            app:srcCompat="@drawable/kakao_default_profile_image" />
+            app:srcCompat="@drawable/icon_msg" />
 
         <ImageButton
             android:id="@+id/ib_fan"
+            style="@android:style/Widget.DeviceDefault.ImageButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
             android:padding="5dp"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/vip" />
+            app:srcCompat="@drawable/icon_fan" />
 
         <ImageButton
             android:id="@+id/ib_board"
+            style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            app:srcCompat="@drawable/hedfvb" />
+            app:srcCompat="@drawable/board_icon" />
     </LinearLayout>
 
     <LinearLayout
