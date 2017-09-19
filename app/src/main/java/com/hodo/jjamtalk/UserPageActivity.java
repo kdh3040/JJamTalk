@@ -137,7 +137,33 @@ public class UserPageActivity extends AppCompatActivity {
         btnPublicChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), PublicChatRoomActivity.class));
+
+                if(stTargetData.PublicRoomStatus == 0)
+                {
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                    alertDialogBuilder.setTitle("공개채팅방이 입장 불가");
+                    alertDialogBuilder.setMessage("공개채팅방이 개설되지 않았습니다")
+                            .setCancelable(true)
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+                else {
+
+                    Intent intent = new Intent(getApplicationContext(), PublicChatRoomActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Target", stTargetData);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+
+                  //  startActivity(new Intent(getApplicationContext(), PublicChatRoomActivity.class));
+                }
             }
         });
 
