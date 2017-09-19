@@ -53,6 +53,7 @@
             </intent-filter>
         </service>
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".MyProfileActivity" />
         <activity android:name=".MyPageActivity"
             android:parentActivityName=".MainActivity"
             android:label="내 페이지"/>
