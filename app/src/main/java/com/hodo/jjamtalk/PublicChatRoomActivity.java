@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Data.UserData;
 
 
 /**
@@ -23,6 +24,7 @@ import com.hodo.jjamtalk.Data.UIData;
 
 public class PublicChatRoomActivity extends AppCompatActivity {
 
+    private UserData stTargetData;
     RelativeLayout rl_public_chat;
     UIData mUIData = UIData.getInstance();
     ImageView iv_host;
@@ -31,13 +33,14 @@ public class PublicChatRoomActivity extends AppCompatActivity {
     ImageButton ib_gift;
     PublicChatRoomAdapter pcrAdapter;
     AlertDialog.Builder builder;
-
-
-
+    
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_chat);
+
+        Bundle bundle = getIntent().getExtras();
+        stTargetData = (UserData) bundle.getSerializable("Target");
 
         rl_public_chat = (RelativeLayout)findViewById(R.id.rl_public_chat);
         LinearLayout.LayoutParams lp_rl_public_chat = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/5);

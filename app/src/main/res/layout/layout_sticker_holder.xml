@@ -7,62 +7,58 @@
     android:background="#00000000"
     >
 
-
     <ImageView
         android:id="@+id/sticker1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/silverring" />
+        android:layout_weight="1"></ImageView>
 
-    <ImageView
-        android:id="@+id/sticker2"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/goldring" />
 
-    <ImageView
-        android:id="@+id/sticker3"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/pearl" />
+ <ImageView
+     android:id="@+id/sticker2"
+     android:layout_width="0dp"
+     android:layout_height="match_parent"
+     android:layout_weight="1"></ImageView>
 
-    <ImageView
-        android:id="@+id/sticker4"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/opal" />
+
+<ImageView
+    android:id="@+id/sticker3"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"></ImageView>
+
+
+  <ImageView
+      android:id="@+id/sticker4"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"></ImageView>
+
 
     <ImageView
         android:id="@+id/sticker5"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/emerald" />
+        android:layout_weight="1"></ImageView>
+
 
     <ImageView
         android:id="@+id/sticker6"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/sapphire" />
+        android:layout_weight="1"></ImageView>
 
-    <ImageView
-        android:id="@+id/sticker7"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/ruby" />
+ <ImageView
+     android:id="@+id/sticker7"
+     android:layout_width="0dp"
+     android:layout_height="match_parent"
+     android:layout_weight="1"></ImageView>
 
-    <ImageView
-        android:id="@+id/sticker8"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/diamod" />
+  <ImageView
+      android:id="@+id/sticker8"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"></ImageView>
 
 
-</LinearLayout>
+ </LinearLayout>

@@ -1085,29 +1085,24 @@ public class MyData {
         String getTime = sdf.format(date);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, RoomName;
-
-
+        DatabaseReference table, RoomName, RoomData;
         table = database.getReference("PublicRoomList");
-
-/*
-        CurRoomName = table.child(getUserIdx());
-        String strRoomName = getTime;
-        Boolean bStatus = true;
-
-        CurRoomName.child("CurRoomName").setValue(strRoomName);
-        CurRoomName.child("CurRoomStatus").setValue(bStatus);
-*/
-
-        RoomName = table.child(getUserIdx());
+        RoomName = table.child(getUserIdx()).push();
 
         PublicRoomData tempPRD = new PublicRoomData();
         tempPRD.arrUserList.add(getUserIdx());
         tempPRD.CurRoomName = getTime;
-        tempPRD.CurRoomStatus = true;
+        tempPRD.CurRoomStatus = 1;
         tempPRD.nEndTime = Integer.parseInt(getTime) + 200;
         tempPRD.strImg = getUserImg();
         RoomName.setValue(tempPRD);
+
+        RoomData = database.getReference("PublicRoomData").child(getUserIdx()).child(tempPRD.CurRoomName);
+        long nowTime =System.currentTimeMillis();
+
+        PublicRoomChatData tempPRDChatData = new PublicRoomChatData(getUserIdx(), null, getUserNick()+"의 공개채팅방입니다.", nowTime, getUserImg());
+        RoomData.push().setValue(tempPRDChatData);
+
         rtValue = true;
 
         return rtValue;
@@ -1119,7 +1114,7 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
-        table = database.getReference("PublicRoom");
+        table = database.getReference("PublicRoomList");
         user = table.child(strIdx);
 
         user.addChildEventListener(new ChildEventListener() {
@@ -1127,25 +1122,25 @@ public class MyData {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                int saa = 0;
-                int nStatus = dataSnapshot.getValue(int.class);
-                //arrCardList.add(CardList);
+                PublicRoomData stRecvData = new PublicRoomData();
+                stRecvData = dataSnapshot.getValue(PublicRoomData.class);
+                if(stRecvData != null)
+                    setUserPublicRoomStatus(stRecvData.CurRoomStatus);
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                int saa = 0;
+
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int saa = 0;
-
+                setUserPublicRoomStatus(0);
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                int saa = 0;
+
             }
 
             @Override
@@ -1160,5 +1155,16 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference Ref = database.getReference("PublicRoomList");
         Ref.child(getUserIdx()).removeValue();
+    }
+
+    public void setUserPublicRoomStatus(int userPublicRoomStatus) {
+        nPublicRoomStatus = userPublicRoomStatus;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+        // DatabaseReference user = table.child( userIdx);
+        final DatabaseReference user = table.child(getUserIdx());
+
+        user.child("PublicRoomStatus").setValue(nPublicRoomStatus);
     }
 }
