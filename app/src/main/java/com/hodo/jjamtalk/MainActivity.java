@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_pcr_open,null);
+                View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_pcr_open,null);
 
                 final RadioButton btn_Member_50 =  v.findViewById(R.id.member_50);
                 final RadioButton btn_Member_100 =  v.findViewById(R.id.member_100);

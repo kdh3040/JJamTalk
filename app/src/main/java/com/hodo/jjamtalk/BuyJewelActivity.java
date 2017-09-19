@@ -38,7 +38,7 @@ public class BuyJewelActivity extends AppCompatActivity {
 
                     AlertDialog.Builder  builder = new AlertDialog.Builder(mActivity);
 
-                    View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_jewelbox_opened,null);
+                    View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_jewelbox_opened,null);
                     Button btn_confirm = v.findViewById(R.id.btn_confirm);
                     btn_confirm.setOnClickListener(new View.OnClickListener() {
                         @Override
