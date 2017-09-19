@@ -81,8 +81,9 @@ public class MainActivity extends AppCompatActivity {
         ib_pcr_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_pcr_open,null);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_pcr_open,null);
 
                 final RadioButton btn_Member_50 =  v.findViewById(R.id.member_50);
                 final RadioButton btn_Member_100 =  v.findViewById(R.id.member_100);

@@ -1,11 +1,13 @@
 package com.hodo.jjamtalk;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +18,6 @@ import com.hodo.jjamtalk.Data.UserData;
 
 import java.util.ArrayList;
 
-import github.chenupt.multiplemodel.viewpager.ModelPagerAdapter;
-import github.chenupt.multiplemodel.viewpager.PagerModelManager;
-import github.chenupt.springindicator.SpringIndicator;
-import github.chenupt.springindicator.viewpager.ScrollerViewPager;
-
 /**
  * Created by mjk on 2017. 8. 28..
  */
@@ -28,8 +25,10 @@ import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 public class FanFragment extends Fragment {
 
     Activity activity;
-    SpringIndicator indicator;
-    ScrollerViewPager viewPager;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    //SpringIndicator indicator;
+    //ScrollerViewPager viewPager;
     int nViewMode;
 
     private MyData mMyData = MyData.getInstance();
@@ -62,10 +61,37 @@ public class FanFragment extends Fragment {
         else
         {
             fragView = inflater.inflate(R.layout.fragment_fan,container,false);
-            indicator = (SpringIndicator) fragView.findViewById(R.id.indicator_fan);
-            fragmentManager= getFragmentManager();
+            tabLayout = (TabLayout) fragView.findViewById(R.id.tabLayout);
 
-            viewPager = (ScrollerViewPager) fragView.findViewById(R.id.vp_fan);
+            tabLayout.addTab(tabLayout.newTab().setText("내 팬"));
+            tabLayout.addTab(tabLayout.newTab().setText("가입한 팬클럽"));
+
+            viewPager = (ViewPager)fragView.findViewById(R.id.vp);
+
+            viewPager.setAdapter(new TabPagerAdapter(getFragmentManager(),tabLayout.getTabCount()));
+            viewPager.setCurrentItem(0);
+            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
+
+
+            /*fragmentManager= getFragmentManager();
+
+
             PagerModelManager manager = new PagerModelManager();
 
             Intent intent = activity.getIntent();
@@ -82,18 +108,44 @@ public class FanFragment extends Fragment {
             {
                 stTargetData = (UserData) bundle.getSerializable("Target");
 
-          /*      manager.addFragment(new TargetFanFragment(stTargetData),"팬클럽");
-                manager.addFragment(new TargetLikeFragment(stTargetData),"가입한 팬클럽");*/
+             manager.addFragment(new TargetFanFragment(stTargetData),"팬클럽");
+                manager.addFragment(new TargetLikeFragment(stTargetData),"가입한 팬클럽");
             }
 
+*/
 
-            final ModelPagerAdapter adapter = new ModelPagerAdapter(fragmentManager,manager);
-            viewPager.setAdapter(adapter);
-            indicator.setViewPager(viewPager);
+
         }
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
+    }
+
+    private class TabPagerAdapter extends FragmentStatePagerAdapter {
+        private  int tabCount;
+
+        public TabPagerAdapter(FragmentManager fm, int count) {
+            super(fm);
+            tabCount = count;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch(position){
+                case 0:
+                    return new  MyFanFragment();
+                case 1:
+                    return new MyLikeFragment();
+            }
+            return null;
+
+
+        }
+
+        @Override
+        public int getCount() {
+            return tabCount;
+        }
     }
 
     /*
