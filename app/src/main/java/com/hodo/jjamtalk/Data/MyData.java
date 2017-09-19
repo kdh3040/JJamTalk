@@ -93,6 +93,8 @@ public class MyData {
     public int nViewMode = 1;
     public int nRecvMsg = 0;
 
+    public int nPublicRoomStatus = 0;
+
     public int nImgCount;
     public String[] strProfileImg = new String[4];
 
@@ -118,6 +120,7 @@ public class MyData {
     public ArrayList<String> arrCardNameList = new ArrayList<>();
     public ArrayList<UserData> arrCardList = new ArrayList<>();
 
+
     private MyData() {
         strImg = null;
         strNick = null;
@@ -140,7 +143,7 @@ public class MyData {
     public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
-                          String _UserMemo, int _UserRecvMsg) {
+                          String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus ) {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -170,6 +173,8 @@ public class MyData {
         strProfileImg[3] = _UserImgGroup3;
 
         nRecvMsg = _UserRecvMsg;
+
+        nPublicRoomStatus = _UserPublicRoomStatus;
     }
 
     public void setUserIdx(String userIdx) {
@@ -1067,46 +1072,6 @@ public class MyData {
         }
     }
 
-/*
-
-    public void getMyStarData() {
-
-        arrMyStarDataList.clear();
-
-        String strTargetIdx;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = null;
-        table = database.getReference("User");
-        Log.d("!!!!!!", "getMyStarData  " + arrMyStarList.size());
-
-        for (int i = 0; i < arrMyStarList.size(); i++) {
-            strTargetIdx = arrMyStarList.get(i).Idx;
-
-
-            Log.d("!!!!!!", "size OK  " + arrMyStarList.size());
-            final int finalI = i;
-
-            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    arrMyStarDataList.add(tempUserData);
-
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
-                        //  if(!arrMyStarDataList.get(finalI).arrStarList.contains(entry.getValue().Nick))
-                        arrMyStarDataList.get(finalI).arrStarList.add(entry.getValue());
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-        }
-    }
-*/
-
     public void sortStarData() {
         Collections.sort(arrMyStarList);
     }
@@ -1120,15 +1085,80 @@ public class MyData {
         String getTime = sdf.format(date);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, user;
-        table = database.getReference("PublicRoom");
+        DatabaseReference table, RoomName;
 
-        user = table.child(getUserIdx()).child(getTime);
 
-        user.push().setValue("asd");
+        table = database.getReference("PublicRoomList");
+
+/*
+        CurRoomName = table.child(getUserIdx());
+        String strRoomName = getTime;
+        Boolean bStatus = true;
+
+        CurRoomName.child("CurRoomName").setValue(strRoomName);
+        CurRoomName.child("CurRoomStatus").setValue(bStatus);
+*/
+
+        RoomName = table.child(getUserIdx());
+
+        PublicRoomData tempPRD = new PublicRoomData();
+        tempPRD.arrUserList.add(getUserIdx());
+        tempPRD.CurRoomName = getTime;
+        tempPRD.CurRoomStatus = true;
+        tempPRD.nEndTime = Integer.parseInt(getTime) + 200;
+        tempPRD.strImg = getUserImg();
+        RoomName.setValue(tempPRD);
         rtValue = true;
 
         return rtValue;
     }
 
+
+    public void MonitorPublicRoomStatus() {
+        String MyID = strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("PublicRoom");
+        user = table.child(strIdx);
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa = 0;
+                int nStatus = dataSnapshot.getValue(int.class);
+                //arrCardList.add(CardList);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                int saa = 0;
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa = 0;
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa = 0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+
+    }
+
+    public void DestroyPRD() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference Ref = database.getReference("PublicRoomList");
+        Ref.child(getUserIdx()).removeValue();
+    }
 }

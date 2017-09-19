@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 
 /**
@@ -26,6 +27,9 @@ import com.hodo.jjamtalk.Data.UIData;
  */
 
 public class PublicChatRoomHostActivity extends AppCompatActivity{
+
+    private MyData mMyData = MyData.getInstance();
+
     ListView listView;
     PublicChatRoomAdapter pcrAdapter;
     Context mContext;
@@ -131,6 +135,8 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //확인 구현
+                                mMyData.DestroyPRD();
+                                finish();
                             }
                         })
                 .setNegativeButton("취소", new DialogInterface.OnClickListener() {

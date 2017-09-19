@@ -8,44 +8,27 @@ import java.util.ArrayList;
 
 public class PublicRoomData {
     public ArrayList<String> arrUserList = new ArrayList<>();
-    public String strFrom;
-    public String strTo;
-    public String strMsg;
-    public Long lTime;
+    public int nEndTime;
     public String strImg;
-    public String strId;
+    public String CurRoomName;
+    public boolean CurRoomStatus;
 
     public PublicRoomData(){
 
     }
 
-
-    public PublicRoomData(String from_person, String to_person, String message, long nowTime, String image_URL){
-        strFrom= from_person;
-        strTo = to_person;
-        strMsg = message;
-        lTime= nowTime;
-        strImg = image_URL;
-
+    public void settime(int time){
+        nEndTime = time;
     }
-    public Long gettime(){
-        return lTime;
+    public int gettime(){
+        return nEndTime;
     }
 
-    public Object getImg() {
+    public void setImg(String img) {
+        strImg = img;
+    }
+    public String getImg() {
         return strImg;
-    }
-
-    public void setId(String id) {
-        this.strId = id;
-    }
-
-    public String getMsg() {
-        return strMsg;
-    }
-
-    public String getFrom() {
-        return strFrom;
     }
 
 }

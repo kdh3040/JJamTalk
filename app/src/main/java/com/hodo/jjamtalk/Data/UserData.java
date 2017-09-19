@@ -43,9 +43,8 @@ public class UserData implements Serializable,Parcelable {
 
     public String SendMSG;
     public String Memo;
-    //public String School;
-    //public String Company;
-    //public String Title;
+
+    public int PublicRoomStatus = 0;
 
     public int ImgCount = 1;
     public String ImgGroup0;
@@ -68,6 +67,9 @@ public class UserData implements Serializable,Parcelable {
     }
 
     public UserData(Parcel in) {
+
+
+
         Idx = in.readString();
         Token = in.readString();
         Img = in.readString();
@@ -81,16 +83,19 @@ public class UserData implements Serializable,Parcelable {
         Rank = in.readInt();
         SendCount = in.readInt();
         RecvCount = in.readInt();
+        RecvMsg = in.readInt();
         Date = in.readString();
         SendMSG = in.readString();
         Memo = in.readString();
+
+        PublicRoomStatus = in.readInt();
+        ImgCount = in.readInt();
+
         ImgGroup0 = in.readString();
         ImgGroup1 = in.readString();
         ImgGroup2 = in.readString();
         ImgGroup3 = in.readString();
         ImgGroup4 = in.readString();
-        ImgCount = in.readInt();
-        RecvMsg = in.readInt();
 
         arrFanList = (ArrayList<FanData>) in.readSerializable();
         arrFanData = (ArrayList<UserData>) in.readSerializable();
@@ -132,17 +137,18 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeInt(Rank);
         parcel.writeInt(SendCount);
         parcel.writeInt(RecvCount);
+        parcel.writeInt(RecvMsg);
         parcel.writeString(Date);
         parcel.writeString(SendMSG);
         parcel.writeString(Memo);
+        parcel.writeInt(PublicRoomStatus);
+        parcel.writeInt(ImgCount);
         parcel.writeString(ImgGroup0);
         parcel.writeString(ImgGroup1);
         parcel.writeString(ImgGroup2);
         parcel.writeString(ImgGroup3);
         parcel.writeString(ImgGroup4);
-        parcel.writeInt(ImgCount);
-        parcel.writeInt(RecvMsg);
-
+        
         parcel.writeSerializable(arrFanList);
         parcel.writeSerializable(arrFanData);
 

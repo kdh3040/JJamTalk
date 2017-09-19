@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.mainactivity);
         mActivity = this;
 
-        Display display = getWindowManager().getDefaultDisplay();
+        final Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         ib_pcr_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                 View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_pcr_open,null);
 
                 final RadioButton btn_Member_50 =  v.findViewById(R.id.member_50);
@@ -126,6 +126,11 @@ public class MainActivity extends AppCompatActivity {
                 btn_Member_200.setOnClickListener(optionOnClickListener);
 
 
+
+                builder.setView(v);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+
                 Button btn_open_pcr = v.findViewById(R.id.btn_open_pcr);
                 btn_open_pcr.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -137,11 +142,10 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("RoomLimit", publicRoomMemberCnt[0]);
                         intent.putExtra("RoomTime", publicRoomTime[0]);
                         startActivity(intent);
+                        dialog.dismiss();
                     }
                 });
-                builder.setView(v);
-                AlertDialog dialog = builder.create();
-                dialog.show();
+
             }
         });
 
