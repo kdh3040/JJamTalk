@@ -11,7 +11,7 @@ public class PublicRoomData {
     public int nEndTime;
     public String strImg;
     public String CurRoomName;
-    public boolean CurRoomStatus;
+    public int CurRoomStatus;
 
     public PublicRoomData(){
 

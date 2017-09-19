@@ -542,7 +542,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getRecvHoneyList();
                             mMyData.getBlockList();
                             mMyData.getBlockedList();
-                            //mMyData.MonitorPublicRoomStatus();
+                            mMyData.MonitorPublicRoomStatus();
 
                                 //InitData_Fan();
                                 InitData_Recv();
