@@ -35,20 +35,20 @@ public class HeartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cash_charge);
 
         txt_heartStatus = (TextView)findViewById(R.id.Heart_MyHeart);
-        txt_heartStatus.setText("현재 보유 골드 : " + mMyData.getUserHoney());
+        txt_heartStatus.setText("현재 보유 꿀 : " + mMyData.getUserHoney());
 
         HeartChargeList = (ListView)findViewById(R.id.Heart_list);
 
         list = new ArrayList<HeartItem>();
 
         HeartItem mHeartItem;
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "5골드 5천원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "5꿀 5천원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "7골드 7천원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "7꿀 7천원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "100골드 1만원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "10꿀 1만원");
         list.add(mHeartItem);
 
         HeartItemAdapter adapter = new HeartItemAdapter(this, R.layout.content_cash_charge, list);

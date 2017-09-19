@@ -67,9 +67,10 @@
             >
 
         </activity>
-        <activity android:name=".MyProfileActivity"
-            android:label="프로필 편집"
-            android:parentActivityName=".MyPageActivity">
+
+        <activity android:name=".BuyJewelActivity"
+            android:label="상자 구입"
+           >
         </activity>
         <activity android:name=".PublicChatOptionMenuBanActivity"
             android:label="차단 리스트"

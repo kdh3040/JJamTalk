@@ -33,7 +33,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage,ib_fan,ib_pcr_open;
+    ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage,ib_fan,ib_pcr_open,ib_buy_jewel;
     ImageView iv_refresh,iv_honeybox;
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
@@ -279,6 +279,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+            }
+        });
+
+        ib_buy_jewel = (ImageButton)findViewById(R.id.ib_buy_jewel);
+        ib_buy_jewel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),BuyJewelActivity.class));
             }
         });
 

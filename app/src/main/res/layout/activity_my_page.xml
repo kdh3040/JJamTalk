@@ -130,7 +130,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/gold" />
+                app:srcCompat="@drawable/honeyicon" />
 
             <TextView
                 android:id="@+id/MyPage_txtHeart"
@@ -175,6 +175,6 @@
         android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:background="@color/white"
-        android:text="골드 구입" />
+        android:text="꿀 사러가기" />
 
 </LinearLayout>

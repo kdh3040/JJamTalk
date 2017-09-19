@@ -49,7 +49,7 @@ public class MyPageActivity extends AppCompatActivity {
 
         int nGold = mMyData.getUserHoney();
         txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
-        txt_MyHeartCnt.setText("현재 보유 골드: " + nGold + " 골드");
+        txt_MyHeartCnt.setText("현재 보유 꿀: " + nGold + " 꿀");
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
         btn_Setting.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +140,7 @@ public class MyPageActivity extends AppCompatActivity {
         super.onStart();
         int nGold = mMyData.getUserHoney();
         txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
-        txt_MyHeartCnt.setText("현재 보유 골드 : " + nGold + " 골드");
+        txt_MyHeartCnt.setText("현재 보유 꿀 : " + nGold + " 꿀");
     }
 
     @Override

@@ -13,19 +13,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        android:layout_margin="10dp"
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="5">
 
-        <ImageView
-            android:id="@+id/iv_my_card"
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:srcCompat="@mipmap/hdvd" />
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_my_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                app:srcCompat="@mipmap/hdvd" />
+
+            <ImageView
+                android:id="@+id/imageView17"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_weight="1"
+                app:srcCompat="@color/si_default_text_color" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_nickname"
