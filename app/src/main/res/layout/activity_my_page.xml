@@ -162,7 +162,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="6"
                 android:gravity="center_vertical"
-                android:text="vip: 100/200" />
+                android:text="vip: 3450/5000" />
 
         </LinearLayout>
 
