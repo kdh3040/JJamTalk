@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,7 @@ public class UserPageActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
     private FirebaseData mFireBase = FirebaseData.getInstance();
+    private MyJewelAdapter myjewelAdapter;
 
     private TextView txtProfile;
     private TextView txtMemo;
@@ -190,6 +192,8 @@ public class UserPageActivity extends AppCompatActivity {
                         break;
                     case R.id.UserPage_btnGiftJewel:
                         View v = inflater.inflate(R.layout.dialog_give_jewel,null);
+                        RecyclerView  rv_myjewel = v.findViewById(R.id.rv_myjewel);
+                        rv_myjewel.setAdapter(myjewelAdapter);
                         builder.setView(v);
                         builder.show();
 
