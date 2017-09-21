@@ -98,14 +98,7 @@
         <activity android:name=".InputProfile"></activity>
         <activity android:name=".UserPageActivity"
             android:theme="@style/NoTitleBar"></activity>
-        <activity android:name=".BoardActivity"
-            android:label="게시판"></activity>
-        <activity android:name=".CardListActivity"
-            android:label="내 카드"></activity>
 
-        <activity android:name=".ChatListActivity"
-            android:label="쪽지함"
-            ></activity>
         <activity android:name=".PublicChatRoomActivity"
 
             ></activity>
@@ -132,8 +125,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <activity android:name=".FanActivity"
-            android:label= "팬"></activity>
+
         <activity android:name=".HoneyGetHistoryActivity"
             android:label= "받은 꿀"></activity>
         <activity android:name=".HoneySentHistoryActivity"
