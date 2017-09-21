@@ -1,27 +1,41 @@
 package com.hodo.jjamtalk;
 
-import android.support.v7.widget.RecyclerView;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-
-import com.hodo.jjamtalk.ViewHolder.MyJewelVH;
+import android.widget.BaseAdapter;
 
 /**
- * Created by mjk on 2017-09-20.
+ * Created by mjk on 2017-09-21.
  */
 
-public class MyJewelAdapter extends RecyclerView.Adapter<MyJewelVH>{
+class MyJewelAdapter extends BaseAdapter {
+    Context mContext;
+
+    public MyJewelAdapter(Context context) {
+        super();
+        mContext = context;
+    }
+
     @Override
-    public MyJewelVH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public int getCount() {
+        return 8;
+    }
+
+    @Override
+    public Object getItem(int i) {
         return null;
     }
 
     @Override
-    public void onBindViewHolder(MyJewelVH holder, int position) {
-
+    public long getItemId(int i) {
+        return i;
     }
 
     @Override
-    public int getItemCount() {
-        return 0;
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        View v = LayoutInflater.from(mContext).inflate(R.layout.item_dialog_my_jewel_list,viewGroup,false);
+        return v;
     }
 }

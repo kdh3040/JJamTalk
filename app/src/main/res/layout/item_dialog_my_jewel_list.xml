@@ -8,9 +8,10 @@
 
     <ImageView
         android:id="@+id/iv_jewel"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/jewelbox" />
 
     <TextView
