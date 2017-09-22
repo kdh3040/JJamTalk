@@ -9,35 +9,30 @@
         android:id="@+id/textView44"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
         android:layout_weight="1"
-        android:text="보석 선물하기" />
+        android:gravity="center"
 
-    <GridView
-        android:id="@+id/gv_myjewel"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:text="보석 선물하기" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="2"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/sp_jewel"
+            android:layout_width="0dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/jewelbox" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView46"
-            android:layout_width="match_parent"
-
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
+
+            android:layout_height="wrap_content"
+
             android:gravity="center"
             android:text="을 선물하시겠습니까?" />
     </LinearLayout>
@@ -45,8 +40,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/button19"

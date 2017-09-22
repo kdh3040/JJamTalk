@@ -3,7 +3,7 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <ImageView
@@ -12,16 +12,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/jewelbox" />
-
-    <TextView
-        android:id="@+id/tv_count"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="x4"
-        android:textSize="30sp" />
+        android:src="@drawable/bee" />
 
 
 </LinearLayout>
