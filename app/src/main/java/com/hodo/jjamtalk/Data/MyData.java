@@ -1148,7 +1148,7 @@ public class MyData {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                setUserPublicRoomStatus(0);
+                delUserPublicRoomStatus();
             }
 
             @Override
@@ -1168,6 +1168,19 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference Ref = database.getReference("PublicRoomList");
         Ref.child(getUserIdx()).removeValue();
+    }
+
+    public  void delUserPublicRoomStatus()
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+        // DatabaseReference user = table.child( userIdx);
+        final DatabaseReference user = table.child(getUserIdx());
+
+        user.child("PublicRoomStatus").setValue(0);
+        user.child("PublicRoomName").setValue(0);
+        user.child("PublicRoomLimit").setValue(0);
+        user.child("PublicRoomTime").setValue(0);
     }
 
     public void setUserPublicRoomStatus(PublicRoomData userPublicRoom) {
