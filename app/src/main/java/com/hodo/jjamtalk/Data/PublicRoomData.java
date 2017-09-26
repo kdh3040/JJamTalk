@@ -7,7 +7,8 @@ import java.util.ArrayList;
  */
 
 public class PublicRoomData {
-    public ArrayList<String> arrUserList = new ArrayList<>();
+    //public ArrayList<String> arrUserList = new ArrayList<>();
+    public int nRoomLimit;
     public int nEndTime;
     public String strImg;
     public String CurRoomName;

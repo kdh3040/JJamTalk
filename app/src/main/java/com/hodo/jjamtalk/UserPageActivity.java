@@ -160,6 +160,7 @@ public class UserPageActivity extends AppCompatActivity {
                 }
                 else {
 
+                    mMyData.setAnotherPublicRoomList(stTargetData);
                     Intent intent = new Intent(getApplicationContext(), PublicChatRoomActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Target", stTargetData);

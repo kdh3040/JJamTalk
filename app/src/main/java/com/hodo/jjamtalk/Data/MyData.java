@@ -1093,15 +1093,17 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, RoomName, RoomData;
         table = database.getReference("PublicRoomList");
-        RoomName = table.child(getUserIdx()).push();
+        RoomName = table.child(getUserIdx()).child(getTime);
 
         PublicRoomData tempPRD = new PublicRoomData();
-        tempPRD.arrUserList.add(getUserIdx());
         tempPRD.CurRoomName = getTime;
         tempPRD.CurRoomStatus = 1;
         tempPRD.nEndTime = Integer.parseInt(getTime) + 200;
         tempPRD.strImg = getUserImg();
         RoomName.setValue(tempPRD);
+
+        //RoomName.child("UserList").push().setValue(getUserIdx());
+        RoomName.child("UserList").push().setValue(getUserNick());
 
         nPublicRoomName =  Integer.parseInt(tempPRD.CurRoomName);
         nPublicRoomLimit =  RoomLimit;
@@ -1136,7 +1138,7 @@ public class MyData {
                 PublicRoomData stRecvData = new PublicRoomData();
                 stRecvData = dataSnapshot.getValue(PublicRoomData.class);
                 if(stRecvData != null)
-                    setUserPublicRoomStatus(stRecvData.CurRoomStatus);
+                    setUserPublicRoomStatus(stRecvData);
             }
 
             @Override
@@ -1168,8 +1170,12 @@ public class MyData {
         Ref.child(getUserIdx()).removeValue();
     }
 
-    public void setUserPublicRoomStatus(int userPublicRoomStatus) {
-        nPublicRoomStatus = userPublicRoomStatus;
+    public void setUserPublicRoomStatus(PublicRoomData userPublicRoom) {
+        nPublicRoomStatus = userPublicRoom.CurRoomStatus;
+        nPublicRoomName = Integer.parseInt(userPublicRoom.CurRoomName);
+        nPublicRoomLimit = userPublicRoom.nRoomLimit;
+        nPublicRoomTime = userPublicRoom.nEndTime;
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
         // DatabaseReference user = table.child( userIdx);
@@ -1179,5 +1185,13 @@ public class MyData {
         user.child("PublicRoomName").setValue(nPublicRoomName);
         user.child("PublicRoomLimit").setValue(nPublicRoomLimit);
         user.child("PublicRoomTime").setValue(nPublicRoomTime);
+    }
+
+    public void setAnotherPublicRoomList(UserData stTargetData) {
+        ArrayList<String> arrUserList = new ArrayList<>();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("PublicRoomList").child(stTargetData.Idx).child(Integer.toString(stTargetData.PublicRoomName)).child("UserList");
+        table.push().setValue(getUserNick());
+        //table.push().setValue(getUserIdx());
     }
 }
