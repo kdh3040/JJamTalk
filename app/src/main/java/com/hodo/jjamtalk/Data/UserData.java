@@ -45,6 +45,9 @@ public class UserData implements Serializable,Parcelable {
     public String Memo;
 
     public int PublicRoomStatus = 0;
+    public int PublicRoomName = 0;
+    public int PublicRoomLimit = 0;
+    public int PublicRoomTime = 0;
 
     public int ImgCount = 1;
     public String ImgGroup0;
@@ -89,6 +92,10 @@ public class UserData implements Serializable,Parcelable {
         Memo = in.readString();
 
         PublicRoomStatus = in.readInt();
+        PublicRoomName = in.readInt();
+        PublicRoomLimit = in.readInt();
+        PublicRoomTime = in.readInt();
+
         ImgCount = in.readInt();
 
         ImgGroup0 = in.readString();
@@ -142,6 +149,9 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeString(SendMSG);
         parcel.writeString(Memo);
         parcel.writeInt(PublicRoomStatus);
+        parcel.writeInt(PublicRoomName);
+        parcel.writeInt(PublicRoomLimit);
+        parcel.writeInt(PublicRoomTime);
         parcel.writeInt(ImgCount);
         parcel.writeString(ImgGroup0);
         parcel.writeString(ImgGroup1);

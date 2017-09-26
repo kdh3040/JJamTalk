@@ -94,6 +94,9 @@ public class MyData {
     public int nRecvMsg = 0;
 
     public int nPublicRoomStatus = 0;
+    public int nPublicRoomName = 0;
+    public int nPublicRoomLimit = 0;
+    public int nPublicRoomTime = 0;
 
     public int nImgCount;
     public String[] strProfileImg = new String[4];
@@ -143,7 +146,7 @@ public class MyData {
     public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
-                          String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus ) {
+                          String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime) {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -175,6 +178,9 @@ public class MyData {
         nRecvMsg = _UserRecvMsg;
 
         nPublicRoomStatus = _UserPublicRoomStatus;
+        nPublicRoomName = _UserPublicRoomName;
+        nPublicRoomLimit = _UserPublicRoomLimit;
+        nPublicRoomTime = _UserPublicRoomTime;
     }
 
     public void setUserIdx(String userIdx) {
@@ -1076,7 +1082,7 @@ public class MyData {
         Collections.sort(arrMyStarList);
     }
 
-    public boolean makePublicRoom() {
+    public boolean makePublicRoom(int RoomLimit, int RoomTime) {
         boolean rtValue = false;
 
         long now = System.currentTimeMillis();
@@ -1096,6 +1102,11 @@ public class MyData {
         tempPRD.nEndTime = Integer.parseInt(getTime) + 200;
         tempPRD.strImg = getUserImg();
         RoomName.setValue(tempPRD);
+
+        nPublicRoomName =  Integer.parseInt(tempPRD.CurRoomName);
+        nPublicRoomLimit =  RoomLimit;
+        nPublicRoomTime =  RoomTime;
+
 
         RoomData = database.getReference("PublicRoomData").child(getUserIdx()).child(tempPRD.CurRoomName);
         long nowTime =System.currentTimeMillis();
@@ -1159,12 +1170,14 @@ public class MyData {
 
     public void setUserPublicRoomStatus(int userPublicRoomStatus) {
         nPublicRoomStatus = userPublicRoomStatus;
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(getUserIdx());
 
         user.child("PublicRoomStatus").setValue(nPublicRoomStatus);
+        user.child("PublicRoomName").setValue(nPublicRoomName);
+        user.child("PublicRoomLimit").setValue(nPublicRoomLimit);
+        user.child("PublicRoomTime").setValue(nPublicRoomTime);
     }
 }

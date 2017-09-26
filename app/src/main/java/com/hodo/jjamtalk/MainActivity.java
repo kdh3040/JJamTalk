@@ -82,71 +82,80 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_pcr_open,null);
+                if(mMyData.nPublicRoomStatus == 0)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                    View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_pcr_open,null);
 
-                final RadioButton btn_Member_50 =  v.findViewById(R.id.member_50);
-                final RadioButton btn_Member_100 =  v.findViewById(R.id.member_100);
-                final RadioButton btn_Member_200 =  v.findViewById(R.id.member_200);
+                    final RadioButton btn_Member_50 =  v.findViewById(R.id.member_50);
+                    final RadioButton btn_Member_100 =  v.findViewById(R.id.member_100);
+                    final RadioButton btn_Member_200 =  v.findViewById(R.id.member_200);
 
-                final int[] publicRoomMemberCnt = new int[1];
+                    final int[] publicRoomMemberCnt = new int[1];
 
-                final RadioButton btn_time_30 =  v.findViewById(R.id.time_30);
-                final RadioButton btn_time_60 =  v.findViewById(R.id.time_60);
-                final RadioButton btn_time_120 =  v.findViewById(R.id.time_120);
+                    final RadioButton btn_time_30 =  v.findViewById(R.id.time_30);
+                    final RadioButton btn_time_60 =  v.findViewById(R.id.time_60);
+                    final RadioButton btn_time_120 =  v.findViewById(R.id.time_120);
 
-                final int[] publicRoomTime = new int[1];
+                    final int[] publicRoomTime = new int[1];
 
-                RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener(){
+                    RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener(){
 
-                    @Override
-                    public void onClick(View view) {
-                        if(btn_Member_50.isChecked())
-                            publicRoomMemberCnt[0] = 50;
-                        else if(btn_Member_100.isChecked())
-                            publicRoomMemberCnt[0] = 100;
-                        else if(btn_Member_200.isChecked())
-                            publicRoomMemberCnt[0] = 200;
+                        @Override
+                        public void onClick(View view) {
+                            if(btn_Member_50.isChecked())
+                                publicRoomMemberCnt[0] = 50;
+                            else if(btn_Member_100.isChecked())
+                                publicRoomMemberCnt[0] = 100;
+                            else if(btn_Member_200.isChecked())
+                                publicRoomMemberCnt[0] = 200;
 
-                        else if(btn_time_30.isChecked())
-                            publicRoomTime[0] = 30;
-                        else if(btn_time_60.isChecked())
-                            publicRoomTime[0] = 60;
-                        else if(btn_time_120.isChecked())
-                            publicRoomTime[0] = 120;
+                            else if(btn_time_30.isChecked())
+                                publicRoomTime[0] = 30;
+                            else if(btn_time_60.isChecked())
+                                publicRoomTime[0] = 60;
+                            else if(btn_time_120.isChecked())
+                                publicRoomTime[0] = 120;
 
-                    }
-                };
+                        }
+                    };
 
-                btn_time_30.setOnClickListener(optionOnClickListener);
-                btn_time_60.setOnClickListener(optionOnClickListener);
-                btn_time_120.setOnClickListener(optionOnClickListener);
+                    btn_time_30.setOnClickListener(optionOnClickListener);
+                    btn_time_60.setOnClickListener(optionOnClickListener);
+                    btn_time_120.setOnClickListener(optionOnClickListener);
 
-                btn_Member_50.setOnClickListener(optionOnClickListener);
-                btn_Member_100.setOnClickListener(optionOnClickListener);
-                btn_Member_200.setOnClickListener(optionOnClickListener);
+                    btn_Member_50.setOnClickListener(optionOnClickListener);
+                    btn_Member_100.setOnClickListener(optionOnClickListener);
+                    btn_Member_200.setOnClickListener(optionOnClickListener);
 
 
 
-                builder.setView(v);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
+                    builder.setView(v);
+                    final AlertDialog dialog = builder.create();
+                    dialog.show();
 
-                Button btn_open_pcr = v.findViewById(R.id.btn_open_pcr);
-                btn_open_pcr.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                    Button btn_open_pcr = v.findViewById(R.id.btn_open_pcr);
+                    btn_open_pcr.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-                        boolean rtValuew = mMyData.makePublicRoom();
+                            boolean rtValuew = mMyData.makePublicRoom(publicRoomMemberCnt[0], publicRoomTime[0]);
 
-                        Intent intent= new Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
-                        intent.putExtra("RoomLimit", publicRoomMemberCnt[0]);
-                        intent.putExtra("RoomTime", publicRoomTime[0]);
-                        startActivity(intent);
-                        dialog.dismiss();
-                    }
-                });
+                            Intent intent= new Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
+                            startActivity(intent);
+                            dialog.dismiss();
+                        }
+                    });
+                }
 
+
+                else
+                {
+                    Intent intent= new Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
+                    intent.putExtra("RoomLimit", mMyData.nPublicRoomLimit);
+                    intent.putExtra("RoomTime", mMyData.nPublicRoomTime);
+                    startActivity(intent);
+                }
             }
         });
 

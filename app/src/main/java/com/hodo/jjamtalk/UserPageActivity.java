@@ -104,7 +104,6 @@ public class UserPageActivity extends AppCompatActivity {
 
         txt_FanTitle = (TextView) findViewById(R.id.UserPage_FanTitle);
 
-
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
         imgProfile.setLayoutParams(mUIData.getRLP(1,0.6f));
         imgProfile.setOnClickListener(new View.OnClickListener() {

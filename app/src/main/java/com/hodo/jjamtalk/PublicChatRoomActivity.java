@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 
@@ -33,7 +35,10 @@ public class PublicChatRoomActivity extends AppCompatActivity {
     ImageButton ib_gift;
     PublicChatRoomAdapter pcrAdapter;
     AlertDialog.Builder builder;
-    
+
+
+    DatabaseReference mRef;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +46,8 @@ public class PublicChatRoomActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         stTargetData = (UserData) bundle.getSerializable("Target");
+
+        mRef = FirebaseDatabase.getInstance().getReference().child("PublicRoomData").child(stTargetData.Idx).child(Integer.toString(stTargetData.PublicRoomName));
 
         rl_public_chat = (RelativeLayout)findViewById(R.id.rl_public_chat);
         LinearLayout.LayoutParams lp_rl_public_chat = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/5);
