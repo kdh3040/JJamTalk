@@ -52,7 +52,7 @@
 
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/public_chat_list"
+            android:id="@+id/public_host_chat_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/ll_chat"
@@ -79,7 +79,7 @@
             android:weightSum="6">
 
             <EditText
-                android:id="@+id/Public_Chat_etText"
+                android:id="@+id/Public_Host_Chat_etText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
@@ -90,7 +90,7 @@
                 android:maxLines="1" />
 
             <Button
-                android:id="@+id/Public_Chat_btnSend"
+                android:id="@+id/Public_Host_Chat_btnSend"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

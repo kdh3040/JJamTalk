@@ -59,7 +59,7 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
 
 
     DatabaseReference mRef;
-    FirebaseRecyclerAdapter<PublicRoomChatData, PublicChatRoomHostActivity.PublicChatViewHolder> firebaseRecyclerAdapter;
+    FirebaseRecyclerAdapter<PublicRoomChatData, PublicChatRoomHostActivity.PublicHostChatViewHolder> firebaseRecyclerAdapter;
     LinearLayoutManager mLinearLayoutManager;
     SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm");
     RecyclerView recyclerView;
@@ -67,7 +67,7 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
     int RoomLimit,RoomTime;
 
 
-    public static class PublicChatViewHolder extends RecyclerView.ViewHolder{
+    public static class PublicHostChatViewHolder extends RecyclerView.ViewHolder{
 
         ImageView image_profile,image_sent;
         TextView message;
@@ -76,7 +76,7 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
         TextView time;
 
         //회색글자 처리 뜸 원인불명
-        public PublicChatViewHolder(View itemView) {
+        public PublicHostChatViewHolder(View itemView) {
             super(itemView);
             image_profile = (ImageView)itemView.findViewById(R.id.imageView);
             image_sent = (ImageView)itemView.findViewById(R.id.iv_sent);
@@ -97,20 +97,20 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
         RoomTime  = intent.getIntExtra("RoomTime", 1);
 
         mRef = FirebaseDatabase.getInstance().getReference().child("PublicRoomData").child(mMyData.getUserIdx()).child(Integer.toString(mMyData.nPublicRoomName));
-        txt_msg = (EditText)findViewById(R.id.Public_Chat_etText);
-        btn_send = (Button)findViewById(R.id.Public_Chat_btnSend);
+        txt_msg = (EditText)findViewById(R.id.Public_Host_Chat_etText);
+        btn_send = (Button)findViewById(R.id.Public_Host_Chat_btnSend);
 
-        recyclerView = (RecyclerView) findViewById(R.id.public_chat_list);
+        recyclerView = (RecyclerView) findViewById(R.id.public_host_chat_list);
 
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLinearLayoutManager);
 
 
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<PublicRoomChatData, PublicChatRoomHostActivity.PublicChatViewHolder>(
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<PublicRoomChatData, PublicChatRoomHostActivity.PublicHostChatViewHolder>(
                 PublicRoomChatData.class,
                 R.layout.content_chat_data,
-                PublicChatRoomHostActivity.PublicChatViewHolder.class,
+                PublicChatRoomHostActivity.PublicHostChatViewHolder.class,
                 mRef){
 
             @Override
@@ -123,7 +123,7 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
                 return chat_message;
             }
             @Override
-            protected void populateViewHolder(PublicChatRoomHostActivity.PublicChatViewHolder viewHolder, PublicRoomChatData chat_message, int position) {
+            protected void populateViewHolder(PublicChatRoomHostActivity.PublicHostChatViewHolder viewHolder, PublicRoomChatData chat_message, int position) {
                 //Log.d("hngpic","popVH");
 
                 //mProgressBar.setVisibility(ProgressBar.INVISIBLE);
