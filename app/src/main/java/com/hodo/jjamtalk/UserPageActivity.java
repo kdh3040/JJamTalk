@@ -5,19 +5,27 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +43,9 @@ import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.NotiFunc;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -47,6 +57,7 @@ public class UserPageActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
     private FirebaseData mFireBase = FirebaseData.getInstance();
+    private MyJewelAdapter myjewelAdapter;
 
     private TextView txtProfile;
     private TextView txtMemo;
@@ -82,6 +93,7 @@ public class UserPageActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
+        myjewelAdapter = new MyJewelAdapter(getApplicationContext());
         mActivity = this;
 
         Intent intent = getIntent();
@@ -190,6 +202,19 @@ public class UserPageActivity extends AppCompatActivity {
                         break;
                     case R.id.UserPage_btnGiftJewel:
                         View v = inflater.inflate(R.layout.dialog_give_jewel,null);
+                        Spinner sp_jewel = v.findViewById(R.id.sp_jewel);
+                        /*int [] intArray  =  {R.drawable.silver_bee,R.drawable.bronze_bee,R.drawable.silver_bee
+                                    ,R.drawable.silver_bee
+                        ,R.drawable.silver_bee
+                        ,R.drawable.bronze_bee
+                        ,R.drawable.silver_bee
+                        ,R.drawable.gold_bee};
+                        ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(getApplicationContext(),R.layout.item_dialog_my_jewel_list,R.id.iv_jewel,intArray);
+
+                        sp_jewel.setAdapter(adapter);*/
+
+
+
                         builder.setView(v);
                         builder.show();
 
