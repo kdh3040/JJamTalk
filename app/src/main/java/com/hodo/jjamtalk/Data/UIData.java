@@ -4,6 +4,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.hodo.jjamtalk.R;
+
 /**
  * Created by mjk on 2017. 8. 17..
  */
@@ -11,6 +13,8 @@ import android.widget.RelativeLayout;
 public class UIData {
 
     private static UIData _Instance;
+
+
 
     public static UIData getInstance()
     {
@@ -22,6 +26,7 @@ public class UIData {
 
     private int width;
     private int height;
+    private int jewels[] = {R.drawable.silver,R.drawable.gold1,R.drawable.pearl,R.drawable.opal,R.drawable.emerald,R.drawable.sapphire,R.drawable.ruby,R.drawable.diamond};
 
     private LinearLayout.LayoutParams llp_ListItem;
 
@@ -42,6 +47,10 @@ public class UIData {
 
     public int getHeight() {
         return height;
+    }
+
+    public int[] getJewels(){
+        return jewels;
     }
 
     public int getWidth() {

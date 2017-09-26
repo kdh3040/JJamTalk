@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -36,6 +38,8 @@ public class MyPageActivity extends AppCompatActivity {
     TextView txt_MyRecvHoney;
 
     LinearLayout ll_gift_get,ll_gift_sent;
+    RecyclerView rv_myjewels;
+    MyPageJewelAdapter adapter;
 
 
     @Override
@@ -95,6 +99,11 @@ public class MyPageActivity extends AppCompatActivity {
                 //finish();
             }
         });
+        adapter = new MyPageJewelAdapter(getApplicationContext());
+        rv_myjewels = (RecyclerView) findViewById(R.id.rv_myjewels);
+        rv_myjewels.setLayoutManager(new LinearLayoutManager(getApplicationContext(),0,false));
+        rv_myjewels.setAdapter(adapter);
+
 /*
         txt_MyRecvHoney = (TextView)findViewById(R.id.MyPage_RecvHoney);
         int nRecvCount = mMyData.getRecvHoney() * -1;

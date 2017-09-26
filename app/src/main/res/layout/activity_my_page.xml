@@ -179,19 +179,11 @@
                 android:layout_weight="1"
                 app:srcCompat="@drawable/jewelbox" />
 
-            <FrameLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_myjewels"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="6">
-
-                <include
-                    android:id="@+id/stickers_holder"
-                    layout="@layout/layout_sticker_holder"
-
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"></include>
-            </FrameLayout>
+                android:layout_weight="6" />
 
         </LinearLayout>
 

@@ -6,26 +6,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.hodo.jjamtalk.ViewHolder.MyJewelViewHolder;
 
 /**
  * Created by mjk on 2017-09-21.
  */
 
-class MyJewelAdapter extends BaseAdapter {
+public class MyJewelAdapter extends BaseAdapter {
     Context mContext;
+    int jewels[];
+    LayoutInflater inflater;
 
 
-    public MyJewelAdapter(Context context) {
+    public MyJewelAdapter(Context context,int [] jewels) {
         super();
         mContext = context;
+        this.jewels= jewels;
+        inflater = (LayoutInflater.from(context));
     }
 
     @Override
     public int getCount() {
-        return 8;
+        return jewels.length;
     }
 
     @Override
@@ -35,18 +36,18 @@ class MyJewelAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return 0;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        View v = LayoutInflater.from(mContext).inflate(R.layout.item_dialog_my_jewel_list,viewGroup,false);
-        ImageView iv =v.findViewById(R.id.iv_jewel);
-        TextView tv = v.findViewById(R.id.tv_count);
-        iv.setImageResource(R.drawable.gold);
-        tv.setText("x3");
+        view = inflater.inflate(R.layout.item_dialog_my_jewel_list,null);
+        ImageView iv =view.findViewById(R.id.iv_jewel);
 
-        return v;
+        iv.setImageResource(jewels[i]);
+
+
+        return view;
     }
 }

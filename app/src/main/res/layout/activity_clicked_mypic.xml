@@ -35,7 +35,7 @@
 
                 <include
                     android:id="@+id/stickers_holder"
-                    layout="@layout/layout_sticker_holder"
+                    layout="@layout/layout_jewelholder"
 
                     ></include>
 
