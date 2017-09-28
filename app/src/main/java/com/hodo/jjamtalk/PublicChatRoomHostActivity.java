@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,7 +68,27 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
     int RoomLimit,RoomTime;
 
 
-    public static class PublicHostChatViewHolder extends RecyclerView.ViewHolder{
+    class taskThread extends Thread{
+        @Override
+        public void run() {
+
+            long now = System.currentTimeMillis();
+            Date date = new Date(now);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHMM");
+            String getTime = sdf.format(date);
+
+            if(mMyData.nPublicRoomTime  - Integer.parseInt(getTime) < 0)
+            {
+                mMyData.DestroyPRD();
+            }
+                try {
+                    Thread.sleep(500);
+                }catch(Exception e) {}
+        }
+    }
+
+
+        public static class PublicHostChatViewHolder extends RecyclerView.ViewHolder{
 
         ImageView image_profile,image_sent;
         TextView message;
@@ -91,6 +112,9 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_chat_host);
         mContext = getApplicationContext();
+
+        Thread thread = new taskThread();
+        thread.start();
 
         Intent intent = new Intent(this.getIntent());
         RoomLimit  = intent.getIntExtra("RoomLimit", 1);
