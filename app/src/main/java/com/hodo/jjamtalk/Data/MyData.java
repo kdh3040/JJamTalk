@@ -1098,7 +1098,7 @@ public class MyData {
         PublicRoomData tempPRD = new PublicRoomData();
         tempPRD.CurRoomName = getTime;
         tempPRD.CurRoomStatus = 1;
-        tempPRD.nEndTime = Integer.parseInt(getTime) + 200;
+        tempPRD.nEndTime = Integer.parseInt(getTime) + RoomTime;
         tempPRD.strImg = getUserImg();
         RoomName.setValue(tempPRD);
 
