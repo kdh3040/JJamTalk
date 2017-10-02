@@ -127,7 +127,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@color/colorAccent"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -135,7 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="나의 팬"
+                    android:text="팬 클럽"
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="18sp" />
 
@@ -153,7 +153,7 @@
 
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@color/colorAccent"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -161,7 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="내가 팬"
+                    android:text="가입한 팬클럽"
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="18sp" />
 
