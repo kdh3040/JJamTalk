@@ -56,6 +56,15 @@ public class UserData implements Serializable,Parcelable {
     public String ImgGroup3;
     public String ImgGroup4;
 
+    public int Item_1;
+    public int Item_2;
+    public int Item_3;
+    public int Item_4;
+    public int Item_5;
+    public int Item_6;
+    public int Item_7;
+    public int Item_8;
+
     public  Map<String, FanData> FanList = new LinkedHashMap<String, FanData>();
     public  ArrayList<FanData> arrFanList = new ArrayList<>();
     public  ArrayList<UserData> arrFanData = new ArrayList<>();
@@ -103,6 +112,15 @@ public class UserData implements Serializable,Parcelable {
         ImgGroup2 = in.readString();
         ImgGroup3 = in.readString();
         ImgGroup4 = in.readString();
+
+        Item_1 = in.readInt();
+        Item_2 = in.readInt();
+        Item_3 = in.readInt();
+        Item_4 = in.readInt();
+        Item_5 = in.readInt();
+        Item_6 = in.readInt();
+        Item_7 = in.readInt();
+        Item_8 = in.readInt();
 
         arrFanList = (ArrayList<FanData>) in.readSerializable();
         arrFanData = (ArrayList<UserData>) in.readSerializable();
@@ -158,7 +176,16 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeString(ImgGroup2);
         parcel.writeString(ImgGroup3);
         parcel.writeString(ImgGroup4);
-        
+
+        parcel.writeInt(Item_1);
+        parcel.writeInt(Item_2);
+        parcel.writeInt(Item_3);
+        parcel.writeInt(Item_4);
+        parcel.writeInt(Item_5);
+        parcel.writeInt(Item_6);
+        parcel.writeInt(Item_7);
+        parcel.writeInt(Item_8);
+
         parcel.writeSerializable(arrFanList);
         parcel.writeSerializable(arrFanData);
 

@@ -70,6 +70,8 @@ public class BuyJewelActivity extends AppCompatActivity {
 
                                         int result = Select_OpenedItem();
                                         View_OpenedItem(v, result, Img_Opened, Text_Opened);
+                                        mMyData.setMyItem(result);
+
                                         Button btn_confirm = v.findViewById(R.id.opened_btn);
                                         builder.setView(v);
 
