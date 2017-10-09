@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -41,7 +42,7 @@ import java.util.LinkedHashMap;
  * Created by mjk on 2017. 8. 5..
  */
 
-public class UserPageActivity extends AppCompatActivity {
+public class UserPageActivity extends AppCompatActivity  implements SwipeRefreshLayout.OnRefreshListener {
     private UserData stTargetData;
 
     private MyData mMyData = MyData.getInstance();
@@ -79,11 +80,15 @@ public class UserPageActivity extends AppCompatActivity {
     Activity mActivity;
     private UserData TempSendUserData = new UserData();
 
+    private SwipeRefreshLayout refreshlayout;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
+        refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
+
         myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIData.getJewels());
         mActivity = this;
 
@@ -695,5 +700,10 @@ public class UserPageActivity extends AppCompatActivity {
                 });
             }
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshlayout.setRefreshing(false);
     }
 }
