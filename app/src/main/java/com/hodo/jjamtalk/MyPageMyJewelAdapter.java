@@ -36,7 +36,13 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
     @Override
     public MyJewelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.holder_jewel,null);
-        view.setOnClickListener(new View.OnClickListener() {
+
+        return new MyJewelViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(MyJewelViewHolder holder, final int position) {
+        holder.iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
@@ -50,16 +56,11 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
-                }).setMessage("해당 아이템을 파시겠습니까?");
+                }).setMessage("해당 아이템을 파시겠습니까?   "+mUIdata.getSellJewelValue()[position]+"꿀");
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
         });
-        return new MyJewelViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(MyJewelViewHolder holder, int position) {
         holder.iv.setImageResource(mUIdata.getJewels()[position]);
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/4,mUIdata.getHeight()/4));
         holder.tv.setText("x3");
