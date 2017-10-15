@@ -30,6 +30,7 @@ public class MyPageActivity extends AppCompatActivity {
 
     ImageButton btn_Setting,btn_my_profile,btn_history;
     Button btn_heart;
+    Button btn_buyjewel;
     ImageView img_Mypic;
 
     TextView txt_MyProfile;
@@ -80,7 +81,13 @@ public class MyPageActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),HeartActivity.class));
             }
         });
-
+        btn_buyjewel = (Button)findViewById(R.id.btn_buyjewel);
+        btn_buyjewel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),BuyJewelActivity.class));
+            }
+        });
 
 
         img_Mypic = (ImageView)findViewById(R.id.img_mypic);

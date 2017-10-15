@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="20dp"
     android:orientation="vertical"
-    android:weightSum="6">
+    >
 
     <LinearLayout
         android:id="@+id/myProfile"
@@ -190,13 +190,29 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_heart"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
         android:layout_weight="1"
-        android:background="@color/white"
-        android:text="꿀 사러가기" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_buyjewel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:text="상자까기" />
+
+        <Button
+            android:id="@+id/btn_heart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@color/black_light"
+            android:text="꿀 사러가기" />
+
+    </LinearLayout>
 
 </LinearLayout>

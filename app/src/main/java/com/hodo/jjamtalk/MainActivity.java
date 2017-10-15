@@ -296,13 +296,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ib_buy_jewel = (ImageButton)findViewById(R.id.ib_buy_jewel);
-        ib_buy_jewel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BuyJewelActivity.class));
-            }
-        });
+
 
 
 
