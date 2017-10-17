@@ -87,7 +87,7 @@ public class UserPageActivity extends AppCompatActivity  implements SwipeRefresh
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
-        refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
+        //refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
 
         myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIData.getJewels());
         mActivity = this;
@@ -704,6 +704,6 @@ public class UserPageActivity extends AppCompatActivity  implements SwipeRefresh
 
     @Override
     public void onRefresh() {
-        refreshlayout.setRefreshing(false);
+       // refreshlayout.setRefreshing(false);
     }
 }
