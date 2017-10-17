@@ -121,6 +121,8 @@
             android:label="내가 쓴 글"
             ></activity>
         <activity android:name=".ImageViewPager"
+            android:theme="@style/NoTitleBar"
+
             ></activity>
 
         <activity android:name=".BlockListActivity"
@@ -138,6 +140,9 @@
             android:label= "받은 꿀"></activity>
         <activity android:name=".HoneySentHistoryActivity"
             android:label= "선물한 꿀"></activity>
+        <activity
+            android:name=".MyJewelBoxActivity"
+            android:label="내 보석상자"></activity>
     </application>
 
 </manifest>

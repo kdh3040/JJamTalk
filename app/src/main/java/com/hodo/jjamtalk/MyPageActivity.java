@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ public class MyPageActivity extends AppCompatActivity {
 
     ImageButton btn_Setting,btn_my_profile,btn_history;
     Button btn_heart;
+    Button btn_buyjewel;
     ImageView img_Mypic;
 
     TextView txt_MyProfile;
@@ -37,7 +39,7 @@ public class MyPageActivity extends AppCompatActivity {
     TextView txt_MySendHoney;
     TextView txt_MyRecvHoney;
 
-    LinearLayout ll_gift_get,ll_gift_sent;
+    LinearLayout ll_gift_get,ll_gift_sent,ll_jewel_box;
     RecyclerView rv_myjewels;
     MyPageJewelAdapter adapter;
 
@@ -47,6 +49,15 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ll_jewel_box= (LinearLayout) findViewById(R.id.ll_jewel_box);
+        ll_jewel_box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
+            }
+        });
+
 
         txt_MyProfile = (TextView)findViewById(R.id.MyPage_txtProfile);
         txt_MyProfile.setText(mMyData.getUserNick() + "," + mMyData.getUserAge());
@@ -70,7 +81,13 @@ public class MyPageActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),HeartActivity.class));
             }
         });
-
+        btn_buyjewel = (Button)findViewById(R.id.btn_buyjewel);
+        btn_buyjewel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),BuyJewelActivity.class));
+            }
+        });
 
 
         img_Mypic = (ImageView)findViewById(R.id.img_mypic);
@@ -101,6 +118,7 @@ public class MyPageActivity extends AppCompatActivity {
         });
         adapter = new MyPageJewelAdapter(getApplicationContext());
         rv_myjewels = (RecyclerView) findViewById(R.id.rv_myjewels);
+
         rv_myjewels.setLayoutManager(new LinearLayoutManager(getApplicationContext(),0,false));
         rv_myjewels.setAdapter(adapter);
 

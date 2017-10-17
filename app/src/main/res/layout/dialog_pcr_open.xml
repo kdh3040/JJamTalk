@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView17"
@@ -22,14 +23,14 @@
         android:layout_weight="1"
         android:gravity="left|center_vertical"
         android:text="정원 수"
+        android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/black" />
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="20dp"
+
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal">
@@ -67,14 +68,14 @@
         android:layout_weight="1"
         android:gravity="left|center_vertical"
         android:text="지속 시간"
+        android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="20dp"
+
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal">
@@ -85,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="30분"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/time_60"
@@ -93,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="1시간"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/time_120"
@@ -101,18 +102,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="2시간"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
 
     <Button
         android:id="@+id/btn_open_pcr"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_marginBottom="30dp"
+        android:layout_weight="2"
         android:text="만들기" />
 
 </LinearLayout>

@@ -45,6 +45,9 @@ public class UserData implements Serializable,Parcelable {
     public String Memo;
 
     public int PublicRoomStatus = 0;
+    public int PublicRoomName = 0;
+    public int PublicRoomLimit = 0;
+    public int PublicRoomTime = 0;
 
     public int ImgCount = 1;
     public String ImgGroup0;
@@ -52,6 +55,15 @@ public class UserData implements Serializable,Parcelable {
     public String ImgGroup2;
     public String ImgGroup3;
     public String ImgGroup4;
+
+    public int Item_1;
+    public int Item_2;
+    public int Item_3;
+    public int Item_4;
+    public int Item_5;
+    public int Item_6;
+    public int Item_7;
+    public int Item_8;
 
     public  Map<String, FanData> FanList = new LinkedHashMap<String, FanData>();
     public  ArrayList<FanData> arrFanList = new ArrayList<>();
@@ -89,6 +101,10 @@ public class UserData implements Serializable,Parcelable {
         Memo = in.readString();
 
         PublicRoomStatus = in.readInt();
+        PublicRoomName = in.readInt();
+        PublicRoomLimit = in.readInt();
+        PublicRoomTime = in.readInt();
+
         ImgCount = in.readInt();
 
         ImgGroup0 = in.readString();
@@ -96,6 +112,15 @@ public class UserData implements Serializable,Parcelable {
         ImgGroup2 = in.readString();
         ImgGroup3 = in.readString();
         ImgGroup4 = in.readString();
+
+        Item_1 = in.readInt();
+        Item_2 = in.readInt();
+        Item_3 = in.readInt();
+        Item_4 = in.readInt();
+        Item_5 = in.readInt();
+        Item_6 = in.readInt();
+        Item_7 = in.readInt();
+        Item_8 = in.readInt();
 
         arrFanList = (ArrayList<FanData>) in.readSerializable();
         arrFanData = (ArrayList<UserData>) in.readSerializable();
@@ -142,13 +167,25 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeString(SendMSG);
         parcel.writeString(Memo);
         parcel.writeInt(PublicRoomStatus);
+        parcel.writeInt(PublicRoomName);
+        parcel.writeInt(PublicRoomLimit);
+        parcel.writeInt(PublicRoomTime);
         parcel.writeInt(ImgCount);
         parcel.writeString(ImgGroup0);
         parcel.writeString(ImgGroup1);
         parcel.writeString(ImgGroup2);
         parcel.writeString(ImgGroup3);
         parcel.writeString(ImgGroup4);
-        
+
+        parcel.writeInt(Item_1);
+        parcel.writeInt(Item_2);
+        parcel.writeInt(Item_3);
+        parcel.writeInt(Item_4);
+        parcel.writeInt(Item_5);
+        parcel.writeInt(Item_6);
+        parcel.writeInt(Item_7);
+        parcel.writeInt(Item_8);
+
         parcel.writeSerializable(arrFanList);
         parcel.writeSerializable(arrFanData);
 

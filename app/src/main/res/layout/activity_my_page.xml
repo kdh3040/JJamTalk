@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="20dp"
     android:orientation="vertical"
-    android:weightSum="5"
-    android:layout_margin="20dp">
+    >
 
     <LinearLayout
         android:id="@+id/myProfile"
@@ -107,7 +107,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:orientation="vertical"
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
@@ -167,6 +167,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_jewel_box"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -189,13 +190,29 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_heart"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
         android:layout_weight="1"
-        android:background="@color/white"
-        android:text="꿀 사러가기" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_buyjewel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:text="상자까기" />
+
+        <Button
+            android:id="@+id/btn_heart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@color/black_light"
+            android:text="꿀 사러가기" />
+
+    </LinearLayout>
 
 </LinearLayout>

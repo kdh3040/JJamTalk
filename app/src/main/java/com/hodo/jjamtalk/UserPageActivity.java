@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -40,7 +42,7 @@ import java.util.LinkedHashMap;
  * Created by mjk on 2017. 8. 5..
  */
 
-public class UserPageActivity extends AppCompatActivity {
+public class UserPageActivity extends AppCompatActivity  implements SwipeRefreshLayout.OnRefreshListener {
     private UserData stTargetData;
 
     private MyData mMyData = MyData.getInstance();
@@ -78,11 +80,15 @@ public class UserPageActivity extends AppCompatActivity {
     Activity mActivity;
     private UserData TempSendUserData = new UserData();
 
+    private SwipeRefreshLayout refreshlayout;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
+        refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
+
         myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIData.getJewels());
         mActivity = this;
 
@@ -103,7 +109,6 @@ public class UserPageActivity extends AppCompatActivity {
         //private TextView txtProfile;
 
         txt_FanTitle = (TextView) findViewById(R.id.UserPage_FanTitle);
-
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
         imgProfile.setLayoutParams(mUIData.getRLP(1,0.6f));
@@ -161,6 +166,7 @@ public class UserPageActivity extends AppCompatActivity {
                 }
                 else {
 
+                    mMyData.setAnotherPublicRoomList(stTargetData);
                     Intent intent = new Intent(getApplicationContext(), PublicChatRoomActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Target", stTargetData);
@@ -502,52 +508,94 @@ public class UserPageActivity extends AppCompatActivity {
 
     private void SetStickerImg() {
         ImageView Img_Sticker1 = (ImageView) stickers_holder.findViewById(R.id.jw1);
-        Glide.with(getApplicationContext())
-                .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F1.jpeg?alt=media&token=9f02c84b-c268-428a-bfb7-ba9c4efdbd1f")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(Img_Sticker1);
-
         ImageView Img_Sticker2 = (ImageView) stickers_holder.findViewById(R.id.jw2);
-        Glide.with(getApplicationContext())
-                .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F2.jpeg?alt=media&token=97e20f9a-671c-4800-b6a3-fcec805fdb54")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(Img_Sticker2);
-
         ImageView Img_Sticker3 = (ImageView) stickers_holder.findViewById(R.id.jw3);
-        Glide.with(getApplicationContext())
-                .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F3.jpg?alt=media&token=89c1d595-a17f-47a1-bdde-01cd0dd18089")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(Img_Sticker3);
-
         ImageView Img_Sticker4 = (ImageView) stickers_holder.findViewById(R.id.jw4);
-        Glide.with(getApplicationContext())
-                .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F4.jpg?alt=media&token=44edade3-8d83-4726-ace2-0c001a3a1b58")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(Img_Sticker4);
-
         ImageView Img_Sticker5 = (ImageView) stickers_holder.findViewById(R.id.jw5);
-        Glide.with(getApplicationContext())
-                .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F5.jpeg?alt=media&token=1d08a448-1f0a-4198-80c1-5f4ef5c226a8")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(Img_Sticker5);
-
         ImageView Img_Sticker6 = (ImageView) stickers_holder.findViewById(R.id.jw6);
-        Glide.with(getApplicationContext())
-                .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F6.jpg?alt=media&token=41421db2-9356-4a98-8fd5-7039c45dbf68")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(Img_Sticker6);
-
         ImageView Img_Sticker7 = (ImageView) stickers_holder.findViewById(R.id.jw7);
-        Glide.with(getApplicationContext())
-                .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F7.jpg?alt=media&token=241f8b68-0bf4-4a5d-8bf6-cad2bf8e37da")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(Img_Sticker7);
-
         ImageView Img_Sticker8 = (ImageView) stickers_holder.findViewById(R.id.jw8);
-        Glide.with(getApplicationContext())
-                .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F8.jpg?alt=media&token=76ed6a50-9ca5-4a50-a10f-14a506b063df")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(Img_Sticker8);
+
+        if(stTargetData.Item_1 != 0)
+        {
+            Drawable myDrawable = getResources().getDrawable(R.drawable.silver);
+            Img_Sticker1.setImageDrawable(myDrawable);
+   /*         Glide.with(getApplicationContext())
+                    .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F1.jpeg?alt=media&token=9f02c84b-c268-428a-bfb7-ba9c4efdbd1f")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(Img_Sticker1);*/
+        }
+        if(stTargetData.Item_2 != 0)
+        {
+            Drawable myDrawable = getResources().getDrawable(R.drawable.gold1);
+            Img_Sticker2.setImageDrawable(myDrawable);
+            /*
+            Glide.with(getApplicationContext())
+                    .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F2.jpeg?alt=media&token=97e20f9a-671c-4800-b6a3-fcec805fdb54")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(Img_Sticker2);*/
+        }
+
+        if(stTargetData.Item_3 != 0)
+        {
+            Drawable myDrawable = getResources().getDrawable(R.drawable.pearl);
+            Img_Sticker3.setImageDrawable(myDrawable);
+            /*
+            Glide.with(getApplicationContext())
+                    .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F3.jpg?alt=media&token=89c1d595-a17f-47a1-bdde-01cd0dd18089")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(Img_Sticker3);*/
+        }
+
+        if(stTargetData.Item_4 != 0)
+        {
+            Drawable myDrawable = getResources().getDrawable(R.drawable.opal);
+            Img_Sticker4.setImageDrawable(myDrawable);
+            /*Glide.with(getApplicationContext())
+                    .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F4.jpg?alt=media&token=44edade3-8d83-4726-ace2-0c001a3a1b58")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(Img_Sticker4);*/
+        }
+        if(stTargetData.Item_5 != 0)
+        {
+            Drawable myDrawable = getResources().getDrawable(R.drawable.emerald);
+            Img_Sticker5.setImageDrawable(myDrawable);
+          /*  Glide.with(getApplicationContext())
+                    .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F5.jpeg?alt=media&token=1d08a448-1f0a-4198-80c1-5f4ef5c226a8")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(Img_Sticker5);*/
+        }
+        if(stTargetData.Item_6 != 0)
+        {
+            Drawable myDrawable = getResources().getDrawable(R.drawable.sapphire);
+            Img_Sticker6.setImageDrawable(myDrawable);
+            /*
+            Glide.with(getApplicationContext())
+                    .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F6.jpg?alt=media&token=41421db2-9356-4a98-8fd5-7039c45dbf68")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(Img_Sticker6);*/
+        }
+        if(stTargetData.Item_7 != 0)
+        {
+            Drawable myDrawable = getResources().getDrawable(R.drawable.ruby);
+            Img_Sticker7.setImageDrawable(myDrawable);
+
+           /* Glide.with(getApplicationContext())
+                    .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F7.jpg?alt=media&token=241f8b68-0bf4-4a5d-8bf6-cad2bf8e37da")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(Img_Sticker7);*/
+        }
+        if(stTargetData.Item_8 != 0)
+        {
+            Drawable myDrawable = getResources().getDrawable(R.drawable.diamond);
+            Img_Sticker8.setImageDrawable(myDrawable);
+            /*
+            Glide.with(getApplicationContext())
+                    .load("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F8.jpg?alt=media&token=76ed6a50-9ca5-4a50-a10f-14a506b063df")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(Img_Sticker8);*/
+        }
+
     }
 
     private void buildalertDialog(String s, String s1, String s2) {
@@ -652,5 +700,10 @@ public class UserPageActivity extends AppCompatActivity {
                 });
             }
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshlayout.setRefreshing(false);
     }
 }

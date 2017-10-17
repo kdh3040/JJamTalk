@@ -23,7 +23,7 @@ import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
  * Created by mjk on 2017. 8. 10..
  */
 
-public class Rank_RichFragment extends Fragment {
+public class  Rank_RichFragment extends Fragment {
 
     private MyData mMyData = MyData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();

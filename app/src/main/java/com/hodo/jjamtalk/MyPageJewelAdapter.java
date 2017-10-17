@@ -1,10 +1,12 @@
 package com.hodo.jjamtalk;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.ViewHolder.MyJewelViewHolder;
@@ -32,8 +34,10 @@ public class MyPageJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder> 
 
     @Override
     public void onBindViewHolder(MyJewelViewHolder holder, int position) {
+        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/11, ViewGroup.LayoutParams.MATCH_PARENT));
         holder.iv.setImageResource(mUIdata.getJewels()[position]);
         holder.tv.setText("x3");
+
 
 
     }

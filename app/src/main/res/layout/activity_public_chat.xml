@@ -50,14 +50,24 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/lv_pcr"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/public_chat_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/ll_chat"
             android:layout_below="@+id/iv_host"
             android:layout_weight="1"
             android:divider="@null" />
+        <!--
+                <ListView
+                    android:id="@+id/lv_pcr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/ll_chat"
+                    android:layout_below="@+id/iv_host"
+                    android:layout_weight="1"
+                    android:divider="@null" />
+        -->
 
         <LinearLayout
 
@@ -77,7 +87,7 @@
                 app:srcCompat="@drawable/honeyicon" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/Public_Chat_etText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
@@ -88,7 +98,7 @@
                 android:maxLines="1" />
 
             <Button
-                android:id="@+id/button8"
+                android:id="@+id/Public_Chat_btnSend"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

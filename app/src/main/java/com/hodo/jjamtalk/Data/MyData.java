@@ -38,6 +38,7 @@ public class MyData {
     private static MyData _Instance;
     private BlockData blockList;
 
+
     public static MyData getInstance() {
         if (_Instance == null)
             _Instance = new MyData();
@@ -94,10 +95,21 @@ public class MyData {
     public int nRecvMsg = 0;
 
     public int nPublicRoomStatus = 0;
+    public int nPublicRoomName = 0;
+    public int nPublicRoomLimit = 0;
+    public int nPublicRoomTime = 0;
 
     public int nImgCount;
     public String[] strProfileImg = new String[4];
 
+    public int item_1;
+    public int item_2;
+    public int item_3;
+    public int item_4;
+    public int item_5;
+    public int item_6;
+    public int item_7;
+    public int item_8;
 
     public ArrayList<String> arrBlockNameList = new ArrayList<>();
     public ArrayList<BlockData> arrBlockDataList = new ArrayList<>();
@@ -134,6 +146,15 @@ public class MyData {
         for (int i = 0; i < 4; i++) {
             strProfileImg[i] = "http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg";
         }
+
+        item_1 = 0;
+        item_2 = 0;
+        item_3 = 0;
+        item_4 = 0;
+        item_5 = 0;
+        item_6 = 0;
+        item_7 = 0;
+        item_8 = 0;
 //        strProfileImg = null;
 
         strMemo = null;
@@ -143,7 +164,8 @@ public class MyData {
     public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
-                          String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus ) {
+                          String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
+                          int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8) {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -175,6 +197,19 @@ public class MyData {
         nRecvMsg = _UserRecvMsg;
 
         nPublicRoomStatus = _UserPublicRoomStatus;
+        nPublicRoomName = _UserPublicRoomName;
+        nPublicRoomLimit = _UserPublicRoomLimit;
+        nPublicRoomTime = _UserPublicRoomTime;
+
+        item_1 = _UserItem1;
+        item_2 = _UserItem2;
+        item_3 = _UserItem3;
+        item_4 = _UserItem4;
+        item_5 = _UserItem5;
+        item_6 = _UserItem6;
+        item_7 = _UserItem7;
+        item_8 = _UserItem8;
+
     }
 
     public void setUserIdx(String userIdx) {
@@ -1076,7 +1111,7 @@ public class MyData {
         Collections.sort(arrMyStarList);
     }
 
-    public boolean makePublicRoom() {
+    public boolean makePublicRoom(int RoomLimit, int RoomTime) {
         boolean rtValue = false;
 
         long now = System.currentTimeMillis();
@@ -1087,15 +1122,22 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, RoomName, RoomData;
         table = database.getReference("PublicRoomList");
-        RoomName = table.child(getUserIdx()).push();
+        RoomName = table.child(getUserIdx()).child(getTime);
 
         PublicRoomData tempPRD = new PublicRoomData();
-        tempPRD.arrUserList.add(getUserIdx());
         tempPRD.CurRoomName = getTime;
         tempPRD.CurRoomStatus = 1;
-        tempPRD.nEndTime = Integer.parseInt(getTime) + 200;
+        tempPRD.nEndTime = Integer.parseInt(getTime) + RoomTime;
         tempPRD.strImg = getUserImg();
         RoomName.setValue(tempPRD);
+
+        //RoomName.child("UserList").push().setValue(getUserIdx());
+        RoomName.child("UserList").push().setValue(getUserNick());
+
+        nPublicRoomName =  Integer.parseInt(tempPRD.CurRoomName);
+        nPublicRoomLimit =  RoomLimit;
+        nPublicRoomTime =  RoomTime;
+
 
         RoomData = database.getReference("PublicRoomData").child(getUserIdx()).child(tempPRD.CurRoomName);
         long nowTime =System.currentTimeMillis();
@@ -1125,7 +1167,7 @@ public class MyData {
                 PublicRoomData stRecvData = new PublicRoomData();
                 stRecvData = dataSnapshot.getValue(PublicRoomData.class);
                 if(stRecvData != null)
-                    setUserPublicRoomStatus(stRecvData.CurRoomStatus);
+                    setUserPublicRoomStatus(stRecvData);
             }
 
             @Override
@@ -1135,7 +1177,7 @@ public class MyData {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                setUserPublicRoomStatus(0);
+                delUserPublicRoomStatus();
             }
 
             @Override
@@ -1157,8 +1199,24 @@ public class MyData {
         Ref.child(getUserIdx()).removeValue();
     }
 
-    public void setUserPublicRoomStatus(int userPublicRoomStatus) {
-        nPublicRoomStatus = userPublicRoomStatus;
+    public  void delUserPublicRoomStatus()
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+        // DatabaseReference user = table.child( userIdx);
+        final DatabaseReference user = table.child(getUserIdx());
+
+        user.child("PublicRoomStatus").setValue(0);
+        user.child("PublicRoomName").setValue(0);
+        user.child("PublicRoomLimit").setValue(0);
+        user.child("PublicRoomTime").setValue(0);
+    }
+
+    public void setUserPublicRoomStatus(PublicRoomData userPublicRoom) {
+        nPublicRoomStatus = userPublicRoom.CurRoomStatus;
+        nPublicRoomName = Integer.parseInt(userPublicRoom.CurRoomName);
+        nPublicRoomLimit = userPublicRoom.nRoomLimit;
+        nPublicRoomTime = userPublicRoom.nEndTime;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
@@ -1166,5 +1224,77 @@ public class MyData {
         final DatabaseReference user = table.child(getUserIdx());
 
         user.child("PublicRoomStatus").setValue(nPublicRoomStatus);
+        user.child("PublicRoomName").setValue(nPublicRoomName);
+        user.child("PublicRoomLimit").setValue(nPublicRoomLimit);
+        user.child("PublicRoomTime").setValue(nPublicRoomTime);
+    }
+
+    public void setAnotherPublicRoomList(UserData stTargetData) {
+        ArrayList<String> arrUserList = new ArrayList<>();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("PublicRoomList").child(stTargetData.Idx).child(Integer.toString(stTargetData.PublicRoomName)).child("UserList");
+        table.push().setValue(getUserNick());
+        //table.push().setValue(getUserIdx());
+    }
+
+    public void setMyItem(int myItem) {
+       switch (myItem)
+       {
+           case 1:
+           {
+               item_1++;
+               break;
+           }
+           case 2:
+           {
+               item_2++;
+               break;
+           }
+           case 3:
+           {
+               item_3++;
+               break;
+           }
+           case 4:
+           {
+               item_4++;
+               break;
+           }
+           case 5:
+           {
+               item_5++;
+               break;
+           }
+           case 6:
+           {
+               item_6++;
+               break;
+           }
+           case 7:
+           {
+               item_7++;
+               break;
+           }
+           case 8:
+           {
+               item_8++;
+               break;
+           }
+       }
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+        // DatabaseReference user = table.child( userIdx);
+        final DatabaseReference user = table.child(getUserIdx());
+
+        user.child("Item_1").setValue(item_1);
+        user.child("Item_2").setValue(item_2);
+        user.child("Item_3").setValue(item_3);
+        user.child("Item_4").setValue(item_4);
+        user.child("Item_5").setValue(item_5);
+        user.child("Item_6").setValue(item_6);
+        user.child("Item_7").setValue(item_7);
+        user.child("Item_8").setValue(item_8);
     }
 }
+
