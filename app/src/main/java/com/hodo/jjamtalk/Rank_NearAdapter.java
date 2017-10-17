@@ -21,7 +21,7 @@ import com.hodo.jjamtalk.ViewHolder.GridUserViewHolder;
  * Created by mjk on 2017. 8. 10..
  */
 
-public class Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
+public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     Context mContext;
 
     private SettingData mSetting = SettingData.getInstance();

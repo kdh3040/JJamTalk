@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:backgroundTintMode="src_over"
             android:padding="10dp"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/vip" />
 
         <ImageView
