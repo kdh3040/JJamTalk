@@ -433,8 +433,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
         strMyIdx = mAwsFunc.GetUserIdx(email);
-       // String email;// = "tt@naver.com";
-       // String password;// = "111111";
+
 
 
         boolean cancel = false;
