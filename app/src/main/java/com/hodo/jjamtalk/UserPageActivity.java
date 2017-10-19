@@ -727,22 +727,6 @@ public class UserPageActivity extends AppCompatActivity {
 
                         stTargetData = tempUserData;
 
-            /*            int i = 0, j=0, k=0;
-                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
-
-                                if(stRecvData.Img == null)
-                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-
-
-
-
-                            }
-                            i++;
-                        }*/
                     }
 
                     @Override
