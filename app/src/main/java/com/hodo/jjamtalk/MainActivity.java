@@ -33,7 +33,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton ib_home,ib_honey,ib_cardList,ib_chatList,ib_board,ib_myPage,ib_fan,ib_pcr_open,ib_buy_jewel;
+    ImageButton ib_cardList,ib_chatList,ib_board,ib_myPage,ib_fan,ib_pcr_open,ib_buy_jewel;
+    CheckBox ib_home;
     ImageView iv_refresh,iv_honeybox;
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        ib_home = (ImageButton)findViewById(R.id.ib_home);
+        ib_home = (CheckBox) findViewById(R.id.ib_home);
 
         ib_home.setOnClickListener(new View.OnClickListener() {
             @Override

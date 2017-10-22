@@ -33,10 +33,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTintMode="src_over"
+
+            android:background='@drawable/starmodel_1'
             android:padding="10dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/vip" />
+            android:scaleType="fitCenter" />
 
         <ImageView
             android:id="@+id/iv_honeybox"
@@ -66,13 +66,14 @@
         android:orientation="horizontal"
         android:weightSum="6">
 
-        <ImageButton
+        <CheckBox
             android:id="@+id/ib_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/icon_home" />
+            android:background="@drawable/button"
+            android:scaleType="fitCenter" />
+
 
         <ImageButton
             android:id="@+id/ib_cardlist"
@@ -81,7 +82,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/mycard_icon" />
+            android:background="@drawable/mycardmodel_1"
+            android:scaleType="fitCenter" />
 
         <ImageButton
             android:id="@+id/ib_chatlist"
@@ -90,16 +92,16 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/icon_msg" />
+            android:background="@drawable/chatmodel"
+            android:scaleType="fitCenter" />
 
         <ImageButton
             android:id="@+id/ib_pcr_open"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/kakao_account_logo" />
+            android:background="@drawable/publicchatmodel"
+            android:scaleType="fitCenter" />
 
         <ImageButton
             android:id="@+id/ib_fan"
@@ -108,9 +110,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:background="@drawable/fanmodel"
             android:padding="5dp"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/icon_fan" />
+            android:scaleType="centerInside" />
 
         <ImageButton
             android:id="@+id/ib_board"
@@ -119,7 +121,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/board_icon" />
+            android:background="@drawable/board_icon" />
     </LinearLayout>
 
     <LinearLayout
