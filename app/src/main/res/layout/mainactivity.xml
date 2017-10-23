@@ -33,10 +33,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/goldstar_1"
             android:backgroundTintMode="src_over"
             android:padding="10dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/vip" />
+            android:scaleType="centerInside" />
 
         <ImageView
             android:id="@+id/iv_honeybox"
@@ -76,30 +76,32 @@
 
         <ImageButton
             android:id="@+id/ib_cardlist"
-            style="@android:style/Widget.Holo.Light.ImageButton"
+
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/mycard_icon" />
+            android:background="@drawable/mycardmodel_1"
+            android:scaleType="fitCenter" />
 
         <ImageButton
             android:id="@+id/ib_chatlist"
-            style="@android:style/Widget.Material.Light.ImageButton"
+
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/icon_msg" />
+            android:background="@drawable/chatmodel"
+            android:scaleType="fitCenter" />
 
         <ImageButton
             android:id="@+id/ib_pcr_open"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/publicchatmodel"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/kakao_account_logo" />
+             />
 
         <ImageButton
             android:id="@+id/ib_fan"
@@ -108,9 +110,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:background="@drawable/fanmodel"
             android:padding="5dp"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/icon_fan" />
+            android:scaleType="fitCenter" />
 
         <ImageButton
             android:id="@+id/ib_board"

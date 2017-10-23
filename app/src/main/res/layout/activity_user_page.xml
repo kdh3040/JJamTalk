@@ -204,7 +204,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_margin="15dp"
             android:orientation="horizontal">
 
@@ -213,6 +213,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/buttonyellow"
                 android:text="공개채팅방 입장" />
 
             <Button
@@ -220,19 +221,22 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/buttonyellow"
                 android:text="내 카드에 등록" />
 
             <Button
                 android:id="@+id/UserPage_btnGiftJewel"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/buttonyellow"
                 android:text="보석 선물하기" />
 
             <Button
                 android:id="@+id/UserPage_btnGiftHoney"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:background="@drawable/buttonyellow"
                 android:layout_weight="1"
                 android:text="꿀 선물하기" />
 
@@ -240,6 +244,7 @@
                 android:id="@+id/UserPage_btnMessage"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:background="@drawable/buttonyellow"
                 android:layout_weight="1"
                 android:text="쪽지쓰기" />
 
