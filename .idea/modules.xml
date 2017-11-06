@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/00_JJamtalk.iml" filepath="$PROJECT_DIR$/00_JJamtalk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/HODO.iml" filepath="$PROJECT_DIR$/HODO.iml" />
-      <module fileurl="file://$PROJECT_DIR$/HODO_JamTalk.iml" filepath="$PROJECT_DIR$/HODO_JamTalk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/JJamtalk.iml" filepath="$PROJECT_DIR$/JJamtalk.iml" />
+      <module fileurl="file://C:\Users\Administrator\Documents\JJamTalk\00_JJamtalk.iml" filepath="C:\Users\Administrator\Documents\JJamTalk\00_JJamtalk.iml" />
+      <module fileurl="file://C:\Users\Administrator\Documents\JJamTalk\HODO.iml" filepath="C:\Users\Administrator\Documents\JJamTalk\HODO.iml" />
+      <module fileurl="file://C:\Users\Administrator\Documents\JJamTalk\HODO_JamTalk.iml" filepath="C:\Users\Administrator\Documents\JJamTalk\HODO_JamTalk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JJamTalk.iml" filepath="$PROJECT_DIR$/JJamTalk.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gitgit.iml" filepath="$PROJECT_DIR$/gitgit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hodo_projects.iml" filepath="$PROJECT_DIR$/hodo_projects.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jamchat.iml" filepath="$PROJECT_DIR$/jamchat.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jjamtak.iml" filepath="$PROJECT_DIR$/jjamtak.iml" />
+      <module fileurl="file://C:\Users\Administrator\Documents\JJamTalk\gitgit.iml" filepath="C:\Users\Administrator\Documents\JJamTalk\gitgit.iml" />
+      <module fileurl="file://C:\Users\Administrator\Documents\JJamTalk\hodo_projects.iml" filepath="C:\Users\Administrator\Documents\JJamTalk\hodo_projects.iml" />
+      <module fileurl="file://C:\Users\Administrator\Documents\JJamTalk\jamchat.iml" filepath="C:\Users\Administrator\Documents\JJamTalk\jamchat.iml" />
+      <module fileurl="file://C:\Users\Administrator\Documents\JJamTalk\jjamtak.iml" filepath="C:\Users\Administrator\Documents\JJamTalk\jjamtak.iml" />
     </modules>
   </component>
 </project>
