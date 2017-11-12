@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="20dp"
     android:orientation="vertical"
+    android:background="@drawable/ninebutton"
     android:padding="20dp">
 
     <TextView

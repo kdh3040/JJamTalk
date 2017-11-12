@@ -198,19 +198,16 @@
 
         <Button
             android:id="@+id/btn_buyjewel"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/ninebutton"
             android:text="상자까기" />
 
         <Button
             android:id="@+id/btn_heart"
-            android:layout_width="0dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:background="@color/black_light"
+            android:background="@drawable/ninebutton"
             android:text="꿀 사러가기" />
 
     </LinearLayout>

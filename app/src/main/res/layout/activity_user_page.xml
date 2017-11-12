@@ -15,7 +15,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/fabPressed"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -66,7 +65,6 @@
                 android:layout_height="wrap_content"
 
                 android:layout_weight="7"
-                android:background="@drawable/background_rounding"
                 android:text="상희, 28"
                 android:textSize="24sp" />
 
@@ -104,7 +102,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="9"
-                android:background="@drawable/background_rounding"
                 android:gravity="left|center_vertical"
                 android:text="15km 거리에 있음"
                 android:textColor="@color/white" />
@@ -126,7 +123,6 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/background_rounding"
             android:clickable="true"
             android:orientation="horizontal">
 
@@ -212,7 +208,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/btn_yellow"
+                android:background="@drawable/ninebutton"
                 android:shadowColor="@color/black_light"
 
                 android:text="공개채팅방 입장" />
@@ -222,7 +218,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/btn_yellow"
+                android:background="@drawable/ninebutton"
                 android:text="내 카드에 등록" />
 
             <Button
@@ -230,7 +226,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/btn_yellow"
+                android:background="@drawable/ninebutton"
                 android:text="보석 선물하기" />
 
             <Button
@@ -238,7 +234,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/btn_yellow"
+                android:background="@drawable/ninebutton"
                 android:text="꿀 선물하기" />
 
             <Button
@@ -246,7 +242,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/btn_yellow"
+                android:background="@drawable/ninebutton"
                 android:text="쪽지쓰기" />
 
         </LinearLayout>

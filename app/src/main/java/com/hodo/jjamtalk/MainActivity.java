@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +14,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -33,8 +35,14 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton ib_cardList,ib_chatList,ib_board,ib_myPage,ib_fan,ib_pcr_open,ib_buy_jewel;
-    CheckBox ib_home;
+    ImageButton ib_cardList;
+    ImageButton ib_chatList;
+    ImageButton ib_board;
+    ImageButton ib_myPage;
+    ImageButton ib_fan;
+    ImageButton ib_pcr_open;
+    ImageButton ib_buy_jewel;
+    ImageButton ib_home;
     ImageView iv_refresh,iv_honeybox;
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
@@ -86,7 +94,9 @@ public class MainActivity extends AppCompatActivity {
                 if(mMyData.nPublicRoomStatus == 0)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                    View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_pcr_open,null);
+                    View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_pcr_open,null,false);
+                    //v.getBackground().setAlpha(0);
+
 
                     final RadioButton btn_Member_50 =  v.findViewById(R.id.member_50);
                     final RadioButton btn_Member_100 =  v.findViewById(R.id.member_100);
@@ -133,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
                     builder.setView(v);
                     final AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                     dialog.show();
 
                     Button btn_open_pcr = v.findViewById(R.id.btn_open_pcr);
@@ -161,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        ib_home = (CheckBox) findViewById(R.id.ib_home);
+        ib_home = (ImageButton)findViewById(R.id.ib_home);
 
         ib_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,22 +334,16 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed(){
 
         String alertTitle = "종료";
-        new AlertDialog.Builder(this)
-                .setTitle(alertTitle)
-                .setMessage("프로그램을 종료하시겠습니까?")
-                .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                    }
-                })
-                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                }).show();
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+
+        AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+
+
+
+
 
     }
 
