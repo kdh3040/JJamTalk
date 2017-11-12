@@ -14,6 +14,7 @@
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="선물하기"
+        android:textColor="@color/black"
         android:textSize="24sp" />
 
     <LinearLayout
@@ -27,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/black"
             android:text="4000골드" />
 
         <Button
@@ -101,6 +103,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
+        android:textColor="@color/black"
         android:text='"  " 꿀를 보내시겠습니까?' />
 
     <LinearLayout
@@ -141,6 +144,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="꿀 보내드려요"
+            android:textColor="@color/black"
             android:inputType="textPersonName" />
     </LinearLayout>
 

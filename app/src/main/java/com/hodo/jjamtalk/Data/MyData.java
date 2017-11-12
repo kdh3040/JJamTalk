@@ -1194,6 +1194,11 @@ public class MyData {
     }
 
     public void DestroyPRD() {
+        nPublicRoomLimit = 0;
+        nPublicRoomName = 0;
+        nPublicRoomStatus = 0;
+        nPublicRoomTime = 0;
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference Ref = database.getReference("PublicRoomList");
         Ref.child(getUserIdx()).removeValue();

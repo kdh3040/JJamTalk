@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
@@ -42,7 +44,7 @@ import java.util.LinkedHashMap;
  * Created by mjk on 2017. 8. 5..
  */
 
-public class UserPageActivity extends AppCompatActivity  implements SwipeRefreshLayout.OnRefreshListener {
+public class UserPageActivity extends AppCompatActivity {
     private UserData stTargetData;
 
     private MyData mMyData = MyData.getInstance();
@@ -82,12 +84,20 @@ public class UserPageActivity extends AppCompatActivity  implements SwipeRefresh
 
     private SwipeRefreshLayout refreshlayout;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
-        //refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
+        refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
+        refreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                RefreshData();
+                refreshlayout.setRefreshing(false);
+
+            }
+        });
 
         myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIData.getJewels());
         mActivity = this;
@@ -702,8 +712,29 @@ public class UserPageActivity extends AppCompatActivity  implements SwipeRefresh
         }
     }
 
-    @Override
-    public void onRefresh() {
-       // refreshlayout.setRefreshing(false);
+    private void RefreshData() {
+        DatabaseReference ref;
+        ref = FirebaseDatabase.getInstance().getReference().child("User").child(stTargetData.Idx);
+
+       // Query query= ref.orderByChild(stTargetData.Idx);//키가 id와 같은걸 쿼리로 가져옴
+        ref.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                        //stTargetData.PublicRoomStatus = tempUserData.PublicRoomStatus;
+
+                        stTargetData = tempUserData;
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                    }
+                });
     }
+
 }

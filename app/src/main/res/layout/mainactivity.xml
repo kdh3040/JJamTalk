@@ -35,10 +35,17 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+<<<<<<< HEAD
             android:background="@color/white"
             app:srcCompat="@drawable/vvip"
 
             android:scaleType="fitCenter" />
+=======
+            android:background="@drawable/goldstar_1"
+            android:backgroundTintMode="src_over"
+            android:padding="10dp"
+            android:scaleType="centerInside" />
+>>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
 
         <ImageView
             android:id="@+id/iv_honeybox"
@@ -88,9 +95,14 @@
             android:layout_height="match_parent"
 
             android:layout_weight="1"
+<<<<<<< HEAD
             android:scaleType="fitCenter"
             android:background="@color/white"
             app:srcCompat="@mipmap/ic_card_lb_1" />
+=======
+            android:background="@drawable/mycardmodel_1"
+            android:scaleType="fitCenter" />
+>>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
 
         <ImageButton
             android:id="@+id/ib_chatlist"
@@ -100,17 +112,29 @@
             android:layout_gravity="center"
             android:scaleType="fitCenter"
             android:layout_weight="1"
+<<<<<<< HEAD
             android:background="@color/white"
             app:srcCompat="@mipmap/ic_chat_lb_1" />
+=======
+            android:background="@drawable/chatmodel"
+            android:scaleType="fitCenter" />
+>>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
 
         <ImageButton
             android:id="@+id/ib_pcr_open"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:scaleType="fitCenter"
             android:layout_weight="1"
             android:background="@color/white"
             app:srcCompat="@mipmap/ic_pcr_lb" />
+=======
+            android:layout_weight="1"
+            android:background="@drawable/publicchatmodel"
+            android:scaleType="fitCenter"
+             />
+>>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
 
         <ImageButton
             android:id="@+id/ib_fan"
@@ -120,8 +144,14 @@
             android:layout_gravity="center"
             android:scaleType="fitCenter"
             android:layout_weight="1"
+<<<<<<< HEAD
             android:background="@color/white"
             app:srcCompat="@mipmap/ic_fan_lb_1" />
+=======
+            android:background="@drawable/fanmodel"
+            android:padding="5dp"
+            android:scaleType="fitCenter" />
+>>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
 
         <ImageButton
             android:id="@+id/ib_board"

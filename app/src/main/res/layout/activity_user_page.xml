@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/swipe_layout">
+
+    <ScrollView
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<!--    <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/swipe_layout">-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -208,9 +209,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+<<<<<<< HEAD
                 android:background="@drawable/ninebutton"
                 android:shadowColor="@color/black_light"
 
+=======
+                android:background="@drawable/buttonyellow"
+>>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
                 android:text="공개채팅방 입장" />
 
             <Button
@@ -218,7 +223,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+<<<<<<< HEAD
                 android:background="@drawable/ninebutton"
+=======
+                android:background="@drawable/buttonyellow"
+>>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
                 android:text="내 카드에 등록" />
 
             <Button
@@ -226,13 +235,18 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+<<<<<<< HEAD
                 android:background="@drawable/ninebutton"
+=======
+                android:background="@drawable/buttonyellow"
+>>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
                 android:text="보석 선물하기" />
 
             <Button
                 android:id="@+id/UserPage_btnGiftHoney"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:background="@drawable/buttonyellow"
                 android:layout_weight="1"
                 android:background="@drawable/ninebutton"
                 android:text="꿀 선물하기" />
@@ -241,6 +255,7 @@
                 android:id="@+id/UserPage_btnMessage"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:background="@drawable/buttonyellow"
                 android:layout_weight="1"
                 android:background="@drawable/ninebutton"
                 android:text="쪽지쓰기" />
@@ -248,6 +263,7 @@
         </LinearLayout>
     </LinearLayout>
 
-  <!--  </android.support.v4.widget.SwipeRefreshLayout>-->
+
 
 </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
