@@ -1,7 +1,10 @@
 package com.hodo.jjamtalk;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -54,6 +57,33 @@ public class HeartActivity extends AppCompatActivity {
         HeartItemAdapter adapter = new HeartItemAdapter(this, R.layout.content_cash_charge, list);
 
         HeartChargeList.setAdapter(adapter);
+
+        ServiceConnection mServiceConn = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+
+            }
+
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                //서비스 연결성공
+
+                mService = IInAppBillingService.Stub.asInterface(service);
+
+
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+                //서비스 연결해제
+
+                mService = null;
+
+            }
+        };
+
+
     }
     public void refreshHearCnt()
     {
