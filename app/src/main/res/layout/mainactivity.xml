@@ -4,11 +4,10 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
-
-    android:weightSum="30"
-    tools:context=".MainActivity"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
-    >
+    android:weightSum="30"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:id="@+id/layout_topbar"
@@ -16,36 +15,51 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:background="@color/colorPrimary"
+
+
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        >
+        android:translationZ="2dp">
 
         <TextView
-            android:id="@+id/tv_maintitle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="left|center_vertical"
-            android:text="도시남녀"
-            android:textColor="@color/fabPrimary"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ImageButton
             android:id="@+id/ib_mypage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-<<<<<<< HEAD
-            android:background="@color/white"
-            app:srcCompat="@drawable/vvip"
 
-            android:scaleType="fitCenter" />
-=======
-            android:background="@drawable/goldstar_1"
-            android:backgroundTintMode="src_over"
-            android:padding="10dp"
-            android:scaleType="centerInside" />
->>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/gray_light"
+            android:gravity="center"
+            android:scaleType="fitCenter"
+            android:text="B"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/imageView24"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
+
+        <ImageButton
+            android:id="@+id/ib_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            app:srcCompat="@drawable/ic_search" />
+
+
+        <ImageButton
+            android:id="@+id/ib_pcr_open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_pcr" />
 
         <ImageView
             android:id="@+id/iv_honeybox"
@@ -53,17 +67,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:adjustViewBounds="false"
+            android:background="@color/colorPrimary"
             android:scaleType="fitCenter"
-            app:srcCompat="@mipmap/ic_mailbox" />
+            app:srcCompat="@drawable/ic_gift" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/frag_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
         android:layout_weight="25"
-        android:id="@+id/frag_container">
+        android:orientation="vertical">
 
     </LinearLayout>
 
@@ -73,9 +88,9 @@
         android:layout_height="0dp"
 
         android:layout_weight="2"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         android:orientation="horizontal"
-        android:weightSum="6">
+        android:translationZ="2dp">
 
 
         <ImageButton
@@ -85,7 +100,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:scaleType="fitCenter"
-            android:src="@mipmap/ic_home_lb_1"
+            android:src="@drawable/btn_home"
             android:visibility="visible" />
 
         <ImageButton
@@ -95,14 +110,13 @@
             android:layout_height="match_parent"
 
             android:layout_weight="1"
-<<<<<<< HEAD
-            android:scaleType="fitCenter"
             android:background="@color/white"
-            app:srcCompat="@mipmap/ic_card_lb_1" />
-=======
-            android:background="@drawable/mycardmodel_1"
-            android:scaleType="fitCenter" />
->>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
+
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_card"
+
+            />
+
 
         <ImageButton
             android:id="@+id/ib_chatlist"
@@ -110,31 +124,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:scaleType="fitCenter"
             android:layout_weight="1"
-<<<<<<< HEAD
             android:background="@color/white"
-            app:srcCompat="@mipmap/ic_chat_lb_1" />
-=======
-            android:background="@drawable/chatmodel"
-            android:scaleType="fitCenter" />
->>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_chat"
 
-        <ImageButton
-            android:id="@+id/ib_pcr_open"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-<<<<<<< HEAD
-            android:scaleType="fitCenter"
-            android:layout_weight="1"
-            android:background="@color/white"
-            app:srcCompat="@mipmap/ic_pcr_lb" />
-=======
-            android:layout_weight="1"
-            android:background="@drawable/publicchatmodel"
-            android:scaleType="fitCenter"
-             />
->>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
+            />
+
 
         <ImageButton
             android:id="@+id/ib_fan"
@@ -142,34 +138,33 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:scaleType="fitCenter"
             android:layout_weight="1"
-<<<<<<< HEAD
             android:background="@color/white"
-            app:srcCompat="@mipmap/ic_fan_lb_1" />
-=======
-            android:background="@drawable/fanmodel"
-            android:padding="5dp"
-            android:scaleType="fitCenter" />
->>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
+            android:scaleType="fitCenter"
+
+
+            android:src="@drawable/btn_fan" />
 
         <ImageButton
             android:id="@+id/ib_board"
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
             android:layout_weight="1"
             android:background="@color/white"
-            app:srcCompat="@mipmap/ic_board_lb_1" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_board" />
+
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal">
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:translationZ="2dp">
 
         <TextView
             android:id="@+id/textView39"
@@ -196,14 +191,6 @@
             android:text="채팅" />
 
         <TextView
-            android:id="@+id/textView43"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="공개방" />
-
-        <TextView
             android:id="@+id/textView33"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -212,12 +199,13 @@
             android:text="팬" />
 
         <TextView
-            android:id="@+id/textView32"
+            android:id="@+id/textView43"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="게시판" />
+
     </LinearLayout>
 
 

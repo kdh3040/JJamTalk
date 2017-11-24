@@ -38,9 +38,10 @@ public class MainActivity extends AppCompatActivity {
     ImageButton ib_cardList;
     ImageButton ib_chatList;
     ImageButton ib_board;
-    ImageButton ib_myPage;
+    TextView ib_myPage;
     ImageButton ib_fan;
     ImageButton ib_pcr_open;
+    ImageButton ib_filter;
     ImageButton ib_buy_jewel;
     ImageButton ib_home;
     ImageView iv_refresh,iv_honeybox;
@@ -82,6 +83,20 @@ public class MainActivity extends AppCompatActivity {
         int mWidth = mUIData.getWidth();
         int mHeight = mUIData.getHeight();
         homeFragment = new HomeFragment();
+
+        ib_filter = (ImageButton)findViewById(R.id.ib_filter);
+        ib_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                View v = LayoutInflater.from(mActivity).inflate(R.layout.category_popup,null,false);
+                builder.setView(v);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+            }
+        });
 
 
 
@@ -179,6 +194,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+                view.setSelected(!view.isSelected());
+                if(view.isSelected()){
+
+
+                }else{
+
+                }
 
             }
         });
@@ -210,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         tv_MainTitle = (TextView)findViewById(R.id.tv_maintitle);
 
 
-        ib_myPage = (ImageButton)findViewById(R.id.ib_mypage);
+        ib_myPage = (TextView)findViewById(R.id.ib_mypage);
 
         ib_myPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
+                view.setSelected(!view.isSelected());
                 //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
@@ -255,6 +278,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
+                view.setSelected(!view.isSelected());
+                if(view.isSelected()){
+
+
+                }else{
+
+                }
                 //startActivity(new Intent(getApplicationContext(),CardListActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
@@ -266,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+                view.setSelected(!view.isSelected());
                 //startActivity(new Intent(getApplicationContext(),ChatListActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
@@ -276,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
         ib_fan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setSelected(!view.isSelected());
 
 
 

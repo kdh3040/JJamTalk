@@ -30,9 +30,9 @@ public class SkuDetails {
     String mDescription;
     String mJson;
 
-    public SkuDetails(String jsonSkuDetails) throws JSONException {
-        this(IabHelper.ITEM_TYPE_INAPP, jsonSkuDetails);
-    }
+    //public SkuDetails(String jsonSkuDetails) throws JSONException {
+       // this(IabHelper.ITEM_TYPE_INAPP, jsonSkuDetails);
+    //}
 
     public SkuDetails(String itemType, String jsonSkuDetails) throws JSONException {
         mItemType = itemType;

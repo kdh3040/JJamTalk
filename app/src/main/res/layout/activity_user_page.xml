@@ -201,64 +201,88 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+
+
+            >
 
             <Button
                 android:id="@+id/UserPage_btnPublicChat"
 
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-<<<<<<< HEAD
-                android:background="@drawable/ninebutton"
-                android:shadowColor="@color/black_light"
+                android:layout_marginBottom="5dp"
 
-=======
-                android:background="@drawable/buttonyellow"
->>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
-                android:text="공개채팅방 입장" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/circle_border"
+                android:text="공개채팅방 참가"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp" />
+
 
             <Button
                 android:id="@+id/UserPage_btnRegister"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-<<<<<<< HEAD
-                android:background="@drawable/ninebutton"
-=======
-                android:background="@drawable/buttonyellow"
->>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
-                android:text="내 카드에 등록" />
+                android:background="@drawable/circle_border"
+                android:text="내 카드에 등록"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp" />
+
 
             <Button
                 android:id="@+id/UserPage_btnGiftJewel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+
+
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-<<<<<<< HEAD
-                android:background="@drawable/ninebutton"
-=======
-                android:background="@drawable/buttonyellow"
->>>>>>> 9e4f567d15a0cfa890d7b2f004bbe0bfb43d5a8f
-                android:text="보석 선물하기" />
+                android:background="@drawable/circle_border"
+                android:text="보석 선물하기"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/UserPage_btnGiftHoney"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/buttonyellow"
+
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/ninebutton"
-                android:text="꿀 선물하기" />
+                android:background="@drawable/circle_border"
+                android:text="꿀 선물하기"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/UserPage_btnMessage"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/buttonyellow"
+
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/ninebutton"
-                android:text="쪽지쓰기" />
+                android:background="@drawable/circle_border"
+                android:text="쪽지쓰기"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp" />
 
         </LinearLayout>
     </LinearLayout>
