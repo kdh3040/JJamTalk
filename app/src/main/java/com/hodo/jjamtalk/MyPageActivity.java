@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,6 +34,7 @@ public class MyPageActivity extends AppCompatActivity {
 
     TextView txt_MyProfile;
     TextView txt_MyHeartCnt;
+    TextView txt_MyGoldCnt;
 
     TextView txt_MySendHoney;
     TextView txt_MyRecvHoney;
@@ -58,13 +58,13 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
 
-
+        txt_MyGoldCnt = findViewById(R.id.tv_goldsize);
         txt_MyProfile = (TextView)findViewById(R.id.MyPage_txtProfile);
         txt_MyProfile.setText(mMyData.getUserNick() + "," + mMyData.getUserAge());
 
         int nGold = mMyData.getUserHoney();
-        txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
-        txt_MyHeartCnt.setText("현재 보유 꿀: " + nGold);
+        txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
+        //txt_MyHeartCnt.setText("보유 골드: " + nGold);
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
         btn_Setting.setOnClickListener(new View.OnClickListener() {
@@ -166,8 +166,9 @@ public class MyPageActivity extends AppCompatActivity {
     {
         super.onStart();
         int nGold = mMyData.getUserHoney();
-        txt_MyHeartCnt = (TextView)findViewById(R.id.MyPage_txtHeart);
-        txt_MyHeartCnt.setText("현재 보유 꿀 : " + nGold + " 꿀");
+        txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
+        //txt_MyHeartCnt.setText(" 보유 골드 : " + nGold + " 골드");
+        txt_MyGoldCnt.setText(nGold+" 골드");
     }
 
     @Override

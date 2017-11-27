@@ -58,7 +58,7 @@ public class HeartActivity extends AppCompatActivity {
 
         HeartChargeList.setAdapter(adapter);
 
-        ServiceConnection mServiceConn = new ServiceConnection() {
+        /*ServiceConnection mServiceConn = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
 
@@ -81,8 +81,8 @@ public class HeartActivity extends AppCompatActivity {
                 mService = null;
 
             }
-        };
-
+        };//
+*/
 
     }
     public void refreshHearCnt()
