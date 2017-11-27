@@ -202,9 +202,14 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
+<<<<<<< HEAD
             android:background="@drawable/button_pressed"
             android:text="상자까기"
             android:textColor="@color/colorPrimary" />
+=======
+            android:background="@drawable/ninebutton"
+            android:text="상자 열기" />
+>>>>>>> 279ccd3fd1d67cb6ec2b2681aa64fb728847e1b5
 
         <Button
             android:id="@+id/btn_heart"
@@ -212,7 +217,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:background="@drawable/ninebutton"
-            android:text="꿀 사러가기" />
+            android:text="골드 충전" />
 
     </LinearLayout>
 
