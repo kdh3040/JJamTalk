@@ -50,17 +50,6 @@
             app:srcCompat="@drawable/ic_search" />
 
 
-        <ImageButton
-            android:id="@+id/ib_pcr_open"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_pcr" />
-
         <ImageView
             android:id="@+id/iv_honeybox"
             android:layout_width="0dp"

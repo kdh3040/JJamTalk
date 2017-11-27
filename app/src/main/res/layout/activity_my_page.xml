@@ -203,7 +203,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:background="@drawable/ninebutton"
-            android:text="상자까기" />
+            android:text="상자 열기" />
 
         <Button
             android:id="@+id/btn_heart"
@@ -211,7 +211,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:background="@drawable/ninebutton"
-            android:text="꿀 사러가기" />
+            android:text="골드 충전" />
 
     </LinearLayout>
 

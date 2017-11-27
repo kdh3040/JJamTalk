@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton ib_board;
     TextView ib_myPage;
     ImageButton ib_fan;
-    ImageButton ib_pcr_open;
+    //ImageButton ib_pcr_open;
     ImageButton ib_filter;
     ImageButton ib_buy_jewel;
     ImageButton ib_home;
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
-        ib_pcr_open = (ImageButton)findViewById(R.id.ib_pcr_open);
+        /*ib_pcr_open = (ImageButton)findViewById(R.id.ib_pcr_open);
         ib_pcr_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-        });
+        });*/
 
 
         ib_home = (ImageButton)findViewById(R.id.ib_home);
