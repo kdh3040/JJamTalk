@@ -7,39 +7,29 @@
     android:orientation="vertical"
     >
 
-    <LinearLayout
-        android:id="@+id/myProfile"
+    <ImageView
+        android:id="@+id/img_mypic"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:weightSum="5">
+        android:layout_weight="3"
+        app:srcCompat="@mipmap/hdvd" />
 
-        <ImageView
-            android:id="@+id/img_mypic"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            app:srcCompat="@mipmap/hdvd" />
-
-        <TextView
-            android:id="@+id/MyPage_txtProfile"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:text="호근, 36"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/MyPage_txtProfile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:layout_weight="1"
+        android:gravity="center"
+
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="2"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -47,8 +37,7 @@
             android:id="@+id/setting"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentLeft="false"
+
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
@@ -57,16 +46,16 @@
             <ImageButton
                 android:id="@+id/btn_setting"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="@color/white"
+                android:background="@color/colorPrimaryTrans"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/setting_icon" />
+                android:src="@mipmap/setting_icon" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="설정" />
@@ -76,7 +65,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="false"
+
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
@@ -85,9 +74,9 @@
             <ImageButton
                 android:id="@+id/ib_my_profile"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="@color/white"
+                android:background="@color/colorPrimaryTrans"
                 android:scaleType="fitCenter"
                 app:srcCompat="@mipmap/edit_icon">
 
@@ -96,7 +85,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="내 프로필" />
@@ -105,88 +94,78 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_gift_exist"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/setting"
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:translationZ="2dp"
+            app:srcCompat="@drawable/ic_gold" />
 
-        <LinearLayout
-            android:id="@+id/layout_gift_exist"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/setting"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_gold"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="3"
+            android:gravity="left|center_vertical"
+            android:text="보유 골드 :"
+            android:textSize="18sp" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:translationZ="2dp"
-                app:srcCompat="@drawable/ic_gold" />
+        <TextView
+            android:id="@+id/tv_goldsize"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:gravity="left|center"
+            android:text="TextView"
+            android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/tv_gold"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="3"
-                android:gravity="left|center_vertical"
-                android:text="보유 골드 :"
-                android:textSize="18sp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_goldsize"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:gravity="left|center"
-                android:text="TextView"
-                android:textSize="18sp" />
+    <LinearLayout
+        android:id="@+id/ll_jewel_box"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView23"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:scaleType="fitCenter"
+            android:translationZ="5dp"
+            app:srcCompat="@drawable/jewelbox" />
 
-        <LinearLayout
-            android:id="@+id/ll_jewel_box"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="3"
+            android:gravity="left|center_vertical"
+            android:text="보유 보석 :"
+            android:textSize="18sp" />
 
-            <ImageView
-                android:id="@+id/imageView23"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:scaleType="fitCenter"
-                android:translationZ="5dp"
-                app:srcCompat="@drawable/jewelbox" />
-
-            <TextView
-                android:id="@+id/textView37"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="3"
-                android:gravity="left|center_vertical"
-                android:text="보유 보석 :"
-                android:textSize="18sp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_myjewels"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="5" />
-
-        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_myjewels"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="5" />
 
     </LinearLayout>
 
@@ -201,8 +180,10 @@
             android:id="@+id/btn_buyjewel"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
 
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/button_pressed"
             android:text="상자 열기"
             android:textColor="@color/colorPrimary" />
@@ -212,10 +193,12 @@
             android:id="@+id/btn_heart"
             android:layout_width="100dp"
             android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/button_pressed"
             android:text="골드 충전"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 
