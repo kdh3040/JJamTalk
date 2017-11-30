@@ -302,6 +302,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+
+                ib_cardList.setImageResource(R.drawable.btn_card_normal);
+                ib_chatList.setImageResource(R.drawable.btn_chat_normal);
+                ib_fan.setImageResource(R.drawable.btn_fan_normal);
+                ib_board.setImageResource(R.drawable.btn_board_normal);
+                ib_home.setImageResource(R.drawable.btn_home_focused);
+
                 view.setSelected(!view.isSelected());
                 if(view.isSelected()){
 
@@ -367,8 +374,11 @@ public class MainActivity extends AppCompatActivity {
                 view.setSelected(!view.isSelected());
                 //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-
-
+                ib_board.setImageResource(R.drawable.btn_board_selected);
+                ib_cardList.setImageResource(R.drawable.btn_card_normal);
+                ib_chatList.setImageResource(R.drawable.btn_chat_normal);
+                ib_fan.setImageResource(R.drawable.btn_fan_normal);
+                ib_home.setImageResource(R.drawable.btn_home_normal);
 
             }
         });
@@ -379,11 +389,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
                 view.setSelected(!view.isSelected());
-                if(view.isSelected()){
 
+                ib_board.setImageResource(R.drawable.btn_board_normal);
+                ib_chatList.setImageResource(R.drawable.btn_chat_normal);
+                ib_cardList.setImageResource(R.drawable.btn_card_selected);
+                ib_fan.setImageResource(R.drawable.btn_fan_normal);
+                ib_home.setImageResource(R.drawable.btn_home_normal);
+
+                if(view.isSelected()){
+                    int a = 0;
 
                 }else{
-
+                    int b = 0;
                 }
                 //startActivity(new Intent(getApplicationContext(),CardListActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
@@ -397,6 +414,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
                 view.setSelected(!view.isSelected());
+
+                ib_fan.setImageResource(R.drawable.btn_fan_normal);
+                ib_board.setImageResource(R.drawable.btn_board_normal);
+                ib_chatList.setImageResource(R.drawable.btn_chat_selected);
+                ib_cardList.setImageResource(R.drawable.btn_card_normal);
+                ib_home.setImageResource(R.drawable.btn_home_normal);
+
                 //startActivity(new Intent(getApplicationContext(),ChatListActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
@@ -409,7 +433,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 view.setSelected(!view.isSelected());
 
-
+                ib_fan.setImageResource(R.drawable.btn_fan_selected);
+                ib_board.setImageResource(R.drawable.btn_board_normal);
+                ib_chatList.setImageResource(R.drawable.btn_chat_normal);
+                ib_cardList.setImageResource(R.drawable.btn_card_normal);
+                ib_home.setImageResource(R.drawable.btn_home_normal);
 
                 //startActivity(new Intent(getApplicationContext(),FanActivity.class));
          /*       Intent intent = new Intent(getApplicationContext(), FanActivity.class);
