@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,9 +92,116 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                 View v = LayoutInflater.from(mActivity).inflate(R.layout.category_popup,null,false);
                 builder.setView(v);
-                AlertDialog dialog = builder.create();
+                final AlertDialog dialog = builder.create();
                 dialog.show();
 
+
+                 final RadioButton rbtn_two;
+                 final RadioButton rbtn_three;
+                 final RadioButton rbtn_four;
+
+                final Switch rbtn_man;
+                final Switch rbtn_woman;
+
+                Switch rbtn_10;
+                Switch rbtn_20;
+                Switch rbtn_30;
+                Switch rbtn_40;
+
+                Button btn_ok = v.findViewById(R.id.btn_save);
+                btn_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
+                        mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
+                        dialog.dismiss();
+
+                       /* Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);*/
+
+                    }
+                });
+
+
+                rbtn_two = (RadioButton) v.findViewById(R.id.rbtn_two);
+                rbtn_two.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(rbtn_two.isChecked())
+                            mSetting.setnViewSetting(0);
+                    }
+                });
+
+                rbtn_three = (RadioButton) v.findViewById(R.id.rbtn_three);
+                rbtn_three.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(rbtn_three.isChecked())
+                            mSetting.setnViewSetting(1);
+                    }
+                });
+
+                rbtn_four = (RadioButton) v.findViewById(R.id.rbtn_four);
+                rbtn_four.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(rbtn_four.isChecked())
+                            mSetting.setnViewSetting(2);
+                    }
+                });
+
+                rbtn_man = (Switch) v.findViewById(R.id.rbtn_man);
+                rbtn_woman = (Switch) v.findViewById(R.id.rbtn_woman);
+
+                rbtn_10 = (Switch) v.findViewById(R.id.rbtn_10);
+                rbtn_20 = (Switch) v.findViewById(R.id.rbtn_20);
+                rbtn_30 = (Switch) v.findViewById(R.id.rbtn_30);
+                rbtn_40 = (Switch) v.findViewById(R.id.rbtn_40);
+
+
+
+                RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        if(rbtn_two.isChecked())
+                            mSetting.setnViewSetting(0);
+                        else if(rbtn_three.isChecked())
+                            mSetting.setnViewSetting(1);
+                        else if(rbtn_four.isChecked())
+                            mSetting.setnViewSetting(2);
+                    }
+                };
+
+                rbtn_man.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
+                        if(bChecked == true) {
+                            if(rbtn_woman.isChecked() == true)
+                                mSetting.setnSearchSetting(3);
+                            else
+                                mSetting.setnSearchSetting(1);
+                        }
+                        else
+                            mSetting.setnSearchSetting(2);
+                    }
+                });
+
+                rbtn_woman.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
+                        if(bChecked == true)
+                        {
+                            if(rbtn_man.isChecked() == true)
+                                mSetting.setnSearchSetting(3);
+                            else
+                                mSetting.setnSearchSetting(2);
+                        }
+                        else
+                            mSetting.setnSearchSetting(1);
+
+                    }
+                });
 
             }
         });
@@ -219,14 +327,6 @@ public class MainActivity extends AppCompatActivity {
 
         /*viewPager = (ScrollerViewPager)findViewById(R.id.view_pager);
         springIndicator = (SpringIndicator)findViewById(R.id.indicator);*/
-
-
-
-
-
-
-
-
 
 
         tv_MainTitle = (TextView)findViewById(R.id.tv_maintitle);
@@ -371,15 +471,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
-
-
-
-
-
-
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
