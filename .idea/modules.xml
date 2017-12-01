@@ -3,9 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://C:\gitgit\JJamTalkREAL.iml" filepath="C:\gitgit\JJamTalkREAL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JJamtalk.iml" filepath="$PROJECT_DIR$/JJamtalk.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gitgit.iml" filepath="$PROJECT_DIR$/gitgit.iml" />
       <module fileurl="file://C:\Users\Administrator\Documents\JJamTalkREAL\gitgit.iml" filepath="C:\Users\Administrator\Documents\JJamTalkREAL\gitgit.iml" />
+      <module fileurl="file://D:\HODO\JJamtalk\gitgit.iml" filepath="D:\HODO\JJamtalk\gitgit.iml" />
     </modules>
   </component>
 </project>
