@@ -15,19 +15,36 @@
         <item name = "android:background">#a0a0a0</item>
     </style>
 
-    <!--<style name="button" parent="@android:style/Widget.Button">
+    <style name="button" parent="@android:style/Widget.Button">
         <item name="android:gravity">center_vertical|center_horizontal</item>
-        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textColor">#FF000000</item>
         <item name="android:shadowColor">#FF000000</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">-1</item>
         <item name="android:shadowRadius">0.2</item>
+        <item name="android:layout_marginBottom">5dp</item>
         <item name="android:textSize">16dip</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:background">@drawable/button</item>
+        <item name="android:background">@drawable/button_enabled</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
-    </style>-->
+    </style>
+
+    <style name="background" parent="@android:style/TextAppearance.Widget.TextView">
+    <item name="android:gravity">center_vertical|center_horizontal</item>
+    <item name="android:textColor">#FFFFFFFF</item>
+    <item name="android:shadowColor">#FF000000</item>
+    <item name="android:shadowDx">0</item>
+    <item name="android:shadowDy">-1</item>
+    <item name="android:shadowRadius">0.2</item>
+    <item name="android:layout_marginBottom">5dp</item>
+    <item name="android:textSize">16dip</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:background">@drawable/button_enabled</item>
+    <item name="android:focusable">true</item>
+    <item name="android:clickable">true</item>
+</style>
+
     <style name = "CustomActionBarTheme"
         parent = "Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -43,17 +60,25 @@
         <item name="colorPrimaryDark">@color/gray</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name = "NoTitleBar" parent="Theme.AppCompat.Light" >
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryLight</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:buttonStyle">@style/button</item>-->
+        <item name ="windowNoTitle">true</item>
+    </style>
+
+    <style name = "setting" parent="Theme.AppCompat.Light" >
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/gray</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <!--<item name="android:buttonStyle">@style/button</item>-->
-
-
+        <item name="android:buttonStyle">@style/button</item>
         <item name ="windowNoTitle">true</item>
-    </style>
+</style>
+
     <style name = "ib_home">
         <item name = "android:background">@drawable/icon_home</item>
-</style>
+    </style>
 
 </resources>

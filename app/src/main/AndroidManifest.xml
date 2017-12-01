@@ -26,6 +26,7 @@
         android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".MainActivity"
             android:theme="@style/NoTitleBar"
             android:screenOrientation="portrait"
@@ -56,6 +57,7 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MyProfileActivity" />
         <activity android:name=".MyPageActivity"
+
             android:parentActivityName=".MainActivity"
             android:label="내 페이지"/>
 
