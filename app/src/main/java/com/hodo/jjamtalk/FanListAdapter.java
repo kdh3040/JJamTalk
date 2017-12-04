@@ -55,11 +55,11 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
                 Intent intent = new Intent(mContext, UserPageActivity.class);
                 Bundle bundle = new Bundle();
 
-                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyFanDataList.get(position).FanList.entrySet())
+              /*  for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyFanDataList.get(position).FanList.entrySet())
                     mMyData.arrMyFanDataList.get(position).arrFanList.add(entry.getValue());
 
                 for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyFanDataList.get(position).StarList.entrySet())
-                    mMyData.arrMyFanDataList.get(position).arrStarList.add(entry.getValue());
+                    mMyData.arrMyFanDataList.get(position).arrStarList.add(entry.getValue());*/
 
                 bundle.putSerializable("Target", mMyData.arrMyFanDataList.get(position));
        /*         intent.putExtra("FanList", mMyData.arrMyFanDataList.get(position).arrFanList);

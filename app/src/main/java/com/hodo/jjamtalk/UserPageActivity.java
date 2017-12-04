@@ -110,8 +110,8 @@ public class UserPageActivity extends AppCompatActivity {
 
         TempSendUserData.arrStarList = stTargetData.arrStarList;
         TempSendUserData.arrFanList = stTargetData.arrFanList;
-        getTargetfanData();
-        getTargetstarData();
+        //getTargetfanData();
+        //getTargetstarData();
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
@@ -506,6 +506,8 @@ public class UserPageActivity extends AppCompatActivity {
             nLayoutSize = stTargetData.arrFanList.size();
         else if (stTargetData.arrFanList.size() < stTargetData.arrStarList.size())
             nLayoutSize = stTargetData.arrStarList.size();
+        else if (stTargetData.arrFanList.size() == stTargetData.arrStarList.size())
+            nLayoutSize = stTargetData.arrStarList.size();
 
         if (nLayoutSize == 0) {
             layout.setVisibility(View.GONE);
@@ -513,7 +515,7 @@ public class UserPageActivity extends AppCompatActivity {
             final int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
 
             //layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * nLayoutSize * LinearLayout.LayoutParams.MATCH_PARENT));
-            layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * height + 50));
+            layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * height + 80));
         }
     }
 

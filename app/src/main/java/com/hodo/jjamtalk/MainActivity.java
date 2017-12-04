@@ -89,7 +89,11 @@ public class MainActivity extends AppCompatActivity {
         ib_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+
+                startActivity(new Intent(getApplicationContext(),SettingActivity.class));
+                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+
+          /*      AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                 View v = LayoutInflater.from(mActivity).inflate(R.layout.category_popup,null,false);
                 builder.setView(v);
                 final AlertDialog dialog = builder.create();
@@ -116,9 +120,9 @@ public class MainActivity extends AppCompatActivity {
                         mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
                         dialog.dismiss();
 
-                       /* Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                       *//* Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);*/
+                        startActivity(intent);*//*
 
                     }
                 });
@@ -202,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
+*/
             }
         });
 
