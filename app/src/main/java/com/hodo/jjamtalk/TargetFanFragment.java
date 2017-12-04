@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,6 +31,11 @@ public class TargetFanFragment extends Fragment {
 
     private ArrayList<FanData> stTargetData;
 
+    public TargetFanFragment() {
+
+    }
+
+    @SuppressLint("ValidFragment")
     public TargetFanFragment(ArrayList<FanData> TargetData) {
 
         stTargetData = TargetData;

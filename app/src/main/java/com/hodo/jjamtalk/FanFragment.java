@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -45,7 +46,7 @@ public class FanFragment extends Fragment {
     public FanFragment() {
 
     }
-
+    @SuppressLint("ValidFragment")
     public FanFragment(Activity activity) {
         super();
         this.activity = activity;
