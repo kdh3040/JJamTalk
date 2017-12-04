@@ -500,9 +500,29 @@ public class MainActivity extends AppCompatActivity {
         String alertTitle = "종료";
         View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
 
-        AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+        final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
+
+        final Button btn_exit;
+        final Button btn_no;
+
+        btn_exit = (Button) v.findViewById(R.id.btn_exit);
+        btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    finish();
+            }
+        });
+
+        btn_no = (Button) v.findViewById(R.id.btn_no);
+        btn_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
     }
 
     @Override
