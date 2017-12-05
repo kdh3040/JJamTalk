@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -89,7 +90,11 @@ public class MainActivity extends AppCompatActivity {
         ib_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+
+                startActivity(new Intent(getApplicationContext(),SettingActivity.class));
+                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+
+          /*      AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                 View v = LayoutInflater.from(mActivity).inflate(R.layout.category_popup,null,false);
                 builder.setView(v);
                 final AlertDialog dialog = builder.create();
@@ -116,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
                         mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
                         dialog.dismiss();
 
-                       /* Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                       *//* Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);*/
+                        startActivity(intent);*//*
 
                     }
                 });
@@ -202,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
+*/
             }
         });
 
@@ -496,9 +501,29 @@ public class MainActivity extends AppCompatActivity {
         String alertTitle = "종료";
         View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
 
-        AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+        final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
+
+        final Button btn_exit;
+        final Button btn_no;
+
+        btn_exit = (Button) v.findViewById(R.id.btn_exit);
+        btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+            }
+        });
+
+        btn_no = (Button) v.findViewById(R.id.btn_no);
+        btn_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
     }
 
     @Override

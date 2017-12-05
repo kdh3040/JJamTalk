@@ -121,25 +121,32 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
             {
 
                 final int finalI = i;
-                table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int saa = 0;
-                        UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                        tempFanData.arrFanData.add(tempUserData);
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
-                            tempFanData.arrFanData.get(finalI).arrStarList.add(entry.getValue());
+                try {
+                    Thread.sleep(500);
+                    table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int saa = 0;
+                            UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                            tempFanData.arrFanData.add(tempUserData);
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
-                            tempFanData.arrFanData.get(finalI).arrFanList.add(entry.getValue());
-                    }
+                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
+                                tempFanData.arrFanData.get(finalI).arrStarList.add(entry.getValue());
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
+                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                                tempFanData.arrFanData.get(finalI).arrFanList.add(entry.getValue());
+                        }
 
-                });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+
+                    });
+
+                } catch (InterruptedException e) { }
+
+
             }
         }
     }

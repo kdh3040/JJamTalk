@@ -65,6 +65,11 @@ public class SettingActivity extends AppCompatActivity {
             Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
             mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
             mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
+
+            onBackPressed();
+           // finish();
+       //     overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+
         }
         if(item.getItemId() == android.R.id.home)
         {

@@ -71,11 +71,11 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
                 Intent intent = new Intent(mContext, UserPageActivity.class);
                 Bundle bundle = new Bundle();
 
-                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyStarDataList.get(position).FanList.entrySet())
+        /*        for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyStarDataList.get(position).FanList.entrySet())
                     mMyData.arrMyStarDataList.get(position).arrFanList.add(entry.getValue());
 
                 for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyStarDataList.get(position).StarList.entrySet())
-                    mMyData.arrMyStarDataList.get(position).arrStarList.add(entry.getValue());
+                    mMyData.arrMyStarDataList.get(position).arrStarList.add(entry.getValue());*/
 
                 bundle.putSerializable("Target", mMyData.arrMyStarDataList.get(position));
 

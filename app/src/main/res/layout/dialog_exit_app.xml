@@ -25,7 +25,7 @@
         android:id="@+id/textView45"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="도시남녀를 종료하시겠습니까?"
+        android:text="아임론리를 종료하시겠습니까?"
         android:gravity="center"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
