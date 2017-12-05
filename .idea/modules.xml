@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-      <module fileurl="file://C:\gitgit\JJamTalkREAL.iml" filepath="C:\gitgit\JJamTalkREAL.iml" />
-      <module fileurl="file://C:\gitgit\JJamtalk.iml" filepath="C:\gitgit\JJamtalk.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/gitgit.iml" filepath="$PROJECT_DIR$/gitgit.iml" />
-      <module fileurl="file://D:\HODO\JJamtalk\gitgit.iml" filepath="D:\HODO\JJamtalk\gitgit.iml" />
-      <module fileurl="file://C:\Users\Administrator\Documents\JJamTalkREAL\gitgit.iml" filepath="C:\Users\Administrator\Documents\JJamTalkREAL\gitgit.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/Lonely.iml" filepath="$PROJECT_DIR$/Lonely.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
->>>>>>> b077f1b95b2bf5a8af61bba4f4bad251ca6b1c90
     </modules>
   </component>
 </project>

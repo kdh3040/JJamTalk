@@ -12,10 +12,10 @@
         android:layout_height="0dp"
         android:layout_weight="1"
 
-
-        app:tabIndicatorColor="#f44336"
-        app:tabSelectedTextColor="#f44336"
-        app:tabTextColor="@color/gray" />
+        app:tabBackground="@color/colorPrimaryDark"
+        app:tabIndicatorColor="#fFFFFF"
+        app:tabSelectedTextColor="#fFFFFF"
+        app:tabTextColor="@color/tp_half" />
 
 
     <android.support.v4.view.ViewPager

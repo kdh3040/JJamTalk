@@ -62,11 +62,11 @@
             android:label="내 페이지"/>
 
         <activity android:name=".SettingActivity"
-<<<<<<< HEAD
+
             android:theme="@style/CommonActionBar"
-=======
+
             android:parentActivityName=".MainActivity"
->>>>>>> b077f1b95b2bf5a8af61bba4f4bad251ca6b1c90
+
             android:label="설정">
         </activity>
         <activity android:name=".PublicChatRoomHostActivity"
