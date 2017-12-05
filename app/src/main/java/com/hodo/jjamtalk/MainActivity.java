@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     TextView ib_myPage;
     ImageButton ib_fan;
     //ImageButton ib_pcr_open;
-    ImageButton ib_filter;
+    ImageView ib_filter;
     ImageButton ib_buy_jewel;
     ImageButton ib_home;
     ImageView iv_refresh,iv_honeybox;
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         int mHeight = mUIData.getHeight();
         homeFragment = new HomeFragment();
 
-        ib_filter = (ImageButton)findViewById(R.id.ib_filter);
+        ib_filter = findViewById(R.id.ib_filter);
         ib_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

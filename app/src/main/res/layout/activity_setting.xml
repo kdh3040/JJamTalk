@@ -2,18 +2,23 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimaryLight"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:orientation="vertical"
-        android:paddingBottom="20dp">
+        android:paddingBottom="30dp"
+        >
 
 
-        <TextView
+        <!--<TextView
             android:id="@+id/textView23"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,152 +83,264 @@
                     android:layout_weight="1"
                     android:text="4개씩" />
             </RadioGroup>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp"
-            android:text="알림"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Switch
-            android:id="@+id/Setting_swNoti"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Switch" />
-
-        <Switch
-            android:id="@+id/Setting_swLike"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="좋아요" />
-
-        <Switch
-            android:id="@+id/Setting_swFollow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp"
-            android:text="팔로우" />
-
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="수신 거부"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <CheckBox
-            android:id="@+id/checkBox2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="쪽지 수신 거부" />
+        </LinearLayout>-->
 
         <LinearLayout
-            style="@style/background"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            style="@style/backgr">
+
+            <ImageView
+                android:id="@+id/imageView22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/ic_reject" />
+
+            <TextView
+                android:id="@+id/textView26"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="수신 거부 설정"
+
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            style="@style/backgr">
+
+            <ImageView
+                android:id="@+id/imageView25"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/ic_alarm" />
+
+            <TextView
+                android:id="@+id/textView3"
+
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="3"
+                android:text="알림 설정"
+
+
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            style="@style/backgr">
+
+            <ImageView
+                android:id="@+id/imageView26"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                app:srcCompat="@mipmap/ic_blocklist" />
+
+            <TextView
+                android:id="@+id/tv_blocklist"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="3"
+                android:textSize="18sp"
+                android:textStyle="bold"
+
+                android:text="차단 목록 관리"
+                android:textColor="@color/colorAccent"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            style="@style/backgr">
+
+            <ImageView
+                android:id="@+id/imageView28"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/ic_share" />
+
+            <TextView
+                android:id="@+id/button2"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+
+                android:layout_weight="3"
+                android:text="꿀톡 공유하기"
+                android:textColor="@color/colorAccent"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            style="@style/backgr">
+
+            <ImageView
+                android:id="@+id/imageView30"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="6dp"
+                app:srcCompat="@drawable/ic_gold" />
+
+            <TextView
+                android:id="@+id/Setting_btnHeart"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="3"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:text="골드 구입하기" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            style="@style/backgr">
+
+            <ImageView
+                android:id="@+id/imageView27"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/ic_law" />
 
             <TextView
                 android:id="@+id/textView13"
-                android:layout_width="match_parent"
+
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_weight="3"
                 android:text="법적 고지"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
-
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="개인정보 취급방침" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="라이선스" />
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="이용약관" />
+                android:textColor="@color/colorAccent"
+                />
         </LinearLayout>
 
 
-        <TextView
-            style="@style/button"
-            android:id="@+id/tv_blocklist"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="차단 목록 관리"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            style="@style/backgr">
+
+            <ImageView
+                android:id="@+id/imageView29"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/ic_help" />
+
+            <TextView
+                android:id="@+id/Setting_btnHelp"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:layout_weight="3"
+                android:text="도움말 및 고객 지원" />
+        </LinearLayout>
 
 
-             />
 
-        <Button
-            style="@style/button"
-            android:id="@+id/button2"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            style="@style/backgr"
+            >
 
-            android:text="꿀톡 공유하기" />
+            <ImageView
+                android:id="@+id/imageView31"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/ic_logout" />
 
-        <Button
-            android:id="@+id/Setting_btnHelp"
-            style="@style/button"
+            <TextView
+                android:id="@+id/Setting_logout"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+
+                android:layout_weight="3"
+                android:textColor="@color/colorAccent"
+
+
+                android:text="로그 아웃" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            style="@style/backgr">
 
-            android:text="도움말 및 고객 지원" />
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/ic_delete" />
 
-        <Button
-            android:id="@+id/Setting_btnHeart"
-            style="@style/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:text="골드 구입하기"
+            <TextView
+                android:id="@+id/Setting_btnDel"
 
 
-            />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
 
-        <Button
-            android:id="@+id/Setting_btnLogout"
-            style="@style/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="계정 삭제하기"
+                android:textColor="@color/colorAccent"/>
 
-            android:text="로그아웃"
-             />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/Setting_btnDel"
-
-            style="@style/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:text="계정 삭제하기"
-             />
 
     </LinearLayout>
 </ScrollView>

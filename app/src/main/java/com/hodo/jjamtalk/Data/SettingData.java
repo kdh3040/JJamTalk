@@ -75,14 +75,16 @@ public class SettingData {
         nViewSetting = Option;
         mMyData.nViewMode = nViewSetting;
     }
+
+
     public int getnViewSetting()
     {
         int rtValue = 0;
-   /*     if(mMyData.nViewMode == 0)
+       if(mMyData.nViewMode == 0)
         {
            rtValue = 1;
         }
-        else*/
+        else
             rtValue = mMyData.nViewMode;
 
         return  rtValue;

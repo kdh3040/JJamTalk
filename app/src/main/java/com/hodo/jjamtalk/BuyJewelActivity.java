@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -66,16 +67,18 @@ public class BuyJewelActivity extends AppCompatActivity {
                                         View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_jewelbox_opened, null);
                                         ImageView Img_Opened = (ImageView)v.findViewById(R.id.opened_img);
                                         TextView Text_Opened = (TextView) v.findViewById(R.id.opened_text);
-                                        Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+                                        //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
 
                                         int result = Select_OpenedItem();
                                         View_OpenedItem(v, result, Img_Opened, Text_Opened);
                                         mMyData.setMyItem(result);
 
                                         Button btn_confirm = v.findViewById(R.id.opened_btn);
+
                                         builder.setView(v);
 
                                     final AlertDialog dialog = builder.create();
+                                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                                     dialog.show();
 
                                         btn_confirm.setOnClickListener(new View.OnClickListener() {

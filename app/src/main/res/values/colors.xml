@@ -5,6 +5,7 @@
         <color name="colorPrimaryLight">#9575cd</color>
         <color name="colorAccent">#7e57c2</color>
         <color name="gray">#595e60</color>
+        <color name="tp_half">#80ffffff</color>
         <color name="white">#ffffff</color>
         <color name="black">#000000</color>
         <color name="black_light">#985b10</color>

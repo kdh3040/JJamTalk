@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -30,17 +32,17 @@ public class SettingActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
 
-    private Button btn_PurchaseHeart;
-    private Button btn_Help;
-    private Button btn_LogOut;
-    private Button btn_Delete;
+    private TextView btn_PurchaseHeart;
+    private TextView  btn_Help;
+    private TextView  btn_LogOut;
+    private TextView  btn_Delete;
 
     private RadioButton btn_ViewMode_2;
     private RadioButton btn_ViewMode_3;
     private RadioButton btn_ViewMode_4;
 
-    private Switch sw_SearchMan;
-    private Switch sw_SearchWoman;
+    //private Switch sw_SearchMan;
+    //private Switch sw_SearchWoman;
 
     private Switch sw_AlarmNoti;
     private Switch sw_AlarmFollow;
@@ -77,30 +79,34 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //imageview 및 textview 초기화
+
+
         //1 이 차단 0이 디폴트
-        cbRecvMsg = (CheckBox)findViewById(R.id.checkBox2);
-        if(mSetting.getnRecvMsg() == 0)
+        //cbRecvMsg = (CheckBox)findViewById(R.id.checkBox2);
+        /*if(mSetting.getnRecvMsg() == 0)
             cbRecvMsg.setChecked(false);
         else
             cbRecvMsg.setChecked(true);
 
-        cbRecvMsg.setOnClickListener(new CheckBox.OnClickListener() {
+        /*cbRecvMsg.setOnClickListener(new CheckBox.OnClickListener() {
             @Override public void onClick(View v) {
                 if(cbRecvMsg.isChecked() == true)
                     mSetting.setnRecvMsg(1);
                 else
                     mSetting.setnRecvMsg(0);
                  }
-        }) ;
+        }) ;*/
 
 
 
-        btn_PurchaseHeart = (Button)findViewById(R.id.Setting_btnHeart);
-        btn_Help = (Button)findViewById(R.id.Setting_btnHelp);
-        btn_LogOut = (Button)findViewById(R.id.Setting_btnLogout);
-        btn_Delete = (Button)findViewById(R.id.Setting_btnDel);
+        btn_PurchaseHeart = (TextView )findViewById(R.id.Setting_btnHeart);
+        btn_Help = (TextView )findViewById(R.id.Setting_btnHelp);
+        btn_LogOut = (TextView )findViewById(R.id.Setting_logout);
+        btn_Delete = (TextView )findViewById(R.id.Setting_btnDel);
+    }
 
-        btn_ViewMode_2 = (RadioButton) findViewById(R.id.rb_2);
+        /*btn_ViewMode_2 = (RadioButton) findViewById(R.id.rb_2);
 
         btn_ViewMode_3 = (RadioButton) findViewById(R.id.rb_3);
         btn_ViewMode_4 = (RadioButton) findViewById(R.id.rb_4);
@@ -126,16 +132,17 @@ public class SettingActivity extends AppCompatActivity {
 
         sw_SearchMan = (Switch)findViewById(R.id.Setting_swMan);
         sw_SearchWoman = (Switch)findViewById(R.id.Setting_swWoman);
+        */
 
-        sw_AlarmNoti = (Switch)findViewById(R.id.Setting_swNoti);
-        sw_AlarmFollow = (Switch)findViewById(R.id.Setting_swFollow);
-        sw_AlarmLike = (Switch)findViewById(R.id.Setting_swLike);
+        //sw_AlarmNoti = (Switch)findViewById(R.id.Setting_swNoti);
+        //sw_AlarmFollow = (Switch)findViewById(R.id.Setting_swFollow);
+        //sw_AlarmLike = (Switch)findViewById(R.id.Setting_swLike);
 
-        initSearchValue();
-        initNotiValue();
-        initViewValue();
+        //initSearchValue();
+        //initNotiValue();
+        //initViewValue();
 
-        sw_SearchMan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*sw_SearchMan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
                 if(bChecked == true) {
@@ -163,9 +170,9 @@ public class SettingActivity extends AppCompatActivity {
                     mSetting.setnSearchSetting(1);
 
             }
-        });
+        });*/
 
-        sw_AlarmNoti.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*sw_AlarmNoti.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
                 if(bChecked == true)
@@ -256,7 +263,9 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    private void initSearchValue() {
+
+
+    /*private void initSearchValue() {
 
         if(mSetting.getnSearchSetting() == 1) {
             sw_SearchMan.setChecked(true);
@@ -270,11 +279,11 @@ public class SettingActivity extends AppCompatActivity {
             sw_SearchMan.setChecked(true);
             sw_SearchWoman.setChecked(true);
         }
-    }
+    }*/
 
     private void initNotiValue() {
 
-        switch (mSetting.getnAlarmSetting())
+        /*switch (mSetting.getnAlarmSetting())
         {
             case 0:
                 sw_AlarmNoti.setChecked(false);
@@ -316,10 +325,10 @@ public class SettingActivity extends AppCompatActivity {
                 sw_AlarmFollow.setChecked(true);
                 sw_AlarmLike.setChecked(true);
                 break;
-        }
+        }*/
     }
 
-    private void initViewValue() {
+    /*private void initViewValue() {
 
         if(mSetting.getnViewSetting() == 0) {
             btn_ViewMode_2.setChecked(true);
@@ -330,6 +339,6 @@ public class SettingActivity extends AppCompatActivity {
         else{
             btn_ViewMode_4.setChecked(true);
         }
-    }
+    }*/
 
 }
