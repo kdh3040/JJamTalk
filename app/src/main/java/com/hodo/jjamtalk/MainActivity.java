@@ -116,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(),SettingActivity.class));
-                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+                startActivity(new Intent(getApplicationContext(),MainSettingActivity.class));
+              //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
           /*      AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                 View v = LayoutInflater.from(mActivity).inflate(R.layout.category_popup,null,false);
