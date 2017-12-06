@@ -21,19 +21,18 @@
         android:orientation="horizontal"
         android:translationZ="2dp">
 
-        <TextView
-            android:id="@+id/ib_mypage"
+        <ImageView
+            android:id="@+id/iv_mypage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
 
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/gray_light"
+
             android:gravity="center"
-            android:scaleType="fitCenter"
-            android:text="B"
-            android:textColor="@color/colorPrimary"
-            android:textSize="30sp" />
+
+
+             />
 
         <ImageView
             android:id="@+id/imageView24"
@@ -46,6 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:src="@drawable/ic_filter"
 
             />
 
@@ -89,7 +89,7 @@
             android:layout_weight="1"
 
             android:scaleType="fitCenter"
-            android:src="@drawable/btn_home"
+            android:src="@drawable/btn_home_selected"
             android:visibility="visible"
             android:background="@android:color/transparent"/>
 
@@ -104,7 +104,7 @@
 
             android:scaleType="fitCenter"
             android:background="@android:color/transparent"
-            android:src="@drawable/btn_card"
+            android:src="@drawable/btn_card_selected"
 
             />
 
@@ -119,7 +119,7 @@
 
             android:scaleType="fitCenter"
             android:background="@android:color/transparent"
-            android:src="@drawable/btn_chat"
+            android:src="@drawable/btn_chat_selected"
 
             />
 
@@ -136,7 +136,7 @@
             android:background="@android:color/transparent"
 
 
-            android:src="@drawable/btn_fan" />
+            android:src="@drawable/btn_fan_selected" />
 
         <ImageView
             android:id="@+id/ib_board"
@@ -146,7 +146,8 @@
             android:layout_weight="1"
 
             android:scaleType="fitCenter"
-            android:src="@drawable/btn_board"
+            android:src="@drawable/btn_board_selected"
+
             android:background="@android:color/transparent"/>
 
 

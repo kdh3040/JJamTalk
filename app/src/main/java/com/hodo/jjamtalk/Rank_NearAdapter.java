@@ -63,7 +63,7 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
 
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(mUIData.getWidth()/mSetting.getViewCount()));
         holder.iv_profile.setLayoutParams(lp);
-        lp.setMargins(3,3,3,3);
+        //lp.setMargins(3,3,3,3);
         //holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
 
         holder.iv_honey_rank.setImageResource(R.drawable.icon_location);

@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -27,6 +29,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Data.UIData;
@@ -35,12 +39,14 @@ import com.hodo.jjamtalk.Util.AppStatus;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageView ib_cardList;
     ImageView ib_chatList;
     ImageView ib_board;
-    TextView ib_myPage;
+    ImageView iv_myPage;
     ImageView ib_fan;
     //ImageButton ib_pcr_open;
     ImageView ib_filter;
@@ -70,6 +76,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainactivity);
         mActivity = this;
+
+        iv_myPage = findViewById(R.id.iv_mypage);
+
+
+        Glide.with(getApplicationContext())
+                .load(mMyData.getUserImg())
+                .thumbnail(0.1f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                .into(iv_myPage);
+
+        iv_myPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
+            }
+        });
+
+
 
         final Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -303,16 +328,19 @@ public class MainActivity extends AppCompatActivity {
         ib_home = findViewById(R.id.ib_home);
 
         ib_home.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
 
+                setImageAlpha(255,100,100,100,100);
+/*
                 ib_cardList.setImageResource(R.drawable.btn_card_normal);
                 ib_chatList.setImageResource(R.drawable.btn_chat_normal);
                 ib_fan.setImageResource(R.drawable.btn_fan_normal);
                 ib_board.setImageResource(R.drawable.btn_board_normal);
-                ib_home.setImageResource(R.drawable.btn_home_selected);
+                ib_home.setImageResource(R.drawable.btn_home_selected);*/
 
                 view.setSelected(!view.isSelected());
                 if(view.isSelected()){
@@ -343,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
 
         tv_MainTitle = (TextView)findViewById(R.id.tv_maintitle);
 
-
+/*
         ib_myPage = (TextView)findViewById(R.id.ib_mypage);
 
         ib_myPage.setOnClickListener(new View.OnClickListener() {
@@ -353,7 +381,7 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
-        });
+        });*/
 
 
         layout_topbar = (LinearLayout)findViewById(R.id.layout_topbar);
@@ -372,6 +400,7 @@ public class MainActivity extends AppCompatActivity {
         ib_board = findViewById(R.id.ib_board);
 
         ib_board.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
 
@@ -379,27 +408,25 @@ public class MainActivity extends AppCompatActivity {
                 view.setSelected(!view.isSelected());
                 //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-                ib_board.setImageResource(R.drawable.btn_board_selected);
+                setImageAlpha(100,100,100,100,255);
+              /*  ib_board.setImageResource(R.drawable.btn_board_selected);
                 ib_cardList.setImageResource(R.drawable.btn_card_normal);
                 ib_chatList.setImageResource(R.drawable.btn_chat_normal);
                 ib_fan.setImageResource(R.drawable.btn_fan_normal);
-                ib_home.setImageResource(R.drawable.btn_home_normal);
+                ib_home.setImageResource(R.drawable.btn_home_normal);*/
 
             }
         });
         ib_cardList = findViewById(R.id.ib_cardlist);
 
         ib_cardList.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
                 view.setSelected(!view.isSelected());
 
-                ib_board.setImageResource(R.drawable.btn_board_normal);
-                ib_chatList.setImageResource(R.drawable.btn_chat_normal);
-                ib_cardList.setImageResource(R.drawable.btn_card_selected);
-                ib_fan.setImageResource(R.drawable.btn_fan_normal);
-                ib_home.setImageResource(R.drawable.btn_home_normal);
+                setImageAlpha(100,255,100,100,100);
 
                 if(view.isSelected()){
                     int a = 0;
@@ -415,16 +442,20 @@ public class MainActivity extends AppCompatActivity {
         ib_chatList = findViewById(R.id.ib_chatlist);
 
         ib_chatList.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
                 view.setSelected(!view.isSelected());
 
+                setImageAlpha(100,100,255,100,100);
+                /*
+
                 ib_fan.setImageResource(R.drawable.btn_fan_normal);
                 ib_board.setImageResource(R.drawable.btn_board_normal);
                 ib_chatList.setImageResource(R.drawable.btn_chat_selected);
                 ib_cardList.setImageResource(R.drawable.btn_card_normal);
-                ib_home.setImageResource(R.drawable.btn_home_normal);
+                ib_home.setImageResource(R.drawable.btn_home_normal);*/
 
                 //startActivity(new Intent(getApplicationContext(),ChatListActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
@@ -434,15 +465,17 @@ public class MainActivity extends AppCompatActivity {
         ib_fan = findViewById(R.id.ib_fan);
 
         ib_fan.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
                 view.setSelected(!view.isSelected());
-
+                setImageAlpha(100,100,100,255,100);
+/*
                 ib_fan.setImageResource(R.drawable.btn_fan_selected);
                 ib_board.setImageResource(R.drawable.btn_board_normal);
                 ib_chatList.setImageResource(R.drawable.btn_chat_normal);
                 ib_cardList.setImageResource(R.drawable.btn_card_normal);
-                ib_home.setImageResource(R.drawable.btn_home_normal);
+                ib_home.setImageResource(R.drawable.btn_home_normal);*/
 
                 //startActivity(new Intent(getApplicationContext(),FanActivity.class));
          /*       Intent intent = new Intent(getApplicationContext(), FanActivity.class);
@@ -556,6 +589,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    private void setImageAlpha(int home, int card, int chat, int fan, int board ){
+        ib_fan.setImageAlpha(fan);
+        ib_board.setImageAlpha(board);
+        ib_chatList.setImageAlpha(chat);
+        ib_cardList.setImageAlpha(card);
+        ib_home.setImageAlpha(home);
+
+
+
     }
 
 
