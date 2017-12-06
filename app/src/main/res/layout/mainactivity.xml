@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorAccent"
 
 
         android:gravity="center_vertical"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
 
-            app:srcCompat="@drawable/ic_filter" />
+            />
 
 
         <ImageView
@@ -77,72 +77,77 @@
         android:layout_height="0dp"
 
         android:layout_weight="2"
-        android:background="@color/white"
+        android:background="@color/colorAccent"
         android:orientation="horizontal"
         android:translationZ="2dp">
 
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/white"
+
             android:scaleType="fitCenter"
             android:src="@drawable/btn_home"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:background="@android:color/transparent"/>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_cardlist"
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
 
             android:layout_weight="1"
-            android:background="@color/white"
+
 
             android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
             android:src="@drawable/btn_card"
 
             />
 
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_chatlist"
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/white"
+
             android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
             android:src="@drawable/btn_chat"
 
             />
 
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_fan"
             style="@android:style/Widget.DeviceDefault.ImageButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/white"
+
             android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
 
 
             android:src="@drawable/btn_fan" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_board"
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/white"
+
             android:scaleType="fitCenter"
-            android:src="@drawable/btn_board" />
+            android:src="@drawable/btn_board"
+            android:background="@android:color/transparent"/>
 
 
     </LinearLayout>
@@ -151,7 +156,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/white"
+        android:background="@color/colorAccent"
         android:orientation="horizontal"
         android:translationZ="2dp">
 
@@ -161,7 +166,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="홈" />
+            android:text="홈"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView36"
@@ -169,7 +175,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="카드" />
+            android:text="카드"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView35"
@@ -177,7 +184,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="채팅" />
+            android:text="채팅"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView33"
@@ -185,7 +193,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="팬" />
+            android:text="팬"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView43"
@@ -193,7 +202,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="게시판" />
+            android:textColor="@color/white"
+            android:text="게시판"
+            />
 
     </LinearLayout>
 

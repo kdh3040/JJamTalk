@@ -37,15 +37,15 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton ib_cardList;
-    ImageButton ib_chatList;
-    ImageButton ib_board;
+    ImageView ib_cardList;
+    ImageView ib_chatList;
+    ImageView ib_board;
     TextView ib_myPage;
-    ImageButton ib_fan;
+    ImageView ib_fan;
     //ImageButton ib_pcr_open;
     ImageView ib_filter;
     ImageButton ib_buy_jewel;
-    ImageButton ib_home;
+    ImageView ib_home;
     ImageView iv_refresh,iv_honeybox;
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
@@ -300,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
 
-        ib_home = (ImageButton)findViewById(R.id.ib_home);
+        ib_home = findViewById(R.id.ib_home);
 
         ib_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
                 ib_chatList.setImageResource(R.drawable.btn_chat_normal);
                 ib_fan.setImageResource(R.drawable.btn_fan_normal);
                 ib_board.setImageResource(R.drawable.btn_board_normal);
-                ib_home.setImageResource(R.drawable.btn_home_focused);
+                ib_home.setImageResource(R.drawable.btn_home_selected);
 
                 view.setSelected(!view.isSelected());
                 if(view.isSelected()){
@@ -369,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
         boardFragment = new BoardFragment();
         cardListFragment = new CardListFragment();
         chatListFragment = new ChatListFragment();
-        ib_board = (ImageButton)findViewById(R.id.ib_board);
+        ib_board = findViewById(R.id.ib_board);
 
         ib_board.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -387,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        ib_cardList = (ImageButton)findViewById(R.id.ib_cardlist);
+        ib_cardList = findViewById(R.id.ib_cardlist);
 
         ib_cardList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -412,7 +412,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        ib_chatList = (ImageButton)findViewById(R.id.ib_chatlist);
+        ib_chatList = findViewById(R.id.ib_chatlist);
 
         ib_chatList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -431,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        ib_fan = (ImageButton)findViewById(R.id.ib_fan);
+        ib_fan = findViewById(R.id.ib_fan);
 
         ib_fan.setOnClickListener(new View.OnClickListener() {
             @Override
