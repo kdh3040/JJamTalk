@@ -37,6 +37,7 @@ public class MyPageJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder> 
     @Override
     public void onBindViewHolder(MyJewelViewHolder holder, int position) {
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/11, ViewGroup.LayoutParams.MATCH_PARENT));
+        holder.iv.setImageResource(mUIdata.getJewels()[position]);
   /*      if(mMyData.item_1 != 0)
             holder.iv.setImageResource(mUIdata.getJewels()[0]);
         else if(mMyData.item_2 != 0)

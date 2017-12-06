@@ -3,8 +3,10 @@ package com.hodo.jjamtalk;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
@@ -106,9 +114,55 @@ public class SettingActivity extends AppCompatActivity {
 
 
         btn_PurchaseHeart = (TextView )findViewById(R.id.Setting_btnHeart);
+        btn_PurchaseHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+            }
+        });
+
         btn_Help = (TextView )findViewById(R.id.Setting_btnHelp);
         btn_LogOut = (TextView )findViewById(R.id.Setting_logout);
+        btn_LogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
+
         btn_Delete = (TextView )findViewById(R.id.Setting_btnDel);
+        btn_Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                user.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("Setting Delete Account", "User account deleted.");
+                                }
+                            }
+                        });
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference Ref = database.getReference("User");
+                Ref.child(mMyData.getUserIdx()).removeValue();
+
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
+
+        tv_blocklist = (TextView)findViewById(R.id.tv_blocklist);
+        tv_blocklist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),BlockListActivity.class));
+            }
+        });
+
     }
 
         /*btn_ViewMode_2 = (RadioButton) findViewById(R.id.rb_2);
@@ -259,13 +313,7 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
-        tv_blocklist = (TextView)findViewById(R.id.tv_blocklist);
-        tv_blocklist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BlockListActivity.class));
-            }
-        });
+
     }
 
 

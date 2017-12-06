@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -23,9 +24,11 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -121,6 +124,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private FusedLocationProviderClient mFusedLocationClient;
     LocationManager locationManager;
     String provider;
+
+    private long pressedTime;
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+//                ActivityCompat.finishAffinity(this);
+                String alertTitle = "종료";
+                View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_exit_app,null,false);
+
+                final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
+
+                final Button btn_exit;
+                final Button btn_no;
+
+                btn_exit = (Button) v.findViewById(R.id.btn_exit);
+                btn_exit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+                    }
+                });
+
+                btn_no = (Button) v.findViewById(R.id.btn_no);
+                btn_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+            }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

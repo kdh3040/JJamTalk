@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.ViewHolder.MyJewelViewHolder;
 
@@ -22,6 +23,8 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
 
     Context mContext;
     UIData mUIdata = UIData.getInstance();
+    MyData mMyData = MyData.getInstance();
+
     Activity mActivity;
 
     public MyPageMyJewelAdapter(Context context,Activity activity) {
@@ -64,13 +67,10 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
         holder.iv.setImageResource(mUIdata.getJewels()[position]);
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/4,mUIdata.getHeight()/4));
         holder.tv.setText("x3");
-
-
-
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return mMyData.nItemCount;
     }
 }
