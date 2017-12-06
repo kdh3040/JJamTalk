@@ -55,7 +55,10 @@
             </intent-filter>
         </service>
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".MyProfileActivity" />
+        <activity android:name=".MyProfileActivity"
+            android:theme="@style/CommonActionBar"
+            android:parentActivityName=".MyPageActivity"
+            />
         <activity android:name=".MyPageActivity"
             android:theme="@style/CommonActionBar"
             android:parentActivityName=".MainActivity"
@@ -83,6 +86,7 @@
         </activity>
 
         <activity android:name=".BuyJewelActivity"
+            android:parentActivityName=".MyPageActivity"
             android:label="상자 구입"
            >
         </activity>

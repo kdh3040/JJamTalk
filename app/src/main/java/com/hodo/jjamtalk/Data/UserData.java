@@ -56,6 +56,7 @@ public class UserData implements Serializable,Parcelable {
     public String ImgGroup3;
     public String ImgGroup4;
 
+    public int ItemCount;
     public int Item_1;
     public int Item_2;
     public int Item_3;
@@ -113,6 +114,7 @@ public class UserData implements Serializable,Parcelable {
         ImgGroup3 = in.readString();
         ImgGroup4 = in.readString();
 
+        ItemCount = in.readInt();
         Item_1 = in.readInt();
         Item_2 = in.readInt();
         Item_3 = in.readInt();
@@ -177,6 +179,7 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeString(ImgGroup3);
         parcel.writeString(ImgGroup4);
 
+        parcel.writeInt(ItemCount);
         parcel.writeInt(Item_1);
         parcel.writeInt(Item_2);
         parcel.writeInt(Item_3);

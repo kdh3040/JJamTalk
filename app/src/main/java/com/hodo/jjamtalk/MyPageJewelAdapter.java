@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.ViewHolder.MyJewelViewHolder;
 
@@ -19,6 +20,7 @@ public class MyPageJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder> 
 
     Context mContext;
     UIData mUIdata = UIData.getInstance();
+    MyData mMyData = MyData.getInstance();
 
     public MyPageJewelAdapter(Context context) {
 
@@ -35,15 +37,32 @@ public class MyPageJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder> 
     @Override
     public void onBindViewHolder(MyJewelViewHolder holder, int position) {
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/11, ViewGroup.LayoutParams.MATCH_PARENT));
-        holder.iv.setImageResource(mUIdata.getJewels()[position]);
+  /*      if(mMyData.item_1 != 0)
+            holder.iv.setImageResource(mUIdata.getJewels()[0]);
+        else if(mMyData.item_2 != 0)
+            holder.iv.setImageResource(mUIdata.getJewels()[1]);
+        else if(mMyData.item_3 != 0)
+            holder.iv.setImageResource(mUIdata.getJewels()[2]);
+        else if(mMyData.item_4 != 0)
+            holder.iv.setImageResource(mUIdata.getJewels()[3]);
+
+        else if(mMyData.item_5 != 0)
+            holder.iv.setImageResource(mUIdata.getJewels()[4]);
+        else  if(mMyData.item_6 != 0)
+            holder.iv.setImageResource(mUIdata.getJewels()[5]);
+        else if(mMyData.item_7 != 0)
+            holder.iv.setImageResource(mUIdata.getJewels()[7]);
+        else  if(mMyData.item_8 != 0)
+            holder.iv.setImageResource(mUIdata.getJewels()[7]);*/
+        //holder.iv.setImageResource(mUIdata.getJewels()[0]);
+        //holder.iv.setImageResource(mUIdata.getJewels()[7]);
+
         holder.tv.setText("x3");
-
-
-
     }
 
     @Override
     public int getItemCount() {
-        return mUIdata.getJewels().length;
+        //return mUIdata.getJewels().length;
+        return mMyData.nItemCount;
     }
 }

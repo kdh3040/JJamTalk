@@ -102,6 +102,7 @@ public class MyData {
     public int nImgCount;
     public String[] strProfileImg = new String[4];
 
+    public int nItemCount;
     public int item_1;
     public int item_2;
     public int item_3;
@@ -147,6 +148,7 @@ public class MyData {
             strProfileImg[i] = "http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg";
         }
 
+        nItemCount = 0;
         item_1 = 0;
         item_2 = 0;
         item_3 = 0;
@@ -165,7 +167,7 @@ public class MyData {
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
                           String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
-                          int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8) {
+                          int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8) {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -201,6 +203,7 @@ public class MyData {
         nPublicRoomLimit = _UserPublicRoomLimit;
         nPublicRoomTime = _UserPublicRoomTime;
 
+        nItemCount = _UserItemCount;
         item_1 = _UserItem1;
         item_2 = _UserItem2;
         item_3 = _UserItem3;
@@ -1247,41 +1250,65 @@ public class MyData {
        {
            case 1:
            {
+               if(item_1 == 0)
+                   nItemCount++;
+
                item_1++;
                break;
            }
            case 2:
            {
+               if(item_2 == 0)
+                   nItemCount++;
+
                item_2++;
                break;
            }
            case 3:
            {
+               if(item_3 == 0)
+                   nItemCount++;
+
                item_3++;
                break;
            }
            case 4:
            {
+               if(item_4 == 0)
+                   nItemCount++;
+
                item_4++;
                break;
            }
            case 5:
            {
+               if(item_5 == 0)
+                   nItemCount++;
+
                item_5++;
                break;
            }
            case 6:
            {
+               if(item_6 == 0)
+                   nItemCount++;
+
                item_6++;
                break;
            }
            case 7:
            {
+               if(item_7 == 0)
+                   nItemCount++;
+
                item_7++;
                break;
            }
            case 8:
            {
+               if(item_8 == 0)
+                   nItemCount++;
+
                item_8++;
                break;
            }
@@ -1292,6 +1319,7 @@ public class MyData {
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(getUserIdx());
 
+        user.child("ItemCount").setValue(nItemCount);
         user.child("Item_1").setValue(item_1);
         user.child("Item_2").setValue(item_2);
         user.child("Item_3").setValue(item_3);
