@@ -28,7 +28,7 @@ public class MainSettingActivity extends AppCompatActivity  {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);     // 여기서 this는 Activity의 this
 
 
-         
+
 // 여기서 부터는 알림창의 속성 설정
         builder.setTitle("종료 확인 대화 상자")        // 제목 설정
                 .setMessage("앱을 종료 하시 겠습니까?")        // 메세지 설정
