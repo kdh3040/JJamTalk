@@ -7,4 +7,9 @@
         <item>@color/indicator_4</item>
     </string-array>
 
+    <string-array name="recvMsg">
+        <item>"쪽지 수신 거부"</item>
+
+    </string-array>
+
 </resources>

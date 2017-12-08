@@ -51,7 +51,7 @@ android:background="@color/white"
                 android:layout_weight="3"
                 android:background="@color/colorPrimaryTrans"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/setting_icon" />
+                android:src="@mipmap/ic_setting" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -79,7 +79,7 @@ android:background="@color/white"
                 android:layout_weight="3"
                 android:background="@color/colorPrimaryTrans"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/edit_icon">
+                app:srcCompat="@mipmap/ic_profile">
 
             </ImageButton>
             <!--app:srcCompat="@drawable/common_google_signin_btn_icon_dark_disabled" /> -->
@@ -111,7 +111,7 @@ android:background="@color/white"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:translationZ="2dp"
-            app:srcCompat="@drawable/ic_gold" />
+            app:srcCompat="@mipmap/ic_gold" />
 
         <TextView
             android:id="@+id/tv_gold"
@@ -149,7 +149,7 @@ android:background="@color/white"
             android:layout_weight="2"
             android:scaleType="fitCenter"
             android:translationZ="5dp"
-            app:srcCompat="@drawable/jewelbox" />
+            app:srcCompat="@mipmap/ic_jewelham" />
 
         <TextView
             android:id="@+id/textView37"

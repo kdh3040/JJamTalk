@@ -1,10 +1,12 @@
 package com.hodo.jjamtalk;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -40,10 +42,13 @@ public class SettingActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
 
-    private TextView btn_PurchaseHeart;
+
     private TextView  btn_Help;
     private TextView  btn_LogOut;
     private TextView  btn_Delete;
+    private LinearLayout lo_recvMsg;
+    private LinearLayout lo_buyGold ;
+
 
     private RadioButton btn_ViewMode_2;
     private RadioButton btn_ViewMode_3;
@@ -59,6 +64,7 @@ public class SettingActivity extends AppCompatActivity {
     private TextView tv_blocklist;
 
     private CheckBox cbRecvMsg;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,6 +100,47 @@ public class SettingActivity extends AppCompatActivity {
 
         //imageview 및 textview 초기화
 
+        lo_recvMsg = findViewById(R.id.lo_recvMsg);
+        lo_recvMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+
+                builder.setTitle("수신 거부 설정하기");
+                builder.setMultiChoiceItems(R.array.recvMsg, null, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i, boolean isChecked) {
+                        if(isChecked)
+                            mSetting.setnRecvMsg(1);
+                            else
+                            mSetting.setnRecvMsg(0);
+                    }
+                }).setPositiveButton("저장", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+
+
+
+
+
+
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+
+
 
         //1 이 차단 0이 디폴트
         //cbRecvMsg = (CheckBox)findViewById(R.id.checkBox2);
@@ -111,15 +158,16 @@ public class SettingActivity extends AppCompatActivity {
                  }
         }) ;*/
 
-
-
-        btn_PurchaseHeart = (TextView )findViewById(R.id.Setting_btnHeart);
-        btn_PurchaseHeart.setOnClickListener(new View.OnClickListener() {
+        lo_buyGold = findViewById(R.id.lo_buyGold);
+        lo_buyGold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+
+
             }
         });
+
 
         btn_Help = (TextView )findViewById(R.id.Setting_btnHelp);
         btn_LogOut = (TextView )findViewById(R.id.Setting_logout);
