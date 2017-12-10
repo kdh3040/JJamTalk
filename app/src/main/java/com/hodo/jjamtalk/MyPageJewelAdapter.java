@@ -38,6 +38,17 @@ public class MyPageJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder> 
     public void onBindViewHolder(MyJewelViewHolder holder, int position) {
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/11, ViewGroup.LayoutParams.MATCH_PARENT));
         holder.iv.setImageResource(mUIdata.getJewels()[position]);
+
+        /*
+        for( position < 8 ; position++)
+            if(mMyData.sad[position] != 0)
+                  그려라
+                          나가자
+
+         드로우 리스트 새로 만들어서 관리
+         */
+
+
   /*      if(mMyData.item_1 != 0)
             holder.iv.setImageResource(mUIdata.getJewels()[0]);
         else if(mMyData.item_2 != 0)
@@ -64,6 +75,6 @@ public class MyPageJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder> 
     @Override
     public int getItemCount() {
         //return mUIdata.getJewels().length;
-        return mMyData.nItemCount;
+        return mMyData.nItemCount;2
     }
 }
