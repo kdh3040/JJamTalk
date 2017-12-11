@@ -516,8 +516,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        manager.addFragment(new Rank_HoneyReceiveFragment(),"실시간 인기 순");
-        manager.addFragment(new Rank_RichFragment(),"팬 보유 순");
+        manager.addFragment(new Rank_GoldReceiveFragment(),"실시간 인기 순");
+        manager.addFragment(new Rank_FanRichFragment(),"팬 보유 순");
         manager.addFragment(new Rank_NewMemberFragment(),"새로운 순");
 
         final ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);

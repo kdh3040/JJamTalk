@@ -35,6 +35,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="false"
-        app:srcCompat="@drawable/board_icon" />
+        app:srcCompat="@mipmap/ic_gold" />
 
 </RelativeLayout>

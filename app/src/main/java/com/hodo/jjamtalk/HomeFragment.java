@@ -88,9 +88,9 @@ public class HomeFragment extends Fragment {
                 case 0:
                     return new Rank_NearFragment();
                 case 1:
-                    return new Rank_HoneyReceiveFragment();
+                    return new Rank_GoldReceiveFragment();
                 case 2:
-                    return new Rank_RichFragment();
+                    return new Rank_FanRichFragment();
                 case 3:
                     return new Rank_NewMemberFragment();
             }

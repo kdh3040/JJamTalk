@@ -20,7 +20,7 @@ import com.hodo.jjamtalk.ViewHolder.GridUserViewHolder;
  * Created by mjk on 2017. 8. 21..
  */
 
-public class Rank_HoneyReceiveAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
+public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
 
     Context mContext;
     private AppStatus mAppStatus = AppStatus.getInstance();
@@ -28,7 +28,7 @@ public class Rank_HoneyReceiveAdapter extends RecyclerView.Adapter<GridUserViewH
     private SettingData mSetting = SettingData.getInstance();
     private MyData mMyData = MyData.getInstance();
 
-    public Rank_HoneyReceiveAdapter(Context context) {
+    public Rank_GoldReceiveAdapter(Context context) {
         mContext = context;
     }
 
@@ -56,8 +56,18 @@ public class Rank_HoneyReceiveAdapter extends RecyclerView.Adapter<GridUserViewH
 
         holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),mUIData.getWidth()/mSetting.getViewCount()));
         holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
+        RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));
+        lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+        holder.iv_honey_rank.setLayoutParams(lpForIcon);
+
+
+
+
+
         //holder.textView.setText("100만 꿀");
-        holder.iv_honey_rank.setVisibility(View.INVISIBLE);
+        //holder.iv_honey_rank.setVisibility(View.INVISIBLE);
 
         Log.d("Guide !!!! ", "Start");
         int i = position;

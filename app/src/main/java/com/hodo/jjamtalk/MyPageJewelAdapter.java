@@ -75,6 +75,6 @@ public class MyPageJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder> 
     @Override
     public int getItemCount() {
         //return mUIdata.getJewels().length;
-        return mMyData.nItemCount;2
+        return mMyData.nItemCount;
     }
 }

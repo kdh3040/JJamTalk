@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Created by mjk on 2017. 8. 10..
  */
 
-public class Rank_RichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
+public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     Context mContext;
 
     private SettingData mSetting = SettingData.getInstance();
@@ -38,7 +38,7 @@ public class Rank_RichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     private ArrayList<UserData> arrTargetData_Woman = new ArrayList<>();
     private ArrayList<UserData> arrTargetData_All = new ArrayList<>();
 
-    public Rank_RichAdapter(Context context) {
+    public Rank_FanRichAdapter(Context context) {
         mContext = context;
     }
 
@@ -56,7 +56,11 @@ public class Rank_RichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
         //holder.iv_honey_rank.setLayoutParams(new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2)));
         holder.iv_profile.setImageResource(R.mipmap.girl1);
 
-        holder.iv_honey_rank.setImageResource(R.drawable.vip);
+        RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));
+        lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+        holder.iv_honey_rank.setLayoutParams(lpForIcon);
         //holder.textView.setVisibility(View.INVISIBLE);
 
         Log.d("Guide !!!! ", "Start");
@@ -68,7 +72,7 @@ public class Rank_RichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
             case 1:
                 float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-                holder.iv_honey_rank.setImageResource(R.drawable.platinum_bee);
+                holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
 
                 //holder.textView.setText(/*mMyData.arrUserMan_Rank.get(i).NickName + ", " + mMyData.arrUserMan_Rank.get(i).Age + "세, " + (int)Dist + "km"*/mMyData.getUserRank()+"");
                 Glide.with(mContext)
@@ -81,7 +85,7 @@ public class Rank_RichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
             case 2:
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Send.get(i).Lat, mMyData.arrUserWoman_Send.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
-                holder.iv_honey_rank.setImageResource(R.drawable.gold_bee);
+                holder.iv_honey_rank.setImageResource(R.drawable.btn_fan_selected);
 
                 //holder.textView.setText(mMyData.getUserRank()+"");
                 Glide.with(mContext)
@@ -94,7 +98,7 @@ public class Rank_RichAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
                 Log.d("Guide !!!! ", "Case 3");
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon);
 
-                holder.iv_honey_rank.setImageResource(R.drawable.bronze_bee);
+                holder.iv_honey_rank.setImageResource(R.drawable.btn_fan_selected);
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Send.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
