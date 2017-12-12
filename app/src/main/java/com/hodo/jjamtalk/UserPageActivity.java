@@ -37,6 +37,7 @@ import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
+import com.hodo.jjamtalk.Util.LocationFunc;
 import com.hodo.jjamtalk.Util.NotiFunc;
 
 import java.util.LinkedHashMap;
@@ -52,9 +53,13 @@ public class UserPageActivity extends AppCompatActivity {
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
     private FirebaseData mFireBase = FirebaseData.getInstance();
     private MyJewelAdapter myjewelAdapter;
+    private LocationFunc mLocFunc = LocationFunc.getInstance();
 
     private TextView txtProfile;
     private TextView txtMemo;
+
+    private TextView txtDistance;
+
     //private TextView txtHeart;
     //private TextView txtProfile;
 
@@ -117,6 +122,13 @@ public class UserPageActivity extends AppCompatActivity {
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
         txtMemo.setText(stTargetData.Memo);
+
+        txtDistance = (TextView) findViewById(R.id.UserPage_txtDistance);
+
+        float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stTargetData.Lat, stTargetData.Lon);
+        Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
+        txtDistance.setText((int)Dist + "km 거리에 있음");
+
         //private TextView txtProfile;
 
         txt_FanTitle = (TextView) findViewById(R.id.UserPage_FanTitle);
@@ -212,7 +224,6 @@ public class UserPageActivity extends AppCompatActivity {
                         Spinner sp_jewel = v.findViewById(R.id.sp_jewel);
 
                         sp_jewel.setAdapter(myjewelAdapter);
-
 
 
                         builder.setView(v);
