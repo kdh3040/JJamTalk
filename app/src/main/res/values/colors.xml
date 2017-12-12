@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
     <resources>
+    <color name= "textColor">#3e2723</color>
+    <color name= "textColorLight">#8d6e63</color>
         <color name="colorPrimary">#ffffff</color>
-        <color name="colorPrimaryDark">#311b92</color>
-        <color name="colorPrimaryLight">#9575cd</color>
-        <color name="colorAccent">#4527a0</color>
+        <color name="colorPrimaryDark">#fdd835</color>
+        <color name="colorPrimaryLight">#ffee58</color>
+        <color name="colorAccent">#ffeb3b</color>
         <color name="gray">#595e60</color>
         <color name="tp_half">#80ffffff</color>
         <color name="white">#ffffff</color>

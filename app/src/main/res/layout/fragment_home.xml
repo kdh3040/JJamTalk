@@ -13,9 +13,9 @@
         android:layout_weight="1"
 
         app:tabBackground="@color/colorAccent"
-        app:tabIndicatorColor="@color/colorPrimary"
-        app:tabSelectedTextColor="@color/colorPrimary"
-        app:tabTextColor="@color/tp_half" />
+        app:tabIndicatorColor="@color/textColor"
+        app:tabSelectedTextColor="@color/textColor"
+        app:tabTextColor="@color/textColorLight" />
 
 
     <android.support.v4.view.ViewPager

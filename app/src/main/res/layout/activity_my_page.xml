@@ -187,7 +187,7 @@ android:background="@color/white"
             android:layout_marginTop="5dp"
             android:background="@drawable/button_pressed"
             android:text="상자 열기"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/textColor" />
 
 
         <Button
@@ -199,7 +199,7 @@ android:background="@color/white"
             android:layout_marginTop="5dp"
             android:background="@drawable/button_pressed"
             android:text="골드 충전"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/textColor" />
 
     </LinearLayout>
 
