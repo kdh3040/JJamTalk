@@ -64,9 +64,14 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                 dialog.show();
             }
         });
-        holder.iv.setImageResource(mUIdata.getJewels()[position]);
+
+        int index = mMyData.itemIdx.get(position);
+        holder.iv.setImageResource(mUIdata.getJewels()[index]);
+        int count = mMyData.itemList.get(index);
+        holder.tv.setText("x" + Integer.toString(count));
+
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/4,mUIdata.getHeight()/4));
-        holder.tv.setText("x3");
+
     }
 
     @Override

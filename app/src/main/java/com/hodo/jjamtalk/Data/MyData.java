@@ -27,7 +27,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by boram on 2017-08-04.
@@ -134,6 +136,9 @@ public class MyData {
     public ArrayList<UserData> arrCardList = new ArrayList<>();
 
 
+    public Map<Integer, Integer> itemList = new HashMap<Integer, Integer>();
+    public ArrayList<Integer> itemIdx = new ArrayList<>();
+
     private MyData() {
         strImg = null;
         strNick = null;
@@ -203,16 +208,76 @@ public class MyData {
         nPublicRoomLimit = _UserPublicRoomLimit;
         nPublicRoomTime = _UserPublicRoomTime;
 
+
         nItemCount = _UserItemCount;
         item_1 = _UserItem1;
+        if(item_1 != 0) {
+            itemList.put(0, item_1);
+        }
         item_2 = _UserItem2;
-        item_3 = _UserItem3;
-        item_4 = _UserItem4;
-        item_5 = _UserItem5;
-        item_6 = _UserItem6;
-        item_7 = _UserItem7;
-        item_8 = _UserItem8;
+        if(item_2 != 0) {
+            itemList.put(1, item_2);
+        }
 
+        item_3 = _UserItem3;
+        if(item_3 != 0)
+        {
+            itemList.put(2, item_3);
+        }
+
+        item_4 = _UserItem4;
+        if(item_4 != 0)
+        {
+            itemList.put(3, item_4);
+        }
+
+        item_5 = _UserItem5;
+        if(item_5 != 0)
+        {
+            itemList.put(4, item_5);
+        }
+
+        item_6 = _UserItem6;
+        if(item_6 != 0)
+        {
+            itemList.put(5, item_6);
+        }
+
+        item_7 = _UserItem7;
+        if(item_7 != 0)
+        {
+            itemList.put(6, item_7);
+        }
+
+        item_8 = _UserItem8;
+        if(item_8 != 0)
+        {
+            itemList.put(7, item_8);
+        }
+
+
+        Set<Integer> set = itemList.keySet();
+        Iterator<Integer> key = set.iterator();
+
+        while (key.hasNext())
+        {
+            int idx = key.next();
+            itemIdx.add(idx);
+        }
+    }
+
+    void refreshItemIdex()
+    {
+        itemIdx.clear();
+
+        Set<Integer> set = itemList.keySet();
+        Iterator<Integer> key = set.iterator();
+
+        while (key.hasNext())
+        {
+            int idx = key.next();
+            itemIdx.add(idx);
+        }
     }
 
     public void setUserIdx(String userIdx) {
@@ -1250,69 +1315,95 @@ public class MyData {
        {
            case 1:
            {
-               if(item_1 == 0)
+               if(item_1 == 0) {
                    nItemCount++;
+               }
 
                item_1++;
+               itemList.put(0, item_1);
+
                break;
            }
            case 2:
            {
-               if(item_2 == 0)
+               if(item_2 == 0){
                    nItemCount++;
+               }
 
                item_2++;
+               itemList.put(1, item_2);
+
                break;
            }
            case 3:
            {
-               if(item_3 == 0)
+               if(item_3 == 0){
                    nItemCount++;
+               }
 
                item_3++;
+               itemList.put(2, item_3);
+
                break;
            }
            case 4:
            {
-               if(item_4 == 0)
+               if(item_4 == 0){
                    nItemCount++;
+               }
 
                item_4++;
+               itemList.put(3, item_4);
+
                break;
            }
            case 5:
            {
-               if(item_5 == 0)
+               if(item_5 == 0){
                    nItemCount++;
+               }
 
                item_5++;
+               itemList.put(4, item_5);
+
                break;
            }
            case 6:
            {
-               if(item_6 == 0)
+               if(item_6 == 0){
                    nItemCount++;
+               }
 
                item_6++;
+               itemList.put(5, item_6);
                break;
            }
            case 7:
            {
-               if(item_7 == 0)
+               if(item_7 == 0){
                    nItemCount++;
 
+               }
+
                item_7++;
+               itemList.put(6, item_7);
+
                break;
            }
            case 8:
            {
-               if(item_8 == 0)
+               if(item_8 == 0){
                    nItemCount++;
 
+               }
+
                item_8++;
+               itemList.put(7, item_8);
                break;
            }
        }
+
+       refreshItemIdex();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
