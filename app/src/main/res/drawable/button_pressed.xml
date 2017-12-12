@@ -2,7 +2,7 @@
     <gradient
         android:startColor="@color/colorAccent"
 
-        android:endColor="@color/colorPrimaryDark"
+        android:endColor="@color/colorAccentDark"
         android:angle="45"/>
     <padding android:left="7dp"
         android:top="7dp"

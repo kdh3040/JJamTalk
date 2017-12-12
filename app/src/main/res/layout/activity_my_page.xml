@@ -42,16 +42,16 @@ android:background="@color/white"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            android:weightSum="4">
+            >
 
             <ImageButton
                 android:id="@+id/btn_setting"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@color/colorPrimaryTrans"
+
                 android:scaleType="fitCenter"
-                android:src="@mipmap/ic_setting" />
+                android:background="@drawable/round_btn_bg"
+                android:src="@drawable/ic_setting" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -64,22 +64,24 @@ android:background="@color/white"
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/profile"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
 
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            android:weightSum="4">
+            >
 
             <ImageButton
                 android:id="@+id/ib_my_profile"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@color/colorPrimaryTrans"
+
+
+                android:background="@drawable/round_btn_bg"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/ic_profile">
+                app:srcCompat="@drawable/ic_profile">
 
             </ImageButton>
             <!--app:srcCompat="@drawable/common_google_signin_btn_icon_dark_disabled" /> -->
@@ -98,10 +100,7 @@ android:background="@color/white"
         android:id="@+id/layout_gift_exist"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/setting"
+
         android:layout_weight="1"
         android:orientation="horizontal">
 

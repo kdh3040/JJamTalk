@@ -1,8 +1,11 @@
 package com.hodo.jjamtalk;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -60,6 +63,7 @@ public class MyPageActivity extends AppCompatActivity {
 
         txt_MyGoldCnt = findViewById(R.id.tv_goldsize);
         txt_MyProfile = (TextView)findViewById(R.id.MyPage_txtProfile);
+
         txt_MyProfile.setText(mMyData.getUserNick() + "," + mMyData.getUserAge());
 
         int nGold = mMyData.getUserHoney();
@@ -67,6 +71,8 @@ public class MyPageActivity extends AppCompatActivity {
         //txt_MyHeartCnt.setText("보유 골드: " + nGold);
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
+        btn_Setting.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColor), PorterDuff.Mode.MULTIPLY);
+
         btn_Setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +114,7 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
         btn_my_profile = (ImageButton)findViewById(R.id.ib_my_profile);
+        btn_my_profile.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColor), PorterDuff.Mode.MULTIPLY);
         btn_my_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
