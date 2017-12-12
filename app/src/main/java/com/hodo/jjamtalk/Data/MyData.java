@@ -64,6 +64,7 @@ public class MyData {
     public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
 
+    public int nFanCount;
     public ArrayList<FanData> arrMyFanList = new ArrayList<>();
     public ArrayList<UserData> arrMyFanDataList = new ArrayList<>();
 
@@ -1066,7 +1067,8 @@ public class MyData {
         updateMap.put("Nick", getUserNick());
         updateMap.put("Idx", getUserIdx());
         table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
-
+        nFanCount-=1;
+        updateMap.put("FanCount", nFanCount);
     }
 
     public void getMyfanData() {

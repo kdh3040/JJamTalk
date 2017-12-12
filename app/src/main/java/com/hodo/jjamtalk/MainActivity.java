@@ -496,6 +496,8 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
 
                 intent.putExtra("FanList", mMyData.arrMyFanList);
+                intent.putExtra("FanCount", mMyData.nFanCount);
+
                 intent.putExtra("FanData", mMyData.arrMyFanDataList);
 
                 intent.putExtra("StarList", mMyData.arrMyStarList);
