@@ -10,10 +10,10 @@
 
     <stroke
         android:width="2dip"
-        android:color="@color/colorAccent" />
+        android:color="@color/colorAccentDark" />
     <gradient
-        android:startColor="@color/colorAccent"
+        android:startColor="@color/colorPrimaryLight"
 
-        android:endColor="@color/colorAccentDark"
+        android:endColor="@color/colorAccent"
         android:angle="45"/>
 </shape>

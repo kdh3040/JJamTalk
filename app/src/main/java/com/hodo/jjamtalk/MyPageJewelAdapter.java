@@ -69,7 +69,7 @@ public class MyPageJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder> 
         //holder.iv.setImageResource(mUIdata.getJewels()[0]);
         //holder.iv.setImageResource(mUIdata.getJewels()[7]);
 
-        holder.tv.setText("x3");
+        //holder.tv.setText("x3");
     }
 
     @Override

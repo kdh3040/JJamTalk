@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
+    android:background="@color/white"
     android:orientation="vertical"
-android:background="@color/white"
-    >
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp">
 
     <ImageView
         android:id="@+id/img_mypic"
@@ -41,16 +42,15 @@ android:background="@color/white"
 
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/btn_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:scaleType="fitCenter"
                 android:background="@drawable/round_btn_bg"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_setting" />
 
             <TextView
@@ -70,8 +70,7 @@ android:background="@color/white"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/ib_my_profile"
@@ -105,12 +104,14 @@ android:background="@color/white"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:translationZ="2dp"
-            app:srcCompat="@mipmap/ic_gold" />
+            android:id="@+id/iv_gold"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+
+            android:layout_gravity="center"
+            android:background="@drawable/round_btn_bg"
+            android:translationZ="1dp"
+            app:srcCompat="@drawable/ic_gold" />
 
         <TextView
             android:id="@+id/tv_gold"
@@ -142,48 +143,36 @@ android:background="@color/white"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageView23"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:id="@+id/iv_jewely"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_btn_bg"
             android:scaleType="fitCenter"
-            android:translationZ="5dp"
-            app:srcCompat="@mipmap/ic_jewelham" />
-
-        <TextView
-            android:id="@+id/textView37"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="3"
-            android:gravity="left|center_vertical"
-            android:text="보유 보석 :"
-            android:textSize="18sp" />
+            android:translationZ="1dp"
+            app:srcCompat="@drawable/ic_jewely" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_myjewels"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:layout_weight="5" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_buyjewel"
             android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
+            android:layout_height="40dp"
 
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
             android:background="@drawable/button_pressed"
             android:text="상자 열기"
             android:textColor="@color/textColor" />
@@ -192,7 +181,7 @@ android:background="@color/white"
         <Button
             android:id="@+id/btn_heart"
             android:layout_width="100dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
