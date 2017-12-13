@@ -99,13 +99,14 @@
                 app:srcCompat="@mipmap/ic_locat" />
 
             <TextView
-                android:id="@+id/textView34"
+                android:id="@+id/UserPage_txtDistance"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="9"
                 android:gravity="left|center_vertical"
                 android:text="15km 거리에 있음"
-                android:textColor="@color/white" />
+
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <TextView

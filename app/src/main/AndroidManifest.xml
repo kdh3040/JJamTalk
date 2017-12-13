@@ -65,10 +65,8 @@
             android:label="내 페이지"/>
 
         <activity android:name=".SettingActivity"
-
             android:theme="@style/MyTheme"
-
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".MyPageActivity"
 
             android:label="설정">
         </activity>

@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private FanFragment fanFragment;
     private HomeFragment homeFragment;// = HomeFragment.getInstance();
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +112,9 @@ public class MainActivity extends AppCompatActivity {
         //int mHeight = mUIData.getHeight();
         int mWidth = mUIData.getWidth();
         int mHeight = mUIData.getHeight();
+
         homeFragment = new HomeFragment();
+
 
         ib_filter = findViewById(R.id.ib_filter);
         ib_filter.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColor), PorterDuff.Mode.MULTIPLY);
@@ -394,13 +397,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         layout_topbar = (LinearLayout)findViewById(R.id.layout_topbar);
-
-
-
-
         layout_lowbar = (LinearLayout)findViewById(R.id.layout_lowbar);
-
-
 
         fanFragment = new FanFragment(this);
         boardFragment = new BoardFragment();
@@ -499,6 +496,8 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
 
                 intent.putExtra("FanList", mMyData.arrMyFanList);
+                intent.putExtra("FanCount", mMyData.nFanCount);
+
                 intent.putExtra("FanData", mMyData.arrMyFanDataList);
 
                 intent.putExtra("StarList", mMyData.arrMyStarList);
@@ -520,7 +519,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+        setImageAlpha(255,100,100,100,100);
 
 
 
