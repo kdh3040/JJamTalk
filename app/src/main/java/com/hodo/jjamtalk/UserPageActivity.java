@@ -287,48 +287,48 @@ public class UserPageActivity extends AppCompatActivity {
                         btnHeart100.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 100;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 10;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
                             }
                         });
 
                         btnHeart200.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 200;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 20;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를보내시겠습니까?");
                             }
                         });
 
                         btnHeart300.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 300;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 30;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보겠습니까?");
                             }
                         });
 
                         btnHeart500.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 500;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 50;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보겠습니까?");
                             }
                         });
 
                         btnHeart1000.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 1000;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 100;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
                             }
                         });
 
                         btnHeart5000.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 5000;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 500;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
                             }
                         });
 
@@ -342,7 +342,7 @@ public class UserPageActivity extends AppCompatActivity {
 
                                 String strSendMsg = SendMsg.getText().toString();
                                 if (strSendMsg.equals(""))
-                                    strSendMsg = "꿀 보내드려요";
+                                    strSendMsg = "안녕하세요";
 
                                 boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                 rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
