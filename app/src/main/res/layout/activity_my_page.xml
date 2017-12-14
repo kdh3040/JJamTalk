@@ -49,9 +49,9 @@ android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="@color/colorPrimaryTrans"
+                android:background="@color/colorPrimaryLight"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/ic_setting" />
+                android:src="@drawable/ic_setting" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -98,10 +98,7 @@ android:background="@color/white"
         android:id="@+id/layout_gift_exist"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/setting"
+
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -110,7 +107,7 @@ android:background="@color/white"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:translationZ="2dp"
+
             app:srcCompat="@mipmap/ic_gold" />
 
         <TextView
@@ -128,7 +125,7 @@ android:background="@color/white"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:gravity="left|center"
+            android:gravity="center"
             android:text="TextView"
             android:textSize="18sp" />
 
@@ -148,7 +145,7 @@ android:background="@color/white"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:scaleType="fitCenter"
-            android:translationZ="5dp"
+
             app:srcCompat="@mipmap/ic_jewelham" />
 
         <TextView
@@ -165,7 +162,6 @@ android:background="@color/white"
             android:id="@+id/rv_myjewels"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
             android:layout_weight="5" />
 
     </LinearLayout>

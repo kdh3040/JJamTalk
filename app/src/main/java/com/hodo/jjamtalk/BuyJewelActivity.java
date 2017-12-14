@@ -53,10 +53,10 @@ public class BuyJewelActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                    String alertTitle = "상자 까기";
+                    String alertTitle = "상자 열기";
                     new AlertDialog.Builder(mActivity)
                             .setTitle(alertTitle)
-                            .setMessage("3꿀을 소비하여 상자를 까시겠습니까")
+                            .setMessage("3꿀을 소비하여 상자를 여시겠습니까")
                             .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -90,7 +90,7 @@ public class BuyJewelActivity extends AppCompatActivity {
 
                                 }else {
 
-                                    Toast.makeText(getApplicationContext(), "꿀이 부족합니다", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
 
                                 }
 

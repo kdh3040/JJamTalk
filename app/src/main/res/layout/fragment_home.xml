@@ -13,6 +13,7 @@
         android:layout_weight="1"
 
         app:tabBackground="@color/colorAccent"
+
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextColor="@color/tp_half" />
