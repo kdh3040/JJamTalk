@@ -7,12 +7,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.hodo.jjamtalk.Data.MyData;
+
 /**
  * Created by mjk on 2017-09-21.
  */
 
 public class MyJewelAdapter extends BaseAdapter {
     Context mContext;
+    MyData mMyData = MyData.getInstance();
+
     int jewels[];
     LayoutInflater inflater;
 
@@ -26,7 +30,7 @@ public class MyJewelAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return jewels.length;
+        return mMyData.nItemCount;
     }
 
     @Override
@@ -45,7 +49,8 @@ public class MyJewelAdapter extends BaseAdapter {
         view = inflater.inflate(R.layout.item_dialog_my_jewel_list,null);
         ImageView iv =view.findViewById(R.id.iv_jewel);
 
-        iv.setImageResource(jewels[i]);
+        int index = mMyData.itemIdx.get(i);
+        iv.setImageResource(jewels[index]);
 
 
         return view;

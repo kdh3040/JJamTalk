@@ -8,55 +8,47 @@
         android:id="@+id/jw1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/board_icon" />
+        android:layout_weight="1" />
 
     <ImageView
         android:id="@+id/jw2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/board_icon" />
+        android:layout_weight="1" />
 
     <ImageView
         android:id="@+id/jw3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/board_icon" />
+        android:layout_weight="1"/>
 
     <ImageView
         android:id="@+id/jw4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/board_icon" />
+        android:layout_weight="1"/>
 
     <ImageView
         android:id="@+id/jw5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/board_icon" />
+        android:layout_weight="1" />
 
     <ImageView
         android:id="@+id/jw6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/board_icon" />
+        android:layout_weight="1" />
 
     <ImageView
         android:id="@+id/jw7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/board_icon" />
+        android:layout_weight="1" />
 
     <ImageView
         android:id="@+id/jw8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/board_icon" />
+        android:layout_weight="1"/>
 </LinearLayout>

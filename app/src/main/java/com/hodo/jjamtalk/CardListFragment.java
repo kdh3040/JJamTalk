@@ -156,6 +156,8 @@ public class CardListFragment extends Fragment {
 
                     bundle.putSerializable("Target", stTargetData);
                     intent.putExtra("FanList", stTargetData.arrFanList);
+                    intent.putExtra("FanCount", stTargetData.FanCount);
+
                     intent.putExtra("StarList", stTargetData.arrStarList);
 
                     intent.putExtras(bundle);

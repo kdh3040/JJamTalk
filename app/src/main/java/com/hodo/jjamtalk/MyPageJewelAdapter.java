@@ -12,6 +12,11 @@ import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.ViewHolder.MyJewelViewHolder;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * Created by mjk on 2017. 9. 26..
  */
@@ -22,6 +27,8 @@ public class MyPageJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder> 
     UIData mUIdata = UIData.getInstance();
     MyData mMyData = MyData.getInstance();
 
+
+
     public MyPageJewelAdapter(Context context) {
 
         super();
@@ -31,12 +38,14 @@ public class MyPageJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder> 
     @Override
     public MyJewelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.holder_jewel,parent,false);
+
         return new MyJewelViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyJewelViewHolder holder, int position) {
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/11, ViewGroup.LayoutParams.MATCH_PARENT));
+
         holder.iv.setImageResource(mUIdata.getJewels()[position]);
 
         /*
@@ -69,7 +78,15 @@ public class MyPageJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder> 
         //holder.iv.setImageResource(mUIdata.getJewels()[0]);
         //holder.iv.setImageResource(mUIdata.getJewels()[7]);
 
-        holder.tv.setText("x3");
+        //holder.tv.setText("x3");
+
+
+        int index = mMyData.itemIdx.get(position);
+        holder.iv.setImageResource(mUIdata.getJewels()[index]);
+
+        int count = mMyData.itemList.get(index);
+        holder.tv.setText("x" + Integer.toString(count));
+
     }
 
     @Override

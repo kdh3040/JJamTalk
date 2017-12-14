@@ -56,19 +56,17 @@
         </service>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MyProfileActivity"
-            android:theme="@style/CommonActionBar"
+            android:theme="@style/MyTheme"
             android:parentActivityName=".MyPageActivity"
             />
         <activity android:name=".MyPageActivity"
-            android:theme="@style/CommonActionBar"
+            android:theme="@style/MyTheme"
             android:parentActivityName=".MainActivity"
             android:label="내 페이지"/>
 
         <activity android:name=".SettingActivity"
-
-            android:theme="@style/CommonActionBar"
-
-            android:parentActivityName=".MainActivity"
+            android:theme="@style/MyTheme"
+            android:parentActivityName=".MyPageActivity"
 
             android:label="설정">
         </activity>

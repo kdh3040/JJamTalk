@@ -202,14 +202,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mGoogleSignInButton = (Button) findViewById(R.id.Login_Google);
         mToMain = (Button) findViewById(R.id.btn_tomain);
 
-    if(mAuth.getCurrentUser() != null){
+    /*if(mAuth.getCurrentUser() != null){
             showProgress(true);
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
         }
 
-        else
+        else*/
             {
             mEmailSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
@@ -564,11 +564,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet()) {
                                     mMyData.arrMyFanList.add(entry.getValue());
                             }
+                            mMyData.nFanCount = mMyData.arrMyFanList.size();
 
                             for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.StarList.entrySet()) {
                                 mMyData.arrMyStarList.add(entry.getValue());
                                 //mMyData.sortStarData();
                             }
+
 
                             mMyData.getMyStarData();
                             mMyData.getMyfanData();
@@ -634,7 +636,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void InitData_Recv() {
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("User");
-        Query query=ref.orderByChild("RecvCount");//키가 id와 같은걸 쿼리로 가져옴
+        Query query=ref.orderByChild("RecvCount");//.limitToFirst(30);//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -696,7 +698,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void InitData_Send() {
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("User");
-        Query query= ref.orderByChild("SendCount");//키가 id와 같은걸 쿼리로 가져옴
+        Query query= ref.orderByChild("FanCount");//.limitToFirst(3);//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -833,7 +835,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         ref = FirebaseDatabase.getInstance().getReference().child("User");
         Query query=ref
                 .orderByChild("Lon")
-                .startAt(lStartLon).endAt(lEndLon);
+                .startAt(lStartLon).endAt(lEndLon)
+                ;
 
 
         query.addListenerForSingleValueEvent(

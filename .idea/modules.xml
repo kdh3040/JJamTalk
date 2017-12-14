@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://D:\HODO\Lonely\JJamTalkREAL.iml" filepath="D:\HODO\Lonely\JJamTalkREAL.iml" />
+      <module fileurl="file://C:\gitgit\Lonely.iml" filepath="C:\gitgit\Lonely.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/gitgit.iml" filepath="$PROJECT_DIR$/gitgit.iml" />
+      <module fileurl="file://C:\Users\Administrator\Documents\JJamTalkREAL\gitgit.iml" filepath="C:\Users\Administrator\Documents\JJamTalkREAL\gitgit.iml" />
     </modules>
   </component>
 </project>

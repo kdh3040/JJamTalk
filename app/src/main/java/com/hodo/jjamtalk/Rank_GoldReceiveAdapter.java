@@ -55,7 +55,12 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
     public void onBindViewHolder(GridUserViewHolder holder, int position) {
 
         holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),mUIData.getWidth()/mSetting.getViewCount()));
-        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
+
+        RelativeLayout.LayoutParams lpForTextView = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2));
+        lpForTextView.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lpForTextView.addRule(RelativeLayout.RIGHT_OF,R.id.iv_honey_rank);
+        holder.textView.setLayoutParams(lpForTextView);
+
         RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -77,7 +82,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
             //  남자 탐색
             case 1:
 
-                //holder.textView.setText(/*mMyData.arrUserMan_Rank.get(i).NickName + ", " + mMyData.arrUserMan_Rank.get(i).Age + "세, " + (int)Dist + "km"*/mMyData.getUserRank()+"");
+                holder.textView.setText(-1*mMyData.arrUserMan_Recv.get(i).RecvCount+"개");
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_Recv.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -86,6 +91,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
                 break;
             // 여자 탐색
             case 2:
+                holder.textView.setText(-1*mMyData.arrUserWoman_Recv.get(i).RecvCount+"개");
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Recv.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -93,6 +99,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
                         .into(holder.iv_profile);
                 break;
             case 3:
+                holder.textView.setText(-1*mMyData.arrUserAll_Recv.get(i).RecvCount+"개");
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Recv.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
