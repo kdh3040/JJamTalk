@@ -125,9 +125,14 @@ public class UserPageActivity extends AppCompatActivity {
 
         txtDistance = (TextView) findViewById(R.id.UserPage_txtDistance);
 
-        float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stTargetData.Lat, stTargetData.Lon);
+        double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stTargetData.Lat, stTargetData.Lon,"kilometer");
         Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-        txtDistance.setText((int)Dist + "km 거리에 있음");
+
+
+        if(Dist < 1.0)
+            txtDistance.setText("1km 이내에 있음");
+        else
+            txtDistance.setText((int)Dist + "km 거리에 있음");
 
         //private TextView txtProfile;
 
