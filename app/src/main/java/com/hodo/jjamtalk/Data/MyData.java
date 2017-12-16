@@ -1,10 +1,13 @@
 package com.hodo.jjamtalk.Data;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -139,6 +142,8 @@ public class MyData {
 
     public Map<Integer, Integer> itemList = new HashMap<Integer, Integer>();
     public ArrayList<Integer> itemIdx = new ArrayList<>();
+
+    public  Uri urSaveUri;
 
     private MyData() {
         strImg = null;
@@ -319,6 +324,36 @@ public class MyData {
 
     public String getUserProfileImg(int Index) {
         return strProfileImg[Index];
+    }
+
+    public void delUserProfileImg(int Index, String userImg) {
+        switch (Index)
+        {
+            case 0:
+                strProfileImg[0] = strProfileImg[1];
+                strProfileImg[1] = strProfileImg[2];
+                strProfileImg[2] = strProfileImg[3];
+                strProfileImg[3] = userImg;
+                break;
+            case 1:
+                strProfileImg[0] = strProfileImg[0];
+                strProfileImg[1] = strProfileImg[2];
+                strProfileImg[2] = strProfileImg[3];
+                strProfileImg[3] = userImg;
+                break;
+            case 2:
+                strProfileImg[0] = strProfileImg[0];
+                strProfileImg[1] = strProfileImg[1];
+                strProfileImg[2] = strProfileImg[3];
+                strProfileImg[3] = userImg;
+                break;
+            case 3:
+                strProfileImg[0] = strProfileImg[0];
+                strProfileImg[1] = strProfileImg[1];
+                strProfileImg[2] = strProfileImg[2];
+                strProfileImg[3] = userImg;
+                break;
+        }
     }
 
     public void setUserNick(String userNick) {
