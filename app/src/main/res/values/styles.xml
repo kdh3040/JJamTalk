@@ -43,15 +43,21 @@
     <item name="android:background">@drawable/button_enabled</item>
     <item name="android:focusable">true</item>
     <item name="android:clickable">true</item>
-</style>
-    <style name="backgr" parent="@style/Widget.AppCompat.Button">
 
-        <item name="android:background">@drawable/bg_halftransparent</item>
-        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="backgr" parent="@style/Widget.AppCompat.Button">
+        <item name="android:imageButtonStyle">@style/ImgBtn</item>
+        <!--<item name="android:background">@drawable/bg_halftransparent</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="android:textSize">16dip</item>
         <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">bold</item>-->
 
+    </style>
+
+    <style name="ImgBtn" parent="android:Widget.ImageButton">
+        <item name="android:background">@drawable/round_btn_bg</item>
     </style>
 
     <style name = "CustomActionBarTheme"
