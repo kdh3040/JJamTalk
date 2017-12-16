@@ -571,6 +571,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 //mMyData.sortStarData();
                             }
 
+                            for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.CardList.entrySet()) {
+                                mMyData.arrCardNameList.add(entry.getValue());
+                            }
 
                             mMyData.getMyStarData();
                             mMyData.getMyfanData();
