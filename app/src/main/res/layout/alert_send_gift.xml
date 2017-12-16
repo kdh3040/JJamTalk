@@ -50,21 +50,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="100 꿀" />
+            android:text="10골드" />
 
         <Button
             android:id="@+id/HeartPop_200"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="200꿀" />
+            android:text="20골드" />
 
         <Button
             android:id="@+id/HeartPop_300"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="300꿀" />
+            android:text="30골드" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,21 +78,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="500꿀" />
+            android:text="50골드" />
 
         <Button
             android:id="@+id/HeartPop_1000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="1000꿀" />
+            android:text="100골드" />
 
         <Button
             android:id="@+id/HeartPop_5000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="5000꿀" />
+            android:text="500골드" />
 
     </LinearLayout>
 

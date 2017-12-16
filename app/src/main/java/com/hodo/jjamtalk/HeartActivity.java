@@ -87,7 +87,7 @@ public class HeartActivity extends AppCompatActivity {
     }
     public void refreshHearCnt()
     {
-        txt_heartStatus.setText("현재 보유 꿀 갯수 : " + mMyData.getUserHoney());
+        txt_heartStatus.setText("현재 나의 골드 : " + mMyData.getUserHoney());
     }
 
 

@@ -55,7 +55,12 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
     public void onBindViewHolder(GridUserViewHolder holder, int position) {
 
         holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),mUIData.getWidth()/mSetting.getViewCount()));
-        holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
+
+        RelativeLayout.LayoutParams lpForTextView = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2));
+        lpForTextView.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lpForTextView.addRule(RelativeLayout.RIGHT_OF,R.id.iv_honey_rank);
+        holder.textView.setLayoutParams(lpForTextView);
+
         RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

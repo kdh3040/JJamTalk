@@ -88,6 +88,8 @@
 
         <activity android:name=".BuyJewelActivity"
             android:parentActivityName=".MyPageActivity"
+            android:theme ="@style/NoTitleBar"
+
             android:label="상자 구입"
            >
         </activity>

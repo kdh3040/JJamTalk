@@ -4,8 +4,14 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JJamTalkREAL.iml" filepath="$PROJECT_DIR$/JJamTalkREAL.iml" />
       <module fileurl="file://D:\HODO\Lonely\JJamTalkREAL.iml" filepath="D:\HODO\Lonely\JJamTalkREAL.iml" />
+<<<<<<< HEAD
       <module fileurl="file://C:\Users\Administrator\Documents\JJamTalkREAL\Lonely.iml" filepath="C:\Users\Administrator\Documents\JJamTalkREAL\Lonely.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/Lonely.iml" filepath="$PROJECT_DIR$/Lonely.iml" />
+      <module fileurl="file://C:\gitgit\Lonely.iml" filepath="C:\gitgit\Lonely.iml" />
+>>>>>>> f22270a03a75fe7fa200074dd81a6e6919163d43
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\HODO\Lonely\gitgit.iml" filepath="D:\HODO\Lonely\gitgit.iml" />
       <module fileurl="file://C:\Users\Administrator\Documents\JJamTalkREAL\gitgit.iml" filepath="C:\Users\Administrator\Documents\JJamTalkREAL\gitgit.iml" />
     </modules>
   </component>

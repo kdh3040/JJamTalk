@@ -17,6 +17,10 @@
         android:id="@+id/btn_openbox"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="30dp"
         android:layout_weight="1"
-        android:text="열기" />
+        android:background="@drawable/button_pressed"
+        android:text="상자 열기"
+        android:textSize="30sp"
+        android:textColor="@color/textColor"/>
 </LinearLayout>
