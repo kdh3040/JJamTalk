@@ -245,6 +245,7 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // 사진 삭제
                 DeleteData(index);
+                DeleteFireBaseData(index);
                 dialog.dismiss();
             }
         });
@@ -301,7 +302,8 @@ public class MyProfileActivity extends AppCompatActivity {
                     mMyData.setUserImgCnt(mMyData.getUserImgCnt()+1);
 
                 mMyData.urSaveUri = uri;
-                //UploadImage_Firebase(uri);
+                mMyData.nSaveUri = nImgNumber;
+                UploadImage_Firebase(mMyData.urSaveUri);
 
             } else {
                 Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
@@ -316,13 +318,14 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private void UploadImage_Firebase(Uri file) {
 
-        StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" + nImgNumber );//file.getLastPathSegment());
+        StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  mMyData.nSaveUri );//file.getLastPathSegment());
 
         Bitmap bitmap = null;
         try {
-            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),mMyData.urSaveUri);
+            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),file);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+            bitmap.createScaledBitmap(bitmap, 350, 350, true);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
             byte[] data = baos.toByteArray();
 
             UploadTask uploadTask = riversRef.putBytes(data);
@@ -346,12 +349,12 @@ public class MyProfileActivity extends AppCompatActivity {
 
     public void Tr(Uri uri)
     {
-        if(nImgNumber == 0)
+        if( mMyData.nSaveUri == 0)
         {
             mMyData.setUserImg(uri.toString());
         }
 
-        mMyData.setUserProfileImg(nImgNumber, uri.toString());
+        mMyData.setUserProfileImg( mMyData.nSaveUri, uri.toString());
         mFireBaseData.SaveData(mMyData.getUserIdx());
         Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
 
@@ -369,8 +372,8 @@ public class MyProfileActivity extends AppCompatActivity {
             //프로필 저장 구현
             Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
 
-            if(bChangeImg)
-                UploadImage_Firebase(mMyData.urSaveUri);
+          /*  if(bChangeImg)
+                UploadImage_Firebase(mMyData.urSaveUri);*/
 
             mMyData.setUserNick(et_NickName.getText().toString());
             mMyData.setProfileData(et_Memo.getText());
@@ -382,8 +385,8 @@ public class MyProfileActivity extends AppCompatActivity {
         {
             Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
 
-            if(bChangeImg)
-                UploadImage_Firebase(mMyData.urSaveUri);
+         /*   if(bChangeImg)
+                UploadImage_Firebase(mMyData.urSaveUri);*/
 
             mMyData.setUserNick(et_NickName.getText().toString());
             mMyData.setProfileData(et_Memo.getText());
@@ -397,17 +400,22 @@ public class MyProfileActivity extends AppCompatActivity {
 
     public  void DeleteData(final int Index)
     {
-
-
-        StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" + nImgNumber );//file.getLastPathSegment());
-
         mMyData.delUserProfileImg(Index, "http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
         mMyData.setUserImgCnt(mMyData.getUserImgCnt()-1);
+
+        Glide.with(getApplicationContext())
+                .load(mMyData.getUserImg())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                //   .bitmapTransform(new RoundedCornersTransformation(getApplicationContext()))
+                .thumbnail(0.1f)
+                .into(Img_Sum);
+
         for(int i=0;i<4;i++)
         {
             Glide.with(getApplicationContext())
                 .load(mMyData.getUserProfileImg(i))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .thumbnail(0.1f)
                 .into(Img_Profiles[i]);
         }
@@ -416,36 +424,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
     public  void DeleteFireBaseData(final int Index)
     {
-        ref = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx());
-
-        switch (Index)
-        {
-            case 0:
-                ref.child("ImgGroup0").setValue(mMyData.getUserProfileImg(1));
-                ref.child("ImgGroup1").setValue(mMyData.getUserProfileImg(2));
-                ref.child("ImgGroup2").setValue(mMyData.getUserProfileImg(3));
-                ref.child("ImgGroup3").setValue("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
-                break;
-            case 1:
-                ref.child("ImgGroup0").setValue(mMyData.getUserProfileImg(0));
-                ref.child("ImgGroup1").setValue(mMyData.getUserProfileImg(2));
-                ref.child("ImgGroup2").setValue(mMyData.getUserProfileImg(3));
-                ref.child("ImgGroup3").setValue("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
-                break;
-            case 2:
-                ref.child("ImgGroup0").setValue(mMyData.getUserProfileImg(0));
-                ref.child("ImgGroup1").setValue(mMyData.getUserProfileImg(1));
-                ref.child("ImgGroup2").setValue(mMyData.getUserProfileImg(3));
-                ref.child("ImgGroup3").setValue("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
-                break;
-            case 3:
-                ref.child("ImgGroup0").setValue(mMyData.getUserProfileImg(0));
-                ref.child("ImgGroup1").setValue(mMyData.getUserProfileImg(1));
-                ref.child("ImgGroup2").setValue(mMyData.getUserProfileImg(2));
-                ref.child("ImgGroup3").setValue("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
-                break;
-        }
-
+        mFireBaseData.SaveData(mMyData.getUserIdx());
     }
 
 }

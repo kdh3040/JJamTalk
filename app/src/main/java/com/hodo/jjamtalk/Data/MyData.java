@@ -144,6 +144,7 @@ public class MyData {
     public ArrayList<Integer> itemIdx = new ArrayList<>();
 
     public  Uri urSaveUri;
+    public  int nSaveUri;
 
     private MyData() {
         strImg = null;
@@ -330,6 +331,7 @@ public class MyData {
         switch (Index)
         {
             case 0:
+                strImg = strProfileImg[1];
                 strProfileImg[0] = strProfileImg[1];
                 strProfileImg[1] = strProfileImg[2];
                 strProfileImg[2] = strProfileImg[3];
