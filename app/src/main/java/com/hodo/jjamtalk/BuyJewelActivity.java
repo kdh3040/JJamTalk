@@ -51,11 +51,90 @@ public class BuyJewelActivity extends AppCompatActivity {
         btn_openbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View v = getLayoutInflater().inflate(R.layout.dialog_exit_app,null,false);
+                AlertDialog.Builder builder = new AlertDialog.Builder(BuyJewelActivity.this);
+                final AlertDialog dialog = builder.setView(v).create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
+
+
+                TextView tv_title = v.findViewById(R.id.title);
+                tv_title.setText("상자 열기");
+                TextView tv_msg = v.findViewById(R.id.msg);
+                tv_msg.setText("상자를 여시겠습니까?(3골드 필요)");
+
+                Button btn_yes = v.findViewById(R.id.btn_yes);
+                btn_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                        if(mMyData.getUserHoney() > 3){
+                            mMyData.setUserHoney(mMyData.getUserHoney() - 3);
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                            View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_jewelbox_opened, null);
+                            ImageView Img_Opened = (ImageView)v.findViewById(R.id.opened_img);
+                            TextView Text_Opened = (TextView) v.findViewById(R.id.opened_text);
+                            //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+
+                            int result = Select_OpenedItem();
+                            View_OpenedItem(v, result, Img_Opened, Text_Opened);
+                            mMyData.setMyItem(result);
+
+                            Button btn_confirm = v.findViewById(R.id.opened_btn);
+
+                            builder.setView(v);
+
+                            final AlertDialog dialog = builder.create();
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                            dialog.show();
+
+                            btn_confirm.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                        }else {
+
+                            Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
+
+                        }
+
+
+                    }
+                });
+
+                btn_yes.setText("네");
+
+                Button btn_no = v.findViewById(R.id.btn_no);
+
+
+                btn_no.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+
+                    public void onClick(View view) {
+
+                        dialog.dismiss();
+
+
+                    }
+
+                });
+
+                btn_no.setText("아니오");
+
+
+
+
+
 
 
                     String alertTitle = "상자 열기";
-                    new AlertDialog.Builder(mActivity)
+                    /*new AlertDialog.Builder(mActivity)
                             .setTitle(alertTitle)
+
                             .setMessage("3꿀을 소비하여 상자를 여시겠습니까")
                             .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                 @Override
@@ -101,7 +180,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.cancel();
                                 }
-                            }).show();
+                            }).show();*/
 
             }
         });

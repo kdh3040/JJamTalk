@@ -553,7 +553,7 @@ public class MainActivity extends AppCompatActivity {
         final Button btn_exit;
         final Button btn_no;
 
-        btn_exit = (Button) v.findViewById(R.id.btn_exit);
+        btn_exit = (Button) v.findViewById(R.id.btn_yes);
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

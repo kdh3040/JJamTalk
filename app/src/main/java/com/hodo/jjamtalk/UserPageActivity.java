@@ -301,7 +301,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 20;
-                                Msg.setText(nSendHoneyCnt[0] + "골드를보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보시겠습니까?");
                             }
                         });
 
@@ -309,7 +309,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 30;
-                                Msg.setText(nSendHoneyCnt[0] + "골드를 보겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
                             }
                         });
 
@@ -317,7 +317,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 50;
-                                Msg.setText(nSendHoneyCnt[0] + "골드를 보겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
                             }
                         });
 
