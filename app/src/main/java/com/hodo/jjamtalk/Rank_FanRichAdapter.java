@@ -76,7 +76,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
         {
             //  남자 탐색
             case 1:
-                double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon,"kilometer");
+                float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
                 Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
                 holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
 

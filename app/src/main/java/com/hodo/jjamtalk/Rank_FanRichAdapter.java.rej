@@ -1,0 +1,10 @@
+diff a/app/src/main/java/com/hodo/jjamtalk/Rank_FanRichAdapter.java b/app/src/main/java/com/hodo/jjamtalk/Rank_FanRichAdapter.java	(rejected hunks)
+@@ -76,7 +76,7 @@
+         {
+             //  남자 탐색
+             case 1:
+-                float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
++                double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon,"kilometer");
+                 Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
+                 holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
+ 
