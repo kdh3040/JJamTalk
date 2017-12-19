@@ -345,20 +345,26 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                String strSendMsg = SendMsg.getText().toString();
-                                if (strSendMsg.equals(""))
-                                    strSendMsg = "안녕하세요";
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    String strSendMsg = SendMsg.getText().toString();
+                                    if (strSendMsg.equals(""))
+                                        strSendMsg = "안녕하세요";
 
-                                boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
-                                rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                    boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                    rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
 
-                                if (rtValuew == true) {
-                                    mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
-                                    mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                                    mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
-                                    mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
-                                    Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                    if (rtValuew == true) {
+                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                        mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
+                                        mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
+                                        mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
+                                        Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
+
                                 dialog.dismiss();
 
                             }
