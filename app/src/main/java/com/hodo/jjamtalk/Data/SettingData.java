@@ -80,11 +80,11 @@ public class SettingData {
     public int getnViewSetting()
     {
         int rtValue = 0;
-       if(mMyData.nViewMode == 0)
+/*       if(mMyData.nViewMode == 0)
         {
            rtValue = 1;
         }
-        else
+        else*/
             rtValue = mMyData.nViewMode;
 
         return  rtValue;
