@@ -491,17 +491,20 @@ public class UserPageActivity extends AppCompatActivity {
 
         btnMessage.setOnClickListener(listener);
 
-        tv_liked = findViewById(R.id.tv_liked);
-        tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
+        tv_like = findViewById(R.id.tv_like);
+        tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
         listView_like = (RecyclerView) findViewById(R.id.lv_like);
         LikeAdapter likeAdapter = new LikeAdapter(this, stTargetData.arrFanList);
         listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
         listView_like.setAdapter(likeAdapter);
 
+        tv_liked = findViewById(R.id.tv_liked);
+        tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
+
         listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
         LikedAdapter LikedAdapter = new LikedAdapter(this, stTargetData.arrStarList);
-        listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
         listView_liked.setAdapter(LikedAdapter);
 

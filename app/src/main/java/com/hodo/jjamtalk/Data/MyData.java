@@ -1163,6 +1163,7 @@ public class MyData {
         updateMap.put("Count", nTotalSendCnt);
         updateMap.put("Nick", getUserNick());
         updateMap.put("Idx", getUserIdx());
+        updateMap.put("Img", getUserImg());
         table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
         nFanCount-=1;
         updateMap.put("FanCount", nFanCount);
@@ -1216,6 +1217,7 @@ public class MyData {
         updateMap.put("Count", nTotalSendCnt);
         updateMap.put("Nick", stTargetData.NickName);
         updateMap.put("Idx", stTargetData.Idx);
+        updateMap.put("Img", stTargetData.Img);
         table.child("StarList").child(stTargetData.Idx).updateChildren(updateMap);
 
         FanData tempStarList = new FanData();

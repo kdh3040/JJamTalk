@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.FanData;
+import com.hodo.jjamtalk.Data.UserData;
 
 import java.util.ArrayList;
 
@@ -52,7 +53,7 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
     @Override
     public void onBindViewHolder(LikedViewHolder holder, int position) {
         Glide.with(mContext)
-                .load(arrayList.get(position))
+                .load(arrayList.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.iv_liked);
 
