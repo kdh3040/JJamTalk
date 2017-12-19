@@ -92,18 +92,18 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
         });
          holder.imageView.setImageResource(R.mipmap.hdvd);
 
-/*        Glide.with(mContext)
-                .load(stTargetData.arrStarData.get(position).Img)
+       Glide.with(mContext)
+                .load(stTargetData.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .thumbnail(0.1f)
-                .into(holder.imageView);*/
+                .into(holder.imageView);
 
         holder.tv_nickname.setText(stTargetData.get(position).Nick);
         holder.tv_rank.setText((position + 1) + "위");
 
         int SendCnt = stTargetData.get(position).Count * -1;
-        holder.tv_honeycount.setText(Integer.toString(SendCnt) + "꿀");
+        holder.tv_honeycount.setText(Integer.toString(SendCnt) + "골드");
 
 
     }
