@@ -52,13 +52,13 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
 
     @Override
     public void onBindViewHolder(LikedViewHolder holder, int position) {
-<<<<<<< HEAD
+
         /*Glide.with(mContext)
                 .load(arrayList.get(position))
-=======
+
         Glide.with(mContext)
                 .load(arrayList.get(position).Img)
->>>>>>> 9839373c7a8827bc86795ddbffe63248452b43bd
+8
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.iv_liked);*/
 

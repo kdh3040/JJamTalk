@@ -74,11 +74,12 @@
         <item name ="android:windowTitleStyle">@style/MyTitleTextStyle</item>
 
 
+
     </style>
 
     <style name = "MyTitleTextStyle">
         <item name="android:textColor">@color/textColor</item>
-        <item name= "android:"></item>
+
         <item name="android:background">@color/colorAccent</item>
     </style>
 
