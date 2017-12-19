@@ -33,7 +33,7 @@
                 app:srcCompat="@mipmap/hdvd" />
 
             <ImageView
-                android:id="@+id/imageView17"
+                android:id="@+id/cardlist_newSymbol"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_weight="1"

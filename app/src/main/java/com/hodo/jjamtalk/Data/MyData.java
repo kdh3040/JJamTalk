@@ -1,10 +1,13 @@
 package com.hodo.jjamtalk.Data;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -133,12 +136,15 @@ public class MyData {
     public ArrayList<String> arrSendNameList = new ArrayList<>();
     public ArrayList<SendData> arrSendDataList = new ArrayList<>();
 
-    public ArrayList<String> arrCardNameList = new ArrayList<>();
+    public ArrayList<FanData> arrCardNameList = new ArrayList<>();
     public ArrayList<UserData> arrCardList = new ArrayList<>();
 
 
     public Map<Integer, Integer> itemList = new HashMap<Integer, Integer>();
     public ArrayList<Integer> itemIdx = new ArrayList<>();
+
+    public  Uri urSaveUri;
+    public  int nSaveUri;
 
     private MyData() {
         strImg = null;
@@ -319,6 +325,37 @@ public class MyData {
 
     public String getUserProfileImg(int Index) {
         return strProfileImg[Index];
+    }
+
+    public void delUserProfileImg(int Index, String userImg) {
+        switch (Index)
+        {
+            case 0:
+                strImg = strProfileImg[1];
+                strProfileImg[0] = strProfileImg[1];
+                strProfileImg[1] = strProfileImg[2];
+                strProfileImg[2] = strProfileImg[3];
+                strProfileImg[3] = userImg;
+                break;
+            case 1:
+                strProfileImg[0] = strProfileImg[0];
+                strProfileImg[1] = strProfileImg[2];
+                strProfileImg[2] = strProfileImg[3];
+                strProfileImg[3] = userImg;
+                break;
+            case 2:
+                strProfileImg[0] = strProfileImg[0];
+                strProfileImg[1] = strProfileImg[1];
+                strProfileImg[2] = strProfileImg[3];
+                strProfileImg[3] = userImg;
+                break;
+            case 3:
+                strProfileImg[0] = strProfileImg[0];
+                strProfileImg[1] = strProfileImg[1];
+                strProfileImg[2] = strProfileImg[2];
+                strProfileImg[3] = userImg;
+                break;
+        }
     }
 
     public void setUserNick(String userNick) {
@@ -521,67 +558,123 @@ public class MyData {
     }
 
 
-    public boolean makeCardList(UserData _UserData) {
+    public void getMyCardData() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("User");
+
+
+        //user.addChildEventListener(new ChildEventListener() {
+        for (int i = 0; i < arrMyFanList.size(); i++) {
+            strTargetIdx = arrMyFanList.get(i).Idx;
+
+            final int finalI = i;
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int saa = 0;
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    arrMyFanDataList.add(tempUserData);
+
+                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                        arrMyFanDataList.get(finalI).arrFanList.add(entry.getValue());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+        }
+    }
+
+    public boolean makeCardList(UserData stTargetData) {
         boolean rtValue = false;
 
-        UserData SaveUserData = _UserData;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, user;
-        table = database.getReference("CardList");
+        DatabaseReference table;
+        table = database.getReference("User/" + strIdx);
 
-        user = table.child(strIdx).child(_UserData.Idx);
+        Map<String, Object> updateMap = new HashMap<>();
 
-        if (!arrCardNameList.contains(_UserData.Idx)) {
-            user.setValue(_UserData);
+        for (int i = 0; i < arrCardNameList.size(); i++) {
+            if (arrCardNameList.get(i).Idx.equals(stTargetData.Idx))
+                return rtValue;
+        }
+
+
+            updateMap.put("Count", 0);
+            updateMap.put("Nick", stTargetData.NickName);
+            updateMap.put("Idx", stTargetData.Idx);
+            table.child("CardList").child(stTargetData.Idx).updateChildren(updateMap);
             rtValue = true;
-        } else
-            return rtValue;
+
+            FanData tempData = new FanData();
+
+            tempData.Count = 0;
+            tempData.Nick = stTargetData.NickName;
+            tempData.Idx = stTargetData.Idx;
+            arrCardNameList.add(tempData);
+
+            getCardList(stTargetData.Idx);
+
 
         return rtValue;
 
     }
-
-    public void getCardList() {
-        String MyID = strIdx;
+    public void getCardList(String strTargetIdx) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
-        table = database.getReference("CardList");
+        table = database.getReference("User");
+
+            strTargetIdx = strTargetIdx;
+
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int saa = 0;
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    arrCardList.add(tempUserData);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+    }
+
+
+    public void getCardList() {
+        String MyID = strIdx;
+        String strTargetIdx = null;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("User");
         user = table.child(strIdx);
 
-        user.addChildEventListener(new ChildEventListener() {
-            int i = 0;
+        for (int i = 0; i < arrCardNameList.size(); i++) {
+            strTargetIdx = arrCardNameList.get(i).Idx;
 
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                int saa = 0;
-                UserData CardList = dataSnapshot.getValue(UserData.class);
-                if (!arrCardNameList.contains(CardList.Idx))
-                    arrCardNameList.add(CardList.Idx);
-                arrCardList.add(CardList);
-            }
+            final int finalI = i;
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int saa = 0;
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    arrCardList.add(tempUserData);
+                }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
 
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int saa = 0;
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                int saa = 0;
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-        });
+            });
+        }
     }
 
     public void setProfileData(Editable memo) {
@@ -1046,6 +1139,7 @@ public class MyData {
                 });
 
     }
+
 
     public void makeFanList(UserData stTargetData, int SendCount) {
 

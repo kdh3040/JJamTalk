@@ -72,7 +72,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
         Log.d("Guide !!!! ", "Start");
         int i = position;
 
-        switch (mSetting.getnSearchSetting())
+        /*switch (mSetting.getnSearchSetting())
         {
             //  남자 탐색
             case 1:
@@ -113,7 +113,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                 break;
             default:
                 break;
-        }
+        }*/
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,11 +19,21 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -39,11 +50,18 @@ public class CardListFragment extends Fragment {
     private ArrayList<UserData> arrTargetData = new ArrayList<>();
 
     RecyclerView card_recylerview;
-    private CardListAdapter cardListAdapter;
+    private CardListAdapter cardListAdapter = new CardListAdapter();
     private Context mContext;
     private UIData mUIData = UIData.getInstance();
 
     View fragView;
+
+    private void refreshFragMent()
+    {
+        FragmentTransaction trans = getFragmentManager().beginTransaction();
+        trans.detach(this).attach(this).commit();
+    }
+
 
     public CardListFragment() {
 
@@ -52,6 +70,7 @@ public class CardListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+
         if (fragView!= null) {
 
         }
@@ -59,8 +78,9 @@ public class CardListFragment extends Fragment {
         {
             fragView = inflater.inflate(R.layout.fragment_card_list,container,false);
             card_recylerview = fragView.findViewById(R.id.cardlist_recy);
-            card_recylerview.setAdapter(new CardListAdapter());
+            card_recylerview.setAdapter(cardListAdapter);
             card_recylerview.setLayoutManager(new LinearLayoutManager(getContext()));
+            cardListAdapter.notifyDataSetChanged();
             mContext = getContext();
         }
 
@@ -118,6 +138,9 @@ public class CardListFragment extends Fragment {
                     .thumbnail(0.1f)
                     .into(holder.image);
 
+            if(mMyData.arrCardNameList.get(position).Count != 0)
+                holder.imageSymbol.setVisibility(View.INVISIBLE);
+
             holder.textView.setText(mMyData.arrCardList.get(i).NickName + ", " + mMyData.arrCardList.get(i).Age + "세");
             holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -133,7 +156,31 @@ public class CardListFragment extends Fragment {
                     }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            //확인 구현
+
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference table;
+                            table = database.getReference("User/" + mMyData.getUserIdx()+ "/CardList/");
+                            table.child(mMyData.arrCardList.get(position).Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    dataSnapshot.getRef().removeValue();
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+
+                            });
+
+                            mMyData.arrCardNameList.remove(position);
+                            mMyData.arrCardList.remove(position);
+
+                            refreshFragMent();
+                     /*   Intent in = new Intent(getContext(), MainActivity.class);
+                        startActivity(in);*/
+
+
+
                         }
                     });
                     AlertDialog dialog = br.create();
@@ -150,6 +197,17 @@ public class CardListFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     //startActivity(new Intent(getApplicationContext(),UserPageActivity.class));
+                    mMyData.arrCardNameList.get(position).Count = 1;
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference table;
+                    table = database.getReference("User/" + mMyData.getUserIdx());
+
+                    Map<String, Object> updateMap = new HashMap<>();
+                    updateMap.put("Count",  mMyData.arrCardNameList.get(position).Count);
+                    table.child("CardList").child(arrTargetData.get(position).Idx).updateChildren(updateMap);
+
+
                     stTargetData = arrTargetData.get(position);
                     Intent intent = new Intent(getContext(), UserPageActivity.class);
                     Bundle bundle = new Bundle();
@@ -168,17 +226,21 @@ public class CardListFragment extends Fragment {
 
         }
 
+
+
         @Override
         public int getItemCount() {
             return mMyData.arrCardList.size();
         }
         public class ViewHolder extends RecyclerView.ViewHolder{
+            public ImageView imageSymbol;
             public ImageView image;
             public TextView textView;
             public LinearLayout linearLayout;
 
             public ViewHolder(View itemView) {
                 super(itemView);
+                imageSymbol = (ImageView)itemView.findViewById(R.id.cardlist_newSymbol);
                 image = (ImageView)itemView.findViewById(R.id.iv_my_card);
                 textView = (TextView)itemView.findViewById(R.id.tv_nickname);
                 linearLayout = itemView.findViewById(R.id.layout_mycard_item);
