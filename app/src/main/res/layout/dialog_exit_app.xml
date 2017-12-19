@@ -46,10 +46,11 @@
             android:id="@+id/btn_yes"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
+
             android:layout_weight="1"
             android:background="@drawable/rounded_all_white"
             android:text="종료"
+            android:layout_margin="20dp"
             android:textColor="@color/textColor" />
 
         <Button
@@ -59,8 +60,9 @@
             android:layout_weight="1"
             android:textColor="@color/white"
             android:layout_margin="20dp"
+            android:background="@drawable/rounded_dark"
             android:text="계속"
-            android:background="@drawable/rounded"/>
+              />
 
     </LinearLayout>
 

@@ -229,15 +229,16 @@ public class UserPageActivity extends AppCompatActivity {
                         //ClickBtnSendHeart();
                         break;
                     case R.id.UserPage_btnGiftJewel:
-                        View v = inflater.inflate(R.layout.dialog_give_jewel,null);
+                        View v = inflater.inflate(R.layout.dialog_give_jewel,null,false);
                         Spinner sp_jewel = v.findViewById(R.id.sp_jewel);
 
                         sp_jewel.setAdapter(myjewelAdapter);
 
 
-                        builder.setView(v);
-                        builder.show();
+                        AlertDialog dialog_btnGift= builder.setView(v).create();
 
+                        dialog_btnGift.show();
+                        dialog_btnGift.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
 
                         break;
@@ -253,6 +254,7 @@ public class UserPageActivity extends AppCompatActivity {
                                 View giftView = inflater.inflate(R.layout.alert_send_gift, null);
                                 builder.setView(giftView);
                                 final AlertDialog dialog = builder.create();
+                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                                 dialog.show();
 
                                 TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
@@ -650,7 +652,7 @@ public class UserPageActivity extends AppCompatActivity {
 
         View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
 
-        final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+        final AlertDialog dialog = new AlertDialog.Builder(mActivity).setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
 
@@ -662,11 +664,11 @@ public class UserPageActivity extends AppCompatActivity {
         tv_title = v.findViewById(R.id.title);
         tv_msg = v.findViewById(R.id.msg);
 
-        tv_title.setText("내 카드 등록");
-        tv_msg.setText("내 카드에 등록하시겠습니까?");
+        tv_title.setText(s);
+        tv_msg.setText(s1);
 
         btn_exit = (Button) v.findViewById(R.id.btn_yes);
-        btn_exit.setText("등록한다");
+        btn_exit.setText(s2);
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
