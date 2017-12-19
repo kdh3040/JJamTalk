@@ -59,7 +59,7 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
-                }).setMessage("해당 아이템을 파시겠습니까?   "+mUIdata.getSellJewelValue()[position]+"골드");
+                }).setMessage("환전하시겠습니까? "+mUIdata.getSellJewelValue()[position]+"골드");
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }

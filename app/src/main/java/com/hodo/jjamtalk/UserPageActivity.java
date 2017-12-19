@@ -10,16 +10,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +30,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
@@ -60,10 +59,12 @@ public class UserPageActivity extends AppCompatActivity {
 
     private TextView txtDistance;
 
+    private TextView tv_liked;
+
     //private TextView txtHeart;
     //private TextView txtProfile;
 
-    private TextView txt_FanTitle;
+    private TextView tv_like;
     private TextView[] txt_Fan = new TextView[5];
 
     private TextView txt_Fan_0;
@@ -81,7 +82,7 @@ public class UserPageActivity extends AppCompatActivity {
    // private Button btnPublicChat;
 
     private ImageView imgProfile;
-    ListView listView, listView_Star;
+    RecyclerView listView_like, listView_liked;
     final Context context = this;
     LinearLayout stickers_holder;
     UIData mUIData = UIData.getInstance();
@@ -136,7 +137,8 @@ public class UserPageActivity extends AppCompatActivity {
 
         //private TextView txtProfile;
 
-        txt_FanTitle = (TextView) findViewById(R.id.UserPage_FanTitle);
+        tv_like = (TextView) findViewById(R.id.tv_like);
+        tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
         imgProfile.setLayoutParams(mUIData.getRLP(1,0.6f));
@@ -483,14 +485,19 @@ public class UserPageActivity extends AppCompatActivity {
 
         btnMessage.setOnClickListener(listener);
 
+        tv_liked = findViewById(R.id.tv_liked);
+        tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
+        listView_like = (RecyclerView) findViewById(R.id.lv_like);
+        LikeAdapter likeAdapter = new LikeAdapter(this, stTargetData.arrFanList);
+        listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
-        listView = (ListView) findViewById(R.id.lv_fan);
-        UserPageFanAdapter fanAdapter = new UserPageFanAdapter(this, stTargetData.arrFanList);
-        listView.setAdapter(fanAdapter);
+        listView_like.setAdapter(likeAdapter);
 
-        listView_Star = (ListView) findViewById(R.id.lv_star);
-        UserPageStarAdapter StarAdapter = new UserPageStarAdapter(this, stTargetData.arrStarList);
-        listView_Star.setAdapter(StarAdapter);
+        listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
+        LikedAdapter LikedAdapter = new LikedAdapter(this, stTargetData.arrStarList);
+        listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+        listView_liked.setAdapter(LikedAdapter);
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
         layout.setOnClickListener(new View.OnClickListener() {

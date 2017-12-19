@@ -244,17 +244,17 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
             }
         });
 
-       // listView = (ListView)findViewById(R.id.lv_pcr);
+       // listView_like = (ListView)findViewById(R.id.lv_pcr);
        // pcrAdapter = new PublicChatRoomAdapter(mContext,this);
-        //listView.addHeaderView(header);
-        //listView.addFooterView(footer);
-       // listView.setAdapter(pcrAdapter);
+        //listView_like.addHeaderView(header);
+        //listView_like.addFooterView(footer);
+       // listView_like.setAdapter(pcrAdapter);
 
 
 
 
         //pcrAdapter = new PublicChatRoomAdapter(mContext,this);
-        //listView.setAdapter(pcrAdapter);
+        //listView_like.setAdapter(pcrAdapter);
         //btn_options = (Button)findViewById(R.id.btn_options);
         /*btn_options.setOnClickListener(new View.OnClickListener() {
             @Override
