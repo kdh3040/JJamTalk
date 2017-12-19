@@ -99,7 +99,7 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
         holder.tv_rank.setText((position + 1) + "위");
 
         int SendCnt = mMyData.arrMyStarList.get(position).Count * -1;
-        holder.tv_honeycount.setText(Integer.toString(SendCnt) + "꿀");
+        holder.tv_honeycount.setText(Integer.toString(SendCnt) + "골드");
 
 
     }

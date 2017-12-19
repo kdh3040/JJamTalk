@@ -348,20 +348,26 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                String strSendMsg = SendMsg.getText().toString();
-                                if (strSendMsg.equals(""))
-                                    strSendMsg = "안녕하세요";
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    String strSendMsg = SendMsg.getText().toString();
+                                    if (strSendMsg.equals(""))
+                                        strSendMsg = "안녕하세요";
 
-                                boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
-                                rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                    boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                    rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
 
-                                if (rtValuew == true) {
-                                    mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
-                                    mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                                    mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
-                                    mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
-                                    Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                    if (rtValuew == true) {
+                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                        mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
+                                        mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
+                                        mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
+                                        Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
+
                                 dialog.dismiss();
 
                             }
@@ -486,17 +492,20 @@ public class UserPageActivity extends AppCompatActivity {
 
         btnMessage.setOnClickListener(listener);
 
-        tv_liked = findViewById(R.id.tv_liked);
-        tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
+        tv_like = findViewById(R.id.tv_like);
+        tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
         listView_like = (RecyclerView) findViewById(R.id.lv_like);
         LikeAdapter likeAdapter = new LikeAdapter(this, stTargetData.arrFanList);
         listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
         listView_like.setAdapter(likeAdapter);
 
+        tv_liked = findViewById(R.id.tv_liked);
+        tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
+
         listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
         LikedAdapter LikedAdapter = new LikedAdapter(this, stTargetData.arrStarList);
-        listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
         listView_liked.setAdapter(LikedAdapter);
 

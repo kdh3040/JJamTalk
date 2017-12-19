@@ -178,9 +178,6 @@ public class CardListFragment extends Fragment {
                             refreshFragMent();
                      /*   Intent in = new Intent(getContext(), MainActivity.class);
                         startActivity(in);*/
-
-
-
                         }
                     });
                     AlertDialog dialog = br.create();

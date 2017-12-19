@@ -42,6 +42,7 @@ public class MyData {
 
     private static MyData _Instance;
     private BlockData blockList;
+    private int fanCount;
 
 
     public static MyData getInstance() {
@@ -156,10 +157,12 @@ public class MyData {
         nHoney = 0;
         strDate = null;
 
+
         for (int i = 0; i < 4; i++) {
             strProfileImg[i] = "http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg";
         }
 
+        nFanCount = 0;
         nItemCount = 0;
         item_1 = 0;
         item_2 = 0;
@@ -1160,6 +1163,7 @@ public class MyData {
         updateMap.put("Count", nTotalSendCnt);
         updateMap.put("Nick", getUserNick());
         updateMap.put("Idx", getUserIdx());
+        updateMap.put("Img", getUserImg());
         table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
         nFanCount-=1;
         updateMap.put("FanCount", nFanCount);
@@ -1213,6 +1217,7 @@ public class MyData {
         updateMap.put("Count", nTotalSendCnt);
         updateMap.put("Nick", stTargetData.NickName);
         updateMap.put("Idx", stTargetData.Idx);
+        updateMap.put("Img", stTargetData.Img);
         table.child("StarList").child(stTargetData.Idx).updateChildren(updateMap);
 
         FanData tempStarList = new FanData();
@@ -1515,6 +1520,10 @@ public class MyData {
         user.child("Item_6").setValue(item_6);
         user.child("Item_7").setValue(item_7);
         user.child("Item_8").setValue(item_8);
+    }
+
+    public int getFanCount() {
+        return nFanCount;
     }
 }
 

@@ -102,6 +102,8 @@ public class FirebaseData {
         user.child("Memo").setValue(mMyData.getUserMemo());
 
         user.child("RecvMsg").setValue(mMyData.getnRecvMsg());
+
+        user.child("FanCount").setValue(mMyData.getFanCount());
     }
     public boolean SaveBoardData(TempBoardData sendData) {
 
