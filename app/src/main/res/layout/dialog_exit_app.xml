@@ -3,16 +3,17 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    style="@style/MyAlertDialog"
+
 
     android:minHeight="200dp"
     >
 
     <TextView
+        android:background="@drawable/rounded_top_yellow"
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+
         android:layout_weight="2"
         android:gravity="center"
         android:text="종료 확인"

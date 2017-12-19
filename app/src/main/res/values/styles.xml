@@ -12,7 +12,7 @@
         <item name = "android:layout_width">match_parent</item>
         <item name = "android:layout_height">1dp</item>
 
-        <item name = "android:background">#a0a0a0</item>
+        <item name = "android:background">#e0e0e0</item>
     </style>
 
     <style name="button" parent="@android:style/Widget.Button">

@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
             tabLayout = fragView.findViewById(R.id.tabLayout);
 
             tabLayout.addTab(tabLayout.newTab().setText("가까운 순"));
-            tabLayout.addTab(tabLayout.newTab().setText("받은 골드순"));
+            tabLayout.addTab(tabLayout.newTab().setText("랭크 순"));
             tabLayout.addTab(tabLayout.newTab().setText("팬 보유순"));
             tabLayout.addTab(tabLayout.newTab().setText("뉴페이스"));
 

@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.FanData;
 
 import java.util.ArrayList;
@@ -16,17 +19,17 @@ import java.util.ArrayList;
  * Created by mjk on 2017. 8. 28..
  */
 
-public class UserPageStarAdapter extends BaseAdapter {
+public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
 
     ArrayList<FanData> arrayList = new ArrayList<>();
 
     Context mContext;
-    public UserPageStarAdapter(Context context, ArrayList<FanData> fanList) {
+    public LikedAdapter(Context context, ArrayList<FanData> fanList) {
         super();
         mContext = context;
         arrayList = fanList;
     }
-
+/*
     @Override
     public int getCount() {
         return arrayList.size();
@@ -35,6 +38,24 @@ public class UserPageStarAdapter extends BaseAdapter {
     @Override
     public Object getItem(int i) {
         return arrayList.get(i);
+    }*/
+
+    @Override
+    public LikedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(mContext).inflate(R.layout.holder_image_only,parent,false);
+        return new LikedViewHolder(view);
+
+
+    }
+
+    @Override
+    public void onBindViewHolder(LikedViewHolder holder, int position) {
+        Glide.with(mContext)
+                .load(arrayList.get(position))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.iv_liked);
+
     }
 
     @Override
@@ -42,6 +63,11 @@ public class UserPageStarAdapter extends BaseAdapter {
         return i;
     }
 
+    @Override
+    public int getItemCount() {
+        return arrayList.size();
+    }
+/*
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -63,10 +89,10 @@ public class UserPageStarAdapter extends BaseAdapter {
 /*        Glide.with(mContext)
                 .load(arrayList.get(position).)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(iconImageView);*/
+                .into(iconImageView);
 
         FanName.setText(arrayList.get(position).Nick);
 
         return convertView;
-    }
+    }*/
 }

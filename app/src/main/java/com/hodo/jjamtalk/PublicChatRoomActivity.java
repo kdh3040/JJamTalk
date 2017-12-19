@@ -320,11 +320,11 @@ public class PublicChatRoomActivity extends AppCompatActivity {
             }
         });
 
- /*       listView = (ListView)findViewById(R.id.lv_pcr);
+ /*       listView_like = (ListView)findViewById(R.id.lv_pcr);
         pcrAdapter = new PublicChatRoomAdapter(getApplicationContext(),this);
-        //listView.addHeaderView(header);
-        //listView.addFooterView(footer);
-        listView.setAdapter(pcrAdapter);
+        //listView_like.addHeaderView(header);
+        //listView_like.addFooterView(footer);
+        listView_like.setAdapter(pcrAdapter);
 */
     }
 }

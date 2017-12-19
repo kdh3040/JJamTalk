@@ -13,266 +13,271 @@
     android:layout_height="wrap_content">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/UserPage_ImgProfile"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:srcCompat="@mipmap/hdvd" />
-
-            <ImageView
-                android:id="@+id/iv_rank"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:srcCompat="@drawable/vip" />
-
-            <FrameLayout
-                android:id="@+id/fl_sticker_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true">
-
-                <include
-                    android:id="@+id/stickers_holder"
-                    layout="@layout/layout_jewelholder"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"></include>
-            </FrameLayout>
-
-        </RelativeLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
-
-            android:orientation="horizontal"
-            android:weightSum="8">
-
-            <TextView
-                android:id="@+id/UserPage_txtProfile"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-
-                android:layout_weight="7"
-                android:text="상희, 28"
-                android:textSize="24sp" />
-
-            <ImageButton
-                android:id="@+id/UserPage_btnShared"
-                style="@android:style/Widget.Holo.Light.ImageButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:elevation="0dp"
-                android:outlineProvider="bounds"
-                app:srcCompat="@drawable/share_icon" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_marginLeft="15dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <ImageView
-                android:id="@+id/imageView14"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@mipmap/ic_locat" />
-
-            <TextView
-                android:id="@+id/UserPage_txtDistance"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="9"
-                android:gravity="left|center_vertical"
-                android:text="15km 거리에 있음"
-
-                android:textColor="@color/black" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/UserPage_txtMemo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:text="한국대학교에 다니고요 학생이고요\n같이놉시다" />
-
-        <LinearLayout
-            android:id="@+id/ll_fan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/UserPage_FanTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="팬 클럽"
-                    android:textColor="@android:color/holo_red_light"
-                    android:textSize="18sp" />
-
-                <ListView
-                    android:id="@+id/lv_fan"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="none" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView38"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="가입한 팬클럽"
-                    android:textColor="@android:color/holo_red_light"
-                    android:textSize="18sp" />
-
-                <ListView
-                    android:id="@+id/lv_star"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="none" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/UserPage_Insta"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/UserPage_ImgProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@mipmap/hdvd" />
+
+                <ImageView
+                    android:id="@+id/iv_rank"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/vip" />
+
+                <FrameLayout
+                    android:id="@+id/fl_sticker_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true">
+
+                    <include
+                        android:id="@+id/stickers_holder"
+                        layout="@layout/layout_jewelholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></include>
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="140장의 instagram 사진" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
 
-            <GridView
+                android:orientation="horizontal"
+                android:weightSum="8">
+
+                <TextView
+                    android:id="@+id/UserPage_txtProfile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="7"
+                    android:text="상희, 28"
+                    android:textSize="24sp" />
+
+                <ImageButton
+                    android:id="@+id/UserPage_btnShared"
+                    style="@android:style/Widget.Holo.Light.ImageButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:elevation="0dp"
+                    android:outlineProvider="bounds"
+                    app:srcCompat="@drawable/share_icon" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <ImageView
+                    android:id="@+id/imageView14"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@mipmap/ic_locat" />
+
+                <TextView
+                    android:id="@+id/UserPage_txtDistance"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:gravity="left|center_vertical"
+                    android:text="15km 거리에 있음"
+
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/UserPage_txtMemo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:text="한국대학교에 다니고요 학생이고요\n같이놉시다" />
+
+            <View
+                style="@style/Divider"
+                 />
+
+            <LinearLayout
+                android:id="@+id/ll_fan"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_margin="5dp"
+
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_like"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="상희님을 좋아하는 사람들"
+                        android:textColor="@color/textColor"
+                        android:textSize="18sp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/lv_like"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scrollbars="none" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_liked"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="상희님이 좋아하는 사람들"
+                        android:textColor="@color/textColor"
+                        android:textSize="18sp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/lv_liked"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scrollbars="none" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                style="@style/Divider"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/UserPage_Insta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="140장의 instagram 사진" />
+
+                <GridView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:orientation="horizontal"
+
+
+                >
+
+
+                <Button
+                    android:id="@+id/UserPage_btnRegister"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_pressed"
+                    android:text="내 카드에 등록"
+                    android:textColor="@color/textColor"
+                    android:textSize="10sp" />
+
+
+                <Button
+                    android:id="@+id/UserPage_btnGiftJewel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+
+
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_pressed"
+                    android:text="보석 선물하기"
+                    android:textColor="@color/textColor"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/UserPage_btnGiftHoney"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_pressed"
+                    android:text="골드 선물하기"
+                    android:textColor="@color/textColor"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/UserPage_btnMessage"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_pressed"
+                    android:text="쪽지쓰기"
+                    android:textColor="@color/textColor"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="15dp"
-            android:orientation="horizontal"
 
-
-            >
-
-
-            <Button
-                android:id="@+id/UserPage_btnRegister"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_pressed"
-                android:text="내 카드에 등록"
-                android:textColor="@color/textColor"
-                android:textSize="10sp" />
-
-
-            <Button
-                android:id="@+id/UserPage_btnGiftJewel"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-
-
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_pressed"
-                android:text="보석 선물하기"
-                android:textColor="@color/textColor"
-                android:textSize="10sp" />
-
-            <Button
-                android:id="@+id/UserPage_btnGiftHoney"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_pressed"
-                android:text="골드 선물하기"
-                android:textColor="@color/textColor"
-                android:textSize="10sp" />
-
-            <Button
-                android:id="@+id/UserPage_btnMessage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_pressed"
-                android:text="쪽지쓰기"
-                android:textColor="@color/textColor"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-
-
-</ScrollView>
+    </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
