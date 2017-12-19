@@ -99,9 +99,9 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
         //회색글자 처리 뜸 원인불명
         public PublicHostChatViewHolder(View itemView) {
             super(itemView);
-            image_profile = (ImageView)itemView.findViewById(R.id.imageView);
+            image_profile = (ImageView)itemView.findViewById(R.id.ChatRoom_Img);
             image_sent = (ImageView)itemView.findViewById(R.id.iv_sent);
-            sender = (TextView)itemView.findViewById(R.id.nickname);
+            //sender = (TextView)itemView.findViewById(R.id.ChatRoom_nickname);
             message =(TextView)itemView.findViewById(R.id.message);
             time = (TextView)itemView.findViewById(R.id.time);
         }

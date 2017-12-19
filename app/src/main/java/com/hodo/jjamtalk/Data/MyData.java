@@ -474,10 +474,10 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user, targetuser;
-        table = database.getReference("SendList");
+        table = database.getReference("User");
 
-        user = table.child(strIdx);
-        targetuser = table.child(_UserData.Idx);
+        user = table.child(strIdx).child("SendList");
+        targetuser = table.child(_UserData.Idx).child("SendList");
 
         String strCheckName = strIdx + "_" + _UserData.Idx;
         SendData tempMySave = new SendData();
@@ -508,8 +508,8 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
-        table = database.getReference("SendList");
-        user = table.child(strIdx);
+        table = database.getReference("User");
+        user = table.child(strIdx).child("SendList");
 
         user.addChildEventListener(new ChildEventListener() {
             int i = 0;
