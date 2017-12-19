@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -645,7 +647,44 @@ public class UserPageActivity extends AppCompatActivity {
 
     private void buildalertDialog(String s, String s1, String s2) {
 
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+
+        final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        final Button btn_exit;
+        final Button btn_no;
+        final TextView tv_title;
+        final TextView tv_msg;
+
+        tv_title = v.findViewById(R.id.title);
+        tv_msg = v.findViewById(R.id.msg);
+
+        tv_title.setText("내 카드 등록");
+        tv_msg.setText("내 카드에 등록하시겠습니까?");
+
+        btn_exit = (Button) v.findViewById(R.id.btn_yes);
+        btn_exit.setText("등록한다");
+        btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean rtValuew = mMyData.makeCardList(stTargetData);
+                Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btn_no = (Button) v.findViewById(R.id.btn_no);
+        btn_no.setText("취소");
+        btn_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+/*
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.MyAlertDialog);
         alertDialogBuilder.setTitle(s);
         alertDialogBuilder.setMessage(s1)
                 .setCancelable(true)
@@ -664,7 +703,8 @@ public class UserPageActivity extends AppCompatActivity {
                             }
                         });
         AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+
+        alertDialog.show();*/
     }
 
     public void getTargetfanData() {

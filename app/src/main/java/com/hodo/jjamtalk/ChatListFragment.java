@@ -3,6 +3,7 @@ package com.hodo.jjamtalk;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,8 +14,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -151,9 +155,46 @@ public class ChatListFragment extends Fragment {
             holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
+
+                    View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_exit_app, null, false);
+
+
+                    final AlertDialog dialog = new AlertDialog.Builder(mContext).setView(v).create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    dialog.show();
+
+                    final Button btn_exit;
+                    final Button btn_no;
+                    final TextView tv_title;
+                    final TextView tv_msg;
+
+                    tv_title = v.findViewById(R.id.title);
+                    tv_msg = v.findViewById(R.id.msg);
+
+                    tv_title.setText("채팅방 삭제");
+                    tv_msg.setText("삭제를 하면 대화 내용 및 채팅방 정보가 모두 삭제됩니다.");
+
+                    btn_exit = (Button) v.findViewById(R.id.btn_yes);
+                    btn_exit.setText("삭제");
+                    btn_exit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
+                    btn_no = (Button) v.findViewById(R.id.btn_no);
+                    btn_no.setText("취소");
+                    btn_no.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+                    /*
                     AlertDialog.Builder br = new AlertDialog.Builder(getActivity());
-                    br.setTitle("채팅방에서 나가시겠습니까?");
-                    br.setMessage("나가기를 하면 대화 내용 및 채팅방 정보가 모두 삭제됩니다.");
+                    br.setTitle("채팅방 삭제");
+                    br.setMessage("삭제를 하면 대화 내용 및 채팅방 정보가 모두 삭제됩니다.");
                     br.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -166,7 +207,7 @@ public class ChatListFragment extends Fragment {
                         }
                     });
                     AlertDialog dialog = br.create();
-                    dialog.show();
+                    dialog.show();*/
                     return false;
                 }
             });
