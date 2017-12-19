@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -636,7 +637,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     private void buildalertDialog(String s, String s1, String s2) {
 
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.myalertDialog);
         alertDialogBuilder.setTitle(s);
         alertDialogBuilder.setMessage(s1)
                 .setCancelable(true)
@@ -655,6 +656,7 @@ public class UserPageActivity extends AppCompatActivity {
                             }
                         });
         AlertDialog alertDialog = alertDialogBuilder.create();
+
         alertDialog.show();
     }
 
