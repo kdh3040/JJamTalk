@@ -30,11 +30,11 @@
         android:layout_height="50dp"
         android:layout_weight="1"
         app:srcCompat="@drawable/bg1" />
-<!--
+
     <ImageView
         android:id="@+id/iv_sent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />-->
+        android:layout_height="wrap_content" />
 
 
 
