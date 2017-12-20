@@ -467,6 +467,8 @@ public class MyData {
         return strMemo;
     }
 
+
+
     public boolean makeSendList(UserData _UserData, String _strSend) {
         boolean rtValue = false;
 
@@ -493,14 +495,19 @@ public class MyData {
         tempTargetSave.strTargetMsg = _strSend.toString();
 
         if (!arrSendNameList.contains(strCheckName)) {
-            user.push().setValue(tempTargetSave);
-            targetuser.push().setValue(tempMySave);
+
+            user.child(strCheckName).setValue(tempTargetSave);
+            targetuser.child(strCheckName).setValue(tempMySave);
             rtValue = true;
 
         } else
             return rtValue;
 
         return rtValue;
+    }
+
+    public static void set_Instance(MyData _Instance) {
+        MyData._Instance = _Instance;
     }
 
     public void getSendList() {
@@ -532,7 +539,7 @@ public class MyData {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int saa = 0;
+       /*         int saa = 0;
                 SendData SendList = dataSnapshot.getValue(SendData.class);
                 int index = arrSendNameList.indexOf(SendList.strSendName);
                 arrSendNameList.remove(index);
@@ -543,7 +550,7 @@ public class MyData {
                     if (value.equals(SendList.strSendName)) {
                         it.remove();
                     }
-                }
+                }*/
 
             }
 

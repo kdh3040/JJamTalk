@@ -74,7 +74,7 @@ public class CardListFragment extends Fragment {
 
 
         if (fragView!= null) {
-
+            cardListAdapter.notifyDataSetChanged();
         }
         else
         {
@@ -190,6 +190,7 @@ public class CardListFragment extends Fragment {
                             mMyData.arrCardList.remove(position);
 
                             refreshFragMent();
+                            dialog.dismiss();
                         }
                     });
 
@@ -258,10 +259,11 @@ public class CardListFragment extends Fragment {
 
                     Map<String, Object> updateMap = new HashMap<>();
                     updateMap.put("Count",  mMyData.arrCardNameList.get(position).Count);
-                    table.child("CardList").child(arrTargetData.get(position).Idx).updateChildren(updateMap);
+                    table.child("CardList").child(mMyData.arrCardNameList.get(position).Idx).updateChildren(updateMap);
 
 
-                    stTargetData = arrTargetData.get(position);
+                    //stTargetData = arrTargetData.get(position);
+                    stTargetData = mMyData.arrCardList.get(position);
                     Intent intent = new Intent(getContext(), UserPageActivity.class);
                     Bundle bundle = new Bundle();
 

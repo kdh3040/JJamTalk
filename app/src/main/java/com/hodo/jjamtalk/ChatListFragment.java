@@ -89,7 +89,7 @@ public class ChatListFragment extends Fragment {
 
 
         if (fragView!= null) {
-
+            mAdapter.notifyDataSetChanged();
         }
         else
         {
@@ -194,7 +194,7 @@ public class ChatListFragment extends Fragment {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference table;
                             table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
-                            table.child(mMyData.arrCardList.get(position).Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+                            table.child(mMyData.arrSendDataList.get(position).strSendName).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     dataSnapshot.getRef().removeValue();
@@ -209,6 +209,7 @@ public class ChatListFragment extends Fragment {
                             mMyData.arrSendDataList.remove(position);
                             mMyData.arrSendNameList.remove(position);
                             refreshFragMent();
+                            dialog.dismiss();
                         }
                     });
 
@@ -251,8 +252,10 @@ public class ChatListFragment extends Fragment {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String strCharName = arrChatNameData.get(position);
-                    SendData mSendData = arrChatData.get(position);
+                    //String strCharName = arrChatNameData.get(position);
+                    //SendData mSendData = arrChatData.get(position);
+                    String strCharName = mMyData.arrSendDataList.get(position).strSendName;
+                    SendData mSendData = mMyData.arrSendDataList.get(position);
 
                     Intent intent = new Intent(getContext(),ChatRoomActivity.class);
                     intent.putExtra("ChatData", mSendData);

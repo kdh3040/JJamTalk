@@ -683,6 +683,7 @@ public class UserPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 boolean rtValuew = mMyData.makeCardList(stTargetData);
                 Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
 
