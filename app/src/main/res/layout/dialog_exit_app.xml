@@ -15,9 +15,8 @@
         android:layout_weight="2"
         android:gravity="center"
         android:text="종료 확인"
-        android:textColor="@color/textColorLight"
-
-        android:textSize="24sp" />
+        android:textColor="@color/textColor"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/msg"

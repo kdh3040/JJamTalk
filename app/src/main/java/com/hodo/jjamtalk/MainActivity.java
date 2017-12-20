@@ -130,9 +130,11 @@ public class MainActivity extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                 View v = LayoutInflater.from(mActivity).inflate(R.layout.category_popup,null,false);
+
                 builder.setView(v);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
+                final AlertDialog filter_dialog = builder.create();
+                filter_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                filter_dialog.show();
 
 
                  final RadioButton rbtn_two;
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
                         mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
-                        dialog.dismiss();
+                        filter_dialog.dismiss();
 
                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
 

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
 
     android:orientation="vertical"
+    android:minHeight="300dp"
 
 
     >
@@ -17,8 +18,8 @@
         android:background="@drawable/rounded_top_yellow"
         android:gravity="center"
         android:text="선물하기"
-        android:textColor="@color/black"
-        android:textSize="24sp" />
+        android:textColor="@color/textColor"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
