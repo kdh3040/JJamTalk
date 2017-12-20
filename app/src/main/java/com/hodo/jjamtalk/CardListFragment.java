@@ -171,7 +171,25 @@ public class CardListFragment extends Fragment {
                     btn_exit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference table;
+                            table = database.getReference("User/" + mMyData.getUserIdx()+ "/CardList/");
+                            table.child(mMyData.arrCardList.get(position).Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    dataSnapshot.getRef().removeValue();
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
+                                }
+
+                            });
+
+                            mMyData.arrCardNameList.remove(position);
+                            mMyData.arrCardList.remove(position);
+
+                            refreshFragMent();
                         }
                     });
 

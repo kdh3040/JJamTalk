@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
 import com.hodo.jjamtalk.Data.UIData;
@@ -46,6 +52,12 @@ public class ChatListFragment extends Fragment {
     LinearLayout layout_chatlist;
 
     View fragView;
+
+    private void refreshFragMent()
+    {
+        FragmentTransaction trans = getFragmentManager().beginTransaction();
+        trans.detach(this).attach(this).commit();
+    }
 
     ChatListAdapter mAdapter = new ChatListAdapter();
 
@@ -179,7 +191,24 @@ public class ChatListFragment extends Fragment {
                     btn_exit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference table;
+                            table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
+                            table.child(mMyData.arrCardList.get(position).Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    dataSnapshot.getRef().removeValue();
+                                }
 
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+                            mMyData.arrSendDataList.remove(position);
+                            mMyData.arrSendNameList.remove(position);
+                            refreshFragMent();
                         }
                     });
 
