@@ -20,11 +20,14 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <RadioButton
@@ -55,7 +58,10 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <Switch
             android:id="@+id/rbtn_10"
@@ -92,7 +98,10 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <Switch
             android:id="@+id/rbtn_man"
@@ -115,19 +124,22 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
+        android:background="@drawable/rounded_bottom_white"
         android:gravity="center"
-        android:background="@drawable/rounded_bottom_white">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <Button
             android:id="@+id/btn_save"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="20dp"
-            android:textColor="@color/textColor"
+            android:layout_weight="1"
             android:background="@drawable/rounded_all_white"
             android:text="GO!"
-            android:textSize="18sp"/>
+            android:textColor="@color/textColor"
+            android:textSize="18sp" />
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
