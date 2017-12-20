@@ -78,20 +78,20 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
             }
         });
 
-        holder.imageView.setImageResource(R.mipmap.hdvd);
+       // holder.imageView.setImageResource(R.mipmap.hdvd);
 
-     /*   Glide.with(mContext)
-                .load(stTargetData.arrFanData.get(position).Img)
+       Glide.with(mContext)
+                .load(stTargetData.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .thumbnail(0.1f)
-                .into(holder.imageView);*/
+                .into(holder.imageView);
 
         holder.nickname.setText(stTargetData.get(position).Nick);
         holder.giftranking.setText((position + 1) + "위");
 
         int SendCnt = stTargetData.get(position).Count * -1;
-        holder.giftCount.setText(Integer.toString(SendCnt) + "꿀");
+        holder.giftCount.setText(Integer.toString(SendCnt) + "골드");
 
         /*holder.nickname.setText("아이유");
         holder.giftranking.setText("1위");

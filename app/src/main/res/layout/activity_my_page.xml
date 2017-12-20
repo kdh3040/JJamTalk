@@ -97,6 +97,8 @@
 
     </LinearLayout>
 
+
+
     <LinearLayout
         android:id="@+id/layout_gift_exist"
         android:layout_width="match_parent"

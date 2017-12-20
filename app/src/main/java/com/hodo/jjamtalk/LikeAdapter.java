@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.FanData;
+import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.ViewHolder.MyLikeViewHolder;
 
 import java.util.ArrayList;
 
@@ -16,17 +21,18 @@ import java.util.ArrayList;
  * Created by mjk on 2017. 8. 28..
  */
 
-public class UserPageFanAdapter extends BaseAdapter {
+public class LikeAdapter extends RecyclerView.Adapter<LikeViewHolder> {
 
     ArrayList<FanData> arrayList = new ArrayList<>();
 
     Context mContext;
-    public UserPageFanAdapter(Context context, ArrayList<FanData> fanList) {
+
+    public LikeAdapter(Context context, ArrayList<FanData> fanList) {
         super();
         mContext = context;
         arrayList = fanList;
     }
-
+/*
     @Override
     public int getCount() {
         return arrayList.size();
@@ -36,12 +42,36 @@ public class UserPageFanAdapter extends BaseAdapter {
     public Object getItem(int i) {
         return arrayList.get(i);
     }
+*/
+
+    @Override
+    public LikeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.holder_image_only,parent,false);
+        return new LikeViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(LikeViewHolder holder, int position) {
+/*
+
+        Glide.with(mContext)
+                .load(arrayList.get(position).Img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.iv_image);*/
+
+    }
 
     @Override
     public long getItemId(int i) {
         return i;
     }
 
+    @Override
+    public int getItemCount() {
+        return arrayList.size();
+    }
+
+/*(
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -59,14 +89,14 @@ public class UserPageFanAdapter extends BaseAdapter {
         ImageView FanGrade = (ImageView) convertView.findViewById(R.id.Userpage_Fanlist_Grade) ;
         //ImageView FanRank = (ImageView) convertView.findViewById(R.id.Userpage_Fanlist_Rank) ;
         TextView FanName = (TextView) convertView.findViewById(R.id.Userpage_Fanlist_Name) ;
-
-/*        Glide.with(mContext)
+/*
+      Glide.with(mContext)
                 .load(arrayList.get(position).)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(iconImageView);*/
+                .into(iconImageView);
 
         FanName.setText(arrayList.get(position).Nick);
 
         return convertView;
-    }
+    }*/
 }

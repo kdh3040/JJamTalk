@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private FanFragment fanFragment;
     private HomeFragment homeFragment;// = HomeFragment.getInstance();
 
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,10 +125,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(),MainSettingActivity.class));
+              //  startActivity(new Intent(getApplicationContext(),MainSettingActivity.class));
               //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
-          /*      AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                 View v = LayoutInflater.from(mActivity).inflate(R.layout.category_popup,null,false);
                 builder.setView(v);
                 final AlertDialog dialog = builder.create();
@@ -153,9 +155,10 @@ public class MainActivity extends AppCompatActivity {
                         mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
                         dialog.dismiss();
 
-                       *//* Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);*//*
+                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        getApplicationContext().startActivity(intent);
 
                     }
                 });
@@ -239,7 +242,8 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-*/
+
+
             }
         });
 
@@ -584,13 +588,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar parent = (Toolbar)menu_Main.getParent();
         parent.setContentInsetsAbsolute(0,0);
 
-        ImageButton button = (ImageButton)findViewById(R.id.iv_mypage);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
         CheckBox cbMultiSend = (CheckBox)findViewById(R.id.checkBox);
         cbMultiSend.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
