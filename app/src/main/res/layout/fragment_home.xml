@@ -15,8 +15,8 @@
         app:tabBackground="@color/colorAccent"
 
 
-        app:tabIndicatorColor="@color/textColor"
-        app:tabSelectedTextColor="@color/textColor"
+        app:tabIndicatorColor="@color/textColorDark"
+        app:tabSelectedTextColor="@color/textColorDark"
         app:tabTextColor="@color/textColorLight" />
 
 

@@ -25,7 +25,7 @@
     </style>
 
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name = "android:textColor">@color/textColor</item>
+        <item name = "android:textColor">@color/textColorDark</item>
     </style>
     <style name="Common" parent="Theme.AppCompat.DayNight"></style>
 </resources>

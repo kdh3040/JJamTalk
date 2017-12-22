@@ -1,6 +1,5 @@
 package com.hodo.jjamtalk;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -65,10 +64,10 @@ public class MyPageActivity extends AppCompatActivity {
         });
 
         iv_gold = findViewById(R.id.iv_gold);
-        iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColor), PorterDuff.Mode.MULTIPLY);
+        iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 
         iv_jewely=findViewById(R.id.iv_jewely);
-        iv_jewely.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColor), PorterDuff.Mode.MULTIPLY);
+        iv_jewely.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 
         txt_MyGoldCnt = findViewById(R.id.tv_goldsize);
         txt_MyProfile = (TextView)findViewById(R.id.MyPage_txtProfile);
@@ -80,7 +79,7 @@ public class MyPageActivity extends AppCompatActivity {
         //txt_MyHeartCnt.setText("보유 골드: " + nGold);
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
-        btn_Setting.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColor), PorterDuff.Mode.MULTIPLY);
+        btn_Setting.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 
         btn_Setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +122,7 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
         btn_my_profile = (ImageButton)findViewById(R.id.ib_my_profile);
-        btn_my_profile.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColor), PorterDuff.Mode.MULTIPLY);
+        btn_my_profile.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
         btn_my_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

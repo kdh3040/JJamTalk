@@ -22,5 +22,5 @@
         android:background="@drawable/button_pressed"
         android:text="상자 열기"
         android:textSize="30sp"
-        android:textColor="@color/textColor"/>
+        android:textColor="@color/textColorDark"/>
 </LinearLayout>

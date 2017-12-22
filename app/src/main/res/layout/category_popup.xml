@@ -12,8 +12,8 @@
         android:background="@drawable/rounded_top_yellow"
         android:gravity="center"
         android:text="검색"
-        android:textColor="@color/textColor"
-        android:textSize="18sp"/>
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -107,6 +107,8 @@
             android:id="@+id/rbtn_man"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:text="남자" />
 
@@ -114,6 +116,8 @@
             android:id="@+id/rbtn_woman"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:text="여자" />
 
@@ -132,21 +136,21 @@
         <Button
             android:id="@+id/btn_save"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_all_white"
+            android:background="@drawable/button_pressed"
             android:text="GO!"
-            android:textColor="@color/textColor"
+            android:textColor="@color/textColorDark"
             android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_dark"
+            android:background="@drawable/button_pressed"
             android:text="취소"
             android:textColor="@color/white"
             android:textSize="18sp" />

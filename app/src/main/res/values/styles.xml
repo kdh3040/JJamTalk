@@ -79,7 +79,7 @@
     </style>
 
     <style name = "MyTitleTextStyle">
-        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColor">@color/textColorDark</item>
 
         <item name="android:background">@color/colorAccent</item>
     </style>
