@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
     <resources>
     <color name= "textColorDark">#4e342e</color>
-    <color name= "textColorLight">#8d6e63</color>
+    <color name = "textColorLightDark">#a1887f</color>
+    <color name= "textColorLight">#fdd835</color>
         <color name="colorPrimary">#ffffff</color>
 
         <color name="colorPrimaryDark">#4e342e</color>
