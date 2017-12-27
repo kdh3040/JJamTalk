@@ -563,6 +563,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet()) {
                                     mMyData.arrMyFanList.add(entry.getValue());
                             }
+
+                            //mMyData.getFanList();
+
                             mMyData.nFanCount = mMyData.arrMyFanList.size();
 
                             for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.StarList.entrySet()) {

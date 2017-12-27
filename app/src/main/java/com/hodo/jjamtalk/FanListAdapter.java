@@ -80,10 +80,10 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 
-        holder.nickname.setText(mMyData.arrMyFanList.get(position).Nick);
+        holder.nickname.setText(mMyData.arrMyFanDataList.get(position).NickName);
         holder.giftranking.setText((position + 1) + "위");
 
-        int SendCnt = mMyData.arrMyFanList.get(position).Count * -1;
+        int SendCnt = mMyData.arrMyFanDataList.get(position).SendCount * -1;
         holder.giftCount.setText(Integer.toString(SendCnt) + "골드");
 
         /*holder.nickname.setText("아이유");
