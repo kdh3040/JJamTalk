@@ -2,12 +2,14 @@ package com.hodo.jjamtalk;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,8 @@ import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by mjk on 2017. 8. 28..
@@ -39,9 +43,15 @@ public class FanFragment extends Fragment {
 
     public ArrayList<FanData> StarList = new ArrayList<>();
     public ArrayList<UserData> StarData = new ArrayList<>();
-    FragmentManager fragmentManager;
 
+
+    private FragmentManager mFragmentManager;
+    FragmentManager fragmentManager;
+    private TabPagerAdapter FanTapAdapter;
     View fragView;
+    Context mContext;
+
+    private  Boolean bNotify = false;
 
     public FanFragment() {
 
@@ -50,6 +60,18 @@ public class FanFragment extends Fragment {
     public FanFragment(Activity activity) {
         super();
         this.activity = activity;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
 
     @Nullable
@@ -57,10 +79,19 @@ public class FanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if (fragView!= null) {
-
+         //   FanTapAdapter.notifyDataSetChanged();
+      /*      if(bNotify == true) {
+                bNotify = false;
+            }
+            else
+            {
+                FanTapAdapter.notifyDataSetChanged();
+                bNotify = true;
+            }*/
         }
         else
         {
+            FanTapAdapter = new TabPagerAdapter(getFragmentManager());
             fragView = inflater.inflate(R.layout.fragment_fan,container,false);
             tabLayout = (TabLayout) fragView.findViewById(R.id.tabLayout);
 
@@ -69,23 +100,34 @@ public class FanFragment extends Fragment {
 
             viewPager = (ViewPager)fragView.findViewById(R.id.vp);
 
-            viewPager.setAdapter(new TabPagerAdapter(getFragmentManager(),tabLayout.getTabCount()));
+            //
+            //viewPager.setAdapter(new TabPagerAdapter(getFragmentManager()));
+            viewPager.setAdapter(FanTapAdapter);
             viewPager.setCurrentItem(0);
+            mFragmentManager = getChildFragmentManager();
+
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
+
                     viewPager.setCurrentItem(tab.getPosition());
+                    Fragment fragment = FanTapAdapter.getFragment(tab.getPosition());
+                    if (fragment != null) {
+                        fragment.onResume();
+                    }
+
+                    int a = 0;
                 }
 
                 @Override
                 public void onTabUnselected(TabLayout.Tab tab) {
-
+                    int a = 0;
                 }
 
                 @Override
                 public void onTabReselected(TabLayout.Tab tab) {
-
+                    int a = 0;
                 }
             });
 
@@ -123,30 +165,111 @@ public class FanFragment extends Fragment {
     }
 
     private class TabPagerAdapter extends FragmentStatePagerAdapter {
-        private  int tabCount;
+   // private class TabPagerAdapter extends Fragment {
+        private  int tabCount = 2;
+        private Map<Integer, String> mFragmentTags;
 
-        public TabPagerAdapter(FragmentManager fm, int count) {
+
+        public TabPagerAdapter(FragmentManager fm) {
             super(fm);
-            tabCount = count;
+
+
+            mFragmentTags = new HashMap<Integer, String>();
+        }
+        @Override
+        public int getCount() {
+            return tabCount;
         }
 
         @Override
         public Fragment getItem(int position) {
             switch(position){
                 case 0:
-                    return new  MyFanFragment();
+                {
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    MyFanFragment fragment = new MyFanFragment();
+                    fragmentTransaction.add(fragment, "fanlist");
+                    fragmentTransaction.commit();
+                    return fragment;
+                }
+
                 case 1:
-                    return new MyLikeFragment();
+                {
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    MyLikeFragment fragment = new MyLikeFragment();
+                    fragmentTransaction.add(fragment, "likelist");
+                    fragmentTransaction.commit();
+                    return fragment;
+                }
+                default:
+                    return null;
             }
-            return null;
-
-
         }
 
         @Override
-        public int getCount() {
-            return tabCount;
+        public CharSequence getPageTitle(int position) {
+            return "Page " + position;
         }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            Object object = super.instantiateItem(container, position);
+            if (object instanceof Fragment) {
+                Fragment fragment = (Fragment) object;
+
+                String tag = fragment.getTag();
+                if(position == 0)
+                    tag = "fanlist";
+               else if(position == 1)
+                    tag = "likelist";
+                mFragmentTags.put(position, tag);
+            }
+            return object;
+        }
+
+        public Fragment getFragment(int position) {
+            Fragment fragment = null;
+            String tag = mFragmentTags.get(position);
+            if (tag != null) {
+                fragment = mFragmentManager.findFragmentByTag(tag);
+            }
+            /*if(position == 0)
+                fragment = mFragmentManager.getFragments().get(4);
+            else
+                fragment = mFragmentManager.findFragmentById()*/
+            /*if (tag != null) {
+                fragment = mFragmentManager.findFragmentByTag(tag);
+            }*/
+
+
+            return fragment;
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            int rtValue = 0;
+            Fragment fragment = (Fragment) object;
+            String tag = fragment.getTag();
+            if (tag.equals("fanlist")) {
+                rtValue = POSITION_NONE;
+            }
+
+ /*           int rtValue = 0;
+            rtValue = POSITION_NONE;
+            if(bNotify == false)
+            {
+
+                bNotify = true;
+            }
+            else
+                rtValue = POSITION_UNCHANGED;*/
+
+            return  rtValue;
+        }
+
+
+
+
     }
 
     /*
