@@ -34,8 +34,6 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
 
     }
 
-
-
     @Override
     public MyJewelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.holder_jewel,null);
@@ -70,7 +68,7 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
         int count = mMyData.itemList.get(index);
         holder.tv.setText("x" + Integer.toString(count));
 
-        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/4,mUIdata.getHeight()/4));
+        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/2,mUIdata.getHeight()/10));
 
     }
 
