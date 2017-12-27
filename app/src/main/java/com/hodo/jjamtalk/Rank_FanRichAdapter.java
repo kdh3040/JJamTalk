@@ -66,18 +66,18 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
-        holder.iv_honey_rank.setLayoutParams(lpForIcon);
+        //holder.iv_honey_rank.setLayoutParams(lpForIcon);
         //holder.textView.setVisibility(View.INVISIBLE);
 
         Log.d("Guide !!!! ", "Start");
         int i = position;
 
-        /*switch (mSetting.getnSearchSetting())
+        switch (mSetting.getnSearchSetting())
         {
             //  남자 탐색
             case 1:
-                float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
-                Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
+             //   float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
+              //  Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
                 holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
 
                 holder.textView.setText(mMyData.arrUserMan_Send.get(i).arrFanList.size()+"명");
@@ -89,8 +89,8 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                 break;
             // 여자 탐색
             case 2:
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Send.get(i).Lat, mMyData.arrUserWoman_Send.get(i).Lon,"kilometer");
-                Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
+              //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Send.get(i).Lat, mMyData.arrUserWoman_Send.get(i).Lon,"kilometer");
+              //  Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
                 holder.iv_honey_rank.setImageResource(R.drawable.btn_fan_selected);
 
                 holder.textView.setText(mMyData.arrUserWoman_Send.get(i).arrFanList.size()+"명");
@@ -102,8 +102,8 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                 break;
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
-                holder.textView.setText(mMyData.arrUserAll_Send.get(i).arrFanList.size()+"명");
+              //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
+             //   holder.textView.setText(mMyData.arrUserAll_Send.get(i).arrFanList.size()+"명");
                 holder.iv_honey_rank.setImageResource(R.drawable.btn_fan_selected);
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Send.get(i).Img)
@@ -113,7 +113,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                 break;
             default:
                 break;
-        }*/
+        }
     }
 
     @Override
