@@ -40,6 +40,7 @@ import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.NotiFunc;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -93,7 +94,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             layout = (LinearLayout)itemView.findViewById(R.id.ChatRoom_layout);
 
 
-            Sender_image_profile = (ImageView)itemView.findViewById(R.id.Sender_Img);
+          //  Sender_image_profile = (ImageView)itemView.findViewById(R.id.Sender_Img);
 
             time = (TextView)itemView.findViewById(R.id.time);
         }
@@ -144,11 +145,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }
                 return chat_message;
             }
+
+            int a = 0;
             @Override
             protected void populateViewHolder(ChatViewHolder viewHolder, ChatData chat_message, int position) {
 
-                Date mDate = new Date(chat_message.gettime());
-                String date= mFormat.format(mDate);
+
 
                  if( chat_message.getMsg() != null){
 
@@ -164,12 +166,14 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                 //viewHolder.sender.setText(chat_message.getFrom());
 
-                if(chat_message.strFrom.equals(mMyData.getUserNick()))
+
+               // if(chat_message.strFrom.equals(mMyData.getUserNick()))
+                if(a % 2 == 0)
                 {
 
                     viewHolder.message.setBackgroundResource(R.drawable.outbox2);
                     layout.setGravity(Gravity.RIGHT);
-                    viewHolder.Sender_image_profile.setVisibility(View.GONE);
+                   // viewHolder.Sender_image_profile.setVisibility(View.GONE);
                     viewHolder.image_profile.setVisibility(View.GONE);
          /*           Glide.with(getApplicationContext())
                             .load(mMyData.getUserImg())
@@ -187,22 +191,22 @@ public class ChatRoomActivity extends AppCompatActivity {
                 {
                     viewHolder.message.setBackgroundResource(R.drawable.inbox2);
                     layout.setGravity(Gravity.LEFT);
-                    viewHolder.Sender_image_profile.setVisibility(View.GONE);
-                    viewHolder.image_profile.setVisibility(View.GONE);
+                 //   viewHolder.Sender_image_profile.setVisibility(View.GONE);
+                    //viewHolder.image_profile.setVisibility(View.GONE);
     /*                viewHolder.Sender_image_profile.setVisibility(View.INVISIBLE);
                     viewHolder.image_profile.setVisibility(View.VISIBLE);*/
 
-                    /*Glide.with(getApplicationContext())
+                    Glide.with(getApplicationContext())
                             .load(stTargetData.Img)
                             .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .thumbnail(0.1f)
-                            .into(viewHolder.image_profile);*/
+                            .into(viewHolder.image_profile);
 
 
 
                 }
-
+                a ++;
 
             }
         };
@@ -394,7 +398,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 if(txt_msg.getText() == null){
                     return;
                 }else{
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, message, nowTime, null);
+                    Calendar cal = Calendar.getInstance();
+                    Date date = cal.getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                    String formatStr = sdf.format(date);
+
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, message, formatStr, null);
                     mRef.push().setValue(chat_Data);
                     txt_msg.setText("");
 
