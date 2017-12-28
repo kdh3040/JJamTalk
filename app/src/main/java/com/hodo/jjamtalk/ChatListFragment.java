@@ -247,6 +247,9 @@ public class ChatListFragment extends Fragment {
 
             arrChatNameData.add(mMyData.arrSendDataList.get(i).strSendName);
             arrChatData.add(mMyData.arrSendDataList.get(i));
+            String strDate = mMyData.arrSendDataList.get(i).strSendDate;
+
+            holder.date.setText(strDate);
             holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
             holder.nickname.setText(mMyData.arrSendDataList.get(i).strTargetNick);
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {

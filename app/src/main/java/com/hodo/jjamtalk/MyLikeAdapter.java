@@ -95,10 +95,10 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 
-        holder.tv_nickname.setText(mMyData.arrMyStarList.get(position).Nick);
+        holder.tv_nickname.setText(mMyData.arrMyStarDataList.get(position).NickName);
         holder.tv_rank.setText((position + 1) + "위");
 
-        int SendCnt = mMyData.arrMyStarList.get(position).Count * -1;
+        int SendCnt = mMyData.arrMyStarDataList.get(position).SendCount * -1;
         holder.tv_honeycount.setText(Integer.toString(SendCnt) + "골드");
 
 

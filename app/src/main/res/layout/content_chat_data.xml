@@ -8,9 +8,8 @@
 
     <ImageView
         android:id="@+id/ChatRoom_Img"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_weight="1"
         app:srcCompat="@drawable/bg1" />
 
 <!--    <TextView
@@ -24,12 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <ImageView
+<!--    <ImageView
         android:id="@+id/Sender_Img"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bg1" />
+        app:srcCompat="@drawable/bg1" />-->
 
     <ImageView
         android:id="@+id/iv_sent"
