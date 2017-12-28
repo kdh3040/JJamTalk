@@ -69,12 +69,19 @@ public class ChatRoomActivity extends AppCompatActivity {
     SendData tempChatData;
 
     static LinearLayout layout;
+    static LinearLayout Msg_layout;
+
+
+    static int a = 0;
+
+
     public static class ChatViewHolder extends RecyclerView.ViewHolder{
 
         ImageView image_profile,image_sent;
         TextView message;
 
-        TextView sender;
+        TextView targetName;
+       // TextView send_time;
         TextView time;
 
         ImageView Sender_image_profile,Sender_image_sent;
@@ -88,10 +95,11 @@ public class ChatRoomActivity extends AppCompatActivity {
             super(itemView);
             image_profile = (ImageView)itemView.findViewById(R.id.ChatRoom_Img);
            // image_sent = (ImageView)itemView.findViewById(R.id.iv_sent);
-          //  sender = (TextView)itemView.findViewById(R.id.ChatRoom_nickname);
+            targetName = (TextView)itemView.findViewById(R.id.ChatRoom_name);
             message =(TextView)itemView.findViewById(R.id.message);
             time = (TextView)itemView.findViewById(R.id.time);
             layout = (LinearLayout)itemView.findViewById(R.id.ChatRoom_layout);
+            Msg_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_layout);
 
 
           //  Sender_image_profile = (ImageView)itemView.findViewById(R.id.Sender_Img);
@@ -146,7 +154,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 return chat_message;
             }
 
-            int a = 0;
+
             @Override
             protected void populateViewHolder(ChatViewHolder viewHolder, ChatData chat_message, int position) {
 
@@ -156,24 +164,33 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     viewHolder.message.setText(chat_message.getMsg());
                     viewHolder.message.setVisibility(TextView.VISIBLE);
-                   // viewHolder.image_sent.setVisibility(ImageView.GONE);
+
+                     viewHolder.targetName.setText(stTargetData.NickName);
+                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
+                     //viewHolder.send_time.setVisibility(TextView.GONE);
+
+                     // viewHolder.image_sent.setVisibility(ImageView.GONE);
 
 
                 }else{
                  //   viewHolder.image_sent.setVisibility(ImageView.VISIBLE);
                     viewHolder.message.setVisibility(TextView.GONE);
+                     viewHolder.targetName.setVisibility(TextView.GONE);
                 }
 
                 //viewHolder.sender.setText(chat_message.getFrom());
 
 
-               // if(chat_message.strFrom.equals(mMyData.getUserNick()))
+                //if(chat_message.strFrom.equals(mMyData.getUserNick()))
                 if(a % 2 == 0)
                 {
 
+
                     viewHolder.message.setBackgroundResource(R.drawable.outbox2);
-                    layout.setGravity(Gravity.RIGHT);
+                    Msg_layout.setGravity(Gravity.RIGHT);
                    // viewHolder.Sender_image_profile.setVisibility(View.GONE);
+
+                    viewHolder.targetName.setVisibility(TextView.GONE);
                     viewHolder.image_profile.setVisibility(View.GONE);
          /*           Glide.with(getApplicationContext())
                             .load(mMyData.getUserImg())
@@ -189,8 +206,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }
                 else
                 {
+                    viewHolder.targetName.setVisibility(TextView.VISIBLE);
                     viewHolder.message.setBackgroundResource(R.drawable.inbox2);
-                    layout.setGravity(Gravity.LEFT);
+                    Msg_layout.setGravity(Gravity.LEFT);
                  //   viewHolder.Sender_image_profile.setVisibility(View.GONE);
                     //viewHolder.image_profile.setVisibility(View.GONE);
     /*                viewHolder.Sender_image_profile.setVisibility(View.INVISIBLE);
