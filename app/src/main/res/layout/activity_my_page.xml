@@ -121,16 +121,6 @@
 
 
         <TextView
-            android:id="@+id/tv_gold"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="3"
-            android:gravity="left|center_vertical"
-            android:text="보유 골드 :"
-            android:textSize="18sp" />
-
-        <TextView
             android:id="@+id/tv_goldsize"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -141,36 +131,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_jewel_box"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/iv_jewely"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@drawable/round_btn_bg"
-            android:scaleType="fitCenter"
-
-
-
-
-            android:translationZ="1dp"
-            app:srcCompat="@drawable/ic_jewely" />
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_myjewels"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -183,7 +144,7 @@
 
 
         <Button
-            android:id="@+id/btn_heart"
+            android:id="@+id/btn_BuyGold"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_marginBottom="5dp"

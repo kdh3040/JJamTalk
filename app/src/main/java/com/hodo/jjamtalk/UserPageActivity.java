@@ -155,10 +155,10 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });
 
-        stickers_holder = (LinearLayout)findViewById(R.id.stickers_holder);
+        /*stickers_holder = (LinearLayout)findViewById(R.id.stickers_holder);
         stickers_holder.setLayoutParams(mUIData.getFLP(1,0.1f));
 
-        SetStickerImg();
+        SetStickerImg();*/
 
         Glide.with(getApplicationContext())
                 .load(stTargetData.Img)
@@ -299,7 +299,7 @@ public class UserPageActivity extends AppCompatActivity {
                         btnHeartCharge.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity(new Intent(getApplicationContext(), HeartActivity.class));
+                                startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                             }
                         });
 
@@ -485,7 +485,7 @@ public class UserPageActivity extends AppCompatActivity {
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+                                                    startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
 
                                                 }
                                             });

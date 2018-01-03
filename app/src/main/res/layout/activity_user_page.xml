@@ -35,19 +35,6 @@
                     android:layout_height="30dp"
                     app:srcCompat="@drawable/vip" />
 
-                <FrameLayout
-                    android:id="@+id/fl_sticker_holder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true">
-
-                    <include
-                        android:id="@+id/stickers_holder"
-                        layout="@layout/layout_jewelholder"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"></include>
-                </FrameLayout>
-
             </RelativeLayout>
 
             <LinearLayout
