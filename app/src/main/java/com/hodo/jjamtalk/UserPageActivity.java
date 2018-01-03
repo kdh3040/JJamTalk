@@ -366,8 +366,13 @@ public class UserPageActivity extends AppCompatActivity {
                                     if (strSendMsg.equals(""))
                                         strSendMsg = "안녕하세요";
 
-                                    boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                    boolean rtValuew = mMyData.makeSendList(stTargetData, strSendMsg.toString());
+                                    rtValuew = mMyData.makeChatTargetList(stTargetData);
+                                    rtValuew = mMyData.makeCardList(stTargetData);
+                                     rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                     rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+
+
 
                                     if (rtValuew == true) {
                                         mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);

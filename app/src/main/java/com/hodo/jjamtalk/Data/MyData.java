@@ -650,8 +650,8 @@ public class MyData {
             tempData.Nick = stTargetData.NickName;
             tempData.Idx = stTargetData.Idx;
             arrCardNameList.add(tempData);
-
-            getCardList(stTargetData.Idx);
+            arrCardList.add(stTargetData);
+            //getCardList(stTargetData.Idx);
 
 
         return rtValue;
