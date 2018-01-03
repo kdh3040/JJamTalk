@@ -66,7 +66,10 @@ public class ChatRoomActivity extends AppCompatActivity {
     FirebaseRecyclerAdapter<ChatData, ChatViewHolder> firebaseRecyclerAdapter;
     LinearLayoutManager mLinearLayoutManager;
     SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm");
+
     SendData tempChatData;
+    int  tempChatIdx;
+
 
     static LinearLayout layout;
     static LinearLayout Msg_layout;
@@ -116,12 +119,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         tempChatData = (SendData) intent.getExtras().getSerializable("ChatData");
+        tempChatIdx = (int) intent.getExtras().getSerializable("ChatIdx");
 
+        //stTargetData.NickName = tempChatData.strTargetNick;
+        //stTargetData.Img= tempChatData.strTargetImg;
 
-        stTargetData.NickName = tempChatData.strTargetNick;
-        stTargetData.Img= tempChatData.strTargetImg;
-
-
+        stTargetData.NickName = mMyData.arrChatTargetData.get(tempChatIdx).NickName;
+        stTargetData.Img= mMyData.arrChatTargetData.get(tempChatIdx).Img;
 
         mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(tempChatData.strSendName);
 
@@ -143,7 +147,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                 mRef){
 
 
-
             @Override
             protected ChatData parseSnapshot(DataSnapshot snapshot) {
 
@@ -158,14 +161,27 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(ChatViewHolder viewHolder, ChatData chat_message, int position) {
 
+                viewHolder.image_profile.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+                        Intent intent = new Intent(getApplicationContext(), UserPageActivity.class);
+                        Bundle bundle = new Bundle();
 
-                 if( chat_message.getMsg() != null){
+                        bundle.putSerializable("Target", mMyData.arrChatTargetData.get(tempChatIdx));
+                        intent.putExtras(bundle);
+
+                        view.getContext().startActivity(intent);
+
+                    }
+                });
+
+                if( chat_message.getMsg() != null){
 
                     viewHolder.message.setText(chat_message.getMsg());
                     viewHolder.message.setVisibility(TextView.VISIBLE);
 
-                     viewHolder.targetName.setText(stTargetData.NickName);
+                     viewHolder.targetName.setText( mMyData.arrChatTargetData.get(tempChatIdx).NickName);
                      viewHolder.targetName.setVisibility(TextView.VISIBLE);
                      //viewHolder.send_time.setVisibility(TextView.GONE);
 
@@ -184,8 +200,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                 //if(chat_message.strFrom.equals(mMyData.getUserNick()))
                 if(a % 2 == 0)
                 {
-
-
                     viewHolder.message.setBackgroundResource(R.drawable.outbox2);
                     Msg_layout.setGravity(Gravity.RIGHT);
                    // viewHolder.Sender_image_profile.setVisibility(View.GONE);
@@ -201,8 +215,6 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
                   //  viewHolder.Sender_sender.setText(chat_message.getFrom());
-
-
                 }
                 else
                 {
@@ -215,17 +227,13 @@ public class ChatRoomActivity extends AppCompatActivity {
                     viewHolder.image_profile.setVisibility(View.VISIBLE);*/
 
                     Glide.with(getApplicationContext())
-                            .load(stTargetData.Img)
+                            .load( mMyData.arrChatTargetData.get(tempChatIdx).Img)
                             .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .thumbnail(0.1f)
                             .into(viewHolder.image_profile);
-
-
-
                 }
                 a ++;
-
             }
         };
         firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -371,12 +379,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-               /*                 String strSendMsg = SendMsg.getText().toString();
+                                String strSendMsg = SendMsg.getText().toString();
                                 if (strSendMsg.equals(""))
                                     strSendMsg = "꿀 보내드려요";
 
-                                boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
-                                rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                boolean rtValuew = mMyData.makeSendHoneyList(mMyData.arrChatTargetData.get(tempChatIdx), nSendHoneyCnt[0], strSendMsg);
+                                rtValuew = mMyData.makeRecvHoneyList(mMyData.arrChatTargetData.get(tempChatIdx), nSendHoneyCnt[0], strSendMsg);
 
                                 if (rtValuew == true) {
                                     //mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
@@ -385,11 +393,15 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                                     String message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
 
-                                    long nowTime =System.currentTimeMillis();
-                                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, message, nowTime, null);
-                                    mRef.push().setValue(chat_Data);
+                                    Calendar cal = Calendar.getInstance();
+                                    Date date = cal.getTime();
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                                    String formatStr = sdf.format(date);
 
-                                }*/
+                                    ChatData chat_Data = new ChatData(mMyData.getUserNick(),  mMyData.arrChatTargetData.get(tempChatIdx).NickName, message, formatStr, null);
+                                    mRef.push().setValue(chat_Data);
+                                    dialog.dismiss();
+                                }
                                 dialog.dismiss();
 
                             }

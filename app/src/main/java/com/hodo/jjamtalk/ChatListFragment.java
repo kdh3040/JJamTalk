@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.ChatListViewHolder;
 
 import java.util.ArrayList;
@@ -44,8 +45,8 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class ChatListFragment extends Fragment {
     RecyclerView chatListRecyclerView;
     private MyData mMyData = MyData.getInstance();
-    private ArrayList<String> arrChatNameData = new ArrayList<>();
-    private ArrayList<SendData> arrChatData = new ArrayList<>();
+    //private ArrayList<String> arrChatNameData = new ArrayList<>();
+    //private ArrayList<SendData> arrChatData = new ArrayList<>();
     Menu mMenu;
     Context mContext;
     UIData mUIData = UIData.getInstance();
@@ -155,7 +156,8 @@ public class ChatListFragment extends Fragment {
             //holder.imageView.setImageResource(R.mipmap.girl1);
 
             Glide.with(mContext)
-                    .load(mMyData.arrSendDataList.get(position).strTargetImg)
+                    //.load(mMyData.arrSendDataList.get(position).strTargetImg)
+                    .load(mMyData.arrChatTargetData.get(position).Img)
                     .bitmapTransform(new CropCircleTransformation(getActivity()))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .thumbnail(0.1f)
@@ -245,23 +247,28 @@ public class ChatListFragment extends Fragment {
 
 
 
-            arrChatNameData.add(mMyData.arrSendDataList.get(i).strSendName);
-            arrChatData.add(mMyData.arrSendDataList.get(i));
+/*            arrChatNameData.add(mMyData.arrSendDataList.get(i).strSendName);
+            arrChatData.add(mMyData.arrSendDataList.get(i));*/
             String strDate = mMyData.arrSendDataList.get(i).strSendDate;
 
             holder.date.setText(strDate);
-            holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
-            holder.nickname.setText(mMyData.arrSendDataList.get(i).strTargetNick);
+            //holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
+            //holder.nickname.setText(mMyData.arrSendDataList.get(i).strTargetNick);
+
+            holder.textView.setText(mMyData.arrChatTargetData.get(i).NickName + "님과의 채팅방입니다");
+            holder.nickname.setText(mMyData.arrChatTargetData.get(i).NickName);
+
+
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //String strCharName = arrChatNameData.get(position);
                     //SendData mSendData = arrChatData.get(position);
-                    String strCharName = mMyData.arrSendDataList.get(position).strSendName;
                     SendData mSendData = mMyData.arrSendDataList.get(position);
-
+                    int idx = position;
                     Intent intent = new Intent(getContext(),ChatRoomActivity.class);
                     intent.putExtra("ChatData", mSendData);
+                    intent.putExtra("ChatIdx", idx);
                     startActivity(intent);
                     //finish();
 
@@ -271,7 +278,8 @@ public class ChatListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return mMyData.arrSendNameList.size();
+            //return mMyData.arrSendNameList.size();
+            return mMyData.arrChatTargetData.size();
         }
     }
 

@@ -458,6 +458,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
+                                rtValuew = mMyData.makeChatTargetList(stTargetData);
                                 if (rtValuew == true) {
                                     mNotiFunc.SendMSGToFCM(stTargetData);
                                     Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();

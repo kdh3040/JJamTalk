@@ -68,6 +68,10 @@ public class MyData {
     public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
 
+    public ArrayList<String> arrMyChatTargetList = new ArrayList<>();
+    public  ArrayList<UserData> arrChatTargetData = new ArrayList<>();
+
+
     public int nFanCount;
     public ArrayList<FanData> arrMyFanList = new ArrayList<>();
     public ArrayList<UserData> arrMyFanDataList = new ArrayList<>();
@@ -467,7 +471,51 @@ public class MyData {
         return strMemo;
     }
 
+    public boolean makeChatTargetList(UserData _UserData) {
+        boolean rtValue = true;
 
+        UserData SaveUserData = _UserData;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user, targetuser;
+        table = database.getReference("User");
+
+        user = table.child(_UserData.Idx).child("ChatTargetList");
+        user.child(_UserData.Idx).setValue(_UserData.Idx);
+
+        targetuser = table.child(_UserData.Idx).child("ChatTargetList");
+        user.child(getUserIdx()).setValue(getUserIdx());
+
+        /*
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("Count", nTotalSendCnt);
+        table.child(getUserIdx()).updateChildren(updateMap);*/
+
+
+       /* String strCheckName = strIdx + "_" + _UserData.Idx;
+        SendData tempMySave = new SendData();
+        tempMySave.strTargetImg = getUserImg();
+        tempMySave.strTargetNick = getUserNick();
+        tempMySave.strSendName = strCheckName;
+        tempMySave.strTargetMsg = _strSend.toString();
+
+        SendData tempTargetSave = new SendData();
+        tempTargetSave.strTargetNick = _UserData.NickName;
+        tempTargetSave.strTargetImg = _UserData.Img;
+        tempTargetSave.strSendName = strCheckName;
+        tempTargetSave.strTargetMsg = _strSend.toString();
+
+        if (!arrSendNameList.contains(strCheckName)) {
+
+            user.child(strCheckName).setValue(tempTargetSave);
+            targetuser.child(strCheckName).setValue(tempMySave);
+            rtValue = true;
+
+        } else
+            return rtValue;*/
+
+        return rtValue;
+    }
 
     public boolean makeSendList(UserData _UserData, String _strSend) {
         boolean rtValue = false;
@@ -1333,6 +1381,51 @@ public class MyData {
             });
     }
 
+    public void getMyChatTargetData() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("User");
+
+        arrChatTargetData.clear();
+
+        //user.addChildEventListener(new ChildEventListener() {
+        for (int i = 0; i < arrMyChatTargetList.size(); i++) {
+            strTargetIdx = arrMyChatTargetList.get(i);
+
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int saa = 0;
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    arrChatTargetData.add(tempUserData);
+
+                    int idx = 0;
+                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                        if( idx < arrChatTargetData.size()) {
+                            arrChatTargetData.get(idx).arrStarList.add(entry.getValue());
+                            idx++;
+                        }
+                    }
+
+                    idx = 0;
+                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                        if( idx < arrChatTargetData.size()) {
+                            arrChatTargetData.get(idx).arrFanList.add(entry.getValue());
+                            idx++;
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+        }
+    }
+
     public void getMyStarData() {
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -1618,5 +1711,6 @@ public class MyData {
     public int getFanCount() {
         return nFanCount;
     }
+
 }
 
