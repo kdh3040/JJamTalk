@@ -55,20 +55,20 @@ public class MyPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_page);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ll_jewel_box= (LinearLayout) findViewById(R.id.ll_jewel_box);
+        /*ll_jewel_box= (LinearLayout) findViewById(R.id.ll_jewel_box);
         ll_jewel_box.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
             }
-        });
+        });*/
 
         iv_gold = findViewById(R.id.iv_gold);
         iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 
-        iv_jewely=findViewById(R.id.iv_jewely);
+        /*iv_jewely=findViewById(R.id.iv_jewely);
         iv_jewely.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
-
+*/
         txt_MyGoldCnt = findViewById(R.id.tv_goldsize);
         txt_MyProfile = (TextView)findViewById(R.id.MyPage_txtProfile);
 
@@ -132,10 +132,10 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
         adapter = new MyPageJewelAdapter(getApplicationContext());
-        rv_myjewels = (RecyclerView) findViewById(R.id.rv_myjewels);
+        /*rv_myjewels = (RecyclerView) findViewById(R.id.rv_myjewels);
 
         rv_myjewels.setLayoutManager(new LinearLayoutManager(getApplicationContext(),0,false));
-        rv_myjewels.setAdapter(adapter);
+        rv_myjewels.setAdapter(adapter);*/
 
 /*
         txt_MyRecvHoney = (TextView)findViewById(R.id.MyPage_RecvHoney);
