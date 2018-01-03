@@ -9,12 +9,26 @@
     android:paddingRight="20dp"
     android:paddingTop="20dp">
 
-    <ImageView
-        android:id="@+id/img_mypic"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        app:srcCompat="@mipmap/hdvd" />
+        android:layout_weight="3">
+
+        <ImageView
+            android:id="@+id/img_mypic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@mipmap/hdvd" />
+
+        <ImageView
+            android:id="@+id/iv_myGift"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignLeft="@+id/img_mypic"
+            android:layout_marginLeft="40dp"
+            app:srcCompat="@drawable/bg2" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/MyPage_txtProfile"
@@ -111,14 +125,14 @@
 
 
             android:id="@+id/iv_gold"
-            android:layout_width="40dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
 
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:background="@drawable/round_btn_bg"
             android:translationZ="1dp"
             app:srcCompat="@drawable/ic_gold" />
-
 
         <TextView
             android:id="@+id/tv_goldsize"
@@ -128,6 +142,7 @@
             android:gravity="center"
             android:text="TextView"
             android:textSize="18sp" />
+
 
     </LinearLayout>
 
