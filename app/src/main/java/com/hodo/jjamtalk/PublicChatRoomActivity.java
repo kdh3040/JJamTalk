@@ -191,7 +191,7 @@ public class PublicChatRoomActivity extends AppCompatActivity {
                 btn_HeartCharge.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(getApplicationContext(), HeartActivity.class));
+                        startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                     }
                 });
 

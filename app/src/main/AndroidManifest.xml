@@ -103,7 +103,7 @@
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
 
-        <activity android:name=".HeartActivity" />
+        <activity android:name=".BuyGoldActivity" />
         <activity android:name=".ImageActivity"
             android:theme ="@style/NoTitleBar"/>
         <activity android:name=".Kakao.KakaoSignupActivity" />

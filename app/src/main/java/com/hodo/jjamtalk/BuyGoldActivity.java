@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Created by mjk on 2017. 8. 4..
  */
 
-public class HeartActivity extends AppCompatActivity {
+public class BuyGoldActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
     private TextView txt_heartStatus;
