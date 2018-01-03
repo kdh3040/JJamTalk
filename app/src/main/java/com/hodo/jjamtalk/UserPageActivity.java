@@ -155,10 +155,10 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });
 
-        stickers_holder = (LinearLayout)findViewById(R.id.stickers_holder);
+        /*stickers_holder = (LinearLayout)findViewById(R.id.stickers_holder);
         stickers_holder.setLayoutParams(mUIData.getFLP(1,0.1f));
 
-        SetStickerImg();
+        SetStickerImg();*/
 
         Glide.with(getApplicationContext())
                 .load(stTargetData.Img)
@@ -299,7 +299,7 @@ public class UserPageActivity extends AppCompatActivity {
                         btnHeartCharge.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity(new Intent(getApplicationContext(), HeartActivity.class));
+                                startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                             }
                         });
 
@@ -366,8 +366,13 @@ public class UserPageActivity extends AppCompatActivity {
                                     if (strSendMsg.equals(""))
                                         strSendMsg = "안녕하세요";
 
-                                    boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                    boolean rtValuew = mMyData.makeSendList(stTargetData, strSendMsg.toString());
+                                    rtValuew = mMyData.makeChatTargetList(stTargetData);
+                                    rtValuew = mMyData.makeCardList(stTargetData);
+                                     rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                     rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+
+
 
                                     if (rtValuew == true) {
                                         mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
@@ -458,6 +463,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
+                                rtValuew = mMyData.makeChatTargetList(stTargetData);
                                 if (rtValuew == true) {
                                     mNotiFunc.SendMSGToFCM(stTargetData);
                                     Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
@@ -484,7 +490,7 @@ public class UserPageActivity extends AppCompatActivity {
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+                                                    startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
 
                                                 }
                                             });

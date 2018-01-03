@@ -30,11 +30,11 @@ public class MyPageActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
 
     ImageButton btn_Setting,btn_my_profile,btn_history;
-    Button btn_heart;
+    Button btn_Gold;
     //Button btn_buyjewel;
     ImageView img_Mypic;
     ImageView iv_gold;
-    ImageView iv_jewely;
+    ImageView iv_MyGift;
 
 
     TextView txt_MyProfile;
@@ -61,6 +61,7 @@ public class MyPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
             }
+<<<<<<< HEAD
         });*/
 
         iv_gold = findViewById(R.id.iv_gold);
@@ -69,13 +70,29 @@ public class MyPageActivity extends AppCompatActivity {
         /*iv_jewely=findViewById(R.id.iv_jewely);
         iv_jewely.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 */
+
+
+
+        iv_gold = findViewById(R.id.iv_gold);
+        iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+
+        iv_MyGift=findViewById(R.id.iv_myGift);
+        iv_MyGift.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
+            }
+        });
+
+
+
         txt_MyGoldCnt = findViewById(R.id.tv_goldsize);
         txt_MyProfile = (TextView)findViewById(R.id.MyPage_txtProfile);
 
         txt_MyProfile.setText(mMyData.getUserNick() + "," + mMyData.getUserAge());
 
         int nGold = mMyData.getUserHoney();
-        txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
+        //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
         //txt_MyHeartCnt.setText("보유 골드: " + nGold);
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
@@ -88,11 +105,11 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
-        btn_heart = (Button)findViewById(R.id.btn_heart);
-        btn_heart.setOnClickListener(new View.OnClickListener() {
+        btn_Gold = (Button)findViewById(R.id.btn_BuyGold);
+        btn_Gold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+                startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
             }
         });
         /*btn_buyjewel = (Button)findViewById(R.id.btn_buyjewel);
@@ -131,8 +148,13 @@ public class MyPageActivity extends AppCompatActivity {
                 //finish();
             }
         });
+
         adapter = new MyPageJewelAdapter(getApplicationContext());
         /*rv_myjewels = (RecyclerView) findViewById(R.id.rv_myjewels);
+=======
+        /*adapter = new MyPageJewelAdapter(getApplicationContext());
+        rv_myjewels = (RecyclerView) findViewById(R.id.rv_myjewels);
+>>>>>>> 1265d8791052af2aff29453ee3b9765c0694b7e2
 
         rv_myjewels.setLayoutManager(new LinearLayoutManager(getApplicationContext(),0,false));
         rv_myjewels.setAdapter(adapter);*/
@@ -181,7 +203,7 @@ public class MyPageActivity extends AppCompatActivity {
     {
         super.onStart();
         int nGold = mMyData.getUserHoney();
-        txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
+        //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
         //txt_MyHeartCnt.setText(" 보유 골드 : " + nGold + " 골드");
         txt_MyGoldCnt.setText(nGold+" 골드");
     }

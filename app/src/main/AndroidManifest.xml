@@ -20,7 +20,7 @@
     <application
 
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/hngtitle"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -103,7 +103,7 @@
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
 
-        <activity android:name=".HeartActivity" />
+        <activity android:name=".BuyGoldActivity" />
         <activity android:name=".ImageActivity"
             android:theme ="@style/NoTitleBar"/>
         <activity android:name=".Kakao.KakaoSignupActivity" />
@@ -157,7 +157,7 @@
             android:label= "선물한 꿀"></activity>
         <activity
             android:name=".MyJewelBoxActivity"
-            android:label="내 보석상자"></activity>
+            android:label="내 아이템"></activity>
     </application>
 
 </manifest>

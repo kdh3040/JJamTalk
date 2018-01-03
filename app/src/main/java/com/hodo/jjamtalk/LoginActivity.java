@@ -560,6 +560,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             bMySet = true;
 
 
+                            for(LinkedHashMap.Entry<String, String> entry : stRecvData.ChatTargetList.entrySet()) {
+                                mMyData.arrMyChatTargetList.add(entry.getValue());
+                            }
+
                             for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet()) {
                                     mMyData.arrMyFanList.add(entry.getValue());
                             }
@@ -577,8 +581,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 mMyData.arrCardNameList.add(entry.getValue());
                             }
 
+                            mMyData.getMyChatTargetData();
+
                             mMyData.getMyStarData();
                             mMyData.getMyfanData();
+
                             mMyData.getSetting();
                             mMyData.getCardList();
                             mMyData.getSendList();
@@ -587,7 +594,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getRecvHoneyList();
                             mMyData.getBlockList();
                             mMyData.getBlockedList();
-                            mMyData.MonitorPublicRoomStatus();
+                            //mMyData.MonitorPublicRoomStatus();
 
                                 //InitData_Fan();
                                 InitData_Recv();

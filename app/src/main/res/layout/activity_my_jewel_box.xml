@@ -49,20 +49,7 @@
             android:layout_weight="1"
 
             android:background="@drawable/button_pressed"
-            android:text="보석 팔기"
-            android:textColor="@color/textColorDark" />
-
-        <Button
-            android:id="@+id/btn_buyGold"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-
-            android:background="@drawable/button_pressed"
-            android:text="골드 충전"
+            android:text="환전 하기"
             android:textColor="@color/textColorDark" />
 
     </LinearLayout>
