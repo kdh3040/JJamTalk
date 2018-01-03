@@ -22,6 +22,7 @@ public class BoardData {
     {
     }
 
-    public  ArrayList<TempBoardData> arrBoardList = new ArrayList<>();
-    public  ArrayList<TempBoardData> arrBoardMyList = new ArrayList<>();
+    public  ArrayList<BoardMsgData> arrBoardList = new ArrayList<>();
+    public  ArrayList<BoardMsgData> arrBoardMyList = new ArrayList<>();
 }
+

@@ -162,6 +162,8 @@ public class BoardFragment extends Fragment {
             //holder.idTextView.setText("호근 ,37, 20km");
             holder.idTextView.setText(mBoardData.arrBoardList.get(position).NickName + ", " + mBoardData.arrBoardList.get(position).Age);// + ", " +  mBoardData.arrBoardList.get(position).Dist);
             holder.messageTextView.setText(mBoardData.arrBoardList.get(position).Msg);
+            holder.likeCount.setText("좋아요 : " + mBoardData.arrBoardList.get(position).LikeCnt);
+            holder.replyCount.setText("댓글수 : " + mBoardData.arrBoardList.get(position).ReplyCnt);
             //holder.iv_profile.setImageResource(R.drawable.bg1);
             Glide.with(getContext())
                     .load(mBoardData.arrBoardList.get(position).Img)

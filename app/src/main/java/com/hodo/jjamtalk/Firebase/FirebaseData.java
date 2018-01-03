@@ -1,37 +1,18 @@
 package com.hodo.jjamtalk.Firebase;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.hodo.jjamtalk.Data.MyData;
-import com.hodo.jjamtalk.Data.SendData;
-import com.hodo.jjamtalk.Data.TempBoardData;
+import com.hodo.jjamtalk.Data.BoardMsgData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Data.BoardLikeData;
 import com.hodo.jjamtalk.Util.AwsFunc;
-import com.kakao.usermgmt.response.model.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -105,7 +86,7 @@ public class FirebaseData {
 
         user.child("FanCount").setValue(mMyData.getFanCount());
     }
-    public boolean SaveBoardData(TempBoardData sendData) {
+    public boolean SaveBoardData(BoardMsgData sendData) {
 
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
@@ -122,6 +103,28 @@ public class FirebaseData {
         sendData.Key = table.getKey();
 
         table.setValue(sendData);
+
+        return  true;
+    }
+
+    public boolean SaveBoardLikeData(String boardKey, BoardLikeData sendData) {
+
+        Random rand = new Random();
+        rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Board").child(boardKey).child("Like").child(sendData.Idx);
+
+        long time = System.currentTimeMillis();
+        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
+
+        BoardLikeData tempData = new BoardLikeData();
+
+        tempData.Idx = sendData.Idx;
+        tempData.Img = sendData.Img;
+        tempData.Date = ctime.format(new Date(time));
+
+        table.setValue(tempData);
 
         return  true;
     }

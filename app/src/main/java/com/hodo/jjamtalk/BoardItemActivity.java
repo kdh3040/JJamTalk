@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hodo.jjamtalk.Data.BoardData;
+import com.hodo.jjamtalk.Data.BoardLikeData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 
 /**
@@ -64,6 +67,38 @@ public class BoardItemActivity extends AppCompatActivity{
         listView.addFooterView(footer);
         listView.setAdapter(adapter);
 
+        Intent intent = getIntent();
+        nTargetIdx = intent.getIntExtra("Target", 0);
+
+        ib_vote_like = (ImageButton) findViewById(R.id.ib_vote_like);
+        ib_vote_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                BoardLikeData sendData = new BoardLikeData();
+
+                sendData.Idx = mMyData.getUserIdx();
+                sendData.Img = mMyData.getUserImg();
+
+                mFireBaseData.SaveBoardLikeData( mBoardData.arrBoardList.get(nTargetIdx).Key , sendData);
+            }
+        });
+
+        btn_send = (Button) findViewById(R.id.btn_send);
+        btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TempBoard_ReplyData tempReply = new TempBoard_ReplyData();
+                tempReply.Msg = "test";
+                tempReply.Age = mMyData.getUserAge();
+                tempReply.Idx = mMyData.getUserIdx();
+                tempReply.NickName = mMyData.getUserNick();
+                tempReply.Img = mMyData.getUserImg();
+                tempReply.Key =  mBoardData.arrBoardList.get(nTargetIdx).Key;
+
+                mFireBaseData.SaveBoardReplyData(tempReply);
+            }
+        });
 
         /*
         //toolbar = (Toolbar) findViewById(R.id.toolbar);
