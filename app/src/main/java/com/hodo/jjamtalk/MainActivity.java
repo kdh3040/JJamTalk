@@ -162,6 +162,15 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
+                Button btn_cancel = v.findViewById(R.id.btn_cancel);
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        filter_dialog.dismiss();
+                    }
+                });
+
+
                 rbtn_two = (RadioButton) v.findViewById(R.id.rbtn_two);
                 rbtn_two.setOnClickListener(new View.OnClickListener() {
                     @Override

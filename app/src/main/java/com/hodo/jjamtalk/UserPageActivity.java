@@ -361,6 +361,7 @@ public class UserPageActivity extends AppCompatActivity {
 
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                     Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
+
                                 } else {
                                     String strSendMsg = SendMsg.getText().toString();
                                     if (strSendMsg.equals(""))
@@ -375,6 +376,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
                                     if (rtValuew == true) {
+                                        mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
                                         mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                                         mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
                                         mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);

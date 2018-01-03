@@ -33,10 +33,10 @@ public class CustomPagerAdapter extends PagerAdapter{
         mLayoutInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         stTargetData = TargetData;
 
-        strImgGroup[0] = stTargetData.ImgGroup1;
-        strImgGroup[1] = stTargetData.ImgGroup2;
-        strImgGroup[2] = stTargetData.ImgGroup3;
-        strImgGroup[3] = stTargetData.ImgGroup4;
+        strImgGroup[0] = stTargetData.ImgGroup0;
+        strImgGroup[1] = stTargetData.ImgGroup1;
+        strImgGroup[2] = stTargetData.ImgGroup2;
+        strImgGroup[3] = stTargetData.ImgGroup3;
 
     }
 

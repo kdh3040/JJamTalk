@@ -60,9 +60,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.BoardData;
+import com.hodo.jjamtalk.Data.BoardLikeData;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
-import com.hodo.jjamtalk.Data.TempBoardData;
+import com.hodo.jjamtalk.Data.BoardMsgData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AwsFunc;
@@ -202,12 +203,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mGoogleSignInButton = (Button) findViewById(R.id.Login_Google);
         mToMain = (Button) findViewById(R.id.btn_tomain);
 
-       if(mAuth.getCurrentUser() != null){
+       /*if(mAuth.getCurrentUser() != null){
             showProgress(true);
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
-        }else
+        }else*/
         {
 
             mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -316,11 +317,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                TempBoardData stRecvData = new TempBoardData();
-                stRecvData = dataSnapshot.getValue(TempBoardData.class);
+                BoardMsgData stRecvData = new BoardMsgData();
+                stRecvData = dataSnapshot.getValue(BoardMsgData.class);
                 if (stRecvData != null) {
                     if (stRecvData != null) {
                         mBoardData.arrBoardMyList.add(stRecvData);
+                        stRecvData.SetCount();
                     }
                 }
             }
@@ -347,25 +349,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
     }
 
+    // ValueEventListener
     private void SetBoardData() {
 
         DatabaseReference refBoard;
         refBoard = FirebaseDatabase.getInstance().getReference().child("Board");
         refBoard.addChildEventListener(new ChildEventListener() {
-            int i = 0;
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                TempBoardData stRecvData = new TempBoardData();
-                stRecvData = dataSnapshot.getValue(TempBoardData.class);
+                BoardMsgData stRecvData = new BoardMsgData();
+                stRecvData = dataSnapshot.getValue(BoardMsgData.class);
 
                 if (stRecvData != null) {
-                    if (stRecvData != null) {
-                        mBoardData.arrBoardList.add(stRecvData);
-                        for(LinkedHashMap.Entry<String, TempBoard_ReplyData> entry : mBoardData.arrBoardList.get(i).Reply.entrySet())
-                            mBoardData.arrBoardList.get(i).arrReplyList.add(entry.getValue());
-
-                        i++;
-                    }
+                    mBoardData.arrBoardList.add(stRecvData);
+                    stRecvData.SetCount();
                 }
             }
 
