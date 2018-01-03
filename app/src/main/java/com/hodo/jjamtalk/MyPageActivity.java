@@ -34,7 +34,7 @@ public class MyPageActivity extends AppCompatActivity {
     //Button btn_buyjewel;
     ImageView img_Mypic;
     ImageView iv_gold;
-    ImageView iv_jewely;
+    ImageView iv_MyGift;
 
 
     TextView txt_MyProfile;
@@ -66,8 +66,14 @@ public class MyPageActivity extends AppCompatActivity {
         iv_gold = findViewById(R.id.iv_gold);
         iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 
-        //iv_jewely=findViewById(R.id.iv_jewely);
-        //iv_jewely.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+        iv_MyGift=findViewById(R.id.iv_myGift);
+        iv_MyGift.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
+            }
+        });
+
 
         txt_MyGoldCnt = findViewById(R.id.tv_goldsize);
         txt_MyProfile = (TextView)findViewById(R.id.MyPage_txtProfile);
