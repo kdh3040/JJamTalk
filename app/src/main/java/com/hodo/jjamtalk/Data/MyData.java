@@ -481,38 +481,13 @@ public class MyData {
         table = database.getReference("User");
 
         user = table.child(_UserData.Idx).child("ChatTargetList");
-        user.child(_UserData.Idx).setValue(_UserData.Idx);
-
-        targetuser = table.child(_UserData.Idx).child("ChatTargetList");
         user.child(getUserIdx()).setValue(getUserIdx());
 
-        /*
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Count", nTotalSendCnt);
-        table.child(getUserIdx()).updateChildren(updateMap);*/
+        targetuser = table.child(getUserIdx()).child("ChatTargetList");
+        targetuser.child(_UserData.Idx).setValue(_UserData.Idx);
 
-
-       /* String strCheckName = strIdx + "_" + _UserData.Idx;
-        SendData tempMySave = new SendData();
-        tempMySave.strTargetImg = getUserImg();
-        tempMySave.strTargetNick = getUserNick();
-        tempMySave.strSendName = strCheckName;
-        tempMySave.strTargetMsg = _strSend.toString();
-
-        SendData tempTargetSave = new SendData();
-        tempTargetSave.strTargetNick = _UserData.NickName;
-        tempTargetSave.strTargetImg = _UserData.Img;
-        tempTargetSave.strSendName = strCheckName;
-        tempTargetSave.strTargetMsg = _strSend.toString();
-
-        if (!arrSendNameList.contains(strCheckName)) {
-
-            user.child(strCheckName).setValue(tempTargetSave);
-            targetuser.child(strCheckName).setValue(tempMySave);
-            rtValue = true;
-
-        } else
-            return rtValue;*/
+        arrMyChatTargetList.add(_UserData.Idx);
+        arrChatTargetData.add(_UserData);
 
         return rtValue;
     }

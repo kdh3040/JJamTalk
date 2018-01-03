@@ -195,6 +195,21 @@ public class ChatListFragment extends Fragment {
                         public void onClick(View view) {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference table;
+                            table = database.getReference("User/" + mMyData.getUserIdx()+ "/ChatTargetList/");
+                            table.child(mMyData.arrMyChatTargetList.get(position)).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    dataSnapshot.getRef().removeValue();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+
                             table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
                             table.child(mMyData.arrSendDataList.get(position).strSendName).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -210,6 +225,10 @@ public class ChatListFragment extends Fragment {
 
                             mMyData.arrSendDataList.remove(position);
                             mMyData.arrSendNameList.remove(position);
+
+                            mMyData.arrChatTargetData.remove(position);
+                            mMyData.arrMyChatTargetList.remove(position);
+
                             refreshFragMent();
                             dialog.dismiss();
                         }
@@ -223,37 +242,14 @@ public class ChatListFragment extends Fragment {
                             dialog.dismiss();
                         }
                     });
-                    /*
-                    AlertDialog.Builder br = new AlertDialog.Builder(getActivity());
-                    br.setTitle("채팅방 삭제");
-                    br.setMessage("삭제를 하면 대화 내용 및 채팅방 정보가 모두 삭제됩니다.");
-                    br.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // 취소 구현
-                        }
-                    }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //확인 구현
-                        }
-                    });
-                    AlertDialog dialog = br.create();
-                    dialog.show();*/
+
                     return false;
                 }
             });
 
 
-
-
-/*            arrChatNameData.add(mMyData.arrSendDataList.get(i).strSendName);
-            arrChatData.add(mMyData.arrSendDataList.get(i));*/
             String strDate = mMyData.arrSendDataList.get(i).strSendDate;
-
             holder.date.setText(strDate);
-            //holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
-            //holder.nickname.setText(mMyData.arrSendDataList.get(i).strTargetNick);
 
             holder.textView.setText(mMyData.arrChatTargetData.get(i).NickName + "님과의 채팅방입니다");
             holder.nickname.setText(mMyData.arrChatTargetData.get(i).NickName);
@@ -262,8 +258,6 @@ public class ChatListFragment extends Fragment {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //String strCharName = arrChatNameData.get(position);
-                    //SendData mSendData = arrChatData.get(position);
                     SendData mSendData = mMyData.arrSendDataList.get(position);
                     int idx = position;
                     Intent intent = new Intent(getContext(),ChatRoomActivity.class);
@@ -283,33 +277,4 @@ public class ChatListFragment extends Fragment {
         }
     }
 
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_chat_list,menu);
-
-        //View v = menu.findItem(R.id.tv_leave).getActionView();
-
-
-
-
-
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int curId = item.getItemId();
-        switch(curId){
-            case R.id.clickAll:
-
-                //setDateVisiblity(false);
-                break;
-            case android.R.id.home:
-                onBackPressed();
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-*/
 }

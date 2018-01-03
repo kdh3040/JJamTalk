@@ -3,8 +3,13 @@ package com.hodo.jjamtalk;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +34,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.hodo.jjamtalk.Data.ChatData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.PublicRoomChatData;
@@ -39,6 +51,8 @@ import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.NotiFunc;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -55,6 +69,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     private UserData stTargetData = new UserData();
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReferenceFromUrl("gs://jamtalk-cf526.appspot.com/");
 
     private static final int REQUEST_IMAGE = 1001;
     Button btn_send,btn_plus;
@@ -70,21 +86,22 @@ public class ChatRoomActivity extends AppCompatActivity {
     SendData tempChatData;
     int  tempChatIdx;
 
+    private ProgressBar progressBar;
 
     static LinearLayout layout;
     static LinearLayout Msg_layout;
 
+    static  Uri tempSaveUri;
 
     static int a = 0;
 
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView image_profile,image_sent;
+        ImageView image_profile,send_Img;
         TextView message;
 
         TextView targetName;
-       // TextView send_time;
         TextView time;
 
         ImageView Sender_image_profile,Sender_image_sent;
@@ -103,7 +120,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             time = (TextView)itemView.findViewById(R.id.time);
             layout = (LinearLayout)itemView.findViewById(R.id.ChatRoom_layout);
             Msg_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_layout);
-
+            send_Img = (ImageView)itemView.findViewById(R.id.send_img);
 
           //  Sender_image_profile = (ImageView)itemView.findViewById(R.id.Sender_Img);
 
@@ -117,6 +134,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chatting);
 
         Intent intent = getIntent();
+      //  progressBar = (ProgressBar)findViewById(R.id.chat_Progress);
 
         tempChatData = (SendData) intent.getExtras().getSerializable("ChatData");
         tempChatIdx = (int) intent.getExtras().getSerializable("ChatIdx");
@@ -176,22 +194,38 @@ public class ChatRoomActivity extends AppCompatActivity {
                     }
                 });
 
-                if( chat_message.getMsg() != null){
+
+                 if( !chat_message.getMsg().equals("")){
+
+                    viewHolder.message.setVisibility(TextView.VISIBLE);
+                    viewHolder.send_Img.setVisibility(TextView.GONE);
+                    viewHolder.targetName.setVisibility(TextView.VISIBLE);
 
                     viewHolder.message.setText(chat_message.getMsg());
-                    viewHolder.message.setVisibility(TextView.VISIBLE);
+                    viewHolder.targetName.setText( mMyData.arrChatTargetData.get(tempChatIdx).NickName);
+
+
+                }
+                else if( !chat_message.getImg().equals("")){
+
+                     viewHolder.send_Img.setVisibility(TextView.VISIBLE);
+                     viewHolder.message.setVisibility(TextView.GONE);
+                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
+
+                    Glide.with(getApplicationContext())
+                            .load(chat_message.getImg())
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(viewHolder.send_Img);
 
                      viewHolder.targetName.setText( mMyData.arrChatTargetData.get(tempChatIdx).NickName);
-                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
-                     //viewHolder.send_time.setVisibility(TextView.GONE);
 
-                     // viewHolder.image_sent.setVisibility(ImageView.GONE);
-
-
-                }else{
+                }
+                else{
                  //   viewHolder.image_sent.setVisibility(ImageView.VISIBLE);
+
+                    viewHolder.send_Img.setVisibility(TextView.GONE);
                     viewHolder.message.setVisibility(TextView.GONE);
-                     viewHolder.targetName.setVisibility(TextView.GONE);
+                    viewHolder.targetName.setVisibility(TextView.GONE);
                 }
 
                 //viewHolder.sender.setText(chat_message.getFrom());
@@ -201,17 +235,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 if(a % 2 == 0)
                 {
                     viewHolder.message.setBackgroundResource(R.drawable.outbox2);
+                    viewHolder.send_Img.setBackgroundResource(R.drawable.outbox2);
+
                     Msg_layout.setGravity(Gravity.RIGHT);
-                   // viewHolder.Sender_image_profile.setVisibility(View.GONE);
 
                     viewHolder.targetName.setVisibility(TextView.GONE);
                     viewHolder.image_profile.setVisibility(View.GONE);
-         /*           Glide.with(getApplicationContext())
-                            .load(mMyData.getUserImg())
-                            .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .thumbnail(0.1f)
-                            .into(viewHolder.Sender_image_profile);*/
 
 
                   //  viewHolder.Sender_sender.setText(chat_message.getFrom());
@@ -219,6 +248,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 else
                 {
                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
+                    viewHolder.send_Img.setBackgroundResource(R.drawable.inbox2);
                     viewHolder.message.setBackgroundResource(R.drawable.inbox2);
                     Msg_layout.setGravity(Gravity.LEFT);
                  //   viewHolder.Sender_image_profile.setVisibility(View.GONE);
@@ -322,12 +352,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                         Msg.setText("100개의 꿀을 보내시겠습니까?");
 
                         final int[] nSendHoneyCnt = new int[1];
-                        nSendHoneyCnt[0] = 100;
+                        nSendHoneyCnt[0] = 10;
 
                         btnHeart100.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 100;
+                                nSendHoneyCnt[0] = 10;
                                 Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
                             }
                         });
@@ -335,7 +365,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         btnHeart200.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 200;
+                                nSendHoneyCnt[0] = 20;
                                 Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
                             }
                         });
@@ -343,7 +373,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         btnHeart300.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 300;
+                                nSendHoneyCnt[0] = 30;
                                 Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
                             }
                         });
@@ -351,7 +381,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         btnHeart500.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 500;
+                                nSendHoneyCnt[0] = 50;
                                 Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
                             }
                         });
@@ -359,7 +389,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         btnHeart1000.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 1000;
+                                nSendHoneyCnt[0] = 100;
                                 Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
                             }
                         });
@@ -367,7 +397,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         btnHeart5000.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 5000;
+                                nSendHoneyCnt[0] = 500;
                                 Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
                             }
                         });
@@ -381,7 +411,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                                 String strSendMsg = SendMsg.getText().toString();
                                 if (strSendMsg.equals(""))
-                                    strSendMsg = "꿀 보내드려요";
+                                    strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
 
                                 boolean rtValuew = mMyData.makeSendHoneyList(mMyData.arrChatTargetData.get(tempChatIdx), nSendHoneyCnt[0], strSendMsg);
                                 rtValuew = mMyData.makeRecvHoneyList(mMyData.arrChatTargetData.get(tempChatIdx), nSendHoneyCnt[0], strSendMsg);
@@ -391,18 +421,24 @@ public class ChatRoomActivity extends AppCompatActivity {
                                     mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
                                     Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
 
-                                    String message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
+                                    String message;
+                                    if (SendMsg.getText().toString().equals(""))
+                                        message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
+                                    else
+                                        message = strSendMsg;
 
                                     Calendar cal = Calendar.getInstance();
                                     Date date = cal.getTime();
                                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                                     String formatStr = sdf.format(date);
 
-                                    ChatData chat_Data = new ChatData(mMyData.getUserNick(),  mMyData.arrChatTargetData.get(tempChatIdx).NickName, message, formatStr, null);
+                                    ChatData chat_Data = new ChatData(mMyData.getUserNick(),  mMyData.arrChatTargetData.get(tempChatIdx).NickName, message, formatStr, "");
                                     mRef.push().setValue(chat_Data);
                                     dialog.dismiss();
+
                                 }
                                 dialog.dismiss();
+
 
                             }
                         });
@@ -433,7 +469,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                     String formatStr = sdf.format(date);
 
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, message, formatStr, null);
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, message, formatStr, "");
                     mRef.push().setValue(chat_Data);
                     txt_msg.setText("");
 
@@ -483,4 +519,74 @@ public class ChatRoomActivity extends AppCompatActivity {
         return true;
     }
 
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if (requestCode == 1001 && resultCode == RESULT_OK && null != data) {
+                Uri uri = data.getData();
+
+                tempSaveUri = uri;
+                UploadImage_Firebase(tempSaveUri);
+
+            } else {
+                Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Oops! 로딩에 오류가 있습니다.", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+    }
+
+    private void UploadImage_Firebase(Uri file) {
+
+        StorageReference riversRef = storageRef.child("chatRoom/" + mMyData.getUserIdx() + "/" + tempSaveUri);//file.getLastPathSegment());
+
+        Bitmap bitmap = null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 4;
+        //bitmap = BitmapFactory.decodeFile("/sdcard/image.jpg", options);
+
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), file);
+
+            //bitmap = BitmapFactory.decodeFile(file.f, options);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getWidth(), true);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = riversRef.putBytes(data);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+    /*                progressBar.setVisibility(View.VISIBLE);
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    System.out.println("Upload is " + progress + "% done");
+                    int currentprogress = (int) progress;
+                    progressBar.setProgress(currentprogress);*/
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    //progressBar.setVisibility(View.INVISIBLE);
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, "", null, downloadUrl.toString());
+                    mRef.push().setValue(chat_Data);
+
+                    tempSaveUri = downloadUrl;
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
