@@ -409,34 +409,42 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                String strSendMsg = SendMsg.getText().toString();
-                                if (strSendMsg.equals(""))
-                                    strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
-
-                                boolean rtValuew = mMyData.makeSendHoneyList(mMyData.arrChatTargetData.get(tempChatIdx), nSendHoneyCnt[0], strSendMsg);
-                                rtValuew = mMyData.makeRecvHoneyList(mMyData.arrChatTargetData.get(tempChatIdx), nSendHoneyCnt[0], strSendMsg);
-
-                                if (rtValuew == true) {
-                                    //mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
-                                    mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                                    Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
-
-                                    String message;
-                                    if (SendMsg.getText().toString().equals(""))
-                                        message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
-                                    else
-                                        message = strSendMsg;
-
-                                    Calendar cal = Calendar.getInstance();
-                                    Date date = cal.getTime();
-                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-                                    String formatStr = sdf.format(date);
-
-                                    ChatData chat_Data = new ChatData(mMyData.getUserNick(),  mMyData.arrChatTargetData.get(tempChatIdx).NickName, message, formatStr, "");
-                                    mRef.push().setValue(chat_Data);
-                                    dialog.dismiss();
-
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
                                 }
+                                else
+                                {
+                                    String strSendMsg = SendMsg.getText().toString();
+                                    if (strSendMsg.equals(""))
+                                        strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
+
+                                    boolean rtValuew = mMyData.makeSendHoneyList(mMyData.arrChatTargetData.get(tempChatIdx), nSendHoneyCnt[0], strSendMsg);
+                                    rtValuew = mMyData.makeRecvHoneyList(mMyData.arrChatTargetData.get(tempChatIdx), nSendHoneyCnt[0], strSendMsg);
+
+                                    if (rtValuew == true) {
+                                        //mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                        mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
+                                        mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
+                                        Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+
+                                        String message;
+                                        if (SendMsg.getText().toString().equals(""))
+                                            message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
+                                        else
+                                            message = strSendMsg;
+
+                                        Calendar cal = Calendar.getInstance();
+                                        Date date = cal.getTime();
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                                        String formatStr = sdf.format(date);
+
+                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  mMyData.arrChatTargetData.get(tempChatIdx).NickName, message, formatStr, "");
+                                        mRef.push().setValue(chat_Data);
+                                        dialog.dismiss();
+
+                                    }
+                                }
+
                                 dialog.dismiss();
 
 
