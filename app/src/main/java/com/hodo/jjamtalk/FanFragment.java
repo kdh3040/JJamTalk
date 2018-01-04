@@ -79,15 +79,7 @@ public class FanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if (fragView!= null) {
-         //   FanTapAdapter.notifyDataSetChanged();
-      /*      if(bNotify == true) {
-                bNotify = false;
-            }
-            else
-            {
-                FanTapAdapter.notifyDataSetChanged();
-                bNotify = true;
-            }*/
+
         }
         else
         {
@@ -100,8 +92,6 @@ public class FanFragment extends Fragment {
 
             viewPager = (ViewPager)fragView.findViewById(R.id.vp);
 
-            //
-            //viewPager.setAdapter(new TabPagerAdapter(getFragmentManager()));
             viewPager.setAdapter(FanTapAdapter);
             viewPager.setCurrentItem(0);
             mFragmentManager = getChildFragmentManager();
@@ -131,36 +121,8 @@ public class FanFragment extends Fragment {
                 }
             });
 
-
-            /*fragmentManager= getFragmentManager();
-
-
-            PagerModelManager manager = new PagerModelManager();
-
-            Intent intent = activity.getIntent();
-
-            Bundle bundle = activity.getIntent().getExtras();
-            nViewMode = intent.getIntExtra("ViewMode", 0);
-
-            if(nViewMode == 0)
-            {
-                manager.addFragment(new MyFanFragment(),"내 팬");
-                manager.addFragment(new MyLikeFragment(),"내가 좋아하는");
-            }
-            else
-            {
-                stTargetData = (UserData) bundle.getSerializable("Target");
-
-             manager.addFragment(new TargetFanFragment(stTargetData),"팬클럽");
-                manager.addFragment(new TargetLikeFragment(stTargetData),"가입한 팬클럽");
-            }
-
-*/
-
-
         }
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
     }
 
@@ -233,15 +195,6 @@ public class FanFragment extends Fragment {
             if (tag != null) {
                 fragment = mFragmentManager.findFragmentByTag(tag);
             }
-            /*if(position == 0)
-                fragment = mFragmentManager.getFragments().get(4);
-            else
-                fragment = mFragmentManager.findFragmentById()*/
-            /*if (tag != null) {
-                fragment = mFragmentManager.findFragmentByTag(tag);
-            }*/
-
-
             return fragment;
         }
 
@@ -253,17 +206,6 @@ public class FanFragment extends Fragment {
             if (tag.equals("fanlist")) {
                 rtValue = POSITION_NONE;
             }
-
- /*           int rtValue = 0;
-            rtValue = POSITION_NONE;
-            if(bNotify == false)
-            {
-
-                bNotify = true;
-            }
-            else
-                rtValue = POSITION_UNCHANGED;*/
-
             return  rtValue;
         }
 

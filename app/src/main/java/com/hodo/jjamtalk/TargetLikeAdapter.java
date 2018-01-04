@@ -47,12 +47,6 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
     @Override
     public MyLikeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.content_my_like,parent,false);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //유저페이지 액티비티
-            }
-        });
 
         return new MyLikeViewHolder(view);
     }

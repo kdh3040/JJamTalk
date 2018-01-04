@@ -580,8 +580,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             mMyData.getMyChatTargetData();
 
-                            mMyData.getMyStarData();
-                            mMyData.getMyfanData();
+                            //mMyData.getMyStarData();
+                           // mMyData.getMyfanData();
 
                             mMyData.getSetting();
                             mMyData.getCardList();

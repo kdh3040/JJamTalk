@@ -11,9 +11,15 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.MyLikeViewHolder;
 
 import java.util.ArrayList;
@@ -53,52 +59,30 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
     @Override
     public void onBindViewHolder(MyLikeViewHolder holder, final int position) {
 
-/*
-        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(mUIData.getHeight()/7)));
-        holder.imageView.setImageResource(R.mipmap.hdvd);
-        holder.tv_nickname.setText("상희");
-        holder.tv_honeycount.setText("1000꿀");
-        holder.tv_rank.setText("13위");
-*/
-
 
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(mUIData.getHeight()/7)));
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mContext.startActivity(new Intent(mContext,UserPageActivity.class));
 
-                Intent intent = new Intent(mContext, UserPageActivity.class);
-                Bundle bundle = new Bundle();
 
-        /*        for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyStarDataList.get(position).FanList.entrySet())
-                    mMyData.arrMyStarDataList.get(position).arrFanList.add(entry.getValue());
-
-                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrMyStarDataList.get(position).StarList.entrySet())
-                    mMyData.arrMyStarDataList.get(position).arrStarList.add(entry.getValue());*/
-
-                bundle.putSerializable("Target", mMyData.arrMyStarDataList.get(position));
-
-                intent.putExtras(bundle);
-
-                view.getContext().startActivity(intent);
-
+                getMyLikeData(position);
 
             }
         });
         //holder.imageView.setImageResource(R.mipmap.hdvd);
 
         Glide.with(mContext)
-                .load(mMyData.arrMyStarDataList.get(position).Img)
+                .load(mMyData.arrMyStarList.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 
-        holder.tv_nickname.setText(mMyData.arrMyStarDataList.get(position).NickName);
+        holder.tv_nickname.setText(mMyData.arrMyStarList.get(position).Nick);
         holder.tv_rank.setText((position + 1) + "위");
 
-        int SendCnt = mMyData.arrMyStarDataList.get(position).SendCount * -1;
+        int SendCnt = mMyData.arrMyStarList.get(position).Count * -1;
         holder.tv_honeycount.setText(Integer.toString(SendCnt) + "골드");
 
 
@@ -106,6 +90,57 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mMyData.arrMyStarDataList.size();
+        return mMyData.arrMyStarList.size();
     }
+
+    public void moveLikePage(int position)
+    {
+        Intent intent = new Intent(mContext, UserPageActivity.class);
+        Bundle bundle = new Bundle();
+
+        bundle.putSerializable("Target", mMyData.mapMyStarData.get(mMyData.arrMyStarList.get(position).Idx));
+        intent.putExtras(bundle);
+
+        mContext.startActivity(intent);
+    }
+
+
+    public void getMyLikeData(final int position) {
+        final String strTargetIdx = mMyData.arrMyStarList.get(position).Idx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("User");
+
+        table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int saa = 0;
+                UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                if(tempUserData != null)
+                {
+                    mMyData.mapMyStarData.put(strTargetIdx, tempUserData);
+
+                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                        mMyData.mapMyStarData.get(strTargetIdx).arrStarList.add(entry.getValue());
+                    }
+
+                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                        mMyData.mapMyStarData.get(strTargetIdx).arrFanList.add(entry.getValue());
+                    }
+
+                    moveLikePage(position);
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
+
 }
