@@ -75,10 +75,11 @@ public class MyData {
     public int nFanCount;
     public ArrayList<FanData> arrMyFanList = new ArrayList<>();
     public ArrayList<UserData> arrMyFanDataList = new ArrayList<>();
+    public  Map<String, UserData> mapMyFanData = new LinkedHashMap<String, UserData>();
 
     public ArrayList<FanData> arrMyStarList = new ArrayList<>();
     public ArrayList<UserData> arrMyStarDataList = new ArrayList<>();
-
+    public  Map<String, UserData> mapMyStarData = new LinkedHashMap<String, UserData>();
 
     private String strIdx;
     private String strToken;
@@ -1218,12 +1219,12 @@ public class MyData {
 
 
 
-    public void makeFanList(UserData stTargetData, int SendCount) {
+    public void makeFanList(FanData stTargetData, int SendCount) {
 
 
         int nTotalSendCnt = 0;
         for (int i = 0; i < arrSendHoneyDataList.size(); i++) {
-            if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
+            if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.Nick))
                 nTotalSendCnt -= arrSendHoneyDataList.get(i).nSendHoney;
         }
 
@@ -1239,39 +1240,32 @@ public class MyData {
         updateMap.put("Idx", getUserIdx());
         updateMap.put("Img", getUserImg());
         table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
-        getMyfanData();
+        getMyfanData(stTargetData.Idx);
+
+        stTargetData.Count = nTotalSendCnt;
+
+        arrMyFanList.add(stTargetData);
+
         nFanCount-=1;
         updateMap.put("FanCount", nFanCount);
     }
 
-    public void getMyfanData() {
-        String strTargetIdx;
+    public void getMyfanData(final String strTargetIdx) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
         table = database.getReference("User");
 
-        arrMyFanDataList.clear();
-
-        //user.addChildEventListener(new ChildEventListener() {
-        for (int i = 0; i < arrMyFanList.size(); i++) {
-            strTargetIdx = arrMyFanList.get(i).Idx;
-
-            final int finalI = i;
             table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     int saa = 0;
                     UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    arrMyFanDataList.add(tempUserData);
+                    mapMyFanData.put(strTargetIdx, tempUserData);
 
                     int idx = 0;
                     for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
-                        if( idx < arrMyFanDataList.size()) {
-                            arrMyFanDataList.get(idx).arrFanList.add(entry.getValue());
-                            idx++;
-                        }
+                            mapMyFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
                     }
-
                 }
 
                 @Override
@@ -1279,7 +1273,6 @@ public class MyData {
                 }
 
             });
-        }
     }
 
     public void makeStarList(UserData stTargetData, int SendCount) {
@@ -1304,6 +1297,7 @@ public class MyData {
        //
 
         FanData tempStarList = new FanData();
+        tempStarList.Img = stTargetData.Img;
         tempStarList.Nick = stTargetData.NickName;
         tempStarList.Idx = stTargetData.Idx;
         tempStarList.Count = nTotalSendCnt;
@@ -1322,38 +1316,37 @@ public class MyData {
         if (bSame == false) {
             arrMyStarList.add(tempStarList);
             sortStarData();
-            getMyStarData();
+            getMyStarData(tempStarList.Idx);
         }
 
     }
 
     public void getMyStarData(String TargetIdx) {
-        String strTargetIdx = TargetIdx;
+        final String strTargetIdx =TargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
         table = database.getReference("User");
 
+        table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int saa = 0;
+                UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                if(tempUserData != null)
+                {
+                    mapMyStarData.put(strTargetIdx, tempUserData);
 
-        //user.addChildEventListener(new ChildEventListener() {
-
-            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int saa = 0;
-                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    arrMyStarDataList.add(tempUserData);
-
-                    int idx = arrMyStarDataList.size() - 1;
-
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
-                        arrMyStarDataList.get(idx).arrStarList.add(entry.getValue());
+                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                        mapMyStarData.get(strTargetIdx).arrFanList.add(entry.getValue());
+                    }
                 }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
 
-            });
+        });
     }
 
     public void getMyChatTargetData() {
