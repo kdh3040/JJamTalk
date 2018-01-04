@@ -117,13 +117,15 @@ public class UserPageActivity extends AppCompatActivity {
 
         TempSendUserData.arrStarList = stTargetData.arrStarList;
         TempSendUserData.arrFanList = stTargetData.arrFanList;
-        //getTargetfanData();
-        //getTargetstarData();
-
+        
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
+
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
-        txtMemo.setText(stTargetData.Memo);
+        if(stTargetData.Memo == null || stTargetData.Memo.equals(""))
+            txtMemo.setText("안녕하세요  "+stTargetData.NickName+"입니다");
+        else
+            txtMemo.setText(stTargetData.Memo);
 
         txtDistance = (TextView) findViewById(R.id.UserPage_txtDistance);
 
@@ -510,6 +512,14 @@ public class UserPageActivity extends AppCompatActivity {
 
         btnMessage.setOnClickListener(listener);
 
+        LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
+        View Divide_Fan = (View)findViewById(R.id.Divide_fan);
+
+        if(stTargetData.arrFanList.size() == 0 && stTargetData.arrStarList.size() == 0 ) {
+            layout.setVisibility(View.GONE);
+            Divide_Fan.setVisibility(View.GONE);
+        }
+
         LinearLayout layoutFanLike = (LinearLayout) findViewById(R.id.ll_fan_like);
         LinearLayout layoutFanLiked = (LinearLayout) findViewById(R.id.ll_fan_liked);
 
@@ -542,7 +552,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
+
         layout.setOnClickListener(new View.OnClickListener() {
 
             @Override
