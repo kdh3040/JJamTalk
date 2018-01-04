@@ -107,11 +107,8 @@ public class FirebaseData {
         return  true;
     }
 
-    public boolean SaveBoardLikeData(String boardKey, BoardLikeData sendData) {
-
-        Random rand = new Random();
-        rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
-
+    public boolean SaveBoardLikeData(String boardKey, BoardLikeData sendData)
+    {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Board").child(boardKey).child("Like").child(sendData.Idx);
 
@@ -129,7 +126,13 @@ public class FirebaseData {
         return  true;
     }
 
-
+    public boolean RemoveBoardLikeData(String boardKey, String Idx)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Board").child(boardKey).child("Like");
+        table.child(Idx).removeValue();
+        return  true;
+    }
 
     public boolean SaveBoardReplyData(TempBoard_ReplyData strMemo) {
 

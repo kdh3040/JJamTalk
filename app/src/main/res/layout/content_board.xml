@@ -42,7 +42,7 @@
                 android:id="@+id/tv_board_msg"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_blue_dark" />
 
@@ -50,7 +50,7 @@
                 android:id="@+id/tv_board_like_count"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="4"
+                android:layout_weight="2"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_blue_dark" />
 
@@ -58,7 +58,14 @@
                 android:id="@+id/tv_board_reply_count"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="2"
+                android:padding="5dp"
+                android:textColor="@android:color/holo_blue_dark" />
+            <TextView
+                android:id="@+id/tv_board_write_date"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_blue_dark" />
         </LinearLayout>

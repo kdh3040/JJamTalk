@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
 
@@ -37,6 +38,8 @@ public class BoardFragment extends Fragment {
     LinearLayout contentlayout;
     View fragView;
 
+    BoardAdapter boardAdapter = new BoardAdapter();
+
     public BoardFragment() {
 
     }
@@ -45,14 +48,14 @@ public class BoardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if (fragView!= null) {
-
+        if (fragView != null) {
+            CommonFunc.getInstance().refreshFragMent(this);
         }
         else
         {
             fragView = inflater.inflate(R.layout.fragment_board,container,false);
             recyclerView = (RecyclerView)fragView.findViewById(R.id.board_recy);
-            recyclerView.setAdapter(new BoardAdapter());
+            recyclerView.setAdapter(boardAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             //getContext().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -164,6 +167,7 @@ public class BoardFragment extends Fragment {
             holder.messageTextView.setText(mBoardData.arrBoardList.get(position).Msg);
             holder.likeCount.setText("좋아요 : " + mBoardData.arrBoardList.get(position).LikeCnt);
             holder.replyCount.setText("댓글수 : " + mBoardData.arrBoardList.get(position).ReplyCnt);
+            holder.writeDate.setText("쓴 날자 : " + mBoardData.arrBoardList.get(position).Date);
             //holder.iv_profile.setImageResource(R.drawable.bg1);
             Glide.with(getContext())
                     .load(mBoardData.arrBoardList.get(position).Img)

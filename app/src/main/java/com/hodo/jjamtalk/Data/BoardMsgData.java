@@ -23,6 +23,7 @@ public class BoardMsgData {
     public int ReplyCnt;
     public int LikeCnt;
     public int PageCnt;
+    public int ViewCount;
 
     //public ArrayList<TempBoard_ReplyData> Reply = new ArrayList<>();
     public Map<String, TempBoard_ReplyData> Reply = new LinkedHashMap<String, TempBoard_ReplyData>();
