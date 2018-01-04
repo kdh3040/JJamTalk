@@ -97,6 +97,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/Divide_Memo"
                 style="@style/Divider"
                 />
 
@@ -106,57 +107,65 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
+
                 android:text="한국대학교에 다니고요 학생이고요\n같이놉시다" />
 
 
 
             <View
+                android:id="@+id/Divide_fan"
                 style="@style/Divider"
                  />
 
             <LinearLayout
                 android:id="@+id/ll_fan"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-
+                android:layout_height="match_parent"
+                android:weightSum="1"
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/ll_fan_like"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:weightSum="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_like"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="상희님을 좋아하는 사람들"
                         android:textColor="@color/textColorDark"
+                        android:layout_weight="0.4"
                         android:textSize="18sp" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/lv_like"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
                         android:orientation="horizontal"
                         android:scrollbars="none" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_fan_liked"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:weightSum="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_liked"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:layout_weight="0.4"
                         android:text="상희님이 좋아하는 사람들"
                         android:textColor="@color/textColorDark"
                         android:textSize="18sp" />
@@ -164,8 +173,9 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/lv_liked"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:layout_weight="0.6"
                         android:scrollbars="none" />
 
                 </LinearLayout>

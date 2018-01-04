@@ -15,7 +15,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -117,13 +119,15 @@ public class UserPageActivity extends AppCompatActivity {
 
         TempSendUserData.arrStarList = stTargetData.arrStarList;
         TempSendUserData.arrFanList = stTargetData.arrFanList;
-        //getTargetfanData();
-        //getTargetstarData();
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
+
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
-        txtMemo.setText(stTargetData.Memo);
+        if(stTargetData.Memo == null || stTargetData.Memo.equals(""))
+            txtMemo.setText("안녕하세요  "+stTargetData.NickName+"입니다");
+        else
+            txtMemo.setText(stTargetData.Memo);
 
         txtDistance = (TextView) findViewById(R.id.UserPage_txtDistance);
 
@@ -504,70 +508,163 @@ public class UserPageActivity extends AppCompatActivity {
             }
         };
 
+
+        final GestureDetector gestureDetector = new GestureDetector(UserPageActivity.this,new GestureDetector.SimpleOnGestureListener()
+        {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e)
+            {
+                return true;
+            }
+        });
+
         btnRegister.setOnClickListener(listener);
         btnGiftHoney.setOnClickListener(listener);
         btnGiftJewel.setOnClickListener(listener);
 
         btnMessage.setOnClickListener(listener);
 
-        tv_like = findViewById(R.id.tv_like);
-        tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
-        listView_like = (RecyclerView) findViewById(R.id.lv_like);
-        LikeAdapter likeAdapter = new LikeAdapter(this, stTargetData.arrFanList);
-        listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-
-        listView_like.setAdapter(likeAdapter);
-
-        tv_liked = findViewById(R.id.tv_liked);
-        tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
-
-        listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
-        LikedAdapter LikedAdapter = new LikedAdapter(this, stTargetData.arrStarList);
-        listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-
-        listView_liked.setAdapter(LikedAdapter);
-
         LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
-        layout.setOnClickListener(new View.OnClickListener() {
+        View Divide_Fan = (View)findViewById(R.id.Divide_fan);
 
+        if(stTargetData.arrFanList.size() == 0 && stTargetData.arrStarList.size() == 0 ) {
+            layout.setVisibility(View.GONE);
+            Divide_Fan.setVisibility(View.GONE);
+        }
+
+        LinearLayout layoutFanLike = (LinearLayout) findViewById(R.id.ll_fan_like);
+        LinearLayout layoutFanLiked = (LinearLayout) findViewById(R.id.ll_fan_liked);
+
+        if(stTargetData.arrFanList.size() != 0)
+        {
+            tv_like = findViewById(R.id.tv_like);
+            tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
+            listView_like = (RecyclerView) findViewById(R.id.lv_like);
+            LikeAdapter likeAdapter = new LikeAdapter(this, stTargetData.arrFanList);
+            listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+            listView_like.setAdapter(likeAdapter);
+
+            listView_like.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
+            {
+
+                @Override
+                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                    if(gestureDetector.onTouchEvent(e))
+                    {
+                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", TempSendUserData);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                }
+
+                @Override
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                }
+            });
+
+        }
+        else
+            layoutFanLike.setVisibility(View.GONE);
+
+
+
+        출처: http://itpangpang.tistory.com/44 [ITPangPang]
+        if(stTargetData.arrStarList.size() != 0)
+        {
+            tv_liked = findViewById(R.id.tv_liked);
+            tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
+
+            listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
+            LikedAdapter LikedAdapter = new LikedAdapter(this, stTargetData.arrStarList);
+            listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+            listView_liked.setAdapter(LikedAdapter);
+
+            listView_liked.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
+            {
+
+                @Override
+                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                    if(gestureDetector.onTouchEvent(e))
+                    {
+                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", TempSendUserData);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                }
+
+                @Override
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                }
+            });
+        }
+        else
+            layoutFanLiked.setVisibility(View.GONE);
+
+
+
+
+
+  /*      listView_liked.addOnItemTouchListener(new nItem() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
-
                 Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
                 Bundle bundle = new Bundle();
-
-
                 bundle.putSerializable("Target", TempSendUserData);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
+            }
+        });*/
 
+   /*     listView_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
+                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", TempSendUserData);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
+            }
+        });*/
 
-             //   intent.putExtra("StarData", StarData);
-
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
+                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", TempSendUserData);
                 intent.putExtras(bundle);
                 startActivity(intent);
 
             }
         });
-
-        int nLayoutSize = 0;
-        if (stTargetData.arrFanList.size() > stTargetData.arrStarList.size())
-            nLayoutSize = stTargetData.arrFanList.size();
-        else if (stTargetData.arrFanList.size() < stTargetData.arrStarList.size())
-            nLayoutSize = stTargetData.arrStarList.size();
-        else if (stTargetData.arrFanList.size() == stTargetData.arrStarList.size())
-            nLayoutSize = stTargetData.arrStarList.size();
-
-        if (nLayoutSize == 0) {
-            layout.setVisibility(View.GONE);
-        } else {
-            final int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
-
-            //layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * nLayoutSize * LinearLayout.LayoutParams.MATCH_PARENT));
-            layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * height + 80));
-        }
     }
 
     private void SetStickerImg() {
