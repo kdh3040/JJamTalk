@@ -61,8 +61,18 @@ public class MyPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
             }
-        });
+<<<<<<< HEAD
+        });*/
+
+        iv_gold = findViewById(R.id.iv_gold);
+        iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+
+        /*iv_jewely=findViewById(R.id.iv_jewely);
+        iv_jewely.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 */
+
+
+
         iv_gold = findViewById(R.id.iv_gold);
         iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 
@@ -73,6 +83,7 @@ public class MyPageActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
             }
         });
+
 
 
         txt_MyGoldCnt = findViewById(R.id.tv_goldsize);
@@ -137,8 +148,13 @@ public class MyPageActivity extends AppCompatActivity {
                 //finish();
             }
         });
+
+        adapter = new MyPageJewelAdapter(getApplicationContext());
+        /*rv_myjewels = (RecyclerView) findViewById(R.id.rv_myjewels);
+=======
         /*adapter = new MyPageJewelAdapter(getApplicationContext());
         rv_myjewels = (RecyclerView) findViewById(R.id.rv_myjewels);
+>>>>>>> 1265d8791052af2aff29453ee3b9765c0694b7e2
 
         rv_myjewels.setLayoutManager(new LinearLayoutManager(getApplicationContext(),0,false));
         rv_myjewels.setAdapter(adapter);*/

@@ -26,7 +26,7 @@ public class UIData {
 
     private int width;
     private int height;
-    private int jewels[] = {R.drawable.heel_hng,R.drawable.dress_hng,R.drawable.pearl,R.drawable.opal,R.drawable.emerald,R.drawable.sapphire,R.drawable.ruby,R.drawable.diamond};
+    private int jewels[] = {R.drawable.heel_hng,R.drawable.dress_hng,R.drawable.bag_hng,R.drawable.opal,R.drawable.emerald,R.drawable.sapphire,R.drawable.boat_hng,R.drawable.diamond};
     private int sellJewelValue[] = {5,5,5,5,7,7,10,20};
 
     private LinearLayout.LayoutParams llp_ListItem;

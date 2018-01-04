@@ -157,7 +157,7 @@
             android:label= "선물한 꿀"></activity>
         <activity
             android:name=".MyJewelBoxActivity"
-            android:label="내 보석상자"></activity>
+            android:label="내 아이템"></activity>
     </application>
 
 </manifest>
