@@ -15,7 +15,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -117,7 +119,7 @@ public class UserPageActivity extends AppCompatActivity {
 
         TempSendUserData.arrStarList = stTargetData.arrStarList;
         TempSendUserData.arrFanList = stTargetData.arrFanList;
-        
+
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
 
@@ -506,6 +508,16 @@ public class UserPageActivity extends AppCompatActivity {
             }
         };
 
+
+        final GestureDetector gestureDetector = new GestureDetector(UserPageActivity.this,new GestureDetector.SimpleOnGestureListener()
+        {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e)
+            {
+                return true;
+            }
+        });
+
         btnRegister.setOnClickListener(listener);
         btnGiftHoney.setOnClickListener(listener);
         btnGiftJewel.setOnClickListener(listener);
@@ -532,10 +544,41 @@ public class UserPageActivity extends AppCompatActivity {
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
             listView_like.setAdapter(likeAdapter);
+
+            listView_like.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
+            {
+
+                @Override
+                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                    if(gestureDetector.onTouchEvent(e))
+                    {
+                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", TempSendUserData);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                }
+
+                @Override
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                }
+            });
+
         }
         else
             layoutFanLike.setVisibility(View.GONE);
 
+
+
+        출처: http://itpangpang.tistory.com/44 [ITPangPang]
         if(stTargetData.arrStarList.size() != 0)
         {
             tv_liked = findViewById(R.id.tv_liked);
@@ -546,6 +589,33 @@ public class UserPageActivity extends AppCompatActivity {
             listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
             listView_liked.setAdapter(LikedAdapter);
+
+            listView_liked.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
+            {
+
+                @Override
+                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                    if(gestureDetector.onTouchEvent(e))
+                    {
+                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", TempSendUserData);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                }
+
+                @Override
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                }
+            });
         }
         else
             layoutFanLiked.setVisibility(View.GONE);
@@ -553,21 +623,43 @@ public class UserPageActivity extends AppCompatActivity {
 
 
 
-        layout.setOnClickListener(new View.OnClickListener() {
 
+  /*      listView_liked.addOnItemTouchListener(new nItem() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
-
                 Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
                 Bundle bundle = new Bundle();
-
-
                 bundle.putSerializable("Target", TempSendUserData);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
+            }
+        });*/
 
+   /*     listView_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
+                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", TempSendUserData);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
+            }
+        });*/
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
+                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", TempSendUserData);
                 intent.putExtras(bundle);
                 startActivity(intent);
 
