@@ -210,7 +210,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("실버 획득!!");
+                text_Opened.setText("명품 구두 획득!!");
                 break;
             }
             case 2:
@@ -227,7 +227,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("골드 획득!!");
+                text_Opened.setText("명품 드레스 획득!!");
                 break;
             }
             case 3:
@@ -244,7 +244,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("진주 획득!!");
+                text_Opened.setText("명품 가방 획득!!");
                 break;
             }
             case 4:
@@ -295,7 +295,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("사파이어 획득!!");
+                text_Opened.setText("명품 자동차 획득!!");
                 break;
             }
             case 7:
@@ -312,7 +312,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("루비 획득!!");
+                text_Opened.setText("    요트 획득!!");
                 break;
             }
             case 8:
@@ -329,7 +329,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("다이아 획득!!");
+                text_Opened.setText("자가용 비행기 획득!!");
                 break;
             }
         }
