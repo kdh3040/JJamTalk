@@ -89,34 +89,7 @@ public class CardListFragment extends Fragment {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
     }
-    /*
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_list);
 
-        card_recylerview = (RecyclerView) findViewById(R.id.cardlist_recy);
-        card_recylerview.setAdapter(new CardListAdapter());
-        card_recylerview.setLayoutManager(new LinearLayoutManager(this));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-        overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-*/
     private class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHolder> {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -134,7 +107,7 @@ public class CardListFragment extends Fragment {
             //holder.image.setImageResource(R.mipmap.girl1);
 
             Glide.with(mContext)
-                    .load(mMyData.arrCardList.get(position).Img)
+                    .load(mMyData.arrCardNameList.get(position).Img)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .bitmapTransform(new CropCircleTransformation(mContext))
                     .thumbnail(0.1f)
@@ -143,7 +116,7 @@ public class CardListFragment extends Fragment {
             if(mMyData.arrCardNameList.get(position).Count != 0)
                 holder.imageSymbol.setVisibility(View.INVISIBLE);
 
-            holder.textView.setText(mMyData.arrCardList.get(i).NickName + ", " + mMyData.arrCardList.get(i).Age + "세");
+            holder.textView.setText(mMyData.arrCardNameList.get(i).Nick);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
             holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -174,7 +147,7 @@ public class CardListFragment extends Fragment {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference table;
                             table = database.getReference("User/" + mMyData.getUserIdx()+ "/CardList/");
-                            table.child(mMyData.arrCardList.get(position).Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+                            table.child(mMyData.arrCardNameList.get(position).Idx).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     dataSnapshot.getRef().removeValue();
@@ -187,7 +160,6 @@ public class CardListFragment extends Fragment {
                             });
 
                             mMyData.arrCardNameList.remove(position);
-                            mMyData.arrCardList.remove(position);
 
                             refreshFragMent();
                             dialog.dismiss();
@@ -202,55 +174,14 @@ public class CardListFragment extends Fragment {
                             dialog.dismiss();
                         }
                     });
-                    /*AlertDialog.Builder br = new AlertDialog.Builder(mContext);
-                    br.setTitle("내 카드에서 삭제하시겠습니까?");
-
-                    br.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // 취소 구현
-                        }
-                    }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference table;
-                            table = database.getReference("User/" + mMyData.getUserIdx()+ "/CardList/");
-                            table.child(mMyData.arrCardList.get(position).Idx).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    dataSnapshot.getRef().removeValue();
-                                }
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-
-                            });
-
-                            mMyData.arrCardNameList.remove(position);
-                            mMyData.arrCardList.remove(position);
-
-                            refreshFragMent();
-                     /*   Intent in = new Intent(getContext(), MainActivity.class);
-                        startActivity(in);
-                        }
-                    });
-                    AlertDialog dialog = br.create();
-                    dialog.show();*/
                     return false;
-
                 }
             });
-            arrTargetData.add(mMyData.arrCardList.get(i));
-
-            //holder.linearLayout.setLayoutParams(mUIData.getLLP_ListItem());
 
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //startActivity(new Intent(getApplicationContext(),UserPageActivity.class));
+
                     mMyData.arrCardNameList.get(position).Count = 1;
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -261,32 +192,75 @@ public class CardListFragment extends Fragment {
                     updateMap.put("Count",  mMyData.arrCardNameList.get(position).Count);
                     table.child("CardList").child(mMyData.arrCardNameList.get(position).Idx).updateChildren(updateMap);
 
+                    getMyCardData(position);
 
                     //stTargetData = arrTargetData.get(position);
-                    stTargetData = mMyData.arrCardList.get(position);
-                    Intent intent = new Intent(getContext(), UserPageActivity.class);
-                    Bundle bundle = new Bundle();
 
-                    bundle.putSerializable("Target", stTargetData);
-                    intent.putExtra("FanList", stTargetData.arrFanList);
-                    intent.putExtra("FanCount", stTargetData.FanCount);
-
-                    intent.putExtra("StarList", stTargetData.arrStarList);
-
-                    intent.putExtras(bundle);
-
-                    startActivity(intent);
                 }
             });
 
         }
 
-
-
         @Override
         public int getItemCount() {
-            return mMyData.arrCardList.size();
+            return mMyData.arrCardNameList.size();
         }
+
+        public void moveCardPage(int position)
+        {
+            stTargetData = mMyData.mapMyCardData.get(mMyData.arrCardNameList.get(position).Idx);
+            Intent intent = new Intent(getContext(), UserPageActivity.class);
+            Bundle bundle = new Bundle();
+
+            bundle.putSerializable("Target", stTargetData);
+ /*           intent.putExtra("FanList", stTargetData.arrFanList);
+            intent.putExtra("FanCount", stTargetData.FanCount);
+
+            intent.putExtra("StarList", stTargetData.arrStarList);*/
+
+            intent.putExtras(bundle);
+
+            startActivity(intent);
+        }
+
+
+        public void getMyCardData(final int position) {
+            final String strTargetIdx = mMyData.arrCardNameList.get(position).Idx;
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference table = null;
+            table = database.getReference("User");
+
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int saa = 0;
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    if(tempUserData != null)
+                    {
+                        mMyData.mapMyCardData.put(strTargetIdx, tempUserData);
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                            mMyData.mapMyCardData.get(strTargetIdx).arrStarList.add(entry.getValue());
+                        }
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                            mMyData.mapMyCardData.get(strTargetIdx).arrFanList.add(entry.getValue());
+                        }
+
+                        moveCardPage(position);
+                    }
+
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+        }
+
         public class ViewHolder extends RecyclerView.ViewHolder{
             public ImageView imageSymbol;
             public ImageView image;

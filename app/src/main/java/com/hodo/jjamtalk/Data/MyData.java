@@ -142,8 +142,8 @@ public class MyData {
     public ArrayList<SendData> arrSendDataList = new ArrayList<>();
 
     public ArrayList<FanData> arrCardNameList = new ArrayList<>();
-    public ArrayList<UserData> arrCardList = new ArrayList<>();
-
+    //public ArrayList<UserData> arrCardList = new ArrayList<>();
+    public  Map<String, UserData> mapMyCardData = new LinkedHashMap<String, UserData>();
 
     public Map<Integer, Integer> itemList = new HashMap<Integer, Integer>();
     public ArrayList<Integer> itemIdx = new ArrayList<>();
@@ -471,31 +471,6 @@ public class MyData {
         return strMemo;
     }
 
-/*
-    public boolean makeChatTargetList(UserData _UserData) {
-        boolean rtValue = true;
-
-        UserData SaveUserData = _UserData;
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, user, targetuser;
-        table = database.getReference("User");
-
-        user = table.child(_UserData.Idx).child("ChatTargetList");
-        user.child(getUserIdx()).setValue(getUserIdx());
-
-        targetuser = table.child(getUserIdx()).child("ChatTargetList");
-        targetuser.child(_UserData.Idx).setValue(_UserData.Idx);
-
-    */
-/*    arrMyChatTargetList.add(_UserData.Idx);
-        arrChatTargetData.add(_UserData);
-*//*
-
-        return rtValue;
-    }
-*/
-
     public boolean makeSendList(UserData _UserData, String _strSend) {
         boolean rtValue = false;
 
@@ -653,66 +628,16 @@ public class MyData {
             tempData.Count = 0;
             tempData.Nick = stTargetData.NickName;
             tempData.Idx = stTargetData.Idx;
+            tempData.Img = stTargetData.Img;
             arrCardNameList.add(tempData);
-            arrCardList.add(stTargetData);
+            //arrCardList.add(stTargetData);
             //getCardList(stTargetData.Idx);
 
 
         return rtValue;
 
     }
-    public void getCardList(String strTargetIdx) {
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, user;
-        table = database.getReference("User");
-
-            strTargetIdx = strTargetIdx;
-
-            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int saa = 0;
-                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    arrCardList.add(tempUserData);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-
-            });
-    }
-
-
-    public void getCardList() {
-        String MyID = strIdx;
-        String strTargetIdx = null;
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, user;
-        table = database.getReference("User");
-        user = table.child(strIdx);
-
-        for (int i = 0; i < arrCardNameList.size(); i++) {
-            strTargetIdx = arrCardNameList.get(i).Idx;
-
-            final int finalI = i;
-            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int saa = 0;
-                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    arrCardList.add(tempUserData);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-
-            });
-        }
-    }
 
     public void setProfileData(Editable memo) {
         strMemo = memo.toString();

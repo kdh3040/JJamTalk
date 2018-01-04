@@ -578,14 +578,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 mMyData.arrCardNameList.add(entry.getValue());
                             }
 
-                            // mMyData.getMyChatTargetData();
+                            //mMyData.getCardList();
 
-                            //mMyData.getMyStarData();
-                           // mMyData.getMyfanData();
                             mMyData.getMyfanData();
 
                             mMyData.getSetting();
-                            mMyData.getCardList();
+
                             mMyData.getSendList();
                             mMyData.getSendHoneyList();
                             mMyData.getGiftHoneyList();
