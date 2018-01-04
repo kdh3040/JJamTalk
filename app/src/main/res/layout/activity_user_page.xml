@@ -97,6 +97,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/Divide_Memo"
                 style="@style/Divider"
                 />
 
@@ -106,12 +107,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
+
                 android:text="한국대학교에 다니고요 학생이고요\n같이놉시다" />
 
 
 
             <View
+                android:id="@+id/Divide_fan"
                 style="@style/Divider"
                  />
 

@@ -17,7 +17,6 @@
                     android:layout_height="70dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="false"
-                    android:background="@color/white"
                     app:srcCompat="@drawable/mycard_icon" />
 
                 <ImageView

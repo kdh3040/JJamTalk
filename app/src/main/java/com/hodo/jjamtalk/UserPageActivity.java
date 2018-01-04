@@ -15,10 +15,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -79,6 +82,7 @@ public class UserPageActivity extends AppCompatActivity {
     private Button btnGiftHoney;
     private Button btnGiftJewel;
 
+    private ImageButton btnShare;
     private Button btnMessage;
    // private Button btnPublicChat;
 
@@ -107,6 +111,8 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });
 
+        btnShare = (ImageButton)findViewById(R.id.UserPage_btnShared);
+
         myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIData.getJewels());
         mActivity = this;
 
@@ -117,13 +123,15 @@ public class UserPageActivity extends AppCompatActivity {
 
         TempSendUserData.arrStarList = stTargetData.arrStarList;
         TempSendUserData.arrFanList = stTargetData.arrFanList;
-        //getTargetfanData();
-        //getTargetstarData();
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
+
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
-        txtMemo.setText(stTargetData.Memo);
+        if(stTargetData.Memo == null || stTargetData.Memo.equals(""))
+            txtMemo.setText("안녕하세요  "+stTargetData.NickName+"입니다");
+        else
+            txtMemo.setText(stTargetData.Memo);
 
         txtDistance = (TextView) findViewById(R.id.UserPage_txtDistance);
 
@@ -230,24 +238,19 @@ public class UserPageActivity extends AppCompatActivity {
                     case R.id.UserPage_btnGiftJewel:
 
                         View v = inflater.inflate(R.layout.dialog_give_jewel,null);
-
-
                        AlertDialog dialog1 = builder.setView(v).create();
                        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                        dialog1.show();
-
-
-                        Spinner sp_jewel = v.findViewById(R.id.sp_jewel);
-
+                       Spinner sp_jewel = v.findViewById(R.id.sp_jewel);
                        sp_jewel.setAdapter(myjewelAdapter);
-
-
-
-
-
-
-
                         break;
+
+                    case R.id.UserPage_btnShared:
+
+                        // 공유하기 버튼
+                        int aaa= 0;
+                        break;
+
                     case R.id.UserPage_btnGiftHoney:
 
 
@@ -504,11 +507,31 @@ public class UserPageActivity extends AppCompatActivity {
             }
         };
 
+
+        final GestureDetector gestureDetector = new GestureDetector(UserPageActivity.this,new GestureDetector.SimpleOnGestureListener()
+        {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e)
+            {
+                return true;
+            }
+        });
+
         btnRegister.setOnClickListener(listener);
         btnGiftHoney.setOnClickListener(listener);
         btnGiftJewel.setOnClickListener(listener);
 
+        btnShare.setOnClickListener(listener);
+
         btnMessage.setOnClickListener(listener);
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
+        View Divide_Fan = (View)findViewById(R.id.Divide_fan);
+
+        if(stTargetData.arrFanList.size() == 0 && stTargetData.arrStarList.size() == 0 ) {
+            layout.setVisibility(View.GONE);
+            Divide_Fan.setVisibility(View.GONE);
+        }
 
         LinearLayout layoutFanLike = (LinearLayout) findViewById(R.id.ll_fan_like);
         LinearLayout layoutFanLiked = (LinearLayout) findViewById(R.id.ll_fan_liked);
@@ -522,10 +545,41 @@ public class UserPageActivity extends AppCompatActivity {
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
             listView_like.setAdapter(likeAdapter);
+
+            listView_like.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
+            {
+
+                @Override
+                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                    if(gestureDetector.onTouchEvent(e))
+                    {
+                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", TempSendUserData);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                }
+
+                @Override
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                }
+            });
+
         }
         else
             layoutFanLike.setVisibility(View.GONE);
 
+
+
+        출처: http://itpangpang.tistory.com/44 [ITPangPang]
         if(stTargetData.arrStarList.size() != 0)
         {
             tv_liked = findViewById(R.id.tv_liked);
@@ -536,28 +590,77 @@ public class UserPageActivity extends AppCompatActivity {
             listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
             listView_liked.setAdapter(LikedAdapter);
+
+            listView_liked.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
+            {
+
+                @Override
+                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                    if(gestureDetector.onTouchEvent(e))
+                    {
+                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", TempSendUserData);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                }
+
+                @Override
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                }
+            });
         }
         else
             layoutFanLiked.setVisibility(View.GONE);
 
 
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
-        layout.setOnClickListener(new View.OnClickListener() {
 
+
+  /*      listView_liked.addOnItemTouchListener(new nItem() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
-
                 Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
                 Bundle bundle = new Bundle();
-
-
                 bundle.putSerializable("Target", TempSendUserData);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
+            }
+        });*/
 
+   /*     listView_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
+                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", TempSendUserData);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
+            }
+        });*/
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
+                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", TempSendUserData);
                 intent.putExtras(bundle);
                 startActivity(intent);
 
