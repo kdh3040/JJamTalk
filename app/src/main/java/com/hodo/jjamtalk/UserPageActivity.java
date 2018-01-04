@@ -21,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -81,6 +82,7 @@ public class UserPageActivity extends AppCompatActivity {
     private Button btnGiftHoney;
     private Button btnGiftJewel;
 
+    private ImageButton btnShare;
     private Button btnMessage;
    // private Button btnPublicChat;
 
@@ -108,6 +110,8 @@ public class UserPageActivity extends AppCompatActivity {
 
             }
         });
+
+        btnShare = (ImageButton)findViewById(R.id.UserPage_btnShared);
 
         myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIData.getJewels());
         mActivity = this;
@@ -234,24 +238,19 @@ public class UserPageActivity extends AppCompatActivity {
                     case R.id.UserPage_btnGiftJewel:
 
                         View v = inflater.inflate(R.layout.dialog_give_jewel,null);
-
-
                        AlertDialog dialog1 = builder.setView(v).create();
                        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                        dialog1.show();
-
-
-                        Spinner sp_jewel = v.findViewById(R.id.sp_jewel);
-
+                       Spinner sp_jewel = v.findViewById(R.id.sp_jewel);
                        sp_jewel.setAdapter(myjewelAdapter);
-
-
-
-
-
-
-
                         break;
+
+                    case R.id.UserPage_btnShared:
+
+                        // 공유하기 버튼
+                        int aaa= 0;
+                        break;
+
                     case R.id.UserPage_btnGiftHoney:
 
 
@@ -521,6 +520,8 @@ public class UserPageActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(listener);
         btnGiftHoney.setOnClickListener(listener);
         btnGiftJewel.setOnClickListener(listener);
+
+        btnShare.setOnClickListener(listener);
 
         btnMessage.setOnClickListener(listener);
 
