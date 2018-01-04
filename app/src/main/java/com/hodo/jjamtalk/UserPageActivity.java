@@ -510,22 +510,37 @@ public class UserPageActivity extends AppCompatActivity {
 
         btnMessage.setOnClickListener(listener);
 
-        tv_like = findViewById(R.id.tv_like);
-        tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
-        listView_like = (RecyclerView) findViewById(R.id.lv_like);
-        LikeAdapter likeAdapter = new LikeAdapter(this, stTargetData.arrFanList);
-        listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        LinearLayout layoutFanLike = (LinearLayout) findViewById(R.id.ll_fan_like);
+        LinearLayout layoutFanLiked = (LinearLayout) findViewById(R.id.ll_fan_liked);
 
-        listView_like.setAdapter(likeAdapter);
+        if(stTargetData.arrFanList.size() != 0)
+        {
+            tv_like = findViewById(R.id.tv_like);
+            tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
+            listView_like = (RecyclerView) findViewById(R.id.lv_like);
+            LikeAdapter likeAdapter = new LikeAdapter(this, stTargetData.arrFanList);
+            listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
-        tv_liked = findViewById(R.id.tv_liked);
-        tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
+            listView_like.setAdapter(likeAdapter);
+        }
+        else
+            layoutFanLike.setVisibility(View.GONE);
 
-        listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
-        LikedAdapter LikedAdapter = new LikedAdapter(this, stTargetData.arrStarList);
-        listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        if(stTargetData.arrStarList.size() != 0)
+        {
+            tv_liked = findViewById(R.id.tv_liked);
+            tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
 
-        listView_liked.setAdapter(LikedAdapter);
+            listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
+            LikedAdapter LikedAdapter = new LikedAdapter(this, stTargetData.arrStarList);
+            listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+            listView_liked.setAdapter(LikedAdapter);
+        }
+        else
+            layoutFanLiked.setVisibility(View.GONE);
+
+
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
         layout.setOnClickListener(new View.OnClickListener() {
@@ -543,31 +558,11 @@ public class UserPageActivity extends AppCompatActivity {
 
 
 
-
-             //   intent.putExtra("StarData", StarData);
-
                 intent.putExtras(bundle);
                 startActivity(intent);
 
             }
         });
-
-        int nLayoutSize = 0;
-        if (stTargetData.arrFanList.size() > stTargetData.arrStarList.size())
-            nLayoutSize = stTargetData.arrFanList.size();
-        else if (stTargetData.arrFanList.size() < stTargetData.arrStarList.size())
-            nLayoutSize = stTargetData.arrStarList.size();
-        else if (stTargetData.arrFanList.size() == stTargetData.arrStarList.size())
-            nLayoutSize = stTargetData.arrStarList.size();
-
-        if (nLayoutSize == 0) {
-            layout.setVisibility(View.GONE);
-        } else {
-            final int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
-
-            //layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * nLayoutSize * LinearLayout.LayoutParams.MATCH_PARENT));
-            layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * height + 80));
-        }
     }
 
     private void SetStickerImg() {
