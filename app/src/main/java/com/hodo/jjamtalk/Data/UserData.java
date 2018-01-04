@@ -8,6 +8,7 @@ import com.kakao.usermgmt.response.model.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,10 +74,12 @@ public class UserData implements Serializable,Parcelable {
     public  Map<String, FanData> FanList = new LinkedHashMap<String, FanData>();
     public  ArrayList<FanData> arrFanList = new ArrayList<>();
     public  ArrayList<UserData> arrFanData = new ArrayList<>();
+    public  Map<String, UserData> mapFanData = new LinkedHashMap<String, UserData>();
 
     public  Map<String, FanData> StarList = new LinkedHashMap<String, FanData>();
     public  ArrayList<FanData> arrStarList = new ArrayList<>();
     public  ArrayList<UserData> arrStarData = new ArrayList<>();
+    public  Map<String, UserData> mapStarData = new LinkedHashMap<String, UserData>();
 
     public  Map<String, FanData> CardList = new LinkedHashMap<String, FanData>();
     public  ArrayList<FanData> arrCardList = new ArrayList<>();
@@ -138,8 +141,12 @@ public class UserData implements Serializable,Parcelable {
         arrFanList = (ArrayList<FanData>) in.readSerializable();
         arrFanData = (ArrayList<UserData>) in.readSerializable();
 
+        mapFanData = (HashMap<String, UserData>) in.readSerializable();
+
         arrStarList = (ArrayList<FanData>) in.readSerializable();
         arrStarData = (ArrayList<UserData>) in.readSerializable();
+
+        mapStarData= (HashMap<String, UserData>) in.readSerializable();
 
         arrCardList = (ArrayList<FanData>) in.readSerializable();
         arrCardData = (ArrayList<UserData>) in.readSerializable();
@@ -210,8 +217,12 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeSerializable(arrFanList);
         parcel.writeSerializable(arrFanData);
 
+        parcel.writeSerializable((Serializable) mapFanData);
+
         parcel.writeSerializable(arrStarList);
         parcel.writeSerializable(arrStarData);
+
+        parcel.writeSerializable((Serializable) mapStarData);
 
         parcel.writeSerializable(arrCardList);
         parcel.writeSerializable(arrCardData);
