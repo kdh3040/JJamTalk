@@ -620,6 +620,7 @@ public class MyData {
             updateMap.put("Count", 0);
             updateMap.put("Nick", stTargetData.NickName);
             updateMap.put("Idx", stTargetData.Idx);
+            updateMap.put("Img", stTargetData.Img);
             table.child("CardList").child(stTargetData.Idx).updateChildren(updateMap);
             rtValue = true;
 
