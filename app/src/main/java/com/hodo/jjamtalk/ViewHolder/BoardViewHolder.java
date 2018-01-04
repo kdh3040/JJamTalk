@@ -13,7 +13,7 @@ import com.hodo.jjamtalk.R;
 
 public class BoardViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView idTextView,messageTextView, likeCount, replyCount;
+    public TextView idTextView,messageTextView, likeCount, replyCount, writeDate;
     public ImageView imageView;
 
     public BoardViewHolder(View itemView) {
@@ -23,5 +23,6 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         imageView = (ImageView)itemView.findViewById(R.id.iv_board);
         likeCount = (TextView)itemView.findViewById(R.id.tv_board_like_count);
         replyCount = (TextView)itemView.findViewById(R.id.tv_board_reply_count);
+        writeDate = (TextView)itemView.findViewById(R.id.tv_board_write_date);
     }
 }
