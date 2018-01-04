@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk.Data;
 
+import android.app.usage.UsageEvents;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.Editable;
@@ -68,9 +69,7 @@ public class MyData {
     public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
 
-    public ArrayList<String> arrMyChatTargetList = new ArrayList<>();
-    public  ArrayList<UserData> arrChatTargetData = new ArrayList<>();
-
+    public  Map<String, UserData> mapChatTargetData = new LinkedHashMap<String, UserData>();
 
     public int nFanCount;
     public ArrayList<FanData> arrMyFanList = new ArrayList<>();
@@ -472,6 +471,7 @@ public class MyData {
         return strMemo;
     }
 
+/*
     public boolean makeChatTargetList(UserData _UserData) {
         boolean rtValue = true;
 
@@ -487,11 +487,14 @@ public class MyData {
         targetuser = table.child(getUserIdx()).child("ChatTargetList");
         targetuser.child(_UserData.Idx).setValue(_UserData.Idx);
 
-        arrMyChatTargetList.add(_UserData.Idx);
+    */
+/*    arrMyChatTargetList.add(_UserData.Idx);
         arrChatTargetData.add(_UserData);
+*//*
 
         return rtValue;
     }
+*/
 
     public boolean makeSendList(UserData _UserData, String _strSend) {
         boolean rtValue = false;
@@ -1219,12 +1222,12 @@ public class MyData {
 
 
 
-    public void makeFanList(FanData stTargetData, int SendCount) {
+    public void makeFanList(UserData stTargetData, int SendCount) {
 
 
         int nTotalSendCnt = 0;
         for (int i = 0; i < arrSendHoneyDataList.size(); i++) {
-            if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.Nick))
+            if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
                 nTotalSendCnt -= arrSendHoneyDataList.get(i).nSendHoney;
         }
 
@@ -1239,33 +1242,59 @@ public class MyData {
         updateMap.put("Nick", getUserNick());
         updateMap.put("Idx", getUserIdx());
         updateMap.put("Img", getUserImg());
-        table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
-        getMyfanData(stTargetData.Idx);
-
-        stTargetData.Count = nTotalSendCnt;
-
-        arrMyFanList.add(stTargetData);
-
         nFanCount-=1;
         updateMap.put("FanCount", nFanCount);
+        table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
+        //getMyfanData(stTargetData.Idx);
+
+        //stTargetData.Count = nTotalSendCnt;
+
+        //arrMyFanList.add(stTargetData);
+
     }
 
-    public void getMyfanData(final String strTargetIdx) {
+    public void getMyfanData() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
         table = database.getReference("User");
 
-            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+            table.child(getUserIdx()).child("FanList").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    int saa = 0;
-                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    mapMyFanData.put(strTargetIdx, tempUserData);
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                    {
+                        HashMap<String, FanData> tempDataMap = new HashMap<String, FanData>();
+                        tempDataMap = (HashMap<String, FanData>) snapshot.getValue();
+                        FanData tempUserData = new FanData();
 
-                    int idx = 0;
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
-                            mapMyFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
+                        tempUserData.Count = Integer.valueOf(String.valueOf(tempDataMap.get("Count")));
+                        tempUserData.Nick= String.valueOf(tempDataMap.get("Nick"));
+                        tempUserData.Idx= String.valueOf(tempDataMap.get("Idx"));
+                        tempUserData.Img= String.valueOf(tempDataMap.get("Img"));
+
+                        boolean bExist = false;
+
+                        if(arrMyFanList.size() == 0)
+                        {
+                            arrMyFanList.add(tempUserData);
+                        }
+                        else
+                        {
+                            for(int a = 0; a < arrMyFanList.size(); a++)
+                            {
+                                if(arrMyFanList.get(a).Idx.equals(tempUserData.Idx))
+                                {
+                                    bExist = true;
+                                    break;
+                                }
+                            }
+
+                            if(bExist == false)
+                                arrMyFanList.add(tempUserData);
+                        }
+
                     }
+                    nFanCount = arrMyFanList.size();
                 }
 
                 @Override
@@ -1347,51 +1376,6 @@ public class MyData {
             }
 
         });
-    }
-
-    public void getMyChatTargetData() {
-        String strTargetIdx;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = null;
-        table = database.getReference("User");
-
-        arrChatTargetData.clear();
-
-        //user.addChildEventListener(new ChildEventListener() {
-        for (int i = 0; i < arrMyChatTargetList.size(); i++) {
-            strTargetIdx = arrMyChatTargetList.get(i);
-
-            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int saa = 0;
-                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    arrChatTargetData.add(tempUserData);
-
-                    int idx = 0;
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
-                        if( idx < arrChatTargetData.size()) {
-                            arrChatTargetData.get(idx).arrStarList.add(entry.getValue());
-                            idx++;
-                        }
-                    }
-
-                    idx = 0;
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
-                        if( idx < arrChatTargetData.size()) {
-                            arrChatTargetData.get(idx).arrFanList.add(entry.getValue());
-                            idx++;
-                        }
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-
-            });
-        }
     }
 
     public void getMyStarData() {

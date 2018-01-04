@@ -557,17 +557,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             bMySet = true;
 
 
-                            for(LinkedHashMap.Entry<String, String> entry : stRecvData.ChatTargetList.entrySet()) {
+                      /*      for(LinkedHashMap.Entry<String, String> entry : stRecvData.ChatTargetList.entrySet()) {
                                 mMyData.arrMyChatTargetList.add(entry.getValue());
-                            }
+                            }*/
 
-                            for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet()) {
+                         /*   for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet()) {
                                     mMyData.arrMyFanList.add(entry.getValue());
-                            }
+                            }*/
 
                             //mMyData.getFanList();
 
-                            mMyData.nFanCount = mMyData.arrMyFanList.size();
+                            // mMyData.nFanCount = mMyData.arrMyFanList.size();
 
                             for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.StarList.entrySet()) {
                                 mMyData.arrMyStarList.add(entry.getValue());
@@ -578,10 +578,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 mMyData.arrCardNameList.add(entry.getValue());
                             }
 
-                            mMyData.getMyChatTargetData();
+                            // mMyData.getMyChatTargetData();
 
                             //mMyData.getMyStarData();
                            // mMyData.getMyfanData();
+                            mMyData.getMyfanData();
 
                             mMyData.getSetting();
                             mMyData.getCardList();

@@ -66,11 +66,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 strSenderHeart = data.get("Heart");
 
                 getTargetData(strSenderGender, strSenderIdx);
-                FanData tempData = new FanData();
-                tempData.Img = strSenderImg;
-                tempData.Idx = strSenderIdx;
-                tempData.Nick = strSenderName;
-                mMyData.makeFanList(tempData, Integer.parseInt(strSenderHoney));
+
 
                 Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             }
@@ -133,6 +129,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                     updateMap.put("RecvCount", nRecvHoneyCnt);
                                     mMyData.setRecvHoneyCnt(Integer.valueOf(strSenderHoney));
                                     mMyData.setUserHoney(mMyData.getUserHoney() + Integer.valueOf(strSenderHoney));
+
+                                  /*  FanData tempData = new FanData();
+                                    tempData.Img = strSenderImg;
+                                    tempData.Idx = strSenderIdx;
+                                    tempData.Nick = strSenderName;
+                                    mMyData.makeFanList(tempData, Integer.parseInt(strSenderHoney));*/
+
                                 }
 
                                 ref.updateChildren(updateMap);

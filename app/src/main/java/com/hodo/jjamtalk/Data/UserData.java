@@ -67,7 +67,6 @@ public class UserData implements Serializable,Parcelable {
     public int Item_7;
     public int Item_8;
 
-    public  Map<String, String> ChatTargetList = new LinkedHashMap<String, String>();
     public  ArrayList<UserData> arrChatTargetData = new ArrayList<>();
 
     public int FanCount;
@@ -140,12 +139,10 @@ public class UserData implements Serializable,Parcelable {
         FanCount = in.readInt();
         arrFanList = (ArrayList<FanData>) in.readSerializable();
         arrFanData = (ArrayList<UserData>) in.readSerializable();
-
         mapFanData = (HashMap<String, UserData>) in.readSerializable();
 
         arrStarList = (ArrayList<FanData>) in.readSerializable();
         arrStarData = (ArrayList<UserData>) in.readSerializable();
-
         mapStarData= (HashMap<String, UserData>) in.readSerializable();
 
         arrCardList = (ArrayList<FanData>) in.readSerializable();

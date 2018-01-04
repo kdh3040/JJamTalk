@@ -84,7 +84,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm");
 
     SendData tempChatData;
-    int  tempChatIdx;
+    String  tempChatIdx;
 
     private ProgressBar progressBar;
 
@@ -137,13 +137,15 @@ public class ChatRoomActivity extends AppCompatActivity {
       //  progressBar = (ProgressBar)findViewById(R.id.chat_Progress);
 
         tempChatData = (SendData) intent.getExtras().getSerializable("ChatData");
-        tempChatIdx = (int) intent.getExtras().getSerializable("ChatIdx");
+        tempChatIdx = (String) intent.getExtras().getSerializable("ChatIdx");
 
         //stTargetData.NickName = tempChatData.strTargetNick;
         //stTargetData.Img= tempChatData.strTargetImg;
 
-        stTargetData.NickName = mMyData.arrChatTargetData.get(tempChatIdx).NickName;
-        stTargetData.Img= mMyData.arrChatTargetData.get(tempChatIdx).Img;
+        stTargetData = mMyData.mapChatTargetData.get(tempChatIdx);
+
+        //stTargetData.NickName = mMyData.arrChatTargetData.get(tempChatIdx).NickName;
+        //stTargetData.Img= mMyData.arrChatTargetData.get(tempChatIdx).Img;
 
         mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(tempChatData.strSendName);
 
@@ -186,7 +188,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), UserPageActivity.class);
                         Bundle bundle = new Bundle();
 
-                        bundle.putSerializable("Target", mMyData.arrChatTargetData.get(tempChatIdx));
+                        bundle.putSerializable("Target", stTargetData);
                         intent.putExtras(bundle);
 
                         view.getContext().startActivity(intent);
@@ -202,7 +204,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
 
                     viewHolder.message.setText(chat_message.getMsg());
-                    viewHolder.targetName.setText( mMyData.arrChatTargetData.get(tempChatIdx).NickName);
+                    viewHolder.targetName.setText(stTargetData.NickName);
 
 
                 }
@@ -217,7 +219,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(viewHolder.send_Img);
 
-                     viewHolder.targetName.setText( mMyData.arrChatTargetData.get(tempChatIdx).NickName);
+                     viewHolder.targetName.setText( stTargetData.NickName);
 
                 }
                 else{
@@ -257,7 +259,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     viewHolder.image_profile.setVisibility(View.VISIBLE);*/
 
                     Glide.with(getApplicationContext())
-                            .load( mMyData.arrChatTargetData.get(tempChatIdx).Img)
+                            .load( stTargetData.Img)
                             .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .thumbnail(0.1f)
@@ -418,8 +420,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                                     if (strSendMsg.equals(""))
                                         strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
 
-                                    boolean rtValuew = mMyData.makeSendHoneyList(mMyData.arrChatTargetData.get(tempChatIdx), nSendHoneyCnt[0], strSendMsg);
-                                    rtValuew = mMyData.makeRecvHoneyList(mMyData.arrChatTargetData.get(tempChatIdx), nSendHoneyCnt[0], strSendMsg);
+                                    boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                    rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
 
                                     if (rtValuew == true) {
                                         //mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
@@ -438,7 +440,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                                         String formatStr = sdf.format(date);
 
-                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  mMyData.arrChatTargetData.get(tempChatIdx).NickName, message, formatStr, "");
+                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, message, formatStr, "");
                                         mRef.push().setValue(chat_Data);
                                         dialog.dismiss();
 

@@ -368,7 +368,6 @@ public class UserPageActivity extends AppCompatActivity {
                                         strSendMsg = "안녕하세요";
 
                                     boolean rtValuew = mMyData.makeSendList(stTargetData, strSendMsg.toString());
-                                    rtValuew = mMyData.makeChatTargetList(stTargetData);
                                     rtValuew = mMyData.makeCardList(stTargetData);
                                      rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                     rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
@@ -379,7 +378,7 @@ public class UserPageActivity extends AppCompatActivity {
                                         mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
                                         mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                                         mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                                       // mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
+                                        mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
                                         mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
                                         Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                     }
@@ -465,7 +464,6 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
-                                rtValuew = mMyData.makeChatTargetList(stTargetData);
                                 if (rtValuew == true) {
                                     mNotiFunc.SendMSGToFCM(stTargetData);
                                     Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
