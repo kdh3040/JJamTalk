@@ -225,9 +225,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_pressed"
-                    android:text="내 카드에 등록"
+                    android:text="찜하기"
                     android:textColor="@color/textColorDark"
-                    android:textSize="10sp" />
+                    android:textSize="18sp" />
 
 
                 <Button
@@ -242,9 +242,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_pressed"
-                    android:text="보석 선물하기"
+                    android:text="선물하기"
                     android:textColor="@color/textColorDark"
-                    android:textSize="10sp" />
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/UserPage_btnGiftHoney"
@@ -259,7 +259,7 @@
                     android:background="@drawable/button_pressed"
                     android:text="골드 선물하기"
                     android:textColor="@color/textColorDark"
-                    android:textSize="10sp" />
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/UserPage_btnMessage"
@@ -274,7 +274,7 @@
                     android:background="@drawable/button_pressed"
                     android:text="쪽지쓰기"
                     android:textColor="@color/textColorDark"
-                    android:textSize="10sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
         </LinearLayout>

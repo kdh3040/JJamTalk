@@ -110,7 +110,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
             }
             case 4: {
                 try {
-                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F4.jpg?alt=media&token=44edade3-8d83-4726-ace2-0c001a3a1b58");
+                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fwatch_hng.png?alt=media&token=dbefc601-6770-48f3-a6e7-227a15ae5d36");
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
@@ -121,12 +121,12 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("오펄 획득!!");
+                text_Opened.setText("명품 시계 획득!!");
                 break;
             }
             case 5: {
                 try {
-                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/Data%2F5.jpeg?alt=media&token=1d08a448-1f0a-4198-80c1-5f4ef5c226a8");
+                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fring_hng.png?alt=media&token=2d624e62-9b42-4b44-b268-81ddc4c98ccf");
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
@@ -137,7 +137,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("에메랄드 획득!!");
+                text_Opened.setText("보석 획득!!");
                 break;
             }
             case 6: {

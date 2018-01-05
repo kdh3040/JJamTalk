@@ -28,6 +28,9 @@ import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by mjk on 2017. 8. 4..
  */
@@ -44,6 +47,7 @@ public class SettingActivity extends AppCompatActivity {
     private TextView  btn_Delete;
     private LinearLayout lo_recvMsg;
     private LinearLayout lo_buyGold ;
+    private LinearLayout lo_alarm;
 
 
     private RadioButton btn_ViewMode_2;
@@ -95,6 +99,35 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //imageview 및 textview 초기화
+
+        lo_alarm = findViewById(R.id.ll_alarm);
+        lo_alarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+                String[] alarm = new String[]{
+                        "소리",
+                        "진동",
+
+                };
+
+
+
+                builder.setSingleChoiceItems(alarm, 2, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                builder.setTitle("알림 설정");
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+
+            }
+        });
 
         lo_recvMsg = findViewById(R.id.lo_recvMsg);
         lo_recvMsg.setOnClickListener(new View.OnClickListener() {
