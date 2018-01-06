@@ -1,5 +1,7 @@
 package com.hodo.jjamtalk.Data;
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
 
 /**
@@ -22,7 +24,30 @@ public class BoardData {
     {
     }
 
-    public  ArrayList<BoardMsgData> arrBoardList = new ArrayList<>();
-    public  ArrayList<BoardMsgData> arrBoardMyList = new ArrayList<>();
+    public ArrayList<BoardMsgClientData> BoardList = new ArrayList<>();
+
+    public void AddBoardData(DataSnapshot dataSnapshot)
+    {
+        BoardMsgDBData DBData = dataSnapshot.getValue(BoardMsgDBData.class);
+        BoardMsgClientData ClientData  = GetBoardMsgClientData(DBData.Key);
+        if(ClientData == null)
+        {
+            ClientData = new BoardMsgClientData(DBData);
+            BoardList.add(ClientData);
+        }
+        else
+            ClientData.SetDBdata(DBData);
+    }
+
+    public BoardMsgClientData GetBoardMsgClientData(String key)
+    {
+        for(BoardMsgClientData data : BoardList)
+        {
+            if(data.GetDBData().Key.equals(key))
+                return data;
+        }
+
+        return null;
+    }
 }
 

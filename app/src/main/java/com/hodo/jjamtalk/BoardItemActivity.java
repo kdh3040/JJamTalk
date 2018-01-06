@@ -19,7 +19,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.BoardLikeData;
-import com.hodo.jjamtalk.Data.BoardMsgData;
+import com.hodo.jjamtalk.Data.BoardMsgClientData;
+import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
@@ -33,14 +34,14 @@ public class BoardItemActivity extends AppCompatActivity {
     // 현재 내 데이터
     private MyData mMyData = MyData.getInstance();
     // 모든 보드 데이터 -> 현재 바라보고 있는 데이터로 변경 예정
-    private BoardMsgData mBoardData = null;
+    private BoardMsgClientData mBoardClientData = null;
     private BoardData mBoardInstanceData = BoardData.getInstance();
     // 파이어베이스 인스턴스
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
 
     // 뷰
-    ListView BoardReplyList;
-    BoardListAdapter BoardReplyListAdapter;
+    ListView BoardUIList;
+    BoardReplyListAdapter BoardReplyListAdapter;
 
     // 상단본문
     TextView MasterName, MasterInfo, BoardWriteDate, BoardNote, BoardViewCount;
@@ -58,19 +59,19 @@ public class BoardItemActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         mBoardIndex = intent.getIntExtra("Target", 0);
-        mBoardData = mBoardInstanceData.arrBoardList.get(mBoardIndex);
+        mBoardClientData = mBoardInstanceData.BoardList.get(mBoardIndex);
         mLike = false;
-        for (BoardLikeData data : mBoardData.arrLikeList) {
+        for (BoardLikeData data : mBoardClientData.LikeList) {
             if (data.Idx.equals(mMyData.getUserIdx()))
                 mLike = true;
         }
 
         // 댓글 리스트 추가
-        BoardReplyList = (ListView) findViewById(R.id.listview_board_reply);
-        BoardReplyListAdapter = new BoardListAdapter(getApplicationContext());
-        BoardReplyList.addHeaderView(getLayoutInflater().inflate(R.layout.header_board_item, null, false));
-        BoardReplyList.addFooterView(getLayoutInflater().inflate(R.layout.footer_board_item, null, false));
-        BoardReplyList.setAdapter(BoardReplyListAdapter);
+        BoardUIList = (ListView) findViewById(R.id.listview_board_reply);
+        BoardReplyListAdapter = new BoardReplyListAdapter(getApplicationContext());
+        BoardUIList.addHeaderView(getLayoutInflater().inflate(R.layout.header_board_item, null, false));
+        BoardUIList.addFooterView(getLayoutInflater().inflate(R.layout.footer_board_item, null, false));
+        BoardUIList.setAdapter(BoardReplyListAdapter);
 
         // 상단 본문 데이터
         SetHeaderData();
@@ -78,6 +79,8 @@ public class BoardItemActivity extends AppCompatActivity {
     }
 
     private void SetHeaderData() {
+        BoardMsgDBData dbData = mBoardClientData.GetDBData();
+
         MasterName = (TextView) findViewById(R.id.tv_nickname);
         MasterInfo = (TextView) findViewById(R.id.tv_info);
         BoardWriteDate = (TextView) findViewById(R.id.tv_date);
@@ -85,13 +88,13 @@ public class BoardItemActivity extends AppCompatActivity {
         BoardViewCount = (TextView) findViewById(R.id.tv_pagecount);
         MasterProfile = (ImageView)findViewById(R.id.iv_profile);
 
-        MasterName.setText(mBoardData.NickName);
-        MasterInfo.setText(mBoardData.Age + "세");
-        BoardWriteDate.setText(mBoardData.Date);
-        BoardNote.setText(mBoardData.Msg);
-        BoardViewCount.setText(mBoardData.Msg);
+        MasterName.setText(dbData.NickName);
+        MasterInfo.setText(dbData.Age + "세");
+        BoardWriteDate.setText(dbData.Date);
+        BoardNote.setText(dbData.Msg);
+        BoardViewCount.setText("조회수" + mBoardClientData.ClientViewCount);
         Glide.with(getApplicationContext())
-                .load(mBoardData.Img)
+                .load(dbData.Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(MasterProfile);
     }
@@ -102,16 +105,16 @@ public class BoardItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (mLike) {
-                    mFireBaseData.RemoveBoardLikeData(mBoardData.Key, mMyData.getUserIdx());
-                    mBoardData.LikeCnt--;
+                    mFireBaseData.RemoveBoardLikeData(mBoardClientData.GetDBData().Key, mMyData.getUserIdx());
+                    mBoardClientData.LikeCnt--;
                 } else {
                     BoardLikeData sendData = new BoardLikeData();
 
                     sendData.Idx = mMyData.getUserIdx();
                     sendData.Img = mMyData.getUserImg();
 
-                    mFireBaseData.SaveBoardLikeData(mBoardData.Key, sendData);
-                    mBoardData.LikeCnt++;
+                    mFireBaseData.SaveBoardLikeData(mBoardClientData.GetDBData().Key, sendData);
+                    mBoardClientData.LikeCnt++;
                 }
                 mLike = !mLike;
                 RefreshLikeIcon();
@@ -164,7 +167,7 @@ public class BoardItemActivity extends AppCompatActivity {
     EditText et_reply;
     LinearLayout imageViewLayout;
     Toolbar toolbar;
-    BoardListAdapter adapter;
+    BoardReplyListAdapter adapter;
 
 
     TextView tv_Name, tv_Info, tv_Date, tv_Memo;

@@ -15,7 +15,10 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.BoardData;
+import com.hodo.jjamtalk.Data.BoardMsgClientData;
+import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
@@ -28,130 +31,22 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class BoardFragment extends Fragment {
 
-    private BoardData mBoardData = BoardData.getInstance();
+    // 파이어베이스 인스턴스
+    private FirebaseData mFireBaseData = FirebaseData.getInstance();
+    // 보드 인스턴트 데이터
+    private BoardData mBoardInstanceData = BoardData.getInstance();
+    // UI 인스턴트 데이터
+    private UIData mUIData = UIData.getInstance();
+    // FragmentView 데이터
+    private View mFragmentView = null;
+    // 보드 리스트 아답터
+    BoardListAdapter BoradListAdapter = new BoardListAdapter();
 
-    RecyclerView recyclerView;
-    Button btn_write,btn_myList;
-    UIData mUIData = UIData.getInstance();
+    // 보드 리스트 UI
+    RecyclerView BoardSlotListRectcler;
+    Button WriteButton, MyWriteListButton;
 
-    int nPosition;
-    LinearLayout contentlayout;
-    View fragView;
-
-    BoardAdapter boardAdapter = new BoardAdapter();
-
-    public BoardFragment() {
-
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        if (fragView != null) {
-            CommonFunc.getInstance().refreshFragMent(this);
-        }
-        else
-        {
-            fragView = inflater.inflate(R.layout.fragment_board,container,false);
-            recyclerView = (RecyclerView)fragView.findViewById(R.id.board_recy);
-            recyclerView.setAdapter(boardAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            //getContext().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-            recyclerView.addOnItemTouchListener(
-                    new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-                            //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getContext(), BoardItemActivity.class);
-                            intent.putExtra("Target", position);
-                            startActivity(intent);
-                        }
-
-                        @Override
-                        public void onLongItemClick(View view, int position) {
-                            //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 롱 클릭",Toast.LENGTH_SHORT).show();
-                        }
-                    }));
-
-            btn_write = (Button)fragView.findViewById(R.id.btn_write);
-            btn_write.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(getContext(),BoardWriteActivity.class));
-                }
-            });
-            btn_myList = (Button)fragView.findViewById(R.id.btn_mylist);
-            btn_myList.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(getContext(),BoardMyListActivity.class));
-                }
-            });
-        }
-
-
-        return fragView;
-    }
-
-    /*@Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_board);
-
-        recyclerView = (RecyclerView)findViewById(R.id.board_recy);
-        recyclerView.setAdapter(new BoardAdapter());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                      //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), BoardItemActivity.class);
-                        intent.putExtra("Target", position);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-                      //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 롱 클릭",Toast.LENGTH_SHORT).show();
-                    }
-                }));
-
-        btn_write = (Button)findViewById(R.id.btn_write);
-        btn_write.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BoardWriteActivity.class));
-            }
-        });
-        btn_myList = (Button)findViewById(R.id.btn_mylist);
-        btn_myList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BoardMyListActivity.class));
-            }
-        });
-
-
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
-
-    private class BoardAdapter extends RecyclerView.Adapter<BoardViewHolder> {
+    private class BoardListAdapter extends RecyclerView.Adapter<BoardViewHolder> {
         @Override
         public BoardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.content_board,parent,false);
@@ -163,14 +58,18 @@ public class BoardFragment extends Fragment {
         @Override
         public void onBindViewHolder(BoardViewHolder holder, final int position) {
             //holder.idTextView.setText("호근 ,37, 20km");
-            holder.idTextView.setText(mBoardData.arrBoardList.get(position).NickName + ", " + mBoardData.arrBoardList.get(position).Age);// + ", " +  mBoardData.arrBoardList.get(position).Dist);
-            holder.messageTextView.setText(mBoardData.arrBoardList.get(position).Msg);
-            holder.likeCount.setText("좋아요 : " + mBoardData.arrBoardList.get(position).LikeCnt);
-            holder.replyCount.setText("댓글수 : " + mBoardData.arrBoardList.get(position).ReplyCnt);
-            holder.writeDate.setText("쓴 날자 : " + mBoardData.arrBoardList.get(position).Date);
+            BoardMsgClientData BoardData =  mBoardInstanceData.BoardList.get(position);
+            if(BoardData == null)
+                 return;
+            BoardMsgDBData dbData = BoardData.GetDBData();
+            holder.idTextView.setText(dbData.NickName + ", " + dbData.Age);// + ", " +  mBoardClientData.arrBoardList.get(position).Dist);
+            holder.messageTextView.setText(dbData.Msg);
+            holder.likeCount.setText("좋아요 : " + BoardData.LikeCnt);
+            holder.replyCount.setText("댓글수 : " + BoardData.ReplyCnt);
+            holder.writeDate.setText("쓴 날자 : " + dbData.Date);
             //holder.iv_profile.setImageResource(R.drawable.bg1);
             Glide.with(getContext())
-                    .load(mBoardData.arrBoardList.get(position).Img)
+                    .load(dbData.Img)
                     .bitmapTransform(new CropCircleTransformation(getContext()))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.imageView);
@@ -178,7 +77,88 @@ public class BoardFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return mBoardData.arrBoardList.size();
+            return mBoardInstanceData.BoardList.size();
         }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        if (mFragmentView != null) {
+            // Fragment가 다시 새로 만들어 질때 갱신
+            //CommonFunc.getInstance().refreshFragMent(this);
+        }
+        else
+        {
+            mFragmentView = inflater.inflate(R.layout.fragment_board,container,false);
+            BoardSlotListRectcler = (RecyclerView)mFragmentView.findViewById(R.id.board_recy);
+            BoardSlotListRectcler.setAdapter(BoradListAdapter);
+            BoardSlotListRectcler.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            WriteButton = (Button)mFragmentView.findViewById(R.id.btn_write);
+            MyWriteListButton = (Button)mFragmentView.findViewById(R.id.btn_mylist);
+
+            BoardSlotListRectcler.addOnItemTouchListener(GetBoradListClickFunc());
+            WriteButton.setOnClickListener(GetWriteBoradFunc());
+            MyWriteListButton.setOnClickListener(GetMyWriteBoradListFunc());
+        }
+        return mFragmentView;
+    }
+
+    private RecyclerView.OnItemTouchListener GetBoradListClickFunc()
+    {
+        RecyclerView.OnItemTouchListener returnFunc =
+        new RecyclerItemClickListener(getContext(), BoardSlotListRectcler, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), BoardItemActivity.class);
+                BoardMsgClientData boardMsgData =  mBoardInstanceData.BoardList.get(position);
+                if(boardMsgData == null)
+                    return;
+
+                // Intent 하면서 변수를 넘겨준다. TODO 환웅 키값을 넘겨주는게 좋지 않을까..
+                intent.putExtra("Target", position);
+
+                // TODO 환웅 게시판 슬롯 갱신
+                boardMsgData.PlusViewCount();
+
+                // 조회수 갱신
+                mFireBaseData.PushBoardViewCount(boardMsgData.GetDBData().Key);
+
+
+
+                startActivity(intent);
+            }
+            @Override
+            public void onLongItemClick(View view, int position) {}
+        });
+
+        return returnFunc;
+    }
+
+    private View.OnClickListener GetWriteBoradFunc()
+    {
+        View.OnClickListener returnFunc = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),BoardWriteActivity.class));
+            }
+        };
+
+        return returnFunc;
+    }
+
+    private View.OnClickListener GetMyWriteBoradListFunc()
+    {
+        View.OnClickListener returnFunc = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),BoardMyListActivity.class));
+            }
+        };
+
+        return returnFunc;
     }
 }

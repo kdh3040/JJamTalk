@@ -63,7 +63,6 @@ import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.BoardLikeData;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
-import com.hodo.jjamtalk.Data.BoardMsgData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AwsFunc;
@@ -317,14 +316,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                BoardMsgData stRecvData = new BoardMsgData();
+                // TODO 환웅 내가 작성 게시판 데이터 얻어오기
+                /*BoardMsgData stRecvData = new BoardMsgData();
                 stRecvData = dataSnapshot.getValue(BoardMsgData.class);
                 if (stRecvData != null) {
                     if (stRecvData != null) {
                         mBoardData.arrBoardMyList.add(stRecvData);
                         stRecvData.SetCount();
                     }
-                }
+                }*/
             }
 
             @Override
@@ -357,13 +357,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         refBoard.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                BoardMsgData stRecvData = new BoardMsgData();
-                stRecvData = dataSnapshot.getValue(BoardMsgData.class);
-
-                if (stRecvData != null) {
-                    mBoardData.arrBoardList.add(stRecvData);
-                    stRecvData.SetCount();
-                }
+                mBoardData.AddBoardData(dataSnapshot);
             }
 
             @Override
