@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.MyData;
-import com.hodo.jjamtalk.Data.BoardMsgData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 
 /**
@@ -48,11 +48,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        BoardMsgData sendData = new BoardMsgData();
-
-                        sendData.LikeCnt = 0;
-                        sendData.PageCnt = 0;
-                        sendData.ReplyCnt = 0;
+                        BoardMsgDBData sendData = new BoardMsgDBData();
 
                         sendData.NickName = mMydata.getUserNick();
                         sendData.Age = mMydata.getUserAge();

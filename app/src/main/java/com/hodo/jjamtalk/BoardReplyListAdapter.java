@@ -11,14 +11,14 @@ import android.widget.TextView;
  * Created by mjk on 2017. 8. 23..
  */
 
-public class BoardListAdapter extends BaseAdapter{
+public class BoardReplyListAdapter extends BaseAdapter{
 
     Context mContext;
 
 
     int [] in = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
-    public BoardListAdapter(Context context) {
+    public BoardReplyListAdapter(Context context) {
         mContext = context;
 
     }

@@ -22,7 +22,7 @@ import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
  */
 
 public class BoardMyListActivity extends AppCompatActivity {
-    private MyData mMyData = MyData.getInstance();
+    /*private MyData mMyData = MyData.getInstance();
     private BoardData mBoardData = BoardData.getInstance();
     RecyclerView recyclerView;
 
@@ -81,5 +81,5 @@ public class BoardMyListActivity extends AppCompatActivity {
         public int getItemCount() {
             return mBoardData.arrBoardMyList.size();
         }
-    }
+    }*/
 }

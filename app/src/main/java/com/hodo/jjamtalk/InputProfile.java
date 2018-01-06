@@ -47,7 +47,6 @@ import com.google.firebase.storage.UploadTask;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
-import com.hodo.jjamtalk.Data.BoardMsgData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.LocationFunc;
@@ -534,13 +533,7 @@ public class InputProfile extends AppCompatActivity {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                BoardMsgData stRecvData = new BoardMsgData();
-                stRecvData = dataSnapshot.getValue(BoardMsgData.class);
-                if (stRecvData != null) {
-                    if (stRecvData != null) {
-                        mBoardData.arrBoardMyList.add(stRecvData);
-                    }
-                }
+                mBoardData.AddMyBoardData(dataSnapshot);
             }
 
             @Override
@@ -573,12 +566,7 @@ public class InputProfile extends AppCompatActivity {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                BoardMsgData stRecvData = new BoardMsgData();
-                stRecvData = dataSnapshot.getValue(BoardMsgData.class);
-                if (stRecvData != null) {
-                    mBoardData.arrBoardList.add(stRecvData);
-                    stRecvData.SetCount();
-                }
+                mBoardData.AddBoardData(dataSnapshot);
             }
 
             @Override
