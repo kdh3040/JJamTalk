@@ -533,14 +533,7 @@ public class InputProfile extends AppCompatActivity {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                // TODO 환웅 내가 쓴 게시물 받아오기
-                /*BoardMsgData stRecvData = new BoardMsgData();
-                stRecvData = dataSnapshot.getValue(BoardMsgData.class);
-                if (stRecvData != null) {
-                    if (stRecvData != null) {
-                        mBoardData.arrBoardMyList.add(stRecvData);
-                    }
-                }*/
+                mBoardData.AddMyBoardData(dataSnapshot);
             }
 
             @Override

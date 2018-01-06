@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 
@@ -47,12 +48,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // TODO 환웅 게시글 쓰기 잠시 막아둠
-                       /* BoardMsgData sendData = new BoardMsgData();
-
-                        sendData.LikeCnt = 0;
-                        sendData.PageCnt = 0;
-                        sendData.ReplyCnt = 0;
+                        BoardMsgDBData sendData = new BoardMsgDBData();
 
                         sendData.NickName = mMydata.getUserNick();
                         sendData.Age = mMydata.getUserAge();
@@ -61,7 +57,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                         sendData.Msg = txt_Memo.getText().toString();
 
                         mFireBaseData.SaveBoardData(sendData);
-                        txt_Memo.setText("");*/
+                        txt_Memo.setText("");
                         //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
                         //finish();
                     }

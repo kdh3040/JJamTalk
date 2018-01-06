@@ -316,15 +316,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                // TODO 환웅 내가 작성 게시판 데이터 얻어오기
-                /*BoardMsgData stRecvData = new BoardMsgData();
-                stRecvData = dataSnapshot.getValue(BoardMsgData.class);
-                if (stRecvData != null) {
-                    if (stRecvData != null) {
-                        mBoardData.arrBoardMyList.add(stRecvData);
-                        stRecvData.SetCount();
-                    }
-                }*/
+                mBoardData.AddMyBoardData(dataSnapshot);
             }
 
             @Override

@@ -271,14 +271,13 @@ public class FirebaseData {
 
             @Override
             public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                // TODO 환웅 성공 했을때 오는 함수 인듯
                 BoardData.getInstance().AddBoardData(dataSnapshot);
             }
         });
     }
 
 
-    /*public boolean SaveBoardData(BoardMsgData sendData) {
+    public boolean SaveBoardData(BoardMsgDBData sendData) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Board").push();
@@ -292,7 +291,7 @@ public class FirebaseData {
         table.setValue(sendData);
 
         return  true;
-    }*/
+    }
 
     public boolean SaveBoardLikeData(String boardKey, BoardLikeData sendData)
     {

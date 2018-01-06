@@ -25,6 +25,7 @@ public class BoardData {
     }
 
     public ArrayList<BoardMsgClientData> BoardList = new ArrayList<>();
+    public ArrayList<BoardMsgClientData> MyBoardList = new ArrayList<>();
 
     public void AddBoardData(DataSnapshot dataSnapshot)
     {
@@ -42,6 +43,30 @@ public class BoardData {
     public BoardMsgClientData GetBoardMsgClientData(String key)
     {
         for(BoardMsgClientData data : BoardList)
+        {
+            if(data.GetDBData().Key.equals(key))
+                return data;
+        }
+
+        return null;
+    }
+
+    public void AddMyBoardData(DataSnapshot dataSnapshot)
+    {
+        BoardMsgDBData DBData = dataSnapshot.getValue(BoardMsgDBData.class);
+        BoardMsgClientData ClientData  = GetMyBoardMsgClientData(DBData.Key);
+        if(ClientData == null)
+        {
+            ClientData = new BoardMsgClientData(DBData);
+            MyBoardList.add(ClientData);
+        }
+        else
+            ClientData.SetDBdata(DBData);
+    }
+
+    public BoardMsgClientData GetMyBoardMsgClientData(String key)
+    {
+        for(BoardMsgClientData data : MyBoardList)
         {
             if(data.GetDBData().Key.equals(key))
                 return data;

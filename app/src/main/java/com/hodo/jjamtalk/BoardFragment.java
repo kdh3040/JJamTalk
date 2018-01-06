@@ -120,14 +120,10 @@ public class BoardFragment extends Fragment {
 
                 // Intent 하면서 변수를 넘겨준다. TODO 환웅 키값을 넘겨주는게 좋지 않을까..
                 intent.putExtra("Target", position);
-
-                // TODO 환웅 게시판 슬롯 갱신
                 boardMsgData.PlusViewCount();
 
                 // 조회수 갱신
                 mFireBaseData.PushBoardViewCount(boardMsgData.GetDBData().Key);
-
-
 
                 startActivity(intent);
             }
