@@ -642,11 +642,11 @@ public class MyData {
                 return rtValue;
         }
 
-
             updateMap.put("Count", 0);
             updateMap.put("Nick", stTargetData.NickName);
             updateMap.put("Idx", stTargetData.Idx);
             updateMap.put("Img", stTargetData.Img);
+            updateMap.put("Memo", stTargetData.Memo);
             table.child("CardList").child(stTargetData.Idx).updateChildren(updateMap);
             rtValue = true;
 
@@ -656,6 +656,7 @@ public class MyData {
             tempData.Nick = stTargetData.NickName;
             tempData.Idx = stTargetData.Idx;
             tempData.Img = stTargetData.Img;
+            tempData.Memo = stTargetData.Memo;
             arrCardNameList.add(tempData);
             //arrCardList.add(stTargetData);
             //getCardList(stTargetData.Idx);
