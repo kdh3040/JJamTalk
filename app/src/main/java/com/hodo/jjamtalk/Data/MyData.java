@@ -151,6 +151,8 @@ public class MyData {
     public  Uri urSaveUri;
     public  int nSaveUri;
 
+    public  String strDownUri;
+
     private MyData() {
         strImg = null;
         strNick = null;
@@ -569,6 +571,28 @@ public class MyData {
 
         });
 
+    }
+
+    public void getDownUrl() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("DownUrl");
+
+            table.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int saa = 0;
+                    String tempUserData = dataSnapshot.getValue(String.class);
+                    strDownUri = tempUserData;
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
     }
 
 
