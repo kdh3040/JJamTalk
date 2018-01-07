@@ -25,7 +25,7 @@ public class MyFirebaseInstanceIdSerivce extends FirebaseInstanceIdService {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         DatabaseReference table = database.getReference("User");
-        if(mMyData != null)
+        if(mMyData.getUserIdx() != null)
         {
             final DatabaseReference user = table.child(mMyData.getUserIdx());
             Map<String, Object> updateMap = new HashMap<>();

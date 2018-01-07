@@ -466,9 +466,9 @@ public class UserPageActivity extends AppCompatActivity {
                         btn_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                mNotiFunc.SendMSGToFCM(stTargetData);
                                 boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
                                 if (rtValuew == true) {
-                                    mNotiFunc.SendMSGToFCM(stTargetData);
                                     Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                 }
                                 msgDialog.dismiss();
@@ -579,7 +579,6 @@ public class UserPageActivity extends AppCompatActivity {
 
 
 
-        출처: http://itpangpang.tistory.com/44 [ITPangPang]
         if(stTargetData.arrStarList.size() != 0)
         {
             tv_liked = findViewById(R.id.tv_liked);

@@ -254,7 +254,6 @@ public class ChatListFragment extends Fragment {
 
         public void getChatTargetData(final int position) {
 
-
             String[] strIdx = mMyData.arrSendDataList.get(position).strSendName.split("_");
 
             if(strIdx[0].equals(mMyData.getUserIdx()))

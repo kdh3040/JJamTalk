@@ -496,7 +496,9 @@ public class MyData {
         tempTargetSave.strSendName = strCheckName;
         tempTargetSave.strTargetMsg = _strSend.toString();
 
-        if (!arrSendNameList.contains(strCheckName)) {
+        String strCheckName1 = _UserData.Idx + "_" + strIdx ;
+
+        if (!arrSendNameList.contains(strCheckName) && !arrSendNameList.contains(strCheckName1) ) {
 
             user.child(strCheckName).setValue(tempTargetSave);
             targetuser.child(strCheckName).setValue(tempMySave);
