@@ -440,10 +440,11 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                                         Calendar cal = Calendar.getInstance();
                                         Date date = cal.getTime();
-                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
                                         String formatStr = sdf.format(date);
 
                                         ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, message, formatStr, "");
+                                        mMyData.makeLastMSG(stTargetData, tempChatData.strSendName, message, formatStr);
                                         mRef.push().setValue(chat_Data);
                                         dialog.dismiss();
 
@@ -479,10 +480,13 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }else{
                     Calendar cal = Calendar.getInstance();
                     Date date = cal.getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
                     String formatStr = sdf.format(date);
 
                     ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, message, formatStr, "");
+
+                    mMyData.makeLastMSG(stTargetData, tempChatData.strSendName, message, formatStr);
+
                     mRef.push().setValue(chat_Data);
                     txt_msg.setText("");
 
@@ -593,6 +597,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                     //progressBar.setVisibility(View.INVISIBLE);
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, "", null, downloadUrl.toString());
+
+                    mMyData.makeLastMSG(stTargetData, tempChatData.strSendName, "이미지를 보냈습니다", null);
                     mRef.push().setValue(chat_Data);
 
                     tempSaveUri = downloadUrl;

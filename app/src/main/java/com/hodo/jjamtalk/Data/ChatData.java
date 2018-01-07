@@ -5,6 +5,8 @@ package com.hodo.jjamtalk.Data;
  */
 
 public class ChatData {
+    private MyData mMyData = MyData.getInstance();
+
     public String strFrom;
     public String strTo;
     public String strMsg;

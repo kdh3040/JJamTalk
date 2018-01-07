@@ -1617,5 +1617,22 @@ public class MyData {
         return nFanCount;
     }
 
+    public void makeLastMSG(UserData  tempData, String Roomname, String strMsg, String lTime) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+
+        final DatabaseReference user = table.child(strIdx).child("SendList").child(Roomname);
+        final DatabaseReference targetuser = table.child(tempData.Idx).child("SendList").child(Roomname);
+
+        String strLastMsg = strMsg;
+        String strLastImg = strImg;
+        String strLastTime = lTime;
+
+        user.child("strTargetMsg").setValue(strLastMsg);
+        targetuser.child("strTargetMsg").setValue(strLastMsg);
+
+        user.child("strSendDate").setValue(strLastTime);
+        targetuser.child("strSendDate").setValue(strLastTime);
+    }
 }
 
