@@ -25,11 +25,19 @@ public class MyFirebaseInstanceIdSerivce extends FirebaseInstanceIdService {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         DatabaseReference table = database.getReference("User");
-        final DatabaseReference user = table.child(mMyData.getUserIdx());
+        if(mMyData != null)
+        {
+            final DatabaseReference user = table.child(mMyData.getUserIdx());
+            Map<String, Object> updateMap = new HashMap<>();
+            updateMap.put("Token", refreshedToken);
+            table.updateChildren(updateMap);
+            mMyData.setUserToken(refreshedToken);
+        }
+        /*final DatabaseReference user = table.child(mMyData.getUserIdx());
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Token", refreshedToken);
         table.updateChildren(updateMap);
-        mMyData.setUserToken(refreshedToken);
+        mMyData.setUserToken(refreshedToken);*/
 
         Log.d(TAG, "FirebaseInstanceId Refreshed token: " + refreshedToken);
     }

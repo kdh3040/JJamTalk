@@ -16,6 +16,8 @@ import com.hodo.jjamtalk.Data.UserData;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by mjk on 2017. 8. 28..
  */
@@ -56,6 +58,7 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
         Glide.with(mContext)
                 .load(arrayList.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(mContext))
                 .into(holder.iv_liked);
     }
 
