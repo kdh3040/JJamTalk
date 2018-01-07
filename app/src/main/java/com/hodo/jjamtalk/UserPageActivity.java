@@ -105,8 +105,9 @@ public class UserPageActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
 
-                RefreshData();
-                refreshlayout.setRefreshing(false);
+                RefreshData(refreshlayout);
+
+//                refreshlayout.setRefreshing(false);
 
             }
         });
@@ -911,7 +912,7 @@ public class UserPageActivity extends AppCompatActivity {
         }
     }
 
-    private void RefreshData() {
+    private void RefreshData(final SwipeRefreshLayout refreshlayout) {
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("User").child(stTargetData.Idx);
 
@@ -925,7 +926,14 @@ public class UserPageActivity extends AppCompatActivity {
                         //stTargetData.PublicRoomStatus = tempUserData.PublicRoomStatus;
 
                         stTargetData = tempUserData;
+                        refreshlayout.setRefreshing(false);
 
+                        Intent intent = getIntent();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", stTargetData);
+                        intent.putExtras(bundle);
+                        finish();
+                        startActivity(intent);
                     }
 
                     @Override
