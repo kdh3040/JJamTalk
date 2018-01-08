@@ -151,6 +151,8 @@ public class MyData {
     public  Uri urSaveUri;
     public  int nSaveUri;
 
+    public  String strDownUri;
+
     private MyData() {
         strImg = null;
         strNick = null;
@@ -496,7 +498,9 @@ public class MyData {
         tempTargetSave.strSendName = strCheckName;
         tempTargetSave.strTargetMsg = _strSend.toString();
 
-        if (!arrSendNameList.contains(strCheckName)) {
+        String strCheckName1 = _UserData.Idx + "_" + strIdx ;
+
+        if (!arrSendNameList.contains(strCheckName) && !arrSendNameList.contains(strCheckName1) ) {
 
             user.child(strCheckName).setValue(tempTargetSave);
             targetuser.child(strCheckName).setValue(tempMySave);
@@ -569,6 +573,28 @@ public class MyData {
 
     }
 
+    public void getDownUrl() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("DownUrl");
+
+            table.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int saa = 0;
+                    String tempUserData = dataSnapshot.getValue(String.class);
+                    strDownUri = tempUserData;
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+    }
+
 
     public void getMyCardData() {
         String strTargetIdx;
@@ -616,11 +642,11 @@ public class MyData {
                 return rtValue;
         }
 
-
             updateMap.put("Count", 0);
             updateMap.put("Nick", stTargetData.NickName);
             updateMap.put("Idx", stTargetData.Idx);
             updateMap.put("Img", stTargetData.Img);
+            updateMap.put("Memo", stTargetData.Memo);
             table.child("CardList").child(stTargetData.Idx).updateChildren(updateMap);
             rtValue = true;
 
@@ -630,6 +656,7 @@ public class MyData {
             tempData.Nick = stTargetData.NickName;
             tempData.Idx = stTargetData.Idx;
             tempData.Img = stTargetData.Img;
+            tempData.Memo = stTargetData.Memo;
             arrCardNameList.add(tempData);
             //arrCardList.add(stTargetData);
             //getCardList(stTargetData.Idx);
@@ -1590,5 +1617,22 @@ public class MyData {
         return nFanCount;
     }
 
+    public void makeLastMSG(UserData  tempData, String Roomname, String strMsg, String lTime) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+
+        final DatabaseReference user = table.child(strIdx).child("SendList").child(Roomname);
+        final DatabaseReference targetuser = table.child(tempData.Idx).child("SendList").child(Roomname);
+
+        String strLastMsg = strMsg;
+        String strLastImg = strImg;
+        String strLastTime = lTime;
+
+        user.child("strTargetMsg").setValue(strLastMsg);
+        targetuser.child("strTargetMsg").setValue(strLastMsg);
+
+        user.child("strSendDate").setValue(strLastTime);
+        targetuser.child("strSendDate").setValue(strLastTime);
+    }
 }
 

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -45,6 +46,10 @@ public class SettingActivity extends AppCompatActivity {
     private TextView  btn_Help;
     private TextView  btn_LogOut;
     private TextView  btn_Delete;
+
+    private TextView  btn_Share;
+
+
     private LinearLayout lo_recvMsg;
     private LinearLayout lo_buyGold ;
     private LinearLayout lo_alarm;
@@ -106,16 +111,21 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
                 String[] alarm = new String[]{
-                        "소리",
-                        "진동",
-
+                        "소리 켜기",
+                        "진동 켜기",
                 };
-
-
 
                 builder.setSingleChoiceItems(alarm, 2, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        if(i == 0)
+                        {
+                            int bb = 0;
+                        }
+                        else
+                        {
+                            int bb = 0;
+                        }
 
                     }
                 });
@@ -158,17 +168,32 @@ public class SettingActivity extends AppCompatActivity {
                 });
 
 
-
-
-
-
-
                 final AlertDialog dialog = builder.create();
                 dialog.show();
             }
         });
 
+        tv_blocklist = (TextView)findViewById(R.id.tv_blocklist);
+        tv_blocklist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),BlockListActivity.class));
+            }
+        });
 
+        btn_Share = (TextView)findViewById(R.id.btn_share);
+        btn_Share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = "회원님을 위한 특별한 어플을 발견했습니다.\n흥톡에 로그인해보세요 \n" + mMyData.strDownUri;
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                // intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                intent.putExtra(Intent.EXTRA_TEXT, text);
+                Intent chooser = Intent.createChooser(intent, "타이틀");
+                startActivity(chooser);
+            }
+        });
 
 
         //1 이 차단 0이 디폴트
@@ -232,13 +257,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        tv_blocklist = (TextView)findViewById(R.id.tv_blocklist);
-        tv_blocklist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BlockListActivity.class));
-            }
-        });
+
 
     }
 

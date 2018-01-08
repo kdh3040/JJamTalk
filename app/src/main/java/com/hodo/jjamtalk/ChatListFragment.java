@@ -215,8 +215,15 @@ public class ChatListFragment extends Fragment {
 /*            String strDate = mMyData.arrSendDataList.get(i).strSendDate;
             holder.date.setText(strDate);*/
 
-            holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
+            //holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
+
+            holder.date.setText(mMyData.arrSendDataList.get(i).strSendDate);
             holder.nickname.setText(mMyData.arrSendDataList.get(i).strTargetNick);
+
+            if(mMyData.arrSendDataList.get(i).strTargetMsg.equals(""))
+                holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
+            else
+                holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetMsg);
 
 
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -253,7 +260,6 @@ public class ChatListFragment extends Fragment {
 
 
         public void getChatTargetData(final int position) {
-
 
             String[] strIdx = mMyData.arrSendDataList.get(position).strSendName.split("_");
 

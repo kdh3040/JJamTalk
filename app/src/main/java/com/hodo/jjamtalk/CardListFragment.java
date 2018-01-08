@@ -116,6 +116,13 @@ public class CardListFragment extends Fragment {
             if(mMyData.arrCardNameList.get(position).Count != 0)
                 holder.imageSymbol.setVisibility(View.INVISIBLE);
 
+            if(mMyData.arrCardNameList.get(i).Memo == null || mMyData.arrCardNameList.get(i).Memo.equals(""))
+                holder.textView_memo.setText("안녕하세요");
+            else
+                holder.textView_memo.setText(mMyData.arrCardNameList.get(i).Memo);
+            holder.textView_memo.setBackgroundResource(R.drawable.inbox2);
+
+
             holder.textView.setText(mMyData.arrCardNameList.get(i).Nick);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
             holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -264,7 +271,7 @@ public class CardListFragment extends Fragment {
         public class ViewHolder extends RecyclerView.ViewHolder{
             public ImageView imageSymbol;
             public ImageView image;
-            public TextView textView;
+            public TextView textView, textView_memo;
             public LinearLayout linearLayout;
 
             public ViewHolder(View itemView) {
@@ -272,6 +279,7 @@ public class CardListFragment extends Fragment {
                 imageSymbol = (ImageView)itemView.findViewById(R.id.cardlist_newSymbol);
                 image = (ImageView)itemView.findViewById(R.id.iv_my_card);
                 textView = (TextView)itemView.findViewById(R.id.tv_nickname);
+                textView_memo = (TextView)itemView.findViewById(R.id.tv_memo);
                 linearLayout = itemView.findViewById(R.id.layout_mycard_item);
 
             }

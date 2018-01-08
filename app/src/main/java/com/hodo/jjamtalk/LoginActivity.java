@@ -566,6 +566,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             //mMyData.getCardList();
 
+                            mMyData.getDownUrl();
                             mMyData.getMyfanData();
 
                             mMyData.getSetting();
