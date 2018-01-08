@@ -350,7 +350,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 mBoardData.AddBoardData(dataSnapshot);
-            }
+          }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
