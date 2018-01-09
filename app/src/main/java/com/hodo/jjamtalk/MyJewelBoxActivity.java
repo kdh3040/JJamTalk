@@ -32,7 +32,9 @@ public class MyJewelBoxActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
     RecyclerView recyclerView;
+    RecyclerView rv_sell_item;
     MyPageMyJewelAdapter adapter;
+    SellItemAdapter sellAdapter;
     Button btn_openBox;
     Button btn_sellJewely;
     Activity mActivity;
@@ -198,10 +200,18 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_jewel_box);
         mActivity = this;
+
         recyclerView = (RecyclerView)findViewById(R.id.rv_myjewel);
         adapter = new MyPageMyJewelAdapter(getApplicationContext(),this);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         recyclerView.setAdapter(adapter);
+
+        rv_sell_item = findViewById(R.id.rv_sell_item);
+        sellAdapter = new SellItemAdapter(getApplicationContext(),this);
+        rv_sell_item.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        rv_sell_item.setAdapter(sellAdapter);
+
+
         btn_openBox = findViewById(R.id.btn_openBox);
         btn_sellJewely = findViewById(R.id.btn_sellJewely);
 

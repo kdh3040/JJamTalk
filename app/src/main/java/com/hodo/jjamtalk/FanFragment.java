@@ -87,8 +87,8 @@ public class FanFragment extends Fragment {
             fragView = inflater.inflate(R.layout.fragment_fan,container,false);
             tabLayout = (TabLayout) fragView.findViewById(R.id.tabLayout);
 
-            tabLayout.addTab(tabLayout.newTab().setText("내 팬"));
-            tabLayout.addTab(tabLayout.newTab().setText("가입한 팬클럽"));
+            tabLayout.addTab(tabLayout.newTab().setText("나를 좋아하는"));
+            tabLayout.addTab(tabLayout.newTab().setText("내가 좋아하는"));
 
             viewPager = (ViewPager)fragView.findViewById(R.id.vp);
 
