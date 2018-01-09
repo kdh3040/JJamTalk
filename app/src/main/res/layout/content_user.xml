@@ -37,6 +37,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="false"
-        app:srcCompat="@mipmap/ic_gold" />
+        app:srcCompat="@mipmap/icon_hot" />
 
 </RelativeLayout>
