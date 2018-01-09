@@ -30,7 +30,8 @@ public class BoardData {
     public void AddBoardData(DataSnapshot dataSnapshot)
     {
         BoardMsgDBData DBData = dataSnapshot.getValue(BoardMsgDBData.class);
-        BoardMsgClientData ClientData  = GetBoardMsgClientData(DBData.Key);
+        BoardMsgClientData ClientData  = GetBoardMsgClientData(DBData.BoardIdx);
+
         if(ClientData == null)
         {
             ClientData = new BoardMsgClientData(DBData);
@@ -40,11 +41,11 @@ public class BoardData {
             ClientData.SetDBdata(DBData);
     }
 
-    public BoardMsgClientData GetBoardMsgClientData(String key)
+    public BoardMsgClientData GetBoardMsgClientData(String boardIdx)
     {
         for(BoardMsgClientData data : BoardList)
         {
-            if(data.GetDBData().Key.equals(key))
+            if(data.GetDBData().Key.equals(boardIdx))
                 return data;
         }
 

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,10 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.BoardData;
+import com.hodo.jjamtalk.Data.BoardLikeData;
 import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.CommonFunc;
@@ -30,7 +33,8 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  */
 
 public class BoardFragment extends Fragment {
-
+    // 현재 내 데이터
+    private MyData mMyData = MyData.getInstance();
     // 파이어베이스 인스턴스
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     // 보드 인스턴트 데이터
@@ -46,11 +50,12 @@ public class BoardFragment extends Fragment {
     RecyclerView BoardSlotListRectcler;
     Button WriteButton, MyWriteListButton;
 
-    private class BoardListAdapter extends RecyclerView.Adapter<BoardViewHolder> {
+    public class BoardListAdapter extends RecyclerView.Adapter<BoardViewHolder> {
+        public Boolean BoardDataLoding = false;
         @Override
         public BoardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.content_board,parent,false);
-            view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
+            //view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT));
 
             return new BoardViewHolder(view);
         }
@@ -62,17 +67,42 @@ public class BoardFragment extends Fragment {
             if(BoardData == null)
                  return;
             BoardMsgDBData dbData = BoardData.GetDBData();
-            holder.idTextView.setText(dbData.NickName + ", " + dbData.Age);// + ", " +  mBoardClientData.arrBoardList.get(position).Dist);
-            holder.messageTextView.setText(dbData.Msg);
-            holder.likeCount.setText("좋아요 : " + BoardData.LikeCnt);
-            holder.replyCount.setText("댓글수 : " + BoardData.ReplyCnt);
-            holder.writeDate.setText("쓴 날자 : " + dbData.Date);
-            //holder.iv_profile.setImageResource(R.drawable.bg1);
+
             Glide.with(getContext())
                     .load(dbData.Img)
                     .bitmapTransform(new CropCircleTransformation(getContext()))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(holder.imageView);
+                    .into(holder.BoardThumnail);
+
+            holder.BoardMsg.setText(dbData.Msg);
+            holder.BoardWriter.setText(dbData.NickName);
+            holder.BoardDate.setText(dbData.Date);
+            holder.BoardLikeCount.setText("좋아요 : " + BoardData.LikeCnt);
+
+            if (BoardData.IsLikeUser(mMyData.getUserIdx()))
+                holder.BoardLikeButton.setImageResource(R.drawable.mycard_icon);
+            else
+                holder.BoardLikeButton.setImageResource(R.drawable.mycard_empty_icon);
+
+            holder.BoardLikeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /*if (mLike) {
+                        mFireBaseData.RemoveBoardLikeData(mBoardClientData.GetDBData().Key, mMyData.getUserIdx());
+                        mBoardClientData.LikeCnt--;
+                    } else {
+                        BoardLikeData sendData = new BoardLikeData();
+
+                        sendData.Idx = mMyData.getUserIdx();
+                        sendData.Img = mMyData.getUserImg();
+
+                        mFireBaseData.SaveBoardLikeData(mBoardClientData.GetDBData().Key, sendData);
+                        mBoardClientData.LikeCnt++;
+                    }
+                    mLike = !mLike;
+                    RefreshLikeIcon();*/
+                }
+            });
         }
 
         @Override
@@ -96,10 +126,30 @@ public class BoardFragment extends Fragment {
             BoardSlotListRectcler.setAdapter(BoradListAdapter);
             BoardSlotListRectcler.setLayoutManager(new LinearLayoutManager(getContext()));
 
+            BoardSlotListRectcler.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    if(!recyclerView.canScrollVertically(-1)) {
+                        // Log.d("gggg", "최상단");
+                    }
+                    if(!recyclerView.canScrollVertically(1)) {
+                        // Log.d("gggg", "최하단");
+                        if(BoradListAdapter.BoardDataLoding == false)
+                        {
+                            BoradListAdapter.BoardDataLoding = true;
+                            FirebaseData.getInstance().GetBoardData(BoradListAdapter, 2);
+                        }
+                    }
+                }
+            });
+
+
+
+
             WriteButton = (Button)mFragmentView.findViewById(R.id.btn_write);
             MyWriteListButton = (Button)mFragmentView.findViewById(R.id.btn_mylist);
 
-            BoardSlotListRectcler.addOnItemTouchListener(GetBoradListClickFunc());
+            //BoardSlotListRectcler.addOnItemTouchListener(GetBoradListClickFunc());
             WriteButton.setOnClickListener(GetWriteBoradFunc());
             MyWriteListButton.setOnClickListener(GetMyWriteBoradListFunc());
         }

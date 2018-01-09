@@ -1,5 +1,7 @@
 package com.hodo.jjamtalk.Firebase;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -8,7 +10,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.hodo.jjamtalk.BoardFragment;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
@@ -244,8 +248,83 @@ public class FirebaseData {
 
     }
 
+    public void GetInitBoardData(int loadCount)
+    {
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
+        Query data = FirebaseDatabase.getInstance().getReference().child("Board").limitToFirst(loadCount);
+
+        data.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    BoardData.getInstance().AddBoardData(postSnapshot);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     // 게시판 관련 함수 (환웅)
+    BoardFragment.BoardListAdapter UpdateBoardAdapter = null;
+    public void GetBoardData(BoardFragment.BoardListAdapter updateBoardAdapter, int loadCount)
+    {
+        UpdateBoardAdapter = updateBoardAdapter;
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
+        Query data = FirebaseDatabase.getInstance().getReference().child("Board").limitToFirst(loadCount);
+
+        data.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    BoardData.getInstance().AddBoardData(postSnapshot);
+                }
+                UpdateBoardAdapter.BoardDataLoding = false;
+                UpdateBoardAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /*private void SetBoardData() {
+
+        DatabaseReference refBoard;
+        refBoard = FirebaseDatabase.getInstance().getReference().child("Board");
+        refBoard.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                mBoardData.AddBoardData(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }*/
 
     public void PushBoardViewCount(String boardkey)
     {
@@ -278,15 +357,16 @@ public class FirebaseData {
 
 
     public boolean SaveBoardData(BoardMsgDBData sendData) {
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Board").push();
+        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        String BoardIdx = mAwsFunc.CreateBoardIdx(ctime.toString());
+
+        DatabaseReference table = database.getReference("Board").child(BoardIdx);
 
         long time = System.currentTimeMillis();
-        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
 
         sendData.Date = ctime.format(new Date(time));
-        sendData.Key = table.getKey();
+        sendData.BoardIdx = BoardIdx;
 
         table.setValue(sendData);
 

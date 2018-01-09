@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk.Data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 /**
@@ -65,5 +66,20 @@ public class BoardMsgClientData {
             ReplyCnt += 1;
         else
             ReplyCnt -= 1;
+    }
+
+    public Boolean IsLikeUser(String idx)
+    {
+        Iterator keyData = mDBData.Like.keySet().iterator();
+
+        String key;
+        while(keyData.hasNext())
+        {
+            key = (String)keyData.next();
+            BoardLikeData data = (BoardLikeData)mDBData.Like.get(key);
+            if(data.Idx.equals(idx))
+                return true;
+        }
+        return false;
     }
 }

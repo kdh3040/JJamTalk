@@ -116,4 +116,46 @@ public class AwsFunc {
         return rtValue;
     }
 
+    public String CreateBoardIdx(String date)
+    {
+        String rtValue = null;
+
+        try{
+            String addr ="http://13.113.143.45/firebaseact.php";
+            URL url = new URL(addr);
+
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+
+            if(conn != null) {
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+                conn.setUseCaches(false);
+                conn.setConnectTimeout(10000);
+                Log.d("hngpic","settimeout");
+                OutputStream outputStream = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                writer.write(date);
+                writer.flush();
+                outputStream.close();
+                writer.close();
+                InputStream inputStream = conn.getInputStream();
+                BufferedReader br  = new BufferedReader(new InputStreamReader(inputStream));
+                rtValue = br.readLine();
+                if(rtValue ==null) {
+                    Log.d("hngpic","readline is null");
+                }else {
+                    Log.d("hngpic", rtValue);
+                }
+                br.close();
+                inputStream.close();
+                conn.disconnect();
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+
+        }
+        return rtValue;
+    }
+
 }

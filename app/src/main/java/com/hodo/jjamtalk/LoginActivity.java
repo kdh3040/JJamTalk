@@ -65,6 +65,7 @@ import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.AwsFunc;
 import com.hodo.jjamtalk.Util.LocationFunc;
 
@@ -301,7 +302,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void GoMainPage() {
-        SetBoardData();
+        FirebaseData.getInstance().GetInitBoardData(3);
         SetBoardMyData();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
@@ -342,37 +343,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     // ValueEventListener
-    private void SetBoardData() {
-
-        DatabaseReference refBoard;
-        refBoard = FirebaseDatabase.getInstance().getReference().child("Board");
-        refBoard.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                mBoardData.AddBoardData(dataSnapshot);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
