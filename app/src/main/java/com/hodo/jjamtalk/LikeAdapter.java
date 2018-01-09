@@ -17,6 +17,8 @@ import com.hodo.jjamtalk.ViewHolder.MyLikeViewHolder;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by mjk on 2017. 8. 28..
  */
@@ -57,6 +59,7 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeViewHolder> {
         Glide.with(mContext)
                 .load(arrayList.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(mContext))
                 .into(holder.iv_image);
 
     }

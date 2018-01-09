@@ -105,8 +105,9 @@ public class UserPageActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
 
-                RefreshData();
-                refreshlayout.setRefreshing(false);
+                RefreshData(refreshlayout);
+
+//                refreshlayout.setRefreshing(false);
 
             }
         });
@@ -249,6 +250,15 @@ public class UserPageActivity extends AppCompatActivity {
 
                         // 공유하기 버튼
                         int aaa= 0;
+                       // String subject = "회원님을 위한 특별한 이성을 발견했습니다.";
+                        String text = "회원님을 위한 특별한 이성을 발견했습니다.\n흥톡에 로그인해 맘에 드는지 확인해보세요 \n" + mMyData.strDownUri;
+
+                        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                        intent.setType("text/plain");
+                       // intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                        intent.putExtra(Intent.EXTRA_TEXT, text);
+                        Intent chooser = Intent.createChooser(intent, "타이틀");
+                        startActivity(chooser);
                         break;
 
                     case R.id.UserPage_btnGiftHoney:
@@ -466,9 +476,9 @@ public class UserPageActivity extends AppCompatActivity {
                         btn_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                mNotiFunc.SendMSGToFCM(stTargetData);
                                 boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
                                 if (rtValuew == true) {
-                                    mNotiFunc.SendMSGToFCM(stTargetData);
                                     Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                 }
                                 msgDialog.dismiss();
@@ -579,7 +589,6 @@ public class UserPageActivity extends AppCompatActivity {
 
 
 
-        출처: http://itpangpang.tistory.com/44 [ITPangPang]
         if(stTargetData.arrStarList.size() != 0)
         {
             tv_liked = findViewById(R.id.tv_liked);
@@ -903,7 +912,7 @@ public class UserPageActivity extends AppCompatActivity {
         }
     }
 
-    private void RefreshData() {
+    private void RefreshData(final SwipeRefreshLayout refreshlayout) {
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("User").child(stTargetData.Idx);
 
@@ -917,7 +926,14 @@ public class UserPageActivity extends AppCompatActivity {
                         //stTargetData.PublicRoomStatus = tempUserData.PublicRoomStatus;
 
                         stTargetData = tempUserData;
+                        refreshlayout.setRefreshing(false);
 
+                        Intent intent = getIntent();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", stTargetData);
+                        intent.putExtras(bundle);
+                        finish();
+                        startActivity(intent);
                     }
 
                     @Override

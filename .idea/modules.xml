@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/JJamTalkREAL.iml" filepath="$PROJECT_DIR$/JJamTalkREAL.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\project\jjamtalk\gitgit.iml" filepath="C:\project\jjamtalk\gitgit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jjamtalk.iml" filepath="$PROJECT_DIR$/jjamtalk.iml" />
+      <module fileurl="file://C:\Users\Administrator\Documents\JJamTalkREAL\jjamtalk.iml" filepath="C:\Users\Administrator\Documents\JJamTalkREAL\jjamtalk.iml" />
     </modules>
   </component>
 </project>
