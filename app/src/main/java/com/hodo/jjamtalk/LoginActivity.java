@@ -65,6 +65,7 @@ import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.AwsFunc;
 import com.hodo.jjamtalk.Util.LocationFunc;
 
@@ -301,7 +302,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void GoMainPage() {
-        SetBoardData();
+        FirebaseData.getInstance().GetInitBoardData(3);
         SetBoardMyData();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
@@ -342,6 +343,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     // ValueEventListener
+<<<<<<< HEAD
     private void SetBoardData() {
 
         DatabaseReference refBoard;
@@ -373,6 +375,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
     }
 
+=======
+>>>>>>> 633c59258b2c104c0231eeb7d51c6b5442953902
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
