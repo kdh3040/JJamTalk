@@ -8,17 +8,13 @@ import java.util.Map;
  */
 
 public class BoardMsgDBData {
+    // TODO 환웅 유저의 최소단위 클래스가 하나 필요할듯
     public String Idx;
     public String Img;
     public String NickName;
-    public String Age;
-    public String Job;
-    public String Key;
     public String Date;
     public String Msg;
-    public String ViewCount;
-    public String BoardIdx;
+    public Long BoardIdx;
 
-    public Map<String, TempBoard_ReplyData> Reply = new LinkedHashMap<String, TempBoard_ReplyData>();
     public Map<String, BoardLikeData> Like = new LinkedHashMap<String, BoardLikeData>();
 }

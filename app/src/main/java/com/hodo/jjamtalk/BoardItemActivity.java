@@ -89,10 +89,8 @@ public class BoardItemActivity extends AppCompatActivity {
         MasterProfile = (ImageView)findViewById(R.id.iv_profile);
 
         MasterName.setText(dbData.NickName);
-        MasterInfo.setText(dbData.Age + "세");
         BoardWriteDate.setText(dbData.Date);
         BoardNote.setText(dbData.Msg);
-        BoardViewCount.setText("조회수" + mBoardClientData.ClientViewCount);
         Glide.with(getApplicationContext())
                 .load(dbData.Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -104,7 +102,7 @@ public class BoardItemActivity extends AppCompatActivity {
         LikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mLike) {
+                /*if (mLike) {
                     mFireBaseData.RemoveBoardLikeData(mBoardClientData.GetDBData().Key, mMyData.getUserIdx());
                     mBoardClientData.LikeCnt--;
                 } else {
@@ -115,7 +113,7 @@ public class BoardItemActivity extends AppCompatActivity {
 
                     mFireBaseData.SaveBoardLikeData(mBoardClientData.GetDBData().Key, sendData);
                     mBoardClientData.LikeCnt++;
-                }
+                }*/
                 mLike = !mLike;
                 RefreshLikeIcon();
             }

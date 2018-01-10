@@ -24,6 +24,7 @@ public class BoardData {
     {
     }
 
+    public BoardIndexData BoardIndexData = new BoardIndexData();
     public ArrayList<BoardMsgClientData> BoardList = new ArrayList<>();
     public ArrayList<BoardMsgClientData> MyBoardList = new ArrayList<>();
 
@@ -41,11 +42,11 @@ public class BoardData {
             ClientData.SetDBdata(DBData);
     }
 
-    public BoardMsgClientData GetBoardMsgClientData(String boardIdx)
+    public BoardMsgClientData GetBoardMsgClientData(long boardIdx)
     {
         for(BoardMsgClientData data : BoardList)
         {
-            if(data.GetDBData().Key.equals(boardIdx))
+            if(data.GetDBData().BoardIdx == boardIdx)
                 return data;
         }
 
@@ -55,7 +56,7 @@ public class BoardData {
     public void AddMyBoardData(DataSnapshot dataSnapshot)
     {
         BoardMsgDBData DBData = dataSnapshot.getValue(BoardMsgDBData.class);
-        BoardMsgClientData ClientData  = GetMyBoardMsgClientData(DBData.Key);
+        BoardMsgClientData ClientData  = GetMyBoardMsgClientData(DBData.BoardIdx);
         if(ClientData == null)
         {
             ClientData = new BoardMsgClientData(DBData);
@@ -65,11 +66,11 @@ public class BoardData {
             ClientData.SetDBdata(DBData);
     }
 
-    public BoardMsgClientData GetMyBoardMsgClientData(String key)
+    public BoardMsgClientData GetMyBoardMsgClientData(long boardIdx)
     {
         for(BoardMsgClientData data : MyBoardList)
         {
-            if(data.GetDBData().Key.equals(key))
+            if(data.GetDBData().BoardIdx == boardIdx)
                 return data;
         }
 

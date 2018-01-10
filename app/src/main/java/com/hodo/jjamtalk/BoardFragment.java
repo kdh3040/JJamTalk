@@ -55,7 +55,6 @@ public class BoardFragment extends Fragment {
         @Override
         public BoardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.content_board,parent,false);
-            //view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT));
 
             return new BoardViewHolder(view);
         }
@@ -137,7 +136,8 @@ public class BoardFragment extends Fragment {
                         if(BoradListAdapter.BoardDataLoding == false)
                         {
                             BoradListAdapter.BoardDataLoding = true;
-                            FirebaseData.getInstance().GetBoardData(BoradListAdapter, 2);
+                            BoardMsgClientData lastBoardData = mBoardInstanceData.BoardList.get(mBoardInstanceData.BoardList.size() - 1);
+                            FirebaseData.getInstance().GetBoardData(BoradListAdapter, 2,lastBoardData.GetDBData().BoardIdx);
                         }
                     }
                 }
@@ -170,10 +170,9 @@ public class BoardFragment extends Fragment {
 
                 // Intent 하면서 변수를 넘겨준다. TODO 환웅 키값을 넘겨주는게 좋지 않을까..
                 intent.putExtra("Target", position);
-                boardMsgData.PlusViewCount();
 
                 // 조회수 갱신
-                mFireBaseData.PushBoardViewCount(boardMsgData.GetDBData().Key);
+                // mFireBaseData.PushBoardViewCount(boardMsgData.GetDBData().Key);
 
                 startActivity(intent);
             }

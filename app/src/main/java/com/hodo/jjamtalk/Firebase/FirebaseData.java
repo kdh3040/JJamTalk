@@ -13,7 +13,9 @@ import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hodo.jjamtalk.BoardFragment;
+import com.hodo.jjamtalk.BoardWriteActivity;
 import com.hodo.jjamtalk.Data.BoardData;
+import com.hodo.jjamtalk.Data.BoardIndexData;
 import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.MyData;
@@ -271,12 +273,16 @@ public class FirebaseData {
 
     // 게시판 관련 함수 (환웅)
     BoardFragment.BoardListAdapter UpdateBoardAdapter = null;
-    public void GetBoardData(BoardFragment.BoardListAdapter updateBoardAdapter, int loadCount)
+    public void GetBoardData(BoardFragment.BoardListAdapter updateBoardAdapter, int loadCount, long startIdx)
     {
         UpdateBoardAdapter = updateBoardAdapter;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
-        Query data = FirebaseDatabase.getInstance().getReference().child("Board").limitToFirst(loadCount);
+        Query data = null;
+        if(startIdx == 0)
+            data = fierBaseDataInstance.getReference().child("Board").limitToFirst(loadCount);
+        else
+            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx - loadCount).endAt(startIdx); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
 
         data.addValueEventListener(new ValueEventListener() {
             @Override
@@ -295,79 +301,44 @@ public class FirebaseData {
         });
     }
 
-    /*private void SetBoardData() {
-
-        DatabaseReference refBoard;
-        refBoard = FirebaseDatabase.getInstance().getReference().child("Board");
-        refBoard.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                mBoardData.AddBoardData(dataSnapshot);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }*/
-
-    public void PushBoardViewCount(String boardkey)
-    {
+    private BoardWriteActivity WriteActivity = null;
+    public void SaveBoardData_1(BoardWriteActivity activity) {
+        WriteActivity = activity;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
-        DatabaseReference data = fierBaseDataInstance.getReference("Board").child(boardkey);
+        DatabaseReference data = fierBaseDataInstance.getReference("BoardIndx");
         data.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
-                BoardMsgDBData boardData = mutableData.getValue(BoardMsgDBData.class);
+                BoardIndexData boardData = mutableData.getValue(BoardIndexData.class);
                 if (boardData == null) {
                     return Transaction.success(mutableData);
                 }
-                if(boardData.ViewCount == null)
-                    boardData.ViewCount = "0";
-
-                int viewCount = Integer.parseInt(boardData.ViewCount);
-                viewCount++;
-                boardData.ViewCount = Integer.toString(viewCount);
+                boardData.BoardIdx++;
                 mutableData.setValue(boardData);
                 return Transaction.success(mutableData);
             }
 
             @Override
             public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                BoardData.getInstance().AddBoardData(dataSnapshot);
+                // TODO 환웅 성공 했을때 오는 함수 인듯
+                // TODO 환웅 콜백 함수가 있나?
+                BoardIndexData boardIndexData = dataSnapshot.getValue(BoardIndexData.class);
+                BoardData.getInstance().BoardIndexData.BoardIdx = boardIndexData.BoardIdx;
+                WriteActivity.SendBoard();
             }
         });
     }
 
-
-    public boolean SaveBoardData(BoardMsgDBData sendData) {
+    public boolean SaveBoardData_2(BoardMsgDBData sendData) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-        String BoardIdx = mAwsFunc.CreateBoardIdx(ctime.toString());
 
-        DatabaseReference table = database.getReference("Board").child(BoardIdx);
+        // TODO 환웅 보드 인덱스를 가져오는 트랙젝션을 하나 만들어야함
+        DatabaseReference table = database.getReference("Board").child("0");
 
         long time = System.currentTimeMillis();
-
         sendData.Date = ctime.format(new Date(time));
-        sendData.BoardIdx = BoardIdx;
-
         table.setValue(sendData);
 
         return  true;
