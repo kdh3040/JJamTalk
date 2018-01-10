@@ -56,7 +56,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                         sendData.Img = mMydata.getUserImg();
                         sendData.Msg = txt_Memo.getText().toString();
 
-                        mFireBaseData.SaveBoardData_1((BoardWriteActivity)mActivity);
+                        mFireBaseData.SaveBoardData_GetBoardIndex((BoardWriteActivity)mActivity);
                         //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
                         //finish();
                     }
@@ -83,6 +83,6 @@ public class BoardWriteActivity extends AppCompatActivity {
         sendData.Img = mMydata.getUserImg();
         sendData.Msg = txt_Memo.getText().toString();
 
-        mFireBaseData.SaveBoardData_2(sendData);
+        mFireBaseData.SaveBoardData(sendData);
     }
 }
