@@ -43,18 +43,31 @@ public class BoardMsgClientData {
             LikeCnt -= 1;
     }
 
+    public void AddLikeData(BoardLikeData data)
+    {
+        LikeList.add(data);
+        mDBData.Like.put(data.Idx, data);
+    }
+    public void RemoveLikeData(String idx)
+    {
+        for(BoardLikeData data : LikeList)
+        {
+            if(data.Idx.equals(idx))
+            {
+                LikeList.remove(data);
+                break;
+            }
+        }
+        mDBData.Like.remove(idx);
+    }
     public Boolean IsLikeUser(String idx)
     {
-        Iterator keyData = mDBData.Like.keySet().iterator();
-
-        String key;
-        while(keyData.hasNext())
+        for(BoardLikeData data : LikeList)
         {
-            key = (String)keyData.next();
-            BoardLikeData data = (BoardLikeData)mDBData.Like.get(key);
             if(data.Idx.equals(idx))
                 return true;
         }
+
         return false;
     }
 }

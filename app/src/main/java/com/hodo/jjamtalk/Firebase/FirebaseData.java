@@ -252,7 +252,7 @@ public class FirebaseData {
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
         Query data = FirebaseDatabase.getInstance().getReference().child("Board").limitToFirst(loadCount);
 
-        data.addValueEventListener(new ValueEventListener() {
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
@@ -269,14 +269,14 @@ public class FirebaseData {
 
     // 게시판 관련 함수 (환웅)
     BoardFragment.BoardListAdapter UpdateBoardAdapter = null;
-    public void GetBoardData(BoardFragment.BoardListAdapter updateBoardAdapter, int loadCount, long startIdx)
+    public void GetBoardData(BoardFragment.BoardListAdapter updateBoardAdapter, int loadCount, long startIdx, Boolean top)
     {
         UpdateBoardAdapter = updateBoardAdapter;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
         Query data = null;
-        if(startIdx == 0)
-            data = fierBaseDataInstance.getReference().child("Board").limitToFirst(loadCount);
+        if(top)
+            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx - loadCount).endAt(startIdx );
         else
             data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx).endAt(startIdx + loadCount); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
 
@@ -298,7 +298,7 @@ public class FirebaseData {
     }
 
     private BoardWriteActivity WriteActivity = null;
-    public void SaveBoardData_1(BoardWriteActivity activity) {
+    public void SaveBoardData_GetBoardIndex(BoardWriteActivity activity) {
         WriteActivity = activity;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
@@ -327,10 +327,11 @@ public class FirebaseData {
         });
     }
 
-    public boolean SaveBoardData_2(BoardMsgDBData sendData) {
+    public boolean SaveBoardData(BoardMsgDBData sendData) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMddHHmm");
 
+        // TODO 글을 쓸때는 게시판을 어쩌지??
         // TODO 환웅 보드 인덱스를 가져오는 트랙젝션을 하나 만들어야함
         DatabaseReference table = database.getReference("Board").child(Long.toString(BoardData.getInstance().BoardIdx));
 
@@ -342,29 +343,19 @@ public class FirebaseData {
         return  true;
     }
 
-    public boolean SaveBoardLikeData(String boardKey, BoardLikeData sendData)
+    public boolean SaveBoardLikeData(long boardIdx, BoardLikeData sendData)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Board").child(boardKey).child("Like").child(sendData.Idx);
-
-        long time = System.currentTimeMillis();
-        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
-
-        BoardLikeData tempData = new BoardLikeData();
-
-        tempData.Idx = sendData.Idx;
-        tempData.Img = sendData.Img;
-        tempData.Date = ctime.format(new Date(time));
-
-        table.setValue(tempData);
+        DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx)).child("Like").child(sendData.Idx);
+        table.setValue(sendData);
 
         return  true;
     }
 
-    public boolean RemoveBoardLikeData(String boardKey, String Idx)
+    public boolean RemoveBoardLikeData(long boardIdx, String Idx)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Board").child(boardKey).child("Like");
+        DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx)).child("Like").child(Idx);
         table.child(Idx).removeValue();
         return  true;
     }
