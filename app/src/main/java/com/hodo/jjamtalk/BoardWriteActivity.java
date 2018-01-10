@@ -27,12 +27,13 @@ public class BoardWriteActivity extends AppCompatActivity {
     Button btn_send;
     EditText txt_Memo;
     ImageView img_Profile1, img_Profile2, img_Profile3;
+    Activity mActivity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_write);
-        final Activity mActivity = this;
+        mActivity = this;
 
         txt_Memo = (EditText)findViewById(R.id.Write_txtMemo);
 
@@ -51,12 +52,11 @@ public class BoardWriteActivity extends AppCompatActivity {
                         BoardMsgDBData sendData = new BoardMsgDBData();
 
                         sendData.NickName = mMydata.getUserNick();
-                        sendData.Age = mMydata.getUserAge();
                         sendData.Idx = mMydata.getUserIdx();
                         sendData.Img = mMydata.getUserImg();
                         sendData.Msg = txt_Memo.getText().toString();
 
-                        mFireBaseData.SaveBoardData(sendData);
+                        mFireBaseData.SaveBoardData_1((BoardWriteActivity)mActivity);
                         txt_Memo.setText("");
                         //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
                         //finish();
@@ -73,5 +73,17 @@ public class BoardWriteActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void SendBoard()
+    {
+        BoardMsgDBData sendData = new BoardMsgDBData();
+
+        sendData.NickName = mMydata.getUserNick();
+        sendData.Idx = mMydata.getUserIdx();
+        sendData.Img = mMydata.getUserImg();
+        sendData.Msg = txt_Memo.getText().toString();
+
+        mFireBaseData.SaveBoardData_2(sendData);
     }
 }
