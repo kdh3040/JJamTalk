@@ -15,9 +15,9 @@
 
         android:layout_height="50dp"
 
-        android:background="@drawable/rounded_top_yellow"
+        android:background="@drawable/rounded_top_dialog"
         android:gravity="center"
-        android:text="선물하기"
+        android:text="골드 선물하기"
         android:textColor="@color/textColorLight"
         android:textSize="18sp" />
 
@@ -175,7 +175,8 @@
             android:layout_weight="1"
             android:background="@drawable/button_pressed"
             android:text="보낸다"
-            android:textSize="18sp" />
+            android:textSize="18dp"
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/btn_gift_cancel"
@@ -185,8 +186,9 @@
             android:layout_weight="1"
             android:background="@drawable/button_pressed"
             android:text="취소"
-            android:textColor="@color/textColorDark"
-            android:textSize="18sp" />
+            android:textSize="18dp"
+            android:textColor="@color/white"
+             />
     </LinearLayout>
 
 </LinearLayout>

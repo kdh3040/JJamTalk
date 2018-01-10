@@ -65,7 +65,7 @@ public class MyPageActivity extends AppCompatActivity {
         });*/
 
         iv_gold = findViewById(R.id.iv_gold);
-        iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+        //iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 
         /*iv_jewely=findViewById(R.id.iv_jewely);
         iv_jewely.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
@@ -73,8 +73,7 @@ public class MyPageActivity extends AppCompatActivity {
 
 
 
-        iv_gold = findViewById(R.id.iv_gold);
-        iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+
 
         iv_MyGift=findViewById(R.id.iv_myGift);
         iv_MyGift.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +95,7 @@ public class MyPageActivity extends AppCompatActivity {
         //txt_MyHeartCnt.setText("보유 골드: " + nGold);
 
         btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
-        btn_Setting.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+        //btn_Setting.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 
         btn_Setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +138,7 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
         btn_my_profile = (ImageButton)findViewById(R.id.ib_my_profile);
-        btn_my_profile.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+        //btn_my_profile.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
         btn_my_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
