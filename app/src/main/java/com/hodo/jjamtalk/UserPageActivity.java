@@ -809,28 +809,6 @@ public class UserPageActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-/*
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.MyAlertDialog);
-        alertDialogBuilder.setTitle(s);
-        alertDialogBuilder.setMessage(s1)
-                .setCancelable(true)
-                .setPositiveButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                })
-                .setNegativeButton(s2,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                boolean rtValuew = mMyData.makeCardList(stTargetData);
-                                Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        alertDialog.show();*/
     }
 
     public void getTargetfanData() {

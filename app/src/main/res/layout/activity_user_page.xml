@@ -204,6 +204,7 @@
                     android:layout_height="100dp" />
             </LinearLayout>
             <View
+                android:id="@+id/Divide_Btn"
                 style="@style/Divider"
                 />
 
