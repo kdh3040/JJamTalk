@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
     <resources>
-    <color name= "textColorDark">#4e342e</color>
-    <color name = "textColorLightDark">#a1887f</color>
+    <color name= "textColorDark">#ffffff</color>
+    <color name = "textColorLightDark">#ffffff</color>
     <color name= "textColorLight">#fdd835</color>
         <color name="colorPrimary">#ffffff</color>
 
         <color name="colorPrimaryDark">#000000</color>
-        <color name="colorPrimaryLight">#fff176</color>
-    <color name = "colorAccentDark">#fdd835</color>
+        <color name="colorPrimaryLight">#5C6BC0</color>
+    <color name = "colorAccentDark">#3949AB</color>
         <color name="colorAccent">#3F51B5</color>
     <color name = "colorDark">#4e342e</color>
     <color name = "bg_grid">#ffffff</color>

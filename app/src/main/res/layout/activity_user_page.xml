@@ -226,7 +226,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:src="@drawable/btn_card_selected"
+                    android:src="@drawable/icon_card"
                     android:background="@drawable/imgbt_state"
  />
 
@@ -254,7 +254,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_gold_gift"
+                    android:src="@drawable/icon_gold_gift"
                     android:background="@drawable/imgbt_state"
 
                      />
