@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -60,6 +61,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
     private UserData stTargetData = new UserData();
 
+    private Button Btn_Insta;
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReferenceFromUrl("gs://jamtalk-cf526.appspot.com/");
@@ -104,6 +106,8 @@ public class MyProfileActivity extends AppCompatActivity {
         Img_Profiles[3] = (ImageView) findViewById(R.id.MyProfile_Img4);
         //Img_Profiles[4] = (ImageView)findViewById(R.id.MyProfile_Img5);
 
+        Btn_Insta = (Button)findViewById(R.id.MyProfile_Btn_Insta);
+
         et_Memo = (EditText) findViewById(R.id.MyProfile_Memo);
         et_Memo.setText(mMyData.getUserMemo());
 
@@ -146,6 +150,9 @@ public class MyProfileActivity extends AppCompatActivity {
                     case R.id.MyProfile_Img4:
                         popUp(3);
                         break;
+                    case R.id.MyProfile_Btn_Insta:
+
+                        break;
 
                 }
             }
@@ -156,6 +163,9 @@ public class MyProfileActivity extends AppCompatActivity {
         Img_Profiles[1].setOnClickListener(listener);
         Img_Profiles[2].setOnClickListener(listener);
         Img_Profiles[3].setOnClickListener(listener);
+
+        Btn_Insta.setOnClickListener(listener);
+
         //Img_Profiles[4].setOnClickListener(listener);*/
 
         Glide.with(getApplicationContext())
