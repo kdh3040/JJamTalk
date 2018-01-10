@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -49,6 +50,12 @@ public class BoardFragment extends Fragment {
     // 보드 리스트 UI
     RecyclerView BoardSlotListRecycler;
     Button WriteButton, MyWriteListButton;
+
+    private void refreshFragMent()
+    {
+        FragmentTransaction trans = getFragmentManager().beginTransaction();
+        trans.detach(this).attach(this).commit();
+    }
 
     public class BoardListAdapter extends RecyclerView.Adapter<BoardViewHolder> {
         public Boolean BoardDataLoding = false;
@@ -103,7 +110,9 @@ public class BoardFragment extends Fragment {
                         mFireBaseData.SaveBoardLikeData(BoardData.GetDBData().BoardIdx, sendData);
                         BoardData.LikeCnt++;
                     }
-                    RefreshLikeIcon(BoardData);
+                    //BoradListAdapter.notifyDataSetChanged();
+                    refreshFragMent();
+                    //RefreshLikeIcon(BoardData);
                 }
             });
         }
@@ -130,6 +139,7 @@ public class BoardFragment extends Fragment {
         if (mFragmentView != null) {
             // Fragment가 다시 새로 만들어 질때 갱신
             //CommonFunc.getInstance().refreshFragMent(this);
+            BoradListAdapter.notifyDataSetChanged();
         }
         else
         {
@@ -137,7 +147,7 @@ public class BoardFragment extends Fragment {
             BoardSlotListRecycler = (RecyclerView)mFragmentView.findViewById(R.id.board_recy);
             BoardSlotListRecycler.setAdapter(BoradListAdapter);
             BoardSlotListRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-
+            BoradListAdapter.notifyDataSetChanged();
             BoardSlotListRecycler.setOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
