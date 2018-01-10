@@ -1,7 +1,5 @@
 package com.hodo.jjamtalk.Firebase;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,8 +13,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.hodo.jjamtalk.BoardFragment;
 import com.hodo.jjamtalk.BoardWriteActivity;
 import com.hodo.jjamtalk.Data.BoardData;
-import com.hodo.jjamtalk.Data.BoardIndexData;
-import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
@@ -282,7 +278,7 @@ public class FirebaseData {
         if(startIdx == 0)
             data = fierBaseDataInstance.getReference().child("Board").limitToFirst(loadCount);
         else
-            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx - loadCount).endAt(startIdx); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
+            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx).endAt(startIdx + loadCount); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
 
         data.addValueEventListener(new ValueEventListener() {
             @Override
@@ -306,16 +302,17 @@ public class FirebaseData {
         WriteActivity = activity;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
-        DatabaseReference data = fierBaseDataInstance.getReference("BoardIndx");
+        DatabaseReference data = fierBaseDataInstance.getReference("BoardIdx");
         data.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
-                BoardIndexData boardData = mutableData.getValue(BoardIndexData.class);
-                if (boardData == null) {
+                Long index = mutableData.getValue(Long.class);
+                if(index == null)
                     return Transaction.success(mutableData);
-                }
-                boardData.BoardIdx++;
-                mutableData.setValue(boardData);
+
+                index--;
+
+                mutableData.setValue(index);
                 return Transaction.success(mutableData);
             }
 
@@ -323,8 +320,8 @@ public class FirebaseData {
             public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
                 // TODO 환웅 성공 했을때 오는 함수 인듯
                 // TODO 환웅 콜백 함수가 있나?
-                BoardIndexData boardIndexData = dataSnapshot.getValue(BoardIndexData.class);
-                BoardData.getInstance().BoardIndexData.BoardIdx = boardIndexData.BoardIdx;
+                long index = dataSnapshot.getValue(long.class);
+                BoardData.getInstance().BoardIdx = index;
                 WriteActivity.SendBoard();
             }
         });
@@ -332,13 +329,14 @@ public class FirebaseData {
 
     public boolean SaveBoardData_2(BoardMsgDBData sendData) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMddHHmm");
 
         // TODO 환웅 보드 인덱스를 가져오는 트랙젝션을 하나 만들어야함
-        DatabaseReference table = database.getReference("Board").child("0");
+        DatabaseReference table = database.getReference("Board").child(Long.toString(BoardData.getInstance().BoardIdx));
 
         long time = System.currentTimeMillis();
         sendData.Date = ctime.format(new Date(time));
+        sendData.BoardIdx = BoardData.getInstance().BoardIdx;
         table.setValue(sendData);
 
         return  true;

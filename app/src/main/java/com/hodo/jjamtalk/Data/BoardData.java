@@ -3,6 +3,8 @@ package com.hodo.jjamtalk.Data;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by boram on 2017-08-16.
@@ -24,7 +26,7 @@ public class BoardData {
     {
     }
 
-    public BoardIndexData BoardIndexData = new BoardIndexData();
+    public long BoardIdx = 0;
     public ArrayList<BoardMsgClientData> BoardList = new ArrayList<>();
     public ArrayList<BoardMsgClientData> MyBoardList = new ArrayList<>();
 
@@ -37,6 +39,7 @@ public class BoardData {
         {
             ClientData = new BoardMsgClientData(DBData);
             BoardList.add(ClientData);
+            Collections.sort(BoardList, new BoardSort());
         }
         else
             ClientData.SetDBdata(DBData);
@@ -75,6 +78,19 @@ public class BoardData {
         }
 
         return null;
+    }
+}
+
+class BoardSort implements Comparator<BoardMsgClientData>{
+    @Override
+    public int compare(BoardMsgClientData a, BoardMsgClientData b)
+    {
+        if(a.GetDBData().BoardIdx > b.GetDBData().BoardIdx )
+            return 1;
+        else if(a.GetDBData().BoardIdx < b.GetDBData().BoardIdx )
+            return -1;
+        else
+            return 0;
     }
 }
 

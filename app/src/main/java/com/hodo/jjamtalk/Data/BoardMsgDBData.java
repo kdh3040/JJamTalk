@@ -14,7 +14,7 @@ public class BoardMsgDBData {
     public String NickName;
     public String Date;
     public String Msg;
-    public Long BoardIdx;
+    public long BoardIdx;
 
     public Map<String, BoardLikeData> Like = new LinkedHashMap<String, BoardLikeData>();
 }

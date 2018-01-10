@@ -57,7 +57,6 @@ public class BoardWriteActivity extends AppCompatActivity {
                         sendData.Msg = txt_Memo.getText().toString();
 
                         mFireBaseData.SaveBoardData_1((BoardWriteActivity)mActivity);
-                        txt_Memo.setText("");
                         //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
                         //finish();
                     }
