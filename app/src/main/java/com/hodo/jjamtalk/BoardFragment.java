@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,16 +17,25 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.BoardLikeData;
 import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
+
+import java.util.LinkedHashMap;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -47,6 +57,8 @@ public class BoardFragment extends Fragment {
     // 보드 리스트 아답터
     BoardListAdapter BoradListAdapter = new BoardListAdapter();
 
+    // 보드 글쓴이 데이터
+    private UserData _BoardWriterData = new UserData();
     // 보드 리스트 UI
     RecyclerView BoardSlotListRecycler;
     Button WriteButton, MyWriteListButton;
@@ -70,11 +82,11 @@ public class BoardFragment extends Fragment {
         @Override
         public void onBindViewHolder(BoardViewHolder holder, final int position) {
             //holder.idTextView.setText("호근 ,37, 20km");
-            BoardMsgClientData BoardData =  mBoardInstanceData.BoardList.get(position);
+            final BoardMsgClientData BoardData =  mBoardInstanceData.BoardList.get(position);
             ViewHolder = holder;
             if(BoardData == null)
                  return;
-            BoardMsgDBData dbData = BoardData.GetDBData();
+            final BoardMsgDBData dbData = BoardData.GetDBData();
 
             Glide.with(getContext())
                     .load(dbData.Img)
@@ -89,37 +101,106 @@ public class BoardFragment extends Fragment {
 
             RefreshLikeIcon(BoardData);
 
-            holder.BoardLikeButton.setOnClickListener(new View.OnClickListener() {
+            View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    BoardMsgClientData BoardData =  mBoardInstanceData.BoardList.get(position);
-                    if(BoardData.IsLikeUser(mMyData.getUserIdx()))
-                    {
-                        BoardData.RemoveLikeData(mMyData.getUserIdx());
-                        mFireBaseData.RemoveBoardLikeData(BoardData.GetDBData().BoardIdx, mMyData.getUserIdx());
-                        BoardData.LikeCnt--;
-                    }
-                    else
-                    {
-                        BoardLikeData sendData = new BoardLikeData();
+                    switch (view.getId()) {
+                        case R.id.board_writer:
+                        case R.id.board_msg:
+                        case R.id.board_write_date:
+                        case R.id.board_thumnail:
+                        case R.id.board_like_count:
+                            getBoardWriterData(position);
+                            break;
 
-                        sendData.Idx = mMyData.getUserIdx();
-                        sendData.Img = mMyData.getUserImg();
+                        case R.id.board_like_button:
+                            BoardMsgClientData BoardData =  mBoardInstanceData.BoardList.get(position);
+                            if(BoardData.IsLikeUser(mMyData.getUserIdx()))
+                            {
+                                BoardData.RemoveLikeData(mMyData.getUserIdx());
+                                mFireBaseData.RemoveBoardLikeData(BoardData.GetDBData().BoardIdx, mMyData.getUserIdx());
+                                BoardData.LikeCnt--;
+                            }
+                            else
+                            {
+                                BoardLikeData sendData = new BoardLikeData();
 
-                        BoardData.AddLikeData(sendData);
-                        mFireBaseData.SaveBoardLikeData(BoardData.GetDBData().BoardIdx, sendData);
-                        BoardData.LikeCnt++;
+                                sendData.Idx = mMyData.getUserIdx();
+                                sendData.Img = mMyData.getUserImg();
+
+                                BoardData.AddLikeData(sendData);
+                                mFireBaseData.SaveBoardLikeData(BoardData.GetDBData().BoardIdx, sendData);
+                                BoardData.LikeCnt++;
+                            }
+                            //BoradListAdapter.notifyDataSetChanged();
+                            refreshFragMent();
+                            break;
                     }
-                    //BoradListAdapter.notifyDataSetChanged();
-                    refreshFragMent();
-                    //RefreshLikeIcon(BoardData);
                 }
-            });
+            };
+            holder.BoardMsg.setOnClickListener(listener);
+            holder.BoardThumnail.setOnClickListener(listener);
+            holder.BoardWriter.setOnClickListener(listener);
+            holder.BoardDate.setOnClickListener(listener);
+            holder.BoardLikeCount.setOnClickListener(listener);
+            holder.BoardLikeButton.setOnClickListener(listener);
+
         }
 
         @Override
         public int getItemCount() {
             return mBoardInstanceData.BoardList.size();
+        }
+
+        // 글쓴이 페이지로 이동하는 함수
+        public void moveWriterPage(UserData stTargetData)
+        {
+            Intent intent = new Intent(getContext(), UserPageActivity.class);
+            Bundle bundle = new Bundle();
+
+            bundle.putSerializable("Target", stTargetData);
+ /*           intent.putExtra("FanList", stTargetData.arrFanList);
+            intent.putExtra("FanCount", stTargetData.FanCount);
+
+            intent.putExtra("StarList", stTargetData.arrStarList);*/
+
+            intent.putExtras(bundle);
+
+            startActivity(intent);
+        }
+
+        // 글쓴이 데이터 받아오는 함수
+        public void getBoardWriterData(final int position) {
+            final String strTargetIdx = mBoardInstanceData.BoardList.get(position).GetDBData().Idx;
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference table = null;
+            table = database.getReference("User");
+
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int saa = 0;
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    if(tempUserData != null)
+                    {
+                        _BoardWriterData = tempUserData;
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                            _BoardWriterData.arrStarList.add(entry.getValue());
+                        }
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                            _BoardWriterData.arrFanList.add(entry.getValue());
+                        }
+
+                        moveWriterPage(_BoardWriterData);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
         }
 
         private void RefreshLikeIcon(BoardMsgClientData boardData) {
@@ -140,6 +221,7 @@ public class BoardFragment extends Fragment {
             // Fragment가 다시 새로 만들어 질때 갱신
             //CommonFunc.getInstance().refreshFragMent(this);
             BoradListAdapter.notifyDataSetChanged();
+            //refreshFragMent();
         }
         else
         {

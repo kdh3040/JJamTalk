@@ -301,7 +301,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void GoMainPage() {
-        FirebaseData.getInstance().GetInitBoardData(3);
+        FirebaseData.getInstance().GetInitBoardData(10);
         SetBoardMyData();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);

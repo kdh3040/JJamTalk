@@ -45,7 +45,7 @@ public class BoardWriteActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder= new AlertDialog.Builder(mActivity);
+                final AlertDialog.Builder builder= new AlertDialog.Builder(mActivity);
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -57,8 +57,9 @@ public class BoardWriteActivity extends AppCompatActivity {
                         sendData.Msg = txt_Memo.getText().toString();
 
                         mFireBaseData.SaveBoardData_GetBoardIndex((BoardWriteActivity)mActivity);
+
                         //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
-                        //finish();
+                        finish();
                     }
                 }).
                         setNegativeButton("취소", new DialogInterface.OnClickListener() {
