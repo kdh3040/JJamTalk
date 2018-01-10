@@ -20,6 +20,8 @@ import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.MailboxViewHolder;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by mjk on 2017. 8. 22..
  */
@@ -48,11 +50,13 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
         Glide.with(mActivity)
                 .load(mMyData.arrGiftHoneyDataList.get(position).strTargetImg)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .bitmapTransform(new CropCircleTransformation(mActivity))
                 .into(holder.imageView);
 
         holder.SendDate.setText(mMyData.arrGiftHoneyDataList.get(position).strSendDate);
 
-        holder.textView.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney));
+        holder.textView.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney)+"개");
 
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
