@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
     private LocationFunc mLocalFunc = LocationFunc.getInstance();
-    private BoardData mBoardData = BoardData.getInstance();
+    //private BoardData mBoardData = BoardData.getInstance();
 
     //String strMyIdx = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
     String strMyIdx; // = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
@@ -317,7 +317,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                mBoardData.AddMyBoardData(dataSnapshot);
+                //mBoardData.AddMyBoardData(dataSnapshot);
             }
 
             @Override
@@ -351,7 +351,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         refBoard.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                mBoardData.AddBoardData(dataSnapshot);
+                //mBoardData.AddBoardData(dataSnapshot);
           }
 
             @Override

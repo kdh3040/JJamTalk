@@ -168,7 +168,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="홈"
-            android:textColor="@color/textColorDark"/>
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView36"
@@ -177,7 +177,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="카드"
-            android:textColor="@color/textColorDark"/>
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView35"
@@ -186,7 +186,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="채팅"
-            android:textColor="@color/textColorDark"/>
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView33"
@@ -195,7 +195,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="팬"
-            android:textColor="@color/textColorDark"/>
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView43"
@@ -203,7 +203,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/textColorDark"
+            android:textColor="@color/white"
             android:text="게시판"
             />
 

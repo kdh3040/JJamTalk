@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -78,12 +79,12 @@ public class UserPageActivity extends AppCompatActivity {
     private TextView txt_Fan_4;
 
 
-    private Button btnRegister;
-    private Button btnGiftHoney;
-    private Button btnGiftJewel;
+    private ImageButton btnRegister;
+    private ImageButton btnGiftHoney;
+    private ImageButton btnGiftJewel;
 
     private ImageButton btnShare;
-    private Button btnMessage;
+    private ImageButton btnMessage;
    // private Button btnPublicChat;
 
     private ImageView imgProfile;
@@ -178,12 +179,12 @@ public class UserPageActivity extends AppCompatActivity {
         //txtHeart.setText(Integer.toString(stTargetData.Honey));
 
 
-        btnRegister = (Button) findViewById(R.id.UserPage_btnRegister);
-        btnGiftHoney = (Button) findViewById(R.id.UserPage_btnGiftHoney);
-        btnGiftJewel = (Button)findViewById(R.id.UserPage_btnGiftJewel);
+        btnRegister = findViewById(R.id.UserPage_btnRegister);
+        btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
+        btnGiftJewel = findViewById(R.id.UserPage_btnGiftJewel);
 
 
-        btnMessage = (Button) findViewById(R.id.UserPage_btnMessage);
+        btnMessage =  findViewById(R.id.UserPage_btnMessage);
         /*btnPublicChat = (Button) findViewById(R.id.UserPage_btnPublicChat);
         btnPublicChat.setOnClickListener(new View.OnClickListener() {
             @Override

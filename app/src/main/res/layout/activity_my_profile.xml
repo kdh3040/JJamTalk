@@ -63,7 +63,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="20dp"
             android:text="닉네임"
-            android:textColor="@color/indicator_3"
+            android:textColor="@color/textColorLight"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:text="나이"
-            android:textColor="@color/indicator_3"
+            android:textColor="@color/textColorLight"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -111,7 +111,7 @@
             android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:text="하고 싶은 말"
-            android:textColor="@color/indicator_3"
+            android:textColor="@color/textColorLight"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -131,7 +131,7 @@
             android:layout_margin="10dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:textColor="@color/indicator_3"
+            android:textColor="@color/textColorLight"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:text="내 instagram 사진 연결하기"
-            android:textColor="@color/indicator_3"
+            android:textColor="@color/textColorLight"
             android:textSize="18sp"
             android:textStyle="bold" />
 

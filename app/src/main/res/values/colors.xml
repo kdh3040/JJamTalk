@@ -5,11 +5,12 @@
     <color name= "textColorLight">#fdd835</color>
         <color name="colorPrimary">#ffffff</color>
 
-        <color name="colorPrimaryDark">#4e342e</color>
+        <color name="colorPrimaryDark">#000000</color>
         <color name="colorPrimaryLight">#fff176</color>
     <color name = "colorAccentDark">#fdd835</color>
-        <color name="colorAccent">#fdd835</color>
+        <color name="colorAccent">#3F51B5</color>
     <color name = "colorDark">#4e342e</color>
+    <color name = "bg_grid">#ffffff</color>
 
         <color name="gray">#9e9e9e</color>
         <color name="tp_half">#80ffffff</color>
@@ -21,10 +22,10 @@
         <color name="brown">#5d4037</color>
         <color name="colorPrimaryTrans">#40ffffff</color>
 
-        <color name="indicator_1">#ffffff</color>
-        <color name="indicator_2">#ffffff</color>
-        <color name="indicator_3">#985b10</color>
-        <color name="indicator_4">#6b4701</color>
+        <color name="tabIndicatorColor">#ffffff</color>
+        <color name="tabSelectedTextColor">#ffffff</color>
+        <color name="tabTextColor">#9e9e9e</color>
+        <color name="tabBackground">@color/colorAccent</color>
         <color name="fabPrimary">#45a1f5</color>
         <color name="fabPressed">#6eb5f7</color>
         <color name="fabRipple">#AED6FC</color>
