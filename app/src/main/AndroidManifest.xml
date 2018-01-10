@@ -57,7 +57,7 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MyProfileActivity"
             android:theme="@style/MyTheme"
-            android:parentActivityName=".MyPageActivity"
+
             />
         <activity android:name=".MyPageActivity"
             android:theme="@style/MyTheme"

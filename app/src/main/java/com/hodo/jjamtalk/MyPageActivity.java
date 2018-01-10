@@ -146,8 +146,7 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));
-
-                //finish();
+                finish();
             }
         });
 

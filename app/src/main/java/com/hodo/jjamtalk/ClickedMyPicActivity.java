@@ -70,6 +70,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                // RefreshData(refreshlayout);
+                refreshlayout.setRefreshing(false);
             }
         });
 

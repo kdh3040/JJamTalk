@@ -380,6 +380,9 @@ public class MyProfileActivity extends AppCompatActivity {
             mFireBaseData.SaveData(mMyData.getUserIdx());
             bChangeImg = false;
 
+            Intent intent = new Intent(this, MyPageActivity.class);
+            startActivity(intent);
+            finish();
         }
         if(item.getItemId() == android.R.id.home)
         {
@@ -392,6 +395,10 @@ public class MyProfileActivity extends AppCompatActivity {
             mMyData.setProfileData(et_Memo.getText());
             mFireBaseData.SaveData(mMyData.getUserIdx());
             bChangeImg = false;
+
+            Intent intent = new Intent(this, MyPageActivity.class);
+            startActivity(intent);
+            finish();
             //onBackPressed();
         }
 
@@ -425,6 +432,24 @@ public class MyProfileActivity extends AppCompatActivity {
     public  void DeleteFireBaseData(final int Index)
     {
         mFireBaseData.SaveData(mMyData.getUserIdx());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
+
+         /*   if(bChangeImg)
+                UploadImage_Firebase(mMyData.urSaveUri);*/
+
+        mMyData.setUserNick(et_NickName.getText().toString());
+        mMyData.setProfileData(et_Memo.getText());
+        mFireBaseData.SaveData(mMyData.getUserIdx());
+        bChangeImg = false;
+
+        Intent intent = new Intent(this, MyPageActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
