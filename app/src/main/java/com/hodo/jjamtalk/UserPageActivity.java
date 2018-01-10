@@ -127,7 +127,7 @@ public class UserPageActivity extends AppCompatActivity {
         TempSendUserData.arrFanList = stTargetData.arrFanList;
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
-        txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
+        txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age+"세");
 
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
         if(stTargetData.Memo == null || stTargetData.Memo.equals(""))

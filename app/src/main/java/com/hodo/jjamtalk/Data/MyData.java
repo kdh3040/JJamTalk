@@ -34,6 +34,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Created by boram on 2017-08-04.
@@ -123,6 +124,8 @@ public class MyData {
     public int item_7;
     public int item_8;
 
+    public int bestItem;
+
     public ArrayList<String> arrBlockNameList = new ArrayList<>();
     public ArrayList<BlockData> arrBlockDataList = new ArrayList<>();
 
@@ -188,7 +191,7 @@ public class MyData {
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
                           String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
-                          int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8) {
+                          int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem) {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -271,6 +274,7 @@ public class MyData {
             itemList.put(7, item_8);
         }
 
+        bestItem = _UserBestItem;
 
         Set<Integer> set = itemList.keySet();
         Iterator<Integer> key = set.iterator();
@@ -1574,7 +1578,6 @@ public class MyData {
            {
                if(item_7 == 0){
                    nItemCount++;
-
                }
 
                item_7++;
@@ -1586,7 +1589,6 @@ public class MyData {
            {
                if(item_8 == 0){
                    nItemCount++;
-
                }
 
                item_8++;
@@ -1594,6 +1596,8 @@ public class MyData {
                break;
            }
        }
+
+       bestItem = SetBestItem();
 
        refreshItemIdex();
 
@@ -1611,6 +1615,16 @@ public class MyData {
         user.child("Item_6").setValue(item_6);
         user.child("Item_7").setValue(item_7);
         user.child("Item_8").setValue(item_8);
+        user.child("BestItem").setValue(bestItem);
+    }
+
+    private int SetBestItem() {
+        int rtValue = 0;
+        TreeMap<Integer,Integer> tm = new TreeMap<Integer,Integer>(itemList);
+        Iterator<Integer> iteratorKey = tm.descendingKeySet().iterator(); //키값 내림차순 정렬
+        rtValue = iteratorKey.next();
+            //System.out.println(key+","+tm.get(key));
+        return rtValue;
     }
 
     public int getFanCount() {

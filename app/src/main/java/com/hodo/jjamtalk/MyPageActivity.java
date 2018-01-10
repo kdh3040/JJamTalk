@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UIData;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -28,6 +29,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class MyPageActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
+    UIData mUIdata = UIData.getInstance();
 
     ImageButton btn_Setting,btn_my_profile,btn_history;
     Button btn_Gold;
@@ -76,6 +78,7 @@ public class MyPageActivity extends AppCompatActivity {
 
 
         iv_MyGift=findViewById(R.id.iv_myGift);
+        iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
         iv_MyGift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +91,7 @@ public class MyPageActivity extends AppCompatActivity {
         txt_MyGoldCnt = findViewById(R.id.tv_goldsize);
         txt_MyProfile = (TextView)findViewById(R.id.MyPage_txtProfile);
 
-        txt_MyProfile.setText(mMyData.getUserNick() + "," + mMyData.getUserAge());
+        txt_MyProfile.setText( mMyData.getUserNick() + ",  " + mMyData.getUserAge()+"세");
 
         int nGold = mMyData.getUserHoney();
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
