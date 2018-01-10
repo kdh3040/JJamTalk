@@ -38,8 +38,10 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -84,6 +86,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     LinearLayoutManager mLinearLayoutManager;
     SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm");
 
+    int     tempPosition;
     SendData tempChatData;
     String  tempChatIdx;
 
@@ -136,6 +139,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         Intent intent = getIntent();
       //  progressBar = (ProgressBar)findViewById(R.id.chat_Progress);
 
+        tempPosition = (int) intent.getExtras().getSerializable("Position");
         tempChatData = (SendData) intent.getExtras().getSerializable("ChatData");
         tempChatIdx = (String) intent.getExtras().getSerializable("ChatIdx");
 
@@ -511,14 +515,37 @@ public class ChatRoomActivity extends AppCompatActivity {
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        mMyData.makeBlockList(tempChatData);
 
-                        mFireBaseData.DelChatData(tempChatData.strSendName);
-                        mFireBaseData.DelSendData(tempChatData.strSendName);
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference table;
+                        table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
+                        table.child(tempChatData.strSendName).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                dataSnapshot.getRef().removeValue();
+
+                                mMyData.makeBlockList(tempChatData);
+
+                                mFireBaseData.DelChatData(tempChatData.strSendName);
+                                mFireBaseData.DelSendData(tempChatData.strSendName);
+
+
+                                mMyData.arrSendDataList.remove(tempPosition);
+                                mMyData.arrSendNameList.remove(tempPosition);
+                                finish();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
 
                         //Intent intent = new Intent(getApplicationContext(),ChatListActivity.class);
                         //startActivity(intent);
-                        finish();
+
                     }
                 }).
                         setNegativeButton("취소", new DialogInterface.OnClickListener() {

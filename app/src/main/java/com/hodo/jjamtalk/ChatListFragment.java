@@ -252,6 +252,7 @@ public class ChatListFragment extends Fragment {
         {
             SendData mSendData = mMyData.arrSendDataList.get(position);
             Intent intent = new Intent(getContext(),ChatRoomActivity.class);
+            intent.putExtra("Position", position);
             intent.putExtra("ChatData", mSendData);
             intent.putExtra("ChatIdx", strTargetIdx);
 

@@ -119,6 +119,7 @@
         android:layout_height="0dp"
 
         android:layout_weight="1"
+        android:weightSum="2"
         android:orientation="horizontal">
 
         <ImageView
@@ -133,12 +134,15 @@
             android:background="@drawable/round_btn_bg"
             android:translationZ="1dp"
             app:srcCompat="@drawable/ic_gold" />
+
         <TextView
             android:id="@+id/tv_goldsize"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
             android:text="내 프로필" />
 
 
