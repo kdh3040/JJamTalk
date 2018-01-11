@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 
@@ -56,18 +59,28 @@ public class CustomPagerAdapter extends PagerAdapter{
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item,container,false);
-        ImageView imageView = (ImageView)itemView.findViewById(R.id.imageView);
+        final ImageView imageView = (ImageView)itemView.findViewById(R.id.imageView);
+        
+        Glide.with(mContext).load(strImgGroup[position])
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable glideDrawable, String s, Target<GlideDrawable> target, boolean b, boolean b1) {
+                        if (mAttacher != null) {
+                            mAttacher.update();
+                        } else {
+                            mAttacher = new PhotoViewAttacher(imageView);
+                           // mAttacher.setScaleType(ImageView.ScaleType.FIT_XY);
+                        }
+                        return false;
+                    }
+                }).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
 
 
-            Glide.with(mContext)
-                    //.load(mMyData.strProfileImg[position])
-                    .load(strImgGroup[position])
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .thumbnail(0.1f)
-                    .into(imageView);
-
-        mAttacher = new PhotoViewAttacher(imageView);
-        mAttacher.setScaleType(ImageView.ScaleType.FIT_XY);
         container.addView(itemView);
 
         return itemView;
