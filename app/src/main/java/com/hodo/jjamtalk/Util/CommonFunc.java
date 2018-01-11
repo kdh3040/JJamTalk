@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk.Util;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 /**

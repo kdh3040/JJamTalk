@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,6 +51,7 @@ public class ChatListFragment extends Fragment {
     //private ArrayList<String> arrChatNameData = new ArrayList<>();
     //private ArrayList<SendData> arrChatData = new ArrayList<>();
     Menu mMenu;
+    Context mTempContext;
     Context mContext;
     UIData mUIData = UIData.getInstance();
     LinearLayout layout_chatlist;
@@ -64,8 +66,8 @@ public class ChatListFragment extends Fragment {
 
     ChatListAdapter mAdapter = new ChatListAdapter();
 
-    public ChatListFragment() {
-
+    public ChatListFragment(Context Context) {
+        mTempContext = Context;
     }
 
     /*
@@ -97,6 +99,7 @@ public class ChatListFragment extends Fragment {
         else
         {
             fragView = inflater.inflate(R.layout.fragment_chat_list,container,false);
+            fragView.setTag("ChatListFragment");
             chatListRecyclerView = fragView.findViewById(R.id.chat_list_recy);
 
             chatListRecyclerView.setAdapter(mAdapter);
@@ -121,11 +124,7 @@ public class ChatListFragment extends Fragment {
         public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.content_chat_list,parent,false);
 
-
             view.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
-
-
-
             return new ChatListViewHolder(view);
         }
 

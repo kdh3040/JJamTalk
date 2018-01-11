@@ -596,6 +596,7 @@ public class InputProfile extends AppCompatActivity {
         SetBoardData();
         SetBoardMyData();
         Intent intent = new Intent(InputProfile.this, MainActivity.class);
+        intent.putExtra("StartFragment", 0);
         startActivity(intent);
         finish();
     }

@@ -156,6 +156,8 @@ public class MyData {
 
     public  String strDownUri;
 
+    public  boolean bChatRefresh = false;
+
     private MyData() {
         strImg = null;
         strNick = null;

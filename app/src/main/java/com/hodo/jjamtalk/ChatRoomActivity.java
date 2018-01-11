@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -52,6 +55,7 @@ import com.hodo.jjamtalk.Data.PublicRoomChatData;
 import com.hodo.jjamtalk.Data.SendData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.NotiFunc;
 
 import java.io.ByteArrayOutputStream;
@@ -69,6 +73,8 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class ChatRoomActivity extends AppCompatActivity {
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
     private MyData mMyData = MyData.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
+
     private UserData stTargetData = new UserData();
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
@@ -92,7 +98,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
 
-
+    private android.app.FragmentManager mFragmentManager;
 
     static  Uri tempSaveUri;
 
@@ -138,6 +144,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
       //  progressBar = (ProgressBar)findViewById(R.id.chat_Progress);
+        mFragmentManager = getFragmentManager();
 
         tempPosition = (int) intent.getExtras().getSerializable("Position");
         tempChatData = (SendData) intent.getExtras().getSerializable("ChatData");
@@ -532,7 +539,21 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                                 mMyData.arrSendDataList.remove(tempPosition);
                                 mMyData.arrSendNameList.remove(tempPosition);
+
+                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.putExtra("StartFragment", 2);
+                                getApplicationContext().startActivity(intent);
                                 finish();
+                                //mCommon.refreshFragMent(MainActivity.mFragmentMng, frg);
+
+
+                          /*      final FragmentTransaction ft = frgMng.beginTransaction();
+                                ft.detach(frg);
+                                ft.attach(frg);
+                                ft.commit();*/
+
+                              //  finish();
                             }
 
                             @Override
@@ -634,5 +655,11 @@ public class ChatRoomActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        super.onSaveInstanceState(outState);
     }
 }

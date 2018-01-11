@@ -1,6 +1,8 @@
 package com.hodo.jjamtalk;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
@@ -8,6 +10,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -33,8 +37,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.AppStatus;
+import com.hodo.jjamtalk.Util.CommonFunc;
 
 import java.util.ArrayList;
 
@@ -55,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
     BoardFragment boardFragment;
-    Activity mActivity;
+
 
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
@@ -70,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
     private FanFragment fanFragment;
     private HomeFragment homeFragment;// = HomeFragment.getInstance();
 
+    public static Context mContext;
+    public static Activity mActivity;
+    public static android.support.v4.app.FragmentManager mFragmentMng;
+
+    public int nStartFragment = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -77,6 +88,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainactivity);
         mActivity = this;
+        mContext = getApplicationContext();
+        mFragmentMng = getSupportFragmentManager();
+
+
+        Bundle bundle = getIntent().getExtras();
+        nStartFragment = (int) bundle.getSerializable("StartFragment");
 
         iv_myPage = findViewById(R.id.iv_mypage);
 
@@ -111,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         int mWidth = mUIData.getWidth();
         int mHeight = mUIData.getHeight();
 
-        homeFragment = new HomeFragment();
+
 
 
         ib_filter = findViewById(R.id.ib_filter);
@@ -154,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                         filter_dialog.dismiss();
 
                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-
+                        intent.putExtra("StartFragment", 0);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getApplicationContext().startActivity(intent);
 
@@ -410,10 +427,23 @@ public class MainActivity extends AppCompatActivity {
         layout_topbar = (LinearLayout)findViewById(R.id.layout_topbar);
         layout_lowbar = (LinearLayout)findViewById(R.id.layout_lowbar);
 
+        homeFragment = new HomeFragment();
         fanFragment = new FanFragment(this);
         boardFragment = new BoardFragment();
         cardListFragment = new CardListFragment();
-        chatListFragment = new ChatListFragment();
+        chatListFragment = new ChatListFragment(getApplicationContext());
+/*
+
+        //getSupportFragmentManager()
+        mFragmentMng
+                .beginTransaction()
+                .add(R.id.frag_container, chatListFragment, "ChatListFragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(chatListFragment.getClass().getName())
+                .commit();
+*/
+
+
         ib_board = findViewById(R.id.ib_board);
 
         ib_board.setOnClickListener(new View.OnClickListener() {
@@ -465,7 +495,18 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+
+                Fragment frg = null;
+                frg = mFragmentMng.findFragmentByTag("ChatListFragment");
+
+                mFragmentMng.beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+
+               // mCommon.mFragmentManager.beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+
+                /*FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().addToBackStack("ChatListFragment").replace(R.id.frag_container,cardListFragment).commit();
+                transaction.add(R.id.frag_container,chatListFragment, "ChatListFragment");
+                transaction.commit();*/
+               // getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
                 view.setSelected(!view.isSelected());
                 //ib_chatList.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
                 setImageAlpha(100,100,255,100,100);
@@ -530,10 +571,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        setImageAlpha(255,100,100,100,100);
-
-
-
         /*PagerModelManager manager = new PagerModelManager();
         manager.addFragment(new Rank_NearFragment(),"가까운 순");
 
@@ -547,7 +584,35 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         viewPager.fixScrollSpeed();
         springIndicator.setViewPager(viewPager);*/
-        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+        switch (nStartFragment)
+        {
+            case 0:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+                setImageAlpha(255,100,100,100,100);
+                break;
+            case 1:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
+                setImageAlpha(100,255,100,100,100);
+                break;
+            case 2:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+                setImageAlpha(100,100,255,100,100);
+                break;
+            case 3:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment).commit();
+                setImageAlpha(100,100,100,255,100);
+                break;
+            case 4:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
+                setImageAlpha(100,100,100,100,255);
+                break;
+
+            default:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+                setImageAlpha(255,100,100,100,100);
+                break;
+        }
+
 
     }
 

@@ -246,7 +246,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mToMain.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("StartFragment", 0);
+                    startActivity(intent);
                 }
             });
 
@@ -304,6 +306,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         FirebaseData.getInstance().GetInitBoardData(10);
         SetBoardMyData();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra("StartFragment", 0);
         startActivity(intent);
         finish();
     }
