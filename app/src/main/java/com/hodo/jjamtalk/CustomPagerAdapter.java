@@ -13,6 +13,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 /**
  * Created by mjk on 2017. 8. 16..
  */
@@ -27,6 +29,7 @@ public class CustomPagerAdapter extends PagerAdapter{
     Context mContext;
     LayoutInflater mLayoutInflater;
     int[] mResources = {R.drawable.bg1,R.drawable.bg2,R.drawable.bg3,R.drawable.bg4};
+    private PhotoViewAttacher mAttacher;
 
     public CustomPagerAdapter(Context context, UserData TargetData) {
         mContext = context;
@@ -63,7 +66,8 @@ public class CustomPagerAdapter extends PagerAdapter{
                     .thumbnail(0.1f)
                     .into(imageView);
 
-
+        mAttacher = new PhotoViewAttacher(imageView);
+        mAttacher.setScaleType(ImageView.ScaleType.FIT_XY);
         container.addView(itemView);
 
         return itemView;

@@ -52,8 +52,7 @@ dependencies {
 
 
 
-
-
+    compile 'com.github.chrisbanes.photoview:library:1.2.3'
 
     ///compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.+'
