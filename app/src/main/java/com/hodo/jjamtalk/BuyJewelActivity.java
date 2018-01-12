@@ -61,15 +61,15 @@ public class BuyJewelActivity extends AppCompatActivity {
                 TextView tv_title = v.findViewById(R.id.title);
                 tv_title.setText("상자 열기");
                 TextView tv_msg = v.findViewById(R.id.msg);
-                tv_msg.setText("상자를 여시겠습니까?(3골드 필요)");
+                tv_msg.setText("상자를 여시겠습니까? (7골드 필요)");
 
                 Button btn_yes = v.findViewById(R.id.btn_yes);
                 btn_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         dialog.cancel();
-                        if(mMyData.getUserHoney() > 3){
-                            mMyData.setUserHoney(mMyData.getUserHoney() - 3);
+                        if(mMyData.getUserHoney() > 7){
+                            mMyData.setUserHoney(mMyData.getUserHoney() - 7);
                             final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                             View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_jewelbox_opened, null);
                             ImageView Img_Opened = (ImageView)v.findViewById(R.id.opened_img);
@@ -340,17 +340,16 @@ public class BuyJewelActivity extends AppCompatActivity {
     private int Select_OpenedItem() {
         int rtValue = 0;
         int nGrade = 0;
-        nGrade = (int) (Math.random()*500)+1;
+        nGrade = (int) (Math.random()*2000)+1;
 
-        if(151 <= nGrade) rtValue = 1;
+        if(604 <= nGrade) rtValue = 1;
 
-        else if(42 <= nGrade && nGrade <= 150)  rtValue = 2;
-
-        else if(22 <= nGrade && nGrade <= 41)  rtValue = 3;
-        else if(17 <= nGrade && nGrade <= 21)  rtValue = 4;
-        else if(12 <= nGrade && nGrade <= 16)  rtValue = 5;
-        else if(7 <= nGrade && nGrade <= 11) rtValue = 6;
-        else if(2 <= nGrade && nGrade <= 6) rtValue = 7;
+        else if(160 <= nGrade && nGrade <= 603)  rtValue = 2;
+        else if(80 <= nGrade && nGrade <= 160)  rtValue = 3;
+        else if(58 <= nGrade && nGrade <= 80)  rtValue = 4;
+        else if(28 <= nGrade && nGrade <= 58)  rtValue = 5;
+        else if(15 <= nGrade && nGrade <= 27) rtValue = 6;
+        else if(2 <= nGrade && nGrade <= 14) rtValue = 7;
         else if(1 == nGrade) rtValue = 8;
 
         return rtValue;

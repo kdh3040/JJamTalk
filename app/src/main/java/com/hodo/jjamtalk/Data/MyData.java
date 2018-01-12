@@ -288,8 +288,9 @@ public class MyData {
         }
     }
 
-    void refreshItemIdex()
+    public void refreshItemIdex()
     {
+        bestItem = SetBestItem();
         itemIdx.clear();
 
         Set<Integer> set = itemList.keySet();
@@ -299,8 +300,11 @@ public class MyData {
         {
             int idx = key.next();
             itemIdx.add(idx);
+
         }
+        SaveMyItem();
     }
+
 
     public void setUserIdx(String userIdx) {
         strIdx = userIdx;
@@ -1511,7 +1515,7 @@ public class MyData {
     public void setMyItem(int myItem) {
        switch (myItem)
        {
-           case 1:
+           case 0:
            {
                if(item_1 == 0) {
                    nItemCount++;
@@ -1522,7 +1526,7 @@ public class MyData {
 
                break;
            }
-           case 2:
+           case 1:
            {
                if(item_2 == 0){
                    nItemCount++;
@@ -1533,7 +1537,7 @@ public class MyData {
 
                break;
            }
-           case 3:
+           case 2:
            {
                if(item_3 == 0){
                    nItemCount++;
@@ -1544,7 +1548,7 @@ public class MyData {
 
                break;
            }
-           case 4:
+           case 3:
            {
                if(item_4 == 0){
                    nItemCount++;
@@ -1555,7 +1559,7 @@ public class MyData {
 
                break;
            }
-           case 5:
+           case 4:
            {
                if(item_5 == 0){
                    nItemCount++;
@@ -1566,7 +1570,7 @@ public class MyData {
 
                break;
            }
-           case 6:
+           case 5:
            {
                if(item_6 == 0){
                    nItemCount++;
@@ -1576,7 +1580,7 @@ public class MyData {
                itemList.put(5, item_6);
                break;
            }
-           case 7:
+           case 6:
            {
                if(item_7 == 0){
                    nItemCount++;
@@ -1587,7 +1591,7 @@ public class MyData {
 
                break;
            }
-           case 8:
+           case 7:
            {
                if(item_8 == 0){
                    nItemCount++;
@@ -1602,7 +1606,11 @@ public class MyData {
        bestItem = SetBestItem();
 
        refreshItemIdex();
+     //   SaveMyItem();
+    }
 
+    public void SaveMyItem()
+    {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
         // DatabaseReference user = table.child( userIdx);
@@ -1620,17 +1628,67 @@ public class MyData {
         user.child("BestItem").setValue(bestItem);
     }
 
-    private int SetBestItem() {
-        int rtValue = 0;
-        TreeMap<Integer,Integer> tm = new TreeMap<Integer,Integer>(itemList);
-        Iterator<Integer> iteratorKey = tm.descendingKeySet().iterator(); //키값 내림차순 정렬
-        rtValue = iteratorKey.next();
-            //System.out.println(key+","+tm.get(key));
-        return rtValue;
+    public void SaveMyItem(int idx, int count)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+        // DatabaseReference user = table.child( userIdx);
+        final DatabaseReference user = table.child(getUserIdx());
+
+        switch (idx)
+        {
+            case 0:
+                item_1 = count;
+                user.child("Item_1").setValue(item_1);
+                break;
+            case 1:
+                item_2 = count;
+                user.child("Item_2").setValue(item_2);
+                break;
+            case 2:
+                item_3 = count;
+                user.child("Item_3").setValue(item_3);
+                break;
+            case 3:
+                item_4 = count;
+                user.child("Item_4").setValue(item_4);
+                break;
+            case 4:
+                item_5 = count;
+                user.child("Item_5").setValue(item_5);
+                break;
+            case 5:
+                item_6 = count;
+                user.child("Item_6").setValue(item_6);
+                break;
+            case 6:
+                item_7 = count;
+                user.child("Item_7").setValue(item_7);
+                break;
+            case 7:
+                item_8 = count;
+                user.child("Item_8").setValue(item_8);
+                break;
+
+        }
+        user.child("ItemCount").setValue(nItemCount);
+        user.child("BestItem").setValue(bestItem);
     }
 
     public int getFanCount() {
         return nFanCount;
+    }
+
+    public int SetBestItem() {
+        int rtValue = 0;
+        if(itemList.size() == 0)
+            return  rtValue;
+
+        TreeMap<Integer,Integer> tm = new TreeMap<Integer,Integer>(itemList);
+        Iterator<Integer> iteratorKey = tm.descendingKeySet().iterator(); //키값 내림차순 정렬
+        rtValue = iteratorKey.next();
+        //System.out.println(key+","+tm.get(key));
+        return rtValue + 1;
     }
 
     public void makeLastMSG(UserData  tempData, String Roomname, String strMsg, String lTime) {

@@ -240,15 +240,15 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 TextView tv_title = v.findViewById(R.id.title);
                 tv_title.setText("상자 열기");
                 TextView tv_msg = v.findViewById(R.id.msg);
-                tv_msg.setText("상자를 여시겠습니까?(3골드 필요)");
+                tv_msg.setText("상자를 여시겠습니까?(7골드 필요)");
 
                 Button btn_yes = v.findViewById(R.id.btn_yes);
                 btn_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         dialog.cancel();
-                        if(mMyData.getUserHoney() > 3){
-                            mMyData.setUserHoney(mMyData.getUserHoney() - 3);
+                        if(mMyData.getUserHoney() > 7){
+                            mMyData.setUserHoney(mMyData.getUserHoney() - 7);
                             final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                             View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_jewelbox_opened, null);
                             ImageView Img_Opened = (ImageView)v.findViewById(R.id.opened_img);

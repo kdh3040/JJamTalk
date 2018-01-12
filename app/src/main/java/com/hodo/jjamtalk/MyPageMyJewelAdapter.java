@@ -3,6 +3,7 @@ package com.hodo.jjamtalk;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
@@ -43,9 +44,12 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
 
     @Override
     public void onBindViewHolder(MyJewelViewHolder holder, final int position) {
-        holder.iv.setOnClickListener(new View.OnClickListener() {
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final int nSellIdx = mMyData.itemIdx.get(position);
+                final int[] nSellCount = {mMyData.itemList.get(nSellIdx)};
+                final int nSellGold = mUIdata.getSellJewelValue()[nSellIdx];
                 AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                 builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     @Override
@@ -55,9 +59,19 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                 }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        mMyData.setUserHoney(mMyData.getUserHoney() + nSellGold);
+                        mMyData.itemList.put(nSellIdx, --nSellCount[0]);
+                        mMyData.SaveMyItem(nSellIdx, nSellCount[0]);
+                        if(nSellCount[0] == 0) {
+                            mMyData.itemList.remove(nSellIdx);
+                            mMyData.nItemCount--;
+                        }
+
+                        mMyData.refreshItemIdex();
+                        notifyDataSetChanged();
 
                     }
-                }).setMessage("환전하시겠습니까? "+mUIdata.getSellJewelValue()[position]+"골드");
+                }).setMessage("아이템을 "+  nSellGold  + " 골드에 판매하시겠습니까?");
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }

@@ -80,7 +80,12 @@ public class MyPageActivity extends AppCompatActivity {
 
 
         iv_MyGift=findViewById(R.id.iv_myGift);
-        iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
+
+        if(mMyData.bestItem == 0)
+            iv_MyGift.setImageResource(R.drawable.gold);
+        else
+            iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem  - 1]);
+
         iv_MyGift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,6 +214,10 @@ public class MyPageActivity extends AppCompatActivity {
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
         //txt_MyHeartCnt.setText(" 보유 골드 : " + nGold + " 골드");
         txt_MyGoldCnt.setText(nGold+" 골드");
+        if(mMyData.bestItem == 0)
+            iv_MyGift.setImageResource(R.drawable.gold);
+        else
+            iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem  - 1]);
     }
 
     @Override
