@@ -541,7 +541,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 mMyData.arrSendNameList.remove(tempPosition);
 
                                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 intent.putExtra("StartFragment", 2);
                                 getApplicationContext().startActivity(intent);
                                 finish();

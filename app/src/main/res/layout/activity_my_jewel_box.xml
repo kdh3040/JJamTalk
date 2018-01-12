@@ -8,21 +8,24 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:weightSum="4"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageView23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
             app:srcCompat="@mipmap/ic_gold" />
 
         <TextView
-            android:id="@+id/textView23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="3"
+            android:id="@+id/txt_myGold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="24dp"
+            android:textStyle="bold"
             android:text="30" />
 
     </LinearLayout>
@@ -42,7 +45,7 @@
     </android.support.v7.widget.RecyclerView>
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/txt_sell_price"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

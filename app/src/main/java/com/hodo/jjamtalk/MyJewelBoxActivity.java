@@ -32,12 +32,19 @@ public class MyJewelBoxActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
     RecyclerView recyclerView;
+    TextView txt_myGold;
+
     RecyclerView rv_sell_item;
-    MyPageMyJewelAdapter adapter;
+    TextView txt_price;
+
+
+    MyPageMyJewelAdapter Myjeweladapter;
     SellItemAdapter sellAdapter;
     Button btn_openBox;
     Button btn_sellJewely;
     Activity mActivity;
+
+    private boolean bSellItemStatus = false;
 
     private int Select_OpenedItem() {
         int rtValue = 0;
@@ -199,18 +206,25 @@ public class MyJewelBoxActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_jewel_box);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mActivity = this;
 
         recyclerView = (RecyclerView)findViewById(R.id.rv_myjewel);
-        adapter = new MyPageMyJewelAdapter(getApplicationContext(),this);
+        Myjeweladapter = new MyPageMyJewelAdapter(getApplicationContext(),this);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(Myjeweladapter);
 
         rv_sell_item = findViewById(R.id.rv_sell_item);
         sellAdapter = new SellItemAdapter(getApplicationContext(),this);
         rv_sell_item.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         rv_sell_item.setAdapter(sellAdapter);
+        rv_sell_item.setVisibility(View.GONE);
 
+        txt_price = (TextView)findViewById(R.id.txt_sell_price);
+        txt_price.setVisibility(View.GONE);
+
+        txt_myGold = (TextView)findViewById(R.id.txt_myGold);
+        txt_myGold.setText(mMyData.getUserHoney() + " 골드");
 
         btn_openBox = findViewById(R.id.btn_openBox);
         btn_sellJewely = findViewById(R.id.btn_sellJewely);
@@ -223,8 +237,6 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 final AlertDialog dialog = builder.setView(v).create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                 dialog.show();
-
-
                 TextView tv_title = v.findViewById(R.id.title);
                 tv_title.setText("상자 열기");
                 TextView tv_msg = v.findViewById(R.id.msg);
@@ -248,7 +260,6 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                             mMyData.setMyItem(result);
 
                             Button btn_confirm = v.findViewById(R.id.opened_btn);
-
                             builder.setView(v);
 
                             final AlertDialog dialog = builder.create();
@@ -262,30 +273,22 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                                 }
                             });
 
+                            txt_myGold.setText(mMyData.getUserHoney() + " 골드");
+                            Myjeweladapter.notifyDataSetChanged();
                         }else {
-
                             Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
-
                         }
-
-
                     }
                 });
 
                 btn_yes.setText("네");
-
                 Button btn_no = v.findViewById(R.id.btn_no);
-
-
                 btn_no.setOnClickListener(new View.OnClickListener() {
 
                     @Override
 
                     public void onClick(View view) {
-
                         dialog.dismiss();
-
-
                     }
 
                 });
@@ -298,7 +301,18 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         btn_sellJewely.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(bSellItemStatus == false)
+                {
+                    rv_sell_item.setVisibility(View.VISIBLE);
+                    txt_price.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    rv_sell_item.setVisibility(View.GONE);
+                    txt_price.setVisibility(View.GONE);
+                }
 
+                bSellItemStatus = !bSellItemStatus;
             }
         });
     }

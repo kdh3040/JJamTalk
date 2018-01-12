@@ -8,12 +8,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -212,10 +214,27 @@ public class MyPageActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        //
+        Intent intent = new Intent(MyPageActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("StartFragment", 0);
+        startActivity(intent);
         overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-
+        finish();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_save){
+            onBackPressed();
+            // finish();
+            //     overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
+        }
+        if(item.getItemId() == android.R.id.home)
+        {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

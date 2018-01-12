@@ -61,7 +61,6 @@
             />
         <activity android:name=".MyPageActivity"
             android:theme="@style/MyTheme"
-            android:parentActivityName=".MainActivity"
             android:label="내 페이지"/>
 
         <activity android:name=".SettingActivity"
@@ -151,6 +150,7 @@
         <activity
             android:name=".MyJewelBoxActivity"
             android:theme="@style/MyTheme"
+            android:parentActivityName=".MyPageActivity"
             android:label="내 아이템"></activity>
     </application>
 
