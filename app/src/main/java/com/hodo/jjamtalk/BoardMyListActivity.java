@@ -1,8 +1,12 @@
 package com.hodo.jjamtalk;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +17,10 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.BoardData;
+import com.hodo.jjamtalk.Data.BoardLikeData;
+import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
 
@@ -22,38 +29,21 @@ import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
  */
 
 public class BoardMyListActivity extends AppCompatActivity {
-    /*private MyData mMyData = MyData.getInstance();
-    private BoardData mBoardData = BoardData.getInstance();
-    RecyclerView recyclerView;
+    private MyData mMyData = MyData.getInstance();
+    private BoardData mBoardInstanceData = BoardData.getInstance();
+
+    Activity mActivity;
+    RecyclerView MyBoardSlotListRecycler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivity = this;
         setContentView(R.layout.activity_board_mylist);
 
-
-
-
-        recyclerView = (RecyclerView)findViewById(R.id.board_Mylist);
-        recyclerView.setAdapter(new BoardMyListActivity.BoardMyListAdapter());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), BoardItemActivity.class);
-                        intent.putExtra("Target", position);
-                    startActivity(intent);
-                }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-                        //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 롱 클릭",Toast.LENGTH_SHORT).show();
-                    }
-                }));
-
+        MyBoardSlotListRecycler = (RecyclerView)findViewById(R.id.board_Mylist);
+        MyBoardSlotListRecycler.setAdapter(new BoardMyListActivity.BoardMyListAdapter());
+        MyBoardSlotListRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
 
 
@@ -66,20 +56,48 @@ public class BoardMyListActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(BoardViewHolder holder, final int position) {
-            //holder.idTextView.setText("호근 ,37, 20km");
-            holder.idTextView.setText(mBoardData.arrBoardMyList.get(position).NickName + ", " + mBoardData.arrBoardMyList.get(position).Age);// + ", " +  mBoardData.arrBoardList.get(position).Dist);
-            holder.messageTextView.setText(mBoardData.arrBoardMyList.get(position).Msg);
-            //holder.iv_profile.setImageResource(R.drawable.bg1);
-            Glide.with(getApplicationContext())
-                    .load(mBoardData.arrBoardMyList.get(position).Img)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(holder.imageView);
+        public void onBindViewHolder(final BoardViewHolder holder, final int position) {
+            holder.SetBoardViewHolder(getApplicationContext(), mBoardInstanceData.MyBoardList.get(position), true, true);
+
+            View.OnClickListener listener = new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    switch (view.getId()) {
+                        case R.id.board_delete:
+                        {
+                            final AlertDialog.Builder builder= new AlertDialog.Builder(mActivity);
+                            builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    BoardMsgClientData data =  mBoardInstanceData.BoardList.get(position);
+                                    mBoardInstanceData.RemoveMyBoard(data.GetDBData().BoardIdx);
+                                    FirebaseData.getInstance().RemoveBoard(data.GetDBData().BoardIdx);
+                                    // 게시판 갱신이 필요
+                                    finish();
+                                }
+                            }).
+                                    setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    }).setMessage("작성한 글을 제거하시겠습니까?");
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            };
+
+            holder.SetBoardHolderListener(listener);
         }
 
         @Override
         public int getItemCount() {
-            return mBoardData.arrBoardMyList.size();
+            return mBoardInstanceData.MyBoardList.size();
         }
-    }*/
+    }
 }

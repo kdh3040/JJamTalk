@@ -26,6 +26,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import static com.hodo.jjamtalk.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
+import static com.hodo.jjamtalk.Data.CoomonValueData.LOAD_BOARD_COUNT;
+
 /**
  * Created by boram on 2017-08-05.
  */
@@ -246,17 +249,37 @@ public class FirebaseData {
 
     }
 
-    public void GetInitBoardData(int loadCount)
+    public void GetInitBoardData()
     {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
-        Query data = FirebaseDatabase.getInstance().getReference().child("Board").limitToFirst(loadCount);
+        Query data = FirebaseDatabase.getInstance().getReference().child("Board").limitToFirst(FIRST_LOAD_BOARD_COUNT);
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    BoardData.getInstance().AddBoardData(postSnapshot);
+                    BoardData.getInstance().AddBoardData(postSnapshot, false);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void GetInitMyBoardData()
+    {
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        Query data = FirebaseDatabase.getInstance().getReference().child("Board").orderByChild("Idx").equalTo(mMyData.getUserIdx());
+
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    BoardData.getInstance().AddBoardData(postSnapshot, true);
                 }
             }
 
@@ -269,22 +292,22 @@ public class FirebaseData {
 
     // 게시판 관련 함수 (환웅)
     BoardFragment.BoardListAdapter UpdateBoardAdapter = null;
-    public void GetBoardData(BoardFragment.BoardListAdapter updateBoardAdapter, int loadCount, long startIdx, Boolean top)
+    public void GetBoardData(BoardFragment.BoardListAdapter updateBoardAdapter, long startIdx, Boolean top)
     {
         UpdateBoardAdapter = updateBoardAdapter;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
         Query data = null;
         if(top)
-            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx - loadCount).endAt(startIdx );
+            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx - LOAD_BOARD_COUNT).endAt(startIdx );
         else
-            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx).endAt(startIdx + loadCount); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
+            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx).endAt(startIdx + LOAD_BOARD_COUNT); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
 
         data.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    BoardData.getInstance().AddBoardData(postSnapshot);
+                    BoardData.getInstance().AddBoardData(postSnapshot, false);
                 }
                 UpdateBoardAdapter.BoardDataLoding = false;
                 UpdateBoardAdapter.notifyDataSetChanged();
@@ -331,13 +354,12 @@ public class FirebaseData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMddHHmm");
 
-        // TODO 글을 쓸때는 게시판을 어쩌지??
-        // TODO 환웅 보드 인덱스를 가져오는 트랙젝션을 하나 만들어야함
         DatabaseReference table = database.getReference("Board").child(Long.toString(BoardData.getInstance().BoardIdx));
 
         long time = System.currentTimeMillis();
         sendData.Date = ctime.format(new Date(time));
         sendData.BoardIdx = BoardData.getInstance().BoardIdx;
+        BoardData.getInstance().AddBoardData(sendData, true);
         table.setValue(sendData);
 
         return  true;
@@ -358,5 +380,12 @@ public class FirebaseData {
         DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx)).child("Like").child(Idx);
         table.child(Idx).removeValue();
         return  true;
+    }
+
+    public void RemoveBoard(long boardIdx)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx));
+        table.removeValue();
     }
 }

@@ -303,8 +303,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void GoMainPage() {
-        FirebaseData.getInstance().GetInitBoardData(10);
-        SetBoardMyData();
+        FirebaseData.getInstance().GetInitBoardData();
+        FirebaseData.getInstance().GetInitMyBoardData();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);
@@ -343,41 +343,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
     }
-
-    // ValueEventListener
-
-    private void SetBoardData() {
-
-        DatabaseReference refBoard;
-        refBoard = FirebaseDatabase.getInstance().getReference().child("Board");
-        refBoard.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                //mBoardData.AddBoardData(dataSnapshot);
-          }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

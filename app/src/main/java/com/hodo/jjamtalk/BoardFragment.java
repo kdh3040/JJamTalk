@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -81,25 +82,8 @@ public class BoardFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(BoardViewHolder holder, final int position) {
-            //holder.idTextView.setText("호근 ,37, 20km");
-            final BoardMsgClientData BoardData =  mBoardInstanceData.BoardList.get(position);
-            ViewHolder = holder;
-            if(BoardData == null)
-                 return;
-            final BoardMsgDBData dbData = BoardData.GetDBData();
-
-            Glide.with(getContext())
-                    .load(dbData.Img)
-                    .bitmapTransform(new CropCircleTransformation(getContext()))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(holder.BoardThumnail);
-
-            holder.BoardMsg.setText(dbData.Msg);
-            holder.BoardWriter.setText(dbData.NickName);
-            holder.BoardDate.setText(dbData.Date);
-            holder.BoardLikeCount.setText("좋아요 : " + BoardData.LikeCnt);
-
-            RefreshLikeIcon(BoardData);
+            BoardMsgClientData BoardData =  mBoardInstanceData.BoardList.get(position);
+            holder.SetBoardViewHolder(getContext(), BoardData, BoardData.GetDBData().Idx.equals(mMyData.getUserIdx()), false);
 
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
@@ -132,19 +116,13 @@ public class BoardFragment extends Fragment {
                                 mFireBaseData.SaveBoardLikeData(BoardData.GetDBData().BoardIdx, sendData);
                                 BoardData.LikeCnt++;
                             }
-                            //BoradListAdapter.notifyDataSetChanged();
                             refreshFragMent();
                             break;
                     }
                 }
             };
-            holder.BoardMsg.setOnClickListener(listener);
-            holder.BoardThumnail.setOnClickListener(listener);
-            holder.BoardWriter.setOnClickListener(listener);
-            holder.BoardDate.setOnClickListener(listener);
-            holder.BoardLikeCount.setOnClickListener(listener);
-            holder.BoardLikeButton.setOnClickListener(listener);
 
+            holder.SetBoardHolderListener(listener);
         }
 
         @Override
@@ -203,14 +181,7 @@ public class BoardFragment extends Fragment {
             });
         }
 
-        private void RefreshLikeIcon(BoardMsgClientData boardData) {
-            if (boardData.IsLikeUser(mMyData.getUserIdx()))
-                ViewHolder.BoardLikeButton.setImageResource(R.drawable.mycard_icon);
-            else
-                ViewHolder.BoardLikeButton.setImageResource(R.drawable.mycard_empty_icon);
 
-            ViewHolder.BoardLikeCount.setText("좋아요 : " + boardData.LikeCnt);
-        }
     }
 
     @Nullable
@@ -231,24 +202,38 @@ public class BoardFragment extends Fragment {
             BoardSlotListRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
             BoradListAdapter.notifyDataSetChanged();
             BoardSlotListRecycler.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                /*@Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+
+                    int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                    int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
+                    if (lastVisibleItemPosition == itemTotalCount) {
+                        Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
+                    }
+                }*/
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     if(!recyclerView.canScrollVertically(-1)) {
+                        /*if(mBoardInstanceData.BoardList.size() <= 0)
+                            return;
                         // Log.d("gggg", "최상단");
                         if(BoradListAdapter.BoardDataLoding == false)
                         {
                             BoradListAdapter.BoardDataLoding = true;
                             BoardMsgClientData lastBoardData = mBoardInstanceData.BoardList.get(0);
-                            FirebaseData.getInstance().GetBoardData(BoradListAdapter, 1,lastBoardData.GetDBData().BoardIdx, true);
-                        }
+                            FirebaseData.getInstance().GetBoardData(BoradListAdapter,lastBoardData.GetDBData().BoardIdx, true);
+                        }*/
                     }
                     if(!recyclerView.canScrollVertically(1)) {
+                        if(mBoardInstanceData.BoardList.size() <= 0)
+                            return;
                         // Log.d("gggg", "최하단");
                         if(BoradListAdapter.BoardDataLoding == false)
                         {
                             BoradListAdapter.BoardDataLoding = true;
                             BoardMsgClientData lastBoardData = mBoardInstanceData.BoardList.get(mBoardInstanceData.BoardList.size() - 1);
-                            FirebaseData.getInstance().GetBoardData(BoradListAdapter, 1,lastBoardData.GetDBData().BoardIdx, false);
+                            FirebaseData.getInstance().GetBoardData(BoradListAdapter,lastBoardData.GetDBData().BoardIdx, false);
                         }
                     }
                 }
