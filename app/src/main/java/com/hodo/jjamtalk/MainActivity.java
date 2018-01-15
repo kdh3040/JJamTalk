@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                         intent.putExtra("StartFragment", 0);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getApplicationContext().startActivity(intent);
 
                     }

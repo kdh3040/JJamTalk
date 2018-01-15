@@ -46,6 +46,8 @@ import com.hodo.jjamtalk.Util.NotiFunc;
 
 import java.util.LinkedHashMap;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by mjk on 2017. 8. 5..
  */
@@ -58,6 +60,7 @@ public class UserPageActivity extends AppCompatActivity {
     private FirebaseData mFireBase = FirebaseData.getInstance();
     private MyJewelAdapter myjewelAdapter;
     private LocationFunc mLocFunc = LocationFunc.getInstance();
+    private UIData mUIdata = UIData.getInstance();
 
     private TextView txtProfile;
     private TextView txtMemo;
@@ -88,10 +91,11 @@ public class UserPageActivity extends AppCompatActivity {
    // private Button btnPublicChat;
 
     private ImageView imgProfile;
+    private ImageView imgBestItem;
+
     RecyclerView listView_like, listView_liked;
     final Context context = this;
     LinearLayout stickers_holder;
-    UIData mUIData = UIData.getInstance();
     Activity mActivity;
     private UserData TempSendUserData = new UserData();
 
@@ -115,8 +119,10 @@ public class UserPageActivity extends AppCompatActivity {
 
         btnShare = (ImageButton)findViewById(R.id.UserPage_btnShared);
 
-        myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIData.getJewels());
+        myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIdata.getJewels());
         mActivity = this;
+
+
 
         Intent intent = getIntent();
 
@@ -152,7 +158,7 @@ public class UserPageActivity extends AppCompatActivity {
         tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
-        imgProfile.setLayoutParams(mUIData.getRLP(1,0.6f));
+        //imgProfile.setLayoutParams(mUIdata.getRLP(1,0.6f));
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -165,19 +171,25 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });
 
-        /*stickers_holder = (LinearLayout)findViewById(R.id.stickers_holder);
-        stickers_holder.setLayoutParams(mUIData.getFLP(1,0.1f));
-
-        SetStickerImg();*/
 
         Glide.with(getApplicationContext())
                 .load(stTargetData.Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 
-        //txtHeart = (TextView)findViewById(R.id.UserPage_txtHeart);
-        //txtHeart.setText(Integer.toString(stTargetData.Honey));
+        imgBestItem = (ImageView)findViewById(R.id.iv_rank);
 
+        if(stTargetData.BestItem == 0)
+            imgBestItem.setImageResource(R.drawable.gold);
+        else
+            imgBestItem.setImageResource(mUIdata.getJewels()[stTargetData.BestItem - 1]);
+
+/*        Glide.with(getApplicationContext())
+                .load(stTargetData.BestItem)
+                .thumbnail(0.1f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                .into(imgBestItem);*/
 
         btnRegister = findViewById(R.id.UserPage_btnRegister);
         btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
