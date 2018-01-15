@@ -454,6 +454,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                                         SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
                                         String formatStr = sdf.format(date);
 
+                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+
                                         ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, message, formatStr, "");
                                         mMyData.makeLastMSG(stTargetData, tempChatData.strSendName, message, formatStr);
                                         mRef.push().setValue(chat_Data);
@@ -493,6 +495,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                     Date date = cal.getTime();
                     SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
                     String formatStr = sdf.format(date);
+
+                    mNotiFunc.SendMsgToFCM(stTargetData);
 
                     ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, message, formatStr, "");
 

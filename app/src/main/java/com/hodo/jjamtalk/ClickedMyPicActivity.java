@@ -51,6 +51,8 @@ public class ClickedMyPicActivity extends AppCompatActivity {
     private ImageButton btnShare;
     private ImageButton btnMessage;
     private ImageView imgProfile;
+    private ImageView imgBestItem;
+
     RecyclerView listView_like, listView_liked;
     final Context context = this;
     LinearLayout stickers_holder;
@@ -106,7 +108,6 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         tv_like.setText(mMyData.getUserNick()+"님을 좋아하는 사람들");
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
-        imgProfile.setLayoutParams(mUIData.getRLP(1,0.6f));
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,6 +132,14 @@ public class ClickedMyPicActivity extends AppCompatActivity {
                 .load(mMyData.getUserImg())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
+
+
+        imgBestItem = (ImageView)findViewById(R.id.iv_rank);
+
+        if(mMyData.bestItem == 0)
+            imgBestItem.setImageResource(R.drawable.gold);
+        else
+            imgBestItem.setImageResource(mUIdata.getJewels()[mMyData.bestItem - 1]);
 
 
         final GestureDetector gestureDetector = new GestureDetector(ClickedMyPicActivity.this,new GestureDetector.SimpleOnGestureListener()
