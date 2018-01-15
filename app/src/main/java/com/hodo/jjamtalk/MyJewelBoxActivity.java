@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
@@ -18,7 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hodo.jjamtalk.Data.BlockData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UIData;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -31,6 +34,7 @@ import java.net.URL;
 public class MyJewelBoxActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
+    private UIData mUIData = UIData.getInstance();
     RecyclerView recyclerView;
     TextView txt_myGold;
 
@@ -38,13 +42,17 @@ public class MyJewelBoxActivity extends AppCompatActivity {
     TextView txt_price;
 
 
-    MyPageMyJewelAdapter Myjeweladapter;
-    SellItemAdapter sellAdapter;
+    public  MyPageMyJewelAdapter Myjeweladapter;
+ //   public  SellItemAdapter sellAdapter;
     Button btn_openBox;
     Button btn_sellJewely;
     Activity mActivity;
 
-    private boolean bSellItemStatus = false;
+
+    private BlockData blockList;
+    private int fanCount;
+
+
 
     private int Select_OpenedItem() {
         int rtValue = 0;
@@ -214,11 +222,11 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         recyclerView.setAdapter(Myjeweladapter);
 
-        rv_sell_item = findViewById(R.id.rv_sell_item);
+/*        rv_sell_item = findViewById(R.id.rv_sell_item);
         sellAdapter = new SellItemAdapter(getApplicationContext(),this);
         rv_sell_item.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         rv_sell_item.setAdapter(sellAdapter);
-        rv_sell_item.setVisibility(View.GONE);
+        rv_sell_item.setVisibility(View.GONE);*/
 
         txt_price = (TextView)findViewById(R.id.txt_sell_price);
         txt_price.setVisibility(View.GONE);
@@ -237,82 +245,109 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 final AlertDialog dialog = builder.setView(v).create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                 dialog.show();
+
                 TextView tv_title = v.findViewById(R.id.title);
                 tv_title.setText("상자 열기");
                 TextView tv_msg = v.findViewById(R.id.msg);
-                tv_msg.setText("상자를 여시겠습니까?(7골드 필요)");
 
-                Button btn_yes = v.findViewById(R.id.btn_yes);
-                btn_yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.cancel();
-                        if(mMyData.getUserHoney() > 7){
-                            mMyData.setUserHoney(mMyData.getUserHoney() - 7);
-                            final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                            View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_jewelbox_opened, null);
-                            ImageView Img_Opened = (ImageView)v.findViewById(R.id.opened_img);
-                            TextView Text_Opened = (TextView) v.findViewById(R.id.opened_text);
-                            //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+                if(mMyData.getUserHoney() > 7){
+                    tv_msg.setText("상자를 여시겠습니까?(7골드 필요)");
+                    Button btn_yes = v.findViewById(R.id.btn_yes);
+                    btn_yes.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.cancel();
+                            if(mMyData.getUserHoney() > 7){
+                                mMyData.setUserHoney(mMyData.getUserHoney() - 7);
+                                final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                                View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_jewelbox_opened, null);
+                                ImageView Img_Opened = (ImageView)v.findViewById(R.id.opened_img);
+                                TextView Text_Opened = (TextView) v.findViewById(R.id.opened_text);
+                                //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
 
-                            int result = Select_OpenedItem();
-                            View_OpenedItem(v, result, Img_Opened, Text_Opened);
-                            mMyData.setMyItem(result);
+                                int result = Select_OpenedItem();
+                                View_OpenedItem(v, result, Img_Opened, Text_Opened);
+                                mMyData.setMyItem(result);
 
-                            Button btn_confirm = v.findViewById(R.id.opened_btn);
-                            builder.setView(v);
+                                Button btn_confirm = v.findViewById(R.id.opened_btn);
+                                builder.setView(v);
 
-                            final AlertDialog dialog = builder.create();
-                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                            dialog.show();
+                                final AlertDialog dialog = builder.create();
+                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                                dialog.show();
 
-                            btn_confirm.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
+                                btn_confirm.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        dialog.dismiss();
+                                    }
+                                });
 
-                            txt_myGold.setText(mMyData.getUserHoney() + " 골드");
-                            Myjeweladapter.notifyDataSetChanged();
-                        }else {
-                            Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
+                                txt_myGold.setText(mMyData.getUserHoney() + " 골드");
+                                Myjeweladapter.notifyDataSetChanged();
+                            }else {
+                                Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-                });
+                    });
 
-                btn_yes.setText("네");
-                Button btn_no = v.findViewById(R.id.btn_no);
-                btn_no.setOnClickListener(new View.OnClickListener() {
+                    btn_yes.setText("네");
+                    Button btn_no = v.findViewById(R.id.btn_no);
+                    btn_no.setOnClickListener(new View.OnClickListener() {
 
-                    @Override
+                        @Override
 
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
 
-                });
+                    });
 
-                btn_no.setText("아니오");
+                    btn_no.setText("아니오");
+                }
+                else
+                {
+                    tv_msg.setText("골드가 부족합니다");
+                    Button btn_yes = v.findViewById(R.id.btn_yes);
+                    btn_yes.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                            finish();
+                            dialog.cancel();
 
+                        }
+                    });
+
+                    btn_yes.setText("골드 사러가기");
+                    Button btn_no = v.findViewById(R.id.btn_no);
+                    btn_no.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+                    btn_no.setText("닫기");
+                }
             }
         });
 
         btn_sellJewely.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(bSellItemStatus == false)
+                if(mUIData.bSellItemStatus == false)
                 {
-                    rv_sell_item.setVisibility(View.VISIBLE);
+                   // rv_sell_item.setVisibility(View.VISIBLE);
                     txt_price.setVisibility(View.VISIBLE);
                 }
                 else
                 {
-                    rv_sell_item.setVisibility(View.GONE);
+                   // rv_sell_item.setVisibility(View.GONE);
                     txt_price.setVisibility(View.GONE);
                 }
 
-                bSellItemStatus = !bSellItemStatus;
+                mUIData.bSellItemStatus = !mUIData.bSellItemStatus;
             }
         });
     }

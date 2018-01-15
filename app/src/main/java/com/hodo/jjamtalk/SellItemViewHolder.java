@@ -5,6 +5,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by mjk on 2018-01-08.
@@ -13,6 +16,8 @@ import android.widget.LinearLayout;
 public class SellItemViewHolder extends RecyclerView.ViewHolder {
 
     ImageView iv;
+    TextView tv;
+
     EditText et;
     public LinearLayout linearLayout;
 
@@ -20,7 +25,8 @@ public class SellItemViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         iv= itemView.findViewById(R.id.iv_sell);
-        et=itemView.findViewById(R.id.et_sell);
+        tv = itemView.findViewById(R.id.tv_count);
+        //et=itemView.findViewById(R.id.et_sell);
         linearLayout =itemView.findViewById(R.id.layout);
     }
 }

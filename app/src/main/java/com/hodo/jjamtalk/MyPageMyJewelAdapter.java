@@ -50,30 +50,45 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                 final int nSellIdx = mMyData.itemIdx.get(position);
                 final int[] nSellCount = {mMyData.itemList.get(nSellIdx)};
                 final int nSellGold = mUIdata.getSellJewelValue()[nSellIdx];
-                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        mMyData.setUserHoney(mMyData.getUserHoney() + nSellGold);
-                        mMyData.itemList.put(nSellIdx, --nSellCount[0]);
-                        mMyData.SaveMyItem(nSellIdx, nSellCount[0]);
-                        if(nSellCount[0] == 0) {
-                            mMyData.itemList.remove(nSellIdx);
-                            mMyData.nItemCount--;
+                if(mUIdata.bSellItemStatus == false)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                    builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
                         }
+                    }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mMyData.setUserHoney(mMyData.getUserHoney() + nSellGold);
+                            mMyData.itemList.put(nSellIdx, --nSellCount[0]);
+                            mMyData.SaveMyItem(nSellIdx, nSellCount[0]);
+                            if(nSellCount[0] == 0) {
+                                mMyData.itemList.remove(nSellIdx);
+                                mMyData.nItemCount--;
+                            }
 
-                        mMyData.refreshItemIdex();
-                        notifyDataSetChanged();
+                            mMyData.refreshItemIdex();
+                            notifyDataSetChanged();
+                            Intent intent = new Intent(mActivity, MyJewelBoxActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mActivity.startActivity(intent);
+                            mActivity.finish();
+                            mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
-                    }
-                }).setMessage("아이템을 "+  nSellGold  + " 골드에 판매하시겠습니까?");
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                        }
+                    }).setMessage("아이템을 "+  nSellGold  + " 골드에 판매하시겠습니까?");
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+
+                else
+                {
+                    mUIdata.nSelItemType = nSellIdx;
+                }
+
             }
         });
 

@@ -30,6 +30,8 @@ public class UIData {
     private int sellJewelValue[] = {5,5,5,5,7,7,10,20};
 
     private LinearLayout.LayoutParams llp_ListItem;
+    public boolean bSellItemStatus = false;
+    public int nSelItemType, nSelItemCount;
 
     private RelativeLayout.LayoutParams rlp;
 
