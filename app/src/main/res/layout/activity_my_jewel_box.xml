@@ -70,7 +70,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_pressed"
 
-            android:text="상자 열기"
+            android:text="상자 1개 열기"
             android:textColor="@color/textColorDark" />
 
         <Button
@@ -82,7 +82,7 @@
             android:layout_weight="1"
 
             android:background="@drawable/button_pressed"
-            android:text="아이템 팔기"
+            android:text="상자 10개 열기"
             android:textColor="@color/textColorDark" />
 
     </LinearLayout>

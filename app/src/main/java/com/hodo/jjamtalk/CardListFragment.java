@@ -216,7 +216,7 @@ public class CardListFragment extends Fragment {
         public void moveCardPage(int position)
         {
             stTargetData = mMyData.mapMyCardData.get(mMyData.arrCardNameList.get(position).Idx);
-            Intent intent = new Intent(getContext(), UserPageActivity.class);
+            Intent intent = new Intent(mContext, UserPageActivity.class);
             Bundle bundle = new Bundle();
 
             bundle.putSerializable("Target", stTargetData);

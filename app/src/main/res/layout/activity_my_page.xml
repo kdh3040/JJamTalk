@@ -61,10 +61,7 @@
             <ImageButton
                 android:id="@+id/btn_setting"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-
-
-                android:layout_weight="2"
+                android:layout_height="wrap_content"
 
                 android:background="@drawable/round_btn_bg"
                 android:scaleType="fitCenter"
@@ -93,8 +90,6 @@
                 android:id="@+id/ib_my_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
                 android:background="@drawable/round_btn_bg"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_profile">
