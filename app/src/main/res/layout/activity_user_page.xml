@@ -179,7 +179,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <View
+          <!--  <View
                 style="@style/Divider"
                 />
 
@@ -198,7 +198,7 @@
                 <GridView
                     android:layout_width="match_parent"
                     android:layout_height="100dp" />
-            </LinearLayout>
+            </LinearLayout>-->
             <View
                 android:id="@+id/Divide_Btn"
                 style="@style/Divider"
