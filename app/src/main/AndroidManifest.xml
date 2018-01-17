@@ -123,9 +123,11 @@
             android:label="허허참"
             ></activity>
         <activity android:name=".BoardWriteActivity"
+            android:theme="@style/MyTheme"
             android:label="글쓰기"
             ></activity>
         <activity android:name=".BoardMyListActivity"
+            android:theme="@style/MyTheme"
             android:label="내가 쓴 글"
             ></activity>
         <activity android:name=".ImageViewPager"

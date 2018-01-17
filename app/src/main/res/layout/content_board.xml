@@ -91,6 +91,8 @@
             app:srcCompat="@drawable/bee" />
 
     </LinearLayout>
+
+    <View style="@style/Divider" />
 </LinearLayout>
 <!--
         <ImageView

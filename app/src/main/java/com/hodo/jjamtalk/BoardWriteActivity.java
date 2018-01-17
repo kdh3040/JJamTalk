@@ -28,7 +28,6 @@ public class BoardWriteActivity extends AppCompatActivity {
 
     Button btn_send;
     EditText txt_Memo;
-    ImageView img_Profile1, img_Profile2, img_Profile3;
     Activity mActivity;
 
     @Override
@@ -38,10 +37,6 @@ public class BoardWriteActivity extends AppCompatActivity {
         mActivity = this;
 
         txt_Memo = (EditText)findViewById(R.id.Write_txtMemo);
-
-        img_Profile1 = (ImageView)findViewById(R.id.Write_Img1);
-        img_Profile2 = (ImageView)findViewById(R.id.Write_Img2);
-        img_Profile3 = (ImageView)findViewById(R.id.Write_Img3);
 
         btn_send = (Button)findViewById(R.id.btn_send);
         btn_send.setOnClickListener(new View.OnClickListener() {
