@@ -139,6 +139,7 @@
             android:label="차단 목록"></activity>
 
         <activity android:name=".MailboxActivity"
+            android:theme="@style/MyTheme"
             android:label="우체통"></activity>
 
         <meta-data
