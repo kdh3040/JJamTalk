@@ -69,11 +69,18 @@ public class BoardMyListActivity extends AppCompatActivity {
                             builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    BoardMsgClientData data =  mBoardInstanceData.BoardList.get(position);
+                                    BoardMsgClientData data =  mBoardInstanceData.MyBoardList.get(position);
                                     mBoardInstanceData.RemoveMyBoard(data.GetDBData().BoardIdx);
                                     FirebaseData.getInstance().RemoveBoard(data.GetDBData().BoardIdx);
                                     // 게시판 갱신이 필요
+
+                                    FirebaseData.getInstance().GetInitBoardData();
+                                    FirebaseData.getInstance().GetInitMyBoardData();
+                                    Intent intent = new Intent(BoardMyListActivity.this, MainActivity.class);
+                                    intent.putExtra("StartFragment", 4);
+                                    startActivity(intent);
                                     finish();
+
                                 }
                             }).
                                     setNegativeButton("취소", new DialogInterface.OnClickListener() {

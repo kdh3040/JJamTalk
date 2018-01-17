@@ -1,5 +1,9 @@
 package com.hodo.jjamtalk.Firebase;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,7 +22,10 @@ import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Data.BoardLikeData;
+import com.hodo.jjamtalk.MainActivity;
+import com.hodo.jjamtalk.R;
 import com.hodo.jjamtalk.Util.AwsFunc;
+import com.hodo.jjamtalk.Util.CommonFunc;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +35,7 @@ import java.util.Random;
 
 import static com.hodo.jjamtalk.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
 import static com.hodo.jjamtalk.Data.CoomonValueData.LOAD_BOARD_COUNT;
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
 
 /**
  * Created by boram on 2017-08-05.
@@ -38,6 +46,7 @@ public class FirebaseData {
     private static FirebaseData _Instance;
     private MyData mMyData = MyData.getInstance();
     private AwsFunc mAwsFunc = AwsFunc.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
 
     public static FirebaseData getInstance()
     {
@@ -248,6 +257,36 @@ public class FirebaseData {
         SaveData(mMyData.getUserIdx());
 
     }
+    public void GetWriteAfterData(final Activity mActivity)
+    {
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
+        Query data = FirebaseDatabase.getInstance().getReference().child("Board").limitToFirst(FIRST_LOAD_BOARD_COUNT);
+
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    BoardData.getInstance().AddBoardData(postSnapshot, false);
+                }
+
+                mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
+   /*
+                Intent intent = new Intent(mActivity, MainActivity.class);
+                intent.putExtra("StartFragment", 4);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mActivity.startActivity(intent);
+                mActivity.finish();
+                mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);*/
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public void GetInitBoardData()
     {
@@ -321,7 +360,7 @@ public class FirebaseData {
     }
 
     private BoardWriteActivity WriteActivity = null;
-    public void SaveBoardData_GetBoardIndex(BoardWriteActivity activity) {
+    public void SaveBoardData_GetBoardIndex(final BoardWriteActivity activity) {
         WriteActivity = activity;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
@@ -346,6 +385,11 @@ public class FirebaseData {
                 long index = dataSnapshot.getValue(long.class);
                 BoardData.getInstance().BoardIdx = index;
                 WriteActivity.SendBoard();
+
+
+                BoardData.getInstance().ClearBoardData();
+                FirebaseData.getInstance().GetInitMyBoardData();
+                FirebaseData.getInstance().GetWriteAfterData(activity);
             }
         });
     }
