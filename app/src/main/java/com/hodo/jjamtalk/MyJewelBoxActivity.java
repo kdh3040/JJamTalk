@@ -205,7 +205,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 TextView tv_msg = v.findViewById(R.id.msg);
 
                 if(mMyData.getUserHoney() > 7){
-                    tv_msg.setText("상자 1개를 여시겠습니까?(7골드 필요)");
+                    tv_msg.setText("7골드가 소비됩니다");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -306,7 +306,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 TextView tv_msg = v.findViewById(R.id.msg);
 
                 if(mMyData.getUserHoney() > 70){
-                    tv_msg.setText("상자 11개를 여시겠습니까?(70골드 필요)");
+                    tv_msg.setText("70골드가 소비됩니다");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
