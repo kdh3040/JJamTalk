@@ -46,6 +46,8 @@ import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageView ib_cardList;
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private AppStatus mAppStatus = AppStatus.getInstance();
     private UIData mUIData = UIData.getInstance();
     private SettingData mSetting = SettingData.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
 
     ArrayList<Class> arrFragment = new ArrayList<>();
     private CardListFragment cardListFragment;
@@ -170,10 +173,12 @@ public class MainActivity extends AppCompatActivity {
                         mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
                         filter_dialog.dismiss();
 
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+
+               /*         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                         intent.putExtra("StartFragment", 0);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        getApplicationContext().startActivity(intent);
+                        getApplicationContext().startActivity(intent);*/
 
                     }
                 });

@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -21,8 +22,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Util.CommonFunc;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 
 /**
  * Created by mjk on 2017. 8. 4..
@@ -52,12 +57,15 @@ public class MyPageActivity extends AppCompatActivity {
     RecyclerView rv_myjewels;
     MyPageJewelAdapter adapter;
 
+    private CommonFunc mCommon = CommonFunc.getInstance();
 
+    private Activity mActivity;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mActivity = this;
 
         /*ll_jewel_box= (LinearLayout) findViewById(R.id.ll_jewel_box);
         ll_jewel_box.setOnClickListener(new View.OnClickListener() {
@@ -224,12 +232,14 @@ public class MyPageActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         //
-        Intent intent = new Intent(MyPageActivity.this, MainActivity.class);
+        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+
+ /*       Intent intent = new Intent(MyPageActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);
         overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-        finish();
+        finish();*/
     }
 
     @Override

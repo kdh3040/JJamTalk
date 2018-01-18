@@ -30,6 +30,11 @@ public class BoardData {
     public ArrayList<BoardMsgClientData> BoardList = new ArrayList<>();
     public ArrayList<BoardMsgClientData> MyBoardList = new ArrayList<>();
 
+    public void ClearBoardData()
+    {
+        BoardList.clear();
+        MyBoardList.clear();
+    }
     public void AddBoardData(DataSnapshot dataSnapshot, Boolean myData)
     {
         BoardMsgDBData DBData = dataSnapshot.getValue(BoardMsgDBData.class);
@@ -108,7 +113,7 @@ public class BoardData {
         {
             if(data.GetDBData().BoardIdx == boardIdx)
             {
-                BoardList.remove(data);
+                MyBoardList.remove(data);
                 break;
             }
         }

@@ -49,6 +49,7 @@ import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.LocationFunc;
 
 import java.io.ByteArrayOutputStream;
@@ -57,6 +58,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+
 public class InputProfile extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
@@ -64,6 +67,8 @@ public class InputProfile extends AppCompatActivity {
     private BoardData mBoardData = BoardData.getInstance();
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
+
     StorageReference storageRef = storage.getReferenceFromUrl("gs://jamtalk-cf526.appspot.com/");
 
     private ImageView mProfileImage;
@@ -528,10 +533,11 @@ public class InputProfile extends AppCompatActivity {
     private void GoMainPage() {
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
-        Intent intent = new Intent(InputProfile.this, MainActivity.class);
+        mCommon.refreshMainActivity(this, MAIN_ACTIVITY_HOME);
+        /*Intent intent = new Intent(InputProfile.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);
-        finish();
+        finish();*/
     }
 
 }

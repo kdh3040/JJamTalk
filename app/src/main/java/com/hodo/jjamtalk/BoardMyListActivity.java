@@ -21,8 +21,12 @@ import com.hodo.jjamtalk.Data.BoardLikeData;
 import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
+
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_CHAT;
 
 /**
  * Created by mjk on 2017. 8. 14..
@@ -31,6 +35,7 @@ import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
 public class BoardMyListActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
     private BoardData mBoardInstanceData = BoardData.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
 
     Activity mActivity;
     RecyclerView MyBoardSlotListRecycler;
@@ -69,11 +74,21 @@ public class BoardMyListActivity extends AppCompatActivity {
                             builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    BoardMsgClientData data =  mBoardInstanceData.BoardList.get(position);
+                                    BoardMsgClientData data =  mBoardInstanceData.MyBoardList.get(position);
                                     mBoardInstanceData.RemoveMyBoard(data.GetDBData().BoardIdx);
                                     FirebaseData.getInstance().RemoveBoard(data.GetDBData().BoardIdx);
                                     // 게시판 갱신이 필요
-                                    finish();
+
+                                    FirebaseData.getInstance().GetInitBoardData();
+                                    FirebaseData.getInstance().GetInitMyBoardData();
+
+                                    mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
+
+                                  /*  Intent intent = new Intent(BoardMyListActivity.this, MainActivity.class);
+                                    intent.putExtra("StartFragment", 4);
+                                    startActivity(intent);
+                                    finish();*/
+
                                 }
                             }).
                                     setNegativeButton("취소", new DialogInterface.OnClickListener() {

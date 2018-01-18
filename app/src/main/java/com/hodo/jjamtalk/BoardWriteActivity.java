@@ -2,6 +2,7 @@ package com.hodo.jjamtalk;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
@@ -26,7 +28,6 @@ public class BoardWriteActivity extends AppCompatActivity {
 
     Button btn_send;
     EditText txt_Memo;
-    ImageView img_Profile1, img_Profile2, img_Profile3;
     Activity mActivity;
 
     @Override
@@ -37,39 +38,61 @@ public class BoardWriteActivity extends AppCompatActivity {
 
         txt_Memo = (EditText)findViewById(R.id.Write_txtMemo);
 
-        img_Profile1 = (ImageView)findViewById(R.id.Write_Img1);
-        img_Profile2 = (ImageView)findViewById(R.id.Write_Img2);
-        img_Profile3 = (ImageView)findViewById(R.id.Write_Img3);
-
         btn_send = (Button)findViewById(R.id.btn_send);
+        if(mMydata.getUserHoney() > 10){
+            btn_send.setText("10골드를 소비하여 글 등록");
+        }
+        else
+        {
+            btn_send.setText(10 - mMydata.getUserHoney()+ "골드가 부족합니다");
+        }
+
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder builder= new AlertDialog.Builder(mActivity);
-                builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        BoardMsgDBData sendData = new BoardMsgDBData();
 
-                        sendData.NickName = mMydata.getUserNick();
-                        sendData.Idx = mMydata.getUserIdx();
-                        sendData.Img = mMydata.getUserImg();
-                        sendData.Msg = txt_Memo.getText().toString();
+                if(mMydata.getUserHoney() > 10){
+                    builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mMydata.setUserHoney(mMydata.getUserHoney() - 10);
 
-                        mFireBaseData.SaveBoardData_GetBoardIndex((BoardWriteActivity)mActivity);
+                            BoardMsgDBData sendData = new BoardMsgDBData();
+                            sendData.NickName = mMydata.getUserNick();
+                            sendData.Idx = mMydata.getUserIdx();
+                            sendData.Img = mMydata.getUserImg();
+                            sendData.Msg = txt_Memo.getText().toString();
+                            mFireBaseData.SaveBoardData_GetBoardIndex((BoardWriteActivity)mActivity);
 
-                        //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
-                        finish();
-                    }
-                }).
-                        setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                            }
-                        }).setMessage("작성한 글을 게시하시겠습니까?");
+                        }
+                    }).
+                            setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }).setMessage("작성한 글을 게시하시겠습니까?");
+                }
+                else
+                {
+                    builder.setPositiveButton("골드 사러가기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                            finish();
+                        }
+                    }).
+                            setNegativeButton("닫기", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }).setMessage(10 - mMydata.getUserHoney() + "골드가 부족합니다");
+                }
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
             }
         });
 

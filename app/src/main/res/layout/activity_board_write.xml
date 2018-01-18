@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="10">
+    android:weightSum="7">
 
     <EditText
         android:id="@+id/Write_txtMemo"
@@ -13,38 +13,6 @@
         android:ems="10"
         android:hint="하고 싶은 말을 작성해보세요. \n\n 주제 \n - 취미 생활 \n - 날씨 \n - 영화 \n - 원하는 데이트 "
         android:inputType="textPersonName" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-        <ImageButton
-            android:id="@+id/Write_Img1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal" />
-
-        <ImageButton
-            android:id="@+id/Write_Img2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/bg2" />
-
-        <ImageButton
-            android:id="@+id/Write_Img3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/kakao_editable_profile" />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/textView27"
@@ -60,5 +28,5 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="글 등록" />
+        android:text="10골드를 소비하여 글 등록" />
 </LinearLayout>
