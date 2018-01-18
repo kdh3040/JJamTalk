@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ib_filter = findViewById(R.id.ib_filter);
-        //ib_filter.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+        ib_filter.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.boardBgColor), PorterDuff.Mode.MULTIPLY);
 
         ib_filter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -368,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
-                //ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+                ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.colorAccentDark), PorterDuff.Mode.MULTIPLY);
 
                 setImageAlpha(255,100,100,100,100);
 
@@ -392,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         iv_honeybox = (ImageView)findViewById(R.id.iv_honeybox);
-        //iv_honeybox.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+        iv_honeybox.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.colorAccentDark), PorterDuff.Mode.MULTIPLY);
         iv_honeybox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -455,7 +455,7 @@ public class MainActivity extends AppCompatActivity {
                 view.setSelected(!view.isSelected());
                 //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-                //ib_board.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+                ib_board.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.colorAccentDark), PorterDuff.Mode.MULTIPLY);
                 setImageAlpha(100,100,100,100,255);
               /*  ib_board.setImageResource(R.drawable.btn_board_selected);
                 ib_cardList.setImageResource(R.drawable.btn_card_normal);
@@ -474,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
                 view.setSelected(!view.isSelected());
 
-                //ib_cardList.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+                ib_cardList.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.colorAccentDark), PorterDuff.Mode.MULTIPLY);
 
                 setImageAlpha(100,255,100,100,100);
 
@@ -508,7 +508,7 @@ public class MainActivity extends AppCompatActivity {
                 transaction.commit();*/
                // getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
                 view.setSelected(!view.isSelected());
-                //ib_chatList.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+                ib_chatList.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.colorAccentDark), PorterDuff.Mode.MULTIPLY);
                 setImageAlpha(100,100,255,100,100);
                 /*
 
@@ -530,7 +530,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.setSelected(!view.isSelected());
-                //ib_fan.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+                ib_fan.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.colorAccentDark), PorterDuff.Mode.MULTIPLY);
                 setImageAlpha(100,100,100,255,100);
 /*
                 ib_fan.setImageResource(R.drawable.btn_fan_selected);

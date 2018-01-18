@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#0d47a1"
     android:orientation="vertical"
     android:weightSum="30"
     tools:context=".MainActivity">
@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:background="@color/colorAccent"
+        android:background="@android:color/transparent"
+
 
 
         android:gravity="center_vertical"
@@ -32,7 +33,7 @@
             android:gravity="center"
 
 
-             />
+            />
 
         <ImageView
             android:id="@+id/imageView24"
@@ -67,7 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="25"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/boardBgColor">
 
     </LinearLayout>
 
@@ -77,7 +79,7 @@
         android:layout_height="0dp"
 
         android:layout_weight="2"
-        android:background="@color/colorAccent"
+        android:background="@color/boardBgColor"
         android:orientation="horizontal"
         android:translationZ="2dp">
 
@@ -157,7 +159,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/colorAccent"
+
+        android:background="@color/boardBgColor"
         android:orientation="horizontal"
         android:translationZ="2dp">
 
@@ -168,7 +171,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="홈"
-            android:textColor="@color/white"/>
+            android:textColor="@color/boardTextColor"/>
 
         <TextView
             android:id="@+id/textView36"
@@ -177,7 +180,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="카드"
-            android:textColor="@color/white"/>
+            android:textColor="@color/boardTextColor"/>
 
         <TextView
             android:id="@+id/textView35"
@@ -186,7 +189,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="채팅"
-            android:textColor="@color/white"/>
+            android:textColor="@color/boardTextColor"/>
 
         <TextView
             android:id="@+id/textView33"
@@ -195,7 +198,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="팬"
-            android:textColor="@color/white"/>
+            android:textColor="@color/boardTextColor"/>
 
         <TextView
             android:id="@+id/textView43"
@@ -203,7 +206,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/boardTextColor"
             android:text="게시판"
             />
 

@@ -42,7 +42,7 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         BoardLikeCount = (TextView) itemView.findViewById(R.id.board_like_count);
         BoardThumnail = (ImageView) itemView.findViewById(R.id.board_thumnail);
         BoardLikeButton = (ImageButton) itemView.findViewById(R.id.board_like_button);
-        BoardDeleteButton = (Button) itemView.findViewById(R.id.board_delete);
+        //BoardDeleteButton = (Button) itemView.findViewById(R.id.board_delete);
     }
 
     public void SetBoardViewHolder(Context context, BoardMsgClientData data, Boolean mine, Boolean deleteEnable)
@@ -72,9 +72,9 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
 
             if(deleteEnable)
             {
-                BoardDeleteButton.setVisibility(ImageView.VISIBLE);
+                /*BoardDeleteButton.setVisibility(ImageView.VISIBLE);
                 width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, context.getResources().getDisplayMetrics());
-                BoardDeleteButton.setLayoutParams(new LinearLayout.LayoutParams(width,ViewGroup.LayoutParams.MATCH_PARENT, 1));
+                BoardDeleteButton.setLayoutParams(new LinearLayout.LayoutParams(width,ViewGroup.LayoutParams.MATCH_PARENT, 1));*/
             }
         }
         else
@@ -83,9 +83,9 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
             int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, context.getResources().getDisplayMetrics());
             BoardLikeButton.setLayoutParams(new LinearLayout.LayoutParams(width,ViewGroup.LayoutParams.MATCH_PARENT, 1));
 
-            BoardDeleteButton.setVisibility(ImageView.INVISIBLE);
+           /* BoardDeleteButton.setVisibility(ImageView.INVISIBLE);
             width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 0, context.getResources().getDisplayMetrics());
-            BoardDeleteButton.setLayoutParams(new LinearLayout.LayoutParams(width,ViewGroup.LayoutParams.MATCH_PARENT, 1));
+            BoardDeleteButton.setLayoutParams(new LinearLayout.LayoutParams(width,ViewGroup.LayoutParams.MATCH_PARENT, 1));*/
         }
         RefreshLikeIcon(data);
     }
@@ -107,6 +107,6 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         BoardDate.setOnClickListener(listener);
         BoardLikeCount.setOnClickListener(listener);
         BoardLikeButton.setOnClickListener(listener);
-        BoardDeleteButton.setOnClickListener(listener);
+        //BoardDeleteButton.setOnClickListener(listener);
     }
 }
