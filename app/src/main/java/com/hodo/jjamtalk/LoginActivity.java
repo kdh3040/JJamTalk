@@ -64,6 +64,7 @@ import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.BoardLikeData;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
@@ -217,7 +218,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
-        }else     {
+        }else
+            {
 
             mEmailSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
@@ -561,7 +563,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             //mMyData.MonitorPublicRoomStatus();
 
                                 //InitData_Fan();
-                                InitData_Recv();
+                                InitData_Hot();
                                 InitData_Send();
                                 InitData_New();
                                 InitData_Near();
@@ -609,51 +611,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }*/
 
-    private void InitData_Recv() {
+    private void InitData_Hot() {
         DatabaseReference ref;
-        ref = FirebaseDatabase.getInstance().getReference().child("User");
-        Query query=ref.orderByChild("RecvCount");//.limitToFirst(30);//키가 id와 같은걸 쿼리로 가져옴
+        ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+        Query query=ref.orderByChild("Point");//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int i = 0, j=0, k=0;
-                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
+                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
+                        {
+                            SimpleUserData cTempData = new SimpleUserData();
+                            cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                            if(cTempData != null) {
 
+                                if(cTempData.Img == null)
+                                    cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                if(stRecvData.Img == null)
-                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                                mMyData.arrUserAll_Recv.add(stRecvData);
-                                for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserAll_Recv.get(i).FanList.entrySet())
-                                    mMyData.arrUserAll_Recv.get(i).arrFanList.add(entry.getValue());
-
-                                for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserAll_Recv.get(i).StarList.entrySet())
-                                    mMyData.arrUserAll_Recv.get(i).arrStarList.add(entry.getValue());
+                                mMyData.arrUserAll_Recv.add(cTempData);
 
                                 if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
                                 {
-                                    mMyData.arrUserWoman_Recv.add(stRecvData);
-                            //        for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserWoman_Recv.get(j).FanList.entrySet())
-                             //           mMyData.arrUserWoman_Recv.get(j).arrFanList.add(entry.getValue());
-
-                                    j++;
+                                    mMyData.arrUserWoman_Recv.add(cTempData);
                                 }
                                 else {
-                                    mMyData.arrUserMan_Recv.add(stRecvData);
-                             //       for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_Recv.get(k).FanList.entrySet())
-                             //           mMyData.arrUserMan_Recv.get(k).arrFanList.add(entry.getValue());
+                                    mMyData.arrUserMan_Recv.add(cTempData);
 
-                                    k++;
                                 }
-
-
                             }
-                            i++;
-
                         }
 
                         bSetRecv = true;
@@ -663,6 +649,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
                         }
+
                     }
 
                     @Override

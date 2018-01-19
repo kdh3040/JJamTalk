@@ -135,7 +135,8 @@ public class FirebaseData {
 
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
-        user.child("Point").setValue(Integer.valueOf(rand.toString()));
+
+        user.child("Point").setValue(Integer.valueOf(Integer.toString(rand.nextInt(100))));
 
 
     }

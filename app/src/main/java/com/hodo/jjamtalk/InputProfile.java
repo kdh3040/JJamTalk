@@ -215,29 +215,17 @@ public class InputProfile extends AppCompatActivity {
                                 if(cTempData.Img == null)
                                     cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                mMyData.arrUserAll_Recv.add(stRecvData);
-
-
-                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_Recv.get(i).FanList.entrySet())
-                                    mMyData.arrUserAll_Recv.get(i).arrFanList.add(entry.getValue());
+                                mMyData.arrUserAll_Recv.add(cTempData);
 
                                 if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
                                 {
-                                    mMyData.arrUserWoman_Recv.add(stRecvData);
-                                    for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserWoman_Recv.get(j).FanList.entrySet())
-                                        mMyData.arrUserWoman_Recv.get(j).arrFanList.add(entry.getValue());
-
-                                    j++;
+                                    mMyData.arrUserWoman_Recv.add(cTempData);
                                 }
                                 else {
-                                    mMyData.arrUserMan_Recv.add(stRecvData);
-                                    for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_Recv.get(k).FanList.entrySet())
-                                        mMyData.arrUserMan_Recv.get(k).arrFanList.add(entry.getValue());
+                                    mMyData.arrUserMan_Recv.add(cTempData);
 
-                                    k++;
                                 }
                             }
-                            i++;
                         }
 
                         if(nUserSet != 4)
