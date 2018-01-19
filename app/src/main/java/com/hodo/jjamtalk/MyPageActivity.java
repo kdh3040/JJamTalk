@@ -77,7 +77,7 @@ public class MyPageActivity extends AppCompatActivity {
         });*/
 
         iv_gold = findViewById(R.id.iv_gold);
-        //iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
+        iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.boardBgColor), PorterDuff.Mode.MULTIPLY);
 
         /*iv_jewely=findViewById(R.id.iv_jewely);
         iv_jewely.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);

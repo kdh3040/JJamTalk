@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/boardBgColor"
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
@@ -20,6 +20,15 @@
             android:layout_height="match_parent"
             app:srcCompat="@mipmap/hdvd" />
 
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
         <ImageView
             android:id="@+id/iv_myGift"
             android:layout_width="60dp"
@@ -28,17 +37,17 @@
             android:layout_marginLeft="40dp"
             app:srcCompat="@drawable/bg2" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/MyPage_txtProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
 
-    <TextView
-        android:id="@+id/MyPage_txtProfile"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
