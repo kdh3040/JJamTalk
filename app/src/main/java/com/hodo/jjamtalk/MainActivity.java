@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         itembox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
+                startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
             }
         });
 
