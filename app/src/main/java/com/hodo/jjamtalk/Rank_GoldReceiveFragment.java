@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AppStatus;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
@@ -25,7 +26,7 @@ public class Rank_GoldReceiveFragment extends Fragment {
 
     RecyclerView recyclerView;
     private SettingData mSettingData = SettingData.getInstance();
-    public UserData stTargetData = new UserData();
+    public SimpleUserData stTargetData = new SimpleUserData();
     private MyData mMyData = MyData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
 
@@ -57,7 +58,7 @@ public class Rank_GoldReceiveFragment extends Fragment {
                                     break;
                             }
 
-                            Intent intent = new Intent(view.getContext(), UserPageActivity.class);
+                 /*           Intent intent = new Intent(view.getContext(), UserPageActivity.class);
                             Bundle bundle = new Bundle();
 
                             bundle.putSerializable("Target", stTargetData);
@@ -67,7 +68,7 @@ public class Rank_GoldReceiveFragment extends Fragment {
                             intent.putExtra("StarList", stTargetData.arrStarList);
                             intent.putExtras(bundle);
 
-                            view.getContext().startActivity(intent);
+                            view.getContext().startActivity(intent);*/
                         }
                     }
 

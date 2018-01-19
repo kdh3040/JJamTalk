@@ -47,6 +47,7 @@ import com.google.firebase.storage.UploadTask;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.CommonFunc;
@@ -170,7 +171,7 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.setUserNick(strNickName);
                     mFireBaseData.SaveData(mMyData.getUserIdx());
                     bMySet = true;
-                    InitData_Recv();
+                    InitData_Hot();
                     InitData_New();
                     InitData_Send();
                     InitData_Near();
@@ -196,6 +197,51 @@ public class InputProfile extends AppCompatActivity {
         }
     }
 
+    private void InitData_Hot() {
+        DatabaseReference ref;
+        ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+        Query query=ref.orderByChild("Point");//키가 id와 같은걸 쿼리로 가져옴
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0, j=0, k=0;
+                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
+                        {
+                            SimpleUserData cTempData = new SimpleUserData();
+                            cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                            if(cTempData != null) {
+
+                                if(cTempData.Img == null)
+                                    cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                mMyData.arrUserAll_Recv.add(cTempData);
+
+                                if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                {
+                                    mMyData.arrUserWoman_Recv.add(cTempData);
+                                }
+                                else {
+                                    mMyData.arrUserMan_Recv.add(cTempData);
+
+                                }
+                            }
+                        }
+
+                        if(nUserSet != 4)
+                            nUserSet += 1;
+                        if(nUserSet == 4 && bMySet == true){
+                            Log.d(TAG, "Account Log in  Complete");
+                            GoMainPage();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+    }
+    /*
     private void InitData_Recv() {
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("User");
@@ -248,7 +294,7 @@ public class InputProfile extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-    }
+    }*/
 
     private void InitData_Send() {
         DatabaseReference ref;

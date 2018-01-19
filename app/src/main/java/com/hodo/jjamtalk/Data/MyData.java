@@ -66,9 +66,9 @@ public class MyData {
     public ArrayList<UserData> arrUserWoman_Send = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Send = new ArrayList<>();
 
-    public ArrayList<UserData> arrUserMan_Recv = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();
-    public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserMan_Recv = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_Recv = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_Recv = new ArrayList<>();
 
     public  Map<String, UserData> mapChatTargetData = new LinkedHashMap<String, UserData>();
 
