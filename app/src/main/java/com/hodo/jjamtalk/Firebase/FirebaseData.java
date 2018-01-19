@@ -103,7 +103,43 @@ public class FirebaseData {
         user.child("RecvMsg").setValue(mMyData.getnRecvMsg());
 
         user.child("FanCount").setValue(mMyData.getFanCount());
+
+        // 심플 디비 저장
+        SaveSimpleData();
     }
+
+    public void SaveSimpleData() {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
+
+        // DatabaseReference user = table.child( userIdx);
+        final DatabaseReference user = table.child(mMyData.getUserIdx());
+        user.child("Idx").setValue(mMyData.getUserIdx());
+
+        mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+        user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+        user.child("Img").setValue(mMyData.getUserImg());
+
+        user.child("NickName").setValue(mMyData.getUserNick());
+        user.child("Gender").setValue(mMyData.getUserGender());
+        user.child("Age").setValue(mMyData.getUserAge());
+
+        user.child("Lon").setValue(mMyData.getUserLon());
+        user.child("Lat").setValue(mMyData.getUserLat());
+
+        long time = System.currentTimeMillis();
+        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
+        user.child("Date").setValue(ctime.format(new Date(time)));
+        user.child("FanCount").setValue(mMyData.getFanCount());
+
+        Random rand = new Random();
+        rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
+        user.child("Point").setValue(Integer.valueOf(rand.toString()));
+
+
+    }
+
 
     public boolean SaveBoardReplyData(TempBoard_ReplyData strMemo) {
 
