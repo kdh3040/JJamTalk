@@ -41,8 +41,8 @@
             android:id="@+id/MyPage_txtProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
 
+            android:gravity="left"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -127,7 +127,7 @@
         android:weightSum="2"
         android:orientation="horizontal">
 
-        <ImageView
+        <ImageButton
 
 
             android:id="@+id/iv_gold"
@@ -148,36 +148,7 @@
             android:gravity="center"
             android:textSize="24dp"
             android:textStyle="bold"
-            android:text="내 프로필" />
-
-
-
-    </LinearLayout>
-
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-
-
-
-        <Button
-            android:id="@+id/btn_BuyGold"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/button_pressed"
-            android:text="골드 충전"
-            android:textColor="@color/white" />
-
+             />
     </LinearLayout>
 
 </LinearLayout>

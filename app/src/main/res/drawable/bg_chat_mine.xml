@@ -1,11 +1,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
 
-    <gradient
-        android:startColor="@color/bambamcolor"
-        android:endColor="@color/bambamcolor"
-        android:angle="45"
-        />
-
+    <solid android:color="@color/myChatColor" />
     <padding android:left="7dp"
         android:top="7dp"
         android:right="7dp"
@@ -13,6 +8,7 @@
         />
 
 
-    <corners android:radius= "8dp" />
+
+    <corners android:radius= "2dp" />
 
 </shape>

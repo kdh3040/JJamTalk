@@ -39,10 +39,10 @@ public class MyPageActivity extends AppCompatActivity {
     UIData mUIdata = UIData.getInstance();
 
     ImageButton btn_Setting,btn_my_profile,btn_history;
-    Button btn_Gold;
+    //Button btn_Gold;
     //Button btn_buyjewel;
     ImageView img_Mypic;
-    ImageView iv_gold;
+    ImageButton iv_gold;
     ImageView iv_MyGift;
 
 
@@ -112,7 +112,7 @@ public class MyPageActivity extends AppCompatActivity {
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
         //txt_MyHeartCnt.setText("보유 골드: " + nGold);
 
-        btn_Setting = (ImageButton)findViewById(R.id.btn_setting);
+        btn_Setting = findViewById(R.id.btn_setting);
         //btn_Setting.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 
         btn_Setting.setOnClickListener(new View.OnClickListener() {
@@ -122,13 +122,13 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
-        btn_Gold = (Button)findViewById(R.id.btn_BuyGold);
-        btn_Gold.setOnClickListener(new View.OnClickListener() {
+        //btn_Gold = (Button)findViewById(R.id.btn_BuyGold);
+        /*btn_Gold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
             }
-        });
+        });*/
         /*btn_buyjewel = (Button)findViewById(R.id.btn_buyjewel);
         btn_buyjewel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +155,7 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
-        btn_my_profile = (ImageButton)findViewById(R.id.ib_my_profile);
+        btn_my_profile = findViewById(R.id.ib_my_profile);
         //btn_my_profile.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
         btn_my_profile.setOnClickListener(new View.OnClickListener() {
             @Override

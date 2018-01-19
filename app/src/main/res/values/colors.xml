@@ -11,19 +11,23 @@
     <color name= "boardLikeColor">#ff0000</color>
     <color name= "boardBgColor">#ffffff</color>
 
-<<<<<<< HEAD
-        <color name="colorPrimaryDark">#000000</color>
-        <color name="colorPrimaryLight">#ef5350</color>
-    <color name = "colorAccentDark">#e53935</color>
-        <color name="colorAccent">#e53935</color>
-=======
+    <color name= "myChatColor">#ffeb3b</color>
+    <color name= "yourChatColor">#ffffff</color>
+    <color name= "chatRoomBg">#c5cae9</color>
+    <color name= "chatRoomBottomBg">#ffffff</color>
+    <color name= "postBox">#ffeb3b</color>
+    <color name="botItem">#0d47a1</color>
+
+
+
+
 
 
         <color name="colorPrimaryDark">#1a237e</color>
         <color name="colorPrimaryLight">#dbffff</color>
     <color name = "colorAccentDark">#80deea</color>
         <color name="colorAccent">#ffff8d</color>
->>>>>>> 08eec515249cf2362b6c61945a1d4f6f86f23f47
+
     <color name = "colorDark">#4e342e</color>
     <color name = "bg_grid">#ffffff</color>
 
@@ -39,11 +43,9 @@
 
         <color name="tabIndicatorColor">#ffffff</color>
         <color name="tabSelectedTextColor">#ffffff</color>
-<<<<<<< HEAD
-        <color name="tabTextColor">#ef9a9a</color>
-=======
+
         <color name="tabTextColor">#80deea</color>
->>>>>>> 08eec515249cf2362b6c61945a1d4f6f86f23f47
+
         <color name="tabBackground">@color/colorAccent</color>
         <color name="fabPrimary">#45a1f5</color>
         <color name="fabPressed">#6eb5f7</color>
