@@ -13,10 +13,10 @@
 
         android:minHeight="?attr/actionBarSize"
 
-        app:tabBackground="@color/colorAccent"
-        app:tabIndicatorColor="@color/textColorDark"
+        app:tabBackground="@color/boardBgColor"
+        app:tabIndicatorColor="@color/boardTextColor"
         app:tabTextColor="@color/textColorDark"
-        app:tabSelectedTextColor="@color/textColorLightDark"/>
+        app:tabSelectedTextColor="@color/boardTextColor"/>
 
 
     <android.support.v4.view.ViewPager

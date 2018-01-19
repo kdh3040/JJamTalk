@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -66,6 +67,9 @@ import java.util.Date;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_CHAT;
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+
 /**
  * Created by mjk on 2017. 8. 10..
  */
@@ -104,6 +108,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     static int a = 0;
 
+    private Activity mActivity;
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder{
 
@@ -142,6 +147,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
 
+        mActivity = this;
         Intent intent = getIntent();
       //  progressBar = (ProgressBar)findViewById(R.id.chat_Progress);
         mFragmentManager = getFragmentManager();
@@ -544,11 +550,13 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 mMyData.arrSendDataList.remove(tempPosition);
                                 mMyData.arrSendNameList.remove(tempPosition);
 
-                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
+
+                              /*  Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 intent.putExtra("StartFragment", 2);
                                 getApplicationContext().startActivity(intent);
-                                finish();
+                                finish();*/
                                 //mCommon.refreshFragMent(MainActivity.mFragmentMng, frg);
 
 

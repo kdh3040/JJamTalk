@@ -4,6 +4,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -67,6 +68,7 @@ import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.AwsFunc;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.LocationFunc;
 
 import java.text.SimpleDateFormat;
@@ -74,6 +76,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -107,6 +112,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
     private LocationFunc mLocalFunc = LocationFunc.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
+
     //private BoardData mBoardData = BoardData.getInstance();
 
     //String strMyIdx = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
@@ -126,6 +133,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     LocationManager locationManager;
     String provider;
 
+    private Activity mActivity;
     private long pressedTime;
 
     @Override
@@ -165,6 +173,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mActivity = this;
 
         bSetNear = bSetNew = bSetRich = bSetRecv = false;
 
@@ -208,7 +217,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
-        }else      {
+        }else     {
 
             mEmailSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
@@ -246,9 +255,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mToMain.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+                    /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("StartFragment", 0);
-                    startActivity(intent);
+                    startActivity(intent);*/
                 }
             });
 
@@ -305,10 +315,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void GoMainPage() {
         FirebaseData.getInstance().GetInitBoardData();
         FirebaseData.getInstance().GetInitMyBoardData();
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+        /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);
-        finish();
+        finish();*/
     }
 
     private void SetBoardMyData() {

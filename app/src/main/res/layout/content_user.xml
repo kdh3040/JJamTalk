@@ -5,7 +5,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="1dp"
-    android:background="@color/bg_grid">
+    android:background="@android:color/transparent">
+    <!--android:background="@color/bg_grid"-->
+
 
     <ImageView
         android:id="@+id/iv_user"

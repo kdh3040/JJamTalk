@@ -4,7 +4,6 @@
     android:id="@+id/layout_mycard_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:orientation="vertical">
 
 
@@ -12,7 +11,6 @@
         android:id="@+id/layout_my_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:orientation="horizontal"
@@ -21,6 +19,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:layout_weight="1">
 
             <ImageView
@@ -49,8 +48,7 @@
             android:layout_weight="2.5"
             android:gravity="center_vertical"
             android:text="상희, 27"
-
-            android:textSize="18sp"
+            android:textColor="@color/boardNickColor"
             android:textStyle="bold" />
 
         <TextView
@@ -60,7 +58,7 @@
             android:layout_weight="1.5"
             android:gravity="center_vertical"
             android:text="상희"
-
+            android:textColor="@color/boardTextColor"
             android:textSize="10sp"
             android:textStyle="bold" />
 

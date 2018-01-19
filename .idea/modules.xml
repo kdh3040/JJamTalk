@@ -5,9 +5,14 @@
       <module fileurl="file://C:\gitgit\JJamTalk.iml" filepath="C:\gitgit\JJamTalk.iml" />
       <module fileurl="file://$PROJECT_DIR$/JJamTalkREAL.iml" filepath="$PROJECT_DIR$/JJamTalkREAL.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gitgit.iml" filepath="$PROJECT_DIR$/gitgit.iml" />
       <module fileurl="file://C:\project\jjamtalk\gitgit.iml" filepath="C:\project\jjamtalk\gitgit.iml" />
       <module fileurl="file://F:\Project\Android\JJamTalk\gitgit.iml" filepath="F:\Project\Android\JJamTalk\gitgit.iml" />
+<<<<<<< HEAD
       <module fileurl="file://C:\Users\Administrator\Documents\JJamTalkREAL\jjamtalk.iml" filepath="C:\Users\Administrator\Documents\JJamTalkREAL\jjamtalk.iml" />
+=======
+      <module fileurl="file://C:\gitgit\jjamtalk.iml" filepath="C:\gitgit\jjamtalk.iml" />
+>>>>>>> 08eec515249cf2362b6c61945a1d4f6f86f23f47
     </modules>
   </component>
 </project>

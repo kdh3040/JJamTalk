@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
@@ -50,18 +55,28 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                 final int nSellIdx = mMyData.itemIdx.get(position);
                 final int[] nSellCount = {mMyData.itemList.get(nSellIdx)};
                 final int nSellGold = mUIdata.getSellJewelValue()[nSellIdx];
+                final String strSellItem = mUIdata.getItems()[nSellIdx];
+                final String strSellItemRef = mUIdata.getItemsReference()[nSellIdx];
 
                 if(mUIdata.bSellItemStatus == false)
                 {
+                    View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_exit_app, null, false);
                     AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                    builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+                    final AlertDialog dialog = builder.setView(v).create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    dialog.show();
 
-                        }
-                    }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    TextView tv_title = v.findViewById(R.id.title);
+                    tv_title.setText(strSellItemRef + "  " + nSellCount[0] + "개 보유");
+                    TextView tv_msg = v.findViewById(R.id.msg);
+
+                    tv_msg.setText("판매 시 개당 " + nSellGold + " 골드 획득");
+                    Button btn_yes = v.findViewById(R.id.btn_yes);
+                    btn_yes.setText("아이템 팔기");
+                    btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+                        public void onClick(View view) {
+                            dialog.cancel();
                             mMyData.setUserHoney(mMyData.getUserHoney() + nSellGold);
                             mMyData.itemList.put(nSellIdx, --nSellCount[0]);
                             mMyData.SaveMyItem(nSellIdx, nSellCount[0]);
@@ -78,10 +93,20 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                             mActivity.finish();
                             mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
-                        }
-                    }).setMessage("아이템을 "+  nSellGold  + " 골드에 판매하시겠습니까?");
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                            }
+                        });
+
+                        Button btn_no = v.findViewById(R.id.btn_no);
+                        btn_no.setText("닫기");
+                        btn_no.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+
+                            public void onClick(View view) {
+                                dialog.dismiss();
+                            }
+
+                        });
                 }
 
                 else
