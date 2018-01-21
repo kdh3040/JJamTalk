@@ -15,8 +15,10 @@ import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AppStatus;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 
 /**
@@ -30,7 +32,9 @@ public class Rank_NewMemberFragment extends Fragment {
 
     private SettingData mSetting = SettingData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
-    public UserData stTargetData = new UserData();
+    public SimpleUserData stTargetData = new SimpleUserData();
+    private CommonFunc mCommon = CommonFunc.getInstance();
+
 
     RecyclerView recyclerView;
     @Nullable
@@ -46,7 +50,7 @@ public class Rank_NewMemberFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         Toast.makeText(view.getContext(), position + "번 째 아이템 클릭", Toast.LENGTH_SHORT).show();
-                        if (mAppStatus.bCheckMultiSend == false) {
+                       if (mAppStatus.bCheckMultiSend == false) {
                             switch (mSetting.getnSearchSetting()) {
                                 case 1:
                                     stTargetData = mMyData.arrUserMan_New.get(position);
@@ -59,18 +63,7 @@ public class Rank_NewMemberFragment extends Fragment {
                                     break;
                             }
 
-                            Intent intent = new Intent(view.getContext(), UserPageActivity.class);
-                            Bundle bundle = new Bundle();
-
-                            bundle.putSerializable("Target", stTargetData);
-                            intent.putExtra("FanList", stTargetData.arrFanList);
-                            intent.putExtra("FanCount", stTargetData.FanCount);
-
-                            intent.putExtra("StarList", stTargetData.arrStarList);
-                            intent.putExtras(bundle);
-
-                            view.getContext().startActivity(intent);
-
+                           mCommon.getUserData(getActivity(), stTargetData);
 
                         }
                     }

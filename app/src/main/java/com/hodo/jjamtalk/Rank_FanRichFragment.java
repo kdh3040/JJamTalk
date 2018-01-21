@@ -13,8 +13,10 @@ import android.widget.Toast;
 
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AppStatus;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
 
 /**
@@ -25,8 +27,9 @@ public class Rank_FanRichFragment extends Fragment {
 
     private MyData mMyData = MyData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
-    public UserData stTargetData = new UserData();
+    public SimpleUserData stTargetData = new SimpleUserData();
     private SettingData mSettingData = SettingData.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
 
     RecyclerView recyclerView;
     @Nullable
@@ -56,17 +59,7 @@ public class Rank_FanRichFragment extends Fragment {
                                     break;
                             }
 
-                            Intent intent = new Intent(view.getContext(), UserPageActivity.class);
-                            Bundle bundle = new Bundle();
-
-                            bundle.putSerializable("Target", stTargetData);
-                            intent.putExtra("FanList", stTargetData.arrFanList);
-                            intent.putExtra("FanCount", stTargetData.FanCount);
-
-                            intent.putExtra("StarList", stTargetData.arrStarList);
-                            intent.putExtras(bundle);
-
-                            view.getContext().startActivity(intent);
+                            mCommon.getUserData(getActivity(), stTargetData);
                         }
                     }
 

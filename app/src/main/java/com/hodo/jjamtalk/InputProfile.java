@@ -1,6 +1,9 @@
 package com.hodo.jjamtalk;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,6 +12,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -87,15 +91,58 @@ public class InputProfile extends AppCompatActivity {
     LocationManager locationManager;
     String provider;
 
-    private Boolean bMySet = false;
+    private boolean bMySet = false;
+    private boolean bSetNear, bSetNew, bSetRich, bSetRecv = false;
+
     private int nUserSet = 0;
     private static String TAG = "InputActivity Log!!";
 
+    private View mProgressView;
+    private View mLoginFormView;
+
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_profile);
+
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.InputProfile_Progress);
 
         progressBar = (ProgressBar)findViewById(R.id.InputProfile_Progress);
 
@@ -173,7 +220,7 @@ public class InputProfile extends AppCompatActivity {
                     bMySet = true;
                     InitData_Hot();
                     InitData_New();
-                    InitData_Send();
+                    InitData_FanCount();
                     InitData_Near();
                     /*Intent intent = new Intent(InputProfile.this, MainActivity.class);
                     startActivity(intent);*/
@@ -197,6 +244,7 @@ public class InputProfile extends AppCompatActivity {
         }
     }
 
+
     private void InitData_Hot() {
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
@@ -205,7 +253,7 @@ public class InputProfile extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0, j=0, k=0;
+                        int i = 0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
                         {
                             SimpleUserData cTempData = new SimpleUserData();
@@ -226,14 +274,17 @@ public class InputProfile extends AppCompatActivity {
 
                                 }
                             }
+                            i++;
                         }
 
-                        if(nUserSet != 4)
-                            nUserSet += 1;
-                        if(nUserSet == 4 && bMySet == true){
+                        bSetRecv = true;
+
+                        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+                            showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
                         }
+
                     }
 
                     @Override
@@ -241,105 +292,40 @@ public class InputProfile extends AppCompatActivity {
                     }
                 });
     }
-    /*
-    private void InitData_Recv() {
+
+    private void InitData_FanCount() {
         DatabaseReference ref;
-        ref = FirebaseDatabase.getInstance().getReference().child("User");
-        Query query=ref.orderByChild("RecvCount");//키가 id와 같은걸 쿼리로 가져옴
+        ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+        Query query= ref.orderByChild("FanCount");//.limitToFirst(3);//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0, j=0, k=0;
+                        int i = 0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
+                            SimpleUserData cTempData = new SimpleUserData();
+                            cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                            if(cTempData != null) {
 
-                                if(stRecvData.Img == null)
-                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                                if(cTempData.Img == null)
+                                    cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                mMyData.arrUserAll_Recv.add(stRecvData);
-                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_Recv.get(i).FanList.entrySet())
-                                    mMyData.arrUserAll_Recv.get(i).arrFanList.add(entry.getValue());
-
-                                if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
-                                {
-                                    mMyData.arrUserWoman_Recv.add(stRecvData);
-                                    for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserWoman_Recv.get(j).FanList.entrySet())
-                                        mMyData.arrUserWoman_Recv.get(j).arrFanList.add(entry.getValue());
-
-                                    j++;
-                                }
-                                else {
-                                    mMyData.arrUserMan_Recv.add(stRecvData);
-                                    for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_Recv.get(k).FanList.entrySet())
-                                        mMyData.arrUserMan_Recv.get(k).arrFanList.add(entry.getValue());
-
-                                    k++;
-                                }
-                            }
-                            i++;
-                        }
-
-                        if(nUserSet != 4)
-                            nUserSet += 1;
-                        if(nUserSet == 4 && bMySet == true){
-                            Log.d(TAG, "Account Log in  Complete");
-                            GoMainPage();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-    }*/
-
-    private void InitData_Send() {
-        DatabaseReference ref;
-        ref = FirebaseDatabase.getInstance().getReference().child("User");
-        Query query=ref.orderByChild("SendCount");//키가 id와 같은걸 쿼리로 가져옴
-        query.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0, j=0, k=0;
-                        for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
-
-                                if(stRecvData.Img == null)
-                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                                mMyData.arrUserAll_Send.add(stRecvData);
-                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_Send.get(i).FanList.entrySet())
-                                    mMyData.arrUserAll_Send.get(i).arrFanList.add(entry.getValue());
-
+                                mMyData.arrUserAll_Send.add(cTempData);
                                 if(mMyData.arrUserAll_Send.get(i).Gender.equals("여자"))
                                 {
-                                    mMyData.arrUserWoman_Send.add(stRecvData);
-                                    for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserWoman_Send.get(j).FanList.entrySet())
-                                        mMyData.arrUserWoman_Send.get(j).arrFanList.add(entry.getValue());
-
-                                    j++;
+                                    mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
                                 }
-                                else
-                                {
-                                    mMyData.arrUserMan_Send.add(stRecvData);
-                                    for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_Send.get(k).FanList.entrySet())
-                                        mMyData.arrUserMan_Send.get(k).arrFanList.add(entry.getValue());
-
-                                    k++;
+                                else {
+                                    mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
                                 }
                             }
                             i++;
                         }
 
-                        if(nUserSet != 4)
-                            nUserSet += 1;
-                        if(nUserSet == 4 && bMySet == true){
+                        bSetRich = true;
+
+                        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+                            showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
                         }
@@ -351,7 +337,6 @@ public class InputProfile extends AppCompatActivity {
                         //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
                     }
                 });
-
     }
 
     // 일주일간 NEW 멤버
@@ -362,7 +347,7 @@ public class InputProfile extends AppCompatActivity {
         int nStartDate = nTodayDate - 7;
 
         DatabaseReference ref;
-        ref = FirebaseDatabase.getInstance().getReference().child("User");
+        ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
         Query query=ref.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -370,37 +355,30 @@ public class InputProfile extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int i = 0, j=0, k=0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
+                            SimpleUserData stRecvData = new SimpleUserData ();
+                            stRecvData = fileSnapshot.getValue(SimpleUserData.class);
                             if(stRecvData != null) {
 
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
                                 mMyData.arrUserAll_New.add(stRecvData);
-                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_New.get(i).FanList.entrySet())
-                                    mMyData.arrUserAll_New.get(i).arrFanList.add(entry.getValue());
 
                                 if(mMyData.arrUserAll_New.get(i).Gender.equals("여자"))
                                 {
-                                    mMyData.arrUserWoman_New.add(stRecvData);
-                                    for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserWoman_New.get(j).FanList.entrySet())
-                                        mMyData.arrUserWoman_New.get(j).arrFanList.add(entry.getValue());
-
-                                    j++;
+                                    mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
                                 }
-                                else
-                                {
-                                    mMyData.arrUserMan_New.add(stRecvData);
-                                    for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_New.get(k).FanList.entrySet())
-                                        mMyData.arrUserMan_New.get(k).arrFanList.add(entry.getValue());
-
-                                    k++;
+                                else {
+                                    mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
                                 }
+
                             }
                             i++;
                         }
 
-                        if(nUserSet != 4)
-                            nUserSet += 1;
-                        if(nUserSet == 4 && bMySet == true){
+                        bSetNew = true;
+                        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+                            showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
                         }
@@ -417,17 +395,18 @@ public class InputProfile extends AppCompatActivity {
     // 경위도 +- 1 씩
     private void InitData_Near() {
 
-        Double lStartLon = mMyData.getUserLon() - 1;
-        Double lStartLat = mMyData.getUserLat() - 1;
+        Double lStartLon = mMyData.getUserLon() - 10;
+        Double lStartLat = mMyData.getUserLat() - 10;
 
-        Double lEndLon = mMyData.getUserLon() + 1;
-        Double IEndLat = mMyData.getUserLon() + 1;
+        Double lEndLon = mMyData.getUserLon() + 10;
+        Double IEndLat = mMyData.getUserLon() + 10;
 
         DatabaseReference ref;
-        ref = FirebaseDatabase.getInstance().getReference().child("User");
+        ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
         Query query=ref
                 .orderByChild("Lon")
-                .startAt(lStartLon).endAt(lEndLon);
+                .startAt(lStartLon).endAt(lEndLon)
+                ;
 
 
         query.addListenerForSingleValueEvent(
@@ -436,38 +415,31 @@ public class InputProfile extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int i = 0, j=0, k=0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
+                            SimpleUserData stRecvData = new SimpleUserData ();
+                            stRecvData = fileSnapshot.getValue(SimpleUserData.class);
                             if(stRecvData != null) {
 
+                                if(stRecvData.Img == null)
+                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
                                 mMyData.arrUserAll_Near.add(stRecvData);
-                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_Near.get(i).FanList.entrySet())
-                                    mMyData.arrUserAll_Near.get(i).arrFanList.add(entry.getValue());
 
                                 if(mMyData.arrUserAll_Near.get(i).Gender.equals("여자"))
                                 {
-                                    mMyData.arrUserWoman_Near.add(stRecvData);
-                                    for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserWoman_Near.get(j).FanList.entrySet())
-                                        mMyData.arrUserWoman_Near.get(j).arrFanList.add(entry.getValue());
-
-                                    j++;
+                                    mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
                                 }
-                                else
-                                {
-                                    mMyData.arrUserMan_Near.add(stRecvData);
-                                    for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_Near.get(k).FanList.entrySet())
-                                        mMyData.arrUserMan_Near.get(k).arrFanList.add(entry.getValue());
-
-                                    k++;
+                                else {
+                                    mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
                                 }
+
                             }
                             i++;
                         }
 
+                        bSetNear = true;
 
-                        if(nUserSet != 4)
-                            nUserSet += 1;
-                        if(nUserSet == 4 && bMySet == true){
+                        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+                            showProgress(false);
                             Log.d(TAG, "Account Log in  Complete");
                             GoMainPage();
                         }
@@ -479,6 +451,7 @@ public class InputProfile extends AppCompatActivity {
                         //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
                     }
                 });
+
     }
 
     public void getLocation() {

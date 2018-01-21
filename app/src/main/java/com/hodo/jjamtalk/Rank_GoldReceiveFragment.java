@@ -11,12 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Util.AppStatus;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.RecyclerItemClickListener;
+
+import java.util.LinkedHashMap;
 
 /**
  * Created by mjk on 2017. 8. 21..
@@ -29,6 +38,7 @@ public class Rank_GoldReceiveFragment extends Fragment {
     public SimpleUserData stTargetData = new SimpleUserData();
     private MyData mMyData = MyData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
 
     @Nullable
     @Override
@@ -45,6 +55,7 @@ public class Rank_GoldReceiveFragment extends Fragment {
                     public void onItemClick(View view, int position) {
                         Toast.makeText(view.getContext(), position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
                         if(mAppStatus.bCheckMultiSend == false) {
+
                             switch (mSettingData.getnSearchSetting())
                             {
                                 case 1:
@@ -57,6 +68,8 @@ public class Rank_GoldReceiveFragment extends Fragment {
                                     stTargetData = mMyData.arrUserAll_Recv.get(position);
                                     break;
                             }
+
+                            mCommon.getUserData(getActivity(), stTargetData);
 
                  /*           Intent intent = new Intent(view.getContext(), UserPageActivity.class);
                             Bundle bundle = new Bundle();

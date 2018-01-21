@@ -213,13 +213,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mGoogleSignInButton = (Button) findViewById(R.id.Login_Google);
         mToMain = (Button) findViewById(R.id.btn_tomain);
 
-       /*if(mAuth.getCurrentUser() != null){
+       if(mAuth.getCurrentUser() != null){
             showProgress(true);
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
 
-        }else */   {
+        }else    {
 
 
 
