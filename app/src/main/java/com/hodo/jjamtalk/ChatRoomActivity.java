@@ -261,7 +261,9 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     viewHolder.targetName.setVisibility(TextView.GONE);
                     viewHolder.image_profile.setVisibility(View.GONE);
-                    viewHolder.message.setBackgroundResource(R.drawable.outbox2);
+                    //viewHolder.message.setBackgroundResource(R.drawable.outbox2);
+                    viewHolder.message.setBackgroundResource(R.drawable.bg_chat_mine);
+
                     viewHolder.Msg_layout.setGravity(Gravity.RIGHT);
                     a = 0;
 
@@ -274,7 +276,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     viewHolder.image_profile.setVisibility(View.VISIBLE);
                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
                     viewHolder.targetName.setText(stTargetData.NickName);
-                    viewHolder.message.setBackgroundResource(R.drawable.inbox2);
+                    viewHolder.message.setBackgroundResource(R.drawable.bg_chat_yours);
 
                    Glide.with(getApplicationContext())
                             .load( stTargetData.Img)
@@ -586,7 +588,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.cancel();
                             }
-                        }).setMessage("이 사람을 차단하시겠습니까? \n(차단과 함께 대화방이 삭제됩니다. 앞으로 이 사람으로부터 쪽지 및 선물을 받지 않습니다.)")
+                        }).setMessage("이 사람을 차단하시겠습니까? \n(차단과 함께 대화방이 삭제됩니다. 앞으로 이 사람으로부터 쪽지 및 선물을 받지 않습니다. \n차단은 설정에서 다시 해제하실 수 있습니다.)")
                         .setTitle("차단하기");
                 AlertDialog dialog = builder.create();
                 dialog.show();
