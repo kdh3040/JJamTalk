@@ -97,7 +97,6 @@ public class CardListFragment extends Fragment {
             view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
 
             return new ViewHolder(view);
-
         }
 
 

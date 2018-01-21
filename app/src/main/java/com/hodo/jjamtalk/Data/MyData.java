@@ -144,7 +144,7 @@ public class MyData {
     public ArrayList<String> arrSendNameList = new ArrayList<>();
     public ArrayList<SendData> arrSendDataList = new ArrayList<>();
 
-    public ArrayList<FanData> arrCardNameList = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrCardNameList = new ArrayList<>();
     //public ArrayList<UserData> arrCardList = new ArrayList<>();
     public  Map<String, UserData> mapMyCardData = new LinkedHashMap<String, UserData>();
 
@@ -652,21 +652,12 @@ public class MyData {
                 return rtValue;
         }
 
-            updateMap.put("Count", 0);
-            updateMap.put("Nick", stTargetData.NickName);
             updateMap.put("Idx", stTargetData.Idx);
-            updateMap.put("Img", stTargetData.Img);
-            updateMap.put("Memo", stTargetData.Memo);
             table.child("CardList").child(stTargetData.Idx).updateChildren(updateMap);
             rtValue = true;
 
             FanData tempData = new FanData();
-
-            tempData.Count = 0;
-            tempData.Nick = stTargetData.NickName;
             tempData.Idx = stTargetData.Idx;
-            tempData.Img = stTargetData.Img;
-            tempData.Memo = stTargetData.Memo;
             arrCardNameList.add(tempData);
             //arrCardList.add(stTargetData);
             //getCardList(stTargetData.Idx);
@@ -1229,11 +1220,7 @@ public class MyData {
                         HashMap<String, FanData> tempDataMap = new HashMap<String, FanData>();
                         tempDataMap = (HashMap<String, FanData>) snapshot.getValue();
                         FanData tempUserData = new FanData();
-
-                        tempUserData.Count = Integer.valueOf(String.valueOf(tempDataMap.get("Count")));
-                        tempUserData.Nick= String.valueOf(tempDataMap.get("Nick"));
                         tempUserData.Idx= String.valueOf(tempDataMap.get("Idx"));
-                        tempUserData.Img= String.valueOf(tempDataMap.get("Img"));
 
                         boolean bExist = false;
 
@@ -1289,25 +1276,22 @@ public class MyData {
        //
 
         FanData tempStarList = new FanData();
-        tempStarList.Img = stTargetData.Img;
-        tempStarList.Nick = stTargetData.NickName;
         tempStarList.Idx = stTargetData.Idx;
-        tempStarList.Count = nTotalSendCnt;
 
 
         boolean bSame = false;
         for (int i = 0; i < arrMyStarList.size(); i++) {
-            if (arrMyStarList.get(i).Nick.equals(tempStarList.Nick)) {
+            if (arrMyStarList.get(i).Idx.equals(tempStarList.Idx)) {
                 bSame = true;
-                arrMyStarList.get(i).Count = nTotalSendCnt;
-                sortStarData();
+               // arrMyStarList.get(i).Count = nTotalSendCnt;
+               // sortStarData();
                 break;
             }
         }
 
         if (bSame == false) {
             arrMyStarList.add(tempStarList);
-            sortStarData();
+            //sortStarData();
             getMyStarData(tempStarList.Idx);
         }
 
@@ -1377,9 +1361,9 @@ public class MyData {
         }
     }
 
-    public void sortStarData() {
+ /*   public void sortStarData() {
         Collections.sort(arrMyStarList);
-    }
+    }*/
 
     public boolean makePublicRoom(int RoomLimit, int RoomTime) {
         boolean rtValue = false;
