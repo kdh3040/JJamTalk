@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.FanData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.MyLikeViewHolder;
 

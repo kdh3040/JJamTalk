@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.MyLikeViewHolder;
@@ -37,9 +38,9 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
     UIData mUIData = UIData.getInstance();
 
     private UserData tempLikeData = new UserData();
-    private ArrayList<FanData> stTargetData;
+    private ArrayList<SimpleUserData> stTargetData;
 
-    public TargetLikeAdapter(Context context, ArrayList<FanData> TargetData) {
+    public TargetLikeAdapter(Context context, ArrayList<SimpleUserData> TargetData) {
         mContext = context;
         stTargetData = TargetData;
     }
@@ -71,10 +72,10 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 
-        holder.tv_nickname.setText(stTargetData.get(position).Nick);
+        holder.tv_nickname.setText(stTargetData.get(position).NickName);
         holder.tv_rank.setText((position + 1) + "위");
 
-        int SendCnt = stTargetData.get(position).Count * -1;
+        int SendCnt = stTargetData.get(position).SendGold * -1;
         holder.tv_honeycount.setText(Integer.toString(SendCnt) + "골드");
 
 
@@ -114,7 +115,7 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
                         {
                             tempLikeData.mapStarData.put(strTargetIdx, tempUserData);
 
-                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
+                            for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
                                 tempLikeData.mapStarData.get(strTargetIdx).arrStarList.add(entry.getValue());
 
                             for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())

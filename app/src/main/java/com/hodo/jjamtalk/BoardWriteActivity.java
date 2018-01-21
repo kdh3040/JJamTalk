@@ -39,24 +39,26 @@ public class BoardWriteActivity extends AppCompatActivity {
         txt_Memo = (EditText)findViewById(R.id.Write_txtMemo);
 
         btn_send = (Button)findViewById(R.id.btn_send);
-        if(mMydata.getUserHoney() > 10){
+        btn_send.setText("글 등록하기");
+    /*    if(mMydata.getUserHoney() > 10){
             btn_send.setText("10골드를 소비하여 글 등록");
         }
         else
         {
             btn_send.setText(10 - mMydata.getUserHoney()+ "골드가 부족합니다");
-        }
+        }*/
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder builder= new AlertDialog.Builder(mActivity);
 
-                if(mMydata.getUserHoney() > 10){
+                //if(mMydata.getUserHoney() > 10)
+                {
                     builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            mMydata.setUserHoney(mMydata.getUserHoney() - 10);
+                            //mMydata.setUserHoney(mMydata.getUserHoney() - 10);
 
                             BoardMsgDBData sendData = new BoardMsgDBData();
                             sendData.NickName = mMydata.getUserNick();
@@ -74,7 +76,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                                 }
                             }).setMessage("작성한 글을 게시하시겠습니까?");
                 }
-                else
+             /*   else
                 {
                     builder.setPositiveButton("골드 사러가기", new DialogInterface.OnClickListener() {
                         @Override
@@ -89,7 +91,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                                     dialogInterface.cancel();
                                 }
                             }).setMessage(10 - mMydata.getUserHoney() + "골드가 부족합니다");
-                }
+                }*/
                 AlertDialog dialog = builder.create();
                 dialog.show();
 

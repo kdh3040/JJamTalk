@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hodo.jjamtalk.Data.FanData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UserData;
 
 import java.util.ArrayList;
@@ -21,14 +22,14 @@ import java.util.ArrayList;
 
 public class TargetLikeFragment extends Fragment{
 
-    private ArrayList<FanData> stTargetData;
+    private ArrayList<SimpleUserData> stTargetData;
 
     public TargetLikeFragment()
     {
 
     }
     @SuppressLint("ValidFragment")
-    public TargetLikeFragment(ArrayList<FanData> TargetData) {
+    public TargetLikeFragment(ArrayList<SimpleUserData> TargetData) {
         stTargetData = TargetData;
     }
 

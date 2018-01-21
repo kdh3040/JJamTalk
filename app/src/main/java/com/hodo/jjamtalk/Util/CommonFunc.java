@@ -59,7 +59,7 @@ public class CommonFunc {
     public void MoveUserPage(Activity mActivity, UserData tempUserData)
     {
 
-        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
             tempUserData.arrStarList.add(entry.getValue());
         }
 

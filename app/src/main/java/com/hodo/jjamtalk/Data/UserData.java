@@ -77,13 +77,13 @@ public class UserData implements Serializable,Parcelable {
     public  ArrayList<UserData> arrFanData = new ArrayList<>();
     public  Map<String, UserData> mapFanData = new LinkedHashMap<String, UserData>();
 
-    public  Map<String, FanData> StarList = new LinkedHashMap<String, FanData>();
-    public  ArrayList<FanData> arrStarList = new ArrayList<>();
+    public  Map<String, SimpleUserData> StarList = new LinkedHashMap<String, SimpleUserData>();
+    public  ArrayList<SimpleUserData> arrStarList = new ArrayList<>();
     public  ArrayList<UserData> arrStarData = new ArrayList<>();
     public  Map<String, UserData> mapStarData = new LinkedHashMap<String, UserData>();
 
-    public  Map<String, FanData> CardList = new LinkedHashMap<String, FanData>();
-    public  ArrayList<FanData> arrCardList = new ArrayList<>();
+    public  Map<String, SimpleUserData> CardList = new LinkedHashMap<String, SimpleUserData>();
+    public  ArrayList<SimpleUserData> arrCardList = new ArrayList<>();
     public  ArrayList<UserData> arrCardData = new ArrayList<>();
 
 
@@ -144,11 +144,11 @@ public class UserData implements Serializable,Parcelable {
         arrFanData = (ArrayList<UserData>) in.readSerializable();
         mapFanData = (HashMap<String, UserData>) in.readSerializable();
 
-        arrStarList = (ArrayList<FanData>) in.readSerializable();
+        arrStarList = (ArrayList<SimpleUserData>) in.readSerializable();
         arrStarData = (ArrayList<UserData>) in.readSerializable();
         mapStarData= (HashMap<String, UserData>) in.readSerializable();
 
-        arrCardList = (ArrayList<FanData>) in.readSerializable();
+        arrCardList = (ArrayList<SimpleUserData>) in.readSerializable();
         arrCardData = (ArrayList<UserData>) in.readSerializable();
 
     }

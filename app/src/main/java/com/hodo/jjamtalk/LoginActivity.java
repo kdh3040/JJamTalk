@@ -219,7 +219,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
 
-        }else    {
+        }else
+            {
 
 
 
@@ -540,12 +541,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             // mMyData.nFanCount = mMyData.arrMyFanList.size();
 
-                            for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.StarList.entrySet()) {
+                            for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.StarList.entrySet()) {
                                 mMyData.arrMyStarList.add(entry.getValue());
                                 //mMyData.sortStarData();
                             }
 
-                            for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.CardList.entrySet()) {
+                            for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.CardList.entrySet()) {
                                 mMyData.arrCardNameList.add(entry.getValue());
                             }
 

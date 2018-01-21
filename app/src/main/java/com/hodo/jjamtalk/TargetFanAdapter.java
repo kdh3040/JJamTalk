@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.FanViewHolder;
@@ -69,11 +70,11 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 
-        holder.nickname.setText(stTargetData.get(position).Nick);
+        holder.nickname.setText(stTargetData.get(position).NickName);
         holder.giftranking.setText((position + 1) + "위");
 
-        int SendCnt = stTargetData.get(position).Count * -1;
-        holder.giftCount.setText(Integer.toString(SendCnt) + "골드");
+        int RecvCnt = stTargetData.get(position).RecvGold * -1;
+        holder.giftCount.setText(Integer.toString(RecvCnt) + "골드");
 
     }
 
@@ -113,7 +114,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
                         {
                             tempFanData.mapFanData.put(strTargetIdx, tempUserData);
 
-                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
+                            for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
                                 tempFanData.mapFanData.get(strTargetIdx).arrStarList.add(entry.getValue());
 
                             for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())

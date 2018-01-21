@@ -29,6 +29,7 @@ import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
@@ -163,7 +164,7 @@ public class BoardFragment extends Fragment {
                     {
                         _BoardWriterData = tempUserData;
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             _BoardWriterData.arrStarList.add(entry.getValue());
                         }
 

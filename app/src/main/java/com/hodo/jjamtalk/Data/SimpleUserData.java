@@ -25,21 +25,49 @@ public class SimpleUserData implements Serializable,Parcelable {
     public String Gender;
     public String Age;
 
+    // 카드창
+    public String Memo;
+
+    // 팬창
+    public int RecvGold;
+    public int SendGold;
+
     // 가까운순
     public double Lat;
     public double Lon;
-
     // 뉴페이스
     public String Date;
-
     //팬보유순
     public int FanCount;
-
     //추천순
     public int Point;
 
     public SimpleUserData() {
+        Idx = null;
+        Token = null;
 
+        Img = null;
+        NickName = null;
+        Gender = null;
+        Age = null;
+
+        Memo = null;
+
+        RecvGold = 0;
+        SendGold = 0;
+
+        // 가까운순
+        Lat = 0.0d;
+        Lon = 0.0d;
+
+        // 뉴페이스
+        Date = null;
+
+        //팬보유순
+        FanCount = 0;
+
+        //추천순
+        Point = 0;
     }
 
     public SimpleUserData(Parcel in) {
@@ -49,6 +77,9 @@ public class SimpleUserData implements Serializable,Parcelable {
         NickName = in.readString();
         Gender = in.readString();
         Age = in.readString();
+        Memo = in.readString();
+        RecvGold = in.readInt();
+        SendGold = in.readInt();
         Lat = in.readDouble();
         Lon = in.readDouble();
         Date = in.readString();
@@ -81,6 +112,11 @@ public class SimpleUserData implements Serializable,Parcelable {
         parcel.writeString(NickName);
         parcel.writeString(Gender);
         parcel.writeString(Age);
+        parcel.writeString(Memo);
+
+        parcel.writeInt(RecvGold);
+        parcel.writeInt(SendGold);
+
         parcel.writeDouble(Lat);
         parcel.writeDouble(Lon);
         parcel.writeString(Date);

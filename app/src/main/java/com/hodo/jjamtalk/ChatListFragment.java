@@ -32,12 +32,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.ChatListViewHolder;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Random;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -285,7 +287,7 @@ public class ChatListFragment extends Fragment {
                     {
                         mMyData.mapChatTargetData.put(strTargetIdx, tempUserData);
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             mMyData.mapChatTargetData.get(strTargetIdx).arrStarList.add(entry.getValue());
                         }
 
@@ -293,7 +295,9 @@ public class ChatListFragment extends Fragment {
                             mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.add(entry.getValue());
                         }
 
+                        RefreshUserChatSimpleData(tempUserData, position);
                         moveChatPage(position);
+                        notifyDataSetChanged();
                     }
 
 
@@ -306,6 +310,36 @@ public class ChatListFragment extends Fragment {
 
             });
         }
+
+    }
+
+    public void RefreshUserChatSimpleData(UserData stTargetData, int position) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+
+        // DatabaseReference user = table.child( userIdx);
+        final DatabaseReference user = table.child(mMyData.getUserIdx()).child("CardList").child(stTargetData.Idx);
+        user.child("Age").setValue(stTargetData.Age);
+        user.child("FanCount").setValue(stTargetData.FanCount);
+        user.child("Gender").setValue(stTargetData.Gender);
+        user.child("Idx").setValue(stTargetData.Idx);
+        user.child("Img").setValue(stTargetData.Img);
+        user.child("Lon").setValue(stTargetData.Lon);
+        user.child("Lat").setValue(stTargetData.Lat);
+        user.child("Memo").setValue(stTargetData.Memo);
+        user.child("NickName").setValue(stTargetData.NickName);
+
+        Random rand = new Random();
+        rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
+
+        user.child("Point").setValue(Integer.valueOf(Integer.toString(rand.nextInt(100))));
+        user.child("RecvGold").setValue(stTargetData.RecvCount);
+        user.child("SendGold").setValue(stTargetData.SendCount);
+
+
+        mMyData.arrSendDataList.get(position).strTargetImg = stTargetData.Img;
+        mMyData.arrSendDataList.get(position).strTargetNick= stTargetData.NickName;
 
     }
 

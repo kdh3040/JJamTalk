@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.FanData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UserData;
 
 import java.util.ArrayList;
@@ -24,10 +25,10 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
 
-    ArrayList<FanData> arrayList = new ArrayList<>();
+    ArrayList<SimpleUserData> arrayList = new ArrayList<>();
 
     Context mContext;
-    public LikedAdapter(Context context, ArrayList<FanData> fanList) {
+    public LikedAdapter(Context context, ArrayList<SimpleUserData> fanList) {
         super();
         mContext = context;
         arrayList = fanList;

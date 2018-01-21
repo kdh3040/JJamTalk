@@ -38,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
@@ -850,7 +851,7 @@ public class UserPageActivity extends AppCompatActivity {
                         for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
                             TempSendUserData.arrFanData.get(finalI).arrFanList.add(entry.getValue());
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
+                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
                             TempSendUserData.arrFanData.get(finalI).arrStarList.add(entry.getValue());
 
                     }
@@ -890,7 +891,7 @@ public class UserPageActivity extends AppCompatActivity {
                         for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
                             TempSendUserData.arrStarData.get(finalI).arrFanList.add(entry.getValue());
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
+                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
                             TempSendUserData.arrStarData.get(finalI).arrStarList.add(entry.getValue());
                     }
 

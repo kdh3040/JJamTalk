@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.kakao.usermgmt.response.model.User;
 

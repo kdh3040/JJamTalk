@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.MyLikeViewHolder;
@@ -79,10 +80,10 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 
-        holder.tv_nickname.setText(mMyData.arrMyStarList.get(position).Nick);
+        holder.tv_nickname.setText(mMyData.arrMyStarList.get(position).NickName);
         holder.tv_rank.setText((position + 1) + "위");
 
-        int SendCnt = mMyData.arrMyStarList.get(position).Count * -1;
+        int SendCnt = mMyData.arrMyStarList.get(position).SendGold * -1;
         holder.tv_honeycount.setText(Integer.toString(SendCnt) + "골드");
 
 
@@ -120,7 +121,7 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
                 {
                     mMyData.mapMyStarData.put(strTargetIdx, tempUserData);
 
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                    for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                         mMyData.mapMyStarData.get(strTargetIdx).arrStarList.add(entry.getValue());
                     }
 

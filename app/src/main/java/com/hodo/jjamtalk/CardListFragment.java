@@ -27,15 +27,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -112,7 +117,7 @@ public class CardListFragment extends Fragment {
                     .thumbnail(0.1f)
                     .into(holder.image);
 
-            if(mMyData.arrCardNameList.get(position).Count != 0)
+            //if(mMyData.arrCardNameList.get(position).Count != 0)
                 holder.imageSymbol.setVisibility(View.INVISIBLE);
 
             if(mMyData.arrCardNameList.get(i).Memo == null || mMyData.arrCardNameList.get(i).Memo.equals(""))
@@ -122,7 +127,7 @@ public class CardListFragment extends Fragment {
             holder.textView_memo.setBackgroundResource(R.drawable.inbox2);
 
 
-            holder.textView.setText(mMyData.arrCardNameList.get(i).Nick);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
+            holder.textView.setText(mMyData.arrCardNameList.get(i).NickName);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
             holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -188,15 +193,15 @@ public class CardListFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
 
-                    mMyData.arrCardNameList.get(position).Count = 1;
+                    //mMyData.arrCardNameList.get(position).Count = 1;
 
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+           /*         FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table;
                     table = database.getReference("User/" + mMyData.getUserIdx());
 
                     Map<String, Object> updateMap = new HashMap<>();
                     updateMap.put("Count",  mMyData.arrCardNameList.get(position).Count);
-                    table.child("CardList").child(mMyData.arrCardNameList.get(position).Idx).updateChildren(updateMap);
+                    table.child("CardList").child(mMyData.arrCardNameList.get(position).Idx).updateChildren(updateMap);*/
 
                     getMyCardData(position);
 
@@ -225,8 +230,8 @@ public class CardListFragment extends Fragment {
             intent.putExtra("StarList", stTargetData.arrStarList);*/
 
             intent.putExtras(bundle);
-
             startActivity(intent);
+            notifyDataSetChanged();
         }
 
 
@@ -245,7 +250,7 @@ public class CardListFragment extends Fragment {
                     {
                         mMyData.mapMyCardData.put(strTargetIdx, tempUserData);
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             mMyData.mapMyCardData.get(strTargetIdx).arrStarList.add(entry.getValue());
                         }
 
@@ -253,6 +258,7 @@ public class CardListFragment extends Fragment {
                             mMyData.mapMyCardData.get(strTargetIdx).arrFanList.add(entry.getValue());
                         }
 
+                        RefreshUserCardSimpleData(tempUserData, position);
                         moveCardPage(position);
                     }
 
@@ -265,6 +271,38 @@ public class CardListFragment extends Fragment {
                 }
 
             });
+        }
+
+
+        public void RefreshUserCardSimpleData(UserData stTargetData, int position) {
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+
+            // DatabaseReference user = table.child( userIdx);
+            final DatabaseReference user = table.child(mMyData.getUserIdx()).child("CardList").child(stTargetData.Idx);
+            user.child("Age").setValue(stTargetData.Age);
+            user.child("FanCount").setValue(stTargetData.FanCount);
+            user.child("Gender").setValue(stTargetData.Gender);
+            user.child("Idx").setValue(stTargetData.Idx);
+            user.child("Img").setValue(stTargetData.Img);
+            user.child("Lon").setValue(stTargetData.Lon);
+            user.child("Lat").setValue(stTargetData.Lat);
+            user.child("Memo").setValue(stTargetData.Memo);
+            user.child("NickName").setValue(stTargetData.NickName);
+
+            Random rand = new Random();
+            rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
+
+            user.child("Point").setValue(Integer.valueOf(Integer.toString(rand.nextInt(100))));
+            user.child("RecvGold").setValue(stTargetData.RecvCount);
+            user.child("SendGold").setValue(stTargetData.SendCount);
+
+
+            mMyData.arrCardNameList.get(position).Img = stTargetData.Img;
+            mMyData.arrCardNameList.get(position).NickName = stTargetData.NickName;
+            mMyData.arrCardNameList.get(position).Memo = stTargetData.Memo;
+
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder{

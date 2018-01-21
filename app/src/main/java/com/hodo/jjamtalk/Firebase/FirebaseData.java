@@ -142,6 +142,7 @@ public class FirebaseData {
     }
 
 
+
     public boolean SaveBoardReplyData(TempBoard_ReplyData strMemo) {
 
         Random rand = new Random();

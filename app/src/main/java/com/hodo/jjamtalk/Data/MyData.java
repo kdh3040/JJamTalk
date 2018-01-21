@@ -77,7 +77,7 @@ public class MyData {
     public ArrayList<UserData> arrMyFanDataList = new ArrayList<>();
     public  Map<String, UserData> mapMyFanData = new LinkedHashMap<String, UserData>();
 
-    public ArrayList<FanData> arrMyStarList = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrMyStarList = new ArrayList<>();
     public ArrayList<UserData> arrMyStarDataList = new ArrayList<>();
     public  Map<String, UserData> mapMyStarData = new LinkedHashMap<String, UserData>();
 
@@ -637,31 +637,30 @@ public class MyData {
         }
     }
 
-    public boolean makeCardList(UserData stTargetData) {
+    public boolean makeCardList(UserData target) {
         boolean rtValue = false;
-
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        table = database.getReference("User/" + strIdx);
+        table = database.getReference("User/" + getUserIdx());
 
-        Map<String, Object> updateMap = new HashMap<>();
 
         for (int i = 0; i < arrCardNameList.size(); i++) {
-            if (arrCardNameList.get(i).Idx.equals(stTargetData.Idx))
+            if (arrCardNameList.get(i).Idx.equals(target.Idx))
                 return rtValue;
         }
 
-            updateMap.put("Idx", stTargetData.Idx);
-            table.child("CardList").child(stTargetData.Idx).updateChildren(updateMap);
-            rtValue = true;
+        SimpleUserData tempData = new SimpleUserData();
+        tempData.Idx = target.Idx;
+        tempData.Memo = target.Memo;
+        tempData.Gender = target.Gender;
+        tempData.Img = target.Img;
+        tempData.NickName = target.NickName;
 
-            FanData tempData = new FanData();
-            tempData.Idx = stTargetData.Idx;
-            arrCardNameList.add(tempData);
-            //arrCardList.add(stTargetData);
-            //getCardList(stTargetData.Idx);
+        arrCardNameList.add(tempData);
+        table.child("CardList").child(target.Idx).setValue(tempData);
 
+        rtValue = true;
 
         return rtValue;
 
@@ -701,7 +700,7 @@ public class MyData {
                 arrGiftUserDataList.add(tempUserData);
 
                 int i = arrGiftUserDataList.size();
-                for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                     //  if(!arrMyStarDataList.get(finalI).arrStarList.contains(entry.getValue().Nick))
                     arrGiftUserDataList.get(i - 1).arrStarList.add(entry.getValue());
                 }
@@ -1192,8 +1191,8 @@ public class MyData {
         table = database.getReference("User/" + stTargetData.Idx);
 
         Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Count", nTotalSendCnt);
-        updateMap.put("Nick", getUserNick());
+        updateMap.put("RecvGold", nTotalSendCnt);
+        updateMap.put("NickName", getUserNick());
         updateMap.put("Idx", getUserIdx());
         updateMap.put("Img", getUserImg());
         nFanCount-=1;
@@ -1203,7 +1202,16 @@ public class MyData {
 
         //stTargetData.Count = nTotalSendCnt;
 
-        //arrMyFanList.add(stTargetData);
+/*
+        SimpleUserData tempStarList = new SimpleUserData();
+        tempStarList.Idx = stTargetData.Idx;
+        tempStarList.RecvGold = nTotalSendCnt;
+        tempStarList.NickName = getUserNick();
+        tempStarList.Img = getUserImg();
+*/
+
+
+        //arrMyFanList.add(tempStarList);
 
     }
 
@@ -1220,7 +1228,11 @@ public class MyData {
                         HashMap<String, FanData> tempDataMap = new HashMap<String, FanData>();
                         tempDataMap = (HashMap<String, FanData>) snapshot.getValue();
                         FanData tempUserData = new FanData();
-                        tempUserData.Idx= String.valueOf(tempDataMap.get("Idx"));
+                        tempUserData.Idx = String.valueOf(tempDataMap.get("Idx"));
+                        tempUserData.Img = String.valueOf(tempDataMap.get("Img"));
+                        tempUserData.NickName = String.valueOf(tempDataMap.get("NickName"));
+                        tempUserData.RecvGold = Integer.parseInt(String.valueOf((tempDataMap.get("RecvGold"))));
+
 
                         boolean bExist = false;
 
@@ -1235,6 +1247,7 @@ public class MyData {
                                 if(arrMyFanList.get(a).Idx.equals(tempUserData.Idx))
                                 {
                                     bExist = true;
+                                    arrMyFanList.get(a).RecvGold = tempUserData.RecvGold;
                                     break;
                                 }
                             }
@@ -1268,22 +1281,24 @@ public class MyData {
         table = database.getReference("User/" + getUserIdx());
 
         Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Count", nTotalSendCnt);
-        updateMap.put("Nick", stTargetData.NickName);
+        updateMap.put("SendGold", nTotalSendCnt);
+        updateMap.put("NickName", stTargetData.NickName);
         updateMap.put("Idx", stTargetData.Idx);
         updateMap.put("Img", stTargetData.Img);
         table.child("StarList").child(stTargetData.Idx).updateChildren(updateMap);
        //
 
-        FanData tempStarList = new FanData();
+        SimpleUserData tempStarList = new SimpleUserData();
         tempStarList.Idx = stTargetData.Idx;
-
+        tempStarList.SendGold = nTotalSendCnt;
+        tempStarList.NickName = stTargetData.NickName;
+        tempStarList.Img = stTargetData.Img;
 
         boolean bSame = false;
         for (int i = 0; i < arrMyStarList.size(); i++) {
             if (arrMyStarList.get(i).Idx.equals(tempStarList.Idx)) {
                 bSame = true;
-               // arrMyStarList.get(i).Count = nTotalSendCnt;
+                arrMyStarList.get(i).SendGold = nTotalSendCnt;
                // sortStarData();
                 break;
             }
@@ -1345,7 +1360,7 @@ public class MyData {
                     arrMyStarDataList.add(tempUserData);
 
                     int idx = 0;
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                    for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                         if( idx < arrMyStarDataList.size()) {
                             arrMyStarDataList.get(idx).arrStarList.add(entry.getValue());
                             idx++;
