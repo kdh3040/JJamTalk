@@ -72,11 +72,12 @@ public class UserData implements Serializable,Parcelable {
     public  ArrayList<UserData> arrChatTargetData = new ArrayList<>();
 
     public int FanCount;
-    public  Map<String, FanData> FanList = new LinkedHashMap<String, FanData>();
-    public  ArrayList<FanData> arrFanList = new ArrayList<>();
+    public  Map<String, SimpleUserData> FanList = new LinkedHashMap<String, SimpleUserData>();
+    public  ArrayList<SimpleUserData> arrFanList = new ArrayList<>();
     public  ArrayList<UserData> arrFanData = new ArrayList<>();
     public  Map<String, UserData> mapFanData = new LinkedHashMap<String, UserData>();
 
+    //public  ArrayList<StarData>StarList = new ArrayList<>();
     public  Map<String, SimpleUserData> StarList = new LinkedHashMap<String, SimpleUserData>();
     public  ArrayList<SimpleUserData> arrStarList = new ArrayList<>();
     public  ArrayList<UserData> arrStarData = new ArrayList<>();
@@ -140,10 +141,12 @@ public class UserData implements Serializable,Parcelable {
         arrChatTargetData = (ArrayList<UserData>) in.readSerializable();
 
         FanCount = in.readInt();
-        arrFanList = (ArrayList<FanData>) in.readSerializable();
+        FanList = (HashMap<String, SimpleUserData>) in.readSerializable();
+        arrFanList = (ArrayList<SimpleUserData>) in.readSerializable();
         arrFanData = (ArrayList<UserData>) in.readSerializable();
         mapFanData = (HashMap<String, UserData>) in.readSerializable();
 
+        StarList  = (HashMap<String, SimpleUserData>) in.readSerializable();
         arrStarList = (ArrayList<SimpleUserData>) in.readSerializable();
         arrStarData = (ArrayList<UserData>) in.readSerializable();
         mapStarData= (HashMap<String, UserData>) in.readSerializable();
@@ -215,14 +218,14 @@ public class UserData implements Serializable,Parcelable {
 
         parcel.writeInt(FanCount);
 
+        parcel.writeSerializable((Serializable) FanList);
         parcel.writeSerializable(arrFanList);
         parcel.writeSerializable(arrFanData);
-
         parcel.writeSerializable((Serializable) mapFanData);
 
+        parcel.writeSerializable((Serializable) StarList);
         parcel.writeSerializable(arrStarList);
         parcel.writeSerializable(arrStarData);
-
         parcel.writeSerializable((Serializable) mapStarData);
 
         parcel.writeSerializable(arrCardList);

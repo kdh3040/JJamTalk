@@ -256,7 +256,7 @@ public class CardListFragment extends Fragment {
                             mMyData.mapMyCardData.get(strTargetIdx).arrStarList.add(entry.getValue());
                         }
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
                             mMyData.mapMyCardData.get(strTargetIdx).arrFanList.add(entry.getValue());
                         }
 

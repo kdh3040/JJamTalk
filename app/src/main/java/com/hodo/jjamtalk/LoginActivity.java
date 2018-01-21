@@ -65,6 +65,7 @@ import com.hodo.jjamtalk.Data.BoardLikeData;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SimpleUserData;
+import com.hodo.jjamtalk.Data.StarData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
@@ -541,8 +542,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             // mMyData.nFanCount = mMyData.arrMyFanList.size();
 
+                            //mMyData.arrMyStarList = stRecvData.StarList;
                             for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.StarList.entrySet()) {
-                                mMyData.arrMyStarList.add(entry.getValue());
+                                StarData tempStarData = new StarData();
+                                tempStarData.Idx = entry.getValue().Idx;
+                                tempStarData.SendGold = entry.getValue().SendGold;
+                                mMyData.arrMyStarList.add(tempStarData);
+                                //mMyData.sortStarData();
+                            }
+
+                            for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.FanList.entrySet()) {
+                                FanData tempFanData = new FanData();
+                                tempFanData.Idx = entry.getValue().Idx;
+                                tempFanData.RecvGold = entry.getValue().RecvGold;
+                                mMyData.arrMyFanList.add(tempFanData);
                                 //mMyData.sortStarData();
                             }
 
@@ -558,7 +571,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             //mMyData.getCardList();
 
                             mMyData.getDownUrl();
-                            mMyData.getMyfanData();
+                          //  mMyData.getMyfanData();
 
                             mMyData.getSetting();
 

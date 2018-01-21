@@ -30,14 +30,14 @@ public class TargetFanFragment extends Fragment {
     TargetFanAdapter fanListAdapter;
     Context mContext;
 
-    private ArrayList<FanData> stTargetData;
+    private ArrayList<SimpleUserData> stTargetData;
 
     public TargetFanFragment() {
 
     }
 
     @SuppressLint("ValidFragment")
-    public TargetFanFragment(ArrayList<FanData> TargetData) {
+    public TargetFanFragment(ArrayList<SimpleUserData> TargetData) {
 
         stTargetData = TargetData;
 

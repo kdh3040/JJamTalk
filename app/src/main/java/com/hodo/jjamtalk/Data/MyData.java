@@ -76,11 +76,11 @@ public class MyData {
 
     public int nFanCount;
     public ArrayList<FanData> arrMyFanList = new ArrayList<>();
-    public ArrayList<UserData> arrMyFanDataList = new ArrayList<>();
+    public  Map<String, SimpleUserData> arrMyFanDataList = new LinkedHashMap<String, SimpleUserData>();
     public  Map<String, UserData> mapMyFanData = new LinkedHashMap<String, UserData>();
 
-    public ArrayList<SimpleUserData> arrMyStarList = new ArrayList<>();
-    public ArrayList<UserData> arrMyStarDataList = new ArrayList<>();
+    public ArrayList<StarData> arrMyStarList = new ArrayList<>();
+    public  Map<String, SimpleUserData> arrMyStarDataList = new LinkedHashMap<String, SimpleUserData>();
     public  Map<String, UserData> mapMyStarData = new LinkedHashMap<String, UserData>();
 
     private String strIdx;
@@ -147,9 +147,7 @@ public class MyData {
     public ArrayList<SendData> arrSendDataList = new ArrayList<>();
 
     public ArrayList<String> arrCardNameList = new ArrayList<>();
-    //public ArrayList<String, SimpleUserData> arrCarDataList = new ArrayList<>();
     public  Map<String, SimpleUserData> arrCarDataList = new LinkedHashMap<String, SimpleUserData>();
-    //public ArrayList<UserData> arrCardList = new ArrayList<>();
     public  Map<String, UserData> mapMyCardData = new LinkedHashMap<String, UserData>();
 
     public Map<Integer, Integer> itemList = new HashMap<Integer, Integer>();
@@ -609,39 +607,6 @@ public class MyData {
             });
     }
 
-
-    public void getMyCardData() {
-        String strTargetIdx;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = null;
-        table = database.getReference("User");
-
-
-        //user.addChildEventListener(new ChildEventListener() {
-        for (int i = 0; i < arrMyFanList.size(); i++) {
-            strTargetIdx = arrMyFanList.get(i).Idx;
-
-            final int finalI = i;
-            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int saa = 0;
-                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    arrMyFanDataList.add(tempUserData);
-
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
-                        arrMyFanDataList.get(finalI).arrFanList.add(entry.getValue());
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-
-            });
-        }
-    }
-
-
     public boolean makeCardList(final UserData target) {
         boolean rtValue = false;
 
@@ -713,10 +678,10 @@ public class MyData {
                 arrGiftUserDataList.add(tempUserData);
 
                 int i = arrGiftUserDataList.size();
-                for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
+           /*     for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                     //  if(!arrMyStarDataList.get(finalI).arrStarList.contains(entry.getValue().Nick))
                     arrGiftUserDataList.get(i - 1).arrStarList.add(entry.getValue());
-                }
+                }*/
             }
 
             @Override
@@ -1190,7 +1155,6 @@ public class MyData {
 
     public void makeFanList(UserData stTargetData, int SendCount) {
 
-
         int nTotalSendCnt = 0;
         for (int i = 0; i < arrSendHoneyDataList.size(); i++) {
             if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
@@ -1205,12 +1169,9 @@ public class MyData {
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("RecvGold", nTotalSendCnt);
-        updateMap.put("NickName", getUserNick());
         updateMap.put("Idx", getUserIdx());
-        updateMap.put("Img", getUserImg());
-        nFanCount-=1;
-        updateMap.put("FanCount", nFanCount);
         table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
+
         //getMyfanData(stTargetData.Idx);
 
         //stTargetData.Count = nTotalSendCnt;
@@ -1228,58 +1189,6 @@ public class MyData {
 
     }
 
-    public void getMyfanData() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = null;
-        table = database.getReference("User");
-
-            table.child(getUserIdx()).child("FanList").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                    {
-                        HashMap<String, FanData> tempDataMap = new HashMap<String, FanData>();
-                        tempDataMap = (HashMap<String, FanData>) snapshot.getValue();
-                        FanData tempUserData = new FanData();
-                        tempUserData.Idx = String.valueOf(tempDataMap.get("Idx"));
-                        tempUserData.Img = String.valueOf(tempDataMap.get("Img"));
-                        tempUserData.NickName = String.valueOf(tempDataMap.get("NickName"));
-                        tempUserData.RecvGold = Integer.parseInt(String.valueOf((tempDataMap.get("RecvGold"))));
-
-
-                        boolean bExist = false;
-
-                        if(arrMyFanList.size() == 0)
-                        {
-                            arrMyFanList.add(tempUserData);
-                        }
-                        else
-                        {
-                            for(int a = 0; a < arrMyFanList.size(); a++)
-                            {
-                                if(arrMyFanList.get(a).Idx.equals(tempUserData.Idx))
-                                {
-                                    bExist = true;
-                                    arrMyFanList.get(a).RecvGold = tempUserData.RecvGold;
-                                    break;
-                                }
-                            }
-
-                            if(bExist == false)
-                                arrMyFanList.add(tempUserData);
-                        }
-
-                    }
-                    nFanCount = arrMyFanList.size();
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-
-            });
-    }
-
     public void makeStarList(UserData stTargetData, int SendCount) {
         int nTotalSendCnt = 0;
         for (int i = 0; i < arrSendHoneyDataList.size(); i++) {
@@ -1295,21 +1204,17 @@ public class MyData {
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("SendGold", nTotalSendCnt);
-        updateMap.put("NickName", stTargetData.NickName);
         updateMap.put("Idx", stTargetData.Idx);
-        updateMap.put("Img", stTargetData.Img);
         table.child("StarList").child(stTargetData.Idx).updateChildren(updateMap);
        //
 
-        SimpleUserData tempStarList = new SimpleUserData();
+        final StarData tempStarList = new StarData();
         tempStarList.Idx = stTargetData.Idx;
         tempStarList.SendGold = nTotalSendCnt;
-        tempStarList.NickName = stTargetData.NickName;
-        tempStarList.Img = stTargetData.Img;
 
         boolean bSame = false;
         for (int i = 0; i < arrMyStarList.size(); i++) {
-            if (arrMyStarList.get(i).Idx.equals(tempStarList.Idx)) {
+            if (arrMyStarList.get(i).equals(tempStarList.Idx)) {
                 bSame = true;
                 arrMyStarList.get(i).SendGold = nTotalSendCnt;
                // sortStarData();
@@ -1319,12 +1224,28 @@ public class MyData {
 
         if (bSame == false) {
             arrMyStarList.add(tempStarList);
+           // arrMyStarDataList.put(tempStarList.Idx, tempStarList);
             //sortStarData();
-            getMyStarData(tempStarList.Idx);
+           // getMyStarData(tempStarList.Idx);
+
+            Query data = database.getReference().child("SimpleData").child(tempStarList.Idx);
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                    arrMyStarDataList.put(tempStarList.Idx, DBData);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
         }
 
     }
-
+/*
     public void getMyStarData(String TargetIdx) {
         final String strTargetIdx =TargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -1387,7 +1308,7 @@ public class MyData {
 
             });
         }
-    }
+    }*/
 
  /*   public void sortStarData() {
         Collections.sort(arrMyStarList);

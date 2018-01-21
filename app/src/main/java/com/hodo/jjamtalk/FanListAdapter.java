@@ -68,14 +68,16 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
         });
         //holder.imageView.setImageResource(R.mipmap.hdvd);
 
+        String i = mMyData.arrMyFanList.get(position).Idx;
+
         Glide.with(mContext)
-                .load(mMyData.arrMyFanList.get(position).Img)
+                .load(mMyData.arrMyFanDataList.get(i).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 
-        holder.nickname.setText(mMyData.arrMyFanList.get(position).NickName);
+        holder.nickname.setText(mMyData.arrMyFanDataList.get(i).NickName);
         holder.giftranking.setText((position + 1) + "위");
 
         int RecvCnt = mMyData.arrMyFanList.get(position).RecvGold * -1;
@@ -85,15 +87,17 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
     @Override
     public int getItemCount() {
-        return mMyData.arrMyFanList.size();
+        return mMyData.arrMyFanDataList.size();
     }
 
     public void moveFanPage(int position)
     {
+        String i = mMyData.arrMyFanList.get(position).Idx;
+
         Intent intent = new Intent(mContext, UserPageActivity.class);
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable("Target", mMyData.mapMyFanData.get(mMyData.arrMyFanList.get(position).Idx));
+        bundle.putSerializable("Target", mMyData.mapMyFanData.get(mMyData.arrMyFanDataList.get(i).Idx));
         intent.putExtras(bundle);
 
         mContext.startActivity(intent);
@@ -101,7 +105,9 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
 
     public void getMyfanData(final int position) {
-        final String strTargetIdx = mMyData.arrMyFanList.get(position).Idx;
+        String i = mMyData.arrMyFanList.get(position).Idx;
+
+        final String strTargetIdx = mMyData.arrMyFanDataList.get(i).Idx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
         table = database.getReference("User");
@@ -119,7 +125,7 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
                         mMyData.mapMyFanData.get(strTargetIdx).arrStarList.add(entry.getValue());
                     }
 
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                    for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
                         mMyData.mapMyFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
                     }
 

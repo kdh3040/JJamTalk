@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.FanData;
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UserData;
 
@@ -25,13 +26,12 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
 
-    ArrayList<SimpleUserData> arrayList = new ArrayList<>();
+    private MyData mMyData = MyData.getInstance();
 
     Context mContext;
-    public LikedAdapter(Context context, ArrayList<SimpleUserData> fanList) {
+    public LikedAdapter(Context context) {
         super();
         mContext = context;
-        arrayList = fanList;
     }
 /*
     @Override
@@ -56,8 +56,11 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
     @Override
     public void onBindViewHolder(LikedViewHolder holder, int position) {
 
+        String i = mMyData.arrMyStarList.get(position).Idx;
+
+
         Glide.with(mContext)
-                .load(arrayList.get(position).Img)
+                .load(mMyData.arrMyStarDataList.get(i).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .into(holder.iv_liked);
@@ -70,7 +73,7 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return mMyData.arrMyStarDataList.size();
     }
 /*
     @Override

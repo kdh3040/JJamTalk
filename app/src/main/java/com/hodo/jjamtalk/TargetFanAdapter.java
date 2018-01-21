@@ -36,12 +36,12 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
     Context mContext;
     UIData mUIData = UIData.getInstance();
-    private ArrayList<FanData> stTargetData;
+    private ArrayList<SimpleUserData> stTargetData;
 
     private UserData tempFanData = new UserData();
     private UserData tempSendUserData = new UserData();
 
-    public TargetFanAdapter(Context context, ArrayList<FanData> TargetData) {
+    public TargetFanAdapter(Context context, ArrayList<SimpleUserData> TargetData) {
         mContext = context;
         stTargetData = TargetData;
     }
@@ -117,7 +117,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
                             for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
                                 tempFanData.mapFanData.get(strTargetIdx).arrStarList.add(entry.getValue());
 
-                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                            for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet())
                                 tempFanData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
 
                             moveFanPage(position);

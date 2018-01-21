@@ -565,7 +565,7 @@ public class UserPageActivity extends AppCompatActivity {
             tv_like = findViewById(R.id.tv_like);
             tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
             listView_like = (RecyclerView) findViewById(R.id.lv_like);
-            LikeAdapter likeAdapter = new LikeAdapter(this, stTargetData.arrFanList);
+            LikeAdapter likeAdapter = new LikeAdapter(this);
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
             listView_like.setAdapter(likeAdapter);
@@ -609,7 +609,7 @@ public class UserPageActivity extends AppCompatActivity {
             tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
 
             listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
-            LikedAdapter LikedAdapter = new LikedAdapter(this, stTargetData.arrStarList);
+            LikedAdapter LikedAdapter = new LikedAdapter(this);
             listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
             listView_liked.setAdapter(LikedAdapter);
@@ -848,7 +848,7 @@ public class UserPageActivity extends AppCompatActivity {
                         UserData tempUserData = dataSnapshot.getValue(UserData.class);
                         TempSendUserData.arrFanData.add(tempUserData);
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet())
                             TempSendUserData.arrFanData.get(finalI).arrFanList.add(entry.getValue());
 
                         for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
@@ -888,7 +888,7 @@ public class UserPageActivity extends AppCompatActivity {
                         UserData tempUserData = dataSnapshot.getValue(UserData.class);
                         TempSendUserData.arrStarData.add(tempUserData);
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet())
                             TempSendUserData.arrStarData.get(finalI).arrFanList.add(entry.getValue());
 
                         for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())

@@ -63,7 +63,7 @@ public class CommonFunc {
             tempUserData.arrStarList.add(entry.getValue());
         }
 
-        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
             tempUserData.arrFanList.add(entry.getValue());
         }
 

@@ -2,39 +2,37 @@ package com.hodo.jjamtalk.Data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
 import java.io.Serializable;
-import java.util.Comparator;
 
 /**
  * Created by boram on 2017-08-27.
  */
 
-public class FanData implements Serializable,Parcelable {
+public class StarData implements Serializable,Parcelable {
     private static final long  serialVersionUID = 1L;
 
     public String Idx;
-    public int RecvGold;
+    public int SendGold;
 
-    public static final Creator<FanData> CREATOR = new Creator<FanData>() {
+    public static final Creator<StarData> CREATOR = new Creator<StarData>() {
         @Override
-        public FanData createFromParcel(Parcel in) {
-            return new FanData(in);
+        public StarData createFromParcel(Parcel in) {
+            return new StarData(in);
         }
 
         @Override
-        public FanData[] newArray(int size) {
-            return new FanData[size];
+        public StarData[] newArray(int size) {
+            return new StarData[size];
         }
     };
 
-    public FanData(Parcel in) {
+    public StarData(Parcel in) {
         Idx = in.readString();
-        RecvGold = in.readInt();
+        SendGold = in.readInt();
     }
 
-    public FanData() {
+    public StarData() {
 
     }
 
@@ -46,6 +44,6 @@ public class FanData implements Serializable,Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(Idx);
-        parcel.writeInt(RecvGold);
+        parcel.writeInt(SendGold);
     }
 }

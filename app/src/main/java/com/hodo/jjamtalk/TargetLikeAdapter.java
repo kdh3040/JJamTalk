@@ -118,7 +118,7 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
                             for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
                                 tempLikeData.mapStarData.get(strTargetIdx).arrStarList.add(entry.getValue());
 
-                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                            for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet())
                                 tempLikeData.mapStarData.get(strTargetIdx).arrFanList.add(entry.getValue());
 
                             moveLikePage(position);

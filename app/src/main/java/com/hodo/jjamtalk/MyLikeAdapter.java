@@ -41,7 +41,6 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
 
     public MyLikeAdapter(Context context) {
         mContext = context;
-
     }
 
     @Override
@@ -60,6 +59,7 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
     @Override
     public void onBindViewHolder(MyLikeViewHolder holder, final int position) {
 
+        String i = mMyData.arrMyStarList.get(position).Idx;
 
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(mUIData.getHeight()/7)));
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -74,32 +74,32 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
         //holder.imageView.setImageResource(R.mipmap.hdvd);
 
         Glide.with(mContext)
-                .load(mMyData.arrMyStarList.get(position).Img)
+                .load(mMyData.arrMyStarDataList.get(i).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 
-        holder.tv_nickname.setText(mMyData.arrMyStarList.get(position).NickName);
+        holder.tv_nickname.setText(mMyData.arrMyStarDataList.get(i).NickName);
         holder.tv_rank.setText((position + 1) + "위");
 
         int SendCnt = mMyData.arrMyStarList.get(position).SendGold * -1;
         holder.tv_honeycount.setText(Integer.toString(SendCnt) + "골드");
-
-
     }
 
     @Override
     public int getItemCount() {
-        return mMyData.arrMyStarList.size();
+        return mMyData.arrMyStarDataList.size();
     }
 
     public void moveLikePage(int position)
     {
+        String i = mMyData.arrMyStarList.get(position).Idx;
+
         Intent intent = new Intent(mContext, UserPageActivity.class);
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable("Target", mMyData.mapMyStarData.get(mMyData.arrMyStarList.get(position).Idx));
+        bundle.putSerializable("Target", mMyData.mapMyStarData.get(mMyData.arrMyStarDataList.get(i).Idx));
         intent.putExtras(bundle);
 
         mContext.startActivity(intent);
@@ -107,7 +107,8 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
 
 
     public void getMyLikeData(final int position) {
-        final String strTargetIdx = mMyData.arrMyStarList.get(position).Idx;
+        String i = mMyData.arrMyStarList.get(position).Idx;
+        final String strTargetIdx = mMyData.arrMyStarDataList.get(i).Idx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
         table = database.getReference("User");
@@ -125,7 +126,7 @@ public class MyLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
                         mMyData.mapMyStarData.get(strTargetIdx).arrStarList.add(entry.getValue());
                     }
 
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                    for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
                         mMyData.mapMyStarData.get(strTargetIdx).arrFanList.add(entry.getValue());
                     }
 

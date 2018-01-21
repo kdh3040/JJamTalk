@@ -453,7 +453,8 @@ public class MainActivity extends AppCompatActivity {
         layout_lowbar = (LinearLayout)findViewById(R.id.layout_lowbar);
 
         homeFragment = new HomeFragment();
-        fanFragment = new FanFragment(this);
+        //fanFragment = new FanFragment(this);
+        LoadStarData();
         boardFragment = new BoardFragment();
         LoadCardData();
         //cardListFragment = new CardListFragment();
@@ -573,10 +574,10 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("FanList", mMyData.arrMyFanList);
                 intent.putExtra("FanCount", mMyData.nFanCount);
 
-                intent.putExtra("FanData", mMyData.arrMyFanDataList);
+                //intent.putExtra("FanData", mMyData.arrMyFanDataList);
 
                 intent.putExtra("StarList", mMyData.arrMyStarList);
-                intent.putExtra("StarData", mMyData.arrMyStarDataList);
+                //intent.putExtra("StarData", mMyData.arrMyStarDataList);
 
   /*              bundle.putSerializable("Target", stTargetData);
                 intent.putExtra("FanList", stTargetData.arrFanList);
@@ -658,6 +659,78 @@ public class MainActivity extends AppCompatActivity {
 
                     if(mMyData.arrCarDataList.size() == mMyData.arrCardNameList.size())
                         cardListFragment = new CardListFragment();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    private void LoadStarData() {
+        LoadFanData();
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+        if(mMyData.arrMyStarList.size() == 0)
+        {
+            if(fanFragment == null)
+                fanFragment = new FanFragment();
+        }
+
+        for(int i = 0; i < mMyData.arrMyStarList.size(); i++)
+        {
+            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.arrMyStarList.get(i).Idx);
+            final int finalI = i;
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                    mMyData.arrMyStarDataList.put(mMyData.arrMyStarList.get(finalI).Idx, DBData);
+
+                    if(mMyData.arrMyStarDataList.size() == mMyData.arrMyStarList.size())
+                    {
+                        if(fanFragment == null)
+                            fanFragment = new FanFragment();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    private void LoadFanData() {
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+        if(mMyData.arrMyFanList.size() == 0)
+        {
+            if(fanFragment == null)
+                fanFragment = new FanFragment();
+        }
+
+        for(int i = 0; i < mMyData.arrMyFanList.size(); i++)
+        {
+            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.arrMyFanList.get(i).Idx);
+            final int finalI = i;
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                    mMyData.arrMyFanDataList.put(mMyData.arrMyFanList.get(finalI).Idx, DBData);
+
+                    if(mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
+                    {
+                        if(fanFragment == null)
+                            fanFragment = new FanFragment();
+                    }
                 }
 
                 @Override

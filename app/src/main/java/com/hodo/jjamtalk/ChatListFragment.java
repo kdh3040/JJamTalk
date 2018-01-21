@@ -291,7 +291,7 @@ public class ChatListFragment extends Fragment {
                             mMyData.mapChatTargetData.get(strTargetIdx).arrStarList.add(entry.getValue());
                         }
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
                             mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.add(entry.getValue());
                         }
 

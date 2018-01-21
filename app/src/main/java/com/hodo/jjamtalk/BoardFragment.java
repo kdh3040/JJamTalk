@@ -168,7 +168,7 @@ public class BoardFragment extends Fragment {
                             _BoardWriterData.arrStarList.add(entry.getValue());
                         }
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
                             _BoardWriterData.arrFanList.add(entry.getValue());
                         }
 
