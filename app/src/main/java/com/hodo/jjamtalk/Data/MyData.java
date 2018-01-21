@@ -54,17 +54,17 @@ public class MyData {
         return _Instance;
     }
 
-    public ArrayList<UserData> arrUserMan_Near = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Near = new ArrayList<>();
-    public ArrayList<UserData> arrUserAll_Near = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserMan_Near = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_Near = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_Near = new ArrayList<>();
 
-    public ArrayList<UserData> arrUserMan_New = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_New = new ArrayList<>();
-    public ArrayList<UserData> arrUserAll_New = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserMan_New = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_New = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_New = new ArrayList<>();
 
-    public ArrayList<UserData> arrUserMan_Send = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Send = new ArrayList<>();
-    public ArrayList<UserData> arrUserAll_Send = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserMan_Send = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_Send = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_Send = new ArrayList<>();
 
     public ArrayList<SimpleUserData> arrUserMan_Recv = new ArrayList<>();
     public ArrayList<SimpleUserData> arrUserWoman_Recv = new ArrayList<>();

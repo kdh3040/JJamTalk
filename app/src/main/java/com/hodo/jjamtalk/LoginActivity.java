@@ -564,12 +564,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                 //InitData_Fan();
                                 InitData_Hot();
-                                InitData_Send();
+                                InitData_FanCount();
                                 InitData_New();
                                 InitData_Near();
                                 bInit = true;
-
-
                         }
                     }
 
@@ -619,7 +617,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0, j=0, k=0;
+                        int i = 0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
                         {
                             SimpleUserData cTempData = new SimpleUserData();
@@ -640,6 +638,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                 }
                             }
+                            i++;
                         }
 
                         bSetRecv = true;
@@ -658,46 +657,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 });
     }
 
-    private void InitData_Send() {
+    private void InitData_FanCount() {
         DatabaseReference ref;
-        ref = FirebaseDatabase.getInstance().getReference().child("User");
+        ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
         Query query= ref.orderByChild("FanCount");//.limitToFirst(3);//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0, j=0, k=0;
+                        int i = 0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
+                            SimpleUserData cTempData = new SimpleUserData();
+                            cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                            if(cTempData != null) {
 
-                                if(stRecvData.Img == null)
-                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                                if(cTempData.Img == null)
+                                    cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                mMyData.arrUserAll_Send.add(stRecvData);
-                               for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserAll_Send.get(i).FanList.entrySet())
-                                    mMyData.arrUserAll_Send.get(i).arrFanList.add(entry.getValue());
-
-                                for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserAll_Send.get(i).StarList.entrySet())
-                                    mMyData.arrUserAll_Send.get(i).arrStarList.add(entry.getValue());
-
+                                mMyData.arrUserAll_Send.add(cTempData);
                                 if(mMyData.arrUserAll_Send.get(i).Gender.equals("여자"))
                                 {
                                     mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
-                                //   for(LinkedHashMap.Entry<String, FanData> entry :  mMyData.arrUserWoman_Send.get(j).FanList.entrySet())
-                                //        mMyData.arrUserWoman_Send.get(j).arrFanList.add(entry.getValue());
-
-                                    j++;
                                 }
                                 else {
                                     mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
-                              //      for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_Send.get(k).FanList.entrySet())
-                              //          mMyData.arrUserMan_Send.get(k).arrFanList.add(entry.getValue());
-
-                                    k++;
                                 }
-
                             }
                             i++;
                         }
@@ -727,7 +711,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int nStartDate = nTodayDate - 7;
 
         DatabaseReference ref;
-        ref = FirebaseDatabase.getInstance().getReference().child("User");
+        ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
         Query query=ref.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -735,34 +719,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int i = 0, j=0, k=0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
+                            SimpleUserData stRecvData = new SimpleUserData ();
+                            stRecvData = fileSnapshot.getValue(SimpleUserData.class);
                             if(stRecvData != null) {
 
                                 if(stRecvData.Img == null)
                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                 mMyData.arrUserAll_New.add(stRecvData);
-                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_New.get(i).FanList.entrySet())
-                                    mMyData.arrUserAll_New.get(i).arrFanList.add(entry.getValue());
-
-                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_New.get(i).StarList.entrySet())
-                                    mMyData.arrUserAll_New.get(i).arrStarList.add(entry.getValue());
 
                                 if(mMyData.arrUserAll_New.get(i).Gender.equals("여자"))
                                 {
                                     mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
-                          //          for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserWoman_New.get(j).FanList.entrySet())
-                           //             mMyData.arrUserWoman_New.get(j).arrFanList.add(entry.getValue());
-
-                                    j++;
                                 }
                                 else {
                                     mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
-                         //           for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_New.get(k).FanList.entrySet())
-                            //            mMyData.arrUserMan_New.get(k).arrFanList.add(entry.getValue());
-
-                                    k++;
                                 }
 
                             }
@@ -795,7 +766,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Double IEndLat = mMyData.getUserLon() + 10;
 
         DatabaseReference ref;
-        ref = FirebaseDatabase.getInstance().getReference().child("User");
+        ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
         Query query=ref
                 .orderByChild("Lon")
                 .startAt(lStartLon).endAt(lEndLon)
@@ -808,34 +779,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int i = 0, j=0, k=0;
                         for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                            UserData stRecvData = new UserData ();
-                            stRecvData = fileSnapshot.getValue(UserData.class);
+                            SimpleUserData stRecvData = new SimpleUserData ();
+                            stRecvData = fileSnapshot.getValue(SimpleUserData.class);
                             if(stRecvData != null) {
 
                                 if(stRecvData.Img == null)
                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                 mMyData.arrUserAll_Near.add(stRecvData);
-                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_Near.get(i).FanList.entrySet())
-                                   mMyData.arrUserAll_Near.get(i).arrFanList.add(entry.getValue());
-
-                                for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserAll_Near.get(i).StarList.entrySet())
-                                    mMyData.arrUserAll_Near.get(i).arrStarList.add(entry.getValue());
 
                                 if(mMyData.arrUserAll_Near.get(i).Gender.equals("여자"))
                                 {
                                     mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
-                                  //  for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserWoman_Near.get(j).FanList.entrySet())
-                                  //     mMyData.arrUserWoman_Near.get(j).arrFanList.add(entry.getValue());
-
-                                    j++;
                                 }
                                 else {
                                     mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
-                                  //  for (LinkedHashMap.Entry<String, FanData> entry : mMyData.arrUserMan_Near.get(k).FanList.entrySet())
-                                   //     mMyData.arrUserMan_Near.get(k).arrFanList.add(entry.getValue());
-
-                                    k++;
                                 }
 
                             }
