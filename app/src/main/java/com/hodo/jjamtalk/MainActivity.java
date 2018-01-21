@@ -34,8 +34,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.hodo.jjamtalk.Data.BoardData;
+import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
+import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
@@ -46,6 +54,8 @@ import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.hodo.jjamtalk.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 
 public class MainActivity extends AppCompatActivity {
@@ -375,6 +385,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ib_home = findViewById(R.id.ib_home);
+        ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
         ib_home.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -444,7 +455,8 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         fanFragment = new FanFragment(this);
         boardFragment = new BoardFragment();
-        cardListFragment = new CardListFragment();
+        LoadCardData();
+        //cardListFragment = new CardListFragment();
         chatListFragment = new ChatListFragment(getApplicationContext());
 /*
 
@@ -459,6 +471,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ib_board = findViewById(R.id.ib_board);
+        ib_board.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
         ib_board.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -469,7 +482,7 @@ public class MainActivity extends AppCompatActivity {
                 view.setSelected(!view.isSelected());
                 //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-                ib_board.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
+                //ib_board.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
                 setImageAlpha(100,100,100,100,255);
               /*  ib_board.setImageResource(R.drawable.btn_board_selected);
                 ib_cardList.setImageResource(R.drawable.btn_card_normal);
@@ -480,15 +493,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         ib_cardList = findViewById(R.id.ib_cardlist);
-
+        ib_cardList.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
         ib_cardList.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
                 view.setSelected(!view.isSelected());
-
-                ib_cardList.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
                 setImageAlpha(100,255,100,100,100);
 
@@ -504,7 +515,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         ib_chatList = findViewById(R.id.ib_chatlist);
-
+        ib_chatList.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
         ib_chatList.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -522,7 +533,6 @@ public class MainActivity extends AppCompatActivity {
                 transaction.commit();*/
                // getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
                 view.setSelected(!view.isSelected());
-                ib_chatList.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
                 setImageAlpha(100,100,255,100,100);
                 /*
 
@@ -538,13 +548,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         ib_fan = findViewById(R.id.ib_fan);
-
+        ib_fan.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
         ib_fan.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
                 view.setSelected(!view.isSelected());
-                ib_fan.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
                 setImageAlpha(100,100,100,255,100);
 /*
                 ib_fan.setImageResource(R.drawable.btn_fan_selected);
@@ -628,6 +637,35 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void LoadCardData() {
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+        if(mMyData.arrCardNameList.size() == 0)
+            cardListFragment = new CardListFragment();
+
+        for(int i = 0; i < mMyData.arrCardNameList.size(); i++)
+        {
+            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.arrCardNameList.get(i));
+            final int finalI = i;
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                    mMyData.arrCarDataList.put(mMyData.arrCardNameList.get(finalI), DBData);
+
+                    if(mMyData.arrCarDataList.size() == mMyData.arrCardNameList.size())
+                        cardListFragment = new CardListFragment();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     @Override

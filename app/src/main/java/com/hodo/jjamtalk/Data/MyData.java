@@ -19,8 +19,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.hodo.jjamtalk.CardListFragment;
 import com.kakao.usermgmt.response.model.User;
 
 import java.text.SimpleDateFormat;
@@ -144,7 +146,9 @@ public class MyData {
     public ArrayList<String> arrSendNameList = new ArrayList<>();
     public ArrayList<SendData> arrSendDataList = new ArrayList<>();
 
-    public ArrayList<SimpleUserData> arrCardNameList = new ArrayList<>();
+    public ArrayList<String> arrCardNameList = new ArrayList<>();
+    //public ArrayList<String, SimpleUserData> arrCarDataList = new ArrayList<>();
+    public  Map<String, SimpleUserData> arrCarDataList = new LinkedHashMap<String, SimpleUserData>();
     //public ArrayList<UserData> arrCardList = new ArrayList<>();
     public  Map<String, UserData> mapMyCardData = new LinkedHashMap<String, UserData>();
 
@@ -637,7 +641,8 @@ public class MyData {
         }
     }
 
-    public boolean makeCardList(UserData target) {
+
+    public boolean makeCardList(final UserData target) {
         boolean rtValue = false;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -646,21 +651,29 @@ public class MyData {
 
 
         for (int i = 0; i < arrCardNameList.size(); i++) {
-            if (arrCardNameList.get(i).Idx.equals(target.Idx))
+            if (arrCardNameList.get(i).equals(target.Idx))
                 return rtValue;
         }
 
-        SimpleUserData tempData = new SimpleUserData();
-        tempData.Idx = target.Idx;
-        tempData.Memo = target.Memo;
-        tempData.Gender = target.Gender;
-        tempData.Img = target.Img;
-        tempData.NickName = target.NickName;
-
-        arrCardNameList.add(tempData);
-        table.child("CardList").child(target.Idx).setValue(tempData);
+        arrCardNameList.add(target.Idx);
+        table.child("CardList").child(target.Idx).setValue(target.Idx);
 
         rtValue = true;
+
+        Query data = database.getReference().child("SimpleData").child(target.Idx);
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+
+                arrCarDataList.put(target.Idx, DBData);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         return rtValue;
 

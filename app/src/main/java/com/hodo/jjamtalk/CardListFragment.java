@@ -107,11 +107,11 @@ public class CardListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            int i = position;
+            final String i = mMyData.arrCardNameList.get(position);
             //holder.image.setImageResource(R.mipmap.girl1);
 
             Glide.with(mContext)
-                    .load(mMyData.arrCardNameList.get(position).Img)
+                    .load(mMyData.arrCarDataList.get(i).Img)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .bitmapTransform(new CropCircleTransformation(mContext))
                     .thumbnail(0.1f)
@@ -120,14 +120,14 @@ public class CardListFragment extends Fragment {
             //if(mMyData.arrCardNameList.get(position).Count != 0)
                 holder.imageSymbol.setVisibility(View.INVISIBLE);
 
-            if(mMyData.arrCardNameList.get(i).Memo == null || mMyData.arrCardNameList.get(i).Memo.equals(""))
+            if(mMyData.arrCarDataList.get(i).Memo == null || mMyData.arrCarDataList.get(i).Memo.equals(""))
                 holder.textView_memo.setText("안녕하세요");
             else
-                holder.textView_memo.setText(mMyData.arrCardNameList.get(i).Memo);
+                holder.textView_memo.setText(mMyData.arrCarDataList.get(i).Memo);
             holder.textView_memo.setBackgroundResource(R.drawable.inbox2);
 
 
-            holder.textView.setText(mMyData.arrCardNameList.get(i).NickName);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
+            holder.textView.setText(mMyData.arrCarDataList.get(i).NickName);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
             holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -158,7 +158,7 @@ public class CardListFragment extends Fragment {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference table;
                             table = database.getReference("User/" + mMyData.getUserIdx()+ "/CardList/");
-                            table.child(mMyData.arrCardNameList.get(position).Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+                            table.child(mMyData.arrCarDataList.get(i).Idx).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     dataSnapshot.getRef().removeValue();
@@ -169,8 +169,8 @@ public class CardListFragment extends Fragment {
                                 }
 
                             });
-
                             mMyData.arrCardNameList.remove(position);
+                            mMyData.arrCarDataList.remove(i);
 
                             refreshFragMent();
                             dialog.dismiss();
@@ -214,12 +214,13 @@ public class CardListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return mMyData.arrCardNameList.size();
+            return mMyData.arrCarDataList.size();
         }
 
         public void moveCardPage(int position)
         {
-            stTargetData = mMyData.mapMyCardData.get(mMyData.arrCardNameList.get(position).Idx);
+            final String i = mMyData.arrCardNameList.get(position);
+            stTargetData = mMyData.mapMyCardData.get(mMyData.arrCarDataList.get(i).Idx);
             Intent intent = new Intent(mContext, UserPageActivity.class);
             Bundle bundle = new Bundle();
 
@@ -236,7 +237,8 @@ public class CardListFragment extends Fragment {
 
 
         public void getMyCardData(final int position) {
-            final String strTargetIdx = mMyData.arrCardNameList.get(position).Idx;
+            final String i = mMyData.arrCardNameList.get(position);
+            final String strTargetIdx = mMyData.arrCarDataList.get(i).Idx;
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table = null;
             table = database.getReference("User");
@@ -276,7 +278,8 @@ public class CardListFragment extends Fragment {
 
         public void RefreshUserCardSimpleData(UserData stTargetData, int position) {
 
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final String i = mMyData.arrCardNameList.get(position);
+          /*  FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
             // DatabaseReference user = table.child( userIdx);
@@ -296,12 +299,12 @@ public class CardListFragment extends Fragment {
 
             user.child("Point").setValue(Integer.valueOf(Integer.toString(rand.nextInt(100))));
             user.child("RecvGold").setValue(stTargetData.RecvCount);
-            user.child("SendGold").setValue(stTargetData.SendCount);
+            user.child("SendGold").setValue(stTargetData.SendCount);*/
 
 
-            mMyData.arrCardNameList.get(position).Img = stTargetData.Img;
-            mMyData.arrCardNameList.get(position).NickName = stTargetData.NickName;
-            mMyData.arrCardNameList.get(position).Memo = stTargetData.Memo;
+            mMyData.arrCarDataList.get(i).Img = stTargetData.Img;
+            mMyData.arrCarDataList.get(i).NickName = stTargetData.NickName;
+            mMyData.arrCarDataList.get(i).Memo = stTargetData.Memo;
 
         }
 
