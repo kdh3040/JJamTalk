@@ -228,7 +228,7 @@
  />
 
 
-                <ImageButton
+   <!--             <ImageButton
                     android:id="@+id/UserPage_btnGiftJewel"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -239,7 +239,7 @@
                     android:layout_weight="1"
                     android:src="@drawable/icon_gift"
                     android:background="@drawable/imgbt_state"
-                     />
+                     />-->
 
                 <ImageButton
                     android:id="@+id/UserPage_btnGiftHoney"

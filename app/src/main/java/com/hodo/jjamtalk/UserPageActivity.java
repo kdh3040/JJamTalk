@@ -85,7 +85,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     private ImageButton btnRegister;
     private ImageButton btnGiftHoney;
-    private ImageButton btnGiftJewel;
+    //private ImageButton btnGiftJewel;
 
     private ImageButton btnShare;
     private ImageButton btnMessage;
@@ -194,7 +194,7 @@ public class UserPageActivity extends AppCompatActivity {
 
         btnRegister = findViewById(R.id.UserPage_btnRegister);
         btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
-        btnGiftJewel = findViewById(R.id.UserPage_btnGiftJewel);
+        //btnGiftJewel = findViewById(R.id.UserPage_btnGiftJewel);
 
 
         btnMessage =  findViewById(R.id.UserPage_btnMessage);
@@ -250,7 +250,7 @@ public class UserPageActivity extends AppCompatActivity {
 
                         //ClickBtnSendHeart();
                         break;
-                    case R.id.UserPage_btnGiftJewel:
+          /*          case R.id.UserPage_btnGiftJewel:
 
                         View v = inflater.inflate(R.layout.dialog_give_jewel,null);
                        AlertDialog dialog1 = builder.setView(v).create();
@@ -258,7 +258,7 @@ public class UserPageActivity extends AppCompatActivity {
                        dialog1.show();
                        Spinner sp_jewel = v.findViewById(R.id.sp_jewel);
                        sp_jewel.setAdapter(myjewelAdapter);
-                        break;
+                        break;*/
 
                     case R.id.UserPage_btnShared:
 
@@ -543,7 +543,7 @@ public class UserPageActivity extends AppCompatActivity {
 
         btnRegister.setOnClickListener(listener);
         btnGiftHoney.setOnClickListener(listener);
-        btnGiftJewel.setOnClickListener(listener);
+        //btnGiftJewel.setOnClickListener(listener);
 
         btnShare.setOnClickListener(listener);
 

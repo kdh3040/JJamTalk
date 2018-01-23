@@ -168,7 +168,7 @@ public class NotiFunc {
             data.put("Idx", stTargetData.Idx);
             data.put("Gender", stTargetData.Gender);
             data.put("NickName", mMyData.getUserNick());
-            data.put("Honey", nHoneyCnt);
+           // data.put("Honey", nHoneyCnt);
 
 
             root.put("notification", notification);

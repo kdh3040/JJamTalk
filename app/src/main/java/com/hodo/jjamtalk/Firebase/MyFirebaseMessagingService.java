@@ -62,10 +62,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 strSenderGender= data.get("Gender");
                 strSenderIdx= data.get("Idx");
 
-                strSenderHoney = data.get("Honey");
-                strSenderHeart = data.get("Heart");
+             //   strSenderHoney = data.get("Honey");
+               // strSenderHeart = data.get("Heart");
 
-                getTargetData(strSenderGender, strSenderIdx);
+                //getTargetData(strSenderGender, strSenderIdx);
 
 
                 Log.d(TAG, "Message data payload: " + remoteMessage.getData());
