@@ -316,10 +316,10 @@ public class ChatListFragment extends Fragment {
     public void RefreshUserChatSimpleData(UserData stTargetData, int position) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+        DatabaseReference table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
 
         // DatabaseReference user = table.child( userIdx);
-        final DatabaseReference user = table.child(mMyData.getUserIdx()).child("CardList").child(stTargetData.Idx);
+        final DatabaseReference user = table.child(stTargetData.Idx);
         user.child("Age").setValue(stTargetData.Age);
         user.child("FanCount").setValue(stTargetData.FanCount);
         user.child("Gender").setValue(stTargetData.Gender);
