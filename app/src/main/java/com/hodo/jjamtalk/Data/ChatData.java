@@ -7,11 +7,11 @@ package com.hodo.jjamtalk.Data;
 public class ChatData {
     private MyData mMyData = MyData.getInstance();
 
-    public String strFrom;
-    public String strTo;
-    public String strMsg;
-    public String lTime;
-    public String strImg;
+    public String from;
+    public String to;
+    public String msg;
+    public String time;
+    public String img;
     public String strId;
 
     public ChatData(){
@@ -20,18 +20,18 @@ public class ChatData {
 
 
     public ChatData(String from_person, String to_person, String message, String nowTime, String image_URL){
-        strFrom= from_person;
-        strTo = to_person;
-        strMsg = message;
-        lTime= nowTime;
-        strImg = image_URL;
+        from= from_person;
+        to = to_person;
+        msg = message;
+        time= nowTime;
+        img = image_URL;
     }
     public String gettime(){
-        return lTime;
+        return time;
     }
 
     public Object getImg() {
-        return strImg;
+        return img;
     }
 
     public void setId(String id) {
@@ -39,11 +39,11 @@ public class ChatData {
     }
 
     public String getMsg() {
-        return strMsg;
+        return msg;
     }
 
     public String getFrom() {
-        return strFrom;
+        return from;
     }
 
 }

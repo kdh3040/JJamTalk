@@ -143,8 +143,8 @@ public class MyData {
     public ArrayList<String> arrSendHoneyNameList = new ArrayList<>();
     public ArrayList<SendData> arrSendHoneyDataList = new ArrayList<>();
 
-    public ArrayList<String> arrSendNameList = new ArrayList<>();
-    public ArrayList<SendData> arrSendDataList = new ArrayList<>();
+    public ArrayList<String> arrChatNameList = new ArrayList<>();
+    public Map<String, SimpleChatData> arrChatDataList = new LinkedHashMap<String, SimpleChatData>();
 
     public ArrayList<String> arrCardNameList = new ArrayList<>();
     public  Map<String, SimpleUserData> arrCarDataList = new LinkedHashMap<String, SimpleUserData>();
@@ -498,22 +498,21 @@ public class MyData {
         targetuser = table.child(_UserData.Idx).child("SendList");
 
         String strCheckName = strIdx + "_" + _UserData.Idx;
-        SendData tempMySave = new SendData();
-        tempMySave.strTargetImg = getUserImg();
-        tempMySave.strTargetNick = getUserNick();
-        tempMySave.strSendName = strCheckName;
-        tempMySave.strTargetMsg = _strSend.toString();
+        SimpleChatData tempMySave = new SimpleChatData();
+        tempMySave.ChatRoomName = strCheckName;
+        tempMySave.Idx = getUserIdx();
+        tempMySave.Img = getUserImg();
+        tempMySave.Nick = getUserNick();
+        tempMySave.Msg = _strSend.toString();
 
-        SendData tempTargetSave = new SendData();
-        tempTargetSave.strTargetNick = _UserData.NickName;
-        tempTargetSave.strTargetImg = _UserData.Img;
-        tempTargetSave.strSendName = strCheckName;
-        tempTargetSave.strTargetMsg = _strSend.toString();
+        SimpleChatData tempTargetSave = new SimpleChatData();
+        tempTargetSave.ChatRoomName = strCheckName;
+        tempTargetSave.Idx = _UserData.Idx;
+        tempTargetSave.Nick = _UserData.NickName;
+        tempTargetSave.Img = _UserData.Img;
+        tempTargetSave.Msg = _strSend.toString();
 
-        String strCheckName1 = _UserData.Idx + "_" + strIdx ;
-
-        if (!arrSendNameList.contains(strCheckName) && !arrSendNameList.contains(strCheckName1) ) {
-
+        if (!arrChatNameList.contains(strCheckName) && !arrChatNameList.contains(strCheckName) ) {
             user.child(strCheckName).setValue(tempTargetSave);
             targetuser.child(strCheckName).setValue(tempMySave);
             rtValue = true;
@@ -542,10 +541,10 @@ public class MyData {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 int saa = 0;
-                SendData SendList = dataSnapshot.getValue(SendData.class);
-                if (!arrSendNameList.contains(SendList.strSendName)) {
-                    arrSendNameList.add(SendList.strSendName);
-                    arrSendDataList.add(SendList);
+                SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
+                if (!arrChatNameList.contains(SendList.ChatRoomName)) {
+                    arrChatNameList.add(SendList.ChatRoomName);
+                    arrChatDataList.put(SendList.ChatRoomName, SendList);
                 }
                 //arrCardList.add(CardList);
             }
@@ -913,7 +912,7 @@ public class MyData {
         return rtValue;
     }
 
-    public void makeBlockList(SendData blockList) {
+    public void makeBlockList(SimpleChatData blockList) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user, target;
@@ -922,10 +921,10 @@ public class MyData {
 
         BlockData tempData = new BlockData();
 
-        tempData.strTargetImg = blockList.strTargetImg;
-        tempData.strTargetNick = blockList.strTargetNick;
-        tempData.strTargetMsg = blockList.strTargetMsg;
-        tempData.strSendName = blockList.strSendName;
+        tempData.strTargetImg = blockList.Img;
+        tempData.strTargetNick = blockList.Nick;
+        tempData.strTargetMsg = blockList.Msg;
+        tempData.strSendName = blockList.ChatRoomName;
 
         BlockData targetData = new BlockData();
 
@@ -934,9 +933,9 @@ public class MyData {
         targetData.strTargetMsg = getUserMemo();
         targetData.strSendName = getUserIdx();
 
-        int idx = blockList.strSendName.indexOf("_");
-        String temp1 = blockList.strSendName.substring(0, idx);
-        String temp2 = blockList.strSendName.substring(idx + 1);
+        int idx = blockList.ChatRoomName.indexOf("_");
+        String temp1 = blockList.ChatRoomName.substring(0, idx);
+        String temp2 = blockList.ChatRoomName.substring(idx + 1);
 
         if (getUserIdx().equals(temp1)) {
             tempData.strTargetName = temp2;
@@ -1635,11 +1634,11 @@ public class MyData {
         String strLastImg = strImg;
         String strLastTime = lTime;
 
-        user.child("strTargetMsg").setValue(strLastMsg);
-        targetuser.child("strTargetMsg").setValue(strLastMsg);
+        user.child("Msg").setValue(strLastMsg);
+        targetuser.child("Msg").setValue(strLastMsg);
 
-        user.child("strSendDate").setValue(strLastTime);
-        targetuser.child("strSendDate").setValue(strLastTime);
+        user.child("Date").setValue(strLastTime);
+        targetuser.child("Date").setValue(strLastTime);
     }
 }
 

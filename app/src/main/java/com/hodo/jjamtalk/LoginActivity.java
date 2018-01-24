@@ -220,7 +220,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
 
-        }else
+        }
+        else
             {
 
 

@@ -43,6 +43,7 @@ import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
+import com.hodo.jjamtalk.Data.SimpleChatData;
 import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
@@ -458,7 +459,9 @@ public class MainActivity extends AppCompatActivity {
         boardFragment = new BoardFragment();
         LoadCardData();
         //cardListFragment = new CardListFragment();
-        chatListFragment = new ChatListFragment(getApplicationContext());
+        LoadChatData();
+
+
 /*
 
         //getSupportFragmentManager()
@@ -638,6 +641,35 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void LoadChatData() {
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+        if(mMyData.arrChatNameList.size() == 0)
+            chatListFragment = new ChatListFragment(getApplicationContext());
+
+        for(int i = 0; i < mMyData.arrChatNameList.size(); i++)
+        {
+            Query data = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx()).child(mMyData.arrChatNameList.get(i));
+            final int finalI = i;
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    SimpleChatData DBData = dataSnapshot.getValue(SimpleChatData.class);
+                    mMyData.arrChatDataList.put(mMyData.arrChatNameList.get(finalI), DBData);
+
+                    if(mMyData.arrChatNameList.size() == mMyData.arrChatDataList.size())
+                        chatListFragment = new ChatListFragment(getApplicationContext());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     private void LoadCardData() {
