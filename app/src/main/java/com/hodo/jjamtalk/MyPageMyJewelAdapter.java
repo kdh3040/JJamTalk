@@ -67,12 +67,12 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                     dialog.show();
 
                     TextView tv_title = v.findViewById(R.id.title);
-                    tv_title.setText(strSellItemRef + "  " + nSellCount[0] + "개 보유");
+                    tv_title.setText("하트로 교환할까요?");
                     TextView tv_msg = v.findViewById(R.id.msg);
 
-                    tv_msg.setText("판매 시 개당 " + nSellGold + " 골드 획득");
+                    tv_msg.setText(nSellGold + "하트로 교환할 수 있습니다.");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
-                    btn_yes.setText("아이템 팔기");
+                    btn_yes.setText("네");
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
