@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Created by mjk on 2017. 8. 4..
  */
 
-public class BuyGoldActivity extends AppCompatActivity {
+public class BuyHeartActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
     private TextView txt_heartStatus;
@@ -38,20 +38,20 @@ public class BuyGoldActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cash_charge);
 
         txt_heartStatus = (TextView)findViewById(R.id.Heart_MyHeart);
-        txt_heartStatus.setText("현재 나의 골드 : " + mMyData.getUserHoney()+"골드");
+        txt_heartStatus.setText("현재 나의 하트 : " + mMyData.getUserHoney()+"하트");
 
         HeartChargeList = (ListView)findViewById(R.id.Heart_list);
 
         list = new ArrayList<HeartItem>();
 
         HeartItem mHeartItem;
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "50골드 5천원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "50하트 5천원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "70골드 7천원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "70하트 7천원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "100골드 1만원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "100하트 1만원");
         list.add(mHeartItem);
 
         HeartItemAdapter adapter = new HeartItemAdapter(this, R.layout.content_cash_charge, list);

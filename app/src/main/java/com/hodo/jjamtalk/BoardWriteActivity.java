@@ -81,7 +81,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                     builder.setPositiveButton("골드 사러가기", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                            startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
                             finish();
                         }
                     }).

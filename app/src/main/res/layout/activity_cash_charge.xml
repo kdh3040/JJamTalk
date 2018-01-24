@@ -33,14 +33,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="무료 골드 충전 1" />
+            android:text="무료 하트 충전 1" />
 
         <Button
             android:id="@+id/button20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="무료 골드 충전 2" />
+            android:text="무료 하트 충전 2" />
     </LinearLayout>
 
 </LinearLayout>

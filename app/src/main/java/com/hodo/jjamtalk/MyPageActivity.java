@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -26,7 +24,6 @@ import com.hodo.jjamtalk.Util.CommonFunc;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
-import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 
 /**
@@ -39,7 +36,7 @@ public class MyPageActivity extends AppCompatActivity {
     UIData mUIdata = UIData.getInstance();
 
     ImageButton btn_Setting,btn_my_profile,btn_history;
-    //Button btn_Gold;
+    Button btn_Heart;
     //Button btn_buyjewel;
     ImageView img_Mypic;
     ImageButton iv_gold;
@@ -122,13 +119,13 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
-        //btn_Gold = (Button)findViewById(R.id.btn_BuyGold);
-        /*btn_Gold.setOnClickListener(new View.OnClickListener() {
+        btn_Heart = (Button)findViewById(R.id.buyHeart);
+        btn_Heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
+                startActivity(new Intent(getApplicationContext(),BuyHeartActivity.class));
             }
-        });*/
+        });
         /*btn_buyjewel = (Button)findViewById(R.id.btn_buyjewel);
         btn_buyjewel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,7 +218,7 @@ public class MyPageActivity extends AppCompatActivity {
         int nGold = mMyData.getUserHoney();
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
         //txt_MyHeartCnt.setText(" 보유 골드 : " + nGold + " 골드");
-        txt_MyGoldCnt.setText(nGold+" 골드");
+        txt_MyGoldCnt.setText(nGold+" 하트");
         if(mMyData.bestItem == 0)
             iv_MyGift.setImageResource(R.drawable.gold);
         else

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,7 +23,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +33,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
@@ -46,8 +42,6 @@ import com.hodo.jjamtalk.Util.LocationFunc;
 import com.hodo.jjamtalk.Util.NotiFunc;
 
 import java.util.LinkedHashMap;
-
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -326,7 +320,7 @@ public class UserPageActivity extends AppCompatActivity {
                         btnHeartCharge.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                                startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
                             }
                         });
 
@@ -334,7 +328,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 10;
-                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까?");
                             }
                         });
 
@@ -342,7 +336,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 20;
-                                Msg.setText(nSendHoneyCnt[0] + "골드를 보시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보시겠습니까?");
                             }
                         });
 
@@ -350,7 +344,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 30;
-                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까?");
                             }
                         });
 
@@ -358,7 +352,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 50;
-                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까?");
                             }
                         });
 
@@ -366,7 +360,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 100;
-                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까?");
                             }
                         });
 
@@ -374,7 +368,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 500;
-                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까?");
                             }
                         });
 
@@ -517,7 +511,7 @@ public class UserPageActivity extends AppCompatActivity {
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
+                                                    startActivity(new Intent(getApplicationContext(),BuyHeartActivity.class));
 
                                                 }
                                             });

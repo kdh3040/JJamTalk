@@ -3,14 +3,12 @@ package com.hodo.jjamtalk;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +23,6 @@ import com.hodo.jjamtalk.Data.BlockData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -271,7 +268,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                            startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
                             finish();
                             dialog.cancel();
 
@@ -365,7 +362,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                            startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
                             finish();
                             dialog.cancel();
 
