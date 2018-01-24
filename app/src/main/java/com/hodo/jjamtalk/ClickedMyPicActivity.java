@@ -254,8 +254,8 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
         btnGiftHoney.setVisibility(View.GONE);
 
-        btnGiftJewel = findViewById(R.id.UserPage_btnGiftJewel);
-        btnGiftJewel.setVisibility(View.GONE);
+/*        btnGiftJewel = findViewById(R.id.UserPage_btnGiftJewel);
+        btnGiftJewel.setVisibility(View.GONE);*/
 
         btnMessage =  findViewById(R.id.UserPage_btnMessage);
         btnMessage.setVisibility(View.GONE);

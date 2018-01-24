@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -28,9 +27,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by mjk on 2017. 8. 4..
@@ -216,7 +212,7 @@ public class SettingActivity extends AppCompatActivity {
         lo_buyGold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
+                startActivity(new Intent(getApplicationContext(),BuyHeartActivity.class));
 
 
             }

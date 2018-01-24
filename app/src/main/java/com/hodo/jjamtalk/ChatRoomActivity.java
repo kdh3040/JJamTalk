@@ -6,33 +6,26 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +45,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hodo.jjamtalk.Data.ChatData;
 import com.hodo.jjamtalk.Data.MyData;
-import com.hodo.jjamtalk.Data.PublicRoomChatData;
 import com.hodo.jjamtalk.Data.SendData;
 import com.hodo.jjamtalk.Data.SimpleChatData;
 import com.hodo.jjamtalk.Data.UserData;
@@ -69,7 +61,6 @@ import java.util.Date;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_CHAT;
-import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 
 /**
  * Created by mjk on 2017. 8. 10..
@@ -359,7 +350,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         btn_HeartCharge.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                                startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
                             }
                         });
 

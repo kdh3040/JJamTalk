@@ -9,6 +9,8 @@
     android:paddingRight="20dp"
     android:paddingTop="20dp">
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -138,7 +140,7 @@
             android:layout_weight="1"
             android:background="@drawable/round_btn_bg"
             android:translationZ="1dp"
-            app:srcCompat="@drawable/ic_gold" />
+            app:srcCompat="@drawable/heart_icon" />
 
         <TextView
             android:id="@+id/tv_goldsize"
@@ -149,6 +151,14 @@
             android:textSize="24dp"
             android:textStyle="bold"
              />
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buyHeart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="하트 충전하기" />
 
 </LinearLayout>

@@ -3,14 +3,12 @@ package com.hodo.jjamtalk;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +23,6 @@ import com.hodo.jjamtalk.Data.BlockData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -186,7 +183,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         txt_price.setVisibility(View.GONE);
 
         txt_myGold = (TextView)findViewById(R.id.txt_myGold);
-        txt_myGold.setText(mMyData.getUserHoney() + " 골드");
+        txt_myGold.setText(mMyData.getUserHoney() + " 하트");
 
         btn_openBox = findViewById(R.id.btn_openBox);
         btn_sellJewely = findViewById(R.id.btn_sellJewely);
@@ -205,7 +202,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 TextView tv_msg = v.findViewById(R.id.msg);
 
                 if(mMyData.getUserHoney() > 7){
-                    tv_msg.setText("7골드가 소비됩니다");
+                    tv_msg.setText("7하트가 소비됩니다");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -244,7 +241,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                                 txt_myGold.setText(mMyData.getUserHoney() + " 골드");
                                 Myjeweladapter.notifyDataSetChanged();
                             }else {
-                                Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "하트가 부족합니다", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -266,19 +263,19 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 else
                 {
                     int nGold = 7 - mMyData.getUserHoney();
-                    tv_msg.setText(nGold + "골드가 부족합니다");
+                    tv_msg.setText(nGold + "하트가 부족합니다");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                            startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
                             finish();
                             dialog.cancel();
 
                         }
                     });
 
-                    btn_yes.setText("골드 사러가기");
+                    btn_yes.setText("하트 충전하기");
                     Button btn_no = v.findViewById(R.id.btn_no);
                     btn_no.setOnClickListener(new View.OnClickListener() {
 
@@ -306,7 +303,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 TextView tv_msg = v.findViewById(R.id.msg);
 
                 if(mMyData.getUserHoney() > 70){
-                    tv_msg.setText("70골드가 소비됩니다");
+                    tv_msg.setText("70하트가 소비됩니다");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -360,19 +357,19 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 else
                 {
                     int nGold = 70 - mMyData.getUserHoney();
-                    tv_msg.setText(nGold + "골드가 부족합니다");
+                    tv_msg.setText(nGold + "하트가 부족합니다");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                            startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
                             finish();
                             dialog.cancel();
 
                         }
                     });
 
-                    btn_yes.setText("골드 사러가기");
+                    btn_yes.setText("하트 사러가기");
                     Button btn_no = v.findViewById(R.id.btn_no);
                     btn_no.setOnClickListener(new View.OnClickListener() {
 
