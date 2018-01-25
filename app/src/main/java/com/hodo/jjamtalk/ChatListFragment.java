@@ -32,10 +32,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
+import com.hodo.jjamtalk.Data.SimpleChatData;
 import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.ChatListViewHolder;
+import com.kakao.usermgmt.response.model.User;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -134,10 +136,12 @@ public class ChatListFragment extends Fragment {
         public void onBindViewHolder(ChatListViewHolder holder, final int position) {
             int i = position;
 
+            final String str = mMyData.arrChatNameList.get(i);
+
 
             Glide.with(mContext)
                     //.load(mMyData.arrSendDataList.get(position).strTargetImg)
-                    .load(mMyData.arrSendDataList.get(position).strTargetImg)
+                    .load(mMyData.arrChatDataList.get(str).Img)
                     .bitmapTransform(new CropCircleTransformation(getActivity()))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .thumbnail(0.1f)
@@ -176,7 +180,7 @@ public class ChatListFragment extends Fragment {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference table;
                             table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
-                            table.child(mMyData.arrSendDataList.get(position).strSendName).addListenerForSingleValueEvent(new ValueEventListener() {
+                            table.child(mMyData.arrChatDataList.get(str).ChatRoomName).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     dataSnapshot.getRef().removeValue();
@@ -188,8 +192,9 @@ public class ChatListFragment extends Fragment {
                                 }
                             });
 
-                            mMyData.arrSendDataList.remove(position);
-                            mMyData.arrSendNameList.remove(position);
+                            mMyData.arrChatDataList.remove( mMyData.arrChatNameList.get(position));
+                            mMyData.arrChatNameList.remove(position);
+
 
                          //   mMyData.arrChatTargetData.remove(position);
                          //   mMyData.arrMyChatTargetList.remove(position);
@@ -218,52 +223,49 @@ public class ChatListFragment extends Fragment {
 
             //holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
 
-            holder.date.setText(mMyData.arrSendDataList.get(i).strSendDate);
-            holder.nickname.setText(mMyData.arrSendDataList.get(i).strTargetNick);
+            holder.date.setText(mMyData.arrChatDataList.get(str).Date);
+            holder.nickname.setText(mMyData.arrChatDataList.get(str).Nick);
 
-            if(mMyData.arrSendDataList.get(i).strTargetMsg.equals(""))
-                holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
+            if(mMyData.arrChatDataList.get(str).Msg.equals(""))
+                holder.textView.setText(mMyData.arrChatDataList.get(str).Nick + "님과의 채팅방입니다");
             else
-                holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetMsg);
+                holder.textView.setText(mMyData.arrChatDataList.get(str).Msg);
 
 
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     getChatTargetData(position);
-
-
                     //finish();
-
-
-
                 }
             });
         }
 
         @Override
         public int getItemCount() {
-            return mMyData.arrSendDataList.size();
+            return mMyData.arrChatDataList.size();
             //return mMyData.arrChatTargetData.size();
         }
 
         String strTargetIdx;
 
-        public void moveChatPage(int position)
+        public void moveChatPage(UserData user, int pos)
         {
-            SendData mSendData = mMyData.arrSendDataList.get(position);
             Intent intent = new Intent(getContext(),ChatRoomActivity.class);
-            intent.putExtra("Position", position);
-            intent.putExtra("ChatData", mSendData);
-            intent.putExtra("ChatIdx", strTargetIdx);
+            Bundle bundle = new Bundle();
 
+            bundle.putSerializable("Target", user);
+            bundle.putSerializable("Position", pos);
+            intent.putExtras(bundle);
             startActivity(intent);
         }
 
 
         public void getChatTargetData(final int position) {
 
-            String[] strIdx = mMyData.arrSendDataList.get(position).strSendName.split("_");
+            String str = mMyData.arrChatNameList.get(position);
+
+            String[] strIdx = mMyData.arrChatDataList.get(str).ChatRoomName.split("_");
 
             if(strIdx[0].equals(mMyData.getUserIdx()))
             {
@@ -296,7 +298,7 @@ public class ChatListFragment extends Fragment {
                         }
 
                         RefreshUserChatSimpleData(tempUserData, position);
-                        moveChatPage(position);
+                        moveChatPage(mMyData.mapChatTargetData.get(strTargetIdx), position);
                         notifyDataSetChanged();
                     }
 
@@ -315,31 +317,18 @@ public class ChatListFragment extends Fragment {
 
     public void RefreshUserChatSimpleData(UserData stTargetData, int position) {
 
+        String  str = mMyData.arrChatNameList.get(position);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
-
+        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
         // DatabaseReference user = table.child( userIdx);
-        final DatabaseReference user = table.child(stTargetData.Idx);
-        user.child("Age").setValue(stTargetData.Age);
-        user.child("FanCount").setValue(stTargetData.FanCount);
-        user.child("Gender").setValue(stTargetData.Gender);
-        user.child("Idx").setValue(stTargetData.Idx);
+        final DatabaseReference user = table.child(mMyData.getUserIdx()).child("SendList").child(str);
+
+        user.child("Nick").setValue(stTargetData.NickName);
         user.child("Img").setValue(stTargetData.Img);
-        user.child("Lon").setValue(stTargetData.Lon);
-        user.child("Lat").setValue(stTargetData.Lat);
-        user.child("Memo").setValue(stTargetData.Memo);
-        user.child("NickName").setValue(stTargetData.NickName);
 
-        Random rand = new Random();
-        rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
-
-        user.child("Point").setValue(Integer.valueOf(Integer.toString(rand.nextInt(100))));
-        user.child("RecvGold").setValue(stTargetData.RecvCount);
-        user.child("SendGold").setValue(stTargetData.SendCount);
-
-
-        mMyData.arrSendDataList.get(position).strTargetImg = stTargetData.Img;
-        mMyData.arrSendDataList.get(position).strTargetNick= stTargetData.NickName;
+        mMyData.arrChatDataList.get(str).Img = stTargetData.Img;
+        mMyData.arrChatDataList.get(str).Nick= stTargetData.NickName;
 
     }
 

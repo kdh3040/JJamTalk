@@ -46,6 +46,7 @@ import com.google.firebase.storage.UploadTask;
 import com.hodo.jjamtalk.Data.ChatData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
+import com.hodo.jjamtalk.Data.SimpleChatData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.CommonFunc;
@@ -88,7 +89,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm");
 
     int     tempPosition;
-    SendData tempChatData;
+    SimpleChatData tempChatData;
     String  tempChatIdx;
 
     private ProgressBar progressBar;
@@ -139,23 +140,23 @@ public class ChatRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chatting);
 
         mActivity = this;
-        Intent intent = getIntent();
+
       //  progressBar = (ProgressBar)findViewById(R.id.chat_Progress);
         mFragmentManager = getFragmentManager();
 
-        tempPosition = (int) intent.getExtras().getSerializable("Position");
-        tempChatData = (SendData) intent.getExtras().getSerializable("ChatData");
-        tempChatIdx = (String) intent.getExtras().getSerializable("ChatIdx");
+        Intent intent = getIntent();
+        Bundle bundle = getIntent().getExtras();
+        stTargetData = (UserData) bundle.getSerializable("Target");
+        tempPosition = (int)bundle.getSerializable("Position");
+        tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
 
         //stTargetData.NickName = tempChatData.strTargetNick;
         //stTargetData.Img= tempChatData.strTargetImg;
 
-        stTargetData = mMyData.mapChatTargetData.get(tempChatIdx);
-
         //stTargetData.NickName = mMyData.arrChatTargetData.get(tempChatIdx).NickName;
         //stTargetData.Img= mMyData.arrChatTargetData.get(tempChatIdx).Img;
 
-        mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(tempChatData.strSendName);
+        mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(tempChatData.ChatRoomName);
 
         txt_msg = (EditText)findViewById(R.id.et_msg);
 
@@ -243,9 +244,9 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                 //viewHolder.sender.setText(chat_message.getFrom());
 
-                Log.d("!@#$%", chat_message.getMsg() + "    " + position +"     " + chat_message.strFrom);
+                Log.d("!@#$%", chat_message.getMsg() + "    " + position +"     " + chat_message.from);
 
-                if(chat_message.strFrom.equals(mMyData.getUserNick()))
+                if(chat_message.from.equals(mMyData.getUserNick()))
                 //if(a % 2 == 0)
                 {
                     Log.d("!@#$%", "11111");
@@ -456,7 +457,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                         mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
 
                                         ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, message, formatStr, "");
-                                        mMyData.makeLastMSG(stTargetData, tempChatData.strSendName, message, formatStr);
+                                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr);
                                         mRef.push().setValue(chat_Data);
                                         dialog.dismiss();
 
@@ -487,7 +488,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String message = txt_msg.getText().toString();
                 long nowTime =System.currentTimeMillis();
-                if(txt_msg.getText() == null){
+                if(txt_msg.getText() == null || txt_msg.getText().equals("")){
                     return;
                 }else{
                     Calendar cal = Calendar.getInstance();
@@ -497,9 +498,9 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     mNotiFunc.SendMsgToFCM(stTargetData);
 
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, message, formatStr, "");
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "");
 
-                    mMyData.makeLastMSG(stTargetData, tempChatData.strSendName, message, formatStr);
+                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr);
 
                     mRef.push().setValue(chat_Data);
                     txt_msg.setText("");
@@ -529,19 +530,19 @@ public class ChatRoomActivity extends AppCompatActivity {
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference table;
                         table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
-                        table.child(tempChatData.strSendName).addListenerForSingleValueEvent(new ValueEventListener() {
+                        table.child(tempChatData.ChatRoomName).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 dataSnapshot.getRef().removeValue();
 
                                 mMyData.makeBlockList(tempChatData);
 
-                                mFireBaseData.DelChatData(tempChatData.strSendName);
-                                mFireBaseData.DelSendData(tempChatData.strSendName);
+                                mFireBaseData.DelChatData(tempChatData.ChatRoomName);
+                                mFireBaseData.DelSendData(tempChatData.ChatRoomName);
 
+                                mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(tempPosition));
+                                mMyData.arrChatNameList.remove(tempPosition);
 
-                                mMyData.arrSendDataList.remove(tempPosition);
-                                mMyData.arrSendNameList.remove(tempPosition);
 
                                 mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
 
@@ -649,9 +650,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                     // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                     //progressBar.setVisibility(View.INVISIBLE);
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.strTargetNick, "", null, downloadUrl.toString());
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", null, downloadUrl.toString());
 
-                    mMyData.makeLastMSG(stTargetData, tempChatData.strSendName, "이미지를 보냈습니다", null);
+                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", null);
                     mRef.push().setValue(chat_Data);
 
                     tempSaveUri = downloadUrl;
