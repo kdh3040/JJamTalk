@@ -38,20 +38,34 @@ public class BuyHeartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cash_charge);
 
         txt_heartStatus = (TextView)findViewById(R.id.Heart_MyHeart);
-        txt_heartStatus.setText("현재 나의 하트 : " + mMyData.getUserHoney()+"하트");
+        txt_heartStatus.setText("보유 하트 : " + mMyData.getUserHoney());
 
         HeartChargeList = (ListView)findViewById(R.id.Heart_list);
 
         list = new ArrayList<HeartItem>();
 
         HeartItem mHeartItem;
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "50하트 5천원");
+
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "10하트 900원");
+        list.add(mHeartItem);
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "20하트 1700원");
+        list.add(mHeartItem);
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "50하트 4500원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "70하트 7천원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "100하트 9100원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "100하트 1만원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "200하트 17500원");
+        list.add(mHeartItem);
+
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "300하트 26000원");
+        list.add(mHeartItem);
+
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "500하트 44000원");
+        list.add(mHeartItem);
+
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "1000하트 80000원");
         list.add(mHeartItem);
 
         HeartItemAdapter adapter = new HeartItemAdapter(this, R.layout.content_cash_charge, list);
@@ -87,7 +101,7 @@ public class BuyHeartActivity extends AppCompatActivity {
     }
     public void refreshHearCnt()
     {
-        txt_heartStatus.setText("현재 나의 골드 : " + mMyData.getUserHoney());
+        txt_heartStatus.setText("보유 하트 : " + mMyData.getUserHoney());
     }
 
 
@@ -154,16 +168,32 @@ public class BuyHeartActivity extends AppCompatActivity {
                     switch (i)
                     {
                         case 0:
-                            mMyData.setUserHoney(mMyData.getUserHoney() + 50);
+                            mMyData.setUserHoney(mMyData.getUserHoney() + 10);
                             refreshHearCnt();
                             break;
                         case 1:
-                            mMyData.setUserHoney(mMyData.getUserHoney() + 70);
+                            mMyData.setUserHoney(mMyData.getUserHoney() + 20);
                             refreshHearCnt();
                             break;
                         case 2:
+                            mMyData.setUserHoney(mMyData.getUserHoney() + 50);
+                            refreshHearCnt();
+                        case 3:
                             mMyData.setUserHoney(mMyData.getUserHoney() + 100);
                             refreshHearCnt();
+                        case 4:
+                            mMyData.setUserHoney(mMyData.getUserHoney() + 200);
+                            refreshHearCnt();
+                        case 5:
+                            mMyData.setUserHoney(mMyData.getUserHoney() + 300);
+                            refreshHearCnt();
+                        case 6:
+                            mMyData.setUserHoney(mMyData.getUserHoney() + 500);
+                            refreshHearCnt();
+                        case 7:
+                            mMyData.setUserHoney(mMyData.getUserHoney() + 1000);
+                            refreshHearCnt();
+
                             break;
                     }
                 }
