@@ -123,7 +123,7 @@ public class MyPageActivity extends AppCompatActivity {
         btn_Heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BuyHeartActivity.class));
+                startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
             }
         });
         /*btn_buyjewel = (Button)findViewById(R.id.btn_buyjewel);
@@ -218,7 +218,7 @@ public class MyPageActivity extends AppCompatActivity {
         int nGold = mMyData.getUserHoney();
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
         //txt_MyHeartCnt.setText(" 보유 골드 : " + nGold + " 골드");
-        txt_MyGoldCnt.setText(nGold+" 하트");
+        txt_MyGoldCnt.setText(nGold+" 골드");
         if(mMyData.bestItem == 0)
             iv_MyGift.setImageResource(R.drawable.gold);
         else

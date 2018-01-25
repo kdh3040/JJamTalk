@@ -138,9 +138,8 @@
 
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/round_btn_bg"
             android:translationZ="1dp"
-            app:srcCompat="@drawable/heart_icon" />
+            app:srcCompat="@drawable/ic_gold_rank" />
 
         <TextView
             android:id="@+id/tv_goldsize"
@@ -159,6 +158,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="하트 충전하기" />
+        android:text="골드 충전하기" />
 
 </LinearLayout>

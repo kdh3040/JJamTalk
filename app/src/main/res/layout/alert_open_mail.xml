@@ -48,7 +48,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:text="골드를 보내셨습니다"
+            android:text="하트를 보내셨습니다"
             android:textSize="20sp" />
     </LinearLayout>
 

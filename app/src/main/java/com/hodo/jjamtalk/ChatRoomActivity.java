@@ -349,12 +349,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                         btn_HeartCharge.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
+                                startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                             }
                         });
 
 
-                        TextView tvHeartCnt = v.findViewById(R.id.HeartPop_MyHeart);
+                        //TextView tvHeartCnt = v.findViewById(R.id.HeartPop_MyHeart);
                         Button btnHeart100 = v.findViewById(R.id.HeartPop_100);
                         Button btnHeart200 = v.findViewById(R.id.HeartPop_200);
                         Button btnHeart300 = v.findViewById(R.id.HeartPop_300);
@@ -363,7 +363,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         Button btnHeart5000 = v.findViewById(R.id.HeartPop_5000);
                         final TextView Msg = v.findViewById(R.id.HeartPop_text);
 
-                        tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
+                        //tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
                         Msg.setText("100개의 꿀을 보내시겠습니까?");
 
                         final int[] nSendHoneyCnt = new int[1];

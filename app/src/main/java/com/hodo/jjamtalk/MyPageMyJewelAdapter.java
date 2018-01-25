@@ -67,10 +67,10 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                     dialog.show();
 
                     TextView tv_title = v.findViewById(R.id.title);
-                    tv_title.setText("하트로 교환할까요?");
+                    tv_title.setText("골드로 교환할까요?");
                     TextView tv_msg = v.findViewById(R.id.msg);
 
-                    tv_msg.setText(nSellGold + "하트로 교환할 수 있습니다.");
+                    tv_msg.setText(nSellGold + "골드로 교환할 수 있습니다.");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setText("네");
                     btn_yes.setOnClickListener(new View.OnClickListener() {

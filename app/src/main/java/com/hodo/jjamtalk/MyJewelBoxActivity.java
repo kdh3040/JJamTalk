@@ -183,7 +183,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         txt_price.setVisibility(View.GONE);
 
         txt_myGold = (TextView)findViewById(R.id.txt_myGold);
-        txt_myGold.setText(mMyData.getUserHoney() + " 하트");
+        txt_myGold.setText(mMyData.getUserHoney() + " 골드");
 
         btn_openBox = findViewById(R.id.btn_openBox);
         btn_sellJewely = findViewById(R.id.btn_sellJewely);
@@ -198,11 +198,11 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 dialog.show();
 
                 TextView tv_title = v.findViewById(R.id.title);
-                tv_title.setText("상자 1개 열기");
+                tv_title.setText("상자 1개를 열까요?");
                 TextView tv_msg = v.findViewById(R.id.msg);
 
                 if(mMyData.getUserHoney() > 7){
-                    tv_msg.setText("7하트가 소비됩니다");
+                    tv_msg.setText("7골드가 필요합니다");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -241,7 +241,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                                 txt_myGold.setText(mMyData.getUserHoney() + " 골드");
                                 Myjeweladapter.notifyDataSetChanged();
                             }else {
-                                Toast.makeText(getApplicationContext(), "하트가 부족합니다", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -263,19 +263,19 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 else
                 {
                     int nGold = 7 - mMyData.getUserHoney();
-                    tv_msg.setText(nGold + "하트가 부족합니다");
+                    tv_msg.setText(nGold + "골드가 부족합니다");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
+                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                             finish();
                             dialog.cancel();
 
                         }
                     });
 
-                    btn_yes.setText("하트 충전하기");
+                    btn_yes.setText("골드 충전하기");
                     Button btn_no = v.findViewById(R.id.btn_no);
                     btn_no.setOnClickListener(new View.OnClickListener() {
 
@@ -303,7 +303,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 TextView tv_msg = v.findViewById(R.id.msg);
 
                 if(mMyData.getUserHoney() > 70){
-                    tv_msg.setText("70하트가 소비됩니다");
+                    tv_msg.setText("70골드가 필요합니다");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -357,19 +357,19 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 else
                 {
                     int nGold = 70 - mMyData.getUserHoney();
-                    tv_msg.setText(nGold + "하트가 부족합니다");
+                    tv_msg.setText(nGold + "골드가 부족합니다");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
+                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                             finish();
                             dialog.cancel();
 
                         }
                     });
 
-                    btn_yes.setText("하트 사러가기");
+                    btn_yes.setText("골드 사러가기");
                     Button btn_no = v.findViewById(R.id.btn_no);
                     btn_no.setOnClickListener(new View.OnClickListener() {
 

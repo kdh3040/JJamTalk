@@ -240,7 +240,7 @@ public class UserPageActivity extends AppCompatActivity {
                         break;*/
 
                     case R.id.UserPage_btnRegister:
-                        buildAlertDialog(builder,"내카드에 등록", "내 카드에 등록하시겠습니까?", "등록한다!");
+                        buildAlertDialog(builder,"즐겨찾기에 등록할까요?", "즐겨찾기에 등록하시면 언제든 찾을 수 있죠!", "등록한다");
 
                         //ClickBtnSendHeart();
                         break;
@@ -285,8 +285,8 @@ public class UserPageActivity extends AppCompatActivity {
                                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                                 dialog.show();
 
-                                TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
-                                tvHeartCnt.setText("선물 실패");
+                                //TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
+                                //tvHeartCnt.setText("선물 실패");
                                 final TextView Msg = giftView.findViewById(R.id.HeartPop_Msg);
                                 Msg.setText("당신은 차단되었습니다");
 
@@ -303,7 +303,7 @@ public class UserPageActivity extends AppCompatActivity {
                         gold_Dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                         gold_Dialog.show();
 
-                        TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
+                        //TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
                         Button btnHeartCharge = giftView.findViewById(R.id.HeartPop_Charge);
                         Button btnHeart100 = giftView.findViewById(R.id.HeartPop_100);
                         Button btnHeart200 = giftView.findViewById(R.id.HeartPop_200);
@@ -313,14 +313,14 @@ public class UserPageActivity extends AppCompatActivity {
                         Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_5000);
                         final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
 
-                        tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
+                        //tvHeartCnt.setText("보유 골드: " + Integer.toString(mMyData.getUserHoney()));
                         //Msg.setText("100개의 꿀을 보내시겠습니까?");
 
 
                         btnHeartCharge.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
+                                startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                             }
                         });
 
@@ -328,7 +328,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 10;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
                             }
                         });
 
@@ -336,7 +336,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 20;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
                             }
                         });
 
@@ -344,7 +344,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 30;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
                             }
                         });
 
@@ -352,7 +352,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 50;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
                             }
                         });
 
@@ -360,7 +360,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 100;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
                             }
                         });
 
@@ -368,7 +368,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 500;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
                             }
                         });
 
@@ -511,7 +511,7 @@ public class UserPageActivity extends AppCompatActivity {
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    startActivity(new Intent(getApplicationContext(),BuyHeartActivity.class));
+                                                    startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
 
                                                 }
                                             });

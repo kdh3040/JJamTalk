@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Created by mjk on 2017. 8. 4..
  */
 
-public class BuyHeartActivity extends AppCompatActivity {
+public class BuyGoldActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
     private TextView txt_heartStatus;
@@ -38,7 +38,7 @@ public class BuyHeartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cash_charge);
 
         txt_heartStatus = (TextView)findViewById(R.id.Heart_MyHeart);
-        txt_heartStatus.setText("보유 하트 : " + mMyData.getUserHoney());
+        txt_heartStatus.setText("보유 골드 : " + mMyData.getUserHoney());
 
         HeartChargeList = (ListView)findViewById(R.id.Heart_list);
 
@@ -46,26 +46,26 @@ public class BuyHeartActivity extends AppCompatActivity {
 
         HeartItem mHeartItem;
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "10하트 900원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "10골드 900원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "20하트 1700원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "20골드 1700원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "50하트 4500원");
-        list.add(mHeartItem);
-
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "100하트 9100원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "50골드 4500원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "200하트 17500원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "100골드 9100원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "300하트 26000원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "200골드 17500원");
+        list.add(mHeartItem);
+
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "300골드 26000원");
         list.add(mHeartItem);
 
         mHeartItem = new HeartItem(R.drawable.heart_icon, "500하트 44000원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "1000하트 80000원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "1000골드 80000원");
         list.add(mHeartItem);
 
         HeartItemAdapter adapter = new HeartItemAdapter(this, R.layout.content_cash_charge, list);
@@ -101,7 +101,7 @@ public class BuyHeartActivity extends AppCompatActivity {
     }
     public void refreshHearCnt()
     {
-        txt_heartStatus.setText("보유 하트 : " + mMyData.getUserHoney());
+        txt_heartStatus.setText("보유 골드 : " + mMyData.getUserHoney());
     }
 
 

@@ -212,7 +212,7 @@ public class SettingActivity extends AppCompatActivity {
         lo_buyGold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BuyHeartActivity.class));
+                startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
 
 
             }
