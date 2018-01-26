@@ -651,7 +651,7 @@ public class MainActivity extends AppCompatActivity {
 
         for(int i = 0; i < mMyData.arrChatNameList.size(); i++)
         {
-            Query data = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx()).child(mMyData.arrChatNameList.get(i));
+            Query data = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx()).child("SendList").child(mMyData.arrChatNameList.get(i));
             final int finalI = i;
             data.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
