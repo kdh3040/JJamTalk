@@ -240,6 +240,19 @@
                     android:src="@drawable/icon_gift"
                     android:background="@drawable/imgbt_state"
                      />-->
+                <ImageButton
+                    android:id="@+id/UserPage_btnMessage"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/btn_chat_selected"
+                    android:background="@drawable/imgbt_state"
+                    />
 
                 <ImageButton
                     android:id="@+id/UserPage_btnGiftHoney"
@@ -256,19 +269,7 @@
 
                      />
 
-                <ImageButton
-                    android:id="@+id/UserPage_btnMessage"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
 
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/btn_chat_selected"
-                    android:background="@drawable/imgbt_state"
-                   />
 
             </LinearLayout>
         </LinearLayout>
