@@ -275,7 +275,7 @@ public class UserPageActivity extends AppCompatActivity {
                         int nSize = mMyData.arrBlockedDataList.size();
 
                         for (int i = 0; i < nSize; i++) {
-                            if (mMyData.arrBlockedDataList.get(i).strTargetName.equals(stTargetData.Idx)) {
+                            if (mMyData.arrBlockedDataList.get(i).Idx.equals(stTargetData.Idx)) {
                                 // 블락됬습니다 표시
                                 final int[] nSendHoneyCnt = new int[1];
                                 nSendHoneyCnt[0] = 0;
@@ -428,7 +428,7 @@ public class UserPageActivity extends AppCompatActivity {
                         nSize = mMyData.arrBlockedDataList.size();
 
                         for (int i = 0; i < nSize; i++) {
-                            if (mMyData.arrBlockedDataList.get(i).strTargetName.equals(stTargetData.Idx)) {
+                            if (mMyData.arrBlockedDataList.get(i).Idx.equals(stTargetData.Idx)) {
                                 // 블락됬습니다 표시
                                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                                 alertDialogBuilder.setTitle("쪽지 전송 실패");

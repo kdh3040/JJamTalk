@@ -42,23 +42,22 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListViewHolder> 
 
 
         Glide.with(mContext)
-                .load(mMyData.arrBlockDataList.get(position).strTargetImg)
+                .load(mMyData.arrBlockDataList.get(position).Img)
                 .thumbnail(0.1f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.Img_Profile);
 
-        holder.txt_Name.setText(mMyData.arrBlockDataList.get(position).strTargetNick);
+        holder.txt_Name.setText(mMyData.arrBlockDataList.get(position).NickName);
         holder.btn_unblock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //차단 해제
-                SendData tempSendData = new SendData();
-                mMyData.delBlockList(tempSendData);
+                mMyData.delBlockList(mMyData.arrBlockDataList.get(position));
+                mMyData.arrBlockDataList.remove(position);
                 Toast.makeText(mContext, position + "번", Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
             }
         });
-
-
 
     }
 
