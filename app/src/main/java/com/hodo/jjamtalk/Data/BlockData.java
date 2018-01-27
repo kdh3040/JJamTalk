@@ -10,9 +10,7 @@ public class BlockData implements Serializable {
 
     private static final long  serialVersionUID = 1L;
 
-    public String strSendName;
-    public String strTargetNick;
-    public String strTargetImg;
-    public String strTargetMsg;
-    public String strTargetName;
+    public String Idx;
+    public String NickName;
+    public String Img;
 }

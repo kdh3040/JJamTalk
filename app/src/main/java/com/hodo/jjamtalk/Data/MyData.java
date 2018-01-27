@@ -918,39 +918,24 @@ public class MyData {
         DatabaseReference table, user, target;
         table = database.getReference("BlockList");
 
-
         BlockData tempData = new BlockData();
 
-        tempData.strTargetImg = blockList.Img;
-        tempData.strTargetNick = blockList.Nick;
-        tempData.strTargetMsg = blockList.Msg;
-        tempData.strSendName = blockList.ChatRoomName;
+        tempData.Img = blockList.Img;
+        tempData.NickName = blockList.Nick;
+        tempData.Idx = blockList.Idx;
 
         BlockData targetData = new BlockData();
 
-        targetData.strTargetImg = getUserImg();
-        targetData.strTargetNick = getUserNick();
-        targetData.strTargetMsg = getUserMemo();
-        targetData.strSendName = getUserIdx();
-
-        int idx = blockList.ChatRoomName.indexOf("_");
-        String temp1 = blockList.ChatRoomName.substring(0, idx);
-        String temp2 = blockList.ChatRoomName.substring(idx + 1);
-
-        if (getUserIdx().equals(temp1)) {
-            tempData.strTargetName = temp2;
-            targetData.strTargetName = temp1;
-        } else {
-            tempData.strTargetName = temp1;
-            targetData.strTargetName = temp2;
-        }
+        targetData.Img = getUserImg();
+        targetData.NickName = getUserNick();
+        targetData.Idx = getUserIdx();
 
         user = table.child(strIdx);
-        user.push().setValue(tempData);
+        user.child(tempData.Idx).setValue(tempData);
 
-        target = database.getReference("BlockedList").child(tempData.strTargetName);
+        target = database.getReference("BlockedList").child(tempData.Idx);
         //target = table
-        target.push().setValue(targetData);
+        target.child(getUserIdx()).setValue(targetData);
     }
 
     public void getBlockList() {
@@ -1034,45 +1019,18 @@ public class MyData {
     }
 
 
-    public void delBlockList(SendData blockList) {
+    public void delBlockList(BlockData blockList) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user, target;
         table = database.getReference("BlockList");
 
 
-        BlockData tempData = new BlockData();
+        user = table.child(getUserIdx()).child(blockList.Idx);
+        user.removeValue();
 
-        tempData.strTargetImg = blockList.strTargetImg;
-        tempData.strTargetNick = blockList.strTargetNick;
-        tempData.strTargetMsg = blockList.strTargetMsg;
-        tempData.strSendName = blockList.strSendName;
-
-        BlockData targetData = new BlockData();
-
-        targetData.strTargetImg = getUserImg();
-        targetData.strTargetNick = getUserNick();
-        targetData.strTargetMsg = getUserMemo();
-        targetData.strSendName = getUserIdx();
-
-        int idx = blockList.strSendName.indexOf("_");
-        String temp1 = blockList.strSendName.substring(0, idx);
-        String temp2 = blockList.strSendName.substring(idx + 1);
-
-        if (getUserIdx().equals(temp1)) {
-            tempData.strTargetName = temp2;
-            targetData.strTargetName = temp1;
-        } else {
-            tempData.strTargetName = temp1;
-            targetData.strTargetName = temp2;
-        }
-
-        user = table.child(strIdx);
-        user.push().setValue(tempData);
-
-        target = database.getReference("BlockedList").child(tempData.strTargetName);
-        //target = table
-        target.push().setValue(targetData);
+        target = database.getReference("BlockedList").child(blockList.Idx);
+        target.child(getUserIdx()).removeValue();
     }
 
     public void getSetting() {
