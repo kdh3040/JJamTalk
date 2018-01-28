@@ -1,42 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/boardBgColor"
     android:orientation="vertical"
+    android:paddingBottom="20dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingTop="20dp">
 
 
-
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/img_mypic"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_weight="4"
+        app:srcCompat="@mipmap/hdvd" />
 
-        <ImageView
-            android:id="@+id/img_mypic"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srcCompat="@mipmap/hdvd" />
-
-
-
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="2">
 
         <ImageView
             android:id="@+id/iv_myGift"
             android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignLeft="@+id/img_mypic"
-            android:layout_marginLeft="40dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/myJewelImage"
             app:srcCompat="@drawable/bg2" />
 
         <TextView
@@ -44,28 +37,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:gravity="left"
-            android:textSize="24sp"
+            android:gravity="center_vertical|start"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="10dp"
         android:layout_weight="2"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/setting"
-            android:layout_width="0dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
 
-            android:layout_weight="1"
+
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="40dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -74,26 +67,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:background="@drawable/round_btn_bg"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/settingdesc"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_setting" />
+                android:src="@mipmap/ic_setting" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="설정" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/myprofiledesc"
+                android:gravity="top|center_horizontal"
+                android:text="@string/profile" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/profile"
-            android:layout_width="0dp"
+            android:layout_width="60dp"
 
             android:layout_height="match_parent"
-            android:layout_weight="1"
+
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="40dp"
+            android:contentDescription="@string/myProfileLO"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -101,23 +99,24 @@
                 android:id="@+id/ib_my_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_btn_bg"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/profiledesc"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_profile">
+                app:srcCompat="@mipmap/ic_profile">
 
             </ImageButton>
             <!--app:srcCompat="@drawable/common_google_signin_btn_icon_dark_disabled" /> -->
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="내 프로필" />
+                android:gravity="top|center_horizontal"
+                android:text="@string/myProfile" />
         </LinearLayout>
 
-    </LinearLayout>
-
+    </RelativeLayout>
 
 
     <LinearLayout
@@ -125,23 +124,21 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
 
-        android:layout_weight="1"
-        android:weightSum="2"
-        android:orientation="horizontal">
-
-        <pl.droidsonroids.gif.GifTextView
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/girl"
-            />
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
 
+        <ImageView
+            android:id="@+id/imageView32"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:srcCompat="@mipmap/ic_coin" />
 
         <TextView
             android:id="@+id/tv_goldsize"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center"
             android:textSize="24dp"
             android:textStyle="bold" />
@@ -150,9 +147,10 @@
 
     <Button
         android:id="@+id/buyHeart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
         android:layout_weight="1"
-        android:text="골드 충전하기" />
+        android:text="@string/buyGold" />
 
 </LinearLayout>

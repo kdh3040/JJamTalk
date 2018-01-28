@@ -335,7 +335,7 @@ public class UserPageActivity extends AppCompatActivity {
                         btnHeart200.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 20;
+                                nSendHoneyCnt[0] = 30;
                                 Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
                             }
                         });
@@ -343,7 +343,7 @@ public class UserPageActivity extends AppCompatActivity {
                         btnHeart300.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 30;
+                                nSendHoneyCnt[0] = 50;
                                 Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
                             }
                         });
@@ -351,7 +351,7 @@ public class UserPageActivity extends AppCompatActivity {
                         btnHeart500.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 50;
+                                nSendHoneyCnt[0] = 100;
                                 Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
                             }
                         });
@@ -359,7 +359,7 @@ public class UserPageActivity extends AppCompatActivity {
                         btnHeart1000.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 100;
+                                nSendHoneyCnt[0] = 500;
                                 Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
                             }
                         });
@@ -367,7 +367,7 @@ public class UserPageActivity extends AppCompatActivity {
                         btnHeart5000.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 500;
+                                nSendHoneyCnt[0] = 1000;
                                 Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
                             }
                         });

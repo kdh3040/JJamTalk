@@ -127,6 +127,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">설정</string>
+    <string name="myprofiledesc">내설정</string>
+    <string name="buyGold">골드 충전하기</string>
+    <string name="myProfile">내 프로필</string>
+    <string name="profiledesc">내프로필아이콘</string>
+    <string name="myProfileLO">내프로필레이아웃</string>
+    <string name="settingdesc">설정아이콘</string>
+    <string name="myJewelImage">내보석이미지</string>
 
 
 </resources>
