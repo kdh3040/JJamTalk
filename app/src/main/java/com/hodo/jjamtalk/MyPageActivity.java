@@ -103,7 +103,7 @@ public class MyPageActivity extends AppCompatActivity {
         txt_MyGoldCnt = findViewById(R.id.tv_goldsize);
         txt_MyProfile = (TextView)findViewById(R.id.MyPage_txtProfile);
 
-        txt_MyProfile.setText( mMyData.getUserNick() + ",  " + mMyData.getUserAge()+"세");
+        txt_MyProfile.setText( mMyData.getUserNick());
 
         int nGold = mMyData.getUserHoney();
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
