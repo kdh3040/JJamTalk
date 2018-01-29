@@ -27,6 +27,7 @@ import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
 
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_CHAT;
+import static com.hodo.jjamtalk.Data.CoomonValueData.REPORT_BOARD_DELETE;
 
 /**
  * Created by mjk on 2017. 8. 14..
@@ -70,35 +71,20 @@ public class BoardMyListActivity extends AppCompatActivity {
                     switch (view.getId()) {
                         case R.id.board_delete:
                         {
-                            final AlertDialog.Builder builder= new AlertDialog.Builder(mActivity);
-                            builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
+                            CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                                public void YesListener() {
                                     BoardMsgClientData data =  mBoardInstanceData.MyBoardList.get(position);
-                                    mBoardInstanceData.RemoveMyBoard(data.GetDBData().BoardIdx);
+                                    mBoardInstanceData.RemoveBoard(data.GetDBData().BoardIdx);
                                     FirebaseData.getInstance().RemoveBoard(data.GetDBData().BoardIdx);
-                                    // 게시판 갱신이 필요
 
                                     FirebaseData.getInstance().GetInitBoardData();
                                     FirebaseData.getInstance().GetInitMyBoardData();
 
                                     mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
-
-                                  /*  Intent intent = new Intent(BoardMyListActivity.this, MainActivity.class);
-                                    intent.putExtra("StartFragment", 4);
-                                    startActivity(intent);
-                                    finish();*/
-
                                 }
-                            }).
-                                    setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            dialogInterface.cancel();
-                                        }
-                                    }).setMessage("작성한 글을 제거하시겠습니까?");
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
+                            };
+
+                            CommonFunc.getInstance().ShowDefaultPopup(mActivity, listener, "삭제", "작성한 글을 제거하시겠습니까?", "예", "아니요");
                         }
                             break;
                         default:

@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -40,6 +41,9 @@ import com.hodo.jjamtalk.ViewHolder.BoardViewHolder;
 import java.util.LinkedHashMap;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
+import static com.hodo.jjamtalk.Data.CoomonValueData.LOAD_BOARD_COUNT;
+import static com.hodo.jjamtalk.Data.CoomonValueData.REPORT_BOARD_DELETE;
 
 /**
  * Created by mjk on 2017. 8. 10..
@@ -94,31 +98,28 @@ public class BoardFragment extends Fragment {
                         case R.id.board_msg:
                         case R.id.board_write_date:
                         case R.id.board_thumnail:
-                        case R.id.board_like_count:
                             getBoardWriterData(position);
                             break;
 
-                        case R.id.board_like_button:
-                            BoardMsgClientData BoardData =  mBoardInstanceData.BoardList.get(position);
-                            if(BoardData.IsLikeUser(mMyData.getUserIdx()))
-                            {
-                                BoardData.RemoveLikeData(mMyData.getUserIdx());
-                                mFireBaseData.RemoveBoardLikeData(BoardData.GetDBData().BoardIdx, mMyData.getUserIdx());
-                                BoardData.LikeCnt--;
-                            }
-                            else
-                            {
-                                BoardLikeData sendData = new BoardLikeData();
+                        case R.id.board_report:
+                        {
 
-                                sendData.Idx = mMyData.getUserIdx();
-                                sendData.Img = mMyData.getUserImg();
+                            CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                                public void YesListener() {
+                                    BoardMsgClientData data =  mBoardInstanceData.BoardList.get(position);
+                                    mBoardInstanceData.RemoveBoard(data.GetDBData().BoardIdx);
+                                    if(data.ReportList.size() >= REPORT_BOARD_DELETE)
+                                        FirebaseData.getInstance().RemoveBoard(data.GetDBData().BoardIdx);
+                                    else
+                                        FirebaseData.getInstance().ReportBoard(data.GetDBData().BoardIdx, mMyData.getUserIdx());
 
-                                BoardData.AddLikeData(sendData);
-                                mFireBaseData.SaveBoardLikeData(BoardData.GetDBData().BoardIdx, sendData);
-                                BoardData.LikeCnt++;
-                            }
-                            refreshFragMent();
+                                    refreshFragMent();
+                                }
+                            };
+
+                            CommonFunc.getInstance().ShowDefaultPopup(getContext(), listener, "신고", "신고하시겠습니까?", "예", "아니요");
                             break;
+                        }
                     }
                 }
             };
@@ -233,8 +234,7 @@ public class BoardFragment extends Fragment {
                         if(BoradListAdapter.BoardDataLoding == false)
                         {
                             BoradListAdapter.BoardDataLoding = true;
-                            BoardMsgClientData lastBoardData = mBoardInstanceData.BoardList.get(mBoardInstanceData.BoardList.size() - 1);
-                            FirebaseData.getInstance().GetBoardData(BoradListAdapter,lastBoardData.GetDBData().BoardIdx, false);
+                            FirebaseData.getInstance().GetBoardData(BoradListAdapter,mBoardInstanceData.BottomBoardIdx, false);
                         }
                     }
                 }

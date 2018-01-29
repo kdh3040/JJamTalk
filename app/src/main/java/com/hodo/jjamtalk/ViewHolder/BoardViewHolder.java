@@ -31,20 +31,19 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class BoardViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView BoardMsg, BoardWriter, BoardDate, BoardLikeCount;
+    public TextView BoardMsg, BoardWriter, BoardDate;
     public ImageView BoardThumnail;
-    public ImageButton BoardLikeButton;
     public ImageButton BoardDeleteButton;
+    public Button BoardReportButton;
 
     public BoardViewHolder(View itemView) {
         super(itemView);
         BoardMsg = (TextView) itemView.findViewById(R.id.board_msg);
         BoardWriter = (TextView) itemView.findViewById(R.id.board_writer);
         BoardDate = (TextView) itemView.findViewById(R.id.board_write_date);
-        BoardLikeCount = (TextView) itemView.findViewById(R.id.board_like_count);
         BoardThumnail = (ImageView) itemView.findViewById(R.id.board_thumnail);
-        BoardLikeButton = (ImageButton) itemView.findViewById(R.id.board_like_button);
         BoardDeleteButton = (ImageButton) itemView.findViewById(R.id.board_delete);
+        BoardReportButton = (Button) itemView.findViewById(R.id.board_report);
     }
 
     public void SetBoardViewHolder(Context context, BoardMsgClientData data, Boolean mine, Boolean deleteEnable)
@@ -62,43 +61,24 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         BoardMsg.setText(dbData.Msg);
         BoardWriter.setText(dbData.NickName);
         BoardDate.setText(dbData.Date);
-        BoardLikeCount.setText("좋아요 : " + data.LikeCnt);
 
         Log.d("!!!!!!", "!!!!!!!!!!!" + dbData.Msg);
 
         if(mine)
         {
-            BoardLikeButton.setVisibility(View.GONE);
-   /*         int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, context.getResources().getDisplayMetrics());
-            BoardLikeButton.setLayoutParams(new LinearLayout.LayoutParams(width,ViewGroup.LayoutParams.MATCH_PARENT, 1));*/
+            BoardReportButton.setVisibility(View.GONE);
             BoardDeleteButton.setVisibility(View.GONE);
 
             if(deleteEnable)
             {
                 BoardDeleteButton.setVisibility(View.VISIBLE);
-            /*    width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, context.getResources().getDisplayMetrics());
-                BoardDeleteButton.setLayoutParams(new LinearLayout.LayoutParams(width,ViewGroup.LayoutParams.MATCH_PARENT, 1));*/
             }
         }
         else
         {
-            BoardLikeButton.setVisibility(View.VISIBLE);
-       /*     int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, context.getResources().getDisplayMetrics());
-            BoardLikeButton.setLayoutParams(new LinearLayout.LayoutParams(width,ViewGroup.LayoutParams.MATCH_PARENT, 1));*/
+            BoardReportButton.setVisibility(View.VISIBLE);
             BoardDeleteButton.setVisibility(View.GONE);
-          /*  width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 0, context.getResources().getDisplayMetrics());
-            BoardDeleteButton.setLayoutParams(new LinearLayout.LayoutParams(width,ViewGroup.LayoutParams.MATCH_PARENT, 1));*/
         }
-        RefreshLikeIcon(data);
-    }
-
-    private void RefreshLikeIcon(BoardMsgClientData boardData) {
-        if (boardData.IsLikeUser(MyData.getInstance().getUserIdx()))
-            BoardLikeButton.setImageResource(R.drawable.mycard_icon);
-        else
-            BoardLikeButton.setImageResource(R.drawable.mycard_empty_icon);
-
-        BoardLikeCount.setText("좋아요 : " + boardData.LikeCnt);
     }
 
     public void SetBoardHolderListener(View.OnClickListener listener)
@@ -107,8 +87,7 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         BoardThumnail.setOnClickListener(listener);
         BoardWriter.setOnClickListener(listener);
         BoardDate.setOnClickListener(listener);
-        BoardLikeCount.setOnClickListener(listener);
-        BoardLikeButton.setOnClickListener(listener);
         BoardDeleteButton.setOnClickListener(listener);
+        BoardReportButton.setOnClickListener(listener);
     }
 }

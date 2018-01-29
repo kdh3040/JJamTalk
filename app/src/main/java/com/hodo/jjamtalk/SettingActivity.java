@@ -24,9 +24,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
+import com.hodo.jjamtalk.Util.CommonFunc;
+
+import static com.hodo.jjamtalk.Data.CoomonValueData.REPORT_BOARD_DELETE;
 
 /**
  * Created by mjk on 2017. 8. 4..
@@ -224,8 +228,15 @@ public class SettingActivity extends AppCompatActivity {
         btn_LogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+
+                CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                    public void YesListener() {
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    }
+                };
+
+                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, listener, "로그아웃", "로그아웃을 하시겠습니까?", "네", "아니요");
             }
         });
 
@@ -233,23 +244,30 @@ public class SettingActivity extends AppCompatActivity {
         btn_Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                user.delete()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d("Setting Delete Account", "User account deleted.");
-                                }
-                            }
-                        });
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference Ref = database.getReference("User");
-                Ref.child(mMyData.getUserIdx()).removeValue();
+                CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                    public void YesListener() {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                        user.delete()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d("Setting Delete Account", "User account deleted.");
+                                        }
+                                    }
+                                });
 
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference Ref = database.getReference("User");
+                        Ref.child(mMyData.getUserIdx()).removeValue();
+
+                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    }
+                };
+
+                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, listener, "계정삭제", "계정삭제를 하시겠습니까?", "네", "아니요");
             }
         });
 

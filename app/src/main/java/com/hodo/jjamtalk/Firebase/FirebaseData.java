@@ -18,6 +18,7 @@ import com.hodo.jjamtalk.BoardFragment;
 import com.hodo.jjamtalk.BoardWriteActivity;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
+import com.hodo.jjamtalk.Data.BoardReportData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
@@ -447,27 +448,25 @@ public class FirebaseData {
         return  true;
     }
 
-    public boolean SaveBoardLikeData(long boardIdx, BoardLikeData sendData)
-    {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx)).child("Like").child(sendData.Idx);
-        table.setValue(sendData);
-
-        return  true;
-    }
-
-    public boolean RemoveBoardLikeData(long boardIdx, String Idx)
-    {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx)).child("Like").child(Idx);
-        table.child(Idx).removeValue();
-        return  true;
-    }
-
     public void RemoveBoard(long boardIdx)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx));
         table.removeValue();
+    }
+
+    public void ReportBoard(long boardIdx, String Idx)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx)).child("ReportList").child(Idx);
+
+        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMddHHmm");
+
+        BoardReportData sendData = new BoardReportData();
+        sendData.Idx = mMyData.getUserIdx();
+        long time = System.currentTimeMillis();
+        sendData.Date = ctime.format(new Date(time));
+
+        table.setValue(sendData);
     }
 }

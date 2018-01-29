@@ -165,6 +165,8 @@ public class MyData {
     public  boolean bChatRefresh = false;
 
     private int nCurVisibleFrag;
+    public  int nStartAge, nEndAge;
+    public  int nMyAge;
 
     private MyData() {
         strImg = null;
