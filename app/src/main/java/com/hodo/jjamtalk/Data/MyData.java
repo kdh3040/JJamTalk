@@ -498,6 +498,8 @@ public class MyData {
         targetuser = table.child(_UserData.Idx).child("SendList");
 
         String strCheckName = strIdx + "_" + _UserData.Idx;
+        String strCheckName1 = _UserData.Idx + "_" + strIdx;
+
         SimpleChatData tempMySave = new SimpleChatData();
         tempMySave.ChatRoomName = strCheckName;
         tempMySave.Idx = getUserIdx();
@@ -512,7 +514,7 @@ public class MyData {
         tempTargetSave.Img = _UserData.Img;
         tempTargetSave.Msg = _strSend.toString();
 
-        if (!arrChatNameList.contains(strCheckName) && !arrChatNameList.contains(strCheckName) ) {
+        if (!arrChatNameList.contains(strCheckName) && !arrChatNameList.contains(strCheckName1) ) {
             user.child(strCheckName).setValue(tempTargetSave);
             targetuser.child(strCheckName).setValue(tempMySave);
             rtValue = true;
