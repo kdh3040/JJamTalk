@@ -3,6 +3,8 @@ package com.hodo.jjamtalk.Data;
 import android.app.usage.UsageEvents;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -37,6 +39,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import static com.hodo.jjamtalk.MainActivity.mFragmentMng;
 
 /**
  * Created by boram on 2017-08-04.
@@ -160,6 +164,8 @@ public class MyData {
 
     public  boolean bChatRefresh = false;
 
+    private int nCurVisibleFrag;
+
     private MyData() {
         strImg = null;
         strNick = null;
@@ -188,6 +194,8 @@ public class MyData {
 //        strProfileImg = null;
 
         strMemo = null;
+
+        nCurVisibleFrag = 0;
 
     }
 
@@ -308,6 +316,14 @@ public class MyData {
     }
 
 
+    public void SetCurFrag(int Frag)
+    {
+        nCurVisibleFrag = Frag;
+    }
+    public int GetCurFrag()
+    {
+        return  nCurVisibleFrag;
+    }
     public void setUserIdx(String userIdx) {
         strIdx = userIdx;
     }
@@ -498,12 +514,15 @@ public class MyData {
         targetuser = table.child(_UserData.Idx).child("SendList");
 
         String strCheckName = strIdx + "_" + _UserData.Idx;
+        String strCheckName1 = _UserData.Idx + "_" + strIdx;
+
         SimpleChatData tempMySave = new SimpleChatData();
         tempMySave.ChatRoomName = strCheckName;
         tempMySave.Idx = getUserIdx();
         tempMySave.Img = getUserImg();
         tempMySave.Nick = getUserNick();
         tempMySave.Msg = _strSend.toString();
+        tempMySave.Check = 1;
 
         SimpleChatData tempTargetSave = new SimpleChatData();
         tempTargetSave.ChatRoomName = strCheckName;
@@ -511,8 +530,9 @@ public class MyData {
         tempTargetSave.Nick = _UserData.NickName;
         tempTargetSave.Img = _UserData.Img;
         tempTargetSave.Msg = _strSend.toString();
+        tempTargetSave.Check = 0;
 
-        if (!arrChatNameList.contains(strCheckName) && !arrChatNameList.contains(strCheckName) ) {
+        if (!arrChatNameList.contains(strCheckName) && !arrChatNameList.contains(strCheckName1) ) {
             user.child(strCheckName).setValue(tempTargetSave);
             targetuser.child(strCheckName).setValue(tempMySave);
             rtValue = true;
@@ -552,6 +572,23 @@ public class MyData {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 int saa = 0;
+                SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
+                    arrChatDataList.put(SendList.ChatRoomName, SendList);
+
+              if(GetCurFrag() == 2)
+              {
+                  Fragment frg = null;
+                  frg = mFragmentMng.findFragmentByTag("ChatListFragment");
+                  final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                  ft.detach(frg);
+                  ft.attach(frg);
+                  ft.commit();
+              }
+
+              else if(GetCurFrag() == 5) {
+                  SendList.Check = 1;
+                  arrChatDataList.put(SendList.ChatRoomName, SendList);
+              }
             }
 
             @Override
@@ -1591,12 +1628,16 @@ public class MyData {
         String strLastMsg = strMsg;
         String strLastImg = strImg;
         String strLastTime = lTime;
+        int nCheckMsg = 0;
 
         user.child("Msg").setValue(strLastMsg);
         targetuser.child("Msg").setValue(strLastMsg);
 
         user.child("Date").setValue(strLastTime);
         targetuser.child("Date").setValue(strLastTime);
+
+        user.child("Check").setValue(1);
+        targetuser.child("Check").setValue(0);
     }
 }
 

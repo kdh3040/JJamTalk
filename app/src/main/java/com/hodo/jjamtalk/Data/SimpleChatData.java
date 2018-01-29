@@ -19,6 +19,7 @@ public class SimpleChatData implements Serializable,Parcelable {
     public String Idx;
     public String Img;
     public String Date;
+    public int Check;
 
 
     public SimpleChatData() {
@@ -28,6 +29,7 @@ public class SimpleChatData implements Serializable,Parcelable {
         Idx = null;
         Img = null;
         Date = null;
+        Check = 0;
     }
 
     public SimpleChatData(Parcel in) {
@@ -37,6 +39,7 @@ public class SimpleChatData implements Serializable,Parcelable {
         Idx = in.readString();
         Img = in.readString();
         Date = in.readString();
+        Check = in.readInt();
     }
 
     public static final Parcelable.Creator<SimpleChatData> CREATOR = new Parcelable.Creator<SimpleChatData>() {
@@ -64,5 +67,6 @@ public class SimpleChatData implements Serializable,Parcelable {
         parcel.writeString(Idx);
         parcel.writeString(Img);
         parcel.writeString(Date);
+        parcel.writeInt(Check);
     }
 }
