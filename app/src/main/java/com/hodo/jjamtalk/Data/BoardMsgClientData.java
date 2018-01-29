@@ -11,17 +11,15 @@ import java.util.LinkedHashMap;
 public class BoardMsgClientData {
 
     private BoardMsgDBData mDBData;
-    public int LikeCnt;
 
-    public ArrayList<TempBoard_ReplyData> ReplyList = new ArrayList<>();
-    public ArrayList<BoardLikeData> LikeList = new ArrayList<>();
+    public ArrayList<BoardReportData> ReportList = new ArrayList<>();
 
     public BoardMsgClientData(BoardMsgDBData data)
     {
         SetDBdata(data);
 
-        for(LinkedHashMap.Entry<String, BoardLikeData> entry : mDBData.Like.entrySet())
-            LikeList.add(entry.getValue());
+        for(LinkedHashMap.Entry<String, BoardReportData> entry : mDBData.ReportList.entrySet())
+            ReportList.add(entry.getValue());
     }
 
     public BoardMsgDBData GetDBData()
@@ -32,37 +30,11 @@ public class BoardMsgClientData {
     public void SetDBdata(BoardMsgDBData data)
     {
         mDBData = data;
-
-        LikeCnt = mDBData.Like.size();
-    }
-    public void ChangeListCount(Boolean plus)
-    {
-        if(plus)
-            LikeCnt += 1;
-        else
-            LikeCnt -= 1;
     }
 
-    public void AddLikeData(BoardLikeData data)
+    public Boolean IsReportUser(String idx)
     {
-        LikeList.add(data);
-        mDBData.Like.put(data.Idx, data);
-    }
-    public void RemoveLikeData(String idx)
-    {
-        for(BoardLikeData data : LikeList)
-        {
-            if(data.Idx.equals(idx))
-            {
-                LikeList.remove(data);
-                break;
-            }
-        }
-        mDBData.Like.remove(idx);
-    }
-    public Boolean IsLikeUser(String idx)
-    {
-        for(BoardLikeData data : LikeList)
+        for(BoardReportData data : ReportList)
         {
             if(data.Idx.equals(idx))
                 return true;

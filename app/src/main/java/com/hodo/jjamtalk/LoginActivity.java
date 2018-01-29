@@ -140,36 +140,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
 
-//                ActivityCompat.finishAffinity(this);
-                String alertTitle = "종료";
-                View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_exit_app,null,false);
-
-                final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                dialog.show();
-
-                final Button btn_exit;
-                final Button btn_no;
-
-                btn_exit = (Button) v.findViewById(R.id.btn_yes);
-                btn_exit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
-                    }
-                });
-
-                btn_no = (Button) v.findViewById(R.id.btn_no);
-                btn_no.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
+        View.OnClickListener yesListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
             }
+        };
+
+        CommonFunc.getInstance().ShowDefaultPopup(this, yesListener, "종료 확인", "킹톡을 종료하시겠습니까?", "종료", "계속");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

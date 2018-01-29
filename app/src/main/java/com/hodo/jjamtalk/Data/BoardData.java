@@ -30,6 +30,9 @@ public class BoardData {
     public ArrayList<BoardMsgClientData> BoardList = new ArrayList<>();
     public ArrayList<BoardMsgClientData> MyBoardList = new ArrayList<>();
 
+    public long TopBoardIdx = 0;
+    public long BottomBoardIdx = -Long.MAX_VALUE;
+
     public void ClearBoardData()
     {
         BoardList.clear();
@@ -42,18 +45,39 @@ public class BoardData {
 
         ArrayList<BoardMsgClientData> tempList;
         if(myData)
-            tempList = MyBoardList;
-        else
-            tempList = BoardList;
-
-        if(ClientData == null)
         {
-            ClientData = new BoardMsgClientData(DBData);
-            tempList.add(ClientData);
-            Collections.sort(tempList, new BoardSort());
+            if(ClientData == null)
+            {
+                ClientData = new BoardMsgClientData(DBData);
+                MyBoardList.add(ClientData);
+                Collections.sort(MyBoardList, new BoardSort());
+            }
+            else
+                ClientData.SetDBdata(DBData);
         }
         else
-            ClientData.SetDBdata(DBData);
+        {
+            if(BottomBoardIdx < DBData.BoardIdx)
+                BottomBoardIdx = DBData.BoardIdx;
+
+            if(TopBoardIdx > DBData.BoardIdx)
+                TopBoardIdx = DBData.BoardIdx;
+
+            if(ClientData == null)
+            {
+                ClientData = new BoardMsgClientData(DBData);
+                if(ClientData.IsReportUser(MyData.getInstance().getUserIdx()))
+                    return;
+                BoardList.add(ClientData);
+                Collections.sort(BoardList, new BoardSort());
+            }
+            else
+            {
+                if(ClientData.IsReportUser(MyData.getInstance().getUserIdx()))
+                    return;
+                ClientData.SetDBdata(DBData);
+            }
+        }
     }
 
     public void AddBoardData(BoardMsgDBData dbData, Boolean myData)
@@ -98,7 +122,7 @@ public class BoardData {
         return null;
     }
 
-    public void RemoveMyBoard(long boardIdx)
+    public void RemoveBoard(long boardIdx)
     {
         for(BoardMsgClientData data : BoardList)
         {

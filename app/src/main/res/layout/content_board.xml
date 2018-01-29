@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
         android:background="@color/colorPrimary"
-        android:weightSum="6"
+        android:weightSum="5"
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/board_thumnail"
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:weightSum="3"
+                android:weightSum="2"
                 android:orientation="horizontal">
 
                 <TextView
@@ -61,27 +61,8 @@
                     android:textColor="@color/black"
                     android:text="글쓴 날자"
                     />
-                <TextView
-                    android:id="@+id/board_like_count"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:text="좋아요 개수"
-                    />
-
-
             </LinearLayout>
         </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/board_like_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/mycard_icon" />
-
         <ImageButton
             android:id="@+id/board_delete"
             android:layout_width="50dp"
@@ -89,6 +70,14 @@
             android:layout_weight="1"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/bee" />
+
+        <Button
+            android:id="@+id/board_report"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:text="신고"/>
 
     </LinearLayout>
 
