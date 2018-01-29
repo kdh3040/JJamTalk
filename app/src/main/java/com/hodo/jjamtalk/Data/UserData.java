@@ -90,6 +90,8 @@ public class UserData implements Serializable,Parcelable {
     public int Point;
     public int Grade;
 
+    public int ConnectDate;
+
     public UserData() {
 
     }
@@ -158,6 +160,9 @@ public class UserData implements Serializable,Parcelable {
 
         Point = in.readInt();
         Grade = in.readInt();
+
+        ConnectDate = in.readInt();
+
     }
 
     public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -238,6 +243,7 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeInt(Point);
         parcel.writeInt(Grade);
 
+        parcel.writeInt(ConnectDate);
     }
 
 }

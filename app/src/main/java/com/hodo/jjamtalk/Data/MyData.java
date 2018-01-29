@@ -171,6 +171,8 @@ public class MyData {
     public int Point;
     public int Grade;
 
+    public int ConnectDate;
+
     private MyData() {
         strImg = null;
         strNick = null;
@@ -203,6 +205,7 @@ public class MyData {
         nCurVisibleFrag = 0;
 
         Point = 0;
+        ConnectDate = 0;
 
     }
 
@@ -211,7 +214,7 @@ public class MyData {
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
                           String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
-                          int _UserPoint, int _UserGrade) {
+                          int _UserPoint, int _UserGrade, int _UserConnDate) {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -307,6 +310,8 @@ public class MyData {
 
         Point = _UserPoint;
         Grade = _UserGrade;
+
+        ConnectDate = _UserConnDate;
     }
 
     public void refreshItemIdex()
@@ -1658,5 +1663,32 @@ public class MyData {
         user.child("Check").setValue(1);
         targetuser.child("Check").setValue(0);
     }
+
+    public boolean CheckConnectDate() {
+        boolean rtValue = false;
+
+        long time = System.currentTimeMillis();
+        SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+        int nTodayTime = Integer.parseInt( (date.format(new Date(time))).toString());
+
+
+        int nLastConn = (ConnectDate);
+
+        if(nTodayTime - nLastConn >= 1)
+        {
+            rtValue = true;
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference table;
+
+            table = database.getReference("User/" + strIdx);
+            table.child("ConnectDate").setValue(nTodayTime);
+            ConnectDate = nTodayTime;
+
+        }
+
+
+        return rtValue;
+    }
+
 }
 
