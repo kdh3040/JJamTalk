@@ -2,6 +2,7 @@ package com.hodo.jjamtalk;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -11,12 +12,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Util.CommonFunc;
 
 import java.util.ArrayList;
 
@@ -29,13 +37,20 @@ public class BuyGoldActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
     private TextView txt_heartStatus;
     private ListView HeartChargeList;
+    private Button Free_1, Free_2;
+
 
     ArrayList<HeartItem> list;
 
+    private CommonFunc mCommon = CommonFunc.getInstance();
+    public RewardedVideoAd mRewardedVideoAd;
+    public RewardedVideoAd mRewardedVideoAd2;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cash_charge);
+
+        loadRewardedVideoAd(getApplicationContext());
 
         txt_heartStatus = (TextView)findViewById(R.id.Heart_MyHeart);
         txt_heartStatus.setText("보유 골드 : " + mMyData.getUserHoney());
@@ -71,6 +86,25 @@ public class BuyGoldActivity extends AppCompatActivity {
         HeartItemAdapter adapter = new HeartItemAdapter(this, R.layout.content_cash_charge, list);
 
         HeartChargeList.setAdapter(adapter);
+
+        Free_1 = (Button)findViewById(R.id.btn_Free_1);
+        Free_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mRewardedVideoAd.isLoaded()) {
+                    mRewardedVideoAd.show();
+                }
+            }
+        });
+        Free_2 = (Button)findViewById(R.id.btn_Free_2);
+        Free_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mRewardedVideoAd2.isLoaded()) {
+                    mRewardedVideoAd2.show();
+                }
+            }
+        });
 
         /*ServiceConnection mServiceConn = new ServiceConnection() {
             @Override
@@ -201,9 +235,103 @@ public class BuyGoldActivity extends AppCompatActivity {
 
             return view;
         }
-
-
     }
 
+
+    public void loadRewardedVideoAd(Context mContext) {
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
+        mRewardedVideoAd.loadAd("ca-app-pub-7666588215496282/3967348562",
+                new AdRequest.Builder().build());
+
+        mRewardedVideoAd2 = MobileAds.getRewardedVideoAdInstance(mContext);
+        mRewardedVideoAd2.loadAd("ca-app-pub-7666588215496282/5154940173",
+                new AdRequest.Builder().build());
+
+        mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+            @Override
+            public void onRewarded(RewardItem reward) {
+
+                int aaa = 0;
+                mMyData.setUserHoney(mMyData.getUserHoney() + 1000);
+                refreshHearCnt();
+
+                Free_1.setText("오늘 무료 골드 마감");
+                Free_1.setClickable(false);
+                // Reward the user.
+            }
+
+            @Override
+            public void onRewardedVideoAdLeftApplication() {
+                int aaa = 0;
+            }
+
+            @Override
+            public void onRewardedVideoAdClosed() {
+                int aaa = 0;
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int errorCode) {
+                int aaa = 0;
+            }
+
+            @Override
+            public void onRewardedVideoAdLoaded() {
+                int aaa = 0;
+            }
+
+            @Override
+            public void onRewardedVideoAdOpened() {
+                int aaa = 0;
+            }
+
+            @Override
+            public void onRewardedVideoStarted() {
+                int aaa = 0;
+            }
+        });
+
+        mRewardedVideoAd2.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+            @Override
+            public void onRewarded(RewardItem reward) {
+
+                int aaa = 0;
+                mMyData.setUserHoney(mMyData.getUserHoney() + 1000);
+                refreshHearCnt();
+                // Reward the user.
+            }
+
+            @Override
+            public void onRewardedVideoAdLeftApplication() {
+                int aaa = 0;
+            }
+
+            @Override
+            public void onRewardedVideoAdClosed() {
+                int aaa = 0;
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int errorCode) {
+                int aaa = 0;
+            }
+
+            @Override
+            public void onRewardedVideoAdLoaded() {
+                int aaa = 0;
+            }
+
+            @Override
+            public void onRewardedVideoAdOpened() {
+                int aaa = 0;
+            }
+
+            @Override
+            public void onRewardedVideoStarted() {
+                int aaa = 0;
+            }
+        });
+
+    }
 
 }

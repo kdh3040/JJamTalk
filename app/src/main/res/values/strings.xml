@@ -4,6 +4,8 @@
 
     <string name="google_maps_key">AIzaSyBlWfAWc4rsaAL4il3blw9pLJ_qP1ajjSg</string>
 
+    <string name="banner_ad_unit_id">ca-app-pub-7666588215496282/6908851457</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
