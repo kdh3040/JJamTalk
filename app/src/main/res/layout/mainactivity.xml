@@ -40,7 +40,7 @@
             android:id="@+id/ib_filter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
+            android:layout_margin="5dp"
             android:layout_weight="1"
 
             android:src="@mipmap/filter" />
@@ -50,7 +50,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="@drawable/item_box" />
+            android:layout_margin="5dp"
+            app:srcCompat="@mipmap/randombox" />
 
 
         <ImageView
@@ -59,9 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:adjustViewBounds="false"
-
+            android:layout_margin="5dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_mailbox" />
+            app:srcCompat="@mipmap/mail" />
 
     </LinearLayout>
 

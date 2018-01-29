@@ -419,7 +419,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         iv_honeybox = (ImageView)findViewById(R.id.iv_honeybox);
-        iv_honeybox.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.postBox), PorterDuff.Mode.MULTIPLY);
+        //iv_honeybox.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.postBox), PorterDuff.Mode.MULTIPLY);
         iv_honeybox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
