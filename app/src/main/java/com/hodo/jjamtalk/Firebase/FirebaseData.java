@@ -139,6 +139,9 @@ public class FirebaseData {
 
         user.child("Point").setValue(Integer.valueOf(Integer.toString(rand.nextInt(100))));
 
+        user.child("Grade").setValue(mMyData.getGrade());
+        user.child("BestItem").setValue(mMyData.bestItem);
+
 
     }
 

@@ -127,6 +127,12 @@ public class CardListFragment extends Fragment {
             holder.textView_memo.setBackgroundResource(R.drawable.inbox2);
 
 
+            holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem -1 ]);
+            holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrCarDataList.get(i).Grade]);
+
+
+            holder.textView.setText(mMyData.arrCarDataList.get(i).NickName);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
+
             holder.textView.setText(mMyData.arrCarDataList.get(i).NickName);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
             holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -311,6 +317,7 @@ public class CardListFragment extends Fragment {
         public class ViewHolder extends RecyclerView.ViewHolder{
             public ImageView imageSymbol;
             public ImageView image;
+            public ImageView imageItem, imageGrade;
             public TextView textView, textView_memo;
             public LinearLayout linearLayout;
 
@@ -318,6 +325,10 @@ public class CardListFragment extends Fragment {
                 super(itemView);
                 imageSymbol = (ImageView)itemView.findViewById(R.id.cardlist_newSymbol);
                 image = (ImageView)itemView.findViewById(R.id.iv_my_card);
+
+                imageItem = (ImageView)itemView.findViewById(R.id.iv_item);
+                imageGrade = (ImageView)itemView.findViewById(R.id.iv_grade);
+
                 textView = (TextView)itemView.findViewById(R.id.tv_nickname);
                 textView_memo = (TextView)itemView.findViewById(R.id.tv_memo);
                 linearLayout = itemView.findViewById(R.id.layout_mycard_item);
