@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:background="@color/white"
+        android:background="@drawable/bg_white_stroke_black"
         android:gravity="center"
         android:text="킹톡을 종료하시겠습니까?"
 
@@ -45,7 +45,7 @@
             android:layout_height="match_parent"
 
             android:layout_weight="1"
-            android:background="@drawable/button_pressed"
+            android:background="@drawable/base_btn_bg"
             android:text="종료"
             android:layout_margin="20dp"
             android:textColor="@color/white" />
@@ -57,7 +57,7 @@
             android:layout_weight="1"
             android:textColor="@color/white"
             android:layout_margin="20dp"
-            android:background="@drawable/button_pressed"
+            android:background="@drawable/base_btn_bg"
             android:text="계속"
               />
 
