@@ -1,13 +1,22 @@
 package com.hodo.jjamtalk.Util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +30,9 @@ import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.MainActivity;
 import com.hodo.jjamtalk.R;
 import com.hodo.jjamtalk.UserPageActivity;
-
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import java.util.LinkedHashMap;
 
 /**
@@ -45,6 +56,7 @@ public class CommonFunc {
     }
 
     private MyData mMyData = MyData.getInstance();
+    private InterstitialAd mInterstitialAd;
 
     public void refreshMainActivity(Activity mActivity, int StartFragMent)
     {
@@ -105,5 +117,29 @@ public class CommonFunc {
 
         });
     }
+
+    public void loadInterstitialAd(Context mContext) {
+        mInterstitialAd = new InterstitialAd(mContext);
+        mInterstitialAd.setAdUnitId("ca-app-pub-7666588215496282/6908851457");
+        mInterstitialAd.setAdListener(new AdListener() {
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                if(mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(adRequest);
+    }
+
 
 }

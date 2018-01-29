@@ -511,7 +511,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
                     String formatStr = sdf.format(date);
 
-                    mNotiFunc.SendMsgToFCM(stTargetData);
+                    //mNotiFunc.SendMsgToFCM(stTargetData);
 
                     ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "");
 

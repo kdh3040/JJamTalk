@@ -3,6 +3,7 @@ package com.hodo.jjamtalk.Firebase;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -50,6 +51,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         if (remoteMessage.getNotification() != null) {
+            final Vibrator vibrator = (Vibrator)getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+            vibrator.vibrate(500);
+
+
             String body = remoteMessage.getNotification().getBody();
             Log.d(TAG, "Notification Body: " + body);
 
