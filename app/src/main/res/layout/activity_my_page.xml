@@ -90,7 +90,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|start"
-                android:text="@string/myProfile" />
+                android:text="@string/myProfile"
+                android:textSize="20dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,7 +123,8 @@
                 android:layout_marginStart="10dp"
                 android:contentDescription="@string/myprofiledesc"
                 android:gravity="center_vertical|start"
-                android:text="@string/profile" />
+                android:text="@string/profile"
+                android:textSize="20dp" />
 
         </LinearLayout>
 
@@ -160,7 +162,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:text="@string/buyGold" />
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/base_btn_bg"
+                android:text="@string/buyGold"
+                android:drawableLeft="@mipmap/coin_small"/>
 
         </LinearLayout>
 

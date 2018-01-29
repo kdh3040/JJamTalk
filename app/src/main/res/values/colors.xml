@@ -10,7 +10,7 @@
     <color name= "boardDateColor">#fdd835</color>
     <color name= "boardLikeColor">#ff0000</color>
     <color name= "boardBgColor">#ffffff</color>
-
+<color name ="goldColor">#FFD700</color>
     <color name= "myChatColor">#ffeb3b</color>
     <color name= "yourChatColor">#ffffff</color>
     <color name= "chatRoomBg">#c5cae9</color>

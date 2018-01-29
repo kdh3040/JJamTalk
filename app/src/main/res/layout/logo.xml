@@ -12,7 +12,7 @@
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/kingtalklogo"></ImageView>
+        android:src="@mipmap/ic_logo"></ImageView>
 
     <TextView
         android:id="@+id/textView14"

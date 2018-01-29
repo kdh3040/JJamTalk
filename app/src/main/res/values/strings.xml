@@ -129,7 +129,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile">설정</string>
     <string name="myprofiledesc">내설정</string>
-    <string name="buyGold">골드 충전하기</string>
+    <string name="buyGold">코인 충전하기</string>
     <string name="myProfile">내 프로필</string>
     <string name="profiledesc">내프로필아이콘</string>
     <string name="myProfileLO">내프로필레이아웃</string>

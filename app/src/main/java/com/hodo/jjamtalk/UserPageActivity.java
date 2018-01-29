@@ -143,14 +143,14 @@ public class UserPageActivity extends AppCompatActivity {
 
 
         if(Dist < 1.0)
-            txtDistance.setText("1km 이내에 있음");
+            txtDistance.setText("1km");
         else
-            txtDistance.setText((int)Dist + "km 거리에 있음");
+            txtDistance.setText((int)Dist + "km");
 
         //private TextView txtProfile;
 
         tv_like = (TextView) findViewById(R.id.tv_like);
-        tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
+        //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
         //imgProfile.setLayoutParams(mUIdata.getRLP(1,0.6f));
@@ -557,7 +557,7 @@ public class UserPageActivity extends AppCompatActivity {
         if(stTargetData.arrFanList.size() != 0)
         {
             tv_like = findViewById(R.id.tv_like);
-            tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
+            //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
             listView_like = (RecyclerView) findViewById(R.id.lv_like);
             LikeAdapter likeAdapter = new LikeAdapter(this);
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
@@ -600,7 +600,7 @@ public class UserPageActivity extends AppCompatActivity {
         if(stTargetData.arrStarList.size() != 0)
         {
             tv_liked = findViewById(R.id.tv_liked);
-            tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
+            //tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
 
             listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
             LikedAdapter LikedAdapter = new LikedAdapter(this);
