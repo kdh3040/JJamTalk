@@ -49,7 +49,6 @@ public class BoardItemActivity extends AppCompatActivity {
     ImageButton LikeButton;
     RecyclerView BoardReplyRecyler, BoardLikeUserRecyler;
 
-    private Boolean mLike = false;
     private int mBoardIndex = -1;
 
     @Override
@@ -60,11 +59,6 @@ public class BoardItemActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mBoardIndex = intent.getIntExtra("Target", 0);
         mBoardClientData = mBoardInstanceData.BoardList.get(mBoardIndex);
-        mLike = false;
-        for (BoardLikeData data : mBoardClientData.LikeList) {
-            if (data.Idx.equals(mMyData.getUserIdx()))
-                mLike = true;
-        }
 
         // 댓글 리스트 추가
         BoardUIList = (ListView) findViewById(R.id.listview_board_reply);
@@ -114,19 +108,8 @@ public class BoardItemActivity extends AppCompatActivity {
                     mFireBaseData.SaveBoardLikeData(mBoardClientData.GetDBData().Key, sendData);
                     mBoardClientData.LikeCnt++;
                 }*/
-                mLike = !mLike;
-                RefreshLikeIcon();
             }
         });
-
-        RefreshLikeIcon();
-    }
-
-    private void RefreshLikeIcon() {
-        if (mLike)
-            LikeButton.setImageResource(R.drawable.mycard_icon);
-        else
-            LikeButton.setImageResource(R.drawable.mycard_empty_icon);
     }
 
     private void SetFooterButtonData() {

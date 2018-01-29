@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 public class CoomonValueData  {
     public static final int FIRST_LOAD_BOARD_COUNT = 15;
-    public static final int LOAD_BOARD_COUNT = 1;
+    public static final int LOAD_BOARD_COUNT = 10;
+    public static final int REPORT_BOARD_DELETE = 10;
 
     public static final int MAIN_ACTIVITY_HOME = 0;
     public static final int MAIN_ACTIVITY_CARD = 1;

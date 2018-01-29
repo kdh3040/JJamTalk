@@ -16,5 +16,5 @@ public class BoardMsgDBData {
     public String Msg;
     public long BoardIdx;
 
-    public Map<String, BoardLikeData> Like = new LinkedHashMap<String, BoardLikeData>();
+    public Map<String, BoardReportData> ReportList = new LinkedHashMap<String, BoardReportData>();
 }
