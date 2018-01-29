@@ -68,7 +68,7 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
             public void onClick(View view) {
                 View giftView = LayoutInflater.from(view.getContext()).inflate(R.layout.alert_open_mail,null);
 
-                ImageView popup_ImageView  = giftView.findViewById(R.id.iv_mailfrom);
+                final ImageView popup_ImageView  = giftView.findViewById(R.id.iv_mailfrom);
                 TextView popup_textcount  = giftView.findViewById(R.id.tv_mailbox_sendcount);
                 TextView popup_textMsg  = giftView.findViewById(R.id.tv_mailbox_sendmsg);
 
@@ -88,17 +88,16 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
                 Button btnChatStart = giftView.findViewById(R.id.btn_accept_honey);
                 Button btnOK = giftView.findViewById(R.id.btn_ok);
 
-                btnChatStart.setOnClickListener(new View.OnClickListener() {
+                btnOK.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                    // 대화방 만들기 또는 대화방으로 이동
-                        boolean rtValuew = mMyData.makeSendList(stTargetData, mMyData.arrGiftHoneyDataList.get(position).strTargetMsg);
-                        //mActivity.startActivity(new Intent(mActivity,ChatListActivity.class));
-                        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
+                        mMyData.arrGiftHoneyDataList.remove(position);
+                        notifyDataSetChanged();
+                        dialog.dismiss();
                     }
                 });
 
-                btnOK.setOnClickListener(new View.OnClickListener() {
+                btnChatStart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();

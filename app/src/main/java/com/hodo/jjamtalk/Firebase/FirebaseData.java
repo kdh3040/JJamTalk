@@ -126,8 +126,14 @@ public class FirebaseData {
         user.child("Gender").setValue(mMyData.getUserGender());
         user.child("Age").setValue(mMyData.getUserAge());
 
+        user.child("Memo").setValue(mMyData.getUserMemo());
+
+        user.child("RecvGold").setValue(mMyData.getRecvHoney());
+        user.child("SendGold").setValue(mMyData.getSendHoney());
+
         user.child("Lon").setValue(mMyData.getUserLon());
         user.child("Lat").setValue(mMyData.getUserLat());
+
 
         long time = System.currentTimeMillis();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
