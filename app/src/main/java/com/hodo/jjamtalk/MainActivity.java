@@ -392,6 +392,7 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                mMyData.SetCurFrag(0);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
@@ -482,6 +483,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                mMyData.SetCurFrag(4);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
                 view.setSelected(!view.isSelected());
                 //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
@@ -502,6 +504,7 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                mMyData.SetCurFrag(1);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
                 view.setSelected(!view.isSelected());
 
@@ -525,10 +528,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                mMyData.SetCurFrag(2);
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
 
-                mFragmentMng.beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+                mFragmentMng.beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
 
                // mCommon.mFragmentManager.beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
 
@@ -557,6 +561,7 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                mMyData.SetCurFrag(3);
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,255,100);
 /*

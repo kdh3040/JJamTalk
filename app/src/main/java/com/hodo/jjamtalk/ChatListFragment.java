@@ -62,10 +62,15 @@ public class ChatListFragment extends Fragment {
 
     View fragView;
 
-    private void refreshFragMent()
+    public void refreshFragMent()
     {
         FragmentTransaction trans = getFragmentManager().beginTransaction();
         trans.detach(this).attach(this).commit();
+    }
+
+    public  void refresh()
+    {
+        mAdapter.notifyDataSetChanged();
     }
 
     ChatListAdapter mAdapter = new ChatListAdapter();
@@ -226,6 +231,11 @@ public class ChatListFragment extends Fragment {
             holder.date.setText(mMyData.arrChatDataList.get(str).Date);
             holder.nickname.setText(mMyData.arrChatDataList.get(str).Nick);
 
+            if(mMyData.arrChatDataList.get(str).Check == 0)
+                holder.check.setVisibility(View.VISIBLE);
+            else
+                holder.check.setVisibility(View.INVISIBLE);
+
             if(mMyData.arrChatDataList.get(str).Msg.equals(""))
                 holder.textView.setText(mMyData.arrChatDataList.get(str).Nick + "님과의 채팅방입니다");
             else
@@ -326,9 +336,11 @@ public class ChatListFragment extends Fragment {
 
         user.child("Nick").setValue(stTargetData.NickName);
         user.child("Img").setValue(stTargetData.Img);
+        user.child("Check").setValue(1);
 
         mMyData.arrChatDataList.get(str).Img = stTargetData.Img;
         mMyData.arrChatDataList.get(str).Nick= stTargetData.NickName;
+        mMyData.arrChatDataList.get(str).Check= 1;
 
     }
 

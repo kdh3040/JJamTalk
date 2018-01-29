@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,6 +63,7 @@ import java.util.Date;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_CHAT;
+import static com.hodo.jjamtalk.MainActivity.mFragmentMng;
 
 /**
  * Created by mjk on 2017. 8. 10..
@@ -135,9 +138,21 @@ public class ChatRoomActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mMyData.SetCurFrag(2);
+        ChatListFragment frg = null;
+        frg = (ChatListFragment)mFragmentMng.findFragmentByTag("ChatListFragment");
+        frg.refresh();
+
+
+    }
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
+
+        mMyData.SetCurFrag(0);
 
         mActivity = this;
 
