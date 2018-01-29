@@ -585,7 +585,10 @@ public class MyData {
                   ft.commit();
               }
 
-
+              else if(GetCurFrag() == 5) {
+                  SendList.Check = 1;
+                  arrChatDataList.put(SendList.ChatRoomName, SendList);
+              }
             }
 
             @Override

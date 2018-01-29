@@ -152,7 +152,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
 
-        mMyData.SetCurFrag(0);
+        mMyData.SetCurFrag(5);
 
         mActivity = this;
 
