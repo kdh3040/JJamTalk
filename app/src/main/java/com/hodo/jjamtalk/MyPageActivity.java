@@ -39,6 +39,7 @@ public class MyPageActivity extends AppCompatActivity {
     Button btn_Heart;
     //Button btn_buyjewel;
     ImageView img_Mypic;
+    ImageView img_MyGrade;
     ImageButton iv_gold;
     ImageView iv_MyGift;
 
@@ -97,6 +98,11 @@ public class MyPageActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
             }
         });
+
+
+        img_MyGrade = findViewById(R.id.iv_Grade);
+
+        DrawMyGrade();
 
 
 
@@ -163,42 +169,38 @@ public class MyPageActivity extends AppCompatActivity {
         });
 
         adapter = new MyPageJewelAdapter(getApplicationContext());
-        /*rv_myjewels = (RecyclerView) findViewById(R.id.rv_myjewels);
-=======
-        /*adapter = new MyPageJewelAdapter(getApplicationContext());
-        rv_myjewels = (RecyclerView) findViewById(R.id.rv_myjewels);
->>>>>>> 1265d8791052af2aff29453ee3b9765c0694b7e2
+    }
 
-        rv_myjewels.setLayoutManager(new LinearLayoutManager(getApplicationContext(),0,false));
-        rv_myjewels.setAdapter(adapter);*/
+    private void SetMyGrade() {
+        if(mMyData.getPoint() <= 100)
+            mMyData.setGrade(0);
+        else if(mMyData.getPoint() <= 300)
+            mMyData.setGrade(1);
+        else if(mMyData.getPoint() <= 500)
+            mMyData.setGrade(2);
+        else if(mMyData.getPoint() <= 1000)
+            mMyData.setGrade(3);
+        else if(mMyData.getPoint() <= 2000)
+            mMyData.setGrade(4);
+        else if(mMyData.getPoint() <= 5000)
+            mMyData.setGrade(5);
+    }
 
-/*
-        txt_MyRecvHoney = (TextView)findViewById(R.id.MyPage_RecvHoney);
-        int nRecvCount = mMyData.getRecvHoney() * -1;
-        txt_MyRecvHoney.setText("받은 꿀 : " + nRecvCount);
+    private void DrawMyGrade() {
+        SetMyGrade();
 
-        ll_gift_get = (LinearLayout)findViewById(R.id.layout_gift_get_history);
-        ll_gift_get.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),HoneyGetHistoryActivity.class));
-
-
-            }
-        });
-
-        txt_MySendHoney = (TextView)findViewById(R.id.MyPage_SendHoney);
-        int nSendCount = mMyData.getSendHoney() * -1;
-        txt_MySendHoney.setText("선물한 꿀 : " + nSendCount);
-
-        ll_gift_sent = (LinearLayout)findViewById(R.id.layout_gift_sent_history);
-        ll_gift_sent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),HoneySentHistoryActivity.class));
-
-            }
-        });*/
+        if(mMyData.getGrade() <= 0)
+            img_MyGrade.setImageResource(R.drawable.rank_bronze);
+        else if(mMyData.getGrade() <= 1)
+            img_MyGrade.setImageResource(R.drawable.rank_silver);
+        else if(mMyData.getGrade() <= 2)
+            img_MyGrade.setImageResource(R.drawable.rank_gold);
+        else if(mMyData.getGrade() <= 3)
+            img_MyGrade.setImageResource(R.drawable.rank_diamond);
+        else if(mMyData.getGrade() <= 4)
+            img_MyGrade.setImageResource(R.drawable.rank_vip);
+        else if(mMyData.getGrade() <= 5)
+            img_MyGrade.setImageResource(R.drawable.rank_vvip);
     }
 
  /*   @Override

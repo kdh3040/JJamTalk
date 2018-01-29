@@ -168,6 +168,9 @@ public class MyData {
     public  int nStartAge, nEndAge;
     public  int nMyAge;
 
+    public int Point;
+    public int Grade;
+
     private MyData() {
         strImg = null;
         strNick = null;
@@ -199,13 +202,16 @@ public class MyData {
 
         nCurVisibleFrag = 0;
 
+        Point = 0;
+
     }
 
     public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
                           String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
-                          int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem) {
+                          int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
+                          int _UserPoint, int _UserGrade) {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -298,6 +304,9 @@ public class MyData {
             int idx = key.next();
             itemIdx.add(idx);
         }
+
+        Point = _UserPoint;
+        Grade = _UserGrade;
     }
 
     public void refreshItemIdex()
@@ -317,6 +326,12 @@ public class MyData {
         SaveMyItem();
     }
 
+
+    public void setGrade(int nGrade){Grade = nGrade;}
+    public int getGrade(){return Grade;}
+
+    public void setPoint(int nPoint){Point = nPoint;}
+    public int getPoint(){return Point;}
 
     public void SetCurFrag(int Frag)
     {

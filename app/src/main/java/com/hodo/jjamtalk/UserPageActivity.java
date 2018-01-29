@@ -87,6 +87,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     private ImageView imgProfile;
     private ImageView imgBestItem;
+    private ImageView imgGrade;
 
     RecyclerView listView_like, listView_liked;
     final Context context = this;
@@ -174,13 +175,15 @@ public class UserPageActivity extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 
-        imgBestItem = (ImageView)findViewById(R.id.iv_rank);
+        imgBestItem = (ImageView)findViewById(R.id.iv_item);
 
         if(stTargetData.BestItem == 0)
             imgBestItem.setImageResource(R.drawable.gold);
         else
             imgBestItem.setImageResource(mUIdata.getJewels()[stTargetData.BestItem - 1]);
 
+        imgGrade = (ImageView)findViewById(R.id.iv_rank);
+        imgGrade.setImageResource(mUIdata.getGrades()[stTargetData.Grade]);
 /*        Glide.with(getApplicationContext())
                 .load(stTargetData.BestItem)
                 .thumbnail(0.1f)

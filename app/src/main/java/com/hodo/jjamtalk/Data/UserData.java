@@ -87,6 +87,8 @@ public class UserData implements Serializable,Parcelable {
     public  ArrayList<String> arrCardList = new ArrayList<>();
     public  ArrayList<UserData> arrCardData = new ArrayList<>();
 
+    public int Point;
+    public int Grade;
 
     public UserData() {
 
@@ -154,6 +156,8 @@ public class UserData implements Serializable,Parcelable {
         arrCardList = (ArrayList<String>) in.readSerializable();
         arrCardData = (ArrayList<UserData>) in.readSerializable();
 
+        Point = in.readInt();
+        Grade = in.readInt();
     }
 
     public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -230,6 +234,10 @@ public class UserData implements Serializable,Parcelable {
 
         parcel.writeSerializable(arrCardList);
         parcel.writeSerializable(arrCardData);
+
+        parcel.writeInt(Point);
+        parcel.writeInt(Grade);
+
     }
 
 }
