@@ -103,9 +103,9 @@ public class BoardFragment extends Fragment {
 
                         case R.id.board_report:
                         {
-                            View.OnClickListener yesListener = new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+
+                            CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                                public void YesListener() {
                                     BoardMsgClientData data =  mBoardInstanceData.BoardList.get(position);
                                     mBoardInstanceData.RemoveBoard(data.GetDBData().BoardIdx);
                                     if(data.ReportList.size() >= REPORT_BOARD_DELETE)
@@ -117,7 +117,7 @@ public class BoardFragment extends Fragment {
                                 }
                             };
 
-                            CommonFunc.getInstance().ShowDefaultPopup(getContext(), yesListener, "신고", "신고하시겠습니까?", "예", "아니요");
+                            CommonFunc.getInstance().ShowDefaultPopup(getContext(), listener, "신고", "신고하시겠습니까?", "예", "아니요");
                             break;
                         }
                     }

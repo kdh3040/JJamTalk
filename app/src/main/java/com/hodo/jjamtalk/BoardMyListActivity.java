@@ -71,9 +71,8 @@ public class BoardMyListActivity extends AppCompatActivity {
                     switch (view.getId()) {
                         case R.id.board_delete:
                         {
-                            View.OnClickListener yesListener = new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                            CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                                public void YesListener() {
                                     BoardMsgClientData data =  mBoardInstanceData.MyBoardList.get(position);
                                     mBoardInstanceData.RemoveBoard(data.GetDBData().BoardIdx);
                                     FirebaseData.getInstance().RemoveBoard(data.GetDBData().BoardIdx);
@@ -85,7 +84,7 @@ public class BoardMyListActivity extends AppCompatActivity {
                                 }
                             };
 
-                            CommonFunc.getInstance().ShowDefaultPopup(mActivity, yesListener, "삭제", "작성한 글을 제거하시겠습니까?", "예", "아니요");
+                            CommonFunc.getInstance().ShowDefaultPopup(mActivity, listener, "삭제", "작성한 글을 제거하시겠습니까?", "예", "아니요");
                         }
                             break;
                         default:

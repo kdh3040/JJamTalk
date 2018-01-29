@@ -24,10 +24,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.CommonFunc;
+
+import static com.hodo.jjamtalk.Data.CoomonValueData.REPORT_BOARD_DELETE;
 
 /**
  * Created by mjk on 2017. 8. 4..
@@ -226,14 +229,14 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                View.OnClickListener yesListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                    public void YesListener() {
                         FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                     }
                 };
-                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, yesListener, "로그아웃", "로그아웃을 하시겠습니까?", "네", "아니요");
+
+                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, listener, "로그아웃", "로그아웃을 하시겠습니까?", "네", "아니요");
             }
         });
 
@@ -241,9 +244,9 @@ public class SettingActivity extends AppCompatActivity {
         btn_Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                View.OnClickListener delListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+
+                CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                    public void YesListener() {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                         user.delete()
@@ -263,7 +266,8 @@ public class SettingActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                     }
                 };
-                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, delListener, "계정삭제", "계정삭제를 하시겠습니까?", "네", "아니요");
+
+                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, listener, "계정삭제", "계정삭제를 하시겠습니까?", "네", "아니요");
             }
         });
 

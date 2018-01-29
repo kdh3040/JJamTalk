@@ -113,7 +113,11 @@ public class CommonFunc {
         });
     }
 
-    public void ShowDefaultPopup(Context context, View.OnClickListener listenerYes, String title, String centerDesc, String yesDesc, String noDesc)
+    public interface ShowDefaultPopup_YesListener{
+        void YesListener();
+    }
+
+    public void ShowDefaultPopup(Context context, final ShowDefaultPopup_YesListener yesListener, String title, String centerDesc, String yesDesc, String noDesc)
     {
         TextView Title, CenterDesc;
         Button YesButton, NoButton;
@@ -134,7 +138,13 @@ public class CommonFunc {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
 
-        YesButton.setOnClickListener(listenerYes);
+        YesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                yesListener.YesListener();
+                dialog.dismiss();
+            }
+        });
         NoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -62,6 +62,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.BoardLikeData;
+import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SimpleUserData;
@@ -79,6 +80,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 
 /**
@@ -141,14 +143,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     public void onBackPressed() {
 
-        View.OnClickListener yesListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+            public void YesListener() {
                 int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
             }
         };
 
-        CommonFunc.getInstance().ShowDefaultPopup(this, yesListener, "종료 확인", "킹톡을 종료하시겠습니까?", "종료", "계속");
+        CommonFunc.getInstance().ShowDefaultPopup(this, listener, "종료 확인", "킹톡을 종료하시겠습니까?", "종료", "계속");
     }
 
     @Override
