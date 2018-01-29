@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Class> arrFragment = new ArrayList<>();
     private CardListFragment cardListFragment;
     private ChatListFragment chatListFragment;
-    private FanFragment fanFragment;
+    private FanListFragment fanFragment;
     private HomeFragment homeFragment;// = HomeFragment.getInstance();
 
     public static Context mContext;
@@ -460,7 +460,7 @@ public class MainActivity extends AppCompatActivity {
 
         homeFragment = new HomeFragment();
         //fanFragment = new FanFragment(this);
-        LoadStarData();
+        LoadFanData();
         boardFragment = new BoardFragment();
         LoadCardData();
         //cardListFragment = new CardListFragment();
@@ -712,14 +712,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void LoadStarData() {
+   /* private void LoadStarData() {
         LoadFanData();
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
         if(mMyData.arrMyStarList.size() == 0)
         {
             if(fanFragment == null)
-                fanFragment = new FanFragment();
+                //fanFragment = new FanFragment();
+                fanFragment = new FanListFragment();
         }
 
         for(int i = 0; i < mMyData.arrMyStarList.size(); i++)
@@ -736,7 +737,7 @@ public class MainActivity extends AppCompatActivity {
                     if(mMyData.arrMyStarDataList.size() == mMyData.arrMyStarList.size())
                     {
                         if(fanFragment == null)
-                            fanFragment = new FanFragment();
+                            fanFragment = new FanListFragment();
                     }
 
                 }
@@ -747,7 +748,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+    }*/
 
     private void LoadFanData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
@@ -755,7 +756,7 @@ public class MainActivity extends AppCompatActivity {
         if(mMyData.arrMyFanList.size() == 0)
         {
             if(fanFragment == null)
-                fanFragment = new FanFragment();
+                fanFragment = new FanListFragment();
         }
 
         for(int i = 0; i < mMyData.arrMyFanList.size(); i++)
@@ -772,7 +773,7 @@ public class MainActivity extends AppCompatActivity {
                     if(mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
                     {
                         if(fanFragment == null)
-                            fanFragment = new FanFragment();
+                            fanFragment = new FanListFragment();
                     }
                 }
 

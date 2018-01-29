@@ -1166,6 +1166,7 @@ public class MyData {
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("RecvGold", nTotalSendCnt);
         updateMap.put("Idx", getUserIdx());
+        updateMap.put("Img", getUserImg());
         table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
 
         //getMyfanData(stTargetData.Idx);
@@ -1186,6 +1187,7 @@ public class MyData {
     }
 
     public void makeStarList(UserData stTargetData, int SendCount) {
+
         int nTotalSendCnt = 0;
         for (int i = 0; i < arrSendHoneyDataList.size(); i++) {
             if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))

@@ -195,7 +195,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mGoogleSignInButton = (Button) findViewById(R.id.Login_Google);
         mToMain = (Button) findViewById(R.id.btn_tomain);
 
-       if(mAuth.getCurrentUser() != null){
+         if(mAuth.getCurrentUser() != null){
             showProgress(true);
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
@@ -525,13 +525,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             // mMyData.nFanCount = mMyData.arrMyFanList.size();
 
                             //mMyData.arrMyStarList = stRecvData.StarList;
-                            for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.StarList.entrySet()) {
+                        /*    for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.StarList.entrySet()) {
                                 StarData tempStarData = new StarData();
                                 tempStarData.Idx = entry.getValue().Idx;
                                 tempStarData.SendGold = entry.getValue().SendGold;
                                 mMyData.arrMyStarList.add(tempStarData);
                                 //mMyData.sortStarData();
-                            }
+                            }*/
 
                             for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.FanList.entrySet()) {
                                 FanData tempFanData = new FanData();
