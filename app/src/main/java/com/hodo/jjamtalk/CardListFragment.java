@@ -129,8 +129,12 @@ public class CardListFragment extends Fragment {
    /*         holder.imageItem.setVisibility(View.GONE);
             holder.imageGrade.setVisibility(View.GONE);*/
 
-           // holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem -1 ]);
-         //   holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrCarDataList.get(i).Grade]);
+            if(mMyData.arrCarDataList.get(i).BestItem == 0)
+                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
+            else
+                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem -1 ]);
+
+            holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrCarDataList.get(i).Grade]);
 
 
             holder.textView.setText(mMyData.arrCarDataList.get(i).NickName);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
@@ -319,7 +323,7 @@ public class CardListFragment extends Fragment {
         public class ViewHolder extends RecyclerView.ViewHolder{
             public ImageView imageSymbol;
             public ImageView image;
-         //   public ImageView imageItem, imageGrade;
+            public ImageView imageItem, imageGrade;
             public TextView textView, textView_memo;
             public LinearLayout linearLayout;
 
@@ -328,8 +332,8 @@ public class CardListFragment extends Fragment {
                 imageSymbol = (ImageView)itemView.findViewById(R.id.cardlist_newSymbol);
                 image = (ImageView)itemView.findViewById(R.id.iv_my_card);
 
-               // imageItem = (ImageView)itemView.findViewById(R.id.iv_item);
-              //  imageGrade = (ImageView)itemView.findViewById(R.id.iv_grade);
+                imageItem = (ImageView)itemView.findViewById(R.id.iv_item);
+                imageGrade = (ImageView)itemView.findViewById(R.id.iv_grade);
 
                 textView = (TextView)itemView.findViewById(R.id.tv_nickname);
                 textView_memo = (TextView)itemView.findViewById(R.id.tv_memo);
