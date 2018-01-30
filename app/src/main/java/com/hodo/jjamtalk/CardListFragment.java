@@ -118,7 +118,7 @@ public class CardListFragment extends Fragment {
                     .into(holder.image);
 
             //if(mMyData.arrCardNameList.get(position).Count != 0)
-                holder.imageSymbol.setVisibility(View.GONE);
+              //  holder.imageSymbol.setVisibility(View.GONE);
 
             if(mMyData.arrCarDataList.get(i).Memo == null || mMyData.arrCarDataList.get(i).Memo.equals(""))
             {
@@ -329,7 +329,7 @@ public class CardListFragment extends Fragment {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder{
-            public ImageView imageSymbol;
+          //  public ImageView imageSymbol;
             public ImageView image;
             public ImageView imageItem, imageGrade;
             public TextView textView, textView_memo;
@@ -337,7 +337,7 @@ public class CardListFragment extends Fragment {
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                imageSymbol = (ImageView)itemView.findViewById(R.id.cardlist_newSymbol);
+                //imageSymbol = (ImageView)itemView.findViewById(R.id.cardlist_newSymbol);
                 image = (ImageView)itemView.findViewById(R.id.iv_my_card);
 
                 imageItem = (ImageView)itemView.findViewById(R.id.iv_item);

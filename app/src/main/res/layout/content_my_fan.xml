@@ -9,10 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
+        android:layout_margin="10dp"
         android:orientation="horizontal"
-        android:weightSum="8">
+        android:weightSum="5">
 
         <TextView
             android:id="@+id/tv_gift_ranking"
@@ -24,10 +23,10 @@
 
         <ImageView
             android:id="@+id/iv_fan"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            app:srcCompat="@drawable/hedfvb" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/circle_border"
+            android:padding="2dp"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -64,6 +63,6 @@
 
     <View
         style="@style/Divider"
-        android:layout_marginLeft="100dp" />
+        android:visibility="visible"/>
 
 </LinearLayout>

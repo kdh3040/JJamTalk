@@ -6,6 +6,8 @@
     android:id="@+id/iv_image"
     android:layout_width="60dp"
     android:layout_height="60dp"
-    android:padding="10dp"
+    android:padding="2dp"
+    android:layout_margin="10dp"
     android:scaleType="centerCrop"
-    app:srcCompat="@drawable/bee" />
+    android:background="@drawable/circle_border"
+    />
