@@ -118,7 +118,7 @@ public class CardListFragment extends Fragment {
                     .into(holder.image);
 
             //if(mMyData.arrCardNameList.get(position).Count != 0)
-                holder.imageSymbol.setVisibility(View.INVISIBLE);
+                holder.imageSymbol.setVisibility(View.GONE);
 
             if(mMyData.arrCarDataList.get(i).Memo == null || mMyData.arrCarDataList.get(i).Memo.equals(""))
             {
@@ -135,9 +135,12 @@ public class CardListFragment extends Fragment {
             holder.imageGrade.setVisibility(View.GONE);*/
 
             if(mMyData.arrCarDataList.get(i).BestItem == 0)
-                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
-            else
-                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem -1 ]);
+                //holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
+                holder.imageItem.setVisibility(View.INVISIBLE);
+            else {
+                holder.imageItem.setVisibility(View.VISIBLE);
+                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem - 1]);
+            }
 
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrCarDataList.get(i).Grade]);
 

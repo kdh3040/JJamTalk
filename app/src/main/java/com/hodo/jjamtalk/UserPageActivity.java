@@ -182,9 +182,13 @@ public class UserPageActivity extends AppCompatActivity {
         imgBestItem = (ImageView)findViewById(R.id.iv_item);
 
         if(stTargetData.BestItem == 0)
-            imgBestItem.setImageResource(R.drawable.gold);
+            //imgBestItem.setImageResource(R.drawable.gold);
+            imgBestItem.setVisibility(View.INVISIBLE);
         else
+        {
+            imgBestItem.setVisibility(View.VISIBLE);
             imgBestItem.setImageResource(mUIdata.getJewels()[stTargetData.BestItem - 1]);
+        }
 
         imgGrade = (ImageView)findViewById(R.id.iv_rank);
         imgGrade.setImageResource(mUIdata.getGrades()[stTargetData.Grade]);

@@ -27,14 +27,14 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/iv_myGift"
+            android:id="@+id/iv_Grade"
             android:layout_width="34dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/myJewelImage"
             app:srcCompat="@drawable/bg2" />
 
         <ImageView
-            android:id="@+id/iv_Grade"
+            android:id="@+id/iv_myGift"
             android:layout_width="34dp"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/rank_bronze" />

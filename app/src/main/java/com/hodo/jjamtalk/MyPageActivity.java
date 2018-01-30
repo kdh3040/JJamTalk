@@ -88,9 +88,14 @@ public class MyPageActivity extends AppCompatActivity {
         iv_MyGift=findViewById(R.id.iv_myGift);
 
         if(mMyData.bestItem == 0)
-            iv_MyGift.setImageResource(R.drawable.gold);
+            //iv_MyGift.setImageResource(R.drawable.gold);
+            iv_MyGift.setVisibility(View.INVISIBLE);
         else
+        {
+            iv_MyGift.setVisibility(View.VISIBLE);
             iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem  - 1]);
+        }
+
 
         iv_MyGift.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,23 +176,8 @@ public class MyPageActivity extends AppCompatActivity {
         adapter = new MyPageJewelAdapter(getApplicationContext());
     }
 
-    private void SetMyGrade() {
-        if(mMyData.getPoint() <= 100)
-            mMyData.setGrade(0);
-        else if(mMyData.getPoint() <= 300)
-            mMyData.setGrade(1);
-        else if(mMyData.getPoint() <= 500)
-            mMyData.setGrade(2);
-        else if(mMyData.getPoint() <= 1000)
-            mMyData.setGrade(3);
-        else if(mMyData.getPoint() <= 2000)
-            mMyData.setGrade(4);
-        else if(mMyData.getPoint() <= 5000)
-            mMyData.setGrade(5);
-    }
-
     private void DrawMyGrade() {
-        SetMyGrade();
+        mMyData.SetMyGrade();
 
         if(mMyData.getGrade() <= 0)
             img_MyGrade.setImageResource(R.drawable.rank_bronze);
@@ -225,6 +215,8 @@ public class MyPageActivity extends AppCompatActivity {
             iv_MyGift.setImageResource(R.drawable.gold);
         else
             iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem  - 1]);
+
+        DrawMyGrade();
     }
 
     @Override

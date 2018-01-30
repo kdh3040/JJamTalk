@@ -203,34 +203,41 @@ public class BuyGoldActivity extends AppCompatActivity {
                     {
                         case 0:
                             mMyData.setUserHoney(mMyData.getUserHoney() + 10);
-                            refreshHearCnt();
+                            mMyData.setPoint(10);
                             break;
                         case 1:
                             mMyData.setUserHoney(mMyData.getUserHoney() + 20);
-                            refreshHearCnt();
+                            mMyData.setPoint(20);
                             break;
                         case 2:
                             mMyData.setUserHoney(mMyData.getUserHoney() + 50);
-                            refreshHearCnt();
+                            mMyData.setPoint(50);
+                            break;
                         case 3:
                             mMyData.setUserHoney(mMyData.getUserHoney() + 100);
-                            refreshHearCnt();
+                            mMyData.setPoint(100);
+                            break;
                         case 4:
                             mMyData.setUserHoney(mMyData.getUserHoney() + 200);
-                            refreshHearCnt();
+                            mMyData.setPoint(200);
+                            break;
                         case 5:
                             mMyData.setUserHoney(mMyData.getUserHoney() + 300);
-                            refreshHearCnt();
+                            mMyData.setPoint(300);
+                            break;
                         case 6:
                             mMyData.setUserHoney(mMyData.getUserHoney() + 500);
-                            refreshHearCnt();
+                            mMyData.setPoint(500);
+                            break;
                         case 7:
                             mMyData.setUserHoney(mMyData.getUserHoney() + 1000);
-                            refreshHearCnt();
-
+                            mMyData.setPoint(1000);
                             break;
+
                     }
+                    refreshHearCnt();
                 }
+
             });
 
             return view;
@@ -252,7 +259,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             public void onRewarded(RewardItem reward) {
 
                 int aaa = 0;
-                mMyData.setUserHoney(mMyData.getUserHoney() + 1000);
+                mMyData.setUserHoney(mMyData.getUserHoney() + 20);
                 refreshHearCnt();
 
                 Free_1.setText("오늘 무료 골드 마감");
@@ -296,7 +303,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             public void onRewarded(RewardItem reward) {
 
                 int aaa = 0;
-                mMyData.setUserHoney(mMyData.getUserHoney() + 1000);
+                mMyData.setUserHoney(mMyData.getUserHoney() + 20);
                 refreshHearCnt();
                 // Reward the user.
             }

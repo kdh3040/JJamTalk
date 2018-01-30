@@ -183,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     mMyData.setUserHoney(mMyData.getUserHoney()+20);
+                    mMyData.setPoint(20);
                     dialog.dismiss();
                 }
             });

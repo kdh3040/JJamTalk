@@ -25,6 +25,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hodo.jjamtalk.CardListFragment;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.kakao.usermgmt.response.model.User;
 
 import java.text.SimpleDateFormat;
@@ -51,6 +52,7 @@ public class MyData {
     private static MyData _Instance;
     private BlockData blockList;
     private int fanCount;
+  //  private FirebaseData mFireBase = FirebaseData.getInstance();
 
 
     public static MyData getInstance() {
@@ -332,11 +334,51 @@ public class MyData {
     }
 
 
-    public void setGrade(int nGrade){Grade = nGrade;}
+    public void setGrade(int nGrade){
+        Grade = nGrade;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table;
+
+        table = database.getReference("User/" + getUserIdx());
+        table.child("Grade").setValue(Grade);
+
+        table = database.getReference("SimpleData/" + getUserIdx());
+        table.child("Grade").setValue(Grade);
+    }
+
     public int getGrade(){return Grade;}
 
-    public void setPoint(int nPoint){Point = nPoint;}
+    public void setPoint(int nPoint){
+        Point += nPoint;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table;
+
+        table = database.getReference("User/" + getUserIdx());
+        table.child("Point").setValue(Point);
+
+        table = database.getReference("SimpleData/" + getUserIdx());
+        table.child("Point").setValue(Point);
+
+        SetMyGrade();
+    }
     public int getPoint(){return Point;}
+
+    public void SetMyGrade() {
+        if(getPoint() <= 100)
+            setGrade(0);
+        else if(getPoint() <= 300)
+            setGrade(1);
+        else if(getPoint() <= 500)
+            setGrade(2);
+        else if(getPoint() <= 1000)
+            setGrade(3);
+        else if(getPoint() <= 2000)
+            setGrade(4);
+        else if(getPoint() <= 5000)
+            setGrade(5);
+    }
+
 
     public void SetCurFrag(int Frag)
     {
@@ -466,6 +508,8 @@ public class MyData {
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Honey", nHoney);
         table.updateChildren(updateMap);
+
+
     }
 
     public int getUserHoney() {
@@ -1577,6 +1621,11 @@ public class MyData {
         user.child("Item_7").setValue(item_7);
         user.child("Item_8").setValue(item_8);
         user.child("BestItem").setValue(bestItem);
+
+        table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
+        final DatabaseReference SimpleUser = table.child(getUserIdx());
+        SimpleUser.child("BestItem").setValue(bestItem);
+
     }
 
     public void SaveMyItem(int idx, int count)
@@ -1624,6 +1673,10 @@ public class MyData {
         }
         user.child("ItemCount").setValue(nItemCount);
         user.child("BestItem").setValue(bestItem);
+
+        table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
+        final DatabaseReference SimpleUser = table.child(getUserIdx());
+        SimpleUser.child("BestItem").setValue(bestItem);
     }
 
     public int getFanCount() {

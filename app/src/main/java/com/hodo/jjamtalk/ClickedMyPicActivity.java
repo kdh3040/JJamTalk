@@ -52,6 +52,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
     private ImageButton btnMessage;
     private ImageView imgProfile;
     private ImageView imgBestItem;
+    private ImageView imgGrade;
 
     RecyclerView listView_like, listView_liked;
     final Context context = this;
@@ -134,13 +135,20 @@ public class ClickedMyPicActivity extends AppCompatActivity {
                 .into(imgProfile);
 
 
-        imgBestItem = (ImageView)findViewById(R.id.iv_rank);
+        imgBestItem = (ImageView)findViewById(R.id.iv_item);
 
         if(mMyData.bestItem == 0)
-            imgBestItem.setImageResource(R.drawable.gold);
+            //imgBestItem.setImageResource(R.drawable.gold);
+            imgBestItem.setVisibility(View.INVISIBLE);
         else
+        {
+            imgBestItem.setVisibility(View.VISIBLE);
             imgBestItem.setImageResource(mUIdata.getJewels()[mMyData.bestItem - 1]);
+        }
 
+
+        imgGrade = (ImageView)findViewById(R.id.iv_rank);
+        imgGrade.setImageResource(mUIdata.getGrades()[mMyData.Grade]);
 
         final GestureDetector gestureDetector = new GestureDetector(ClickedMyPicActivity.this,new GestureDetector.SimpleOnGestureListener()
         {
