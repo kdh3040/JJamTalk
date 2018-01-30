@@ -182,6 +182,11 @@ public class ChatRoomActivity extends AppCompatActivity {
         txt_msg = (EditText)findViewById(R.id.et_msg);
 
 
+        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, tempChatData.Msg, tempChatData.Date, "");
+        mRef.push().setValue(chat_Data);
+
+
+
         btn_plus = (Button)findViewById(R.id.btn_plus);
 
         recyclerView = (RecyclerView) findViewById(R.id.chat_list);
