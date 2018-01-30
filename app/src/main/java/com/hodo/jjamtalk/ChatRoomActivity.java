@@ -558,8 +558,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(tempPosition));
                                 mMyData.arrChatNameList.remove(tempPosition);
 
+                                onBackPressed();
 
-                                mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
+                                //mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
 
                               /*  Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

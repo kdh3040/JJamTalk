@@ -175,7 +175,7 @@ public class ChatListFragment extends Fragment {
                     tv_msg = v.findViewById(R.id.msg);
 
                     tv_title.setText("채팅방 삭제");
-                    tv_msg.setText("삭제를 하면 대화 내용 및 채팅방 정보가 모두 삭제됩니다.");
+                    tv_msg.setText("삭제를 하면 대화 내용 및 채팅방 정보가" + "\n" + "모두 삭제됩니다.");
 
                     btn_exit = (Button) v.findViewById(R.id.btn_yes);
                     btn_exit.setText("삭제");
