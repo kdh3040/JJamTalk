@@ -231,9 +231,9 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_star"
-                    android:background="@drawable/imgbt_state"
- />
+                    android:background="@drawable/base_btn_bg"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/favorite" />
 
 
    <!--             <ImageButton
@@ -258,22 +258,22 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:src="@drawable/btn_chat_selected"
-                    android:background="@drawable/imgbt_state"
-                    />
+                    android:background="@drawable/base_btn_bg"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/chat_icon" />
 
                 <ImageButton
                     android:id="@+id/UserPage_btnGiftHoney"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-
+                    android:scaleType="fitCenter"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:src="@drawable/icon_card"
-                    android:background="@drawable/imgbt_state"
+                    android:src="@drawable/heart"
+                    android:background="@drawable/base_btn_bg"
 
                      />
 
