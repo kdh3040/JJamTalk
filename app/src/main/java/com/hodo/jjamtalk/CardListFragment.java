@@ -121,10 +121,15 @@ public class CardListFragment extends Fragment {
                 holder.imageSymbol.setVisibility(View.INVISIBLE);
 
             if(mMyData.arrCarDataList.get(i).Memo == null || mMyData.arrCarDataList.get(i).Memo.equals(""))
-                holder.textView_memo.setText("안녕하세요");
-            else
+            {
+                holder.textView_memo.setVisibility(View.GONE);
+            }
+            else {
+                holder.textView_memo.setVisibility(View.VISIBLE);
                 holder.textView_memo.setText(mMyData.arrCarDataList.get(i).Memo);
-            holder.textView_memo.setBackgroundResource(R.drawable.inbox2);
+                holder.textView_memo.setBackgroundResource(R.drawable.inbox2);
+            }
+
 
    /*         holder.imageItem.setVisibility(View.GONE);
             holder.imageGrade.setVisibility(View.GONE);*/

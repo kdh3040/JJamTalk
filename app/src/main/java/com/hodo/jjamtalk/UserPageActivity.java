@@ -133,9 +133,13 @@ public class UserPageActivity extends AppCompatActivity {
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age+"세");
 
+        View Divide_Memo = (View)findViewById(R.id.Divide_Memo);
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
         if(stTargetData.Memo == null || stTargetData.Memo.equals(""))
-            txtMemo.setText("안녕하세요  "+stTargetData.NickName+"입니다");
+        {
+            Divide_Memo.setVisibility(View.GONE);
+            txtMemo.setVisibility(View.GONE);
+        }
         else
             txtMemo.setText(stTargetData.Memo);
 
