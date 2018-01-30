@@ -126,8 +126,14 @@ public class FirebaseData {
         user.child("Gender").setValue(mMyData.getUserGender());
         user.child("Age").setValue(mMyData.getUserAge());
 
+        user.child("Memo").setValue(mMyData.getUserMemo());
+
+        user.child("RecvGold").setValue(mMyData.getRecvHoney());
+        user.child("SendGold").setValue(mMyData.getSendHoney());
+
         user.child("Lon").setValue(mMyData.getUserLon());
         user.child("Lat").setValue(mMyData.getUserLat());
+
 
         long time = System.currentTimeMillis();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
@@ -138,6 +144,9 @@ public class FirebaseData {
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
 
         user.child("Point").setValue(Integer.valueOf(Integer.toString(rand.nextInt(100))));
+
+        user.child("Grade").setValue(mMyData.getGrade());
+        user.child("BestItem").setValue(mMyData.bestItem);
 
 
     }

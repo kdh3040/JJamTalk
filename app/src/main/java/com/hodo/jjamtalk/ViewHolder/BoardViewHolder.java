@@ -32,7 +32,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class BoardViewHolder extends RecyclerView.ViewHolder {
 
     public TextView BoardMsg, BoardWriter, BoardDate;
-    public ImageView BoardThumnail;
+    public ImageView BoardThumnail, BoardUserItem, BoardUserRank, BoardUserSex;
     public ImageButton BoardDeleteButton;
     public Button BoardReportButton;
 
@@ -44,6 +44,9 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         BoardThumnail = (ImageView) itemView.findViewById(R.id.board_thumnail);
         BoardDeleteButton = (ImageButton) itemView.findViewById(R.id.board_delete);
         BoardReportButton = (Button) itemView.findViewById(R.id.board_report);
+        BoardUserItem = (ImageView) itemView.findViewById(R.id.user_item);
+        BoardUserRank = (ImageView) itemView.findViewById(R.id.user_rank);
+        BoardUserSex = (ImageView) itemView.findViewById(R.id.user_sex);
     }
 
     public void SetBoardViewHolder(Context context, BoardMsgClientData data, Boolean mine, Boolean deleteEnable)

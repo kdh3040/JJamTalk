@@ -195,7 +195,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mGoogleSignInButton = (Button) findViewById(R.id.Login_Google);
         mToMain = (Button) findViewById(R.id.btn_tomain);
 
-       if(mAuth.getCurrentUser() != null){
+         if(mAuth.getCurrentUser() != null){
             showProgress(true);
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
@@ -508,7 +508,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.setMyData(stRecvData.Idx, stRecvData.ImgCount, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3,
                                     stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvCount, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.RecvMsg, stRecvData.PublicRoomStatus, stRecvData.PublicRoomName, stRecvData.PublicRoomLimit, stRecvData.PublicRoomTime,
-                                    stRecvData.ItemCount, stRecvData.Item_1, stRecvData.Item_2, stRecvData.Item_3, stRecvData.Item_4, stRecvData.Item_5, stRecvData.Item_6, stRecvData.Item_7, stRecvData.Item_8, stRecvData.BestItem);
+                                    stRecvData.ItemCount, stRecvData.Item_1, stRecvData.Item_2, stRecvData.Item_3, stRecvData.Item_4, stRecvData.Item_5, stRecvData.Item_6, stRecvData.Item_7, stRecvData.Item_8, stRecvData.BestItem,
+                                    stRecvData.Point, stRecvData.Grade, stRecvData.ConnectDate);
                             bMySet = true;
 
 
@@ -525,13 +526,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             // mMyData.nFanCount = mMyData.arrMyFanList.size();
 
                             //mMyData.arrMyStarList = stRecvData.StarList;
-                            for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.StarList.entrySet()) {
+                        /*    for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.StarList.entrySet()) {
                                 StarData tempStarData = new StarData();
                                 tempStarData.Idx = entry.getValue().Idx;
                                 tempStarData.SendGold = entry.getValue().SendGold;
                                 mMyData.arrMyStarList.add(tempStarData);
                                 //mMyData.sortStarData();
-                            }
+                            }*/
 
                             for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.FanList.entrySet()) {
                                 FanData tempFanData = new FanData();

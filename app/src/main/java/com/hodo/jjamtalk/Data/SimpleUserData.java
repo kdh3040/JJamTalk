@@ -42,6 +42,9 @@ public class SimpleUserData implements Serializable,Parcelable {
     //추천순
     public int Point;
 
+    public int BestItem;
+    public int Grade;
+
     public SimpleUserData() {
         Idx = null;
         Token = null;
@@ -68,6 +71,9 @@ public class SimpleUserData implements Serializable,Parcelable {
 
         //추천순
         Point = 0;
+
+        BestItem = 0;
+        Grade = 0;
     }
 
     public SimpleUserData(Parcel in) {
@@ -85,6 +91,8 @@ public class SimpleUserData implements Serializable,Parcelable {
         Date = in.readString();
         FanCount = in.readInt();
         Point = in.readInt();
+        BestItem = in.readInt();
+        Grade = in.readInt();
     }
 
     public static final Creator<SimpleUserData> CREATOR = new Creator<SimpleUserData>() {
@@ -123,6 +131,9 @@ public class SimpleUserData implements Serializable,Parcelable {
 
         parcel.writeInt(FanCount);
         parcel.writeInt(Point);
+
+        parcel.writeInt(BestItem);
+        parcel.writeInt(Grade);
     }
 
 }

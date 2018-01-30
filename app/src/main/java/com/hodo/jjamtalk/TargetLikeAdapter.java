@@ -33,7 +33,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * Created by mjk on 2017. 8. 28..
  */
 
-public class TargetLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
+public class TargetLikeAdapter extends RecyclerView.Adapter<TargetLikeViewHolder> {
     Context mContext;
     UIData mUIData = UIData.getInstance();
 
@@ -46,39 +46,28 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<MyLikeViewHolder> {
     }
 
     @Override
-    public MyLikeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.content_my_like,parent,false);
+    public TargetLikeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.holder_image_only,parent,false);
 
-        return new MyLikeViewHolder(view);
+        return new TargetLikeViewHolder(view);
     }
-
     @Override
-    public void onBindViewHolder(MyLikeViewHolder holder, final int position) {
+    public void onBindViewHolder(TargetLikeViewHolder holder, final int position) {
 
 
-        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(mUIData.getHeight()/7)));
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        Glide.with(mContext)
+                .load(stTargetData.get(position).Img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(mContext))
+                .thumbnail(0.1f)
+                .into(holder.iv_liked);
+
+        holder.iv_liked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getTargetLikeData(position);
             }
         });
-         holder.imageView.setImageResource(R.mipmap.hdvd);
-
-       Glide.with(mContext)
-                .load(stTargetData.get(position).Img)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new CropCircleTransformation(mContext))
-                .thumbnail(0.1f)
-                .into(holder.imageView);
-
-        holder.tv_nickname.setText(stTargetData.get(position).NickName);
-        holder.tv_rank.setText((position + 1) + "위");
-
-        int SendCnt = stTargetData.get(position).SendGold * -1;
-        holder.tv_honeycount.setText(Integer.toString(SendCnt) + "골드");
-
-
     }
 
     @Override

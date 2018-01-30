@@ -87,6 +87,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     private ImageView imgProfile;
     private ImageView imgBestItem;
+    private ImageView imgGrade;
 
     RecyclerView listView_like, listView_liked;
     final Context context = this;
@@ -126,6 +127,8 @@ public class UserPageActivity extends AppCompatActivity {
 
         TempSendUserData.arrStarList = stTargetData.arrStarList;
         TempSendUserData.arrFanList = stTargetData.arrFanList;
+
+        getTargetfanData();
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age+"세");
@@ -172,13 +175,15 @@ public class UserPageActivity extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 
-        imgBestItem = (ImageView)findViewById(R.id.iv_rank);
+        imgBestItem = (ImageView)findViewById(R.id.iv_item);
 
         if(stTargetData.BestItem == 0)
             imgBestItem.setImageResource(R.drawable.gold);
         else
             imgBestItem.setImageResource(mUIdata.getJewels()[stTargetData.BestItem - 1]);
 
+        imgGrade = (ImageView)findViewById(R.id.iv_rank);
+        imgGrade.setImageResource(mUIdata.getGrades()[stTargetData.Grade]);
 /*        Glide.with(getApplicationContext())
                 .load(stTargetData.BestItem)
                 .thumbnail(0.1f)
@@ -400,7 +405,7 @@ public class UserPageActivity extends AppCompatActivity {
                                         mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                                         mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
                                         mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
-                                        mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
+                                       // mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
                                         Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -492,35 +497,6 @@ public class UserPageActivity extends AppCompatActivity {
                                 msgDialog.dismiss();
                             }
                         });
-
-
-                        /*
-                        else
-                        {
-                            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                            alertDialogBuilder.setTitle("하트가 부족 합니다");
-                            alertDialogBuilder.setMessage("하트를 구매하시겠습니까?")
-                                    .setCancelable(true)
-                                    .setPositiveButton("취소", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            dialogInterface.cancel();
-                                        }
-                                    })
-                                    .setNegativeButton("구매한다!",
-                                            new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialogInterface, int i) {
-                                                    startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
-
-                                                }
-                                            });
-                            AlertDialog alertDialog = alertDialogBuilder.create();
-                            alertDialog.show();
-                        }
-
-                        //ClickBtnSendHeart();
-                        break;*/
                 }
             }
         };
@@ -559,7 +535,7 @@ public class UserPageActivity extends AppCompatActivity {
             tv_like = findViewById(R.id.tv_like);
             //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
             listView_like = (RecyclerView) findViewById(R.id.lv_like);
-            LikeAdapter likeAdapter = new LikeAdapter(this);
+            TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData.arrFanList);
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
             listView_like.setAdapter(likeAdapter);
@@ -571,7 +547,8 @@ public class UserPageActivity extends AppCompatActivity {
                 public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                     if(gestureDetector.onTouchEvent(e))
                     {
-                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                        //
+                        Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Target", TempSendUserData);
                         intent.putExtras(bundle);
@@ -595,87 +572,16 @@ public class UserPageActivity extends AppCompatActivity {
         else
             layoutFanLike.setVisibility(View.GONE);
 
-
-
-        if(stTargetData.arrStarList.size() != 0)
-        {
-            tv_liked = findViewById(R.id.tv_liked);
-            //tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
-
-            listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
-            LikedAdapter LikedAdapter = new LikedAdapter(this);
-            listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-
-            listView_liked.setAdapter(LikedAdapter);
-
-            listView_liked.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
-            {
-
-                @Override
-                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                    if(gestureDetector.onTouchEvent(e))
-                    {
-                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("Target", TempSendUserData);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-                    return false;
-                }
-
-                @Override
-                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-                }
-
-                @Override
-                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-                }
-            });
-        }
-        else
             layoutFanLiked.setVisibility(View.GONE);
 
-
-
-
-
-  /*      listView_liked.addOnItemTouchListener(new nItem() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
-                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("Target", TempSendUserData);
-                intent.putExtras(bundle);
-                startActivity(intent);
-
-            }
-        });*/
-
-   /*     listView_like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
-                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("Target", TempSendUserData);
-                intent.putExtras(bundle);
-                startActivity(intent);
-
-            }
-        });*/
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
-                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                //Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Target", TempSendUserData);
                 intent.putExtras(bundle);
@@ -841,13 +747,10 @@ public class UserPageActivity extends AppCompatActivity {
                         int saa = 0;
                         UserData tempUserData = dataSnapshot.getValue(UserData.class);
                         TempSendUserData.arrFanData.add(tempUserData);
+                        TempSendUserData.mapFanData.put(tempUserData.Idx, tempUserData);
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet())
-                            TempSendUserData.arrFanData.get(finalI).arrFanList.add(entry.getValue());
-
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
-                            TempSendUserData.arrFanData.get(finalI).arrStarList.add(entry.getValue());
-
+                      /*  for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet())
+                            TempSendUserData.arrFanData.get(finalI).arrFanList.add(entry.getValue());*/
                     }
 
                     @Override
@@ -858,7 +761,7 @@ public class UserPageActivity extends AppCompatActivity {
             }
         }
     }
-
+/*
     public void getTargetstarData() {
         stTargetData.arrStarData.clear();
 
@@ -896,7 +799,7 @@ public class UserPageActivity extends AppCompatActivity {
                 });
             }
         }
-    }
+    }*/
 
     private void RefreshData(final SwipeRefreshLayout refreshlayout) {
         DatabaseReference ref;

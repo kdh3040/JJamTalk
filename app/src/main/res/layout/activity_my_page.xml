@@ -34,7 +34,7 @@
             app:srcCompat="@drawable/bg2" />
 
         <ImageView
-            android:id="@+id/imageView33"
+            android:id="@+id/iv_Grade"
             android:layout_width="34dp"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/rank_bronze" />

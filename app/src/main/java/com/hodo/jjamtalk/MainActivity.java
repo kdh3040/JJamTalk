@@ -42,6 +42,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.BoardData;
+import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
@@ -60,6 +61,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import static com.hodo.jjamtalk.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.hodo.jjamtalk.Data.CoomonValueData.REPORT_BOARD_DELETE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Class> arrFragment = new ArrayList<>();
     private CardListFragment cardListFragment;
     private ChatListFragment chatListFragment;
-    private FanFragment fanFragment;
+    private FanListFragment fanFragment;
     private HomeFragment homeFragment;// = HomeFragment.getInstance();
 
     public static Context mContext;
@@ -155,6 +157,48 @@ public class MainActivity extends AppCompatActivity {
         int mHeight = mUIData.getHeight();
 
 
+        boolean bCheckConnt = mMyData.CheckConnectDate();
+        if(bCheckConnt == true)
+        {
+            String alertTitle = "종료";
+            View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+
+            final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.show();
+
+            final TextView txt_Title;
+            txt_Title = (TextView)v.findViewById(R.id.title);
+            txt_Title.setText("출석 체크 보상");
+            final TextView txt_Body;
+            txt_Body = (TextView)v.findViewById(R.id.msg);
+            txt_Body.setText("매일 20골드 추가");
+
+            final Button btn_exit;
+            final Button btn_no;
+
+            btn_exit = (Button) v.findViewById(R.id.btn_yes);
+            btn_exit.setText("확인");
+            btn_exit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mMyData.setUserHoney(mMyData.getUserHoney()+20);
+                    dialog.dismiss();
+                }
+            });
+
+            btn_no = (Button) v.findViewById(R.id.btn_no);
+            btn_no.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            btn_no.setVisibility(View.GONE);
+
+            bCheckConnt = false;
+        }
 
 
         ib_filter = findViewById(R.id.ib_filter);
@@ -395,20 +439,13 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                ib_filter.setVisibility(View.VISIBLE);
                 mMyData.SetCurFrag(0);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
                 setImageAlpha(255,100,100,100,100);
-
-
-/*
-                ib_cardList.setImageResource(R.drawable.btn_card_normal);
-                ib_chatList.setImageResource(R.drawable.btn_chat_normal);
-                ib_fan.setImageResource(R.drawable.btn_fan_normal);
-                ib_board.setImageResource(R.drawable.btn_board_normal);
-                ib_home.setImageResource(R.drawable.btn_home_selected);*/
 
                 view.setSelected(!view.isSelected());
                 if(view.isSelected()){
@@ -429,54 +466,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
                 overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
-
             }
         });
 
-
-
-        /*viewPager = (ScrollerViewPager)findViewById(R.id.view_pager);
-        springIndicator = (SpringIndicator)findViewById(R.id.indicator);*/
-
-
         tv_MainTitle = (TextView)findViewById(R.id.tv_maintitle);
-
-/*
-        ib_myPage = (TextView)findViewById(R.id.ib_mypage);
-
-        ib_myPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
-                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-
-            }
-        });*/
 
 
         layout_topbar = (LinearLayout)findViewById(R.id.layout_topbar);
         layout_lowbar = (LinearLayout)findViewById(R.id.layout_lowbar);
 
         homeFragment = new HomeFragment();
-        //fanFragment = new FanFragment(this);
-        LoadStarData();
+        LoadFanData();
         boardFragment = new BoardFragment();
         LoadCardData();
-        //cardListFragment = new CardListFragment();
         LoadChatData();
-
-
-/*
-
-        //getSupportFragmentManager()
-        mFragmentMng
-                .beginTransaction()
-                .add(R.id.frag_container, chatListFragment, "ChatListFragment")
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .addToBackStack(chatListFragment.getClass().getName())
-                .commit();
-*/
-
 
         ib_board = findViewById(R.id.ib_board);
         ib_board.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
@@ -485,19 +488,12 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
-
+                ib_filter.setVisibility(View.INVISIBLE);
                 mMyData.SetCurFrag(4);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
                 view.setSelected(!view.isSelected());
-                //startActivity(new Intent(getApplicationContext(),BoardActivity.class));
-                //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-                //ib_board.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
                 setImageAlpha(100,100,100,100,255);
-              /*  ib_board.setImageResource(R.drawable.btn_board_selected);
-                ib_cardList.setImageResource(R.drawable.btn_card_normal);
-                ib_chatList.setImageResource(R.drawable.btn_chat_normal);
-                ib_fan.setImageResource(R.drawable.btn_fan_normal);
-                ib_home.setImageResource(R.drawable.btn_home_normal);*/
+
 
             }
         });
@@ -507,6 +503,7 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                ib_filter.setVisibility(View.INVISIBLE);
                 mMyData.SetCurFrag(1);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
                 view.setSelected(!view.isSelected());
@@ -530,7 +527,7 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
-
+                ib_filter.setVisibility(View.INVISIBLE);
                 mMyData.SetCurFrag(2);
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
@@ -564,6 +561,7 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                ib_filter.setVisibility(View.INVISIBLE);
                 mMyData.SetCurFrag(3);
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,255,100);
@@ -709,14 +707,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void LoadStarData() {
+   /* private void LoadStarData() {
         LoadFanData();
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
         if(mMyData.arrMyStarList.size() == 0)
         {
             if(fanFragment == null)
-                fanFragment = new FanFragment();
+                //fanFragment = new FanFragment();
+                fanFragment = new FanListFragment();
         }
 
         for(int i = 0; i < mMyData.arrMyStarList.size(); i++)
@@ -733,7 +732,7 @@ public class MainActivity extends AppCompatActivity {
                     if(mMyData.arrMyStarDataList.size() == mMyData.arrMyStarList.size())
                     {
                         if(fanFragment == null)
-                            fanFragment = new FanFragment();
+                            fanFragment = new FanListFragment();
                     }
 
                 }
@@ -744,7 +743,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+    }*/
 
     private void LoadFanData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
@@ -752,7 +751,7 @@ public class MainActivity extends AppCompatActivity {
         if(mMyData.arrMyFanList.size() == 0)
         {
             if(fanFragment == null)
-                fanFragment = new FanFragment();
+                fanFragment = new FanListFragment();
         }
 
         for(int i = 0; i < mMyData.arrMyFanList.size(); i++)
@@ -769,7 +768,7 @@ public class MainActivity extends AppCompatActivity {
                     if(mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
                     {
                         if(fanFragment == null)
-                            fanFragment = new FanFragment();
+                            fanFragment = new FanListFragment();
                     }
                 }
 

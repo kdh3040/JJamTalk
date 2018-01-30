@@ -204,7 +204,8 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         else
             layoutFanLike.setVisibility(View.GONE);
 
-        if(mMyData.arrMyStarList.size() != 0)
+
+       /* if(mMyData.arrMyStarList.size() != 0)
         {
             tv_liked = findViewById(R.id.tv_liked);
             tv_liked.setText(mMyData.getUserNick() +"님이 좋아하는 사람들");
@@ -222,11 +223,11 @@ public class ClickedMyPicActivity extends AppCompatActivity {
                 public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                     if(gestureDetector.onTouchEvent(e))
                     {
-                /*        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                *//*        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Target", TempSendUserData);
                         intent.putExtras(bundle);
-                        startActivity(intent);*/
+                        startActivity(intent);*//*
                     }
                     return false;
                 }
@@ -242,7 +243,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
                 }
             });
         }
-        else
+        else*/
             layoutFanLiked.setVisibility(View.GONE);
 
         View Divide_Btn = (View)findViewById(R.id.Divide_Btn);

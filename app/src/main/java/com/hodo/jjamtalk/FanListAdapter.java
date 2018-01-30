@@ -55,13 +55,6 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
             @Override
             public void onClick(View view) {
 
-                /*Intent intent = new Intent(mContext, UserPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("Target", mMyData.arrMyFanDataList.get(position));
-                intent.putExtras(bundle);
-
-                view.getContext().startActivity(intent);
-*/
                 getMyfanData(position);
 
             }
