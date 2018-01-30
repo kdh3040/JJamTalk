@@ -1733,7 +1733,7 @@ public class MyData {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table;
 
-            table = database.getReference("User/" + strIdx);
+            table = database.getReference("User/" + getUserIdx());
             table.child("ConnectDate").setValue(nTodayTime);
             ConnectDate = nTodayTime;
 

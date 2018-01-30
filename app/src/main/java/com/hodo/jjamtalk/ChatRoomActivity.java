@@ -109,11 +109,14 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         LinearLayout layout;
         LinearLayout Msg_layout;
+        LinearLayout Msg_detail_layout;
 
         ImageView image_profile,send_Img;
         TextView message;
 
         TextView targetName;
+
+        TextView send_new,recv_new;
 
         ImageView Sender_image_profile,Sender_image_sent;
         TextView Sender_message;
@@ -130,8 +133,11 @@ public class ChatRoomActivity extends AppCompatActivity {
             message =(TextView)itemView.findViewById(R.id.message);
             layout = (LinearLayout)itemView.findViewById(R.id.ChatRoom_layout);
             Msg_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_layout);
+            Msg_detail_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_detail_layout);
             send_Img = (ImageView)itemView.findViewById(R.id.send_img);
 
+            send_new = (TextView)itemView.findViewById(R.id.Send_new);
+            recv_new  = (TextView)itemView.findViewById(R.id.Recv_new);
           //  Sender_image_profile = (ImageView)itemView.findViewById(R.id.Sender_Img);
 
         }
@@ -262,9 +268,19 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Log.d("!@#$%", chat_message.getMsg() + "    " + position +"     " + chat_message.from);
 
                 if(chat_message.from.equals(mMyData.getUserNick()))
-                //if(a % 2 == 0)
+              //  if(a % 2 == 0)
                 {
                     Log.d("!@#$%", "11111");
+
+
+                    //viewHolder.send_new.setVisibility(TextView.VISIBLE);
+                    viewHolder.recv_new.setVisibility(TextView.GONE);
+
+                    if(tempChatData.Check == 0)
+                        viewHolder.send_new.setVisibility(TextView.VISIBLE);
+                    else
+                        viewHolder.send_new.setVisibility(TextView.GONE);
+
 
                     viewHolder.targetName.setVisibility(TextView.GONE);
                     viewHolder.image_profile.setVisibility(View.GONE);
@@ -272,6 +288,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     viewHolder.message.setBackgroundResource(R.drawable.bg_chat_mine);
 
                     viewHolder.Msg_layout.setGravity(Gravity.RIGHT);
+                    viewHolder.Msg_detail_layout.setGravity(Gravity.RIGHT);
                     a = 0;
 
                   //  viewHolder.Sender_sender.setText(chat_message.getFrom());
@@ -279,6 +296,13 @@ public class ChatRoomActivity extends AppCompatActivity {
                 else
                 {
                     Log.d("!@#$%", "22222");
+
+                    viewHolder.send_new.setVisibility(TextView.GONE);
+
+                    if(tempChatData.Check == 0)
+                        viewHolder.recv_new.setVisibility(TextView.VISIBLE);
+                    else
+                        viewHolder.recv_new.setVisibility(TextView.GONE);
 
                     viewHolder.image_profile.setVisibility(View.VISIBLE);
                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
@@ -293,8 +317,10 @@ public class ChatRoomActivity extends AppCompatActivity {
                             .into(viewHolder.image_profile);
 
                     viewHolder.Msg_layout.setGravity(Gravity.LEFT);
+                    viewHolder.Msg_detail_layout.setGravity(Gravity.LEFT);
                     a = 1;
                 }
+                a++;
             }
         };
         firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
