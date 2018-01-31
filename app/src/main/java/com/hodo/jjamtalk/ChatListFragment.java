@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -133,7 +134,7 @@ public class ChatListFragment extends Fragment {
         public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.content_chat_list,parent,false);
 
-            view.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
+            //view.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
             return new ChatListViewHolder(view);
         }
 
@@ -152,6 +153,16 @@ public class ChatListFragment extends Fragment {
                     .thumbnail(0.1f)
                     .into(holder.imageView);
 
+            if(mMyData.arrChatDataList.get(str).BestItem == 0)
+                //imgBestItem.setImageResource(R.drawable.gold);
+                holder.imageItem.setVisibility(View.INVISIBLE);
+            else
+            {
+                holder.imageItem.setVisibility(View.VISIBLE);
+                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrChatDataList.get(str).BestItem - 1]);
+            }
+
+            holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrChatDataList.get(str).Grade]);
 
             holder.linearLayout.setLongClickable(true);
 

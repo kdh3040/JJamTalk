@@ -30,5 +30,7 @@ public class FanViewHolder extends RecyclerView.ViewHolder{
         giftCount = itemView.findViewById(R.id.tv_gift_count);
         imageView = itemView.findViewById(R.id.iv_fan);
 
+
+
     }
 }

@@ -70,6 +70,7 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 
+
         holder.nickname.setText(mMyData.arrMyFanDataList.get(i).NickName);
         holder.giftranking.setText((position + 1) + "위");
 

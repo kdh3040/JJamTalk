@@ -21,8 +21,7 @@
         android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:text="킹톡"
-        android:textColor="@color/white"
+        android:text="톡 킹"
         android:textSize="30sp" />
 
 </RelativeLayout>
