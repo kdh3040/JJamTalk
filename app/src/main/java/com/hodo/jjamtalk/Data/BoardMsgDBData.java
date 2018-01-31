@@ -15,6 +15,10 @@ public class BoardMsgDBData {
     public String Date;
     public String Msg;
     public long BoardIdx;
+    public int BestItem;
+    public int Grade;
+    public String Gender;
+
 
     public Map<String, BoardReportData> ReportList = new LinkedHashMap<String, BoardReportData>();
 }

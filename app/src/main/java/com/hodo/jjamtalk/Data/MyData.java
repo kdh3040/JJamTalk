@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hodo.jjamtalk.CardListFragment;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.kakao.usermgmt.response.model.User;
 
 import java.text.SimpleDateFormat;
@@ -174,6 +175,7 @@ public class MyData {
     public int Grade;
 
     public int ConnectDate;
+    public long LastBoardWriteTime;
 
     private MyData() {
         strImg = null;
@@ -216,7 +218,7 @@ public class MyData {
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
                           String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
-                          int _UserPoint, int _UserGrade, int _UserConnDate) {
+                          int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime) {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -314,6 +316,7 @@ public class MyData {
         Grade = _UserGrade;
 
         ConnectDate = _UserConnDate;
+        LastBoardWriteTime = _UserLastBoardWriteTime;
     }
 
     public void refreshItemIdex()
@@ -942,7 +945,7 @@ public class MyData {
         tempTargetSave.nSendHoney = SendHoneyCnt;
         tempTargetSave.strTargetMsg = SendMsg;
 
-        long now = System.currentTimeMillis();
+        long now = CommonFunc.getInstance().GetCurrentTime();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String getTime = sdf.format(date);
@@ -976,7 +979,7 @@ public class MyData {
         tempMySave.nSendHoney = SendHoneyCnt;
         tempMySave.strTargetMsg = SendMsg;
 
-        long now = System.currentTimeMillis();
+        long now = CommonFunc.getInstance().GetCurrentTime();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String getTime = sdf.format(date);
@@ -1008,7 +1011,7 @@ public class MyData {
         tempMySave.nSendHoney = SendHoneyCnt;
         tempMySave.strTargetMsg = SendMsg;
 
-        long now = System.currentTimeMillis();
+        long now = CommonFunc.getInstance().GetCurrentTime();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String getTime = sdf.format(date);
@@ -1386,7 +1389,7 @@ public class MyData {
     public boolean makePublicRoom(int RoomLimit, int RoomTime) {
         boolean rtValue = false;
 
-        long now = System.currentTimeMillis();
+        long now = CommonFunc.getInstance().GetCurrentTime();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHMM");
         String getTime = sdf.format(date);
@@ -1412,7 +1415,7 @@ public class MyData {
 
 
         RoomData = database.getReference("PublicRoomData").child(getUserIdx()).child(tempPRD.CurRoomName);
-        long nowTime =System.currentTimeMillis();
+        long nowTime =CommonFunc.getInstance().GetCurrentTime();
 
         PublicRoomChatData tempPRDChatData = new PublicRoomChatData(getUserIdx(), null, getUserNick()+"의 공개채팅방입니다.", nowTime, getUserImg());
         RoomData.push().setValue(tempPRDChatData);
@@ -1743,7 +1746,7 @@ public class MyData {
     public boolean CheckConnectDate() {
         boolean rtValue = false;
 
-        long time = System.currentTimeMillis();
+        long time = CommonFunc.getInstance().GetCurrentTime();
         SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
         int nTodayTime = Integer.parseInt( (date.format(new Date(time))).toString());
 
@@ -1761,5 +1764,12 @@ public class MyData {
         return rtValue;
     }
 
+    public int GetBestItem()
+    {
+        return bestItem;
+    }
+
+    public long GetLastBoardWriteTime(){return LastBoardWriteTime;}
+    public void SetLastBoardWriteTime(long time){LastBoardWriteTime = time;}
 }
 

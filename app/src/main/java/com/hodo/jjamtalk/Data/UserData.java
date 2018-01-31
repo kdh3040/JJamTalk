@@ -91,6 +91,7 @@ public class UserData implements Serializable,Parcelable {
     public int Grade;
 
     public int ConnectDate;
+    public long LastBoardWriteTime;
 
     public UserData() {
 
@@ -162,6 +163,7 @@ public class UserData implements Serializable,Parcelable {
         Grade = in.readInt();
 
         ConnectDate = in.readInt();
+        LastBoardWriteTime = in.readLong();
 
     }
 
@@ -244,6 +246,7 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeInt(Grade);
 
         parcel.writeInt(ConnectDate);
+        parcel.writeLong(LastBoardWriteTime);
     }
 
 }

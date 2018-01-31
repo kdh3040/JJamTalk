@@ -547,7 +547,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String message = txt_msg.getText().toString();
-                long nowTime =System.currentTimeMillis();
+                long nowTime = CommonFunc.getInstance().GetCurrentTime();
                 if(txt_msg.getText() == null || txt_msg.getText().equals("")){
                     return;
                 }else{

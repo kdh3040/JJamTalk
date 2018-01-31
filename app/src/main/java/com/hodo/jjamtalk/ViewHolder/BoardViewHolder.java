@@ -18,10 +18,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.BoardLikeData;
 import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
+import com.hodo.jjamtalk.Data.CoomonValueData;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.R;
+import com.hodo.jjamtalk.Util.CommonFunc;
 
 import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -32,7 +38,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class BoardViewHolder extends RecyclerView.ViewHolder {
 
     public TextView BoardMsg, BoardWriter, BoardDate;
-    public ImageView BoardThumnail, BoardUserItem, BoardUserRank, BoardUserSex;
+    public ImageView BoardThumnail, BoardUserItem, BoardUserGrade, BoardUserGender;
     public ImageButton BoardDeleteButton;
     public Button BoardReportButton;
 
@@ -45,8 +51,8 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         BoardDeleteButton = (ImageButton) itemView.findViewById(R.id.board_delete);
         BoardReportButton = (Button) itemView.findViewById(R.id.board_report);
         BoardUserItem = (ImageView) itemView.findViewById(R.id.user_item);
-        BoardUserRank = (ImageView) itemView.findViewById(R.id.user_rank);
-        BoardUserSex = (ImageView) itemView.findViewById(R.id.user_sex);
+        BoardUserGrade = (ImageView) itemView.findViewById(R.id.user_grade);
+        BoardUserGender = (ImageView) itemView.findViewById(R.id.user_gender);
     }
 
     public void SetBoardViewHolder(Context context, BoardMsgClientData data, Boolean mine, Boolean deleteEnable)
@@ -63,14 +69,46 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
 
         BoardMsg.setText(dbData.Msg);
         BoardWriter.setText(dbData.NickName);
-        BoardDate.setText(dbData.Date);
+
+        long time = CommonFunc.getInstance().GetCurrentTime();
+        Date writeDate = CommonFunc.getInstance().GetStringToDate(dbData.Date, CoomonValueData.DATE_FORMAT);
+        Date todayDate = new Date(time);
+
+        if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
+        {
+            SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
+            BoardDate.setText(ctime.format(new Date(writeDate.getTime())));
+        }
+        else
+        {
+            SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
+            BoardDate.setText(ctime.format(new Date(writeDate.getTime())));
+        }
+
+        if(data.GetDBData().BestItem > 0)
+        {
+            BoardUserItem.setVisibility(View.VISIBLE);
+            BoardUserItem.setImageResource(UIData.getInstance().getJewels()[data.GetDBData().BestItem - 1]);
+        }
+        else
+            BoardUserItem.setVisibility(View.INVISIBLE);
+
+        BoardUserGrade.setImageResource(UIData.getInstance().getGrades()[data.GetDBData().Grade]);
+        if(data.GetDBData().Gender == null)
+            BoardUserItem.setVisibility(View.INVISIBLE);
+        else
+        {
+            BoardUserItem.setVisibility(View.VISIBLE);
+            BoardUserGender.setImageResource(UIData.getInstance().getGenderIcon(data.GetDBData().Gender));
+        }
+
 
         Log.d("!!!!!!", "!!!!!!!!!!!" + dbData.Msg);
 
         if(mine)
         {
             BoardReportButton.setVisibility(View.GONE);
-            BoardDeleteButton.setVisibility(View.GONE);
+            BoardDeleteButton.setVisibility(View.INVISIBLE);
 
             if(deleteEnable)
             {

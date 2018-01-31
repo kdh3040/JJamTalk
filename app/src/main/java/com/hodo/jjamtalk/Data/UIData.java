@@ -31,6 +31,7 @@ public class UIData {
     private int jewels[] = {R.drawable.heel_hng,R.drawable.dress_hng,R.drawable.bag_hng,R.drawable.watch_hng,R.drawable.ring_hng,R.drawable.car_hng,R.drawable.boat_hng,R.drawable.jet_hng};
     private int grades[] = {R.drawable.rank_bronze,R.drawable.rank_silver,R.drawable.rank_gold,R.drawable.rank_diamond,R.drawable.rank_vip,R.drawable.rank_vvip};
     private int sellJewelValue[] = {5,5,5,5,7,7,10,20};
+    private int genderIcon[] = {R.drawable.rank_bronze, R.drawable.rank_silver};
 
     private LinearLayout.LayoutParams llp_ListItem;
     public boolean bSellItemStatus = false;
@@ -88,5 +89,13 @@ public class UIData {
 
     public int [] getSellJewelValue() {
         return sellJewelValue;
+    }
+
+    public int getGenderIcon(String gender)
+    {
+        if(gender.equals(CoomonValueData.GENDER_MAN))
+            return genderIcon[0];
+        else
+            return genderIcon[1];
     }
 }

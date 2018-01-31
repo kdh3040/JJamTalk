@@ -32,6 +32,7 @@ import com.hodo.jjamtalk.Data.ChatData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.PublicRoomChatData;
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Util.CommonFunc;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,7 +73,7 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
         @Override
         public void run() {
 
-            long now = System.currentTimeMillis();
+            long now = CommonFunc.getInstance().GetCurrentTime();
             Date date = new Date(now);
             SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHMM");
             String getTime = sdf.format(date);
@@ -232,7 +233,7 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 String message = txt_msg.getText().toString();
-                long nowTime =System.currentTimeMillis();
+                long nowTime = CommonFunc.getInstance().GetCurrentTime();
                 if(txt_msg.getText() == null){
                     return;
                 }else{
