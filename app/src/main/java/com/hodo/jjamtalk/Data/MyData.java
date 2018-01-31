@@ -356,10 +356,10 @@ public class MyData {
 
         table = database.getReference("User/" + getUserIdx());
         table.child("Point").setValue(Point);
+        table.child("ConnectDate").setValue(ConnectDate);
 
         table = database.getReference("SimpleData/" + getUserIdx());
         table.child("Point").setValue(Point);
-
         table.child("ConnectDate").setValue(ConnectDate);
 
         SetMyGrade();
@@ -1723,18 +1723,18 @@ public class MyData {
         tempMySave.Grade = getGrade();
         tempMySave.BestItem = bestItem;
         tempMySave.Date = strLastTime;
-        tempMySave.Check = 1;
+        tempMySave.Check = 0;
 
         SimpleChatData tempTargetSave = new SimpleChatData();
-        tempMySave.ChatRoomName = Roomname;
-        tempMySave.Msg = strLastMsg;
-        tempMySave.Nick = tempData.NickName;
-        tempMySave.Idx = tempData.Idx;
-        tempMySave.Img = tempData.Img;
-        tempMySave.Grade = tempData.Grade;
-        tempMySave.BestItem = tempData.BestItem;
-        tempMySave.Date = strLastTime;
-        tempMySave.Check = 0;
+        tempTargetSave.ChatRoomName = Roomname;
+        tempTargetSave.Msg = strLastMsg;
+        tempTargetSave.Nick = tempData.NickName;
+        tempTargetSave.Idx = tempData.Idx;
+        tempTargetSave.Img = tempData.Img;
+        tempTargetSave.Grade = tempData.Grade;
+        tempTargetSave.BestItem = tempData.BestItem;
+        tempTargetSave.Date = strLastTime;
+        tempTargetSave.Check = 1;
 
         user.setValue(tempTargetSave);
         targetuser.setValue(tempMySave);

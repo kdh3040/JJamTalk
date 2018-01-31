@@ -208,7 +208,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 ChatData chat_message = super.parseSnapshot(snapshot);
                 if(chat_message != null){
                     chat_message.setId(snapshot.getKey());
-                    if(chat_message.getFrom().equals(stTargetData.NickName))
+                    if(chat_message.getFrom().equals(tempChatData.Nick))
                     {
                         chat_message.Check = 1;
                         mRef.child(chat_message.strId).child("Check").setValue(chat_message.Check);
