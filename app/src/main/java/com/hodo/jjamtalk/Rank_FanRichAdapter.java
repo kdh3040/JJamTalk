@@ -66,7 +66,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
-        //holder.iv_honey_rank.setLayoutParams(lpForIcon);
+        holder.iv_honey_rank.setLayoutParams(lpForIcon);
         //holder.textView.setVisibility(View.INVISIBLE);
 
         Log.d("Guide !!!! ", "Start");
