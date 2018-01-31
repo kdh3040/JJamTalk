@@ -42,7 +42,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
     private TextView txtMemo;
     private TextView txtDistance;
     private TextView tv_liked;
-    private TextView tv_like;
+    //private TextView tv_like;
 
     private ImageButton btnRegister;
     private ImageButton btnGiftHoney;
@@ -50,6 +50,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
 
     private ImageButton btnShare;
     private ImageButton btnMessage;
+    private ImageView imgFan;
     private ImageView imgProfile;
     private ImageView imgBestItem;
     private ImageView imgGrade;
@@ -105,8 +106,10 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         txtDistance = (TextView) findViewById(R.id.UserPage_txtDistance);
         txtDistance.setText("1km 이내에 있음");
 
-        tv_like = (TextView) findViewById(R.id.tv_like);
-        tv_like.setText(mMyData.getUserNick()+"님을 좋아하는 사람들");
+/*        tv_like = (TextView) findViewById(R.id.tv_like);
+        tv_like.setText(mMyData.getUserNick()+"님을 좋아하는 사람들");*/
+
+        //imgFan = (ImageView) findViewById()
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
@@ -173,8 +176,8 @@ public class ClickedMyPicActivity extends AppCompatActivity {
 
         if(mMyData.arrMyFanList.size() != 0)
         {
-            tv_like = findViewById(R.id.tv_like);
-            tv_like.setText(mMyData.getUserNick()+"님을 좋아하는 사람들");
+            //tv_like = findViewById(R.id.tv_like);
+            //tv_like.setText(mMyData.getUserNick()+"님을 좋아하는 사람들");
             listView_like = (RecyclerView) findViewById(R.id.lv_like);
             LikeAdapter likeAdapter = new LikeAdapter(this);
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));

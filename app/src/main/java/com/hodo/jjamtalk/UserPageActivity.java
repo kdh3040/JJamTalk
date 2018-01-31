@@ -67,7 +67,7 @@ public class UserPageActivity extends AppCompatActivity {
     //private TextView txtHeart;
     //private TextView txtProfile;
 
-    private TextView tv_like;
+    //private TextView tv_like;
     private TextView[] txt_Fan = new TextView[5];
 
     private TextView txt_Fan_0;
@@ -156,7 +156,7 @@ public class UserPageActivity extends AppCompatActivity {
 
         //private TextView txtProfile;
 
-        tv_like = (TextView) findViewById(R.id.tv_like);
+        //tv_like = (TextView) findViewById(R.id.tv_like);
         //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
@@ -610,7 +610,7 @@ public class UserPageActivity extends AppCompatActivity {
 
         if(stTargetData.arrFanList.size() != 0)
         {
-            tv_like = findViewById(R.id.tv_like);
+            //tv_like = findViewById(R.id.tv_like);
             //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
             listView_like = (RecyclerView) findViewById(R.id.lv_like);
             TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData.arrFanList);
