@@ -105,7 +105,8 @@
             <View
                 android:id="@+id/Divide_Memo"
                 style="@style/Divider"
-                />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
             <TextView
                 android:id="@+id/UserPage_txtMemo"
@@ -117,11 +118,11 @@
                 android:text="한국대학교에 다니고요 학생이고요\n같이놉시다" />
 
 
-
             <View
                 android:id="@+id/Divide_fan"
                 style="@style/Divider"
-                 />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
             <LinearLayout
                 android:id="@+id/ll_fan"
@@ -135,18 +136,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:weightSum="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:weightSum="0.8">
 
-                    <TextView
-                        android:id="@+id/tv_like"
+                    <ImageView
+                        android:id="@+id/imageView33"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:gravity="center"
-                        android:text="팔로워"
-                        android:textColor="@color/textColorDark"
-                        android:textSize="18sp" />
+                        android:layout_height="0dp"
+                        android:layout_weight="0.2"
+                        app:srcCompat="@drawable/ic_fan" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/lv_like"
@@ -210,6 +208,8 @@
             <View
                 android:id="@+id/Divide_Btn"
                 style="@style/Divider"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 />
 
             <LinearLayout
