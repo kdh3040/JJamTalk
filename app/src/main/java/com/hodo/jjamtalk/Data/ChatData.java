@@ -13,18 +13,20 @@ public class ChatData {
     public String time;
     public String img;
     public String strId;
+    public int Check;
 
     public ChatData(){
 
     }
 
 
-    public ChatData(String from_person, String to_person, String message, String nowTime, String image_URL){
+    public ChatData(String from_person, String to_person, String message, String nowTime, String image_URL, int check){
         from= from_person;
         to = to_person;
         msg = message;
         time= nowTime;
         img = image_URL;
+        Check = check;
     }
     public String gettime(){
         return time;

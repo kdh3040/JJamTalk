@@ -182,8 +182,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         txt_msg = (EditText)findViewById(R.id.et_msg);
 
 
-        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, tempChatData.Msg, tempChatData.Date, "");
-        mRef.push().setValue(chat_Data);
+/*        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, tempChatData.Msg, tempChatData.Date, "");
+        mRef.push().setValue(chat_Data);*/
 
 
 
@@ -208,6 +208,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 ChatData chat_message = super.parseSnapshot(snapshot);
                 if(chat_message != null){
                     chat_message.setId(snapshot.getKey());
+                    if(chat_message.getFrom().equals(stTargetData.NickName))
+                    {
+                        chat_message.Check = 1;
+                        mRef.child(chat_message.strId).child("Check").setValue(chat_message.Check);
+                    }
+
                 }
                 return chat_message;
             }
@@ -244,7 +250,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                     viewHolder.message.setText(chat_message.getMsg());
                     viewHolder.targetName.setText(stTargetData.NickName);
 
-
                 }
                 else if( !chat_message.getImg().equals("")){
 
@@ -277,15 +282,20 @@ public class ChatRoomActivity extends AppCompatActivity {
                 {
                     Log.d("!@#$%", "11111");
 
+                    if (chat_message.Check == 0)
+                        viewHolder.send_new.setVisibility(View.VISIBLE);
+                    else
+                        viewHolder.send_new.setVisibility(View.GONE);
+
+                    viewHolder.recv_new.setVisibility(View.GONE);
 
                     //viewHolder.send_new.setVisibility(TextView.VISIBLE);
-                    viewHolder.recv_new.setVisibility(TextView.GONE);
+/*                    viewHolder.recv_new.setVisibility(TextView.GONE);
 
                     if(tempChatData.Check == 0)
                         viewHolder.send_new.setVisibility(TextView.VISIBLE);
                     else
-                        viewHolder.send_new.setVisibility(TextView.GONE);
-
+                        viewHolder.send_new.setVisibility(TextView.GONE);*/
 
                     viewHolder.targetName.setVisibility(TextView.GONE);
                     viewHolder.image_profile.setVisibility(View.GONE);
@@ -302,12 +312,16 @@ public class ChatRoomActivity extends AppCompatActivity {
                 {
                     Log.d("!@#$%", "22222");
 
-                    viewHolder.send_new.setVisibility(TextView.GONE);
+                    viewHolder.send_new.setVisibility(View.GONE);
+                    viewHolder.recv_new.setVisibility(View.GONE);
+
+    /*                viewHolder.send_new.setVisibility(TextView.GONE);
 
                     if(tempChatData.Check == 0)
                         viewHolder.recv_new.setVisibility(TextView.VISIBLE);
                     else
                         viewHolder.recv_new.setVisibility(TextView.GONE);
+    */
 
                     viewHolder.image_profile.setVisibility(View.VISIBLE);
                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
@@ -502,7 +516,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                                         mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
 
-                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, message, formatStr, "");
+                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, message, formatStr, "", 0);
                                         mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr);
                                         mRef.push().setValue(chat_Data);
                                         dialog.dismiss();
@@ -544,7 +558,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     //mNotiFunc.SendMsgToFCM(stTargetData);
 
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "");
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0);
 
                     mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr);
 
@@ -697,7 +711,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                     //progressBar.setVisibility(View.INVISIBLE);
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", null, downloadUrl.toString());
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", null, downloadUrl.toString(), 0);
 
                     mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", null);
                     mRef.push().setValue(chat_Data);
