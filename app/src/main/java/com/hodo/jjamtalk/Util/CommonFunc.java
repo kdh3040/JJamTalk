@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.jjamtalk.Data.CoomonValueData;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SimpleUserData;
@@ -38,6 +39,12 @@ import com.hodo.jjamtalk.UserPageActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**
@@ -150,7 +157,17 @@ public class CommonFunc {
         void YesListener();
     }
 
+    public void ShowDefaultPopup(Context context, String title, String centerDesc)
+    {
+        ShowDefaultPopup(context, null, title, centerDesc, null, null, false);
+    }
+
     public void ShowDefaultPopup(Context context, final ShowDefaultPopup_YesListener listenerYes, String title, String centerDesc, String yesDesc, String noDesc)
+    {
+        ShowDefaultPopup(context, listenerYes, title, centerDesc, yesDesc, noDesc, true);
+    }
+
+    public void ShowDefaultPopup(Context context, final ShowDefaultPopup_YesListener listenerYes, String title, String centerDesc, String yesDesc, String noDesc, Boolean btnView)
     {
         TextView Title, CenterDesc;
         Button YesButton, NoButton;
@@ -164,26 +181,94 @@ public class CommonFunc {
 
         Title.setText(title);
         CenterDesc.setText(centerDesc);
-        YesButton.setText(yesDesc);
-        NoButton.setText(noDesc);
+
 
         final AlertDialog dialog = new AlertDialog.Builder(context).setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
 
-        YesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listenerYes.YesListener();
-                dialog.dismiss();
-            }
-        });
-        NoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        if(btnView)
+        {
+            YesButton.setVisibility(View.VISIBLE);
+            NoButton.setVisibility(View.VISIBLE);
+            YesButton.setText(yesDesc);
+            NoButton.setText(noDesc);
+
+            YesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listenerYes != null)
+                        listenerYes.YesListener();
+                    dialog.dismiss();
+                }
+            });
+            NoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+        }
+        else
+        {
+            YesButton.setVisibility(View.GONE);
+            NoButton.setVisibility(View.GONE);
+
+            YesButton.setOnClickListener(null);
+            NoButton.setOnClickListener(null);
+        }
     }
 
+    public Date GetStringToDate(String date, String format)
+    {
+        SimpleDateFormat tt = new SimpleDateFormat(format);
+
+        try
+        {
+            return  tt.parse(date);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public boolean IsTodayDate(Date date_1, Date date_2)
+    {
+        if(date_1.getYear() == date_2.getYear() &&
+                date_1.getMonth() == date_2.getMonth() &&
+                date_1.getDay() == date_2.getDay())
+            return true;
+
+        return false;
+    }
+
+    public long GetCurrentTime()
+    {
+        // 우리나라는 UTC + 9:00 이기 때문에 더해줘야 한다.
+        return System.currentTimeMillis();
+    }
+
+    public Date GetCurrentDate()
+    {
+        return new Date(GetCurrentTime());
+    }
+
+    public boolean IsFutureDateCompare(Date pastDate, int min)
+    {
+        if(min <= 0)
+            return false;
+
+        if(pastDate.equals(new Date(0)))
+            return true;
+
+        Date futureDate = new Date(pastDate.getTime() + min * CoomonValueData.MIN_MILLI_SECONDS);
+
+        if(futureDate.compareTo(pastDate) > 0)
+            return false;
+        else
+            return true;
+    }
 }

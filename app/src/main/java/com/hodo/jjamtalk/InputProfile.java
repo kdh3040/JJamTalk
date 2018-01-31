@@ -63,6 +63,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
+import static com.hodo.jjamtalk.Data.CoomonValueData.GENDER_MAN;
+import static com.hodo.jjamtalk.Data.CoomonValueData.GENDER_WOMAN;
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 
 public class InputProfile extends AppCompatActivity {
@@ -185,10 +187,10 @@ public class InputProfile extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                String strGender = "여자";
+                String strGender = GENDER_WOMAN;
 
                 if(position == 0)
-                    strGender = "남자";
+                    strGender = GENDER_MAN;
 
 
                 mMyData.setUserGender(strGender);
@@ -341,7 +343,7 @@ public class InputProfile extends AppCompatActivity {
 
     // 일주일간 NEW 멤버
     private void InitData_New() {
-        long time = System.currentTimeMillis();
+        long time = CommonFunc.getInstance().GetCurrentTime();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
         int nTodayDate =  Integer.parseInt(ctime.format(new Date(time)));
         int nStartDate = nTodayDate - 7;

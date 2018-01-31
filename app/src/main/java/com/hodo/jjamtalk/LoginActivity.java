@@ -509,7 +509,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvCount, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.RecvMsg, stRecvData.PublicRoomStatus, stRecvData.PublicRoomName, stRecvData.PublicRoomLimit, stRecvData.PublicRoomTime,
                                     stRecvData.ItemCount, stRecvData.Item_1, stRecvData.Item_2, stRecvData.Item_3, stRecvData.Item_4, stRecvData.Item_5, stRecvData.Item_6, stRecvData.Item_7, stRecvData.Item_8, stRecvData.BestItem,
-                                    stRecvData.Point, stRecvData.Grade, stRecvData.ConnectDate);
+                                    stRecvData.Point, stRecvData.Grade, stRecvData.ConnectDate, stRecvData.LastBoardWriteTime);
                             bMySet = true;
 
 
@@ -709,7 +709,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     // 일주일간 NEW 멤버
     private void InitData_New() {
-        long time = System.currentTimeMillis();
+        long time = CommonFunc.getInstance().GetCurrentTime();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
         int nTodayDate =  Integer.parseInt(ctime.format(new Date(time)));
         int nStartDate = nTodayDate - 7;

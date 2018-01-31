@@ -27,76 +27,77 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
            android:layout_gravity="center"
-            android:weightSum="6"
+            android:weightSum="4"
             android:orientation="horizontal">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:weightSum="2"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/board_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@color/black"
-                android:text="본문"
-                />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:weightSum="5"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:weightSum="2"
+                android:orientation="vertical">
 
-
-                <ImageView
-                    android:id="@+id/user_item"
-                    android:layout_width="180dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bee"
-                    />
-                <ImageView
-                    android:id="@+id/user_rank"
-                    android:layout_width="180dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bee"
-                    />
-                <ImageView
-                    android:id="@+id/user_sex"
-                    android:layout_width="180dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bee"
-                    />
-                <TextView
-                    android:id="@+id/board_writer"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:text="글쓴이"
-                    />
+                    android:weightSum="5"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/user_grade"
+                        android:layout_width="180dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/bee"
+                        />
+                    <ImageView
+                        android:id="@+id/user_item"
+                        android:layout_width="180dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/bee"
+                        />
+                    <ImageView
+                        android:id="@+id/user_gender"
+                        android:layout_width="180dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/bee"
+                        />
+                    <TextView
+                        android:id="@+id/board_writer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="글쓴이"
+                        android:gravity="left"
+                        />
+                    <TextView
+                        android:id="@+id/board_write_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="글쓴 날자"
+                        android:gravity="left"
+                        />
+                </LinearLayout>
+
                 <TextView
-                    android:id="@+id/board_write_date"
-                    android:layout_width="match_parent"
+                    android:id="@+id/board_msg"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:text="글쓴 날자"
+                    android:text="본문"
                     />
             </LinearLayout>
-        </LinearLayout>
 
         <ImageButton
             android:id="@+id/board_delete"
@@ -104,7 +105,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/bee" />
+            app:srcCompat="@drawable/bee"
+            />
 
         <Button
             android:id="@+id/board_report"
@@ -112,7 +114,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            android:text="신고"/>
+            android:text="신고"
+            />
 
     </LinearLayout>
     </LinearLayout>

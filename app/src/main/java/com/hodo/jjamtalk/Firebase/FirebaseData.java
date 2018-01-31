@@ -19,6 +19,7 @@ import com.hodo.jjamtalk.BoardWriteActivity;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.BoardReportData;
+import com.hodo.jjamtalk.Data.CoomonValueData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
@@ -95,7 +96,7 @@ public class FirebaseData {
 
         user.child("ImgCount").setValue(mMyData.getUserImgCnt());
 
-        long time = System.currentTimeMillis();
+        long time = CommonFunc.getInstance().GetCurrentTime();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
         user.child("Date").setValue(ctime.format(new Date(time)));
 
@@ -135,7 +136,7 @@ public class FirebaseData {
         user.child("Lat").setValue(mMyData.getUserLat());
 
 
-        long time = System.currentTimeMillis();
+        long time = CommonFunc.getInstance().GetCurrentTime();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
         user.child("Date").setValue(ctime.format(new Date(time)));
         user.child("FanCount").setValue(mMyData.getFanCount());
@@ -444,15 +445,19 @@ public class FirebaseData {
 
     public boolean SaveBoardData(BoardMsgDBData sendData) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMddHHmm");
+        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.DATE_FORMAT);
 
-        DatabaseReference table = database.getReference("Board").child(Long.toString(BoardData.getInstance().BoardIdx));
+        DatabaseReference writeBoardTable = database.getReference("Board").child(Long.toString(BoardData.getInstance().BoardIdx));
 
-        long time = System.currentTimeMillis();
-        sendData.Date = ctime.format(new Date(time));
+        long currentTime = CommonFunc.getInstance().GetCurrentTime();
+        sendData.Date = ctime.format(new Date(currentTime));
         sendData.BoardIdx = BoardData.getInstance().BoardIdx;
         BoardData.getInstance().AddBoardData(sendData, true);
-        table.setValue(sendData);
+        writeBoardTable.setValue(sendData);
+
+        DatabaseReference myTable = database.getReference("User").child(MyData.getInstance().getUserIdx()).child("LastBoardWriteTime");
+        MyData.getInstance().SetLastBoardWriteTime(currentTime);
+        myTable.setValue(Long.valueOf(currentTime));
 
         return  true;
     }
@@ -469,11 +474,11 @@ public class FirebaseData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx)).child("ReportList").child(Idx);
 
-        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMddHHmm");
+        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.DATE_FORMAT);
 
         BoardReportData sendData = new BoardReportData();
         sendData.Idx = mMyData.getUserIdx();
-        long time = System.currentTimeMillis();
+        long time = CommonFunc.getInstance().GetCurrentTime();
         sendData.Date = ctime.format(new Date(time));
 
         table.setValue(sendData);

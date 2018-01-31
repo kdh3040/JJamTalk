@@ -28,6 +28,7 @@ import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.PublicRoomChatData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.NotiFunc;
 
 import java.text.SimpleDateFormat;
@@ -279,7 +280,7 @@ public class PublicChatRoomActivity extends AppCompatActivity {
 
                             String message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
 
-                            long nowTime =System.currentTimeMillis();
+                            long nowTime = CommonFunc.getInstance().GetCurrentTime();
                             PublicRoomChatData chat_Data = new PublicRoomChatData(mMyData.getUserNick(), stTargetData.NickName, message, nowTime, null);
                             mRef.push().setValue(chat_Data);
 
@@ -308,7 +309,7 @@ public class PublicChatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String message = txt_msg.getText().toString();
-                long nowTime =System.currentTimeMillis();
+                long nowTime = CommonFunc.getInstance().GetCurrentTime();
                 if(txt_msg.getText() == null){
                     return;
                 }else{
