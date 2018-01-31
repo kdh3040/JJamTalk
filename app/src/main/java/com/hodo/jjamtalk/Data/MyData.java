@@ -360,6 +360,8 @@ public class MyData {
         table = database.getReference("SimpleData/" + getUserIdx());
         table.child("Point").setValue(Point);
 
+        table.child("ConnectDate").setValue(ConnectDate);
+
         SetMyGrade();
     }
     public int getPoint(){return Point;}
@@ -584,10 +586,12 @@ public class MyData {
 
         SimpleChatData tempMySave = new SimpleChatData();
         tempMySave.ChatRoomName = strCheckName;
+        tempMySave.Msg = _strSend.toString();
+        tempMySave.Nick = getUserNick();
         tempMySave.Idx = getUserIdx();
         tempMySave.Img = getUserImg();
-        tempMySave.Nick = getUserNick();
-        tempMySave.Msg = _strSend.toString();
+        tempMySave.Grade = getGrade();
+        tempMySave.BestItem = bestItem;
         tempMySave.Check = 1;
 
         SimpleChatData tempTargetSave = new SimpleChatData();
@@ -596,6 +600,9 @@ public class MyData {
         tempTargetSave.Nick = _UserData.NickName;
         tempTargetSave.Img = _UserData.Img;
         tempTargetSave.Msg = _strSend.toString();
+        tempTargetSave.Grade = _UserData.Grade;
+        tempTargetSave.BestItem = _UserData.BestItem;
+
         tempTargetSave.Check = 0;
 
         if (!arrChatNameList.contains(strCheckName) && !arrChatNameList.contains(strCheckName1) ) {
@@ -1707,14 +1714,30 @@ public class MyData {
         String strLastTime = lTime;
         int nCheckMsg = 0;
 
-        user.child("Msg").setValue(strLastMsg);
-        targetuser.child("Msg").setValue(strLastMsg);
+        SimpleChatData tempMySave = new SimpleChatData();
+        tempMySave.ChatRoomName = Roomname;
+        tempMySave.Msg = strLastMsg;
+        tempMySave.Nick = getUserNick();
+        tempMySave.Idx = getUserIdx();
+        tempMySave.Img = getUserImg();
+        tempMySave.Grade = getGrade();
+        tempMySave.BestItem = bestItem;
+        tempMySave.Date = strLastTime;
+        tempMySave.Check = 1;
 
-        user.child("Date").setValue(strLastTime);
-        targetuser.child("Date").setValue(strLastTime);
+        SimpleChatData tempTargetSave = new SimpleChatData();
+        tempMySave.ChatRoomName = Roomname;
+        tempMySave.Msg = strLastMsg;
+        tempMySave.Nick = tempData.NickName;
+        tempMySave.Idx = tempData.Idx;
+        tempMySave.Img = tempData.Img;
+        tempMySave.Grade = tempData.Grade;
+        tempMySave.BestItem = tempData.BestItem;
+        tempMySave.Date = strLastTime;
+        tempMySave.Check = 0;
 
-        user.child("Check").setValue(1);
-        targetuser.child("Check").setValue(0);
+        user.setValue(tempTargetSave);
+        targetuser.setValue(tempMySave);
     }
 
     public boolean CheckConnectDate() {
@@ -1730,11 +1753,6 @@ public class MyData {
         if(nTodayTime - nLastConn >= 1)
         {
             rtValue = true;
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference table;
-
-            table = database.getReference("User/" + getUserIdx());
-            table.child("ConnectDate").setValue(nTodayTime);
             ConnectDate = nTodayTime;
 
         }

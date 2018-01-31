@@ -90,7 +90,6 @@ public class FanListFragment extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_my_fan, parent, false);
-            view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mUIData.getHeight() / 7));
 
             return new ViewHolder(view);
         }
@@ -98,7 +97,7 @@ public class FanListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (mUIData.getHeight() / 7)));
+
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,6 +116,17 @@ public class FanListFragment extends Fragment {
                     .bitmapTransform(new CropCircleTransformation(mContext))
                     .thumbnail(0.1f)
                     .into(holder.img);
+
+            if(mMyData.arrMyFanDataList.get(i).BestItem == 0)
+                //imgBestItem.setImageResource(R.drawable.gold);
+                holder.imageItem.setVisibility(View.INVISIBLE);
+            else
+            {
+                holder.imageItem.setVisibility(View.VISIBLE);
+                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrMyFanDataList.get(i).BestItem - 1]);
+            }
+
+            holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrMyFanDataList.get(i).Grade]);
 
             holder.textNick.setText(mMyData.arrMyFanDataList.get(i).NickName);
             holder.textRank.setText((position + 1) + "위");
@@ -185,6 +195,8 @@ public class FanListFragment extends Fragment {
             public TextView textRank, textNick, textCount;
             public LinearLayout linearLayout;
 
+            public ImageView imageGrade, imageItem;
+
             public ViewHolder(View itemView) {
                 super(itemView);
                 img = (ImageView)itemView.findViewById(R.id.iv_fan);
@@ -192,6 +204,8 @@ public class FanListFragment extends Fragment {
                 textNick = (TextView)itemView.findViewById(R.id.tv_nickname);
                 textCount = (TextView)itemView.findViewById(R.id.tv_gift_count);
                 linearLayout = itemView.findViewById(R.id.layout_fan);
+                imageGrade = itemView.findViewById(R.id.iv_grade);
+                imageItem= itemView.findViewById(R.id.iv_item);
             }
         }
     }

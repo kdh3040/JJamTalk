@@ -16,6 +16,7 @@ import com.hodo.jjamtalk.R;
 public class ChatListViewHolder extends RecyclerView.ViewHolder {
 
     public  ImageView imageView;
+    public  ImageView imageGrade, imageItem;
     public TextView textView,nickname, date, check;
     public LinearLayout linearLayout;
 
@@ -27,7 +28,11 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
 
 
         nickname = itemView.findViewById(R.id.tv_nickname);
+
         imageView = itemView.findViewById(R.id.iv_chat_list);
+        imageGrade = itemView.findViewById(R.id.iv_grade);
+        imageItem = itemView.findViewById(R.id.iv_item);
+
         textView = itemView.findViewById(R.id.tv_chat_list);
         date = itemView.findViewById(R.id.tv_date);
         check = itemView.findViewById(R.id.tv_check);
