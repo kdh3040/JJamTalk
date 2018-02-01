@@ -237,8 +237,8 @@ public class MainActivity extends AppCompatActivity {
                 btn_ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
-                        mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
+                        mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
+                        mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
                         filter_dialog.dismiss();
 
                         mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);

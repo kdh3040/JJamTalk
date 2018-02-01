@@ -2,15 +2,18 @@ package com.hodo.jjamtalk;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -70,6 +73,9 @@ public class SettingActivity extends AppCompatActivity {
 
     private CheckBox cbRecvMsg;
 
+    private CheckBox SoundCheckBox;
+    private CheckBox VibrationCheckBox;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,8 +88,8 @@ public class SettingActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.action_save){
             //프로필 저장 구현
             Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
-            mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
-            mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
+            mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
+            mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
 
             onBackPressed();
            // finish();
@@ -109,33 +115,40 @@ public class SettingActivity extends AppCompatActivity {
         lo_alarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
-                String[] alarm = new String[]{
-                        "소리 켜기",
-                        "진동 켜기",
-                };
 
-                builder.setSingleChoiceItems(alarm, 2, new DialogInterface.OnClickListener() {
+                View v = LayoutInflater.from(SettingActivity.this).inflate(R.layout.dialog_setting_alarm,null,false);
+
+                SoundCheckBox = (CheckBox) v.findViewById(R.id.sound);
+                SoundCheckBox.setChecked(mSetting.IsAlarmSettingSound());
+                VibrationCheckBox = (CheckBox) v.findViewById(R.id.vibration);
+                VibrationCheckBox.setChecked(mSetting.IsAlarmSettingVibration());
+
+                final AlertDialog dialog = new AlertDialog.Builder(SettingActivity.this).setView(v).create();
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(i == 0)
-                        {
-                            int bb = 0;
-                        }
-                        else
-                        {
-                            int bb = 0;
-                        }
+                    public void onDismiss (DialogInterface var1){
+                        mSetting.setAlarmSetting(SoundCheckBox.isChecked(), VibrationCheckBox.isChecked());
+                    }
 
+                });
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
+
+                SoundCheckBox.setOnClickListener(new CheckBox.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CheckBox sound = (CheckBox)v;
+                        sound.toggle();
                     }
                 });
 
-                builder.setTitle("알림 설정");
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-
-
+                VibrationCheckBox.setOnClickListener(new CheckBox.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CheckBox vibration = (CheckBox)v;
+                        vibration.toggle();
+                    }
+                });
             }
         });
 

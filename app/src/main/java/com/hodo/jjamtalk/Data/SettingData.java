@@ -18,6 +18,8 @@ public class SettingData {
     private int nAlarmSetting = 0;
     private int nViewSetting = 0;
     private int nRecvMsg = 0;
+    private boolean nAlarmSetting_Sound = false;
+    private boolean nAlarmSetting_Vibration = false;
 
     public static SettingData getInstance()
     {
@@ -30,23 +32,21 @@ public class SettingData {
     {
     }
 
-    public  void setnAlarmSetting(int Option)
+    public void setAlarmSetting(boolean sound, boolean vibration)
     {
-        nAlarmSetting = Option;
-        mMyData.nAlarmMode = nAlarmSetting;
+        nAlarmSetting_Sound = sound;
+        nAlarmSetting_Vibration = vibration;
+        mMyData.nAlarmSetting_Sound = sound;
+        mMyData.nAlarmSetting_Vibration = vibration;
     }
-    public int getnAlarmSetting()
+
+    public boolean IsAlarmSettingSound()
     {
-        int rtValue = 0;
-
-/*        if(mMyData.nAlarmMode == 0)
-        {
-            rtValue = 7;
-        }
-        else*/
-            rtValue = mMyData.nAlarmMode;
-
-        return   rtValue;
+        return nAlarmSetting_Sound;
+    }
+    public boolean IsAlarmSettingVibration()
+    {
+        return nAlarmSetting_Vibration;
     }
 
     public  void setnSearchSetting(int Option)

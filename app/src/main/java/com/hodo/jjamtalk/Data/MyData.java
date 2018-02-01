@@ -111,7 +111,8 @@ public class MyData {
     private String strMemo;
 
     public int nSearchMode;
-    public int nAlarmMode = 7;
+    public boolean nAlarmSetting_Sound = false;
+    public boolean nAlarmSetting_Vibration = false;
     public int nViewMode = 1;
     public int nRecvMsg = 0;
 
@@ -761,9 +762,10 @@ public class MyData {
         strMemo = memo.toString();
     }
 
-    public void setSettingData(int SearchMode, int AlarmMode, int ViewMode, int RecvMsg) {
+    public void setSettingData(int SearchMode, int ViewMode, int RecvMsg, boolean alarmSetting_Sound, boolean alarmSetting_Vibration) {
         nSearchMode = SearchMode;
-        nAlarmMode = AlarmMode;
+        nAlarmSetting_Sound = alarmSetting_Sound;
+        nAlarmSetting_Vibration = alarmSetting_Vibration;
         nViewMode = ViewMode;
         nRecvMsg = RecvMsg;
     }
@@ -1163,9 +1165,10 @@ public class MyData {
                         stRecvData = dataSnapshot.getValue(TempSettingData.class);
                         if (stRecvData != null) {
                             nSearchMode = stRecvData.SearchMode;
-                            nAlarmMode = stRecvData.AlarmMode;
                             nViewMode = stRecvData.ViewMode;
                             nRecvMsg = stRecvData.RecvMsg;
+                            nAlarmSetting_Sound = stRecvData.AlarmMode_Sound;
+                            nAlarmSetting_Vibration = stRecvData.AlarmMode_Vibration;
                         }
                     }
 

@@ -5,7 +5,8 @@ package com.hodo.jjamtalk.Data;
  */
 
 public class TempSettingData {
-    public int AlarmMode = 0;
+    public boolean AlarmMode_Sound = true;
+    public boolean AlarmMode_Vibration = true;
     public int SearchMode = 0;
     public int ViewMode = 0;
     public int RecvMsg = 0;
