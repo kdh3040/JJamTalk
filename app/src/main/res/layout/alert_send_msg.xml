@@ -29,20 +29,13 @@
     android:layout_width="match_parent">
 
     <EditText
-
+        android:id="@+id/et_msg"
         android:layout_width="match_parent"
-
         android:layout_height="150dp"
-
         android:layout_centerVertical="true"
-
         android:layout_margin="20dp"
-
-
         android:background="@drawable/et_outline"
-
         android:gravity="left"
-
         android:hint="30자 이내"
         android:inputType="text"
         android:maxLength="30"
