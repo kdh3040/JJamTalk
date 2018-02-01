@@ -17,7 +17,9 @@ public class SettingData {
     private int nSearchSetting = 0;
     private int nAlarmSetting = 0;
     private int nViewSetting = 0;
-    private int nRecvMsg = 0;
+    private boolean nRecvMsgReject = false;
+    private boolean nAlarmSetting_Sound = true;
+    private boolean nAlarmSetting_Vibration = true;
 
     public static SettingData getInstance()
     {
@@ -30,24 +32,29 @@ public class SettingData {
     {
     }
 
-    public  void setnAlarmSetting(int Option)
+    public void setAlarmSetting(boolean sound, boolean vibration)
     {
-        nAlarmSetting = Option;
-        mMyData.nAlarmMode = nAlarmSetting;
+        nAlarmSetting_Sound = sound;
+        nAlarmSetting_Vibration = vibration;
+        mMyData.nAlarmSetting_Sound = sound;
+        mMyData.nAlarmSetting_Vibration = vibration;
     }
-    public int getnAlarmSetting()
+
+    public boolean IsAlarmSettingSound()
     {
-        int rtValue = 0;
-
-/*        if(mMyData.nAlarmMode == 0)
-        {
-            rtValue = 7;
-        }
-        else*/
-            rtValue = mMyData.nAlarmMode;
-
-        return   rtValue;
+        return nAlarmSetting_Sound;
     }
+    public boolean IsAlarmSettingVibration()
+    {
+        return nAlarmSetting_Vibration;
+    }
+
+    public void setRecvMsgRejectSetting(boolean recvMsgReject)
+    {
+        nRecvMsgReject = recvMsgReject;
+        mMyData.nRecvMsgReject = recvMsgReject;
+    }
+    public boolean IsRecyMsgRejectSetting(){return nRecvMsgReject;}
 
     public  void setnSearchSetting(int Option)
     {
@@ -104,17 +111,4 @@ public class SettingData {
 
             return  rtValue;
     }
-
-    public  void setnRecvMsg(int Option)
-    {
-        nRecvMsg = Option;
-        mMyData.nRecvMsg= nRecvMsg;
-    }
-    public int getnRecvMsg()
-    {
-        int rtValue = 0;
-        rtValue = mMyData.nRecvMsg;
-        return  rtValue;
-    }
-
 }

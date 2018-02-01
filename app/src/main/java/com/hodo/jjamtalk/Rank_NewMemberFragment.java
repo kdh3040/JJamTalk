@@ -52,14 +52,25 @@ public class Rank_NewMemberFragment extends Fragment {
                         Toast.makeText(view.getContext(), position + "번 째 아이템 클릭", Toast.LENGTH_SHORT).show();
                        if (mAppStatus.bCheckMultiSend == false) {
                             switch (mSetting.getnSearchSetting()) {
+                                case 0:
+                                case 3:
+                                    stTargetData = mMyData.arrUserAll_New.get(position);
+                                    break;
                                 case 1:
                                     stTargetData = mMyData.arrUserMan_New.get(position);
                                     break;
                                 case 2:
                                     stTargetData = mMyData.arrUserWoman_New.get(position);
                                     break;
-                                case 3:
-                                    stTargetData = mMyData.arrUserAll_New.get(position);
+
+                                case 4:
+                                    stTargetData = mMyData.arrUserMan_New_Age.get(position);
+                                    break;
+                                case 5:
+                                    stTargetData = mMyData.arrUserWoman_New_Age.get(position);
+                                    break;
+                                case 6:
+                                    stTargetData = mMyData.arrUserAll_New_Age.get(position);
                                     break;
                             }
 

@@ -79,6 +79,24 @@ public class MyData {
     public ArrayList<SimpleUserData> arrUserWoman_Recv = new ArrayList<>();
     public ArrayList<SimpleUserData> arrUserAll_Recv = new ArrayList<>();
 
+
+    public ArrayList<SimpleUserData> arrUserMan_Near_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_Near_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_Near_Age = new ArrayList<>();
+
+    public ArrayList<SimpleUserData> arrUserMan_New_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_New_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_New_Age = new ArrayList<>();
+
+    public ArrayList<SimpleUserData> arrUserMan_Send_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_Send_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_Send_Age = new ArrayList<>();
+
+    public ArrayList<SimpleUserData> arrUserMan_Recv_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_Recv_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_Recv_Age = new ArrayList<>();
+
+
     public  Map<String, UserData> mapChatTargetData = new LinkedHashMap<String, UserData>();
 
     public int nFanCount;
@@ -110,10 +128,11 @@ public class MyData {
 
     private String strMemo;
 
-    public int nSearchMode;
-    public int nAlarmMode = 7;
+    public int nSearchMode = 0;
+    public boolean nAlarmSetting_Sound = false;
+    public boolean nAlarmSetting_Vibration = false;
     public int nViewMode = 1;
-    public int nRecvMsg = 0;
+    public boolean nRecvMsgReject = false;
 
     public int nPublicRoomStatus = 0;
     public int nPublicRoomName = 0;
@@ -164,11 +183,11 @@ public class MyData {
     public  int nSaveUri;
 
     public  String strDownUri;
+    public  String strBannerID = "ca-app-pub-3940256099942544/6300978111";
 
     public  boolean bChatRefresh = false;
 
     private int nCurVisibleFrag;
-    public  int nStartAge, nEndAge;
     public  int nMyAge;
 
     public int Point;
@@ -176,6 +195,8 @@ public class MyData {
 
     public int ConnectDate;
     public long LastBoardWriteTime;
+
+    public int nStartAge, nEndAge;
 
     private MyData() {
         strImg = null;
@@ -216,7 +237,7 @@ public class MyData {
     public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
-                          String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
+                          String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
                           int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime) {
         strIdx = _UserIdx;
@@ -247,7 +268,7 @@ public class MyData {
         strProfileImg[2] = _UserImgGroup2;
         strProfileImg[3] = _UserImgGroup3;
 
-        nRecvMsg = _UserRecvMsg;
+        nRecvMsgReject = _UserRecvMsgReject == 0 ? false : true;
 
         nPublicRoomStatus = _UserPublicRoomStatus;
         nPublicRoomName = _UserPublicRoomName;
@@ -317,6 +338,10 @@ public class MyData {
 
         ConnectDate = _UserConnDate;
         LastBoardWriteTime = _UserLastBoardWriteTime;
+
+        nStartAge = (Integer.parseInt(getUserAge()) / 10) * 10;
+        nEndAge = nStartAge + 9;
+
     }
 
     public void refreshItemIdex()
@@ -356,6 +381,11 @@ public class MyData {
         Point += nPoint;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
+
+        if(getUserIdx().equals("") || getUserIdx() == null)
+        {
+            return;
+        }
 
         table = database.getReference("User/" + getUserIdx());
         table.child("Point").setValue(Point);
@@ -527,15 +557,6 @@ public class MyData {
 
     public int getSendHoney() {
         return nSendCount;
-    }
-
-
-    public void setnRecvMsg(int option) {
-        nRecvMsg = option;
-    }
-
-    public int getnRecvMsg() {
-        return nRecvMsg;
     }
 
 
@@ -719,6 +740,28 @@ public class MyData {
             });
     }
 
+    public void getAdBannerID() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("BannerID");
+
+        table.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int saa = 0;
+                String tempUserData = dataSnapshot.getValue(String.class);
+                strBannerID = tempUserData;
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
     public boolean makeCardList(final UserData target) {
         boolean rtValue = false;
 
@@ -761,11 +804,12 @@ public class MyData {
         strMemo = memo.toString();
     }
 
-    public void setSettingData(int SearchMode, int AlarmMode, int ViewMode, int RecvMsg) {
+    public void setSettingData(int SearchMode, int ViewMode, boolean recvMsgReject, boolean alarmSetting_Sound, boolean alarmSetting_Vibration) {
         nSearchMode = SearchMode;
-        nAlarmMode = AlarmMode;
+        nAlarmSetting_Sound = alarmSetting_Sound;
+        nAlarmSetting_Vibration = alarmSetting_Vibration;
         nViewMode = ViewMode;
-        nRecvMsg = RecvMsg;
+        nRecvMsgReject = recvMsgReject;
     }
 
     public void getGiftData(String Idx) {
@@ -1162,10 +1206,11 @@ public class MyData {
                         TempSettingData stRecvData = new TempSettingData();
                         stRecvData = dataSnapshot.getValue(TempSettingData.class);
                         if (stRecvData != null) {
-                            nSearchMode = stRecvData.SearchMode;
-                            nAlarmMode = stRecvData.AlarmMode;
+                           // nSearchMode = stRecvData.SearchMode;
                             nViewMode = stRecvData.ViewMode;
-                            nRecvMsg = stRecvData.RecvMsg;
+                            nRecvMsgReject = stRecvData.RecvMsgReject == 0 ? false : true;
+                            nAlarmSetting_Sound = stRecvData.AlarmMode_Sound;
+                            nAlarmSetting_Vibration = stRecvData.AlarmMode_Vibration;
                         }
                     }
 
@@ -1762,6 +1807,22 @@ public class MyData {
 
 
         return rtValue;
+    }
+
+    public ArrayList<SimpleUserData> SortData_Age(ArrayList<SimpleUserData> arrData, int Start, int End)
+    {
+        ArrayList<SimpleUserData> rtData = new ArrayList<SimpleUserData>();
+        for(int i = 0; i < arrData.size(); i++)
+        {
+            int nDataAge = Integer.parseInt(arrData.get(i).Age);
+
+            if( nDataAge >= Start && nDataAge < End)
+            {
+                rtData.add(arrData.get(i));
+            }
+        }
+
+        return rtData;
     }
 
     public int GetBestItem()

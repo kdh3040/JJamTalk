@@ -3,6 +3,7 @@ package com.hodo.jjamtalk;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
@@ -34,6 +35,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.firebase.database.DataSnapshot;
@@ -172,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
             txt_Title.setText("출석 체크 보상");
             final TextView txt_Body;
             txt_Body = (TextView)v.findViewById(R.id.msg);
-            txt_Body.setText("매일 20골드 추가");
+            txt_Body.setText("매일 "+mUIData.getAdReward()[mMyData.getGrade()]+"골드 추가");
 
             final Button btn_exit;
             final Button btn_no;
@@ -182,8 +185,6 @@ public class MainActivity extends AppCompatActivity {
             btn_exit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mMyData.setUserHoney(mMyData.getUserHoney()+20);
-                    mMyData.setPoint(20);
                     dialog.dismiss();
                 }
             });
@@ -195,8 +196,15 @@ public class MainActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
-
             btn_no.setVisibility(View.GONE);
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss (DialogInterface var1){
+                    mMyData.setUserHoney(mMyData.getUserHoney()+mUIData.getAdReward()[mMyData.getGrade()]);
+                    mMyData.setPoint(mUIData.getAdReward()[mMyData.getGrade()]);
+                }
+
+            });
 
             bCheckConnt = false;
         }
@@ -237,8 +245,8 @@ public class MainActivity extends AppCompatActivity {
                 btn_ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
-                        mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnAlarmSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg());
+                        mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
+                        mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
                         filter_dialog.dismiss();
 
                         mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
@@ -290,6 +298,20 @@ public class MainActivity extends AppCompatActivity {
 
                 rbtn_man = (Switch) v.findViewById(R.id.rbtn_man);
                 rbtn_woman = (Switch) v.findViewById(R.id.rbtn_woman);
+
+                if(mMyData.nSearchMode == 0)
+                {
+                    if(mMyData.getUserGender().equals("여자"))
+                    {
+                        rbtn_man.setChecked(true);
+                        rbtn_man.setChecked(false);
+                    }
+                    else
+                    {
+                        rbtn_man.setChecked(false);
+                        rbtn_man.setChecked(true);
+                    }
+                }
 
                 rbtn_10 = (Switch) v.findViewById(R.id.rbtn_10);
                 rbtn_20 = (Switch) v.findViewById(R.id.rbtn_20);
@@ -793,6 +815,12 @@ public class MainActivity extends AppCompatActivity {
 
         final Button btn_exit;
         final Button btn_no;
+        final TextView title;
+        final AdView mAdView;
+
+        title =  (TextView) v.findViewById(R.id.title);
+        title.setVisibility(View.GONE);
+
 
         btn_exit = (Button) v.findViewById(R.id.btn_yes);
         btn_exit.setOnClickListener(new View.OnClickListener() {
@@ -809,6 +837,13 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
+
+        mAdView = (AdView)v.findViewById(R.id.adView);
+        mAdView.setVisibility(View.VISIBLE);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
     }
 

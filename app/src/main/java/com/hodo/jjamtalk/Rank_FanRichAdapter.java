@@ -74,10 +74,22 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
 
         switch (mSetting.getnSearchSetting())
         {
-            //  남자 탐색
+            case 0:
+            case 3:
+                //   float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
+                //  Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
+                holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
+
+                holder.textView.setText(mMyData.arrUserAll_Send.get(i).FanCount+"명");
+                Glide.with(mContext)
+                        .load(mMyData.arrUserAll_Send.get(i).Img)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .thumbnail(0.1f)
+                        .into(holder.iv_profile);
+                break;
             case 1:
-             //   float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
-              //  Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
+                //   float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
+                //  Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
                 holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
 
                 holder.textView.setText(mMyData.arrUserMan_Send.get(i).FanCount+"명");
@@ -89,9 +101,15 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                 break;
             // 여자 탐색
             case 2:
+<<<<<<< HEAD
               //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Send.get(i).Lat, mMyData.arrUserWoman_Send.get(i).Lon,"kilometer");
               //  Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
                 holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
+=======
+                //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Send.get(i).Lat, mMyData.arrUserWoman_Send.get(i).Lon,"kilometer");
+                //  Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
+                holder.iv_honey_rank.setImageResource(R.drawable.btn_fan_selected);
+>>>>>>> 3324d5fae31a40d9af233f3269bfbb6fefe78b66
 
                 holder.textView.setText(mMyData.arrUserWoman_Send.get(i).FanCount+"명");
                 Glide.with(mContext)
@@ -100,13 +118,45 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
-            case 3:
+
+            //  남자 탐색
+            case 4:
+             //   float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
+              //  Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
+                holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
+
+                holder.textView.setText(mMyData.arrUserMan_Send_Age.get(i).FanCount+"명");
+                Glide.with(mContext)
+                        .load(mMyData.arrUserMan_Send_Age.get(i).Img)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .thumbnail(0.1f)
+                        .into(holder.iv_profile);
+                break;
+            // 여자 탐색
+            case 5:
+              //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Send.get(i).Lat, mMyData.arrUserWoman_Send.get(i).Lon,"kilometer");
+              //  Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
+                holder.iv_honey_rank.setImageResource(R.drawable.btn_fan_selected);
+
+                holder.textView.setText(mMyData.arrUserWoman_Send_Age.get(i).FanCount+"명");
+                Glide.with(mContext)
+                        .load(mMyData.arrUserWoman_Send_Age.get(i).Img)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .thumbnail(0.1f)
+                        .into(holder.iv_profile);
+                break;
+            case 6:
                 Log.d("Guide !!!! ", "Case 3");
               //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
+<<<<<<< HEAD
                 holder.textView.setText(mMyData.arrUserAll_Send.get(i).FanCount+"명");
                 holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
+=======
+                holder.textView.setText(mMyData.arrUserAll_Send_Age.get(i).FanCount+"명");
+                holder.iv_honey_rank.setImageResource(R.drawable.btn_fan_selected);
+>>>>>>> 3324d5fae31a40d9af233f3269bfbb6fefe78b66
                 Glide.with(mContext)
-                        .load(mMyData.arrUserAll_Send.get(i).Img)
+                        .load(mMyData.arrUserAll_Send_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
@@ -119,15 +169,27 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
     @Override
     public int getItemCount() {
         int rtValue = 0;
-        if (mSetting.getnSearchSetting() == 1) {
-            Log.d("Guide !!!! ", "getItem 1");
-            rtValue = mMyData.arrUserMan_Send.size();
-        } else if (mSetting.getnSearchSetting() == 2) {
-            Log.d("Guide !!!! ", "getItem 2");
-            rtValue = mMyData.arrUserWoman_Send.size();
-        } else if (mSetting.getnSearchSetting() == 3) {
+       if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
             Log.d("Guide !!!! ", "getItem 3");
             rtValue = mMyData.arrUserAll_Send.size();
+        }
+       else if (mSetting.getnSearchSetting() == 1) {
+           Log.d("Guide !!!! ", "getItem 1");
+           rtValue = mMyData.arrUserMan_Send.size();
+       } else if (mSetting.getnSearchSetting() == 2) {
+           Log.d("Guide !!!! ", "getItem 2");
+           rtValue = mMyData.arrUserWoman_Send.size();
+       }
+
+        else if (mSetting.getnSearchSetting() == 4) {
+            Log.d("Guide !!!! ", "getItem 1");
+            rtValue = mMyData.arrUserMan_Send_Age.size();
+        } else if (mSetting.getnSearchSetting() == 5) {
+            Log.d("Guide !!!! ", "getItem 2");
+            rtValue = mMyData.arrUserWoman_Send_Age.size();
+        } else if (mSetting.getnSearchSetting() == 6) {
+            Log.d("Guide !!!! ", "getItem 3");
+            rtValue = mMyData.arrUserAll_Send_Age.size();
         }
         return rtValue;
     }

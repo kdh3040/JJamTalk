@@ -10,11 +10,6 @@
     android:background="@color/black"
     android:id="@+id/relativeLayout">
 
-    <com.google.android.gms.ads.AdView android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        ads:adSize="FULL_BANNER"
-        ads:adUnitId="INSERT_YOUR_AD_UNIT_ID_HERE"/>
 
    <!-- <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"

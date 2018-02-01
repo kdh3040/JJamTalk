@@ -103,14 +103,26 @@ public class Rank_NearFragment extends Fragment {
                         if(mAppStatus.bCheckMultiSend == false) {
                             switch (mSetting.getnSearchSetting())
                             {
+                                case 0:
+                                case 3:
+                                    stTargetData = mMyData.arrUserAll_Near.get(position);
+                                    break;
                                 case 1:
                                     stTargetData = mMyData.arrUserMan_Near.get(position);
                                     break;
                                 case 2:
                                     stTargetData = mMyData.arrUserWoman_Near.get(position);
                                     break;
-                                case 3:
-                                    stTargetData = mMyData.arrUserAll_Near.get(position);
+
+
+                                case 4:
+                                    stTargetData = mMyData.arrUserMan_Near_Age.get(position);
+                                    break;
+                                case 5:
+                                    stTargetData = mMyData.arrUserWoman_Near_Age.get(position);
+                                    break;
+                                case 6:
+                                    stTargetData = mMyData.arrUserAll_Near_Age.get(position);
                                     break;
                             }
 

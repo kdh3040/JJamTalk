@@ -68,9 +68,6 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
         holder.iv_honey_rank.setLayoutParams(lpForIcon);
 
 
-
-
-
         //holder.textView.setText("100만 꿀");
         //holder.iv_honey_rank.setVisibility(View.INVISIBLE);
 
@@ -79,6 +76,16 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
 
         switch (mSetting.getnSearchSetting())
         {
+            case 0:
+            case 3:
+                //holder.textView.setText(-1*mMyData.arrUserAll_Recv.get(i).RecvCount+"개");
+                holder.textView.setText(mMyData.arrUserAll_Recv.get(i).NickName);//+ " " + mMyData.arrUserAll_Recv.get(i).Age+"세");
+                Glide.with(mContext)
+                        .load(mMyData.arrUserAll_Recv.get(i).Img)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .thumbnail(0.1f)
+                        .into(holder.iv_profile);
+                break;
             //  남자 탐색
             case 1:
 
@@ -100,15 +107,46 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
-            case 3:
-                //holder.textView.setText(-1*mMyData.arrUserAll_Recv.get(i).RecvCount+"개");
-                holder.textView.setText(mMyData.arrUserAll_Recv.get(i).NickName);//+ " " + mMyData.arrUserAll_Recv.get(i).Age+"세");
+
+
+
+            case 4:
+                //   float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
+                //  Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
+                holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
+
+                holder.textView.setText(mMyData.arrUserMan_Recv_Age.get(i).FanCount+"명");
                 Glide.with(mContext)
-                        .load(mMyData.arrUserAll_Recv.get(i).Img)
+                        .load(mMyData.arrUserMan_Recv_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
+            // 여자 탐색
+            case 5:
+                //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Send.get(i).Lat, mMyData.arrUserWoman_Send.get(i).Lon,"kilometer");
+                //  Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
+                holder.iv_honey_rank.setImageResource(R.drawable.btn_fan_selected);
+
+                holder.textView.setText(mMyData.arrUserWoman_Recv_Age.get(i).FanCount+"명");
+                Glide.with(mContext)
+                        .load(mMyData.arrUserWoman_Recv_Age.get(i).Img)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .thumbnail(0.1f)
+                        .into(holder.iv_profile);
+                break;
+            case 6:
+                Log.d("Guide !!!! ", "Case 3");
+                //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
+                holder.textView.setText(mMyData.arrUserAll_Recv_Age.get(i).FanCount+"명");
+                holder.iv_honey_rank.setImageResource(R.drawable.btn_fan_selected);
+                Glide.with(mContext)
+                        .load(mMyData.arrUserAll_Recv_Age.get(i).Img)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .thumbnail(0.1f)
+                        .into(holder.iv_profile);
+                break;
+
             default:
                 break;
         }
@@ -119,13 +157,29 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
     public int getItemCount() {
 
         int rtValue = 0;
-        if (mSetting.getnSearchSetting() == 1) {
-            rtValue = mMyData.arrUserMan_Recv.size();
-        } else if (mSetting.getnSearchSetting() == 2) {
-            rtValue = mMyData.arrUserWoman_Recv.size();
-        } else if (mSetting.getnSearchSetting() == 3) {
+
+        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
+            Log.d("Guide !!!! ", "getItem 3");
             rtValue = mMyData.arrUserAll_Recv.size();
         }
+        else if (mSetting.getnSearchSetting() == 1) {
+            Log.d("Guide !!!! ", "getItem 1");
+            rtValue = mMyData.arrUserMan_Recv.size();
+        } else if (mSetting.getnSearchSetting() == 2) {
+            Log.d("Guide !!!! ", "getItem 2");
+            rtValue = mMyData.arrUserWoman_Recv.size();
+        }
+        else if (mSetting.getnSearchSetting() == 4) {
+            Log.d("Guide !!!! ", "getItem 1");
+            rtValue = mMyData.arrUserMan_Recv_Age.size();
+        } else if (mSetting.getnSearchSetting() == 5) {
+            Log.d("Guide !!!! ", "getItem 2");
+            rtValue = mMyData.arrUserWoman_Recv_Age.size();
+        } else if (mSetting.getnSearchSetting() == 6) {
+            Log.d("Guide !!!! ", "getItem 3");
+            rtValue = mMyData.arrUserAll_Recv_Age.size();
+        }
+
         return rtValue;
     }
 }
