@@ -3,6 +3,7 @@ package com.hodo.jjamtalk;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
@@ -182,8 +183,6 @@ public class MainActivity extends AppCompatActivity {
             btn_exit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mMyData.setUserHoney(mMyData.getUserHoney()+20);
-                    mMyData.setPoint(20);
                     dialog.dismiss();
                 }
             });
@@ -195,8 +194,15 @@ public class MainActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
-
             btn_no.setVisibility(View.GONE);
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss (DialogInterface var1){
+                    mMyData.setUserHoney(mMyData.getUserHoney()+20);
+                    mMyData.setPoint(20);
+                }
+
+            });
 
             bCheckConnt = false;
         }

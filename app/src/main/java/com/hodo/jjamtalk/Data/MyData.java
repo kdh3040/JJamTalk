@@ -358,6 +358,11 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
 
+        if(getUserIdx().equals("") || getUserIdx() == null)
+        {
+            return;
+        }
+
         table = database.getReference("User/" + getUserIdx());
         table.child("Point").setValue(Point);
         table.child("ConnectDate").setValue(ConnectDate);
