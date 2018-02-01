@@ -3,6 +3,8 @@ package com.hodo.jjamtalk.Firebase;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -46,14 +48,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private int nHoneyCnt;
     private int nRecvHoneyCnt;
 
+    private int nAlarmSoundIndex = 0;
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
         if (remoteMessage.getNotification() != null) {
-            final Vibrator vibrator = (Vibrator)getSystemService(getApplicationContext().VIBRATOR_SERVICE);
-            vibrator.vibrate(500);
-
+            if(mMyData.nAlarmSetting_Vibration)
+            {
+                final Vibrator vibrator = (Vibrator)getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+                vibrator.vibrate(500);
+            }
+            if(mMyData.nAlarmSetting_Sound)
+            {
+                SoundPool sound = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
+                nAlarmSoundIndex = sound.load(this, R.raw.katalk, 1);
+                sound.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                    @Override
+                    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                        soundPool.play(nAlarmSoundIndex, 1f, 1f, 0, 0, 1f);
+                    }
+                });
+            }
 
             String body = remoteMessage.getNotification().getBody();
             Log.d(TAG, "Notification Body: " + body);

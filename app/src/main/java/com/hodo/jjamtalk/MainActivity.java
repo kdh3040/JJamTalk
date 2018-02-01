@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
             txt_Title.setText("출석 체크 보상");
             final TextView txt_Body;
             txt_Body = (TextView)v.findViewById(R.id.msg);
-            txt_Body.setText("매일 20골드 추가");
+            txt_Body.setText("매일 "+mUIData.getAdReward()[mMyData.getGrade()]+"골드 추가");
 
             final Button btn_exit;
             final Button btn_no;
@@ -200,8 +200,8 @@ public class MainActivity extends AppCompatActivity {
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss (DialogInterface var1){
-                    mMyData.setUserHoney(mMyData.getUserHoney()+20);
-                    mMyData.setPoint(20);
+                    mMyData.setUserHoney(mMyData.getUserHoney()+mUIData.getAdReward()[mMyData.getGrade()]);
+                    mMyData.setPoint(mUIData.getAdReward()[mMyData.getGrade()]);
                 }
 
             });
@@ -245,8 +245,8 @@ public class MainActivity extends AppCompatActivity {
                 btn_ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
-                        mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.getnRecvMsg(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
+                        mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
+                        mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
                         filter_dialog.dismiss();
 
                         mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
