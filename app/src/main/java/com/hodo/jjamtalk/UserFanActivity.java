@@ -151,11 +151,9 @@ public class UserFanActivity extends AppCompatActivity {
                     if (tempUserData != null) {
                         stTargetData.mapFanData.put(strTargetIdx, tempUserData);
 
-
-
-                 /*       for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
                             stTargetData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
-                        }*/
+                        }
 
                         moveFanPage(position);
                     }
