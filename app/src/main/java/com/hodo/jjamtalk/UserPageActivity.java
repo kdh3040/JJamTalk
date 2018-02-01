@@ -466,7 +466,7 @@ public class UserPageActivity extends AppCompatActivity {
                         nSize = mMyData.arrBlockedDataList.size();
                         boolean bBlock = false;
 
-                        if (stTargetData.RecvMsg == 1) {
+                        if (stTargetData.RecvMsgReject >= 1) {
                             // 블락됬습니다 표시
                             final int[] nSendHoneyCnt = new int[1];
                             nSendHoneyCnt[0] = 0;

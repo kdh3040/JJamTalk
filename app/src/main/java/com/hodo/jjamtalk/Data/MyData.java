@@ -114,7 +114,7 @@ public class MyData {
     public boolean nAlarmSetting_Sound = false;
     public boolean nAlarmSetting_Vibration = false;
     public int nViewMode = 1;
-    public int nRecvMsg = 0;
+    public boolean nRecvMsgReject = false;
 
     public int nPublicRoomStatus = 0;
     public int nPublicRoomName = 0;
@@ -218,7 +218,7 @@ public class MyData {
     public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
-                          String _UserMemo, int _UserRecvMsg, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
+                          String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
                           int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime) {
         strIdx = _UserIdx;
@@ -249,7 +249,7 @@ public class MyData {
         strProfileImg[2] = _UserImgGroup2;
         strProfileImg[3] = _UserImgGroup3;
 
-        nRecvMsg = _UserRecvMsg;
+        nRecvMsgReject = _UserRecvMsgReject == 0 ? false : true;
 
         nPublicRoomStatus = _UserPublicRoomStatus;
         nPublicRoomName = _UserPublicRoomName;
@@ -537,15 +537,6 @@ public class MyData {
     }
 
 
-    public void setnRecvMsg(int option) {
-        nRecvMsg = option;
-    }
-
-    public int getnRecvMsg() {
-        return nRecvMsg;
-    }
-
-
     public void setSendHoneyCnt(int sendHoneyCnt) {
         nSendCount -= sendHoneyCnt;
 
@@ -790,12 +781,12 @@ public class MyData {
         strMemo = memo.toString();
     }
 
-    public void setSettingData(int SearchMode, int ViewMode, int RecvMsg, boolean alarmSetting_Sound, boolean alarmSetting_Vibration) {
+    public void setSettingData(int SearchMode, int ViewMode, boolean recvMsgReject, boolean alarmSetting_Sound, boolean alarmSetting_Vibration) {
         nSearchMode = SearchMode;
         nAlarmSetting_Sound = alarmSetting_Sound;
         nAlarmSetting_Vibration = alarmSetting_Vibration;
         nViewMode = ViewMode;
-        nRecvMsg = RecvMsg;
+        nRecvMsgReject = recvMsgReject;
     }
 
     public void getGiftData(String Idx) {
@@ -1194,7 +1185,7 @@ public class MyData {
                         if (stRecvData != null) {
                             nSearchMode = stRecvData.SearchMode;
                             nViewMode = stRecvData.ViewMode;
-                            nRecvMsg = stRecvData.RecvMsg;
+                            nRecvMsgReject = stRecvData.RecvMsgReject == 0 ? false : true;
                             nAlarmSetting_Sound = stRecvData.AlarmMode_Sound;
                             nAlarmSetting_Vibration = stRecvData.AlarmMode_Vibration;
                         }

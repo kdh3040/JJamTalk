@@ -9,6 +9,6 @@ public class TempSettingData {
     public boolean AlarmMode_Vibration = true;
     public int SearchMode = 0;
     public int ViewMode = 0;
-    public int RecvMsg = 0;
+    public int RecvMsgReject = 0;
 
 }

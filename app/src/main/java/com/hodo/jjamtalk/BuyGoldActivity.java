@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Contacts;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Util.CommonFunc;
 
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ import java.util.ArrayList;
 public class BuyGoldActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
+    private UIData mUIData = UIData.getInstance();
     private TextView txt_heartStatus;
     private ListView HeartChargeList;
     private Button Free_1, Free_2;
@@ -45,6 +48,7 @@ public class BuyGoldActivity extends AppCompatActivity {
     private CommonFunc mCommon = CommonFunc.getInstance();
     public RewardedVideoAd mRewardedVideoAd;
     public RewardedVideoAd mRewardedVideoAd2;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,8 +95,20 @@ public class BuyGoldActivity extends AppCompatActivity {
         Free_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mRewardedVideoAd.isLoaded()) {
-                    mRewardedVideoAd.show();
+
+                if(mRewardedVideoAd.isLoaded() == false)
+                {
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 골드 충전", "하루에 한번만 충전 할 수 있습니다.");
+                }
+                else
+                {
+                    CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                        public void YesListener() {
+                            mRewardedVideoAd.show();
+                        }
+                    };
+
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, "무료 골드 충전", "광고를 보시고 " + mUIData.getAdReward()[mMyData.getGrade()] +"골드를 획득 하시겠습니까?", "예", "아니요");
                 }
             }
         });
@@ -100,8 +116,20 @@ public class BuyGoldActivity extends AppCompatActivity {
         Free_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mRewardedVideoAd2.isLoaded()) {
-                    mRewardedVideoAd2.show();
+
+                if(mRewardedVideoAd2.isLoaded() == false)
+                {
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 골드 충전", "하루에 한번만 충전 할 수 있습니다.");
+                }
+                else
+                {
+                    CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                        public void YesListener() {
+                            mRewardedVideoAd2.show();
+                        }
+                    };
+
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, "무료 골드 충전", "광고를 보시고 " + mUIData.getAdReward()[mMyData.getGrade()] +"골드를 획득 하시겠습니까?", "예", "아니요");
                 }
             }
         });
@@ -259,7 +287,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             public void onRewarded(RewardItem reward) {
 
                 int aaa = 0;
-                mMyData.setUserHoney(mMyData.getUserHoney() + 20);
+                mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
                 refreshHearCnt();
 
                 Free_1.setText("오늘 무료 골드 마감");
@@ -303,7 +331,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             public void onRewarded(RewardItem reward) {
 
                 int aaa = 0;
-                mMyData.setUserHoney(mMyData.getUserHoney() + 20);
+                mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
                 refreshHearCnt();
                 // Reward the user.
             }
