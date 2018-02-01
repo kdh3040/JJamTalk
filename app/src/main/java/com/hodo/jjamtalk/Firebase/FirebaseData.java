@@ -298,7 +298,7 @@ public class FirebaseData {
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(mMyData.getUserIdx());
 
-        user.child("SearchMode").setValue(SearchMode);
+       // user.child("SearchMode").setValue(SearchMode);
         user.child("ViewMode").setValue(ViewMode);
         user.child("RecvMsg").setValue(RecvMsg);
         user.child("AlarmMode_Sound").setValue(alarmSetting_Sound);

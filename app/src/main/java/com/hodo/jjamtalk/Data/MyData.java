@@ -79,6 +79,24 @@ public class MyData {
     public ArrayList<SimpleUserData> arrUserWoman_Recv = new ArrayList<>();
     public ArrayList<SimpleUserData> arrUserAll_Recv = new ArrayList<>();
 
+
+    public ArrayList<SimpleUserData> arrUserMan_Near_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_Near_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_Near_Age = new ArrayList<>();
+
+    public ArrayList<SimpleUserData> arrUserMan_New_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_New_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_New_Age = new ArrayList<>();
+
+    public ArrayList<SimpleUserData> arrUserMan_Send_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_Send_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_Send_Age = new ArrayList<>();
+
+    public ArrayList<SimpleUserData> arrUserMan_Recv_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserWoman_Recv_Age = new ArrayList<>();
+    public ArrayList<SimpleUserData> arrUserAll_Recv_Age = new ArrayList<>();
+
+
     public  Map<String, UserData> mapChatTargetData = new LinkedHashMap<String, UserData>();
 
     public int nFanCount;
@@ -110,7 +128,7 @@ public class MyData {
 
     private String strMemo;
 
-    public int nSearchMode;
+    public int nSearchMode = 0;
     public boolean nAlarmSetting_Sound = false;
     public boolean nAlarmSetting_Vibration = false;
     public int nViewMode = 1;
@@ -170,7 +188,6 @@ public class MyData {
     public  boolean bChatRefresh = false;
 
     private int nCurVisibleFrag;
-    public  int nStartAge, nEndAge;
     public  int nMyAge;
 
     public int Point;
@@ -178,6 +195,8 @@ public class MyData {
 
     public int ConnectDate;
     public long LastBoardWriteTime;
+
+    public int nStartAge, nEndAge;
 
     private MyData() {
         strImg = null;
@@ -319,6 +338,10 @@ public class MyData {
 
         ConnectDate = _UserConnDate;
         LastBoardWriteTime = _UserLastBoardWriteTime;
+
+        nStartAge = (Integer.parseInt(getUserAge()) / 10) * 10;
+        nEndAge = nStartAge + 9;
+
     }
 
     public void refreshItemIdex()
@@ -1192,7 +1215,7 @@ public class MyData {
                         TempSettingData stRecvData = new TempSettingData();
                         stRecvData = dataSnapshot.getValue(TempSettingData.class);
                         if (stRecvData != null) {
-                            nSearchMode = stRecvData.SearchMode;
+                           // nSearchMode = stRecvData.SearchMode;
                             nViewMode = stRecvData.ViewMode;
                             nRecvMsg = stRecvData.RecvMsg;
                             nAlarmSetting_Sound = stRecvData.AlarmMode_Sound;
@@ -1793,6 +1816,22 @@ public class MyData {
 
 
         return rtValue;
+    }
+
+    public ArrayList<SimpleUserData> SortData_Age(ArrayList<SimpleUserData> arrData, int Start, int End)
+    {
+        ArrayList<SimpleUserData> rtData = new ArrayList<SimpleUserData>();
+        for(int i = 0; i < arrData.size(); i++)
+        {
+            int nDataAge = Integer.parseInt(arrData.get(i).Age);
+
+            if( nDataAge >= Start && nDataAge < End)
+            {
+                rtData.add(arrData.get(i));
+            }
+        }
+
+        return rtData;
     }
 
     public int GetBestItem()

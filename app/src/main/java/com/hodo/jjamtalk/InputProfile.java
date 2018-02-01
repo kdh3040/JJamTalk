@@ -273,8 +273,11 @@ public class InputProfile extends AppCompatActivity {
                                 }
                                 else {
                                     mMyData.arrUserMan_Recv.add(cTempData);
-
                                 }
+
+                                mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
                             }
                             i++;
                         }
@@ -320,6 +323,11 @@ public class InputProfile extends AppCompatActivity {
                                 else {
                                     mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
                                 }
+
+
+                                mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge );
                             }
                             i++;
                         }
@@ -373,6 +381,10 @@ public class InputProfile extends AppCompatActivity {
                                 else {
                                     mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
                                 }
+
+                                mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New,mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New,mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New,mMyData.nStartAge, mMyData.nEndAge );
 
                             }
                             i++;
@@ -433,6 +445,10 @@ public class InputProfile extends AppCompatActivity {
                                 else {
                                     mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
                                 }
+
+                                mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near,mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near,mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near,mMyData.nStartAge, mMyData.nEndAge );
 
                             }
                             i++;

@@ -140,6 +140,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private Activity mActivity;
     private long pressedTime;
 
+
     @Override
     public void onBackPressed() {
 
@@ -194,6 +195,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mNaverSignInButton = (Button) findViewById(R.id.Login_Naver);
         mGoogleSignInButton = (Button) findViewById(R.id.Login_Google);
         mToMain = (Button) findViewById(R.id.btn_tomain);
+
+
 
          if(mAuth.getCurrentUser() != null){
             showProgress(true);
@@ -567,7 +570,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getBlockedList();
                             //mMyData.MonitorPublicRoomStatus();
 
-                                //InitData_Fan();
+
+
+                            //InitData_Fan();
                                 InitData_Hot();
                                 InitData_FanCount();
                                 InitData_New();
@@ -640,8 +645,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 }
                                 else {
                                     mMyData.arrUserMan_Recv.add(cTempData);
-
                                 }
+
+                                mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
                             }
                             i++;
                         }
@@ -687,6 +695,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 else {
                                     mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
                                 }
+
+                                mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge );
+
                             }
                             i++;
                         }
@@ -740,6 +753,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 else {
                                     mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
                                 }
+
+                                mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New,mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New,mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New,mMyData.nStartAge, mMyData.nEndAge );
 
                             }
                             i++;
@@ -800,6 +817,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 else {
                                     mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
                                 }
+
+                                mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near,mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near,mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near,mMyData.nStartAge, mMyData.nEndAge );
 
                             }
                             i++;

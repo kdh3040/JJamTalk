@@ -299,6 +299,20 @@ public class MainActivity extends AppCompatActivity {
                 rbtn_man = (Switch) v.findViewById(R.id.rbtn_man);
                 rbtn_woman = (Switch) v.findViewById(R.id.rbtn_woman);
 
+                if(mMyData.nSearchMode == 0)
+                {
+                    if(mMyData.getUserGender().equals("여자"))
+                    {
+                        rbtn_man.setChecked(true);
+                        rbtn_man.setChecked(false);
+                    }
+                    else
+                    {
+                        rbtn_man.setChecked(false);
+                        rbtn_man.setChecked(true);
+                    }
+                }
+
                 rbtn_10 = (Switch) v.findViewById(R.id.rbtn_10);
                 rbtn_20 = (Switch) v.findViewById(R.id.rbtn_20);
                 rbtn_30 = (Switch) v.findViewById(R.id.rbtn_30);
