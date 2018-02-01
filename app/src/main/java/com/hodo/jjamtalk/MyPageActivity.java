@@ -35,7 +35,7 @@ public class MyPageActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
     UIData mUIdata = UIData.getInstance();
 
-    ImageButton btn_Setting,btn_my_profile,btn_history;
+    ImageView btn_Setting,btn_my_profile,btn_history;
     Button btn_Heart;
     //Button btn_buyjewel;
     ImageView img_Mypic;
@@ -85,7 +85,7 @@ public class MyPageActivity extends AppCompatActivity {
 
 
 
-        iv_MyGift=findViewById(R.id.iv_myGift);
+        iv_MyGift=findViewById(R.id.jewel);
 
         if(mMyData.bestItem == 0)
             //iv_MyGift.setImageResource(R.drawable.gold);
@@ -105,14 +105,14 @@ public class MyPageActivity extends AppCompatActivity {
         });
 
 
-        img_MyGrade = findViewById(R.id.iv_Grade);
+        img_MyGrade = findViewById(R.id.rank);
 
         DrawMyGrade();
 
 
 
-        txt_MyGoldCnt = findViewById(R.id.tv_goldsize);
-        txt_MyProfile = (TextView)findViewById(R.id.MyPage_txtProfile);
+        txt_MyGoldCnt = findViewById(R.id.coin);
+        txt_MyProfile = (TextView)findViewById(R.id.nickname);
 
         txt_MyProfile.setText( mMyData.getUserNick());
 
@@ -120,7 +120,7 @@ public class MyPageActivity extends AppCompatActivity {
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
         //txt_MyHeartCnt.setText("보유 골드: " + nGold);
 
-        btn_Setting = findViewById(R.id.btn_setting);
+        btn_Setting = findViewById(R.id.edit_setting);
         //btn_Setting.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 
         btn_Setting.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +130,7 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
-        btn_Heart = (Button)findViewById(R.id.buyHeart);
+        btn_Heart = (Button)findViewById(R.id.coin_charge);
         btn_Heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +146,7 @@ public class MyPageActivity extends AppCompatActivity {
         });
 */
 
-        img_Mypic = (ImageView)findViewById(R.id.img_mypic);
+        img_Mypic = (ImageView)findViewById(R.id.profile);
 
         Glide.with(getApplicationContext())
                 .load(mMyData.getUserImg())
@@ -163,7 +163,7 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
-        btn_my_profile = findViewById(R.id.ib_my_profile);
+        btn_my_profile = findViewById(R.id.edit_profile);
         //btn_my_profile.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
         btn_my_profile.setOnClickListener(new View.OnClickListener() {
             @Override

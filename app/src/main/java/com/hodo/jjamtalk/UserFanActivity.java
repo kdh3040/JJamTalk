@@ -112,7 +112,7 @@ public class UserFanActivity extends AppCompatActivity {
             holder.textRank.setText((position + 1) + "위");
 
             int RecvCnt = stTargetData.arrFanList.get(position).RecvGold * -1;
-            holder.textCount.setText(Integer.toString(RecvCnt) + "골드");
+            holder.textCount.setText(Integer.toString(RecvCnt) + "하트");
 
         }
 

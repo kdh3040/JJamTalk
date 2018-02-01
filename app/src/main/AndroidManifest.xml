@@ -82,7 +82,7 @@
 
         </activity>
         <activity android:name=".FanClubActivity"
-            android:label="팬클럽"
+            android:label="팬"
             android:theme="@style/MyTheme"
 
             >
@@ -90,7 +90,7 @@
         </activity>
 
         <activity android:name=".UserFanActivity"
-            android:label="팬클럽"
+            android:label="팬"
             android:theme="@style/MyTheme"
             >
 
