@@ -165,6 +165,7 @@ public class MyData {
     public  int nSaveUri;
 
     public  String strDownUri;
+    public  String strBannerID = "ca-app-pub-3940256099942544/6300978111";
 
     public  boolean bChatRefresh = false;
 
@@ -723,6 +724,28 @@ public class MyData {
                 }
 
             });
+    }
+
+    public void getAdBannerID() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("BannerID");
+
+        table.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int saa = 0;
+                String tempUserData = dataSnapshot.getValue(String.class);
+                strBannerID = tempUserData;
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
     }
 
     public boolean makeCardList(final UserData target) {

@@ -35,6 +35,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.firebase.database.DataSnapshot;
@@ -799,6 +801,12 @@ public class MainActivity extends AppCompatActivity {
 
         final Button btn_exit;
         final Button btn_no;
+        final TextView title;
+        final AdView mAdView;
+
+        title =  (TextView) v.findViewById(R.id.title);
+        title.setVisibility(View.GONE);
+
 
         btn_exit = (Button) v.findViewById(R.id.btn_yes);
         btn_exit.setOnClickListener(new View.OnClickListener() {
@@ -815,6 +823,13 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
+
+        mAdView = (AdView)v.findViewById(R.id.adView);
+        mAdView.setVisibility(View.VISIBLE);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
     }
 
