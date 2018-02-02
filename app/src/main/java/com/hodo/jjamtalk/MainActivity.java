@@ -2,14 +2,17 @@ package com.hodo.jjamtalk;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -33,6 +36,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.ads.AdRequest;
@@ -165,6 +169,24 @@ public class MainActivity extends AppCompatActivity {
                 mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
                 mMyData.mRewardedVideoAd.loadAd("ca-app-pub-7666588215496282/3967348562",
                         new AdRequest.Builder().build());
+
+                mMyData.mServiceConn = new ServiceConnection() {
+                    @Override
+                    public void onServiceDisconnected(ComponentName name) {
+                        mMyData.mService = null;
+                    }
+
+                    @Override
+                    public void onServiceConnected(ComponentName name,
+                                                   IBinder service) {
+                        mMyData.mService = IInAppBillingService.Stub.asInterface(service);
+                    }
+                };
+
+                Intent serviceIntent =
+                        new Intent("com.android.vending.billing.InAppBillingService.BIND");
+                serviceIntent.setPackage("com.android.vending");
+                bindService(serviceIntent, mMyData.mServiceConn , Context.BIND_AUTO_CREATE);
             }
         });
 
@@ -707,9 +729,8 @@ public class MainActivity extends AppCompatActivity {
                 setImageAlpha(255,100,100,100,100);
                 break;
         }
-
-
     }
+
 
     private void LoadChatData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();

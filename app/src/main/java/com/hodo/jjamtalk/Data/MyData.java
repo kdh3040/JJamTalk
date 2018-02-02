@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk.Data;
 
 import android.app.usage.UsageEvents;
+import android.content.ServiceConnection;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.text.Editable;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
@@ -201,6 +203,9 @@ public class MyData {
 
     public RewardedVideoAd mRewardedVideoAd;
     public RewardedVideoAd mRewardedVideoAd2;
+
+    public  IInAppBillingService mService;
+    public  ServiceConnection mServiceConn;
 
     private MyData() {
         strImg = null;

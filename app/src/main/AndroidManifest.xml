@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hodo.jjamtalk">
+    package="com.hodo.jjamtalk" android:versionCode="1" android:versionName="1.0.2">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -43,7 +43,8 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:theme ="@style/NoTitleBar">
+            android:theme ="@style/NoTitleBar"
+            android:screenOrientation="portrait">
 
 
         </activity>
@@ -60,31 +61,34 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".SignUpActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".MyProfileActivity"
             android:theme="@style/MyTheme"
-
+            android:screenOrientation="portrait"
             />
         <activity android:name=".MyPageActivity"
             android:theme="@style/MyTheme"
-            android:label="내 페이지"/>
+            android:label="내 페이지"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".SettingActivity"
             android:theme="@style/MyTheme"
             android:parentActivityName=".MyPageActivity"
-
+            android:screenOrientation="portrait"
             android:label="설정">
         </activity>
         <activity android:name=".PublicChatRoomHostActivity"
             android:label="공개채팅방"
             android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"
             >
 
         </activity>
         <activity android:name=".FanClubActivity"
             android:label="팬"
             android:theme="@style/MyTheme"
-
+            android:screenOrientation="portrait"
             >
 
         </activity>
@@ -92,70 +96,79 @@
         <activity android:name=".UserFanActivity"
             android:label="팬"
             android:theme="@style/MyTheme"
+            android:screenOrientation="portrait"
             >
 
         </activity>
 
-        <activity android:name=".MainSettingActivity">
+        <activity android:name=".MainSettingActivity"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity android:name=".BuyJewelActivity"
             android:parentActivityName=".MyPageActivity"
             android:theme ="@style/NoTitleBar"
-
+            android:screenOrientation="portrait"
             android:label="상자 구입"
            >
         </activity>
         <activity android:name=".PublicChatOptionMenuBanActivity"
             android:label="차단 리스트"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity android:name=".PublicChatOptionMenuUserListActivity"
             android:label="현재 참가자"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".BuyGoldActivity" />
+        <activity android:name=".BuyGoldActivity"       android:screenOrientation="portrait"/>
         <activity android:name=".ImageActivity"
-            android:theme ="@style/NoTitleBar"/>
-        <activity android:name=".Kakao.KakaoSignupActivity" />
+            android:theme ="@style/NoTitleBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Kakao.KakaoSignupActivity"       android:screenOrientation="portrait"/>
         <activity android:name=".ClickedMyPicActivity"
-            android:theme ="@style/NoTitleBar">
+            android:theme ="@style/NoTitleBar"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".InputProfile"></activity>
+        <activity android:name=".InputProfile"       android:screenOrientation="portrait"></activity>
         <activity android:name=".UserPageActivity"
-            android:theme="@style/NoTitleBar"></activity>
+            android:theme="@style/NoTitleBar"       android:screenOrientation="portrait"></activity>
 
         <activity android:name=".PublicChatRoomActivity"
-
+            android:screenOrientation="portrait"
             ></activity>
         <activity android:name=".ChatRoomActivity"
             android:theme="@style/MyTheme"
-
+            android:screenOrientation="portrait"
             ></activity>
         <activity android:name=".BoardItemActivity"
             android:label="허허참"
+            android:screenOrientation="portrait"
             ></activity>
         <activity android:name=".BoardWriteActivity"
             android:theme="@style/MyTheme"
             android:label="글쓰기"
+            android:screenOrientation="portrait"
             ></activity>
         <activity android:name=".BoardMyListActivity"
             android:theme="@style/MyTheme"
             android:label="내가 쓴 글"
+            android:screenOrientation="portrait"
             ></activity>
         <activity android:name=".ImageViewPager"
             android:theme="@style/NoTitleBar"
-
+            android:screenOrientation="portrait"
             ></activity>
 
         <activity android:name=".BlockListActivity"
-            android:label="차단 목록"></activity>
+            android:label="차단 목록"       android:screenOrientation="portrait"></activity>
 
         <activity android:name=".MailboxActivity"
             android:theme="@style/MyTheme"
-            android:label="우체통"></activity>
+            android:label="우체통"       android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -170,14 +183,14 @@
             android:theme="@android:style/Theme.Translucent"/>
 
         <activity android:name=".HoneyGetHistoryActivity"
-            android:label= "받은 꿀"></activity>
+            android:label= "받은 꿀"      android:screenOrientation="portrait"></activity>
         <activity android:name=".HoneySentHistoryActivity"
-            android:label= "선물한 꿀"></activity>
+            android:label= "선물한 꿀"      android:screenOrientation="portrait"></activity>
         <activity
             android:name=".MyJewelBoxActivity"
             android:theme="@style/MyTheme"
             android:parentActivityName=".MyPageActivity"
-            android:label="내 아이템"></activity>
+            android:label="내 아이템"      android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
