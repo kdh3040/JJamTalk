@@ -70,6 +70,13 @@ public class BoardFragment extends Fragment {
     RecyclerView BoardSlotListRecycler;
     Button WriteButton, MyWriteListButton;
 
+    public enum BOARD_SCROLL_STATE_TYPE {
+        NONE,
+        TOP,
+        CENTER,
+        BOTTOM
+    }
+
     private void refreshFragMent()
     {
         FragmentTransaction trans = getFragmentManager().beginTransaction();
@@ -77,6 +84,7 @@ public class BoardFragment extends Fragment {
     }
 
     public class BoardListAdapter extends RecyclerView.Adapter<BoardViewHolder> {
+        public BOARD_SCROLL_STATE_TYPE BoardScrollState = BOARD_SCROLL_STATE_TYPE.NONE;
         public Boolean BoardDataLoding = false;
         private BoardViewHolder ViewHolder = null;
         @Override
@@ -218,26 +226,37 @@ public class BoardFragment extends Fragment {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     if(!recyclerView.canScrollVertically(-1)) {
-                        /*if(mBoardInstanceData.BoardList.size() <= 0)
+                        if(mBoardInstanceData.BoardList.size() <= 0)
                             return;
-                        // Log.d("gggg", "최상단");
+                        if(BoradListAdapter.BoardScrollState == BOARD_SCROLL_STATE_TYPE.TOP)
+                             return;
+
+                        BoradListAdapter.BoardScrollState = BOARD_SCROLL_STATE_TYPE.TOP;
+
                         if(BoradListAdapter.BoardDataLoding == false)
                         {
                             BoradListAdapter.BoardDataLoding = true;
                             BoardMsgClientData lastBoardData = mBoardInstanceData.BoardList.get(0);
-                            FirebaseData.getInstance().GetBoardData(BoradListAdapter,lastBoardData.GetDBData().BoardIdx, true);
-                        }*/
+                            FirebaseData.getInstance().GetBoardData(BoradListAdapter,mBoardInstanceData.TopBoardIdx, true);
+                        }
                     }
-                    if(!recyclerView.canScrollVertically(1)) {
+                    else if(!recyclerView.canScrollVertically(1)) {
                         if(mBoardInstanceData.BoardList.size() <= 0)
                             return;
-                        // Log.d("gggg", "최하단");
+                        if(BoradListAdapter.BoardScrollState == BOARD_SCROLL_STATE_TYPE.BOTTOM)
+                            return;
+
+                        BoradListAdapter.BoardScrollState = BOARD_SCROLL_STATE_TYPE.BOTTOM;
+
                         if(BoradListAdapter.BoardDataLoding == false)
                         {
                             BoradListAdapter.BoardDataLoding = true;
                             FirebaseData.getInstance().GetBoardData(BoradListAdapter,mBoardInstanceData.BottomBoardIdx, false);
                         }
                     }
+                    else
+                        BoradListAdapter.BoardScrollState = BOARD_SCROLL_STATE_TYPE.CENTER;
+
                 }
             });
 
@@ -286,14 +305,16 @@ public class BoardFragment extends Fragment {
         View.OnClickListener returnFunc = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(CommonFunc.getInstance().IsFutureDateCompare(new Date(mMyData.GetLastBoardWriteTime()), 15) == false)
+                startActivity(new Intent(getContext(),BoardWriteActivity.class));
+
+                /*if(CommonFunc.getInstance().IsFutureDateCompare(new Date(mMyData.GetLastBoardWriteTime()), 15) == false)
                 {
                     // TODO 환웅
                     CommonFunc.getInstance().ShowDefaultPopup(getContext(), "게시판 작성", "연속으로 게시판을 작성 할 수 없습니다.");
                     return;
                 }
                 else
-                    startActivity(new Intent(getContext(),BoardWriteActivity.class));
+                    startActivity(new Intent(getContext(),BoardWriteActivity.class));*/
             }
         };
 

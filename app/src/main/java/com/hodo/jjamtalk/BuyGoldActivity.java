@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -41,19 +42,21 @@ public class BuyGoldActivity extends AppCompatActivity {
     private TextView txt_heartStatus;
     private ListView HeartChargeList;
     private Button Free_1, Free_2;
+    private Activity mActivity;
 
 
     ArrayList<HeartItem> list;
 
     private CommonFunc mCommon = CommonFunc.getInstance();
-    public RewardedVideoAd mRewardedVideoAd;
-    public RewardedVideoAd mRewardedVideoAd2;
 
+
+    private  Boolean bLoadAd = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cash_charge);
 
+        mActivity = this;
         loadRewardedVideoAd(getApplicationContext());
 
         txt_heartStatus = (TextView)findViewById(R.id.Heart_MyHeart);
@@ -91,12 +94,13 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         HeartChargeList.setAdapter(adapter);
 
+
         Free_1 = (Button)findViewById(R.id.btn_Free_1);
         Free_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(mRewardedVideoAd.isLoaded() == false)
+                if(mMyData.mRewardedVideoAd.isLoaded() == false)
                 {
                     CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 골드 충전", "하루에 한번만 충전 할 수 있습니다.");
                 }
@@ -104,28 +108,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                 {
                     CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
                         public void YesListener() {
-                            mRewardedVideoAd.show();
-                        }
-                    };
-
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, "무료 골드 충전", "광고를 보시고 " + mUIData.getAdReward()[mMyData.getGrade()] +"골드를 획득 하시겠습니까?", "예", "아니요");
-                }
-            }
-        });
-        Free_2 = (Button)findViewById(R.id.btn_Free_2);
-        Free_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(mRewardedVideoAd2.isLoaded() == false)
-                {
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 골드 충전", "하루에 한번만 충전 할 수 있습니다.");
-                }
-                else
-                {
-                    CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
-                        public void YesListener() {
-                            mRewardedVideoAd2.show();
+                            mMyData.mRewardedVideoAd.show();
                         }
                     };
 
@@ -274,59 +257,8 @@ public class BuyGoldActivity extends AppCompatActivity {
 
 
     public void loadRewardedVideoAd(Context mContext) {
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
-        mRewardedVideoAd.loadAd("ca-app-pub-7666588215496282/3967348562",
-                new AdRequest.Builder().build());
 
-        mRewardedVideoAd2 = MobileAds.getRewardedVideoAdInstance(mContext);
-        mRewardedVideoAd2.loadAd("ca-app-pub-7666588215496282/5154940173",
-                new AdRequest.Builder().build());
-
-        mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-            @Override
-            public void onRewarded(RewardItem reward) {
-
-                int aaa = 0;
-                mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
-                refreshHearCnt();
-
-                Free_1.setText("오늘 무료 골드 마감");
-                Free_1.setClickable(false);
-                // Reward the user.
-            }
-
-            @Override
-            public void onRewardedVideoAdLeftApplication() {
-                int aaa = 0;
-            }
-
-            @Override
-            public void onRewardedVideoAdClosed() {
-                int aaa = 0;
-            }
-
-            @Override
-            public void onRewardedVideoAdFailedToLoad(int errorCode) {
-                int aaa = 0;
-            }
-
-            @Override
-            public void onRewardedVideoAdLoaded() {
-                int aaa = 0;
-            }
-
-            @Override
-            public void onRewardedVideoAdOpened() {
-                int aaa = 0;
-            }
-
-            @Override
-            public void onRewardedVideoStarted() {
-                int aaa = 0;
-            }
-        });
-
-        mRewardedVideoAd2.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+        mMyData.mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
             @Override
             public void onRewarded(RewardItem reward) {
 

@@ -17,6 +17,7 @@ public class FanViewHolder extends RecyclerView.ViewHolder{
 
     public TextView nickname,giftranking,giftCount;
     public ImageView imageView;
+    public ImageView imageGrade, imageBest;
     public LinearLayout linearLayout;
 
 
@@ -29,6 +30,8 @@ public class FanViewHolder extends RecyclerView.ViewHolder{
         giftranking = itemView.findViewById(R.id.tv_gift_ranking);
         giftCount = itemView.findViewById(R.id.tv_gift_count);
         imageView = itemView.findViewById(R.id.iv_fan);
+        imageGrade = itemView.findViewById(R.id.iv_grade);
+        imageBest = itemView.findViewById(R.id.iv_item);
 
 
 

@@ -159,6 +159,14 @@ public class MainActivity extends AppCompatActivity {
         int mWidth = mUIData.getWidth();
         int mHeight = mUIData.getHeight();
 
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
+                mMyData.mRewardedVideoAd.loadAd("ca-app-pub-7666588215496282/3967348562",
+                        new AdRequest.Builder().build());
+            }
+        });
 
         boolean bCheckConnt = mMyData.CheckConnectDate();
         if(bCheckConnt == true)
@@ -311,12 +319,43 @@ public class MainActivity extends AppCompatActivity {
                         rbtn_man.setChecked(false);
                         rbtn_man.setChecked(true);
                     }
+
+
                 }
 
                 rbtn_10 = (Switch) v.findViewById(R.id.rbtn_10);
                 rbtn_20 = (Switch) v.findViewById(R.id.rbtn_20);
                 rbtn_30 = (Switch) v.findViewById(R.id.rbtn_30);
                 rbtn_40 = (Switch) v.findViewById(R.id.rbtn_40);
+
+                switch (mMyData.nStartAge / 10)
+                {
+                    case 1:
+                        rbtn_10.setChecked(true);
+                        rbtn_20.setChecked(false);
+                        rbtn_30.setChecked(false);
+                        rbtn_40.setChecked(false);
+                        break;
+                    case 2:
+                        rbtn_10.setChecked(false);
+                        rbtn_20.setChecked(true);
+                        rbtn_30.setChecked(false);
+                        rbtn_40.setChecked(false);
+                        break;
+                    case 3:
+                        rbtn_10.setChecked(false);
+                        rbtn_20.setChecked(false);
+                        rbtn_30.setChecked(true);
+                        rbtn_40.setChecked(false);
+                        break;
+                    case 4:
+                        rbtn_10.setChecked(false);
+                        rbtn_20.setChecked(false);
+                        rbtn_30.setChecked(false);
+                        rbtn_40.setChecked(true);
+                        break;
+                }
+
 
 
 

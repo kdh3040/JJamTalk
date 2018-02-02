@@ -111,6 +111,17 @@ public class UserFanActivity extends AppCompatActivity {
             holder.textNick.setText(stTargetData.mapFanData.get(i).NickName);
             holder.textRank.setText((position + 1) + "위");
 
+
+            if(stTargetData.mapFanData.get(i).BestItem == 0)
+                //holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
+                holder.imgItem.setVisibility(View.INVISIBLE);
+            else {
+                holder.imgItem.setVisibility(View.VISIBLE);
+                holder.imgItem.setImageResource(mUIData.getJewels()[stTargetData.mapFanData.get(i).BestItem - 1]);
+            }
+
+            holder.imgGrade.setImageResource(mUIData.getGrades()[stTargetData.mapFanData.get(i).Grade]);
+
             int RecvCnt = stTargetData.arrFanList.get(position).RecvGold * -1;
             holder.textCount.setText(Integer.toString(RecvCnt) + "하트");
 
@@ -172,10 +183,15 @@ public class UserFanActivity extends AppCompatActivity {
             public ImageView img;
             public TextView textRank, textNick, textCount;
             public LinearLayout linearLayout;
+            public ImageView imgGrade, imgItem;
+
 
             public ViewHolder(View itemView) {
                 super(itemView);
                 img = (ImageView)itemView.findViewById(R.id.iv_fan);
+                imgGrade= (ImageView)itemView.findViewById(R.id.iv_grade);
+                imgItem = (ImageView)itemView.findViewById(R.id.iv_item);
+
                 textRank = (TextView)itemView.findViewById(R.id.tv_gift_ranking);
                 textNick = (TextView)itemView.findViewById(R.id.tv_nickname);
                 textCount = (TextView)itemView.findViewById(R.id.tv_gift_count);
