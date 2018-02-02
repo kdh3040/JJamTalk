@@ -111,9 +111,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:textColor="@color/memoColor"
             android:layout_marginTop="10dp"
             android:text="한국대학교에 다니고요 학생이고요\n같이놉시다"
+            android:textColor="@color/memoColor"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/UserPage_txtProfile" />
 
@@ -158,47 +158,52 @@
 
         <ImageButton
             android:id="@+id/UserPage_btnRegister"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_marginBottom="8dp"
+
             android:layout_marginEnd="8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
             android:background="@drawable/base_btn_bg"
             android:scaleType="fitCenter"
             android:src="@drawable/favorite"
-            android:layout_marginStart="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/UserPage_btnMessage"
             app:layout_constraintEnd_toStartOf="@+id/UserPage_btnMessage"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divide_btn" />
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <ImageButton
             android:id="@+id/UserPage_btnMessage"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="40dp"
 
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/base_btn_bg"
             android:scaleType="fitCenter"
             android:src="@drawable/chat_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/UserPage_btnRegister"
-            app:layout_constraintEnd_toStartOf="@+id/UserPage_btnGiftHoney"
-            app:layout_constraintLeft_toRightOf="@+id/UserPage_btnRegister" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divide_btn" />
 
         <ImageButton
             android:id="@+id/UserPage_btnGiftHoney"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
             android:background="@drawable/base_btn_bg"
-
             android:scaleType="fitCenter"
             android:src="@drawable/heart"
 
-            app:layout_constraintBottom_toBottomOf="@+id/UserPage_btnRegister"
+            app:layout_constraintBottom_toBottomOf="@+id/UserPage_btnMessage"
             app:layout_constraintLeft_toRightOf="@+id/UserPage_btnMessage"
             app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/UserPage_btnMessage"
+            app:srcCompat="@color/bg_grid" />
 
 
     </android.support.constraint.ConstraintLayout>
