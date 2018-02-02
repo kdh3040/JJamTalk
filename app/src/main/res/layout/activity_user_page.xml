@@ -40,8 +40,8 @@
 
             android:background="@color/white"
 
+            app:layout_constraintBottom_toBottomOf="@+id/UserPage_ImgProfile"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/share_icon" />
 
         <ImageView
@@ -82,7 +82,7 @@
             android:layout_marginTop="10dp"
             android:text="상희, 28"
             android:textColor="@color/black"
-            android:textSize="35dp"
+            android:textSize="30dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_item" />
 
@@ -91,18 +91,20 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
 
+            app:layout_constraintBottom_toBottomOf="@+id/UserPage_ImgProfile"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_location" />
 
         <TextView
             android:id="@+id/UserPage_txtDistance"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
 
 
+            android:gravity="center_vertical"
             android:text="15km 거리에 있음"
             android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/UserPage_ImgProfile"
             app:layout_constraintLeft_toRightOf="@+id/icon_distance" />
 
         <TextView
@@ -161,7 +163,7 @@
             android:layout_width="100dp"
             android:layout_height="40dp"
 
-            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
             android:background="@drawable/base_btn_bg"
             android:scaleType="fitCenter"
@@ -174,6 +176,8 @@
             android:id="@+id/UserPage_btnMessage"
             android:layout_width="100dp"
             android:layout_height="40dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
 
             android:layout_marginTop="20dp"
             android:background="@drawable/base_btn_bg"
@@ -187,6 +191,7 @@
             android:id="@+id/UserPage_btnGiftHoney"
             android:layout_width="100dp"
             android:layout_height="40dp"
+            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
             android:background="@drawable/base_btn_bg"
             android:scaleType="fitCenter"

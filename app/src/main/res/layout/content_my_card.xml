@@ -1,75 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_mycard_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:weightSum="2"
-    android:orientation="vertical">
+    android:weightSum="2">
 
 
-    <LinearLayout
-        android:id="@+id/layout_my_card"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/iv_my_card"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/circle_border"
+        android:padding="1dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/iv_grade"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_grade"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="25dp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toStartOf="@+id/iv_item"
+        app:layout_constraintStart_toEndOf="@+id/iv_my_card"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_item"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="9dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_grade"
+        app:layout_constraintEnd_toStartOf="@+id/tv_nickname"
+        app:layout_constraintStart_toEndOf="@+id/iv_grade" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:maxLength="8"
+        android:text="상희, 27"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_grade"
+        app:layout_constraintEnd_toStartOf="@+id/tv_memo"
+        app:layout_constraintStart_toEndOf="@+id/iv_item" />
+
+    <TextView
+        android:id="@+id/tv_memo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal"
-        android:layout_weight="1"
-        android:weightSum="7">
+        android:layout_marginEnd="10dp"
+        android:background="@color/fabRipple"
+        android:gravity="right|center_vertical"
+        android:maxLength="8"
+        android:padding="10dp"
+        android:text="상희"
+        android:textColor="@color/boardTextColor"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_grade"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_nickname" />
+
+    <ImageView
+        android:id="@+id/imageView24"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_grade"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_my_card"
+        app:srcCompat="@color/black" />
 
 
-        <ImageView
-            android:id="@+id/iv_my_card"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:scaleType="fitCenter"
-            android:background="@drawable/circle_border"
-            android:padding="1dp"/>
-
-       <ImageView
-            android:id="@+id/iv_grade"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"/>
-        <ImageView
-            android:id="@+id/iv_item"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"/>
-
-        <TextView
-            android:id="@+id/tv_nickname"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="3"
-            android:gravity="center_vertical"
-            android:text="상희, 27"
-            android:textColor="@color/boardNickColor"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_memo"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:text="상희"
-            android:textColor="@color/boardTextColor"
-            android:textSize="10sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view4"
-        style="@style/Divider"
-        android:layout_weight="1"
-        android:visibility="visible" />
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

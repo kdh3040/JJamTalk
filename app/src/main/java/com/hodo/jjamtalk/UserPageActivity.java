@@ -615,7 +615,16 @@ public class UserPageActivity extends AppCompatActivity {
             listView_like = (RecyclerView) findViewById(R.id.lv_like);
             TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData.arrFanList);
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-
+            ic_fan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Target", TempSendUserData);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
             listView_like.setAdapter(likeAdapter);
             listView_like.setOnClickListener(new View.OnClickListener() {
                 @Override

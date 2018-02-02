@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -127,7 +128,7 @@ public class CardListFragment extends Fragment {
             else {
                 holder.textView_memo.setVisibility(View.VISIBLE);
                 holder.textView_memo.setText(mMyData.arrCarDataList.get(i).Memo);
-                holder.textView_memo.setBackgroundResource(R.drawable.inbox2);
+                //holder.textView_memo.setBackgroundResource(R.drawable.inbox2);
             }
 
 
@@ -148,7 +149,7 @@ public class CardListFragment extends Fragment {
             holder.textView.setText(mMyData.arrCarDataList.get(i).NickName);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
 
             holder.textView.setText(mMyData.arrCarDataList.get(i).NickName);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
-            holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            holder.constraintLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
 
@@ -209,7 +210,7 @@ public class CardListFragment extends Fragment {
                 }
             });
 
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -333,7 +334,7 @@ public class CardListFragment extends Fragment {
             public ImageView image;
             public ImageView imageItem, imageGrade;
             public TextView textView, textView_memo;
-            public LinearLayout linearLayout;
+            public ConstraintLayout constraintLayout;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -345,7 +346,7 @@ public class CardListFragment extends Fragment {
 
                 textView = (TextView)itemView.findViewById(R.id.tv_nickname);
                 textView_memo = (TextView)itemView.findViewById(R.id.tv_memo);
-                linearLayout = itemView.findViewById(R.id.layout_mycard_item);
+                constraintLayout = itemView.findViewById(R.id.layout_mycard_item);
 
             }
         }
