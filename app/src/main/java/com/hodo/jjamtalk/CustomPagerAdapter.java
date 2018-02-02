@@ -44,7 +44,7 @@ public class CustomPagerAdapter extends PagerAdapter{
     LayoutInflater mLayoutInflater;
     private AdView mAdView;
 
-    int[] mResources = {R.drawable.bg1,R.drawable.bg2,R.drawable.bg3,R.drawable.bg4};
+    //int[] mResources = {R.drawable.bg1,R.drawable.bg2,R.drawable.bg3,R.drawable.bg4};
     private PhotoViewAttacher mAttacher;
 
 

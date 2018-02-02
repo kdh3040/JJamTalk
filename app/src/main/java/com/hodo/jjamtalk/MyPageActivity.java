@@ -212,7 +212,7 @@ public class MyPageActivity extends AppCompatActivity {
         //txt_MyHeartCnt.setText(" 보유 골드 : " + nGold + " 골드");
         txt_MyGoldCnt.setText(nGold+"");
         if(mMyData.bestItem == 0)
-            iv_MyGift.setImageResource(R.drawable.gold);
+            iv_MyGift.setImageResource(R.drawable.coin);
         else
             iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem  - 1]);
 

@@ -69,14 +69,14 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_clicked_mypic);
         setContentView(R.layout.activity_user_page);
-        refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
-        refreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        //refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
+        /*refreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                // RefreshData(refreshlayout);
                 refreshlayout.setRefreshing(false);
             }
-        });
+        });*/
 
         mActivity = this;
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
@@ -89,7 +89,8 @@ public class ClickedMyPicActivity extends AppCompatActivity {
             txtMemo.setText(mMyData.getUserMemo());
 
         btnShare = (ImageButton)findViewById(R.id.UserPage_btnShared);
-        btnShare.setOnClickListener(new View.OnClickListener() {
+        btnShare.setVisibility(View.GONE);
+        /*btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String text = "안녕하세요 같이 놀아요.\n흥톡에 로그인해 맘에 드는지 확인해보세요 \n" + mMyData.strDownUri;
@@ -101,10 +102,11 @@ public class ClickedMyPicActivity extends AppCompatActivity {
                 Intent chooser = Intent.createChooser(intent, "타이틀");
                 startActivity(chooser);
             }
-        });
-
+        });*/
+        ImageView iv_distance = findViewById(R.id.icon_distance);
+        iv_distance.setVisibility(View.GONE);
         txtDistance = (TextView) findViewById(R.id.UserPage_txtDistance);
-        txtDistance.setText("1km 이내에 있음");
+        txtDistance.setVisibility(View.GONE);
 
 /*        tv_like = (TextView) findViewById(R.id.tv_like);
         tv_like.setText(mMyData.getUserNick()+"님을 좋아하는 사람들");*/
@@ -162,17 +164,19 @@ public class ClickedMyPicActivity extends AppCompatActivity {
             }
         });
 
+        imgFan=findViewById(R.id.ic_fan);
+        imgFan.setVisibility(View.GONE);
+        //LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
+        ImageView divide_Fan = (ImageView)findViewById(R.id.divide_fan);
+        divide_Fan.setVisibility(View.GONE);
+        /*if(mMyData.arrMyFanList.size() == 0 && mMyData.arrMyStarList.size() == 0 ) {
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
-        View Divide_Fan = (View)findViewById(R.id.Divide_fan);
-
-        if(mMyData.arrMyFanList.size() == 0 && mMyData.arrMyStarList.size() == 0 ) {
-            layout.setVisibility(View.GONE);
-            Divide_Fan.setVisibility(View.GONE);
+            imgFan.setVisibility(View.GONE);
+            divide_Fan.setVisibility(View.GONE);
         }
 
-        LinearLayout layoutFanLike = (LinearLayout) findViewById(R.id.ll_fan_like);
-        LinearLayout layoutFanLiked = (LinearLayout) findViewById(R.id.ll_fan_liked);
+        //LinearLayout layoutFanLike = (LinearLayout) findViewById(R.id.ll_fan_like);
+        //LinearLayout layoutFanLiked = (LinearLayout) findViewById(R.id.ll_fan_liked);
 
         if(mMyData.arrMyFanList.size() != 0)
         {
@@ -191,11 +195,11 @@ public class ClickedMyPicActivity extends AppCompatActivity {
                 public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                     if(gestureDetector.onTouchEvent(e))
                     {
-                        /*Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Target", TempSendUserData);
                         intent.putExtras(bundle);
-                        startActivity(intent);*/
+                        startActivity(intent);
                     }
                     return false;
                 }
@@ -213,10 +217,10 @@ public class ClickedMyPicActivity extends AppCompatActivity {
 
         }
         else
-            layoutFanLike.setVisibility(View.GONE);
+            //layoutFanLike.setVisibility(View.GONE);
 
 
-       /* if(mMyData.arrMyStarList.size() != 0)
+       if(mMyData.arrMyStarList.size() != 0)
         {
             tv_liked = findViewById(R.id.tv_liked);
             tv_liked.setText(mMyData.getUserNick() +"님이 좋아하는 사람들");
@@ -234,11 +238,11 @@ public class ClickedMyPicActivity extends AppCompatActivity {
                 public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                     if(gestureDetector.onTouchEvent(e))
                     {
-                *//*        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                       Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Target", TempSendUserData);
                         intent.putExtras(bundle);
-                        startActivity(intent);*//*
+                        startActivity(intent);
                     }
                     return false;
                 }
@@ -255,10 +259,10 @@ public class ClickedMyPicActivity extends AppCompatActivity {
             });
         }
         else*/
-            layoutFanLiked.setVisibility(View.GONE);
+            //layoutFanLiked.setVisibility(View.GONE);
 
-        View Divide_Btn = (View)findViewById(R.id.Divide_Btn);
-        Divide_Btn.setVisibility(View.GONE);
+        //View Divide_Btn = (View)findViewById(R.id.Divide_Btn);
+        //Divide_Btn.setVisibility(View.GONE);
 
         btnRegister = findViewById(R.id.UserPage_btnRegister);
         btnRegister.setVisibility(View.GONE);

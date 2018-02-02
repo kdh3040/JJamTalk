@@ -492,11 +492,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        tv_MainTitle = (TextView)findViewById(R.id.tv_maintitle);
+        //tv_MainTitle = (TextView)findViewById(R.id.tv_maintitle);
 
 
-        layout_topbar = (LinearLayout)findViewById(R.id.layout_topbar);
-        layout_lowbar = (LinearLayout)findViewById(R.id.layout_lowbar);
+        //layout_topbar = (LinearLayout)findViewById(R.id.layout_topbar);
+        //layout_lowbar = (LinearLayout)findViewById(R.id.layout_lowbar);
 
         homeFragment = new HomeFragment();
         LoadFanData();

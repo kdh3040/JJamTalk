@@ -1,217 +1,121 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    android:layout_height="match_parent"
-    android:background="@color/goldColor"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    <ImageView
+        android:id="@+id/bg_topbar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/goldColor" />
 
-    <LinearLayout
-        android:id="@+id/layout_topbar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4"
-        android:weightSum="6"
+    <ImageView
+        android:id="@+id/iv_itemBox"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="@android:color/transparent"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:padding="3dp"
+        app:layout_constraintRight_toLeftOf="@+id/iv_honeybox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/randombox"></ImageView>
 
-        <ImageView
-            android:id="@+id/iv_mypage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:background="@drawable/circle_border"
-            android:padding="2dp"/>
+    <ImageView
+        android:id="@+id/iv_mypage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
 
-        <ImageView
-            android:id="@+id/imageView24"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3" />
+        android:background="@android:color/transparent"
+        android:padding="3dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile"></ImageView>
 
-        <ImageView
-            android:id="@+id/ib_filter"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
+    <ImageView
+        android:id="@+id/iv_honeybox"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:padding="3dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mail"></ImageView>
 
-            android:src="@mipmap/filter" />
+    <ImageButton
+        android:id="@+id/ib_filter"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:padding="3dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintRight_toLeftOf="@+id/iv_itemBox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/filter"></ImageButton>
 
-        <ImageView
-            android:id="@+id/iv_itemBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            app:srcCompat="@mipmap/randombox" />
+    <ImageButton
+        android:id="@+id/ib_home"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/bg_grid"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/icon_home"></ImageButton>
 
+    <ImageButton
+        android:id="@+id/ib_board"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/bg_grid"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/board"></ImageButton>
 
-        <ImageView
-            android:id="@+id/iv_honeybox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:adjustViewBounds="false"
-            android:layout_margin="5dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@mipmap/mail" />
+    <ImageButton
+        android:id="@+id/ib_cardlist"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/bg_grid"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/ib_home"
+        app:layout_constraintRight_toLeftOf="@+id/ib_chatlist"
+        app:srcCompat="@drawable/favorite"></ImageButton>
 
-    </LinearLayout>
+    <ImageButton
+        android:id="@+id/ib_chatlist"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/bg_grid"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/chat_icon"></ImageButton>
 
-    <LinearLayout
+    <ImageButton
+        android:id="@+id/ib_fan"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/bg_grid"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/ib_chatlist"
+        app:layout_constraintRight_toLeftOf="@+id/ib_board"
+        app:srcCompat="@drawable/ic_fan"></ImageButton>
+
+    <FrameLayout
         android:id="@+id/frag_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="40"
-        android:background="@color/boardBgColor"
-        android:orientation="vertical">
+        app:layout_constraintBottom_toTopOf="@+id/ib_chatlist"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_mypage"></FrameLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_lowbar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-
-        android:layout_weight="3"
-        android:background="@color/boardBgColor"
-        android:orientation="horizontal"
-        android:translationZ="2dp">
-
-
-        <ImageView
-            android:id="@+id/ib_home"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_home"
-            android:visibility="visible" />
-
-        <ImageView
-            android:id="@+id/ib_cardlist"
-
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-
-            android:layout_weight="1"
-
-
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/favorite"
-
-            />
-
-
-        <ImageView
-            android:id="@+id/ib_chatlist"
-
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/chat_icon"
-
-            />
-
-
-        <ImageView
-            android:id="@+id/ib_fan"
-            style="@android:style/Widget.DeviceDefault.ImageButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-
-
-            android:src="@drawable/ic_fan" />
-
-        <ImageView
-            android:id="@+id/ib_board"
-            style="@style/Widget.AppCompat.ImageButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-
-            android:src="@drawable/board" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-
-        android:background="@color/boardBgColor"
-        android:orientation="horizontal"
-        android:translationZ="2dp">
-
-        <TextView
-            android:id="@+id/textView39"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="홈"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/textView36"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="즐겨찾기"
-            android:textColor="@color/black"  />
-
-        <TextView
-            android:id="@+id/textView35"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="채팅"
-            android:textColor="@color/black"  />
-
-        <TextView
-            android:id="@+id/textView33"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="팬"
-            android:textColor="@color/black"  />
-
-        <TextView
-            android:id="@+id/textView43"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="게시판"
-            android:textColor="@color/black"  />
-
-    </LinearLayout>
-
-
-</LinearLayout>
-
-
+</android.support.constraint.ConstraintLayout>
