@@ -13,6 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -60,6 +61,9 @@ import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.AppStatus;
 import com.hodo.jjamtalk.Util.CommonFunc;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -163,6 +167,18 @@ public class MainActivity extends AppCompatActivity {
         int mWidth = mUIData.getWidth();
         int mHeight = mUIData.getHeight();
 
+
+        mMyData.skuList.add("gold_10");
+        mMyData.skuList.add("gold_20");
+        mMyData.skuList.add("gold_50");
+        mMyData.skuList.add("gold_100");
+        mMyData.skuList.add("gold_200");
+        mMyData.skuList.add("gold_300");
+        mMyData.skuList.add("gold_500");
+        mMyData.skuList.add("gold_1000");
+
+        mMyData.querySkus.putStringArrayList("ITEM_ID_LIST", mMyData.skuList);
+
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -170,23 +186,73 @@ public class MainActivity extends AppCompatActivity {
                 mMyData.mRewardedVideoAd.loadAd("ca-app-pub-7666588215496282/3967348562",
                         new AdRequest.Builder().build());
 
-                mMyData.mServiceConn = new ServiceConnection() {
-                    @Override
-                    public void onServiceDisconnected(ComponentName name) {
-                        mMyData.mService = null;
-                    }
+                if(mMyData.mServiceConn == null)
+                {
+                    mMyData.mServiceConn = new ServiceConnection() {
+                        @Override
+                        public void onServiceDisconnected(ComponentName name) {
+                            mMyData.mService = null;
+                        }
 
-                    @Override
-                    public void onServiceConnected(ComponentName name,
-                                                   IBinder service) {
-                        mMyData.mService = IInAppBillingService.Stub.asInterface(service);
-                    }
-                };
+                        @Override
+                        public void onServiceConnected(ComponentName name,
+                                                       IBinder service) {
+                            mMyData.mService = IInAppBillingService.Stub.asInterface(service);
 
-                Intent serviceIntent =
-                        new Intent("com.android.vending.billing.InAppBillingService.BIND");
-                serviceIntent.setPackage("com.android.vending");
-                bindService(serviceIntent, mMyData.mServiceConn , Context.BIND_AUTO_CREATE);
+                            try {
+                                mMyData.skuDetails = mMyData.mService.getSkuDetails(3,getPackageName(), "inapp", mMyData.querySkus);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+
+                            int response = mMyData.skuDetails.getInt("RESPONSE_CODE");
+                            if (response == 0) {
+                                ArrayList<String> responseList
+                                        = mMyData.skuDetails.getStringArrayList("DETAILS_LIST");
+
+                                for (String thisResponse : responseList) {
+                                    JSONObject object = null;
+                                    try {
+                                        object = new JSONObject(thisResponse);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    try {
+                                        mMyData.sku = object.getString("productId");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    try {
+                                        mMyData.price = object.getString("price");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    if (mMyData.sku.equals("gold_10")) mMyData.strGold[0] = mMyData.price;
+                                    else if (mMyData.sku.equals("gold_20")) mMyData.strGold[1]= mMyData.price;
+                                    else if (mMyData.sku.equals("gold_50")) mMyData.strGold[2] = mMyData.price;
+                                    else if (mMyData.sku.equals("gold_100")) mMyData.strGold[3] = mMyData.price;
+                                    else if (mMyData.sku.equals("gold_200")) mMyData.strGold[4] = mMyData.price;
+                                    else if (mMyData.sku.equals("gold_300")) mMyData.strGold[5] = mMyData.price;
+                                    else if (mMyData.sku.equals("gold_500")) mMyData.strGold[6] = mMyData.price;
+                                    else if (mMyData.sku.equals("gold_1000")) mMyData.strGold[7] = mMyData.price;
+                                }
+                            }
+
+                        }
+                    };
+
+                    Intent serviceIntent =
+                            new Intent("com.android.vending.billing.InAppBillingService.BIND");
+                    serviceIntent.setPackage("com.android.vending");
+                    bindService(serviceIntent, mMyData.mServiceConn , Context.BIND_AUTO_CREATE);
+                }
+
+
+
+
+
             }
         });
 
@@ -731,6 +797,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+  /*      if (mMyData.mService != null) {
+            unbindService(mMyData.mServiceConn);
+        }*/
+    }
 
     private void LoadChatData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();

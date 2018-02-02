@@ -58,14 +58,16 @@ public class BuyGoldActivity extends AppCompatActivity {
 
 
     private  Boolean bLoadAd = false;
-    ArrayList<String> skuList = new ArrayList<String>();
-    Bundle skuDetails = new Bundle();
-    Bundle querySkus = new Bundle();
-    Bundle buyIntentBundle = new Bundle();
-    String[] strGold = new String[8];
-    String[] skuGold = {"gold_10", "gold_20", "gold_50", "gold_100", "gold_200", "gold_300", "gold_500", "gold_1000"};
-    String sku = null;
-    String price = null;
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+      /*  if (mMyData.mService != null) {
+            unbindService(mMyData.mServiceConn);
+        }*/
+    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,64 +83,6 @@ public class BuyGoldActivity extends AppCompatActivity {
         HeartChargeList = (ListView)findViewById(R.id.Heart_list);
 
         list = new ArrayList<HeartItem>();
-
-
-
-
-
-
-        skuList.add("gold_10");
-        skuList.add("gold_20");
-        skuList.add("gold_50");
-        skuList.add("gold_100");
-        skuList.add("gold_200");
-        skuList.add("gold_300");
-        skuList.add("gold_500");
-        skuList.add("gold_1000");
-
-        querySkus.putStringArrayList("ITEM_ID_LIST", skuList);
-        try {
-            skuDetails = mMyData.mService.getSkuDetails(3,getPackageName(), "inapp", querySkus);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
-
-        int response = skuDetails.getInt("RESPONSE_CODE");
-        if (response == 0) {
-            ArrayList<String> responseList
-                    = skuDetails.getStringArrayList("DETAILS_LIST");
-
-            for (String thisResponse : responseList) {
-                JSONObject object = null;
-                try {
-                    object = new JSONObject(thisResponse);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    sku = object.getString("productId");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    price = object.getString("price");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                if (sku.equals("gold_10")) strGold[0] = price;
-                else if (sku.equals("gold_20")) strGold[1]= price;
-                else if (sku.equals("gold_50")) strGold[2] = price;
-                else if (sku.equals("gold_100")) strGold[3] = price;
-                else if (sku.equals("gold_200")) strGold[4] = price;
-                else if (sku.equals("gold_300")) strGold[5] = price;
-                else if (sku.equals("gold_500")) strGold[6] = price;
-                else if (sku.equals("gold_1000")) strGold[7] = price;
-            }
-        }
-
 
         HeartItem mHeartItem;
 
@@ -220,13 +164,6 @@ public class BuyGoldActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mMyData.mService != null) {
-            unbindService(mMyData.mServiceConn);
-        }
-    }
 
     public void refreshHearCnt()
     {
@@ -298,48 +235,50 @@ public class BuyGoldActivity extends AppCompatActivity {
                     switch (i)
                     {
                         case 0:
-                            tempStrGold = skuGold[0];
+                            tempStrGold = mMyData.skuGold[0];
                             break;
                         case 1:
-                            tempStrGold = skuGold[1];
+                            tempStrGold = mMyData.skuGold[1];
                             break;
                         case 2:
-                            tempStrGold = skuGold[2];
+                            tempStrGold = mMyData.skuGold[2];
                             break;
                         case 3:
-                            tempStrGold = skuGold[3];
+                            tempStrGold = mMyData.skuGold[3];
                             break;
                         case 4:
-                            tempStrGold = skuGold[4];
+                            tempStrGold = mMyData.skuGold[4];
                             break;
                         case 5:
-                            tempStrGold = skuGold[5];
+                            tempStrGold = mMyData.skuGold[5];
                             break;
                         case 6:
-                            tempStrGold = skuGold[6];
+                            tempStrGold = mMyData.skuGold[6];
                             break;
                         case 7:
-                            tempStrGold = skuGold[7];
+                            tempStrGold = mMyData.skuGold[7];
                             break;
 
                     }
 
                     try {
-                        buyIntentBundle = mMyData.mService.getBuyIntent(3, getPackageName(),
-                                tempStrGold, "inapp", "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
+                        mMyData.buyIntentBundle = mMyData.mService.getBuyIntent(3, getPackageName(),
+                                mMyData.skuGold[0], "inapp", "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
 
-                    PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
-                    try {
-                        startIntentSenderForResult(pendingIntent.getIntentSender(),
-                                1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
-                                Integer.valueOf(0));
-                    } catch (IntentSender.SendIntentException e) {
-                        e.printStackTrace();
+                    mMyData.pendingIntent = mMyData.buyIntentBundle.getParcelable("BUY_INTENT");
+                    if(mMyData.pendingIntent != null)
+                    {
+                        try {
+                            startIntentSenderForResult(mMyData.pendingIntent.getIntentSender(),
+                                    1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
+                                    Integer.valueOf(0));
+                        } catch (IntentSender.SendIntentException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    refreshHearCnt();
                 }
 
             });
@@ -359,16 +298,69 @@ public class BuyGoldActivity extends AppCompatActivity {
                 try {
                     JSONObject jo = new JSONObject(purchaseData);
                     String sku = jo.getString("productId");
-                    String price = jo.getString("price");
+                    final String strToken = jo.getString("purchaseToken");
+                    setBuyGold(sku);
 
-                    mMyData.setUserHoney(mMyData.getUserHoney() +  Integer.parseInt(price));
-                    mMyData.setPoint( Integer.parseInt(price));
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                int response = mMyData.mService.consumePurchase(3, getPackageName(), strToken);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
+
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }
+    }
+
+    public void setBuyGold(String ID)
+    {
+        int nPrice = 0;
+        if(ID.equals(mMyData.skuGold[0]))
+        {
+            nPrice = 10;
+        }
+        else if(ID.equals(mMyData.skuGold[1]))
+        {
+            nPrice = 20;
+        }
+        else if(ID.equals(mMyData.skuGold[2]))
+        {
+            nPrice = 50;
+        }
+        else if(ID.equals(mMyData.skuGold[3]))
+        {
+            nPrice = 100;
+        }
+        else if(ID.equals(mMyData.skuGold[4]))
+        {
+            nPrice = 200;
+        }
+        else if(ID.equals(mMyData.skuGold[5]))
+        {
+            nPrice = 300;
+        }
+        else if(ID.equals(mMyData.skuGold[6]))
+        {
+            nPrice = 500;
+        }
+        else if(ID.equals(mMyData.skuGold[7]))
+        {
+            nPrice = 1000;
+        }
+
+        mMyData.setUserHoney(mMyData.getUserHoney() +  nPrice);
+        mMyData.setPoint( nPrice);
+        refreshHearCnt();
     }
 
     public void loadRewardedVideoAd(Context mContext) {

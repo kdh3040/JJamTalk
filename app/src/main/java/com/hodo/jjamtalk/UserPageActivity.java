@@ -607,12 +607,13 @@ public class UserPageActivity extends AppCompatActivity {
 
         //LinearLayout layoutFanLike = (LinearLayout) findViewById(R.id.ll_fan_like);
         //LinearLayout layoutFanLiked = (LinearLayout) findViewById(R.id.ll_fan_liked);
+        listView_like = (RecyclerView) findViewById(R.id.lv_like);
 
         if(stTargetData.arrFanList.size() != 0)
         {
             //tv_like = findViewById(R.id.tv_like);
             //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
-            listView_like = (RecyclerView) findViewById(R.id.lv_like);
+
             TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData.arrFanList);
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
             ic_fan.setOnClickListener(new View.OnClickListener() {
