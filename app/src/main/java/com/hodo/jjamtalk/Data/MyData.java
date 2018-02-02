@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -197,6 +198,9 @@ public class MyData {
     public long LastBoardWriteTime;
 
     public int nStartAge, nEndAge;
+
+    public RewardedVideoAd mRewardedVideoAd;
+    public RewardedVideoAd mRewardedVideoAd2;
 
     private MyData() {
         strImg = null;

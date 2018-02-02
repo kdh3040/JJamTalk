@@ -159,6 +159,14 @@ public class MainActivity extends AppCompatActivity {
         int mWidth = mUIData.getWidth();
         int mHeight = mUIData.getHeight();
 
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
+                mMyData.mRewardedVideoAd.loadAd("ca-app-pub-7666588215496282/3967348562",
+                        new AdRequest.Builder().build());
+            }
+        });
 
         boolean bCheckConnt = mMyData.CheckConnectDate();
         if(bCheckConnt == true)
