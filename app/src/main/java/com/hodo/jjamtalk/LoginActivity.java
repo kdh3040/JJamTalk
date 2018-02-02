@@ -44,6 +44,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -109,10 +110,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private TextView mTextView_SignUp;
     private TextView mTextView_NeedHelp;
     private Button mEmailSignInButton;
-    private Button mGoogleSignInButton;
-    private Button mKakaoSignInButton;
-    private Button mNaverSignInButton;
-    private Button mToMain;
+    private SignInButton mGoogleSignInButton;
 
     private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
     private LocationFunc mLocalFunc = LocationFunc.getInstance();
@@ -189,12 +187,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         //populateAutoComplete();
         mPasswordView = (EditText) findViewById(R.id.password);
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-
         mTextView_NeedHelp = (TextView) findViewById(R.id.Login_NeedHelp);
-
-        mNaverSignInButton = (Button) findViewById(R.id.Login_Naver);
-        mGoogleSignInButton = (Button) findViewById(R.id.Login_Google);
-        mToMain = (Button) findViewById(R.id.btn_tomain);
+        mGoogleSignInButton = (SignInButton) findViewById(R.id.Login_Google);
 
 
 
@@ -230,26 +224,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Log.d("LoginActivity", "mTextView_NeedHelp Clicked!");
                 }
             });
-            mNaverSignInButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d("LoginActivity", "mTextView_NeedHelp Clicked!");
-                }
-            });
             mGoogleSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                     startActivityForResult(signInIntent, RC_SIGN_IN);
-                }
-            });
-            mToMain.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
-                    /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("StartFragment", 0);
-                    startActivity(intent);*/
                 }
             });
 
@@ -380,7 +359,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
 
-                        mMyData.setUserIdx(mAwsFunc.GetUserIdx(acct.getEmail()));
+                        mMyData.setUserIdx(mAwsFunc.CreateUserIdx((acct.getEmail())));
                         GoProfilePage();
 
                         // If sign in fails, display a message to the user. If sign in succeeds

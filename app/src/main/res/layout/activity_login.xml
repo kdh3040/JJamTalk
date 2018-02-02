@@ -95,39 +95,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="5">
+                android:weightSum="1">
 
-                <Button
-                    android:id="@+id/btn_tomain"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="메인입장" />
-
-
-                <Button
-                    android:id="@+id/Login_Kakao"
-                    android:layout_width="0dp"
-
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="카톡" />
-
-                <Button
-                    android:id="@+id/Login_Naver"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="네이버" />
-
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="페이스북" />
-
-                <Button
+                <com.google.android.gms.common.SignInButton
                     android:id="@+id/Login_Google"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
