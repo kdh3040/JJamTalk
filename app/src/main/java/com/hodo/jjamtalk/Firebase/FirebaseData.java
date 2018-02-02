@@ -392,14 +392,19 @@ public class FirebaseData {
         else
             data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx).endAt(startIdx + LOAD_BOARD_COUNT); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
 
-        data.addValueEventListener(new ValueEventListener() {
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                long topIndex = BoardData.getInstance().TopBoardIdx;
+                long bottomIndex = BoardData.getInstance().BottomBoardIdx;
+
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     BoardData.getInstance().AddBoardData(postSnapshot, false);
                 }
                 UpdateBoardAdapter.BoardDataLoding = false;
-                UpdateBoardAdapter.notifyDataSetChanged();
+
+                if(topIndex != BoardData.getInstance().TopBoardIdx || bottomIndex != BoardData.getInstance().BottomBoardIdx)
+                    UpdateBoardAdapter.notifyDataSetChanged();
             }
 
             @Override
