@@ -311,12 +311,43 @@ public class MainActivity extends AppCompatActivity {
                         rbtn_man.setChecked(false);
                         rbtn_man.setChecked(true);
                     }
+
+
                 }
 
                 rbtn_10 = (Switch) v.findViewById(R.id.rbtn_10);
                 rbtn_20 = (Switch) v.findViewById(R.id.rbtn_20);
                 rbtn_30 = (Switch) v.findViewById(R.id.rbtn_30);
                 rbtn_40 = (Switch) v.findViewById(R.id.rbtn_40);
+
+                switch (mMyData.nStartAge / 10)
+                {
+                    case 1:
+                        rbtn_10.setChecked(true);
+                        rbtn_20.setChecked(false);
+                        rbtn_30.setChecked(false);
+                        rbtn_40.setChecked(false);
+                        break;
+                    case 2:
+                        rbtn_10.setChecked(false);
+                        rbtn_20.setChecked(true);
+                        rbtn_30.setChecked(false);
+                        rbtn_40.setChecked(false);
+                        break;
+                    case 3:
+                        rbtn_10.setChecked(false);
+                        rbtn_20.setChecked(false);
+                        rbtn_30.setChecked(true);
+                        rbtn_40.setChecked(false);
+                        break;
+                    case 4:
+                        rbtn_10.setChecked(false);
+                        rbtn_20.setChecked(false);
+                        rbtn_30.setChecked(false);
+                        rbtn_40.setChecked(true);
+                        break;
+                }
+
 
 
 
