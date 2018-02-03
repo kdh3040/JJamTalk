@@ -1,12 +1,15 @@
 package com.hodo.jjamtalk;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.provider.Contacts;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -28,6 +32,9 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Util.CommonFunc;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -51,6 +58,17 @@ public class BuyGoldActivity extends AppCompatActivity {
 
 
     private  Boolean bLoadAd = false;
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+      /*  if (mMyData.mService != null) {
+            unbindService(mMyData.mServiceConn);
+        }*/
+    }
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +162,9 @@ public class BuyGoldActivity extends AppCompatActivity {
 */
 
     }
+
+
+
     public void refreshHearCnt()
     {
         txt_heartStatus.setText("보유 골드 : " + mMyData.getUserHoney());
@@ -210,43 +231,54 @@ public class BuyGoldActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Toast.makeText(con, txt.getText(), Toast.LENGTH_SHORT).show();
 
+                    String tempStrGold = null;
                     switch (i)
                     {
                         case 0:
-                            mMyData.setUserHoney(mMyData.getUserHoney() + 10);
-                            mMyData.setPoint(10);
+                            tempStrGold = mMyData.skuGold[0];
                             break;
                         case 1:
-                            mMyData.setUserHoney(mMyData.getUserHoney() + 20);
-                            mMyData.setPoint(20);
+                            tempStrGold = mMyData.skuGold[1];
                             break;
                         case 2:
-                            mMyData.setUserHoney(mMyData.getUserHoney() + 50);
-                            mMyData.setPoint(50);
+                            tempStrGold = mMyData.skuGold[2];
                             break;
                         case 3:
-                            mMyData.setUserHoney(mMyData.getUserHoney() + 100);
-                            mMyData.setPoint(100);
+                            tempStrGold = mMyData.skuGold[3];
                             break;
                         case 4:
-                            mMyData.setUserHoney(mMyData.getUserHoney() + 200);
-                            mMyData.setPoint(200);
+                            tempStrGold = mMyData.skuGold[4];
                             break;
                         case 5:
-                            mMyData.setUserHoney(mMyData.getUserHoney() + 300);
-                            mMyData.setPoint(300);
+                            tempStrGold = mMyData.skuGold[5];
                             break;
                         case 6:
-                            mMyData.setUserHoney(mMyData.getUserHoney() + 500);
-                            mMyData.setPoint(500);
+                            tempStrGold = mMyData.skuGold[6];
                             break;
                         case 7:
-                            mMyData.setUserHoney(mMyData.getUserHoney() + 1000);
-                            mMyData.setPoint(1000);
+                            tempStrGold = mMyData.skuGold[7];
                             break;
 
                     }
-                    refreshHearCnt();
+
+                    try {
+                        mMyData.buyIntentBundle = mMyData.mService.getBuyIntent(3, getPackageName(),
+                                mMyData.skuGold[0], "inapp", "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+
+                    mMyData.pendingIntent = mMyData.buyIntentBundle.getParcelable("BUY_INTENT");
+                    if(mMyData.pendingIntent != null)
+                    {
+                        try {
+                            startIntentSenderForResult(mMyData.pendingIntent.getIntentSender(),
+                                    1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
+                                    Integer.valueOf(0));
+                        } catch (IntentSender.SendIntentException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
             });
@@ -255,6 +287,81 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1001) {
+            int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
+            String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
+            String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
+
+            if (resultCode == RESULT_OK) {
+                try {
+                    JSONObject jo = new JSONObject(purchaseData);
+                    String sku = jo.getString("productId");
+                    final String strToken = jo.getString("purchaseToken");
+                    setBuyGold(sku);
+
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                int response = mMyData.mService.consumePurchase(3, getPackageName(), strToken);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
+
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void setBuyGold(String ID)
+    {
+        int nPrice = 0;
+        if(ID.equals(mMyData.skuGold[0]))
+        {
+            nPrice = 10;
+        }
+        else if(ID.equals(mMyData.skuGold[1]))
+        {
+            nPrice = 20;
+        }
+        else if(ID.equals(mMyData.skuGold[2]))
+        {
+            nPrice = 50;
+        }
+        else if(ID.equals(mMyData.skuGold[3]))
+        {
+            nPrice = 100;
+        }
+        else if(ID.equals(mMyData.skuGold[4]))
+        {
+            nPrice = 200;
+        }
+        else if(ID.equals(mMyData.skuGold[5]))
+        {
+            nPrice = 300;
+        }
+        else if(ID.equals(mMyData.skuGold[6]))
+        {
+            nPrice = 500;
+        }
+        else if(ID.equals(mMyData.skuGold[7]))
+        {
+            nPrice = 1000;
+        }
+
+        mMyData.setUserHoney(mMyData.getUserHoney() +  nPrice);
+        mMyData.setPoint( nPrice);
+        refreshHearCnt();
+    }
 
     public void loadRewardedVideoAd(Context mContext) {
 

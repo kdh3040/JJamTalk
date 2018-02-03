@@ -1,7 +1,10 @@
 package com.hodo.jjamtalk.Data;
 
+import android.app.PendingIntent;
 import android.app.usage.UsageEvents;
+import android.content.ServiceConnection;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +12,7 @@ import android.text.Editable;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
@@ -201,6 +205,19 @@ public class MyData {
 
     public RewardedVideoAd mRewardedVideoAd;
     public RewardedVideoAd mRewardedVideoAd2;
+
+    public  IInAppBillingService mService;
+    public  ServiceConnection mServiceConn;
+
+    public ArrayList<String> skuList = new ArrayList<String>();
+    public Bundle skuDetails = new Bundle();
+    public Bundle querySkus = new Bundle();
+    public Bundle buyIntentBundle = new Bundle();
+    public PendingIntent pendingIntent;
+    public String[] strGold = new String[8];
+    public String[] skuGold = {"gold_10", "gold_20", "gold_50", "gold_100", "gold_200", "gold_300", "gold_500", "gold_1000"};
+    public  String sku = null;
+    public String price = null;
 
     private MyData() {
         strImg = null;

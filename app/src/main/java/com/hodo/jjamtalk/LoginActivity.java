@@ -197,7 +197,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
-
         }
         else
             {
@@ -332,7 +331,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
 
-            if (result.isSuccess()) {
+
+            if(mAuth.getCurrentUser() != null){
+                showProgress(true);
+                strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
+                Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
+                InitData_Mine();
+            }
+
+            else if (result.isSuccess()) {
 
                 // 로그인 성공 했을때
                 GoogleSignInAccount acct = result.getSignInAccount();
