@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk.ViewHolder;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,14 +19,14 @@ public class FanViewHolder extends RecyclerView.ViewHolder{
     public TextView nickname,giftranking,giftCount;
     public ImageView imageView;
     public ImageView imageGrade, imageBest;
-    public LinearLayout linearLayout;
+    public ConstraintLayout constraintLayout;
 
 
 
     public FanViewHolder(View itemView) {
 
         super(itemView);
-        linearLayout = itemView.findViewById(R.id.layout_fan);
+        constraintLayout = itemView.findViewById(R.id.layout_fan);
         nickname = itemView.findViewById(R.id.tv_nickname);
         giftranking = itemView.findViewById(R.id.tv_gift_ranking);
         giftCount = itemView.findViewById(R.id.tv_gift_count);

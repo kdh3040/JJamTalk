@@ -24,22 +24,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/hdvd" />
 
-    <ImageView
-        android:id="@+id/jewel"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/nickname"
-        app:layout_constraintEnd_toStartOf="@+id/rank"
-        app:srcCompat="@mipmap/randombox" />
-
-    <ImageView
-        android:id="@+id/rank"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/nickname"
-        app:layout_constraintRight_toLeftOf="@+id/nickname"
-        app:srcCompat="@drawable/rank_bronze" />
-
     <TextView
         android:id="@+id/nickname"
         android:layout_width="wrap_content"
@@ -49,12 +33,28 @@
         android:layout_marginTop="8dp"
         android:gravity="center_vertical|center_horizontal"
         android:text="닉네임"
-        android:textSize="30dp"
         android:textColor="@color/black"
+        android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile" />
+
+    <ImageView
+        android:id="@+id/jewel"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nickname"
+        app:layout_constraintLeft_toRightOf="@+id/rank"
+        app:srcCompat="@mipmap/randombox" />
+
+    <ImageView
+        android:id="@+id/rank"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nickname"
+        app:layout_constraintLeft_toRightOf="@+id/nickname"
+        app:srcCompat="@drawable/rank_bronze" />
 
     <ImageView
         android:id="@+id/divider"

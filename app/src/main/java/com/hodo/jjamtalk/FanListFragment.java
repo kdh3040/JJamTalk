@@ -133,7 +133,7 @@ public class FanListFragment extends Fragment {
             holder.textRank.setText((position + 1) + "위");
 
             int RecvCnt = mMyData.arrMyFanList.get(position).RecvGold * -1;
-            holder.textCount.setText(Integer.toString(RecvCnt) + "골드");
+            holder.textCount.setText(Integer.toString(RecvCnt));
 
         }
 

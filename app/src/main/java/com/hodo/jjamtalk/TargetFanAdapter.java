@@ -55,8 +55,8 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
     @Override
     public void onBindViewHolder(FanViewHolder holder, final int position) {
-        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(mUIData.getHeight()/7)));
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        holder.constraintLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(mUIData.getHeight()/7)));
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getTargetfanData(position);

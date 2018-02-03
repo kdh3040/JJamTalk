@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -89,7 +90,7 @@ public class UserFanActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
           //  holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (mUIData.getHeight() / 7)));
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -123,7 +124,7 @@ public class UserFanActivity extends AppCompatActivity {
             holder.imgGrade.setImageResource(mUIData.getGrades()[stTargetData.mapFanData.get(i).Grade]);
 
             int RecvCnt = stTargetData.arrFanList.get(position).RecvGold * -1;
-            holder.textCount.setText(Integer.toString(RecvCnt) + "하트");
+            holder.textCount.setText(Integer.toString(RecvCnt));
 
         }
 
@@ -182,7 +183,7 @@ public class UserFanActivity extends AppCompatActivity {
         public class ViewHolder extends RecyclerView.ViewHolder{
             public ImageView img;
             public TextView textRank, textNick, textCount;
-            public LinearLayout linearLayout;
+            public ConstraintLayout constraintLayout;
             public ImageView imgGrade, imgItem;
 
 
@@ -195,7 +196,7 @@ public class UserFanActivity extends AppCompatActivity {
                 textRank = (TextView)itemView.findViewById(R.id.tv_gift_ranking);
                 textNick = (TextView)itemView.findViewById(R.id.tv_nickname);
                 textCount = (TextView)itemView.findViewById(R.id.tv_gift_count);
-                linearLayout = itemView.findViewById(R.id.layout_fan);
+                constraintLayout = itemView.findViewById(R.id.layout_fan);
             }
         }
     }

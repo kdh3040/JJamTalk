@@ -36,7 +36,7 @@
         android:layout_marginLeft="10dp"
         android:maxLength="8"
         android:text="@string/com_kakao_profile_nickname"
-        android:textColor="@color/boardNickColor"
+        android:textColor="@android:color/black"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/iv_profile"
         app:layout_constraintTop_toTopOf="@+id/iv_profile" />
