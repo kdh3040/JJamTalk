@@ -92,7 +92,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/tv_chat_list"
+        app:layout_constraintBottom_toTopOf="@+id/tv_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/chat_icon"></ImageButton>
@@ -152,10 +152,10 @@
         android:text="즐겨찾기"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/tv_home"
-        app:layout_constraintRight_toLeftOf="@+id/tv_chat_list" />
+        app:layout_constraintRight_toLeftOf="@+id/tv_content" />
 
     <TextView
-        android:id="@+id/tv_chat_list"
+        android:id="@+id/tv_content"
         android:layout_width="50dp"
         android:layout_height="20dp"
         android:layout_marginRight="8dp"

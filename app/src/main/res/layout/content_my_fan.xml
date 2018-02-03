@@ -1,93 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_fan"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:weightSum="5">
-
-        <TextView
-            android:id="@+id/tv_gift_ranking"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="1" />
-
-        <ImageView
-            android:id="@+id/iv_fan"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/circle_border"
-            android:padding="2dp"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:layout_margin="3dp"
-            android:orientation="vertical"
-            android:weightSum="2">
+    tools:layout_editor_absoluteY="81dp">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:weightSum="4">
+    <TextView
+        android:id="@+id/tv_gift_ranking"
+        android:layout_width="40dp"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:text="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/iv_grade"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="center_vertical"/>
-                <ImageView
-                    android:id="@+id/iv_item"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"/>
+    <ImageView
+        android:id="@+id/iv_fan"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/circle_border"
+        android:padding="2dp"
+        app:layout_constraintLeft_toRightOf="@+id/tv_gift_ranking"
+        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_nickname"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/view"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/iv_chat_list"
-                    android:layout_weight="2"
-                    android:text="닉네임"
-                    android:textColor="@color/boardNickColor"
-                    android:textStyle="bold" />
 
-            </LinearLayout>
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:text="닉네임"
+        android:textColor="@color/boardNickColor"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/iv_fan"
+        app:layout_constraintTop_toTopOf="@+id/iv_fan" />
 
-            <TextView
-                android:id="@+id/tv_gift_count"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="3500"
-                android:textColor="@android:color/holo_purple"
-                android:textSize="18sp" />
+    <ImageView
+        android:id="@+id/iv_grade"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:gravity="center_vertical"
+        app:layout_constraintLeft_toRightOf="@+id/tv_nickname"
+        app:layout_constraintTop_toTopOf="@+id/iv_fan" />
 
-        </LinearLayout>
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_item"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:gravity="center_vertical"
+        app:layout_constraintLeft_toRightOf="@+id/iv_grade"
+        app:layout_constraintTop_toTopOf="@+id/iv_fan" />
 
-    <View
-        style="@style/Divider"
-        android:visibility="visible"/>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_gift_count"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="3500"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_fan"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_nickname"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nickname" />
+
+    <ImageView
+        android:id="@+id/imageView32"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_fan"
+        app:srcCompat="@android:color/black" />
+
+
+</android.support.constraint.ConstraintLayout>

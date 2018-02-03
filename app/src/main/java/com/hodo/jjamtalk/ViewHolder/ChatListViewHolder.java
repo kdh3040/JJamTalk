@@ -4,8 +4,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hodo.jjamtalk.R;
@@ -30,11 +28,11 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
 
         nickname = itemView.findViewById(R.id.tv_nickname);
 
-        imageView = itemView.findViewById(R.id.iv_chat_list);
+        imageView = itemView.findViewById(R.id.iv_profile);
         imageGrade = itemView.findViewById(R.id.iv_grade);
         imageItem = itemView.findViewById(R.id.iv_item);
 
-        textView = itemView.findViewById(R.id.tv_chat_list);
+        textView = itemView.findViewById(R.id.tv_content);
         date = itemView.findViewById(R.id.tv_date);
         check = itemView.findViewById(R.id.tv_check);
     }

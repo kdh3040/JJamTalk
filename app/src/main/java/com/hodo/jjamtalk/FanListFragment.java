@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -98,7 +99,7 @@ public class FanListFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
 
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -193,7 +194,7 @@ public class FanListFragment extends Fragment {
         public class ViewHolder extends RecyclerView.ViewHolder{
             public ImageView img;
             public TextView textRank, textNick, textCount;
-            public LinearLayout linearLayout;
+            public ConstraintLayout constraintLayout;
 
             public ImageView imageGrade, imageItem;
 
@@ -203,7 +204,7 @@ public class FanListFragment extends Fragment {
                 textRank = (TextView)itemView.findViewById(R.id.tv_gift_ranking);
                 textNick = (TextView)itemView.findViewById(R.id.tv_nickname);
                 textCount = (TextView)itemView.findViewById(R.id.tv_gift_count);
-                linearLayout = itemView.findViewById(R.id.layout_fan);
+                constraintLayout = itemView.findViewById(R.id.layout_fan);
                 imageGrade = itemView.findViewById(R.id.iv_grade);
                 imageItem= itemView.findViewById(R.id.iv_item);
             }
