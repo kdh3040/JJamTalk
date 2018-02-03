@@ -61,26 +61,23 @@
         android:id="@+id/ib_home"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
         android:background="@color/bg_grid"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/ib_chatlist"
+        app:layout_constraintEnd_toStartOf="@+id/ib_cardlist"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:srcCompat="@drawable/icon_home"></ImageButton>
 
-    <ImageButton
-        android:id="@+id/ib_board"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@color/bg_grid"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/ib_chatlist"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@drawable/board"></ImageButton>
 
     <ImageButton
         android:id="@+id/ib_cardlist"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@color/bg_grid"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/ib_chatlist"
         app:layout_constraintLeft_toRightOf="@+id/ib_home"
@@ -92,6 +89,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@color/bg_grid"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/tv_chat_list"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -103,11 +102,26 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@color/bg_grid"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/ib_chatlist"
         app:layout_constraintLeft_toRightOf="@+id/ib_chatlist"
         app:layout_constraintRight_toLeftOf="@+id/ib_board"
         app:srcCompat="@drawable/ic_fan"></ImageButton>
+
+    <ImageButton
+        android:id="@+id/ib_board"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/bg_grid"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/ib_chatlist"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ib_fan"
+        app:srcCompat="@drawable/board"></ImageButton>
 
     <FrameLayout
         android:id="@+id/frag_container"
@@ -120,19 +134,21 @@
 
     <TextView
         android:id="@+id/tv_home"
-        android:layout_width="50dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="홈"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_favor"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="@+id/ib_home"
+        app:layout_constraintRight_toRightOf="@+id/ib_home" />
 
     <TextView
         android:id="@+id/tv_favor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:text="즐겨찾기"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/tv_home"
@@ -142,6 +158,8 @@
         android:id="@+id/tv_chat_list"
         android:layout_width="50dp"
         android:layout_height="20dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:gravity="center_horizontal"
         android:text="채팅"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -155,13 +173,15 @@
         android:gravity="center_horizontal"
         android:text="팬"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/tv_chat_list"
-        app:layout_constraintRight_toLeftOf="@+id/tv_board" />
+        app:layout_constraintLeft_toLeftOf="@+id/ib_fan"
+        app:layout_constraintRight_toRightOf="@+id/ib_fan" />
 
     <TextView
         android:id="@+id/tv_board"
-        android:layout_width="50dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:gravity="center_horizontal"
         android:text="게시판"
         app:layout_constraintBottom_toBottomOf="parent"
