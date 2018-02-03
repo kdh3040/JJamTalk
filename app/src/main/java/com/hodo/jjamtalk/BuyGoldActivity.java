@@ -83,6 +83,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         HeartChargeList = (ListView)findViewById(R.id.Heart_list);
 
         list = new ArrayList<HeartItem>();
+        mMyData.SetCurFrag(0);
 
         HeartItem mHeartItem;
 

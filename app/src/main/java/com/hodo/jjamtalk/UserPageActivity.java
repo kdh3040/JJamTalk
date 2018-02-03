@@ -112,6 +112,9 @@ public class UserPageActivity extends AppCompatActivity {
 
             }
         });*/
+
+        mMyData.SetCurFrag(0);
+
         ic_fan = findViewById(R.id.ic_fan);
         btnShare = (ImageButton)findViewById(R.id.UserPage_btnShared);
 

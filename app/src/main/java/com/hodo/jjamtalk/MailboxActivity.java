@@ -34,7 +34,7 @@ public class MailboxActivity extends AppCompatActivity {
         recyclerView.setAdapter(mailBoxAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        mMyData.SetCurFrag(0);
     }
     @Override
     public void onBackPressed() {

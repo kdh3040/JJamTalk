@@ -188,6 +188,8 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         btn_openBox = findViewById(R.id.btn_openBox);
         btn_sellJewely = findViewById(R.id.btn_sellJewely);
 
+        mMyData.SetCurFrag(0);
+
         btn_openBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

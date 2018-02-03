@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.BoardMsgClientData;
 import com.hodo.jjamtalk.Data.FanData;
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
@@ -56,6 +57,7 @@ public class UserFanActivity extends AppCompatActivity {
     public ArrayList<FanData> FanList = new ArrayList<>();
     public ArrayList<UserData> FanData = new ArrayList<>();
     private UIData mUIData = UIData.getInstance();
+    private MyData mMyData = MyData.getInstance();
 
     Activity mActivity;
     RecyclerView UserFanRecycler;
@@ -75,7 +77,7 @@ public class UserFanActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = this.getIntent().getExtras();
         stTargetData = (UserData) bundle.getSerializable("Target");
-
+        mMyData.SetCurFrag(0);
     }
 
     private class UserFanListAdapter extends RecyclerView.Adapter<UserFanListAdapter.ViewHolder> {

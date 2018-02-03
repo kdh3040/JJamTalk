@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.hodo.jjamtalk.Data.MyData;
+
 /**
  * Created by mjk on 2017. 8. 22..
  */
@@ -13,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 public class BlockListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     BlockListAdapter blockListAdapter;
+    private MyData mMyData = MyData.getInstance();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +26,8 @@ public class BlockListActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(blockListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),1,false));
+
+        mMyData.SetCurFrag(0);
 
     }
 }

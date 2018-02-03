@@ -65,6 +65,8 @@ public class MyPageActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mActivity = this;
 
+        mMyData.SetCurFrag(0);
+
         /*ll_jewel_box= (LinearLayout) findViewById(R.id.ll_jewel_box);
         ll_jewel_box.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,7 +225,7 @@ public class MyPageActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         //
-        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+      //  mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
 
  /*       Intent intent = new Intent(MyPageActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

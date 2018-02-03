@@ -49,7 +49,7 @@ public class BuyJewelActivity extends AppCompatActivity {
         mActivity = this;
         mContext = getApplicationContext();
         btn_openbox = (Button)findViewById(R.id.btn_openbox);
-
+        mMyData.SetCurFrag(0);
 
 
 
