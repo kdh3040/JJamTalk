@@ -263,7 +263,7 @@ public class BuyGoldActivity extends AppCompatActivity {
 
                     try {
                         mMyData.buyIntentBundle = mMyData.mService.getBuyIntent(3, getPackageName(),
-                                mMyData.skuGold[0], "inapp", "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
+                                tempStrGold, "inapp", "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
