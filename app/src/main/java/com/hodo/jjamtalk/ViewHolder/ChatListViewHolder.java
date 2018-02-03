@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk.ViewHolder;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,12 +19,12 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
     public  ImageView imageView;
     public  ImageView imageGrade, imageItem;
     public TextView textView,nickname, date, check;
-    public LinearLayout linearLayout;
+    public ConstraintLayout linearLayout;
 
     public ChatListViewHolder(View itemView) {
         super(itemView);
 
-        linearLayout = (LinearLayout) itemView.findViewById(R.id.layout_chat_list);
+        linearLayout = (ConstraintLayout) itemView.findViewById(R.id.constraintLayout);
 
 
 

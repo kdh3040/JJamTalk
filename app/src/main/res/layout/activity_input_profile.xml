@@ -64,7 +64,9 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:hint="( 최대 8자)"
+            android:inputType="textPersonName"
+            android:maxLength="8" />
 
         <TextView
             android:id="@+id/textView24"

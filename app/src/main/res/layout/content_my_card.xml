@@ -12,6 +12,7 @@
         android:id="@+id/iv_my_card"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/circle_border"
         android:padding="1dp"
@@ -21,15 +22,16 @@
 
     <TextView
         android:id="@+id/tv_nickname"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginBottom="15dp"
+        android:layout_marginLeft="10dp"
         android:gravity="bottom"
         android:maxLength="8"
+
         android:text="상희, 27"
 
         android:textColor="@android:color/black"
-
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_my_card"
         app:layout_constraintLeft_toRightOf="@+id/iv_my_card" />
@@ -39,6 +41,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginBottom="15dp"
+        android:layout_marginLeft="2dp"
         android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/iv_my_card"
         app:layout_constraintLeft_toRightOf="@+id/tv_nickname" />

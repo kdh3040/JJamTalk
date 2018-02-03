@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:weightSum="2"
-    android:orientation="vertical">
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
 
-    <LinearLayout
-        android:id="@+id/layout_chat_list"
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_weight="1"
-        android:weightSum="2"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
+
 
         <ImageView
             android:id="@+id/iv_chat_list"
@@ -23,104 +16,91 @@
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_margin="5dp"
-            android:scaleType="fitCenter"
             android:background="@drawable/circle_border"
-            android:padding="2dp"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="3dp"
-            android:layout_weight="1.5"
-            android:orientation="vertical"
-            android:weightSum="2">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
-                <ImageView
-                    android:id="@+id/iv_grade"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="center_vertical"/>
-                <ImageView
-                    android:id="@+id/iv_item"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"/>
-
-                <TextView
-                    android:id="@+id/tv_nickname"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/view"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/iv_chat_list"
-                    android:layout_weight="2"
-                    android:text="닉네임"
-                    android:textColor="@color/boardNickColor"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+            android:padding="2dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-            <TextView
-                android:id="@+id/tv_chat_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/tv_nickname"
-                android:layout_toRightOf="@+id/iv_chat_list"
-                android:layout_weight="1"
-                android:layout_marginLeft="30dp"
-                android:gravity="center_vertical"
-                android:text="TextView"
-                android:textColor="@color/boardTextColor"/>
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:layout_toRightOf="@+id/iv_chat_list"
 
-        </LinearLayout>
+        android:maxLength="8"
+        android:text="닉네임"
+        android:textColor="@color/boardNickColor"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/iv_chat_list"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:orientation="vertical"
-            android:weightSum="2">
+    <ImageView
+        android:id="@+id/iv_grade"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="5dp"
 
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_alignParentRight="true"
-                android:layout_weight="1"
-                android:text="17/8/19"
-                android:textColor="#000000" />
+        android:gravity="center_vertical"
+        app:layout_constraintLeft_toRightOf="@+id/tv_nickname"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_check"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:background="@color/si_default_text_color"
-                android:gravity="center"
-                android:textColor="@color/white" />
+    <ImageView
+        android:id="@+id/iv_item"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
 
-        </LinearLayout>
+        android:gravity="center_vertical"
+        app:layout_constraintLeft_toRightOf="@+id/iv_grade"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
 
-    <View
-        android:id="@+id/view"
-        style="@style/Divider"
-        android:layout_weight="0.5"
-        android:visibility="visible"
-         />
+    <TextView
+        android:id="@+id/tv_chat_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_nickname"
+        android:layout_toRightOf="@+id/iv_chat_list"
 
-</LinearLayout>
+        android:gravity="center_vertical"
+        android:text="TextView"
+        android:textColor="@color/boardTextColor"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_nickname"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nickname" />
+
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentRight="true"
+
+        android:text="17/8/19"
+        android:textColor="#000000"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_check"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/si_default_text_color"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+
+    <ImageView
+        android:id="@+id/imageView32"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_nickname"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_chat_list"
+        app:srcCompat="@android:color/black" />
+
+
+</android.support.constraint.ConstraintLayout>
+
