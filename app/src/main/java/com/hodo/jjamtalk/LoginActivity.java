@@ -192,7 +192,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-         if(mAuth.getCurrentUser() != null){
+        if(mAuth.getCurrentUser() != null){
             showProgress(true);
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
@@ -331,24 +331,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
 
+            if (result.isSuccess()) {
 
-            if(mAuth.getCurrentUser() != null){
-                showProgress(true);
-                strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
-                Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
-                InitData_Mine();
-            }
-
-            else if (result.isSuccess()) {
-
-                // 로그인 성공 했을때
                 GoogleSignInAccount acct = result.getSignInAccount();
-                Log.d(TAG, "표시되는 전체 이름 =" + acct.getDisplayName());
-                Log.d(TAG, "표시되는 이름=" + acct.getGivenName());
-                Log.d(TAG, "이메일=" + acct.getEmail());
-                Log.d(TAG, "표시되는 성=" + acct.getFamilyName());
 
-                firebaseAuthWithGoogle(acct);
+                strMyIdx = mAwsFunc.GetUserIdx(acct.getEmail());
+
+                if(strMyIdx.equals("") || strMyIdx != null){
+                    showProgress(true);
+                    Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
+                    InitData_Mine();
+                }
+
+                else {
+                    // 로그인 성공 했을때
+                    Log.d(TAG, "표시되는 전체 이름 =" + acct.getDisplayName());
+                    Log.d(TAG, "표시되는 이름=" + acct.getGivenName());
+                    Log.d(TAG, "이메일=" + acct.getEmail());
+                    Log.d(TAG, "표시되는 성=" + acct.getFamilyName());
+
+                    firebaseAuthWithGoogle(acct);
+                }
 
             } else {
 
