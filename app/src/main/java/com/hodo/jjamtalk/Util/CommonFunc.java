@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -69,6 +72,8 @@ public class CommonFunc {
 
     private MyData mMyData = MyData.getInstance();
     private InterstitialAd mInterstitialAd;
+    private SoundPool mSoundPool = null;
+    private int mPlaySoundIndex = 0;
 
     public void refreshMainActivity(Activity mActivity, int StartFragMent)
     {
@@ -270,5 +275,31 @@ public class CommonFunc {
             return false;
         else
             return true;
+    }
+
+    public void PlayVibration(Context context)
+    {
+        if(mMyData.nAlarmSetting_Vibration)
+        {
+            final Vibrator vibrator = (Vibrator)context.getSystemService(context.VIBRATOR_SERVICE);
+            vibrator.vibrate(500);
+        }
+    }
+
+    public void PlayAlramSound(Context context, int resId)
+    {
+        if(mMyData.nAlarmSetting_Sound)
+        {
+            if(mSoundPool == null)
+                mSoundPool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
+
+            mPlaySoundIndex = mSoundPool.load(context, resId, 1);
+            mSoundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    soundPool.play(mPlaySoundIndex, 1f, 1f, 0, 0, 1f);
+                }
+            });
+        }
     }
 }

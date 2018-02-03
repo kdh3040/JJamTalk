@@ -1,6 +1,7 @@
 package com.hodo.jjamtalk.Util;
 
 import com.hodo.jjamtalk.Data.MyData;
+import com.hodo.jjamtalk.Data.SimpleChatData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 
@@ -50,6 +51,8 @@ public class NotiFunc {
             data.put("Img", stTargetData.Img);
             data.put("Idx", stTargetData.Idx);
             data.put("NickName", mMyData.getUserNick());
+            data.put("Type", "Msg");
+
             root.put("notification", notification);
             root.put("to", stTargetData.Token);
             root.put("data", data);
@@ -90,6 +93,7 @@ public class NotiFunc {
             data.put("Gender", stTargetData.Gender);
             data.put("NickName", mMyData.getUserNick());
             data.put("Heart", nHeartCnt);
+            data.put("Type", "Heart");
 
             root.put("notification", notification);
             root.put("to", stTargetData.Token);
@@ -129,6 +133,7 @@ public class NotiFunc {
             data.put("Idx", stTargetData.Idx);
             data.put("Gender", stTargetData.Gender);
             data.put("NickName", mMyData.getUserNick());
+            data.put("Type", "Msg");
 
             root.put("notification", notification);
             root.put("to", stTargetData.Token);
@@ -168,11 +173,53 @@ public class NotiFunc {
             data.put("Idx", stTargetData.Idx);
             data.put("Gender", stTargetData.Gender);
             data.put("NickName", mMyData.getUserNick());
+            data.put("Type", "Honey");
            // data.put("Honey", nHoneyCnt);
 
 
             root.put("notification", notification);
             root.put("to", stTargetData.Token);
+            root.put("data", data);
+            // FMC 메시지 생성 end
+
+            URL Url = new URL(MSG_URL);
+            HttpURLConnection conn = (HttpURLConnection) Url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.addRequestProperty("Authorization", "key=" + SERVER_KEY);
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Content-type", "application/json");
+            OutputStream os = conn.getOutputStream();
+            os.write(root.toString().getBytes("utf-8"));
+            os.flush();
+            conn.getResponseCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void SendChatToFCM(String Msg, String token) {
+        try {
+
+            // FMC 메시지 생성 start
+            JSONObject root = new JSONObject();
+            JSONObject notification = new JSONObject();
+            JSONObject data = new JSONObject();
+
+            notification.put("body", mMyData.getUserNick() + "님이 메세지를 보냈습니다");
+
+            notification.put("title", "킹톡");
+
+            data.put("Img", mMyData.getUserImg());
+            data.put("Idx", mMyData.getUserIdx());
+            data.put("Gender", mMyData.getUserGender());
+            data.put("NickName", mMyData.getUserNick());
+            data.put("Msg", Msg);
+            data.put("Type", "Chatting");
+
+            root.put("notification", notification);
+            root.put("to", token);
             root.put("data", data);
             // FMC 메시지 생성 end
 

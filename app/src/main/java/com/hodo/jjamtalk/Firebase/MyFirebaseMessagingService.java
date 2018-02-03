@@ -1,7 +1,9 @@
 package com.hodo.jjamtalk.Firebase;
 
 
+import android.app.ActivityManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -17,13 +19,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.hodo.jjamtalk.ChatRoomActivity;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.LoginActivity;
 import com.hodo.jjamtalk.R;
+import com.hodo.jjamtalk.Util.CommonFunc;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -40,6 +45,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private String strSenderName;
     private String strSenderGender;
     private String strSenderIdx;
+    private String strSenderType;
 
     private String strSenderHoney;
     private String strSenderHeart;
@@ -55,22 +61,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         if (remoteMessage.getNotification() != null) {
-            if(mMyData.nAlarmSetting_Vibration)
-            {
-                final Vibrator vibrator = (Vibrator)getSystemService(getApplicationContext().VIBRATOR_SERVICE);
-                vibrator.vibrate(500);
-            }
-            if(mMyData.nAlarmSetting_Sound)
-            {
-                SoundPool sound = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
-                nAlarmSoundIndex = sound.load(this, R.raw.katalk, 1);
-                sound.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-                    @Override
-                    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                        soundPool.play(nAlarmSoundIndex, 1f, 1f, 0, 0, 1f);
-                    }
-                });
-            }
 
             String body = remoteMessage.getNotification().getBody();
             Log.d(TAG, "Notification Body: " + body);
@@ -84,6 +74,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 strSenderGender= data.get("Gender");
                 strSenderIdx= data.get("Idx");
 
+                strSenderType = data.get("Type");
+
              //   strSenderHoney = data.get("Honey");
                // strSenderHeart = data.get("Heart");
 
@@ -96,6 +88,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             // Check if message contains a notification payload.
             if (remoteMessage.getNotification() != null) {
                 Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            }
+
+            ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
+
+            if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
+            {
+                CommonFunc.getInstance().PlayVibration(getApplicationContext());
+                CommonFunc.getInstance().PlayAlramSound(getApplicationContext(), R.raw.katalk);
             }
 
             Intent intent = new Intent(this, LoginActivity.class);

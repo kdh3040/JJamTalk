@@ -566,6 +566,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                     mRef.push().setValue(chat_Data);
                     txt_msg.setText("");
 
+                    mNotiFunc.SendChatToFCM(message, stTargetData.Token);
+
                 }
             }
         });
