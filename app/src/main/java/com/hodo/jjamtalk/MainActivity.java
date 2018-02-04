@@ -411,7 +411,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                rbtn_10 = (Switch) v.findViewById(R.id.rbtn_10);
+                /*rbtn_10 = (Switch) v.findViewById(R.id.rbtn_10);
                 rbtn_20 = (Switch) v.findViewById(R.id.rbtn_20);
                 rbtn_30 = (Switch) v.findViewById(R.id.rbtn_30);
                 rbtn_40 = (Switch) v.findViewById(R.id.rbtn_40);
@@ -442,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
                         rbtn_30.setChecked(false);
                         rbtn_40.setChecked(true);
                         break;
-                }
+                }*/
 
 
 
