@@ -50,6 +50,7 @@ public class BoardMyListActivity extends AppCompatActivity {
         MyBoardSlotListRecycler = (RecyclerView)findViewById(R.id.board_Mylist);
         MyBoardSlotListRecycler.setAdapter(new BoardMyListActivity.BoardMyListAdapter());
         MyBoardSlotListRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mMyData.SetCurFrag(0);
     }
 
 

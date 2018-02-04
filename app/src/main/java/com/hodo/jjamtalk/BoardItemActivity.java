@@ -70,6 +70,8 @@ public class BoardItemActivity extends AppCompatActivity {
         // 상단 본문 데이터
         SetHeaderData();
         SetHeaderButtonData();
+
+        mMyData.SetCurFrag(0);
     }
 
     private void SetHeaderData() {

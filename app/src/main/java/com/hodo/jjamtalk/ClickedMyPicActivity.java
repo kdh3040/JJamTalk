@@ -79,6 +79,9 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         });*/
 
         mActivity = this;
+
+        mMyData.SetCurFrag(0);
+
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(mMyData.getUserNick() + ",  " + mMyData.getUserAge()+"세");
 
