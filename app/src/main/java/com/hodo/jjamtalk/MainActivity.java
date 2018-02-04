@@ -1,7 +1,6 @@
 package com.hodo.jjamtalk;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,13 +9,13 @@ import android.content.ServiceConnection;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +25,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -33,6 +33,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,21 +44,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.hodo.jjamtalk.Data.BoardData;
-import com.hodo.jjamtalk.Data.BoardMsgClientData;
-import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SettingData;
 import com.hodo.jjamtalk.Data.SimpleChatData;
 import com.hodo.jjamtalk.Data.SimpleUserData;
 import com.hodo.jjamtalk.Data.UIData;
-import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.AppStatus;
 import com.hodo.jjamtalk.Util.CommonFunc;
@@ -69,10 +65,7 @@ import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
-import static com.hodo.jjamtalk.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
-import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
-import static com.hodo.jjamtalk.Data.CoomonValueData.REPORT_BOARD_DELETE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -111,6 +104,87 @@ public class MainActivity extends AppCompatActivity {
     public static android.support.v4.app.FragmentManager mFragmentMng;
 
     public int nStartFragment = 0;
+
+
+    public class Prepare extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            if(mMyData.mServiceConn == null)
+            {
+                mMyData.mServiceConn = new ServiceConnection() {
+                    @Override
+                    public void onServiceDisconnected(ComponentName name) {
+                        mMyData.mService = null;
+                    }
+
+                    @Override
+                    public void onServiceConnected(ComponentName name,
+                                                   IBinder service) {
+                        mMyData.mService = IInAppBillingService.Stub.asInterface(service);
+
+                        try {
+                            mMyData.skuDetails = mMyData.mService.getSkuDetails(3,getPackageName(), "inapp", mMyData.querySkus);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+
+                        int response = mMyData.skuDetails.getInt("RESPONSE_CODE");
+                        if (response == 0) {
+                            ArrayList<String> responseList
+                                    = mMyData.skuDetails.getStringArrayList("DETAILS_LIST");
+
+                            for (String thisResponse : responseList) {
+                                JSONObject object = null;
+                                try {
+                                    object = new JSONObject(thisResponse);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    mMyData.sku = object.getString("productId");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    mMyData.price = object.getString("price");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                if (mMyData.sku.equals("gold_10")) mMyData.strGold[0] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_20")) mMyData.strGold[1]= mMyData.price;
+                                else if (mMyData.sku.equals("gold_50")) mMyData.strGold[2] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_100")) mMyData.strGold[3] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_200")) mMyData.strGold[4] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_300")) mMyData.strGold[5] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_500")) mMyData.strGold[6] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_1000")) mMyData.strGold[7] = mMyData.price;
+                            }
+                        }
+
+                    }
+                };
+
+                Intent serviceIntent =
+                        new Intent("com.android.vending.billing.InAppBillingService.BIND");
+                serviceIntent.setPackage("com.android.vending");
+                bindService(serviceIntent, mMyData.mServiceConn , Context.BIND_AUTO_CREATE);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -151,8 +225,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
         final Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -179,82 +251,13 @@ public class MainActivity extends AppCompatActivity {
 
         mMyData.querySkus.putStringArrayList("ITEM_ID_LIST", mMyData.skuList);
 
-        mActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
-                mMyData.mRewardedVideoAd.loadAd("ca-app-pub-7666588215496282/3967348562",
-                        new AdRequest.Builder().build());
+        mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
+        mMyData.mRewardedVideoAd.loadAd("ca-app-pub-7666588215496282/3967348562",
+                new AdRequest.Builder().build());
 
-                if(mMyData.mServiceConn == null)
-                {
-                    mMyData.mServiceConn = new ServiceConnection() {
-                        @Override
-                        public void onServiceDisconnected(ComponentName name) {
-                            mMyData.mService = null;
-                        }
+        Prepare prepareJob = new Prepare();
 
-                        @Override
-                        public void onServiceConnected(ComponentName name,
-                                                       IBinder service) {
-                            mMyData.mService = IInAppBillingService.Stub.asInterface(service);
-
-                            try {
-                                mMyData.skuDetails = mMyData.mService.getSkuDetails(3,getPackageName(), "inapp", mMyData.querySkus);
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                            }
-
-                            int response = mMyData.skuDetails.getInt("RESPONSE_CODE");
-                            if (response == 0) {
-                                ArrayList<String> responseList
-                                        = mMyData.skuDetails.getStringArrayList("DETAILS_LIST");
-
-                                for (String thisResponse : responseList) {
-                                    JSONObject object = null;
-                                    try {
-                                        object = new JSONObject(thisResponse);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    try {
-                                        mMyData.sku = object.getString("productId");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    try {
-                                        mMyData.price = object.getString("price");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                    if (mMyData.sku.equals("gold_10")) mMyData.strGold[0] = mMyData.price;
-                                    else if (mMyData.sku.equals("gold_20")) mMyData.strGold[1]= mMyData.price;
-                                    else if (mMyData.sku.equals("gold_50")) mMyData.strGold[2] = mMyData.price;
-                                    else if (mMyData.sku.equals("gold_100")) mMyData.strGold[3] = mMyData.price;
-                                    else if (mMyData.sku.equals("gold_200")) mMyData.strGold[4] = mMyData.price;
-                                    else if (mMyData.sku.equals("gold_300")) mMyData.strGold[5] = mMyData.price;
-                                    else if (mMyData.sku.equals("gold_500")) mMyData.strGold[6] = mMyData.price;
-                                    else if (mMyData.sku.equals("gold_1000")) mMyData.strGold[7] = mMyData.price;
-                                }
-                            }
-
-                        }
-                    };
-
-                    Intent serviceIntent =
-                            new Intent("com.android.vending.billing.InAppBillingService.BIND");
-                    serviceIntent.setPackage("com.android.vending");
-                    bindService(serviceIntent, mMyData.mServiceConn , Context.BIND_AUTO_CREATE);
-                }
-
-
-
-
-
-            }
-        });
+        prepareJob.execute();
 
         boolean bCheckConnt = mMyData.CheckConnectDate();
         if(bCheckConnt == true)
@@ -329,8 +332,37 @@ public class MainActivity extends AppCompatActivity {
                  final RadioButton rbtn_three;
                  final RadioButton rbtn_four;
 
-                final Switch rbtn_man;
-                final Switch rbtn_woman;
+                final CheckBox cbox_man;
+                final CheckBox cbox_woman;
+
+                final Spinner spin_StartAge, spin_EndAge;
+
+                spin_StartAge = (Spinner) v.findViewById(R.id.spinner1);
+                spin_StartAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view,
+                                               int position, long id) {
+                        mMyData.nStartAge = position + 17;
+                 }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+
+                spin_EndAge = (Spinner) v.findViewById(R.id.spinner2);
+                spin_EndAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view,
+                                               int position, long id) {
+                        mMyData.nEndAge = position + 17;
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+
 
                 Switch rbtn_10;
                 Switch rbtn_20;
@@ -366,50 +398,134 @@ public class MainActivity extends AppCompatActivity {
 
 
                 rbtn_two = (RadioButton) v.findViewById(R.id.rbtn_two);
+                rbtn_three = (RadioButton) v.findViewById(R.id.rbtn_three);
+                rbtn_four = (RadioButton) v.findViewById(R.id.rbtn_four);
+
+                cbox_man = (CheckBox) v.findViewById(R.id.rbtn_man);
+                cbox_woman = (CheckBox) v.findViewById(R.id.rbtn_woman);
+
+                switch (mMyData.nSearchMode)
+                {
+                    case 0:
+                        if(mMyData.getUserGender().equals("여자"))
+                        {
+                            cbox_man.setChecked(true);
+                            cbox_woman.setChecked(false);
+                        }
+                        else
+                        {
+                            cbox_man.setChecked(false);
+                            cbox_woman.setChecked(true);
+                        }
+                        break;
+                    case 3:
+                        cbox_man.setChecked(true);
+                        cbox_woman.setChecked(true);
+                        break;
+                    case 1:
+                        cbox_man.setChecked(true);
+                        cbox_woman.setChecked(false);
+                        break;
+                    case 2:
+                        cbox_man.setChecked(false);
+                        cbox_woman.setChecked(true);
+                        break;
+                }
+
+                if(mSetting.getnViewSetting() == 0)
+                {
+                    rbtn_two.setChecked(true);
+                    rbtn_three.setChecked(false);
+                    rbtn_four.setChecked(false);
+                }
+                else if(mSetting.getnViewSetting() == 1)
+                {
+                    rbtn_two.setChecked(false);
+                    rbtn_three.setChecked(true);
+                    rbtn_four.setChecked(false);
+                }
+                else if(mSetting.getnViewSetting() == 2)
+                {
+                    rbtn_two.setChecked(false);
+                    rbtn_three.setChecked(false);
+                    rbtn_four.setChecked(true);
+                }
+
+
                 rbtn_two.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(rbtn_two.isChecked())
+                        if(rbtn_two.isChecked()) {
+                            rbtn_two.setChecked(true);
+                            rbtn_three.setChecked(false);
+                            rbtn_four.setChecked(false);
                             mSetting.setnViewSetting(0);
+                        }
                     }
                 });
 
-                rbtn_three = (RadioButton) v.findViewById(R.id.rbtn_three);
                 rbtn_three.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(rbtn_three.isChecked())
+                        if(rbtn_three.isChecked()) {
+                            rbtn_two.setChecked(false);
+                            rbtn_three.setChecked(true);
+                            rbtn_four.setChecked(false);
                             mSetting.setnViewSetting(1);
+                        }
                     }
                 });
 
-                rbtn_four = (RadioButton) v.findViewById(R.id.rbtn_four);
+
                 rbtn_four.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if(rbtn_four.isChecked())
+                        {
+                            rbtn_two.setChecked(false);
+                            rbtn_three.setChecked(false);
+                            rbtn_four.setChecked(true);
                             mSetting.setnViewSetting(2);
+                        }
+
                     }
                 });
 
-                rbtn_man = (Switch) v.findViewById(R.id.rbtn_man);
-                rbtn_woman = (Switch) v.findViewById(R.id.rbtn_woman);
-
-                if(mMyData.nSearchMode == 0)
-                {
-                    if(mMyData.getUserGender().equals("여자"))
-                    {
-                        rbtn_man.setChecked(true);
-                        rbtn_man.setChecked(false);
+                cbox_man.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(cbox_man.isChecked())
+                        {
+                            if(cbox_woman.isChecked())
+                                mSetting.setnSearchSetting(3);
+                            else
+                                mSetting.setnSearchSetting(1);
+                        }
+                        else {
+                            cbox_woman.setChecked(true);
+                            mSetting.setnSearchSetting(2);
+                        }
                     }
-                    else
-                    {
-                        rbtn_man.setChecked(false);
-                        rbtn_man.setChecked(true);
+                });
+
+                cbox_woman.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(cbox_woman.isChecked())
+                        {
+                            if(cbox_man.isChecked())
+                                mSetting.setnSearchSetting(3);
+                            else
+                                mSetting.setnSearchSetting(2);
+                        }
+                        else {
+                            cbox_man.setChecked(true);
+                            mSetting.setnSearchSetting(1);
+                        }
                     }
+                });
 
 
-                }
 
                 /*rbtn_10 = (Switch) v.findViewById(R.id.rbtn_10);
                 rbtn_20 = (Switch) v.findViewById(R.id.rbtn_20);
@@ -459,35 +575,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
 
-                rbtn_man.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
-                        if(bChecked == true) {
-                            if(rbtn_woman.isChecked() == true)
-                                mSetting.setnSearchSetting(3);
-                            else
-                                mSetting.setnSearchSetting(1);
-                        }
-                        else
-                            mSetting.setnSearchSetting(2);
-                    }
-                });
 
-                rbtn_woman.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
-                        if(bChecked == true)
-                        {
-                            if(rbtn_man.isChecked() == true)
-                                mSetting.setnSearchSetting(3);
-                            else
-                                mSetting.setnSearchSetting(2);
-                        }
-                        else
-                            mSetting.setnSearchSetting(1);
-
-                    }
-                });
 
 
             }

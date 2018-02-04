@@ -152,7 +152,6 @@ public class MyPageActivity extends AppCompatActivity {
 
         Glide.with(getApplicationContext())
                 .load(mMyData.getUserImg())
-                .thumbnail(0.1f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(img_Mypic);

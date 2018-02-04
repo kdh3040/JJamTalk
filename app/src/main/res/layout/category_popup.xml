@@ -83,36 +83,36 @@
         app:layout_constraintBottom_toBottomOf="@+id/rbtn_two"
         app:layout_constraintLeft_toRightOf="@+id/rbtn_three" />
 
-    <Switch
+    <CheckBox
         android:id="@+id/rbtn_man"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_marginTop="8dp"
 
         android:background="@drawable/base_btn_bg"
 
         android:buttonTint="@color/bambamcolor"
         android:text="남자"
-        app:layout_constraintLeft_toLeftOf="@+id/rbtn_two"
-        app:layout_constraintTop_toBottomOf="@+id/rbtn_two" />
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="148dp" />
 
-    <Switch
+    <CheckBox
         android:id="@+id/rbtn_woman"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
 
         android:layout_marginLeft="5dp"
         android:background="@drawable/base_btn_bg"
+        android:buttonTint="@color/bambamcolor"
         android:text="여자"
         app:layout_constraintLeft_toRightOf="@+id/rbtn_man"
         app:layout_constraintTop_toTopOf="@+id/rbtn_man" />
 
     <Spinner
         android:id="@+id/spinner1"
-        android:layout_width="60dp"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:entries="@array/MyProfire_Age"
         android:layout_marginTop="8dp"
-
         app:layout_constraintLeft_toLeftOf="@+id/rbtn_two"
         app:layout_constraintTop_toBottomOf="@+id/rbtn_man" />
 
@@ -141,7 +141,7 @@
         android:id="@+id/spinner2"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-
+        android:entries="@array/MyProfire_Age"
         android:layout_marginLeft="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/spinner1"
         app:layout_constraintLeft_toRightOf="@+id/textView32" />
@@ -161,7 +161,7 @@
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/base_btn_bg"
         android:text="GO!"
