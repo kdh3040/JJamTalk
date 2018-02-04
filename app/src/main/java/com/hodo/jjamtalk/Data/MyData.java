@@ -361,7 +361,7 @@ public class MyData {
         LastBoardWriteTime = _UserLastBoardWriteTime;
 
         nStartAge = (Integer.parseInt(getUserAge()) / 10) * 10;
-        nEndAge = nStartAge + 9;
+        nEndAge = nStartAge + 19;
 
     }
 
@@ -1295,6 +1295,8 @@ public class MyData {
         for (int i = 0; i < arrSendHoneyDataList.size(); i++) {
             if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
                 nTotalSendCnt -= arrSendHoneyDataList.get(i).nSendHoney;
+            else
+                stTargetData.FanCount--;
         }
 
         nTotalSendCnt -= SendCount;
@@ -1303,11 +1305,18 @@ public class MyData {
         DatabaseReference table;
         table = database.getReference("User/" + stTargetData.Idx);
 
+        Map<String, Object> updateFanCountMap = new HashMap<>();
+        updateFanCountMap.put("FanCount", stTargetData.FanCount);
+        table.updateChildren(updateFanCountMap);
+
+        table = database.getReference("User/" + stTargetData.Idx).child("FanList");
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("RecvGold", nTotalSendCnt);
         updateMap.put("Idx", getUserIdx());
         updateMap.put("Img", getUserImg());
-        table.child("FanList").child(getUserIdx()).updateChildren(updateMap);
+        table.child(getUserIdx()).updateChildren(updateMap);
+
+
 
         //getMyfanData(stTargetData.Idx);
 
@@ -1756,7 +1765,7 @@ public class MyData {
     }
 
     public int getFanCount() {
-        return nFanCount;
+        return arrMyFanList.size();
     }
 
     public int SetBestItem() {

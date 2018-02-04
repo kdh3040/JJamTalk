@@ -76,7 +76,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
 
         switch (mSetting.getnSearchSetting())
         {
-            case 0:
+          /*  case 0:
             case 3:
                 //holder.textView.setText(-1*mMyData.arrUserAll_Recv.get(i).RecvCount+"개");
                 holder.textView.setText(mMyData.arrUserAll_Recv.get(i).NickName);//+ " " + mMyData.arrUserAll_Recv.get(i).Age+"세");
@@ -107,10 +107,9 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
+*/
 
-
-
-            case 4:
+            case 1:
                 //   float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
                 //  Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
                 holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
@@ -123,7 +122,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
                         .into(holder.iv_profile);
                 break;
             // 여자 탐색
-            case 5:
+            case 2:
                 //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Send.get(i).Lat, mMyData.arrUserWoman_Send.get(i).Lon,"kilometer");
                 //  Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
                 holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
@@ -135,7 +134,8 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
-            case 6:
+            case 0:
+            case 3:
                 Log.d("Guide !!!! ", "Case 3");
                 //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
                 holder.textView.setText(mMyData.arrUserAll_Recv_Age.get(i).FanCount+"명");
@@ -158,7 +158,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
 
         int rtValue = 0;
 
-        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
+     /*   if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
             Log.d("Guide !!!! ", "getItem 3");
             rtValue = mMyData.arrUserAll_Recv.size();
         }
@@ -168,18 +168,18 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
         } else if (mSetting.getnSearchSetting() == 2) {
             Log.d("Guide !!!! ", "getItem 2");
             rtValue = mMyData.arrUserWoman_Recv.size();
-        }
-        else if (mSetting.getnSearchSetting() == 4) {
-            Log.d("Guide !!!! ", "getItem 1");
-            rtValue = mMyData.arrUserMan_Recv_Age.size();
-        } else if (mSetting.getnSearchSetting() == 5) {
-            Log.d("Guide !!!! ", "getItem 2");
-            rtValue = mMyData.arrUserWoman_Recv_Age.size();
-        } else if (mSetting.getnSearchSetting() == 6) {
+        }*/
+        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
             Log.d("Guide !!!! ", "getItem 3");
             rtValue = mMyData.arrUserAll_Recv_Age.size();
         }
-
+        else if (mSetting.getnSearchSetting() == 1) {
+            Log.d("Guide !!!! ", "getItem 1");
+            rtValue = mMyData.arrUserMan_Recv_Age.size();
+        } else if (mSetting.getnSearchSetting() == 2) {
+            Log.d("Guide !!!! ", "getItem 2");
+            rtValue = mMyData.arrUserWoman_Recv_Age.size();
+        }
         return rtValue;
     }
 }

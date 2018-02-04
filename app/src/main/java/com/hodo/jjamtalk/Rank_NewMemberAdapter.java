@@ -63,7 +63,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
 
         switch (mSetting.getnSearchSetting())
         {
-            case 0:
+            /*case 0:
             case 3:
                 double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_New.get(i).Lat, mMyData.arrUserAll_New.get(i).Lon,"kilometer");
                 Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
@@ -96,11 +96,11 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
-
+*/
 
             //  남자 탐색
-            case 4:
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_New_Age.get(i).Lat, mMyData.arrUserMan_New_Age.get(i).Lon,"kilometer");
+            case 1:
+                double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_New_Age.get(i).Lat, mMyData.arrUserMan_New_Age.get(i).Lon,"kilometer");
                 Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
                 holder.textView.setText(mMyData.arrUserMan_New_Age.get(i).NickName + ", " + mMyData.arrUserMan_New_Age.get(i).Age + "세, " + (int)Dist + "km");
                 Glide.with(mContext)
@@ -110,7 +110,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
                         .into(holder.iv_profile);
                 break;
             // 여자 탐색
-            case 5:
+            case 2:
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_New_Age.get(i).Lat, mMyData.arrUserWoman_New_Age.get(i).Lon,"kilometer");
                 Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
                 holder.textView.setText(mMyData.arrUserWoman_New_Age.get(i).NickName + ", " + mMyData.arrUserWoman_New_Age.get(i).Age + "세, " + (int)Dist + "km");
@@ -120,7 +120,8 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
-            case 6:
+            case 0:
+            case 3:
                 Log.d("Guide !!!! ", "Case 3");
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_New_Age.get(i).Lat, mMyData.arrUserAll_New_Age.get(i).Lon,"kilometer");
                 holder.textView.setText(mMyData.arrUserAll_New_Age.get(i).NickName + ", " + mMyData.arrUserAll_New_Age.get(i).Age + "세, " + (int)Dist + "km");
@@ -138,7 +139,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
     @Override
     public int getItemCount() {
         int rtValue = 0;
-        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3 ) {
+    /*    if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3 ) {
             Log.d("Guide !!!! ", "getItem 1");
             rtValue = mMyData.arrUserAll_New.size();
         } else if (mSetting.getnSearchSetting() == 1) {
@@ -147,17 +148,17 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
         } else if (mSetting.getnSearchSetting() == 2) {
             Log.d("Guide !!!! ", "getItem 2");
             rtValue = mMyData.arrUserWoman_New.size();
-        }
+        }*/
 
-        else if (mSetting.getnSearchSetting() == 4) {
-            Log.d("Guide !!!! ", "getItem 1");
-            rtValue = mMyData.arrUserMan_New_Age.size();
-        } else if (mSetting.getnSearchSetting() == 5) {
-            Log.d("Guide !!!! ", "getItem 2");
-            rtValue = mMyData.arrUserWoman_New_Age.size();
-        } else if (mSetting.getnSearchSetting() == 6) {
+        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3 ) {
             Log.d("Guide !!!! ", "getItem 3");
             rtValue = mMyData.arrUserAll_New_Age.size();
+        } else if (mSetting.getnSearchSetting() == 1) {
+            Log.d("Guide !!!! ", "getItem 1");
+            rtValue = mMyData.arrUserMan_New_Age.size();
+        } else if (mSetting.getnSearchSetting() == 2) {
+            Log.d("Guide !!!! ", "getItem 2");
+            rtValue = mMyData.arrUserWoman_New_Age.size();
         }
         return rtValue;
     }

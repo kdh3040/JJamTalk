@@ -48,7 +48,7 @@ public class Rank_FanRichFragment extends Fragment {
                         if(mAppStatus.bCheckMultiSend == false) {
                             switch (mSettingData.getnSearchSetting())
                             {
-                                case 0:
+                      /*          case 0:
                                 case 3:
                                     stTargetData = mMyData.arrUserAll_Send.get(position);
                                     break;
@@ -57,15 +57,16 @@ public class Rank_FanRichFragment extends Fragment {
                                     break;
                                 case 2:
                                     stTargetData = mMyData.arrUserWoman_Send.get(position);
-                                    break;
+                                    break;*/
 
-                                case 4:
+                                case 1:
                                     stTargetData = mMyData.arrUserMan_Send_Age.get(position);
                                     break;
-                                case 5:
+                                case 2:
                                     stTargetData = mMyData.arrUserWoman_Send_Age.get(position);
                                     break;
-                                case 6:
+                                case 0:
+                                case 3:
                                     stTargetData = mMyData.arrUserAll_Send_Age.get(position);
                                     break;
                             }

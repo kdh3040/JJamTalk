@@ -104,7 +104,7 @@ public class FirebaseData {
 
         user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
-        user.child("FanCount").setValue(mMyData.getFanCount());
+        user.child("FanCount").setValue(-1 * mMyData.getFanCount());
 
         // 심플 디비 저장
         SaveSimpleData();
@@ -139,7 +139,7 @@ public class FirebaseData {
         long time = CommonFunc.getInstance().GetCurrentTime();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
         user.child("Date").setValue(ctime.format(new Date(time)));
-        user.child("FanCount").setValue(mMyData.getFanCount());
+        user.child("FanCount").setValue(-1 * mMyData.getFanCount());
 
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성

@@ -58,7 +58,7 @@ public class Rank_GoldReceiveFragment extends Fragment {
 
                             switch (mSettingData.getnSearchSetting())
                             {
-                                case 0:
+                      /*          case 0:
                                 case 3:
                                     stTargetData = mMyData.arrUserAll_Recv.get(position);
                                     break;
@@ -67,15 +67,16 @@ public class Rank_GoldReceiveFragment extends Fragment {
                                     break;
                                 case 2:
                                     stTargetData = mMyData.arrUserWoman_Recv.get(position);
-                                    break;
+                                    break;*/
 
-                                case 4:
+                                case 1:
                                     stTargetData = mMyData.arrUserMan_Recv_Age.get(position);
                                     break;
-                                case 5:
+                                case 2:
                                     stTargetData = mMyData.arrUserWoman_Recv_Age.get(position);
                                     break;
-                                case 6:
+                                case 0:
+                                case 3:
                                     stTargetData = mMyData.arrUserAll_Recv_Age.get(position);
                                     break;
                             }

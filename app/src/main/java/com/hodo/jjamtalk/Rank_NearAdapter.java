@@ -84,13 +84,13 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
         switch (mSetting.getnSearchSetting())
         {
 
-            case 0:
+           /* case 0:
             case 3:
                 double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Near.get(i).Lat, mMyData.arrUserAll_Near.get(i).Lon,"kilometer");
                 if(Dist < 1.0)
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
+                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*"1km 이내");
                 else
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
+                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*(int)Dist + "km");
 
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Near.get(i).Img)
@@ -102,9 +102,9 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
             case 1:
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Near.get(i).Lat, mMyData.arrUserMan_Near.get(i).Lon,"kilometer");
                 if(Dist < 1.0)
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
+                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*"1km 이내");
                 else
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
+                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*(int)Dist + "km");
 
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_Near.get(i).Img)
@@ -117,20 +117,20 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
                 Log.d("Guide !!!! ", "Case 3");
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Near.get(i).Lat, mMyData.arrUserWoman_Near.get(i).Lon,"kilometer");
                 if(Dist < 1.0)
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
+                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*"1km 이내");
                 else
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
+                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*(int)Dist + "km");
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Near.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
-                break;
+                break;*/
 
 
             //  남자 탐색
-            case 4:
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Near_Age.get(i).Lat, mMyData.arrUserMan_Near_Age.get(i).Lon,"kilometer");
+            case 1:
+                double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Near_Age.get(i).Lat, mMyData.arrUserMan_Near_Age.get(i).Lon,"kilometer");
                 if(Dist < 1.0)
                     holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
                 else
@@ -143,7 +143,7 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
                         .into(holder.iv_profile);
                 break;
             // 여자 탐색
-            case 5:
+            case 2:
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Near_Age.get(i).Lat, mMyData.arrUserWoman_Near_Age.get(i).Lon,"kilometer");
                 if(Dist < 1.0)
                     holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
@@ -157,7 +157,8 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
                         .into(holder.iv_profile);
 
                 break;
-            case 6:
+            case 0:
+            case 3:
                 Log.d("Guide !!!! ", "Case 3");
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Near_Age.get(i).Lat, mMyData.arrUserAll_Near_Age.get(i).Lon,"kilometer");
                 if(Dist < 1.0)
@@ -180,7 +181,7 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
     public int getItemCount() {
         int rtValue = 0;
 
-        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
+/*        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
             Log.d("Guide !!!! ", "getItem 3");
             rtValue = mMyData.arrUserAll_Near.size();
         }
@@ -190,17 +191,17 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
         } else if (mSetting.getnSearchSetting() == 2) {
             Log.d("Guide !!!! ", "getItem 2");
             rtValue = mMyData.arrUserWoman_Near.size();
-        }
-
-        else if (mSetting.getnSearchSetting() == 4) {
-            Log.d("Guide !!!! ", "getItem 1");
-            rtValue = mMyData.arrUserMan_Near_Age.size();
-        } else if (mSetting.getnSearchSetting() == 5) {
-            Log.d("Guide !!!! ", "getItem 2");
-            rtValue = mMyData.arrUserWoman_Near_Age.size();
-        } else if (mSetting.getnSearchSetting() == 6) {
+        }*/
+        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
             Log.d("Guide !!!! ", "getItem 3");
             rtValue = mMyData.arrUserAll_Near_Age.size();
+        }
+        else if (mSetting.getnSearchSetting() == 1) {
+            Log.d("Guide !!!! ", "getItem 1");
+            rtValue = mMyData.arrUserMan_Near_Age.size();
+        } else if (mSetting.getnSearchSetting() == 2) {
+            Log.d("Guide !!!! ", "getItem 2");
+            rtValue = mMyData.arrUserWoman_Near_Age.size();
         }
         return rtValue;
     }

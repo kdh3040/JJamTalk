@@ -21,6 +21,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -186,6 +187,48 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    public class SortDataAge extends AsyncTask<Void, Integer, Integer> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
+            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
+
+            mMyData.arrUserAll_Recv_Age= mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+
+            mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge );
+            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge );
+
+            mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge );
+            mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge );
+
+            return 0;
+        }
+
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... params) {
+            super.onProgressUpdate(params);
+        }
+
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -338,6 +381,8 @@ public class MainActivity extends AppCompatActivity {
                 final Spinner spin_StartAge, spin_EndAge;
 
                 spin_StartAge = (Spinner) v.findViewById(R.id.spinner1);
+                spin_StartAge.setSelection(mMyData.nStartAge - 17);
+               // spin_StartAge.setPrompt(String.valueOf(mMyData.nStartAge));
                 spin_StartAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
@@ -351,6 +396,8 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 spin_EndAge = (Spinner) v.findViewById(R.id.spinner2);
+                spin_EndAge.setSelection(mMyData.nEndAge - 17);
+               // spin_EndAge.setPrompt(String.valueOf(mMyData.nEndAge));
                 spin_EndAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
@@ -377,7 +424,8 @@ public class MainActivity extends AppCompatActivity {
                         mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
                         filter_dialog.dismiss();
 
-                        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+                        SortDataAge sortData = new SortDataAge();
+                        sortData.execute();
 
                /*         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                         intent.putExtra("StartFragment", 0);
