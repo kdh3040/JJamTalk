@@ -65,6 +65,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
+
         holder.iv_honey_rank.setLayoutParams(lpForIcon);
 
 
@@ -112,9 +113,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
             case 1:
                 //   float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
                 //  Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-                holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
-
-                holder.textView.setText(mMyData.arrUserMan_Recv_Age.get(i).FanCount+"명");
+                holder.textView.setText(mMyData.arrUserMan_Recv_Age.get(i).NickName + ", " + mMyData.arrUserMan_Recv_Age.get(i).Age);
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_Recv_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -125,9 +124,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
             case 2:
                 //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Send.get(i).Lat, mMyData.arrUserWoman_Send.get(i).Lon,"kilometer");
                 //  Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
-                holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
-
-                holder.textView.setText(mMyData.arrUserWoman_Recv_Age.get(i).FanCount+"명");
+                holder.textView.setText(mMyData.arrUserWoman_Recv_Age.get(i).NickName + ", " + mMyData.arrUserWoman_Recv_Age.get(i).Age);
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Recv_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -138,8 +135,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
                 //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
-                holder.textView.setText(mMyData.arrUserAll_Recv_Age.get(i).FanCount+"명");
-                holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
+                holder.textView.setText(mMyData.arrUserAll_Recv_Age.get(i).NickName+ ", " + mMyData.arrUserAll_Recv_Age.get(i).Age);
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Recv_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)

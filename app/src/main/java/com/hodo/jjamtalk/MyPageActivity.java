@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -22,6 +23,8 @@ import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Util.CommonFunc;
 
+import org.w3c.dom.Text;
+
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
@@ -36,6 +39,8 @@ public class MyPageActivity extends AppCompatActivity {
     UIData mUIdata = UIData.getInstance();
 
     ImageView btn_Setting,btn_my_profile,btn_history;
+    TextView txt_Setting,txt_profile;
+
     Button btn_Heart;
     //Button btn_buyjewel;
     ImageView img_Mypic;
@@ -48,6 +53,7 @@ public class MyPageActivity extends AppCompatActivity {
     TextView txt_MyHeartCnt;
     TextView txt_MyGoldCnt;
 
+
     TextView txt_MySendHoney;
     TextView txt_MyRecvHoney;
 
@@ -58,6 +64,7 @@ public class MyPageActivity extends AppCompatActivity {
     private CommonFunc mCommon = CommonFunc.getInstance();
 
     private Activity mActivity;
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,9 +136,17 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),SettingActivity.class));
-
             }
         });
+
+        txt_Setting = findViewById(R.id.textView23);
+        txt_Setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),SettingActivity.class));
+            }
+        });
+
         btn_Heart = (Button)findViewById(R.id.coin_charge);
         btn_Heart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +182,15 @@ public class MyPageActivity extends AppCompatActivity {
         btn_my_profile = findViewById(R.id.edit_profile);
         //btn_my_profile.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
         btn_my_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));
+                finish();
+            }
+        });
+
+        txt_profile = findViewById(R.id.textView6);
+        txt_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));

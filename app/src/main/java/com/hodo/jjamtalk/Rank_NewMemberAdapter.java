@@ -45,7 +45,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
 
-        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),((mUIData.getWidth()/mSetting.getViewCount()))));
+        /*holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),((mUIData.getWidth()/mSetting.getViewCount()))));
         //holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
 
         //holder.textView.setText("뉴멤버, 25, 20km");
@@ -56,7 +56,22 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
         holder.iv_honey_rank.setLayoutParams(lpForIcon);
+        holder.iv_honey_rank.setImageResource(R.mipmap.ic_new);
 
+*/
+        holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),mUIData.getWidth()/mSetting.getViewCount()));
+
+        RelativeLayout.LayoutParams lpForTextView = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2));
+        lpForTextView.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lpForTextView.addRule(RelativeLayout.RIGHT_OF,R.id.iv_honey_rank);
+        holder.textView.setLayoutParams(lpForTextView);
+
+        RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));
+        lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+
+        holder.iv_honey_rank.setLayoutParams(lpForIcon);
         holder.iv_honey_rank.setImageResource(R.mipmap.ic_new);
 
         int i = position;
@@ -100,9 +115,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
 
             //  남자 탐색
             case 1:
-                double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_New_Age.get(i).Lat, mMyData.arrUserMan_New_Age.get(i).Lon,"kilometer");
-                Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-                holder.textView.setText(mMyData.arrUserMan_New_Age.get(i).NickName + ", " + mMyData.arrUserMan_New_Age.get(i).Age + "세, " + (int)Dist + "km");
+                holder.textView.setText(mMyData.arrUserMan_New_Age.get(i).NickName + ", " + mMyData.arrUserMan_New_Age.get(i).Age);
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_New_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -111,9 +124,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
                 break;
             // 여자 탐색
             case 2:
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_New_Age.get(i).Lat, mMyData.arrUserWoman_New_Age.get(i).Lon,"kilometer");
-                Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
-                holder.textView.setText(mMyData.arrUserWoman_New_Age.get(i).NickName + ", " + mMyData.arrUserWoman_New_Age.get(i).Age + "세, " + (int)Dist + "km");
+                holder.textView.setText(mMyData.arrUserWoman_New_Age.get(i).NickName + ", " + mMyData.arrUserWoman_New_Age.get(i).Age);
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_New_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -123,8 +134,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
             case 0:
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_New_Age.get(i).Lat, mMyData.arrUserAll_New_Age.get(i).Lon,"kilometer");
-                holder.textView.setText(mMyData.arrUserAll_New_Age.get(i).NickName + ", " + mMyData.arrUserAll_New_Age.get(i).Age + "세, " + (int)Dist + "km");
+                holder.textView.setText(mMyData.arrUserAll_New_Age.get(i).NickName + ", " + mMyData.arrUserAll_New_Age.get(i).Age);
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_New_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
