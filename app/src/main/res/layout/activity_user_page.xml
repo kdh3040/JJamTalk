@@ -29,7 +29,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/hdvd"
-            tools:layout_editor_absoluteX="0dp" />
+             />
 
         <ImageButton
             android:id="@+id/UserPage_btnShared"
@@ -46,8 +46,10 @@
 
         <ImageView
             android:id="@+id/divider"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="3dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/UserPage_ImgProfile"
             app:srcCompat="@color/black" />
 
@@ -81,31 +83,30 @@
 
             app:layout_constraintLeft_toRightOf="@+id/UserPage_txtProfile"
             app:layout_constraintTop_toTopOf="@+id/UserPage_txtProfile"
-            app:srcCompat="@drawable/rank_bronze" /><![CDATA[
+            app:srcCompat="@drawable/rank_bronze" />
 
-        />
-
-        ]]>
 
         <ImageView
             android:id="@+id/icon_distance"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
 
-            app:layout_constraintBottom_toBottomOf="@+id/UserPage_ImgProfile"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintLeft_toLeftOf="@+id/UserPage_txtProfile"
+            app:layout_constraintTop_toBottomOf="@+id/UserPage_txtProfile"
             app:srcCompat="@mipmap/ic_location" />
 
         <TextView
             android:id="@+id/UserPage_txtDistance"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
 
 
             android:gravity="center_vertical"
             android:text="15km 거리에 있음"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/UserPage_ImgProfile"
+            android:textColor="@color/boardTextColor"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_distance"
             app:layout_constraintLeft_toRightOf="@+id/icon_distance" />
 
         <TextView
@@ -116,26 +117,29 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:text="한국대학교에 다니고요 학생이고요\n같이놉시다"
-            android:textColor="@color/memoColor"
+            android:textColor="@color/boardTextColor"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/UserPage_txtProfile" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/icon_distance" />
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/divide_fan"
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/UserPage_txtMemo"
-            app:srcCompat="@color/black" />
+            app:srcCompat="@color/black" />-->
 
         <ImageView
             android:id="@+id/ic_fan"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divide_fan"
+            app:layout_constraintTop_toBottomOf="@+id/UserPage_txtMemo"
             app:srcCompat="@drawable/ic_fan" />
 
         <android.support.v7.widget.RecyclerView
@@ -143,20 +147,21 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal"
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="@+id/ic_fan"
             app:layout_constraintLeft_toRightOf="@+id/ic_fan"
             app:layout_constraintRight_toRightOf="parent" />
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/divide_btn"
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:layout_marginTop="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ic_fan"
-            app:srcCompat="@color/black" />
+            app:srcCompat="@color/black" />-->
 
 
         <ImageButton
@@ -177,8 +182,8 @@
             android:id="@+id/UserPage_btnMessage"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
 
             android:layout_marginTop="20dp"
             android:background="@drawable/base_btn_bg"
@@ -186,7 +191,7 @@
             android:src="@drawable/chat_icon"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divide_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/ic_fan" />
 
         <ImageButton
             android:id="@+id/UserPage_btnGiftHoney"

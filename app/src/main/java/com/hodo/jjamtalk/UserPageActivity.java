@@ -598,11 +598,11 @@ public class UserPageActivity extends AppCompatActivity {
         btnMessage.setOnClickListener(listener);
 
         //LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
-        View Divide_Fan = (View)findViewById(R.id.divide_fan);
+        //View Divide_Fan = (View)findViewById(R.id.divide_fan);
 
         if(stTargetData.arrFanList.size() == 0 && stTargetData.arrStarList.size() == 0 ) {
             //layout.setVisibility(View.GONE);
-            Divide_Fan.setVisibility(View.GONE);
+            //Divide_Fan.setVisibility(View.GONE);
         }
 
         //LinearLayout layoutFanLike = (LinearLayout) findViewById(R.id.ll_fan_like);

@@ -167,8 +167,8 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         imgFan=findViewById(R.id.ic_fan);
         imgFan.setVisibility(View.GONE);
         //LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
-        ImageView divide_Fan = (ImageView)findViewById(R.id.divide_fan);
-        divide_Fan.setVisibility(View.GONE);
+        //ImageView divide_Fan = (ImageView)findViewById(R.id.divide_fan);
+        //divide_Fan.setVisibility(View.GONE);
         /*if(mMyData.arrMyFanList.size() == 0 && mMyData.arrMyStarList.size() == 0 ) {
 
             imgFan.setVisibility(View.GONE);
