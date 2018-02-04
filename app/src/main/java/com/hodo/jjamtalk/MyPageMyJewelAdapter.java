@@ -122,7 +122,7 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
         int count = mMyData.itemList.get(index);
         holder.tv.setText("x" + Integer.toString(count));
 
-        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/2,mUIdata.getHeight()/10));
+        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/1,mUIdata.getHeight()/10));
 
     }
 

@@ -170,7 +170,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView)findViewById(R.id.rv_myjewel);
         Myjeweladapter = new MyPageMyJewelAdapter(getApplicationContext(),this);
-        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
         recyclerView.setAdapter(Myjeweladapter);
 
 /*        rv_sell_item = findViewById(R.id.rv_sell_item);
@@ -179,11 +179,11 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         rv_sell_item.setAdapter(sellAdapter);
         rv_sell_item.setVisibility(View.GONE);*/
 
-        txt_price = (TextView)findViewById(R.id.txt_sell_price);
-        txt_price.setVisibility(View.GONE);
+        //txt_price = (TextView)findViewById(R.id.txt_sell_price);
+        //txt_price.setVisibility(View.GONE);
 
-        txt_myGold = (TextView)findViewById(R.id.txt_myGold);
-        txt_myGold.setText(mMyData.getUserHoney() + " 골드");
+        //txt_myGold = (TextView)findViewById(R.id.txt_myGold);
+        //txt_myGold.setText(mMyData.getUserHoney() + " 골드");
 
         btn_openBox = findViewById(R.id.btn_openBox);
         btn_sellJewely = findViewById(R.id.btn_sellJewely);
@@ -240,7 +240,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                                 }
 
 
-                                txt_myGold.setText(mMyData.getUserHoney() + " 골드");
+                                //txt_myGold.setText(mMyData.getUserHoney() + " 골드");
                                 Myjeweladapter.notifyDataSetChanged();
                             }else {
                                 Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
@@ -339,7 +339,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                                         }
                                     });
                                 }
-                                txt_myGold.setText(mMyData.getUserHoney() + " 골드");
+                                //txt_myGold.setText(mMyData.getUserHoney() + " 골드");
                                 Myjeweladapter.notifyDataSetChanged();
                         }
                     });

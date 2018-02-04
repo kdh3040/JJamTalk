@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:orientation="horizontal"
-    android:background="@drawable/jewel_outline">
+    android:background="@drawable/base_btn_bg"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/iv_jewel"
@@ -15,7 +15,7 @@
 
         android:layout_weight="3"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/bee"></ImageView>
+        app:srcCompat="@drawable/randombox"></ImageView>
 
     <ImageView
         android:id="@+id/imageView12"
