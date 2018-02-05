@@ -9,6 +9,7 @@ import android.content.ServiceConnection;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -80,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton ib_buy_jewel;
     ImageView ib_home;
     ImageView iv_refresh,iv_honeybox;
+
+    ImageView Card_Alarm, Chat_Alarm, Fan_Alarm, Mail_Alarm;
+
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
     BoardFragment boardFragment;
@@ -266,6 +270,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
             }
         });
+
+        Card_Alarm = (ImageView)findViewById(R.id.alarm_favor);
+        Chat_Alarm = (ImageView)findViewById(R.id.alarm_chat);
+        Fan_Alarm= (ImageView)findViewById(R.id.alarm_fan);
+        Mail_Alarm= (ImageView)findViewById(R.id.alarm_mail);
 
         final Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();

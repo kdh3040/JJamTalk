@@ -69,6 +69,7 @@
         android:id="@+id/alarm_mail"
         android:layout_width="5dp"
         android:layout_height="5dp"
+        android:visibility="gone"
         app:layout_constraintRight_toLeftOf="@+id/iv_honeybox"
         app:layout_constraintTop_toTopOf="@+id/iv_honeybox"
         app:srcCompat="@android:color/holo_red_dark" />
@@ -105,6 +106,7 @@
         android:layout_width="4dp"
         android:layout_height="4dp"
         android:layout_marginTop="5dp"
+        android:visibility="gone"
         app:layout_constraintRight_toLeftOf="@+id/ib_cardlist"
         app:layout_constraintTop_toTopOf="@+id/ib_cardlist"
         app:srcCompat="@android:color/holo_red_dark" />
@@ -126,6 +128,7 @@
         android:id="@+id/alarm_chat"
         android:layout_width="4dp"
         android:layout_height="4dp"
+        android:visibility="gone"
         app:layout_constraintRight_toLeftOf="@+id/ib_chatlist"
         app:layout_constraintTop_toTopOf="@+id/alarm_favor"
         app:srcCompat="@android:color/holo_red_dark" />
@@ -147,6 +150,7 @@
         android:id="@+id/alarm_fan"
         android:layout_width="4dp"
         android:layout_height="4dp"
+        android:visibility="gone"
         app:layout_constraintRight_toLeftOf="@+id/ib_fan"
         app:layout_constraintTop_toTopOf="@+id/alarm_favor"
         app:srcCompat="@android:color/holo_red_dark" />
