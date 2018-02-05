@@ -529,6 +529,8 @@ public class InputProfile extends AppCompatActivity {
                 }
                 else
                 {
+                    mMyData.nStartAge = (Integer.parseInt(mMyData.getUserAge()) / 10) * 10;
+                    mMyData.nEndAge = mMyData.nStartAge + 19;
                     mMyData.setUserNick(strNickName);
                     mFireBaseData.SaveData(mMyData.getUserIdx());
                     bMySet = true;
