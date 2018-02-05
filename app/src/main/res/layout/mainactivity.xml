@@ -92,6 +92,15 @@
         app:layout_constraintRight_toLeftOf="@+id/ib_chatlist"
         app:srcCompat="@drawable/favorite"></ImageButton>
 
+    <ImageView
+        android:id="@+id/alarm_favor"
+        android:layout_width="4dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintRight_toLeftOf="@+id/ib_cardlist"
+        app:layout_constraintTop_toTopOf="@+id/ib_cardlist"
+        app:srcCompat="@android:color/holo_red_dark" />
+
     <ImageButton
         android:id="@+id/ib_chatlist"
         android:layout_width="40dp"
@@ -105,6 +114,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/chat_icon"></ImageButton>
 
+    <ImageView
+        android:id="@+id/alarm_chat"
+        android:layout_width="4dp"
+        android:layout_height="4dp"
+        app:layout_constraintRight_toLeftOf="@+id/ib_chatlist"
+        app:layout_constraintTop_toTopOf="@+id/alarm_favor"
+        app:srcCompat="@android:color/holo_red_dark" />
+
     <ImageButton
         android:id="@+id/ib_fan"
         android:layout_width="40dp"
@@ -117,6 +134,14 @@
         app:layout_constraintLeft_toRightOf="@+id/ib_chatlist"
         app:layout_constraintRight_toLeftOf="@+id/ib_board"
         app:srcCompat="@drawable/ic_fan"></ImageButton>
+
+    <ImageView
+        android:id="@+id/alarm_fan"
+        android:layout_width="4dp"
+        android:layout_height="4dp"
+        app:layout_constraintRight_toLeftOf="@+id/ib_fan"
+        app:layout_constraintTop_toTopOf="@+id/alarm_favor"
+        app:srcCompat="@android:color/holo_red_dark" />
 
     <ImageButton
         android:id="@+id/ib_board"
