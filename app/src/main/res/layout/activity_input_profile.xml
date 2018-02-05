@@ -12,7 +12,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context="com.hodo.jjamtalk.InputProfile">
+    tools:context="com.hodo.talkking.InputProfile">
 
 <ScrollView
     android:id="@+id/login_form"

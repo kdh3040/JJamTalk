@@ -20,7 +20,7 @@ android:layout_width="match_parent"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     ads:adSize="MEDIUM_RECTANGLE"
-    ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+    ads:adUnitId="ca-app-pub-8954582850495744/1996257938">
 </com.google.android.gms.ads.AdView>
 
 </LinearLayout>

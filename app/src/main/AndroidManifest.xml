@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hodo.jjamtalk" android:versionCode="1" android:versionName="1.0.2">
+    package="com.hodo.talkking" android:versionCode="1" android:versionName="1.0.2">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,12 +28,12 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.hodo.talkking.MainActivity"
             android:theme="@style/NoTitleBar"
             android:screenOrientation="portrait"
 
            />
-        <activity android:name=".StartLogo">
+        <activity android:name="com.hodo.talkking.StartLogo">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
@@ -42,7 +42,7 @@
 
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.hodo.talkking.LoginActivity"
             android:theme ="@style/NoTitleBar"
             android:screenOrientation="portrait">
 
@@ -50,42 +50,42 @@
         </activity>
 
         <service
-            android:name=".Firebase.MyFirebaseInstanceIdSerivce">
+            android:name="com.hodo.talkking.Firebase.MyFirebaseInstanceIdSerivce">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
         <service
-            android:name=".Firebase.MyFirebaseMessagingService">
+            android:name="com.hodo.talkking.Firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <activity android:name=".SignUpActivity"
+        <activity android:name="com.hodo.talkking.SignUpActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MyProfileActivity"
+        <activity android:name="com.hodo.talkking.MyProfileActivity"
             android:theme="@style/MyTheme"
             android:screenOrientation="portrait"
             />
-        <activity android:name=".MyPageActivity"
+        <activity android:name="com.hodo.talkking.MyPageActivity"
             android:theme="@style/MyTheme"
             android:label="내 페이지"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".SettingActivity"
+        <activity android:name="com.hodo.talkking.SettingActivity"
             android:theme="@style/MyTheme"
-            android:parentActivityName=".MyPageActivity"
+            android:parentActivityName="com.hodo.talkking.MyPageActivity"
             android:screenOrientation="portrait"
             android:label="설정">
         </activity>
-        <activity android:name=".PublicChatRoomHostActivity"
+        <activity android:name="com.hodo.talkking.PublicChatRoomHostActivity"
             android:label="공개채팅방"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"
             >
 
         </activity>
-        <activity android:name=".FanClubActivity"
+        <activity android:name="com.hodo.talkking.FanClubActivity"
             android:label="팬"
             android:theme="@style/MyTheme"
             android:screenOrientation="portrait"
@@ -93,7 +93,7 @@
 
         </activity>
 
-        <activity android:name=".UserFanActivity"
+        <activity android:name="com.hodo.talkking.UserFanActivity"
             android:label="팬"
             android:theme="@style/MyTheme"
             android:screenOrientation="portrait"
@@ -101,72 +101,72 @@
 
         </activity>
 
-        <activity android:name=".MainSettingActivity"
+        <activity android:name="com.hodo.talkking.MainSettingActivity"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".BuyJewelActivity"
-            android:parentActivityName=".MyPageActivity"
+        <activity android:name="com.hodo.talkking.BuyJewelActivity"
+            android:parentActivityName="com.hodo.talkking.MyPageActivity"
             android:theme ="@style/NoTitleBar"
             android:screenOrientation="portrait"
             android:label="상자 구입"
            >
         </activity>
-        <activity android:name=".PublicChatOptionMenuBanActivity"
+        <activity android:name="com.hodo.talkking.PublicChatOptionMenuBanActivity"
             android:label="차단 리스트"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".PublicChatOptionMenuUserListActivity"
+        <activity android:name="com.hodo.talkking.PublicChatOptionMenuUserListActivity"
             android:label="현재 참가자"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".BuyGoldActivity"       android:screenOrientation="portrait"/>
-        <activity android:name=".ImageActivity"
+        <activity android:name="com.hodo.talkking.BuyGoldActivity"       android:screenOrientation="portrait"/>
+        <activity android:name="com.hodo.talkking.ImageActivity"
             android:theme ="@style/NoTitleBar"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Kakao.KakaoSignupActivity"       android:screenOrientation="portrait"/>
-        <activity android:name=".ClickedMyPicActivity"
+        <activity android:name="com.hodo.talkking.Kakao.KakaoSignupActivity"       android:screenOrientation="portrait"/>
+        <activity android:name="com.hodo.talkking.ClickedMyPicActivity"
             android:theme ="@style/NoTitleBar"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".InputProfile"       android:screenOrientation="portrait"></activity>
-        <activity android:name=".UserPageActivity"
+        <activity android:name="com.hodo.talkking.InputProfile"       android:screenOrientation="portrait"></activity>
+        <activity android:name="com.hodo.talkking.UserPageActivity"
             android:theme="@style/NoTitleBar"       android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".PublicChatRoomActivity"
+        <activity android:name="com.hodo.talkking.PublicChatRoomActivity"
             android:screenOrientation="portrait"
             ></activity>
-        <activity android:name=".ChatRoomActivity"
+        <activity android:name="com.hodo.talkking.ChatRoomActivity"
             android:theme="@style/MyTheme"
             android:screenOrientation="portrait"
             ></activity>
-        <activity android:name=".BoardItemActivity"
+        <activity android:name="com.hodo.talkking.BoardItemActivity"
             android:label="허허참"
             android:screenOrientation="portrait"
             ></activity>
-        <activity android:name=".BoardWriteActivity"
+        <activity android:name="com.hodo.talkking.BoardWriteActivity"
             android:theme="@style/MyTheme"
             android:label="글쓰기"
             android:screenOrientation="portrait"
             ></activity>
-        <activity android:name=".BoardMyListActivity"
+        <activity android:name="com.hodo.talkking.BoardMyListActivity"
             android:theme="@style/MyTheme"
             android:label="내가 쓴 글"
             android:screenOrientation="portrait"
             ></activity>
-        <activity android:name=".ImageViewPager"
+        <activity android:name="com.hodo.talkking.ImageViewPager"
             android:theme="@style/NoTitleBar"
             android:screenOrientation="portrait"
             ></activity>
 
-        <activity android:name=".BlockListActivity"
+        <activity android:name="com.hodo.talkking.BlockListActivity"
             android:label="차단 목록"       android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".MailboxActivity"
+        <activity android:name="com.hodo.talkking.MailboxActivity"
             android:theme="@style/MyTheme"
             android:label="우체통"       android:screenOrientation="portrait"></activity>
 
@@ -182,14 +182,14 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent"/>
 
-        <activity android:name=".HoneyGetHistoryActivity"
+        <activity android:name="com.hodo.talkking.HoneyGetHistoryActivity"
             android:label= "받은 꿀"      android:screenOrientation="portrait"></activity>
-        <activity android:name=".HoneySentHistoryActivity"
+        <activity android:name="com.hodo.talkking.HoneySentHistoryActivity"
             android:label= "선물한 꿀"      android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".MyJewelBoxActivity"
+            android:name="com.hodo.talkking.MyJewelBoxActivity"
             android:theme="@style/MyTheme"
-            android:parentActivityName=".MyPageActivity"
+            android:parentActivityName="com.hodo.talkking.MyPageActivity"
             android:label="내 아이템"      android:screenOrientation="portrait"></activity>
     </application>
 

@@ -4,10 +4,12 @@
     <modules>
       <module fileurl="file://C:\gitgit\JJamTalk.iml" filepath="C:\gitgit\JJamTalk.iml" />
       <module fileurl="file://C:\gitgit\JJamTalkREAL.iml" filepath="C:\gitgit\JJamTalkREAL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Talkking.iml" filepath="$PROJECT_DIR$/Talkking.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gitgit.iml" filepath="$PROJECT_DIR$/gitgit.iml" />
+      <module fileurl="file://D:\hodosoft\Talkking\app\app.iml" filepath="D:\hodosoft\Talkking\app\app.iml" />
       <module fileurl="file://F:\Project\Android\JJamTalk\gitgit.iml" filepath="F:\Project\Android\JJamTalk\gitgit.iml" />
       <module fileurl="file://F:\GIT\JJamTalk\gitgit.iml" filepath="F:\GIT\JJamTalk\gitgit.iml" />
+      <module fileurl="file://D:\hodosoft\Talkking\gitgit.iml" filepath="D:\hodosoft\Talkking\gitgit.iml" />
     </modules>
   </component>
 </project>
