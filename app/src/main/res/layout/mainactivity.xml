@@ -16,18 +16,6 @@
         app:srcCompat="@color/goldColor" />
 
     <ImageView
-        android:id="@+id/iv_itemBox"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/transparent"
-        android:padding="3dp"
-        app:layout_constraintRight_toLeftOf="@+id/iv_honeybox"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/randombox"></ImageView>
-
-    <ImageView
         android:id="@+id/iv_mypage"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -39,18 +27,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/profile"></ImageView>
-
-    <ImageView
-        android:id="@+id/iv_honeybox"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/transparent"
-        android:padding="3dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mail"></ImageView>
 
     <ImageButton
         android:id="@+id/ib_filter"
@@ -64,6 +40,38 @@
         app:layout_constraintRight_toLeftOf="@+id/iv_itemBox"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/filter"></ImageButton>
+
+    <ImageView
+        android:id="@+id/iv_itemBox"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:padding="3dp"
+        app:layout_constraintRight_toLeftOf="@+id/iv_honeybox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/randombox"></ImageView>
+
+    <ImageView
+        android:id="@+id/iv_honeybox"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:padding="3dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mail"></ImageView>
+
+    <ImageView
+        android:id="@+id/alarm_mail"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        app:layout_constraintRight_toLeftOf="@+id/iv_honeybox"
+        app:layout_constraintTop_toTopOf="@+id/iv_honeybox"
+        app:srcCompat="@android:color/holo_red_dark" />
 
     <ImageButton
         android:id="@+id/ib_home"
