@@ -61,9 +61,9 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
 
         holder.SendDate.setText(mMyData.arrGiftHoneyDataList.get(position).strSendDate);
 
-        holder.textView.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney)+"개");
+        holder.textView.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney));
 
-        holder.textView.setOnClickListener(new View.OnClickListener() {
+        holder.bg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View giftView = LayoutInflater.from(view.getContext()).inflate(R.layout.alert_open_mail,null);

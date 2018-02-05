@@ -1,5 +1,6 @@
 package com.hodo.jjamtalk.ViewHolder;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,8 +19,8 @@ import com.hodo.jjamtalk.R;
 
 public class MailboxViewHolder extends RecyclerView.ViewHolder{
 
-    public LinearLayout linearLayout;
-    public ImageView imageView;
+    public ConstraintLayout constraintLayout;
+    public ImageView imageView,bg;
     public TextView textView;
     public TextView SendDate;
     public LinearLayout layout;
@@ -28,8 +29,8 @@ public class MailboxViewHolder extends RecyclerView.ViewHolder{
 
     public MailboxViewHolder(View itemView) {
         super(itemView);
-
-        layout = itemView.findViewById(R.id.ll_mail_item);
+        bg=itemView.findViewById(R.id.bg);
+        constraintLayout = itemView.findViewById(R.id.layout_mailbox);
         imageView = itemView.findViewById(R.id.iv_my_card);
         textView = itemView.findViewById(R.id.tv_honeycount);
         SendDate = itemView.findViewById(R.id.tv_senddate);
