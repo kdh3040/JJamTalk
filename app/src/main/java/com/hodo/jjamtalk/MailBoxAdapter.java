@@ -69,7 +69,7 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
                 View giftView = LayoutInflater.from(view.getContext()).inflate(R.layout.alert_open_mail,null);
 
                 final ImageView popup_ImageView  = giftView.findViewById(R.id.iv_mailfrom);
-                TextView popup_textcount  = giftView.findViewById(R.id.tv_mailbox_sendcount);
+                TextView popup_textcount  = giftView.findViewById(R.id.tv_count );
                 TextView popup_textMsg  = giftView.findViewById(R.id.tv_mailbox_sendmsg);
 
                 Glide.with(mActivity)
