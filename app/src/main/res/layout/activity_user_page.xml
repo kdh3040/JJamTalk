@@ -28,8 +28,7 @@
             android:layout_height="400dp"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/hdvd"
-             />
+            app:srcCompat="@drawable/profile" />
 
         <ImageButton
             android:id="@+id/UserPage_btnShared"
@@ -154,6 +153,16 @@
             app:layout_constraintLeft_toRightOf="@+id/ic_fan"
             app:layout_constraintRight_toRightOf="parent" />
 
+        <ImageView
+            android:id="@+id/bg_fan"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ic_fan"
+            app:srcCompat="@android:color/transparent" />
+
         <!--<ImageView
             android:id="@+id/divide_btn"
             android:layout_width="match_parent"
@@ -169,7 +178,6 @@
             android:layout_width="100dp"
             android:layout_height="40dp"
 
-            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
             android:background="@drawable/base_btn_bg"
             android:scaleType="fitCenter"

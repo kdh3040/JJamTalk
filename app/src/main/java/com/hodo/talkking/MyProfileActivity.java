@@ -95,9 +95,9 @@ public class MyProfileActivity extends AppCompatActivity {
         Img_Profiles[3] = (ImageView) findViewById(R.id.MyProfile_Img4);
         //Img_Profiles[4] = (ImageView)findViewById(R.id.MyProfile_Img5);
 
-        Btn_Insta = (Button)findViewById(R.id.MyProfile_Btn_Insta);
+        //Btn_Insta = (Button)findViewById(R.id.MyProfile_Btn_Insta);
         // TODO : 1차에서 인스타 연동 기능 필요
-        Btn_Insta.setVisibility(View.GONE);
+       // Btn_Insta.setVisibility(View.GONE);
 
         et_Memo = (EditText) findViewById(R.id.MyProfile_Memo);
         et_Memo.setText(mMyData.getUserMemo());
@@ -141,9 +141,9 @@ public class MyProfileActivity extends AppCompatActivity {
                     case R.id.MyProfile_Img4:
                         popUp(3);
                         break;
-                    case R.id.MyProfile_Btn_Insta:
+                    //case R.id.MyProfile_Btn_Insta:
 
-                        break;
+                        //break;
 
                 }
             }
@@ -155,7 +155,7 @@ public class MyProfileActivity extends AppCompatActivity {
         Img_Profiles[2].setOnClickListener(listener);
         Img_Profiles[3].setOnClickListener(listener);
 
-        Btn_Insta.setOnClickListener(listener);
+        //Btn_Insta.setOnClickListener(listener);
 
         //Img_Profiles[4].setOnClickListener(listener);*/
 

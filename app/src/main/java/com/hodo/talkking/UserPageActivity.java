@@ -44,7 +44,8 @@ import com.hodo.talkking.Util.NotiFunc;
 
 public class UserPageActivity extends AppCompatActivity {
     private UserData stTargetData;
-    ImageView ic_fan;
+    private ImageView bg_fan;
+    private ImageView ic_fan;
     private MyData mMyData = MyData.getInstance();
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
     private FirebaseData mFireBase = FirebaseData.getInstance();
@@ -109,8 +110,8 @@ public class UserPageActivity extends AppCompatActivity {
         });*/
 
         mMyData.SetCurFrag(0);
-
-        ic_fan = findViewById(R.id.ic_fan);
+        ic_fan =findViewById(R.id.ic_fan);
+        bg_fan= findViewById(R.id.bg_fan);
         btnShare = (ImageButton)findViewById(R.id.UserPage_btnShared);
 
         myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIdata.getJewels());
@@ -614,7 +615,7 @@ public class UserPageActivity extends AppCompatActivity {
 
             TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData.arrFanList);
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-            ic_fan.setOnClickListener(new View.OnClickListener() {
+            bg_fan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
