@@ -54,7 +54,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="7"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="none"
+            android:maxLength="30"
+            android:maxLines="5" />
 
         <Button
             android:id="@+id/btn_send"

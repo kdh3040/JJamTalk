@@ -65,6 +65,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.hodo.talkking.MyProfileActivity"
             android:theme="@style/MyTheme"
+            android:label="프로필 설정"
             android:screenOrientation="portrait"
             />
         <activity android:name="com.hodo.talkking.MyPageActivity"

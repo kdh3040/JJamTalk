@@ -431,7 +431,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 10;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (10코인 필요)");
                             }
                         });
 
@@ -439,7 +439,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 20;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (30코인 필요)");
                             }
                         });
 
@@ -447,7 +447,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 30;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (50코인 필요)");
                             }
                         });
 
@@ -455,7 +455,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 50;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (100코인 필요)");
                             }
                         });
 
@@ -463,7 +463,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 100;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (5000코인 필요)");
                             }
                         });
 
@@ -471,7 +471,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 500;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (1000코인 필요)");
                             }
                         });
 
@@ -483,13 +483,13 @@ public class ChatRoomActivity extends AppCompatActivity {
                             public void onClick(View view) {
 
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                    Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "코인이 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
                                 }
                                 else
                                 {
                                     String strSendMsg = SendMsg.getText().toString();
                                     if (strSendMsg.equals(""))
-                                        strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
+                                        strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "하트를 보내셨습니다!!";
 
                                     boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                     rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
@@ -502,7 +502,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                                         String message;
                                         if (SendMsg.getText().toString().equals(""))
-                                            message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
+                                            message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "하트를 보내셨습니다!!";
                                         else
                                             message = strSendMsg;
 

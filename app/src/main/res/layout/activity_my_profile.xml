@@ -72,13 +72,14 @@
 
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/nickname"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
+            android:gravity="bottom"
             android:text="닉네임"
-            android:textColor="@color/bambamcolor"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,57 +88,57 @@
         <EditText
             android:id="@+id/MyProfile_NickName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
             android:ems="10"
+            android:gravity="bottom"
             android:inputType="textPersonName"
-            app:layout_constraintStart_toEndOf="@+id/textView18"
-            app:layout_constraintTop_toTopOf="@+id/textView18" />
+            android:maxLength="8"
+            app:layout_constraintBottom_toBottomOf="@+id/nickname"
+            app:layout_constraintLeft_toRightOf="@+id/nickname" />
 
         <TextView
-            android:id="@+id/textView24"
+            android:id="@+id/age"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_height="40dp"
             android:layout_marginTop="20dp"
+            android:gravity="bottom"
             android:text="나이"
-            android:textColor="@color/bambamcolor"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/MyProfile_NickName" />
+            app:layout_constraintLeft_toLeftOf="@+id/nickname"
+            app:layout_constraintTop_toBottomOf="@+id/nickname" />
 
 
         <Spinner
             android:id="@+id/MyProfile_Age_1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_height="40dp"
             android:entries="@array/MyProfire_Age"
-            app:layout_constraintStart_toStartOf="@+id/MyProfile_NickName"
-            app:layout_constraintTop_toTopOf="@+id/textView24" />
+            app:layout_constraintBottom_toBottomOf="@+id/age"
+            app:layout_constraintLeft_toLeftOf="@+id/MyProfile_NickName" />
 
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/say"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
+            android:maxLength="20"
             android:text="하고 싶은 말"
-            android:textColor="@color/bambamcolor"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/MyProfile_Age_1" />
+            app:layout_constraintLeft_toLeftOf="@+id/nickname"
+            app:layout_constraintTop_toBottomOf="@+id/age" />
 
         <EditText
             android:id="@+id/MyProfile_Memo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:ems="10"
             android:imeOptions="normal"
             android:inputType="textMultiLine"
@@ -145,8 +146,8 @@
             android:maxLength="100"
             android:maxLines="10"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintLeft_toLeftOf="@+id/nickname"
+            app:layout_constraintTop_toBottomOf="@+id/say" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
