@@ -59,6 +59,7 @@ public class CommonFunc {
     private InterstitialAd mInterstitialAd;
     private SoundPool mSoundPool = null;
     private int mPlaySoundIndex = 0;
+    public String LastBoardWrite;
 
     public void refreshMainActivity(Activity mActivity, int StartFragMent)
     {

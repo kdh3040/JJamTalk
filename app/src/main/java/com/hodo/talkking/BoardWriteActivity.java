@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import com.hodo.talkking.Data.BoardMsgDBData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Firebase.FirebaseData;
+import com.hodo.talkking.Util.CommonFunc;
 
 /**
  * Created by mjk on 2017. 8. 14..
@@ -27,6 +30,8 @@ public class BoardWriteActivity extends AppCompatActivity {
     EditText txt_Memo;
     Activity mActivity;
 
+    private String BeforeWriteMsg;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,16 +39,26 @@ public class BoardWriteActivity extends AppCompatActivity {
         mActivity = this;
 
         txt_Memo = (EditText)findViewById(R.id.Write_txtMemo);
-
+        txt_Memo.setText(CommonFunc.getInstance().LastBoardWrite);
         btn_send = (Button)findViewById(R.id.btn_send);
         btn_send.setText("글 등록하기");
-    /*    if(mMydata.getUserHoney() > 10){
-            btn_send.setText("10골드를 소비하여 글 등록");
-        }
-        else
-        {
-            btn_send.setText(10 - mMydata.getUserHoney()+ "골드가 부족합니다");
-        }*/
+
+        txt_Memo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                CommonFunc.getInstance().LastBoardWrite = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +78,8 @@ public class BoardWriteActivity extends AppCompatActivity {
                             sendData.Img = mMydata.getUserImg();
                             sendData.Msg = txt_Memo.getText().toString();
                             mFireBaseData.SaveBoardData_GetBoardIndex((BoardWriteActivity)mActivity);
+
+                            CommonFunc.getInstance().LastBoardWrite = null;
 
                         }
                     }).

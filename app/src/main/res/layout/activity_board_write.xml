@@ -11,8 +11,7 @@
         android:layout_height="0dp"
         android:layout_weight="4"
         android:ems="10"
-        android:hint="하고 싶은 말을 작성해보세요. \n\n 주제 \n - 취미 생활 \n - 날씨 \n - 영화 \n - 원하는 데이트 "
-        android:inputType="textPersonName" />
+        android:hint="하고 싶은 말을 작성해보세요. \n\n 주제 \n - 취미 생활 \n - 날씨 \n - 영화 \n - 원하는 데이트 "/>
 
     <TextView
         android:id="@+id/textView27"

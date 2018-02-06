@@ -87,10 +87,10 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
 
         BoardUserGrade.setImageResource(UIData.getInstance().getGrades()[data.GetDBData().Grade]);
         if(data.GetDBData().Gender == null)
-            BoardUserItem.setVisibility(View.INVISIBLE);
+            BoardUserGender.setVisibility(View.INVISIBLE);
         else
         {
-            BoardUserItem.setVisibility(View.VISIBLE);
+            BoardUserGender.setVisibility(View.VISIBLE);
             BoardUserGender.setImageResource(UIData.getInstance().getGenderIcon(data.GetDBData().Gender));
         }
 

@@ -351,6 +351,8 @@ public class FirebaseData {
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot == null)
+                    return;
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     BoardData.getInstance().AddBoardData(postSnapshot, false);
                 }
@@ -371,6 +373,8 @@ public class FirebaseData {
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot == null)
+                    return;
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     BoardData.getInstance().AddBoardData(postSnapshot, true);
                 }
@@ -399,6 +403,8 @@ public class FirebaseData {
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot == null)
+                    return;
                 long topIndex = BoardData.getInstance().TopBoardIdx;
                 long bottomIndex = BoardData.getInstance().BottomBoardIdx;
 

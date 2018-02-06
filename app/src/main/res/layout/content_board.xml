@@ -101,16 +101,17 @@
 
         <ImageButton
             android:id="@+id/board_delete"
-            android:layout_width="50dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/bee"
+            android:visibility="invisible"
             />
 
         <Button
             android:id="@+id/board_report"
-            android:layout_width="50dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
