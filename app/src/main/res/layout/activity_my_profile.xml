@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical"
-        android:paddingBottom="20dp">
+
+<android.support.constraint.ConstraintLayout android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:paddingBottom="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <ImageView
             android:id="@+id/MyProfile_SumImg"
@@ -53,7 +50,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toStartOf="@+id/MyProfile_Img2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:gravity="bottom"
             android:text="닉네임"
             android:textColor="@android:color/black"
@@ -101,7 +98,7 @@
             android:id="@+id/age"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:gravity="bottom"
             android:text="나이"
             android:textColor="@android:color/black"
@@ -124,7 +121,7 @@
             android:id="@+id/say"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:maxLength="20"
             android:text="하고 싶은 말"
             android:textColor="@android:color/black"
@@ -140,14 +137,12 @@
             android:layout_marginEnd="8dp"
             android:layout_marginTop="20dp"
             android:ems="10"
-            android:imeOptions="normal"
             android:inputType="textMultiLine"
-            android:lines="1"
-            android:maxLength="100"
             android:maxLines="10"
+            android:minLines="1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/nickname"
             app:layout_constraintTop_toBottomOf="@+id/say" />
 
     </android.support.constraint.ConstraintLayout>
-</ScrollView>
