@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
@@ -20,7 +20,7 @@
     <ImageView
         android:id="@+id/bg_bottom"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:background="@drawable/rounded_bottom_white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -48,7 +48,7 @@
         android:layout_height="60dp"
 
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/base_btn_bg"
         android:buttonTint="@color/bambamcolor"
         android:gravity="center"
@@ -85,34 +85,37 @@
 
     <CheckBox
         android:id="@+id/rbtn_man"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="60dp"
 
-        android:background="@drawable/base_btn_bg"
+        android:layout_marginTop="16dp"
 
+        android:background="@drawable/base_btn_bg"
         android:buttonTint="@color/bambamcolor"
         android:text="남자"
         app:layout_constraintLeft_toLeftOf="@+id/rbtn_two"
+        app:layout_constraintRight_toRightOf="@+id/rbtn_two"
         app:layout_constraintTop_toBottomOf="@+id/rbtn_two" />
 
     <CheckBox
         android:id="@+id/rbtn_woman"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="60dp"
 
-        android:layout_marginLeft="5dp"
         android:background="@drawable/base_btn_bg"
         android:buttonTint="@color/bambamcolor"
         android:text="여자"
+        app:layout_constraintLeft_toLeftOf="@+id/rbtn_three"
         app:layout_constraintLeft_toRightOf="@+id/rbtn_man"
+        app:layout_constraintRight_toRightOf="@+id/rbtn_three"
         app:layout_constraintTop_toTopOf="@+id/rbtn_man" />
 
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:layout_marginTop="16dp"
         android:entries="@array/MyProfire_Age"
-        android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/rbtn_two"
         app:layout_constraintTop_toBottomOf="@+id/rbtn_man" />
 
@@ -122,6 +125,7 @@
         android:layout_height="60dp"
 
         android:layout_marginLeft="5dp"
+        android:gravity="center"
         android:text="세"
         app:layout_constraintBottom_toBottomOf="@+id/spinner1"
         app:layout_constraintLeft_toRightOf="@+id/spinner1" />
@@ -132,7 +136,8 @@
         android:layout_height="60dp"
 
 
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="32dp"
+        android:gravity="center"
         android:text="~"
         app:layout_constraintBottom_toBottomOf="@+id/spinner1"
         app:layout_constraintLeft_toRightOf="@+id/textView28" />
@@ -141,8 +146,8 @@
         android:id="@+id/spinner2"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:layout_marginLeft="32dp"
         android:entries="@array/MyProfire_Age"
-        android:layout_marginLeft="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/spinner1"
         app:layout_constraintLeft_toRightOf="@+id/textView32" />
 
@@ -152,6 +157,7 @@
         android:layout_height="60dp"
 
         android:layout_marginLeft="5dp"
+        android:gravity="center"
         android:text="세"
         app:layout_constraintBottom_toBottomOf="@+id/spinner1"
         app:layout_constraintLeft_toRightOf="@+id/spinner2" />
@@ -161,12 +167,13 @@
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/base_btn_bg"
         android:text="GO!"
         android:textColor="@android:color/black"
         android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner1" />
