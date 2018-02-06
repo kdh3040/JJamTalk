@@ -33,19 +33,22 @@
             android:screenOrientation="portrait"
 
            />
-        <activity android:name="com.hodo.talkking.StartLogo">
+      <!--  <activity android:name="com.hodo.talkking.StartLogo">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
 
 
-        </activity>
+        </activity>-->
         <activity
             android:name="com.hodo.talkking.LoginActivity"
             android:theme ="@style/NoTitleBar"
             android:screenOrientation="portrait">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
