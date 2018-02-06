@@ -3,14 +3,17 @@ package com.hodo.talkking;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SettingData;
 import com.hodo.talkking.Data.SimpleUserData;
+import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.Util.AppStatus;
 import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.RecyclerItemClickListener;
@@ -44,6 +47,7 @@ public class Rank_NearFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Rank_NearAdapter NearAdopter;
 
 
     public Rank_NearFragment() {
@@ -85,10 +89,10 @@ public class Rank_NearFragment extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),mSettingData.getViewCount());
 
 
+        NearAdopter = new Rank_NearAdapter(getContext());
 
 
-
-        recyclerView.setAdapter(new Rank_NearAdapter(getContext()));
+        recyclerView.setAdapter(NearAdopter);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.addOnItemTouchListener(
@@ -132,6 +136,21 @@ public class Rank_NearFragment extends Fragment {
                         //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 롱 클릭",Toast.LENGTH_SHORT).show();
                     }
                 }));
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int nSize = 0;
+                nSize = recyclerView.getAdapter().getItemCount() - 1;
+
+                if (lastVisibleItemPosition == nSize) {
+                    Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
+                    FirebaseData.getInstance().GetNearData(NearAdopter, nSize, false);
+                }
+            }
+        });
 
         return view;
     }

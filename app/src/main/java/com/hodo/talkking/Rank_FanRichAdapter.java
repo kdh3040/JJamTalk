@@ -15,6 +15,7 @@ import com.hodo.talkking.Data.SettingData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Util.AppStatus;
+import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.LocationFunc;
 import com.hodo.talkking.ViewHolder.GridUserViewHolder;
 
@@ -41,6 +42,8 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
     public Rank_FanRichAdapter(Context context) {
         mContext = context;
     }
+
+    public CommonFunc.MAIN_SCROLL_STATE_TYPE ScrollState = CommonFunc.MAIN_SCROLL_STATE_TYPE.NONE;
 
     @Override
     public GridUserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
