@@ -1211,10 +1211,16 @@ public class MyData {
                         TempSettingData stRecvData = new TempSettingData();
                         stRecvData = dataSnapshot.getValue(TempSettingData.class);
                         if (stRecvData != null) {
+
                             if(stRecvData.StartAge == 0 || stRecvData.EndAge == 0)
                             {
                                 nStartAge = (Integer.parseInt(getUserAge()) / 10) * 10;
                                 nEndAge = nStartAge + 19;
+                            }
+                            else
+                            {
+                                nStartAge = stRecvData.StartAge;
+                                nEndAge = stRecvData.EndAge;
                             }
 
                             nSearchMode = stRecvData.SearchMode;
