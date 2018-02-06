@@ -2,10 +2,23 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/JJamTalkREAL.iml" filepath="$PROJECT_DIR$/JJamTalkREAL.iml" />
+=======
+      <module fileurl="file://C:\gitgit\JJamTalk.iml" filepath="C:\gitgit\JJamTalk.iml" />
+>>>>>>> 25d1d587ea1cf60a73c872ba2c94aa4a6912ba62
       <module fileurl="file://C:\gitgit\JJamTalkREAL.iml" filepath="C:\gitgit\JJamTalkREAL.iml" />
+      <module fileurl="file://C:\gitgit\Talkking.iml" filepath="C:\gitgit\Talkking.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+<<<<<<< HEAD
       <module fileurl="file://C:\Users\Administrator\Documents\JJamTalkREAL\gitgit.iml" filepath="C:\Users\Administrator\Documents\JJamTalkREAL\gitgit.iml" />
+=======
+      <module fileurl="file://D:\hodosoft\Talkking\app\app.iml" filepath="D:\hodosoft\Talkking\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gitgit.iml" filepath="$PROJECT_DIR$/gitgit.iml" />
+      <module fileurl="file://D:\hodosoft\Talkking\gitgit.iml" filepath="D:\hodosoft\Talkking\gitgit.iml" />
+      <module fileurl="file://F:\Project\Android\JJamTalk\gitgit.iml" filepath="F:\Project\Android\JJamTalk\gitgit.iml" />
+      <module fileurl="file://F:\GIT\JJamTalk\gitgit.iml" filepath="F:\GIT\JJamTalk\gitgit.iml" />
+>>>>>>> 25d1d587ea1cf60a73c872ba2c94aa4a6912ba62
     </modules>
   </component>
 </project>

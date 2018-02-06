@@ -1,159 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:minHeight="400dp">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+
+    <ImageView
+        android:id="@+id/bg_top"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@drawable/rounded_top_dialog"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/bg_bottom"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:background="@drawable/rounded_bottom_white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_filter" />
 
     <TextView
-        android:id="@+id/textView49"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@drawable/rounded_top_dialog"
+        android:id="@+id/tv_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+
+        android:drawableLeft="@mipmap/filter"
         android:gravity="center"
         android:text="검색"
-        android:textColor="@color/textColorLight"
-        android:textSize="20sp"/>
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
+    <RadioButton
+        android:id="@+id/rbtn_two"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
 
-            <RadioButton
-                android:id="@+id/rbtn_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="2개씩" />
-
-            <RadioButton
-                android:id="@+id/rbtn_three"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="3개씩" />
-
-            <RadioButton
-                android:id="@+id/rbtn_four"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="4개씩" />
-        </RadioGroup>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@color/white"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/base_btn_bg"
+        android:buttonTint="@color/bambamcolor"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:text="2개씩"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_filter" />
 
-        <Switch
-            android:id="@+id/rbtn_10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="10대" />
+    <RadioButton
+        android:id="@+id/rbtn_three"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
 
-        <Switch
-            android:id="@+id/rbtn_20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="20대" />
-
-        <Switch
-            android:id="@+id/rbtn_30"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="30대" />
-
-        <Switch
-            android:id="@+id/rbtn_40"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="40대이상" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@color/white"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/base_btn_bg"
+        android:buttonTint="@color/bambamcolor"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <Switch
-            android:id="@+id/rbtn_man"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            android:text="남자" />
-
-        <Switch
-            android:id="@+id/rbtn_woman"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            android:text="여자" />
+        android:text="3개씩"
+        app:layout_constraintBottom_toBottomOf="@+id/rbtn_two"
+        app:layout_constraintLeft_toRightOf="@+id/rbtn_two" />
 
 
-    </LinearLayout>
+    <RadioButton
+        android:id="@+id/rbtn_four"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:background="@drawable/rounded_bottom_white"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/base_btn_bg"
+        android:buttonTint="@color/bambamcolor"
         android:gravity="center"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:text="4개씩"
+        app:layout_constraintBottom_toBottomOf="@+id/rbtn_two"
+        app:layout_constraintLeft_toRightOf="@+id/rbtn_three" />
 
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_pressed"
-            android:text="GO!"
-            android:textColor="@color/white"
-            android:textSize="18dp" />
+    <CheckBox
+        android:id="@+id/rbtn_man"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
 
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_pressed"
-            android:text="취소"
-            android:textColor="@color/white"
-            android:textSize="18dp" />
-    </LinearLayout>
+        android:background="@drawable/base_btn_bg"
 
-</LinearLayout>
+        android:buttonTint="@color/bambamcolor"
+        android:text="남자"
+        app:layout_constraintLeft_toLeftOf="@+id/rbtn_two"
+        app:layout_constraintTop_toBottomOf="@+id/rbtn_two" />
+
+    <CheckBox
+        android:id="@+id/rbtn_woman"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/base_btn_bg"
+        android:buttonTint="@color/bambamcolor"
+        android:text="여자"
+        app:layout_constraintLeft_toRightOf="@+id/rbtn_man"
+        app:layout_constraintTop_toTopOf="@+id/rbtn_man" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:entries="@array/MyProfire_Age"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/rbtn_two"
+        app:layout_constraintTop_toBottomOf="@+id/rbtn_man" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+
+        android:layout_marginLeft="5dp"
+        android:text="세"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner1"
+        app:layout_constraintLeft_toRightOf="@+id/spinner1" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+
+
+        android:layout_marginLeft="5dp"
+        android:text="~"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner1"
+        app:layout_constraintLeft_toRightOf="@+id/textView28" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:entries="@array/MyProfire_Age"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner1"
+        app:layout_constraintLeft_toRightOf="@+id/textView32" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+
+        android:layout_marginLeft="5dp"
+        android:text="세"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner1"
+        app:layout_constraintLeft_toRightOf="@+id/spinner2" />
+
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/base_btn_bg"
+        android:text="GO!"
+        android:textColor="@android:color/black"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner1" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:background="@drawable/base_btn_bg"
+        android:text="취소"
+        android:textColor="@android:color/black"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_save"
+        app:layout_constraintLeft_toRightOf="@+id/btn_save"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -13,7 +13,7 @@
         android:layout_height="50dp"
 
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/gold1" />
+        app:srcCompat="@drawable/coin" />
 
     <TextView
         android:id="@+id/opened_text"

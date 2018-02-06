@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="com.hodo.talkking.InputProfile">
+
+<ScrollView
+    android:id="@+id/login_form"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -27,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:srcCompat="@mipmap/hdvd" />
+            app:srcCompat="@drawable/kakao_default_profile_image" />
 
 
         <TextView
@@ -49,7 +64,9 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:hint="( 최대 8자)"
+            android:inputType="textPersonName"
+            android:maxLength="8" />
 
         <TextView
             android:id="@+id/textView24"
@@ -139,3 +156,12 @@
 
     </LinearLayout>
 </ScrollView>
+
+<ProgressBar
+android:id="@+id/login_progress"
+style="?android:attr/progressBarStyleLarge"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginBottom="8dp"
+android:visibility="gone" />
+    </LinearLayout>

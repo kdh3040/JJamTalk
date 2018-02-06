@@ -1,93 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_open_mail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:layout_editor_absoluteY="81dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/iv_mailfrom"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/hedfvb" />
-
-        <TextView
-            android:id="@+id/textview11"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="님이"
-            android:textSize="24sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_mailbox_sendcount"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="right|center_vertical"
-            android:text="1500"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:text="골드를 보내셨습니다"
-            android:textSize="20sp" />
-    </LinearLayout>
 
     <TextView
-        android:id="@+id/textView19"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/tv_from"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="left|center_vertical"
+        android:text="From"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_mailfrom"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="right|center_vertical"
+        app:layout_constraintLeft_toRightOf="@+id/tv_from"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/hedfvb" />
+
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="동봉된 쪽지"
-        android:textColor="@color/si_default_text_color_selected"
-        android:textSize="24sp" />
+        android:gravity="bottom"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_mailfrom" />
+
+    <ImageView
+        android:id="@+id/imageView33"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_count"
+        app:layout_constraintLeft_toRightOf="@+id/tv_count"
+        app:srcCompat="@drawable/heart" />
 
     <TextView
         android:id="@+id/tv_mailbox_sendmsg"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:text="동봉한 메세지가 없네요~"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_count" />
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="안녕하세요 너무 마음에 들어서요 꿀통 보내요 저랑 만나요 영화나 볼까요 일단 대화할까요 ?" />
+        android:text="답장"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_accept_honey"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_accept_honey" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_accept_honey"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="20dp"
+        android:text="확인"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mailbox_sendmsg" />
 
-        <Button
-            android:id="@+id/btn_accept_honey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="대화하기" />
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="삭제"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_accept_honey"
+        app:layout_constraintLeft_toRightOf="@+id/btn_accept_honey"
+        app:layout_constraintRight_toRightOf="parent" />
 
-        <Button
-            android:id="@+id/btn_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="확인" />
 
-    </LinearLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

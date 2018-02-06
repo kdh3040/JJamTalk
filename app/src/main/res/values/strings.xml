@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">굿톡</string>
+    <string name="app_name">톡킹</string>
     <string name="title_activity_login">Sign in</string>
 
     <string name="google_maps_key">AIzaSyBlWfAWc4rsaAL4il3blw9pLJ_qP1ajjSg</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-7666588215496282/6908851457</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -127,6 +129,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">설정</string>
+    <string name="myprofiledesc">내설정</string>
+    <string name="buyGold">코인 충전하기</string>
+    <string name="myProfile">내 프로필</string>
+    <string name="profiledesc">내프로필아이콘</string>
+    <string name="myProfileLO">내프로필레이아웃</string>
+    <string name="settingdesc">설정아이콘</string>
+    <string name="myJewelImage">내보석이미지</string>
 
 
 </resources>

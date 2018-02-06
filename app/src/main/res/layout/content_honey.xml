@@ -47,7 +47,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_weight="1"
-        app:srcCompat="@drawable/honeyicon" />
+        app:srcCompat="@drawable/heart" />
 
 
     <TextView
