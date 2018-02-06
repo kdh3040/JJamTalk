@@ -43,8 +43,6 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
         mContext = context;
     }
 
-    public CommonFunc.MAIN_SCROLL_STATE_TYPE ScrollState = CommonFunc.MAIN_SCROLL_STATE_TYPE.NONE;
-
     @Override
     public GridUserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.content_user,parent,false);

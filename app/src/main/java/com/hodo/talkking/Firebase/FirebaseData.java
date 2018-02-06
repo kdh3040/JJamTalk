@@ -300,11 +300,13 @@ public class FirebaseData {
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(mMyData.getUserIdx());
 
-       // user.child("SearchMode").setValue(SearchMode);
+        user.child("SearchMode").setValue(SearchMode);
         user.child("ViewMode").setValue(ViewMode);
         user.child("RecvMsgReject").setValue((RecvMsgReject) ? 1 : 0);
         user.child("AlarmMode_Sound").setValue(alarmSetting_Sound);
         user.child("AlarmMode_Vibration").setValue(alarmSetting_Vibration);
+        user.child("StartAge").setValue(mMyData.nStartAge);
+        user.child("EndAge").setValue(mMyData.nEndAge);
 
         SaveData(mMyData.getUserIdx());
 

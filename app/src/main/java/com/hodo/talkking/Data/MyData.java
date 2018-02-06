@@ -1211,7 +1211,13 @@ public class MyData {
                         TempSettingData stRecvData = new TempSettingData();
                         stRecvData = dataSnapshot.getValue(TempSettingData.class);
                         if (stRecvData != null) {
-                           // nSearchMode = stRecvData.SearchMode;
+                            if(stRecvData.StartAge == 0 || stRecvData.EndAge == 0)
+                            {
+                                nStartAge = (Integer.parseInt(getUserAge()) / 10) * 10;
+                                nEndAge = nStartAge + 19;
+                            }
+
+                            nSearchMode = stRecvData.SearchMode;
                             nViewMode = stRecvData.ViewMode;
                             nRecvMsgReject = stRecvData.RecvMsgReject == 0 ? false : true;
                             nAlarmSetting_Sound = stRecvData.AlarmMode_Sound;
