@@ -26,10 +26,14 @@ public class UIData {
 
     private int width;
     private int height;
-    private int jewels[] = {R.drawable.silver,R.drawable.gold1,R.drawable.pearl,R.drawable.opal,R.drawable.emerald,R.drawable.sapphire,R.drawable.ruby,R.drawable.diamond};
+    private String Items[] = {"명품 구두", "명품 드레스", "명품 가방", "명품 시계", "보석", "고급 자동차", "고급 요트", "전용기"};
+    private String ItemsReference[] = {"페레가모 구두", "구찌 드레스", "헤르메스 가방", "롤렉스 시계", "다이아몬드", "페라리", "럭셔리 요트", "전용기"};
+    private int jewels[] = {R.drawable.heel_hng,R.drawable.dress_hng,R.drawable.bag_hng,R.drawable.watch_hng,R.drawable.ring_hng,R.drawable.car_hng,R.drawable.boat_hng,R.drawable.jet_hng};
     private int sellJewelValue[] = {5,5,5,5,7,7,10,20};
 
     private LinearLayout.LayoutParams llp_ListItem;
+    public boolean bSellItemStatus = false;
+    public int nSelItemType, nSelItemCount;
 
     private RelativeLayout.LayoutParams rlp;
 
@@ -48,6 +52,13 @@ public class UIData {
 
     public int getHeight() {
         return height;
+    }
+
+    public String[] getItemsReference(){
+        return ItemsReference;
+    }
+    public String[] getItems(){
+        return Items;
     }
 
     public int[] getJewels(){

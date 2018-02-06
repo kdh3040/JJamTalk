@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.LoginActivity;
@@ -65,6 +66,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 strSenderHeart = data.get("Heart");
 
                 getTargetData(strSenderGender, strSenderIdx);
+
 
                 Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             }
@@ -127,6 +129,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                     updateMap.put("RecvCount", nRecvHoneyCnt);
                                     mMyData.setRecvHoneyCnt(Integer.valueOf(strSenderHoney));
                                     mMyData.setUserHoney(mMyData.getUserHoney() + Integer.valueOf(strSenderHoney));
+
+                                  /*  FanData tempData = new FanData();
+                                    tempData.Img = strSenderImg;
+                                    tempData.Idx = strSenderIdx;
+                                    tempData.Nick = strSenderName;
+                                    mMyData.makeFanList(tempData, Integer.parseInt(strSenderHoney));*/
+
                                 }
 
                                 ref.updateChildren(updateMap);

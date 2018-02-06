@@ -4,6 +4,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -23,9 +25,11 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -57,12 +61,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.BoardData;
+import com.hodo.jjamtalk.Data.BoardLikeData;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
-import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Firebase.FirebaseData;
 import com.hodo.jjamtalk.Util.AwsFunc;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.LocationFunc;
 
 import java.text.SimpleDateFormat;
@@ -70,6 +76,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -103,7 +112,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
     private LocationFunc mLocalFunc = LocationFunc.getInstance();
-    private BoardData mBoardData = BoardData.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
+
+    //private BoardData mBoardData = BoardData.getInstance();
 
     //String strMyIdx = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
     String strMyIdx; // = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
@@ -122,10 +133,47 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     LocationManager locationManager;
     String provider;
 
+    private Activity mActivity;
+    private long pressedTime;
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+//                ActivityCompat.finishAffinity(this);
+                String alertTitle = "종료";
+                View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_exit_app,null,false);
+
+                final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
+
+                final Button btn_exit;
+                final Button btn_no;
+
+                btn_exit = (Button) v.findViewById(R.id.btn_yes);
+                btn_exit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+                    }
+                });
+
+                btn_no = (Button) v.findViewById(R.id.btn_no);
+                btn_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mActivity = this;
 
         bSetNear = bSetNew = bSetRich = bSetRecv = false;
 
@@ -169,10 +217,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
-        }
+        }else      {
 
-        else
-            {
             mEmailSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -209,7 +255,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mToMain.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+                    /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("StartFragment", 0);
+                    startActivity(intent);*/
                 }
             });
 
@@ -264,11 +313,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void GoMainPage() {
-        SetBoardData();
-        SetBoardMyData();
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        FirebaseData.getInstance().GetInitBoardData();
+        FirebaseData.getInstance().GetInitMyBoardData();
+        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+        /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra("StartFragment", 0);
         startActivity(intent);
-        finish();
+        finish();*/
     }
 
     private void SetBoardMyData() {
@@ -279,13 +330,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                TempBoardData stRecvData = new TempBoardData();
-                stRecvData = dataSnapshot.getValue(TempBoardData.class);
-                if (stRecvData != null) {
-                    if (stRecvData != null) {
-                        mBoardData.arrBoardMyList.add(stRecvData);
-                    }
-                }
+                //mBoardData.AddMyBoardData(dataSnapshot);
             }
 
             @Override
@@ -309,50 +354,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
     }
-
-    private void SetBoardData() {
-
-        DatabaseReference refBoard;
-        refBoard = FirebaseDatabase.getInstance().getReference().child("Board");
-        refBoard.addChildEventListener(new ChildEventListener() {
-            int i = 0;
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                TempBoardData stRecvData = new TempBoardData();
-                stRecvData = dataSnapshot.getValue(TempBoardData.class);
-
-                if (stRecvData != null) {
-                    if (stRecvData != null) {
-                        mBoardData.arrBoardList.add(stRecvData);
-                        for(LinkedHashMap.Entry<String, TempBoard_ReplyData> entry : mBoardData.arrBoardList.get(i).Reply.entrySet())
-                            mBoardData.arrBoardList.get(i).arrReplyList.add(entry.getValue());
-
-                        i++;
-                    }
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -519,30 +520,45 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.setMyData(stRecvData.Idx, stRecvData.ImgCount, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3,
                                     stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvCount, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.RecvMsg, stRecvData.PublicRoomStatus, stRecvData.PublicRoomName, stRecvData.PublicRoomLimit, stRecvData.PublicRoomTime,
-                                    stRecvData.Item_1, stRecvData.Item_2, stRecvData.Item_3, stRecvData.Item_4, stRecvData.Item_5, stRecvData.Item_6, stRecvData.Item_7, stRecvData.Item_8);
+                                    stRecvData.ItemCount, stRecvData.Item_1, stRecvData.Item_2, stRecvData.Item_3, stRecvData.Item_4, stRecvData.Item_5, stRecvData.Item_6, stRecvData.Item_7, stRecvData.Item_8, stRecvData.BestItem);
                             bMySet = true;
 
 
-                            for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet()) {
+                      /*      for(LinkedHashMap.Entry<String, String> entry : stRecvData.ChatTargetList.entrySet()) {
+                                mMyData.arrMyChatTargetList.add(entry.getValue());
+                            }*/
+
+                         /*   for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet()) {
                                     mMyData.arrMyFanList.add(entry.getValue());
-                            }
+                            }*/
+
+                            //mMyData.getFanList();
+
+                            // mMyData.nFanCount = mMyData.arrMyFanList.size();
 
                             for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.StarList.entrySet()) {
                                 mMyData.arrMyStarList.add(entry.getValue());
-                                mMyData.sortStarData();
+                                //mMyData.sortStarData();
                             }
 
-                            mMyData.getMyStarData();
+                            for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.CardList.entrySet()) {
+                                mMyData.arrCardNameList.add(entry.getValue());
+                            }
+
+                            //mMyData.getCardList();
+
+                            mMyData.getDownUrl();
                             mMyData.getMyfanData();
+
                             mMyData.getSetting();
-                            mMyData.getCardList();
+
                             mMyData.getSendList();
                             mMyData.getSendHoneyList();
                             mMyData.getGiftHoneyList();
                             mMyData.getRecvHoneyList();
                             mMyData.getBlockList();
                             mMyData.getBlockedList();
-                            mMyData.MonitorPublicRoomStatus();
+                            //mMyData.MonitorPublicRoomStatus();
 
                                 //InitData_Fan();
                                 InitData_Recv();
@@ -596,7 +612,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void InitData_Recv() {
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("User");
-        Query query=ref.orderByChild("RecvCount");//키가 id와 같은걸 쿼리로 가져옴
+        Query query=ref.orderByChild("RecvCount");//.limitToFirst(30);//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -658,7 +674,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void InitData_Send() {
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("User");
-        Query query= ref.orderByChild("SendCount");//키가 id와 같은걸 쿼리로 가져옴
+        Query query= ref.orderByChild("FanCount");//.limitToFirst(3);//키가 id와 같은걸 쿼리로 가져옴
         query.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -795,7 +811,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         ref = FirebaseDatabase.getInstance().getReference().child("User");
         Query query=ref
                 .orderByChild("Lon")
-                .startAt(lStartLon).endAt(lEndLon);
+                .startAt(lStartLon).endAt(lEndLon)
+                ;
 
 
         query.addListenerForSingleValueEvent(

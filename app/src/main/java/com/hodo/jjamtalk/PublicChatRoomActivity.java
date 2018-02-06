@@ -73,9 +73,9 @@ public class PublicChatRoomActivity extends AppCompatActivity {
         //회색글자 처리 뜸 원인불명
         public PublicChatViewHolder(View itemView) {
             super(itemView);
-            image_profile = (ImageView)itemView.findViewById(R.id.imageView);
+            image_profile = (ImageView)itemView.findViewById(R.id.ChatRoom_Img);
             image_sent = (ImageView)itemView.findViewById(R.id.iv_sent);
-            sender = (TextView)itemView.findViewById(R.id.nickname);
+            //sender = (TextView)itemView.findViewById(R.id.ChatRoom_nickname);
             message =(TextView)itemView.findViewById(R.id.message);
             time = (TextView)itemView.findViewById(R.id.time);
         }
@@ -191,7 +191,7 @@ public class PublicChatRoomActivity extends AppCompatActivity {
                 btn_HeartCharge.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(getApplicationContext(), HeartActivity.class));
+                        startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                     }
                 });
 
@@ -320,11 +320,11 @@ public class PublicChatRoomActivity extends AppCompatActivity {
             }
         });
 
- /*       listView = (ListView)findViewById(R.id.lv_pcr);
+ /*       listView_like = (ListView)findViewById(R.id.lv_pcr);
         pcrAdapter = new PublicChatRoomAdapter(getApplicationContext(),this);
-        //listView.addHeaderView(header);
-        //listView.addFooterView(footer);
-        listView.setAdapter(pcrAdapter);
+        //listView_like.addHeaderView(header);
+        //listView_like.addFooterView(footer);
+        listView_like.setAdapter(pcrAdapter);
 */
     }
 }

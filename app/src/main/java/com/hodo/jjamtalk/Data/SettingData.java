@@ -59,10 +59,13 @@ public class SettingData {
         int rtValue = 0;
         if(mMyData.nSearchMode == 0)
         {
-            if(mMyData.getUserGender().equals("여자"))
-                rtValue = 1;
-            else
-                rtValue = 2;
+            if(mMyData.getUserGender() != null)
+            {
+                if(mMyData.getUserGender().equals("여자"))
+                    rtValue = 1;
+                else
+                    rtValue = 2;
+            }
         }
         else
             rtValue = mMyData.nSearchMode;
@@ -75,10 +78,12 @@ public class SettingData {
         nViewSetting = Option;
         mMyData.nViewMode = nViewSetting;
     }
+
+
     public int getnViewSetting()
     {
         int rtValue = 0;
-   /*     if(mMyData.nViewMode == 0)
+/*       if(mMyData.nViewMode == 0)
         {
            rtValue = 1;
         }

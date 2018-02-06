@@ -63,11 +63,18 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
 
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(mUIData.getWidth()/mSetting.getViewCount()));
         holder.iv_profile.setLayoutParams(lp);
-        lp.setMargins(3,3,3,3);
-        //holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
+        //lp.setMargins(3,3,3,3);
+        RelativeLayout.LayoutParams lpForTextView = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2));
+        lpForTextView.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lpForTextView.addRule(RelativeLayout.RIGHT_OF,R.id.iv_honey_rank);
+        holder.textView.setLayoutParams(lpForTextView);
 
         holder.iv_honey_rank.setImageResource(R.drawable.icon_location);
-        //holder.iv_honey_rank.setLayoutParams(new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2)));
+        RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));
+        lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+        holder.iv_honey_rank.setLayoutParams(lpForIcon);
 
 
 
@@ -78,9 +85,12 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
         {
             //  남자 탐색
             case 1:
-                float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Near.get(i).Lat, mMyData.arrUserMan_Near.get(i).Lon);
-                Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-                holder.textView.setText(/*mMyData.arrUserMan_Near.get(i).NickName + ", " + mMyData.arrUserMan_Near.get(i).Age + "세, " + */(int)Dist + "km");
+                double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Near.get(i).Lat, mMyData.arrUserMan_Near.get(i).Lon,"kilometer");
+                if(Dist < 1.0)
+                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
+                else
+                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
+
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_Near.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -89,9 +99,12 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
                 break;
             // 여자 탐색
             case 2:
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Near.get(i).Lat, mMyData.arrUserWoman_Near.get(i).Lon);
-                Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
-                holder.textView.setText(/*mMyData.arrUserWoman_Near.get(i).NickName + ", " + mMyData.arrUserWoman_Near.get(i).Age + "세, " + */(int)Dist + "km");
+                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Near.get(i).Lat, mMyData.arrUserWoman_Near.get(i).Lon,"kilometer");
+                if(Dist < 1.0)
+                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
+                else
+                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
+
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Near.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -101,8 +114,11 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
                 break;
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Near.get(i).Lat, mMyData.arrUserAll_Near.get(i).Lon);
-                holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
+                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Near.get(i).Lat, mMyData.arrUserAll_Near.get(i).Lon,"kilometer");
+                if(Dist < 1.0)
+                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
+                else
+                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Near.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)

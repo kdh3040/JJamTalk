@@ -1,45 +1,32 @@
 package com.hodo.jjamtalk;
 
-import android.*;
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.PermissionInfo;
 import android.graphics.Bitmap;
-import android.location.Address;
 import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.PermissionChecker;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,23 +41,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hodo.jjamtalk.Data.BoardData;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
-import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.Util.LocationFunc;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.security.Permission;
-import java.security.Permissions;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
+
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 
 public class InputProfile extends AppCompatActivity {
 
@@ -79,6 +67,8 @@ public class InputProfile extends AppCompatActivity {
     private BoardData mBoardData = BoardData.getInstance();
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
+
     StorageReference storageRef = storage.getReferenceFromUrl("gs://jamtalk-cf526.appspot.com/");
 
     private ImageView mProfileImage;
@@ -86,11 +76,11 @@ public class InputProfile extends AppCompatActivity {
 
     private Spinner AgeSpinner;
     private Spinner GenderSpinner;
-    private ArrayAdapter<CharSequence> AgeSpin;
-    private ArrayAdapter<CharSequence> GenderSpin;
+    private  int nAge1, nGender;
 
     private Button CheckBtn;
 
+    private ProgressBar progressBar;
     private FusedLocationProviderClient mFusedLocationClient;
 
     LocationManager locationManager;
@@ -106,9 +96,11 @@ public class InputProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_profile);
 
+        progressBar = (ProgressBar)findViewById(R.id.InputProfile_Progress);
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        mProfileImage = (ImageView) findViewById(R.id.InputProfile_Img);
+        mProfileImage = (ImageView) findViewById(R.id.InputProfile_SumImg);
         mProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,41 +112,42 @@ public class InputProfile extends AppCompatActivity {
             }
         });
 
-        mNickName = (EditText) findViewById(R.id.InputProfile_Nick);
+        mNickName = (EditText) findViewById(R.id.InputProfile_NickName);
 
-        AgeSpinner = (Spinner) findViewById(R.id.InputProfile_AgeSpinner);
+        AgeSpinner = (Spinner) findViewById(R.id.InputProfile_Age_1);
         AgeSpinner.setPrompt("선택");
-        AgeSpin = ArrayAdapter.createFromResource(this, R.array.InputProfile_Age, android.R.layout.simple_list_item_checked);
-        AgeSpin.setDropDownViewResource(android.R.layout.simple_list_item_checked);
-        AgeSpinner.setAdapter(AgeSpin);
         AgeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int Position, long Id) {
-                Toast.makeText(InputProfile.this, "나이" + AgeSpin.getItem(Position), Toast.LENGTH_SHORT).show();
-                mMyData.setUserAge(AgeSpin.getItem(Position).toString());
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                nAge1 = position;
+                nAge1 += 17;
+                String strAge = Integer.toString(nAge1);
+                mMyData.setUserAge(strAge);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                mMyData.setUserAge(AgeSpin.getItem(0).toString());
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
-        GenderSpinner = (Spinner) findViewById(R.id.InputProfile_GenderSpinner);
+        GenderSpinner = (Spinner) findViewById(R.id.InputProfile_Gender_1);
         GenderSpinner.setPrompt("선택");
-        GenderSpin = ArrayAdapter.createFromResource(this, R.array.InputProfile_Gender, android.R.layout.simple_list_item_checked);
-        GenderSpin.setDropDownViewResource(android.R.layout.simple_list_item_checked);
-        GenderSpinner.setAdapter(GenderSpin);
         GenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int Position, long Id) {
-                Toast.makeText(InputProfile.this, "성별" + GenderSpin.getItem(Position), Toast.LENGTH_SHORT).show();
-                mMyData.setUserGender(GenderSpin.getItem(Position).toString());
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                String strGender = "여자";
+
+                if(position == 0)
+                    strGender = "남자";
+
+
+                mMyData.setUserGender(strGender);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                mMyData.setUserGender(GenderSpin.getItem(0).toString());
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
@@ -467,11 +460,12 @@ public class InputProfile extends AppCompatActivity {
             if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
                 Uri uri = data.getData();
 
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
-                int nh = (int) (bitmap.getHeight() * (1024.0 / bitmap.getWidth()));
-                Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 1024, nh, true);
-
-                mProfileImage.setImageBitmap(scaled);
+                mMyData.setUserImg(uri.toString());
+                Glide.with(getApplicationContext())
+                        .load(mMyData.getUserImg())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .thumbnail(0.1f)
+                        .into(mProfileImage);
 
                 UploadImage_Firebase(uri);
 
@@ -488,25 +482,43 @@ public class InputProfile extends AppCompatActivity {
 
     private void UploadImage_Firebase(Uri file) {
 
-        StorageReference riversRef = storageRef.child("images/"+file.getLastPathSegment());
-        UploadTask uploadTask = riversRef.putFile(file);
+        StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" + 0 );//file.getLastPathSegment());
 
-// Register observers to listen for when the download is done or if it fails
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Tr(downloadUrl);
-            }
-        });
+        Bitmap bitmap = null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),file);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.createScaledBitmap(bitmap, 350, 350, true);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+            byte[] data = baos.toByteArray();
 
-
+            UploadTask uploadTask = riversRef.putBytes(data);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        System.out.println("Upload is " + progress + "% done");
+                        int currentprogress = (int) progress;
+                        progressBar.setProgress(currentprogress);
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    Tr(downloadUrl);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void Tr(Uri uri)
@@ -514,91 +526,18 @@ public class InputProfile extends AppCompatActivity {
         mMyData.setUserImg(uri.toString());
         mMyData.setUserProfileImg(0, uri.toString());
         mMyData.setUserImgCnt(1);
+
+        Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
     }
-
-    private void SetBoardMyData() {
-        DatabaseReference refMyBoard;
-        refMyBoard = FirebaseDatabase.getInstance().getReference().child("Board");
-
-        refMyBoard.orderByChild("Idx").equalTo(mMyData.getUserIdx()).addChildEventListener(new ChildEventListener() {
-
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                TempBoardData stRecvData = new TempBoardData();
-                stRecvData = dataSnapshot.getValue(TempBoardData.class);
-                if (stRecvData != null) {
-                    if (stRecvData != null) {
-                        mBoardData.arrBoardMyList.add(stRecvData);
-                    }
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void SetBoardData() {
-
-        DatabaseReference refBoard;
-        refBoard = FirebaseDatabase.getInstance().getReference().child("Board");
-        refBoard.addChildEventListener(new ChildEventListener() {
-
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                TempBoardData stRecvData = new TempBoardData();
-                stRecvData = dataSnapshot.getValue(TempBoardData.class);
-                if (stRecvData != null) {
-                    mBoardData.arrBoardList.add(stRecvData);
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast toast = Toast.makeText(getApplicationContext(), "마이 데이터 cancelled", Toast.LENGTH_SHORT);
-            }
-        });
-    }
-
 
     private void GoMainPage() {
-        SetBoardData();
-        SetBoardMyData();
-        Intent intent = new Intent(InputProfile.this, MainActivity.class);
+        mFireBaseData.GetInitBoardData();
+        mFireBaseData.GetInitMyBoardData();
+        mCommon.refreshMainActivity(this, MAIN_ACTIVITY_HOME);
+        /*Intent intent = new Intent(InputProfile.this, MainActivity.class);
+        intent.putExtra("StartFragment", 0);
         startActivity(intent);
-        finish();
+        finish();*/
     }
 
 }

@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/MyAlertDialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <ImageView
         android:id="@+id/opened_img"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_height="50dp"
+
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/gold1" />
 
     <TextView
         android:id="@+id/opened_text"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="50dp"
+
         android:gravity="center"
-        android:text="다이아몬드 가 나왔습니다!" />
+        android:text="다이아몬드 가 나왔습니다!"
+        android:textSize="18dp"
+        android:textColor="@color/textColorDark" />
 
     <Button
         android:id="@+id/opened_btn"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="확인" />
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+
+        android:text="확인"
+        android:textSize="18dp"
+        android:layout_gravity="center"/>
 </LinearLayout>

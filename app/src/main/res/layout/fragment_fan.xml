@@ -10,11 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="?attr/colorPrimary"
+
         android:minHeight="?attr/actionBarSize"
-        app:tabSelectedTextColor="@color/white"
-        app:tabIndicatorColor="@color/white"
-        app:tabTextColor="@color/gray"/>
+
+        app:tabBackground="@color/colorAccent"
+        app:tabIndicatorColor="@color/textColorDark"
+        app:tabTextColor="@color/textColorDark"
+        app:tabSelectedTextColor="@color/textColorLightDark"/>
 
 
     <android.support.v4.view.ViewPager

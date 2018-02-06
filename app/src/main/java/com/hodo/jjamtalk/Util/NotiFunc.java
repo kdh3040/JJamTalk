@@ -113,6 +113,44 @@ public class NotiFunc {
         }
     }
 
+    public void SendMsgToFCM(final UserData stTargetData) {
+        try {
+
+            // FMC 메시지 생성 start
+            JSONObject root = new JSONObject();
+            JSONObject notification = new JSONObject();
+            JSONObject data = new JSONObject();
+
+            notification.put("body", mMyData.getUserNick() + "님이 메세지를 보냈습니다");
+
+            notification.put("title", "굿톡");
+
+            data.put("Img", stTargetData.Img);
+            data.put("Idx", stTargetData.Idx);
+            data.put("Gender", stTargetData.Gender);
+            data.put("NickName", mMyData.getUserNick());
+
+            root.put("notification", notification);
+            root.put("to", stTargetData.Token);
+            root.put("data", data);
+            // FMC 메시지 생성 end
+
+            URL Url = new URL(MSG_URL);
+            HttpURLConnection conn = (HttpURLConnection) Url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.addRequestProperty("Authorization", "key=" + SERVER_KEY);
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Content-type", "application/json");
+            OutputStream os = conn.getOutputStream();
+            os.write(root.toString().getBytes("utf-8"));
+            os.flush();
+            conn.getResponseCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void SendHoneyToFCM(final UserData stTargetData, int nHoneyCnt) {
         try {
@@ -122,9 +160,9 @@ public class NotiFunc {
             JSONObject notification = new JSONObject();
             JSONObject data = new JSONObject();
 
-            notification.put("body", mMyData.getUserNick() + "님이 꿀을 보냈습니다");
+            notification.put("body", mMyData.getUserNick() + "님이 골드를 보냈습니다");
 
-            notification.put("title", "꿀톡");
+            notification.put("title", "굿톡");
 
             data.put("Img", stTargetData.Img);
             data.put("Idx", stTargetData.Idx);

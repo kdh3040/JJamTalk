@@ -43,15 +43,11 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
     public TargetFanAdapter(Context context, ArrayList<FanData> TargetData) {
         mContext = context;
         stTargetData = TargetData;
-        getTargetfanData();
-      //  getTargetStarData();
     }
 
     @Override
     public FanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.content_my_fan,parent,false);
-
-
 
         return new FanViewHolder(view);
     }
@@ -62,41 +58,22 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mContext.startActivity(new Intent(mContext,UserPageActivity.class));
-
-                Intent intent = new Intent(mContext, UserPageActivity.class);
-                Bundle bundle = new Bundle();
-
-                bundle.putSerializable("Target", tempFanData.arrFanData.get(position));
-/*                intent.putExtra("FanList", stTargetData.arrFanData.get(position).arrFanList);
-                intent.putExtra("StarList", stTargetData.arrFanData.get(position).arrStarList);*/
-                intent.putExtras(bundle);
-
-                view.getContext().startActivity(intent);
-
-
+                getTargetfanData(position);
             }
         });
 
-        holder.imageView.setImageResource(R.mipmap.hdvd);
-
-     /*   Glide.with(mContext)
-                .load(stTargetData.arrFanData.get(position).Img)
+       Glide.with(mContext)
+                .load(stTargetData.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .thumbnail(0.1f)
-                .into(holder.imageView);*/
+                .into(holder.imageView);
 
         holder.nickname.setText(stTargetData.get(position).Nick);
         holder.giftranking.setText((position + 1) + "위");
 
         int SendCnt = stTargetData.get(position).Count * -1;
-        holder.giftCount.setText(Integer.toString(SendCnt) + "꿀");
-
-        /*holder.nickname.setText("아이유");
-        holder.giftranking.setText("1위");
-        holder.giftCount.setText("313123꿀");
-        holder.imageView.setImageResource(R.mipmap.hdvd);*/
+        holder.giftCount.setText(Integer.toString(SendCnt) + "골드");
 
     }
 
@@ -106,42 +83,53 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
     }
 
 
-    public void getTargetfanData() {
+    public void moveFanPage(int position)
+    {
+        Intent intent = new Intent(mContext, UserPageActivity.class);
+        Bundle bundle = new Bundle();
 
-        String strTargetIdx;
+        bundle.putSerializable("Target", tempFanData.mapFanData.get(stTargetData.get(position).Idx));
+        intent.putExtras(bundle);
+
+        mContext.startActivity(intent);
+    }
+
+
+    public void getTargetfanData(final int position) {
+
+        final String strTargetIdx = stTargetData.get(position).Idx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
         table = database.getReference("User");
 
-        //user.addChildEventListener(new ChildEventListener() {
-        for (int i = 0; i < stTargetData.size(); i++) {
-            strTargetIdx = stTargetData.get(i).Idx;
-
             if (strTargetIdx != null)
             {
-
-                final int finalI = i;
                 table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int saa = 0;
                         UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                        tempFanData.arrFanData.add(tempUserData);
+                        if(tempUserData != null)
+                        {
+                            tempFanData.mapFanData.put(strTargetIdx, tempUserData);
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
-                            tempFanData.arrFanData.get(finalI).arrStarList.add(entry.getValue());
+                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet())
+                                tempFanData.mapFanData.get(strTargetIdx).arrStarList.add(entry.getValue());
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
-                            tempFanData.arrFanData.get(finalI).arrFanList.add(entry.getValue());
+                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                                tempFanData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
+
+                            moveFanPage(position);
+                        }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
 
+
                 });
             }
-        }
     }
 
 }

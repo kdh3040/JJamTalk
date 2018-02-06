@@ -15,6 +15,8 @@ public class FanData implements Serializable, Comparable<FanData>{
     public int Count;
     public String Nick;
     public String Idx;
+    public String Img;
+    public String Memo;
 
     @Override
     public int compareTo(@NonNull FanData fanData) {

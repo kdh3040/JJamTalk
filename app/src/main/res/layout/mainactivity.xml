@@ -14,26 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorAccent"
 
 
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:translationZ="2dp">
 
-        <TextView
-            android:id="@+id/ib_mypage"
+        <ImageView
+            android:id="@+id/iv_mypage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
 
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/gray_light"
+
             android:gravity="center"
-            android:scaleType="fitCenter"
-            android:text="B"
-            android:textColor="@color/colorPrimary"
-            android:textSize="30sp" />
+
+
+             />
 
         <ImageView
             android:id="@+id/imageView24"
@@ -41,25 +40,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="3" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_filter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_search" />
+            android:src="@drawable/ic_filter"
 
+            />
 
-        <ImageButton
-            android:id="@+id/ib_pcr_open"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_pcr" />
 
         <ImageView
             android:id="@+id/iv_honeybox"
@@ -67,9 +56,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:adjustViewBounds="false"
-            android:background="@color/colorPrimary"
+
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_gift" />
+            app:srcCompat="@drawable/ic_mailbox" />
 
     </LinearLayout>
 
@@ -88,72 +77,78 @@
         android:layout_height="0dp"
 
         android:layout_weight="2"
-        android:background="@color/white"
+        android:background="@color/colorAccent"
         android:orientation="horizontal"
         android:translationZ="2dp">
 
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/white"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_home"
-            android:visibility="visible" />
 
-        <ImageButton
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_home_selected"
+            android:visibility="visible"
+            android:background="@android:color/transparent"/>
+
+        <ImageView
             android:id="@+id/ib_cardlist"
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
 
             android:layout_weight="1"
-            android:background="@color/white"
+
 
             android:scaleType="fitCenter"
-            android:src="@drawable/btn_card"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_card_selected"
 
             />
 
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_chatlist"
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/white"
+
             android:scaleType="fitCenter"
-            android:src="@drawable/btn_chat"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_chat_selected"
 
             />
 
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_fan"
             style="@android:style/Widget.DeviceDefault.ImageButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/white"
+
             android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
 
 
-            android:src="@drawable/btn_fan" />
+            android:src="@drawable/btn_fan_selected" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ib_board"
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/white"
+
             android:scaleType="fitCenter"
-            android:src="@drawable/btn_board" />
+            android:src="@drawable/btn_board_selected"
+
+            android:background="@android:color/transparent"/>
 
 
     </LinearLayout>
@@ -162,7 +157,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/white"
+        android:background="@color/colorAccent"
         android:orientation="horizontal"
         android:translationZ="2dp">
 
@@ -172,7 +167,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="홈" />
+            android:text="홈"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView36"
@@ -180,7 +176,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="카드" />
+            android:text="카드"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView35"
@@ -188,7 +185,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="채팅" />
+            android:text="채팅"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView33"
@@ -196,7 +194,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="팬" />
+            android:text="팬"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/textView43"
@@ -204,7 +203,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="게시판" />
+            android:textColor="@color/white"
+            android:text="게시판"
+            />
 
     </LinearLayout>
 

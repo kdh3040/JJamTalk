@@ -1,12 +1,15 @@
 package com.hodo.jjamtalk;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,8 @@ import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UserData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by mjk on 2017. 8. 28..
@@ -38,17 +43,35 @@ public class FanFragment extends Fragment {
 
     public ArrayList<FanData> StarList = new ArrayList<>();
     public ArrayList<UserData> StarData = new ArrayList<>();
-    FragmentManager fragmentManager;
 
+
+    private FragmentManager mFragmentManager;
+    FragmentManager fragmentManager;
+    private TabPagerAdapter FanTapAdapter;
     View fragView;
+    Context mContext;
+
+    private  Boolean bNotify = false;
 
     public FanFragment() {
 
     }
-
+    @SuppressLint("ValidFragment")
     public FanFragment(Activity activity) {
         super();
         this.activity = activity;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
 
     @Nullable
@@ -60,92 +83,135 @@ public class FanFragment extends Fragment {
         }
         else
         {
+            FanTapAdapter = new TabPagerAdapter(getFragmentManager());
             fragView = inflater.inflate(R.layout.fragment_fan,container,false);
             tabLayout = (TabLayout) fragView.findViewById(R.id.tabLayout);
 
-            tabLayout.addTab(tabLayout.newTab().setText("내 팬"));
-            tabLayout.addTab(tabLayout.newTab().setText("가입한 팬클럽"));
+            tabLayout.addTab(tabLayout.newTab().setText("나를 좋아하는"));
+            tabLayout.addTab(tabLayout.newTab().setText("내가 좋아하는"));
 
             viewPager = (ViewPager)fragView.findViewById(R.id.vp);
 
-            viewPager.setAdapter(new TabPagerAdapter(getFragmentManager(),tabLayout.getTabCount()));
+            viewPager.setAdapter(FanTapAdapter);
             viewPager.setCurrentItem(0);
+            mFragmentManager = getChildFragmentManager();
+
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
+
                     viewPager.setCurrentItem(tab.getPosition());
+                    Fragment fragment = FanTapAdapter.getFragment(tab.getPosition());
+                    if (fragment != null) {
+                        fragment.onResume();
+                    }
+
+                    int a = 0;
                 }
 
                 @Override
                 public void onTabUnselected(TabLayout.Tab tab) {
-
+                    int a = 0;
                 }
 
                 @Override
                 public void onTabReselected(TabLayout.Tab tab) {
-
+                    int a = 0;
                 }
             });
 
-
-            /*fragmentManager= getFragmentManager();
-
-
-            PagerModelManager manager = new PagerModelManager();
-
-            Intent intent = activity.getIntent();
-
-            Bundle bundle = activity.getIntent().getExtras();
-            nViewMode = intent.getIntExtra("ViewMode", 0);
-
-            if(nViewMode == 0)
-            {
-                manager.addFragment(new MyFanFragment(),"내 팬");
-                manager.addFragment(new MyLikeFragment(),"내가 좋아하는");
-            }
-            else
-            {
-                stTargetData = (UserData) bundle.getSerializable("Target");
-
-             manager.addFragment(new TargetFanFragment(stTargetData),"팬클럽");
-                manager.addFragment(new TargetLikeFragment(stTargetData),"가입한 팬클럽");
-            }
-
-*/
-
-
         }
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
     }
 
     private class TabPagerAdapter extends FragmentStatePagerAdapter {
-        private  int tabCount;
+   // private class TabPagerAdapter extends Fragment {
+        private  int tabCount = 2;
+        private Map<Integer, String> mFragmentTags;
 
-        public TabPagerAdapter(FragmentManager fm, int count) {
+
+        public TabPagerAdapter(FragmentManager fm) {
             super(fm);
-            tabCount = count;
+
+
+            mFragmentTags = new HashMap<Integer, String>();
+        }
+        @Override
+        public int getCount() {
+            return tabCount;
         }
 
         @Override
         public Fragment getItem(int position) {
             switch(position){
                 case 0:
-                    return new  MyFanFragment();
+                {
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    MyFanFragment fragment = new MyFanFragment();
+                    fragmentTransaction.add(fragment, "fanlist");
+                    fragmentTransaction.commit();
+                    return fragment;
+                }
+
                 case 1:
-                    return new MyLikeFragment();
+                {
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    MyLikeFragment fragment = new MyLikeFragment();
+                    fragmentTransaction.add(fragment, "likelist");
+                    fragmentTransaction.commit();
+                    return fragment;
+                }
+                default:
+                    return null;
             }
-            return null;
-
-
         }
 
         @Override
-        public int getCount() {
-            return tabCount;
+        public CharSequence getPageTitle(int position) {
+            return "Page " + position;
         }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            Object object = super.instantiateItem(container, position);
+            if (object instanceof Fragment) {
+                Fragment fragment = (Fragment) object;
+
+                String tag = fragment.getTag();
+                if(position == 0)
+                    tag = "fanlist";
+               else if(position == 1)
+                    tag = "likelist";
+                mFragmentTags.put(position, tag);
+            }
+            return object;
+        }
+
+        public Fragment getFragment(int position) {
+            Fragment fragment = null;
+            String tag = mFragmentTags.get(position);
+            if (tag != null) {
+                fragment = mFragmentManager.findFragmentByTag(tag);
+            }
+            return fragment;
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            int rtValue = 0;
+            Fragment fragment = (Fragment) object;
+            String tag = fragment.getTag();
+            if (tag.equals("fanlist")) {
+                rtValue = POSITION_NONE;
+            }
+            return  rtValue;
+        }
+
+
+
+
     }
 
     /*

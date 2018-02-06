@@ -1,43 +1,41 @@
 package com.hodo.jjamtalk.Firebase;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.hodo.jjamtalk.BoardFragment;
+import com.hodo.jjamtalk.BoardWriteActivity;
+import com.hodo.jjamtalk.Data.BoardData;
+import com.hodo.jjamtalk.Data.BoardMsgDBData;
 import com.hodo.jjamtalk.Data.MyData;
-import com.hodo.jjamtalk.Data.SendData;
-import com.hodo.jjamtalk.Data.TempBoardData;
 import com.hodo.jjamtalk.Data.TempBoard_ReplyData;
 import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Data.BoardLikeData;
+import com.hodo.jjamtalk.MainActivity;
+import com.hodo.jjamtalk.R;
 import com.hodo.jjamtalk.Util.AwsFunc;
-import com.kakao.usermgmt.response.model.User;
+import com.hodo.jjamtalk.Util.CommonFunc;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
+import static com.hodo.jjamtalk.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
+import static com.hodo.jjamtalk.Data.CoomonValueData.LOAD_BOARD_COUNT;
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
 
 /**
  * Created by boram on 2017-08-05.
@@ -48,6 +46,7 @@ public class FirebaseData {
     private static FirebaseData _Instance;
     private MyData mMyData = MyData.getInstance();
     private AwsFunc mAwsFunc = AwsFunc.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
 
     public static FirebaseData getInstance()
     {
@@ -102,29 +101,9 @@ public class FirebaseData {
         user.child("Memo").setValue(mMyData.getUserMemo());
 
         user.child("RecvMsg").setValue(mMyData.getnRecvMsg());
+
+        user.child("FanCount").setValue(mMyData.getFanCount());
     }
-    public boolean SaveBoardData(TempBoardData sendData) {
-
-        Random rand = new Random();
-        rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Board").push();
-
-         //sendData. = mMyData.getUserImg();
-
-        long time = System.currentTimeMillis();
-        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
-
-        sendData.Date = ctime.format(new Date(time));
-        sendData.Key = table.getKey();
-
-        table.setValue(sendData);
-
-        return  true;
-    }
-
-
 
     public boolean SaveBoardReplyData(TempBoard_ReplyData strMemo) {
 
@@ -167,6 +146,36 @@ public class FirebaseData {
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Honey", stTargetData.Honey+nGiftCnt);
         user.updateChildren(updateMap);
+    }
+
+    public void DelCardList(String Idx)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        Query queryRef = database.getReference("User").orderByValue().equalTo(Idx);
+
+        queryRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                snapshot.getRef().removeValue();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
     }
 
     public void DelChatData(String Idx)
@@ -248,7 +257,179 @@ public class FirebaseData {
         SaveData(mMyData.getUserIdx());
 
     }
+    public void GetWriteAfterData(final Activity mActivity)
+    {
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
+        Query data = FirebaseDatabase.getInstance().getReference().child("Board").limitToFirst(FIRST_LOAD_BOARD_COUNT);
+
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    BoardData.getInstance().AddBoardData(postSnapshot, false);
+                }
+
+                mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
+   /*
+                Intent intent = new Intent(mActivity, MainActivity.class);
+                intent.putExtra("StartFragment", 4);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mActivity.startActivity(intent);
+                mActivity.finish();
+                mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);*/
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void GetInitBoardData()
+    {
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
+        Query data = FirebaseDatabase.getInstance().getReference().child("Board").limitToFirst(FIRST_LOAD_BOARD_COUNT);
+
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    BoardData.getInstance().AddBoardData(postSnapshot, false);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void GetInitMyBoardData()
+    {
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        Query data = FirebaseDatabase.getInstance().getReference().child("Board").orderByChild("Idx").equalTo(mMyData.getUserIdx());
+
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    BoardData.getInstance().AddBoardData(postSnapshot, true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    // 게시판 관련 함수 (환웅)
+    BoardFragment.BoardListAdapter UpdateBoardAdapter = null;
+    public void GetBoardData(BoardFragment.BoardListAdapter updateBoardAdapter, long startIdx, Boolean top)
+    {
+        UpdateBoardAdapter = updateBoardAdapter;
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
+        Query data = null;
+        if(top)
+            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx - LOAD_BOARD_COUNT).endAt(startIdx );
+        else
+            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx).endAt(startIdx + LOAD_BOARD_COUNT); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
+
+        data.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    BoardData.getInstance().AddBoardData(postSnapshot, false);
+                }
+                UpdateBoardAdapter.BoardDataLoding = false;
+                UpdateBoardAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private BoardWriteActivity WriteActivity = null;
+    public void SaveBoardData_GetBoardIndex(final BoardWriteActivity activity) {
+        WriteActivity = activity;
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
+        DatabaseReference data = fierBaseDataInstance.getReference("BoardIdx");
+        data.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Long index = mutableData.getValue(Long.class);
+                if(index == null)
+                    return Transaction.success(mutableData);
+
+                index--;
+
+                mutableData.setValue(index);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                // TODO 환웅 성공 했을때 오는 함수 인듯
+                // TODO 환웅 콜백 함수가 있나?
+                long index = dataSnapshot.getValue(long.class);
+                BoardData.getInstance().BoardIdx = index;
+                WriteActivity.SendBoard();
 
 
+                BoardData.getInstance().ClearBoardData();
+                FirebaseData.getInstance().GetInitMyBoardData();
+                FirebaseData.getInstance().GetWriteAfterData(activity);
+            }
+        });
+    }
 
+    public boolean SaveBoardData(BoardMsgDBData sendData) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMddHHmm");
+
+        DatabaseReference table = database.getReference("Board").child(Long.toString(BoardData.getInstance().BoardIdx));
+
+        long time = System.currentTimeMillis();
+        sendData.Date = ctime.format(new Date(time));
+        sendData.BoardIdx = BoardData.getInstance().BoardIdx;
+        BoardData.getInstance().AddBoardData(sendData, true);
+        table.setValue(sendData);
+
+        return  true;
+    }
+
+    public boolean SaveBoardLikeData(long boardIdx, BoardLikeData sendData)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx)).child("Like").child(sendData.Idx);
+        table.setValue(sendData);
+
+        return  true;
+    }
+
+    public boolean RemoveBoardLikeData(long boardIdx, String Idx)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx)).child("Like").child(Idx);
+        table.child(Idx).removeValue();
+        return  true;
+    }
+
+    public void RemoveBoard(long boardIdx)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx));
+        table.removeValue();
+    }
 }

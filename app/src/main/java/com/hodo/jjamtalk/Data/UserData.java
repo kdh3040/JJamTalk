@@ -8,6 +8,7 @@ import com.kakao.usermgmt.response.model.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +57,7 @@ public class UserData implements Serializable,Parcelable {
     public String ImgGroup3;
     public String ImgGroup4;
 
+    public int ItemCount;
     public int Item_1;
     public int Item_2;
     public int Item_3;
@@ -65,13 +67,24 @@ public class UserData implements Serializable,Parcelable {
     public int Item_7;
     public int Item_8;
 
+    public int BestItem;
+
+    public  ArrayList<UserData> arrChatTargetData = new ArrayList<>();
+
+    public int FanCount;
     public  Map<String, FanData> FanList = new LinkedHashMap<String, FanData>();
     public  ArrayList<FanData> arrFanList = new ArrayList<>();
     public  ArrayList<UserData> arrFanData = new ArrayList<>();
+    public  Map<String, UserData> mapFanData = new LinkedHashMap<String, UserData>();
 
     public  Map<String, FanData> StarList = new LinkedHashMap<String, FanData>();
     public  ArrayList<FanData> arrStarList = new ArrayList<>();
     public  ArrayList<UserData> arrStarData = new ArrayList<>();
+    public  Map<String, UserData> mapStarData = new LinkedHashMap<String, UserData>();
+
+    public  Map<String, FanData> CardList = new LinkedHashMap<String, FanData>();
+    public  ArrayList<FanData> arrCardList = new ArrayList<>();
+    public  ArrayList<UserData> arrCardData = new ArrayList<>();
 
 
     public UserData() {
@@ -113,6 +126,7 @@ public class UserData implements Serializable,Parcelable {
         ImgGroup3 = in.readString();
         ImgGroup4 = in.readString();
 
+        ItemCount = in.readInt();
         Item_1 = in.readInt();
         Item_2 = in.readInt();
         Item_3 = in.readInt();
@@ -121,12 +135,21 @@ public class UserData implements Serializable,Parcelable {
         Item_6 = in.readInt();
         Item_7 = in.readInt();
         Item_8 = in.readInt();
+        BestItem = in.readInt();
 
+        arrChatTargetData = (ArrayList<UserData>) in.readSerializable();
+
+        FanCount = in.readInt();
         arrFanList = (ArrayList<FanData>) in.readSerializable();
         arrFanData = (ArrayList<UserData>) in.readSerializable();
+        mapFanData = (HashMap<String, UserData>) in.readSerializable();
 
         arrStarList = (ArrayList<FanData>) in.readSerializable();
         arrStarData = (ArrayList<UserData>) in.readSerializable();
+        mapStarData= (HashMap<String, UserData>) in.readSerializable();
+
+        arrCardList = (ArrayList<FanData>) in.readSerializable();
+        arrCardData = (ArrayList<UserData>) in.readSerializable();
 
     }
 
@@ -177,6 +200,7 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeString(ImgGroup3);
         parcel.writeString(ImgGroup4);
 
+        parcel.writeInt(ItemCount);
         parcel.writeInt(Item_1);
         parcel.writeInt(Item_2);
         parcel.writeInt(Item_3);
@@ -185,13 +209,24 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeInt(Item_6);
         parcel.writeInt(Item_7);
         parcel.writeInt(Item_8);
+        parcel.writeInt(BestItem);
+
+        parcel.writeSerializable(arrChatTargetData);
+
+        parcel.writeInt(FanCount);
 
         parcel.writeSerializable(arrFanList);
         parcel.writeSerializable(arrFanData);
 
+        parcel.writeSerializable((Serializable) mapFanData);
+
         parcel.writeSerializable(arrStarList);
         parcel.writeSerializable(arrStarData);
 
+        parcel.writeSerializable((Serializable) mapStarData);
+
+        parcel.writeSerializable(arrCardList);
+        parcel.writeSerializable(arrCardData);
     }
 
 }

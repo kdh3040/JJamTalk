@@ -3,14 +3,21 @@ package com.hodo.jjamtalk;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.ViewHolder.MyJewelViewHolder;
 
@@ -22,6 +29,8 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
 
     Context mContext;
     UIData mUIdata = UIData.getInstance();
+    MyData mMyData = MyData.getInstance();
+
     Activity mActivity;
 
     public MyPageMyJewelAdapter(Context context,Activity activity) {
@@ -30,8 +39,6 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
         mActivity = activity;
 
     }
-
-
 
     @Override
     public MyJewelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,35 +49,85 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
 
     @Override
     public void onBindViewHolder(MyJewelViewHolder holder, final int position) {
-        holder.iv.setOnClickListener(new View.OnClickListener() {
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                final int nSellIdx = mMyData.itemIdx.get(position);
+                final int[] nSellCount = {mMyData.itemList.get(nSellIdx)};
+                final int nSellGold = mUIdata.getSellJewelValue()[nSellIdx];
+                final String strSellItem = mUIdata.getItems()[nSellIdx];
+                final String strSellItemRef = mUIdata.getItemsReference()[nSellIdx];
 
-                    }
-                }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                if(mUIdata.bSellItemStatus == false)
+                {
+                    View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_exit_app, null, false);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                    final AlertDialog dialog = builder.setView(v).create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    dialog.show();
 
-                    }
-                }).setMessage("해당 아이템을 파시겠습니까?   "+mUIdata.getSellJewelValue()[position]+"꿀");
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                    TextView tv_title = v.findViewById(R.id.title);
+                    tv_title.setText(strSellItemRef + "  " + nSellCount[0] + "개 보유");
+                    TextView tv_msg = v.findViewById(R.id.msg);
+
+                    tv_msg.setText("판매 시 개당 " + nSellGold + " 골드 획득");
+                    Button btn_yes = v.findViewById(R.id.btn_yes);
+                    btn_yes.setText("아이템 팔기");
+                    btn_yes.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.cancel();
+                            mMyData.setUserHoney(mMyData.getUserHoney() + nSellGold);
+                            mMyData.itemList.put(nSellIdx, --nSellCount[0]);
+                            mMyData.SaveMyItem(nSellIdx, nSellCount[0]);
+                            if(nSellCount[0] == 0) {
+                                mMyData.itemList.remove(nSellIdx);
+                                mMyData.nItemCount--;
+                            }
+
+                            mMyData.refreshItemIdex();
+                            notifyDataSetChanged();
+                            Intent intent = new Intent(mActivity, MyJewelBoxActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mActivity.startActivity(intent);
+                            mActivity.finish();
+                            mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+
+                            }
+                        });
+
+                        Button btn_no = v.findViewById(R.id.btn_no);
+                        btn_no.setText("닫기");
+                        btn_no.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+
+                            public void onClick(View view) {
+                                dialog.dismiss();
+                            }
+
+                        });
+                }
+
+                else
+                {
+                    mUIdata.nSelItemType = nSellIdx;
+                }
+
             }
         });
-        holder.iv.setImageResource(mUIdata.getJewels()[position]);
-        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/4,mUIdata.getHeight()/4));
-        holder.tv.setText("x3");
 
+        int index = mMyData.itemIdx.get(position);
+        holder.iv.setImageResource(mUIdata.getJewels()[index]);
+        int count = mMyData.itemList.get(index);
+        holder.tv.setText("x" + Integer.toString(count));
 
+        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/2,mUIdata.getHeight()/10));
 
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return mMyData.nItemCount;
     }
 }

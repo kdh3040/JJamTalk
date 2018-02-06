@@ -3,8 +3,9 @@
     <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/gray</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
 
     </style>
 
@@ -12,22 +13,54 @@
         <item name = "android:layout_width">match_parent</item>
         <item name = "android:layout_height">1dp</item>
 
-        <item name = "android:background">#a0a0a0</item>
+        <item name = "android:background">#e0e0e0</item>
     </style>
 
-    <!--<style name="button" parent="@android:style/Widget.Button">
+    <style name="button" parent="@android:style/Widget.Button">
         <item name="android:gravity">center_vertical|center_horizontal</item>
-        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textColor">#FF000000</item>
         <item name="android:shadowColor">#FF000000</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">-1</item>
         <item name="android:shadowRadius">0.2</item>
+        <item name="android:layout_marginBottom">5dp</item>
         <item name="android:textSize">16dip</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:background">@drawable/button</item>
+        <item name="android:background">@drawable/button_enabled</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
-    </style>-->
+    </style>
+
+    <style name="background" parent="@android:style/TextAppearance.Widget.TextView">
+    <item name="android:gravity">center_vertical|center_horizontal</item>
+    <item name="android:textColor">#FFFFFFFF</item>
+    <item name="android:shadowColor">#FF000000</item>
+    <item name="android:shadowDx">0</item>
+    <item name="android:shadowDy">-1</item>
+    <item name="android:shadowRadius">0.2</item>
+    <item name="android:layout_marginBottom">5dp</item>
+    <item name="android:textSize">16dip</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:background">@drawable/button_enabled</item>
+    <item name="android:focusable">true</item>
+    <item name="android:clickable">true</item>
+
+    </style>
+
+    <style name="backgr" parent="@style/Widget.AppCompat.Button">
+        <item name="android:imageButtonStyle">@style/ImgBtn</item>
+        <!--<item name="android:background">@drawable/bg_halftransparent</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">16dip</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textStyle">bold</item>-->
+
+    </style>
+
+    <style name="ImgBtn" parent="android:Widget.ImageButton">
+        <item name="android:background">@drawable/round_btn_bg</item>
+    </style>
+
     <style name = "CustomActionBarTheme"
         parent = "Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -37,23 +70,54 @@
         <item name = "android:actionBarStyle">@style/MyActionBar</item>
     </style>
 
-    <style name = "MyActionBar"
-        parent = "@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/gray</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="MyAlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name ="android:background">@drawable/background_rounding</item>
+        <item name ="android:windowTitleStyle">@style/MyTitleTextStyle</item>
+
+
+
     </style>
+
+    <style name = "MyTitleTextStyle">
+        <item name="android:textColor">@color/textColorDark</item>
+
+        <item name="android:background">@color/colorAccent</item>
+    </style>
+
+    <style name = "MyActionBar" parent = "@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/gray</item>
+        <item name="colorAccent">@color/colorPrimaryLight</item>
+    </style>
+
     <style name = "NoTitleBar" parent="Theme.AppCompat.Light" >
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:buttonStyle">@style/button</item>-->
+        <item name ="windowNoTitle">true</item>
+
+    </style>
+
+    <style name = "setting" parent="Theme.AppCompat.Light" >
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/gray</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <!--<item name="android:buttonStyle">@style/button</item>-->
-
-
+        <item name="android:buttonStyle">@style/button</item>
         <item name ="windowNoTitle">true</item>
-    </style>
+</style>
+
     <style name = "ib_home">
         <item name = "android:background">@drawable/icon_home</item>
-</style>
+    </style>
+
+    <style name="Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 
 </resources>

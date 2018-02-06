@@ -4,22 +4,27 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,16 +35,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.Firebase.FirebaseData;
+import com.hodo.jjamtalk.Util.LocationFunc;
 import com.hodo.jjamtalk.Util.NotiFunc;
 
 import java.util.LinkedHashMap;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -52,13 +59,20 @@ public class UserPageActivity extends AppCompatActivity {
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
     private FirebaseData mFireBase = FirebaseData.getInstance();
     private MyJewelAdapter myjewelAdapter;
+    private LocationFunc mLocFunc = LocationFunc.getInstance();
+    private UIData mUIdata = UIData.getInstance();
 
     private TextView txtProfile;
     private TextView txtMemo;
+
+    private TextView txtDistance;
+
+    private TextView tv_liked;
+
     //private TextView txtHeart;
     //private TextView txtProfile;
 
-    private TextView txt_FanTitle;
+    private TextView tv_like;
     private TextView[] txt_Fan = new TextView[5];
 
     private TextView txt_Fan_0;
@@ -68,18 +82,20 @@ public class UserPageActivity extends AppCompatActivity {
     private TextView txt_Fan_4;
 
 
-    private Button btnRegister;
-    private Button btnGiftHoney;
-    private Button btnGiftJewel;
+    private ImageButton btnRegister;
+    private ImageButton btnGiftHoney;
+    private ImageButton btnGiftJewel;
 
-    private Button btnMessage;
-    private Button btnPublicChat;
+    private ImageButton btnShare;
+    private ImageButton btnMessage;
+   // private Button btnPublicChat;
 
     private ImageView imgProfile;
-    ListView listView, listView_Star;
+    private ImageView imgBestItem;
+
+    RecyclerView listView_like, listView_liked;
     final Context context = this;
     LinearLayout stickers_holder;
-    UIData mUIData = UIData.getInstance();
     Activity mActivity;
     private UserData TempSendUserData = new UserData();
 
@@ -94,14 +110,19 @@ public class UserPageActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
 
-                RefreshData();
-                refreshlayout.setRefreshing(false);
+                RefreshData(refreshlayout);
+
+//                refreshlayout.setRefreshing(false);
 
             }
         });
 
-        myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIData.getJewels());
+        btnShare = (ImageButton)findViewById(R.id.UserPage_btnShared);
+
+        myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIdata.getJewels());
         mActivity = this;
+
+
 
         Intent intent = getIntent();
 
@@ -110,19 +131,34 @@ public class UserPageActivity extends AppCompatActivity {
 
         TempSendUserData.arrStarList = stTargetData.arrStarList;
         TempSendUserData.arrFanList = stTargetData.arrFanList;
-        getTargetfanData();
-        getTargetstarData();
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
-        txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age);
+        txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age+"세");
+
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
-        txtMemo.setText(stTargetData.Memo);
+        if(stTargetData.Memo == null || stTargetData.Memo.equals(""))
+            txtMemo.setText("안녕하세요  "+stTargetData.NickName+"입니다");
+        else
+            txtMemo.setText(stTargetData.Memo);
+
+        txtDistance = (TextView) findViewById(R.id.UserPage_txtDistance);
+
+        double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stTargetData.Lat, stTargetData.Lon,"kilometer");
+        Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
+
+
+        if(Dist < 1.0)
+            txtDistance.setText("1km 이내에 있음");
+        else
+            txtDistance.setText((int)Dist + "km 거리에 있음");
+
         //private TextView txtProfile;
 
-        txt_FanTitle = (TextView) findViewById(R.id.UserPage_FanTitle);
+        tv_like = (TextView) findViewById(R.id.tv_like);
+        tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
-        imgProfile.setLayoutParams(mUIData.getRLP(1,0.6f));
+        //imgProfile.setLayoutParams(mUIdata.getRLP(1,0.6f));
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,27 +171,33 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });
 
-        stickers_holder = (LinearLayout)findViewById(R.id.stickers_holder);
-        stickers_holder.setLayoutParams(mUIData.getFLP(1,0.1f));
-
-        SetStickerImg();
 
         Glide.with(getApplicationContext())
                 .load(stTargetData.Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 
-        //txtHeart = (TextView)findViewById(R.id.UserPage_txtHeart);
-        //txtHeart.setText(Integer.toString(stTargetData.Honey));
+        imgBestItem = (ImageView)findViewById(R.id.iv_rank);
+
+        if(stTargetData.BestItem == 0)
+            imgBestItem.setImageResource(R.drawable.gold);
+        else
+            imgBestItem.setImageResource(mUIdata.getJewels()[stTargetData.BestItem - 1]);
+
+/*        Glide.with(getApplicationContext())
+                .load(stTargetData.BestItem)
+                .thumbnail(0.1f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                .into(imgBestItem);*/
+
+        btnRegister = findViewById(R.id.UserPage_btnRegister);
+        btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
+        btnGiftJewel = findViewById(R.id.UserPage_btnGiftJewel);
 
 
-        btnRegister = (Button) findViewById(R.id.UserPage_btnRegister);
-        btnGiftHoney = (Button) findViewById(R.id.UserPage_btnGiftHoney);
-        btnGiftJewel = (Button)findViewById(R.id.UserPage_btnGiftJewel);
-
-
-        btnMessage = (Button) findViewById(R.id.UserPage_btnMessage);
-        btnPublicChat = (Button) findViewById(R.id.UserPage_btnPublicChat);
+        btnMessage =  findViewById(R.id.UserPage_btnMessage);
+        /*btnPublicChat = (Button) findViewById(R.id.UserPage_btnPublicChat);
         btnPublicChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,40 +230,52 @@ public class UserPageActivity extends AppCompatActivity {
                   //  startActivity(new Intent(getApplicationContext(), PublicChatRoomActivity.class));
                 }
             }
-        });
+        });*/
 
 
         View.OnClickListener listener = new View.OnClickListener() {
             LayoutInflater inflater = LayoutInflater.from(mActivity);
-            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
-                    case R.id.UserPage_btnPublicChat:
+                    /*case R.id.UserPage_btnPublicChat:
 
-                        break;
+                        break;*/
 
                     case R.id.UserPage_btnRegister:
-                        buildalertDialog("내카드에 등록", "내 카드에 등록하시겠습니까?", "등록한다!");
+                        buildAlertDialog(builder,"내카드에 등록", "내 카드에 등록하시겠습니까?", "등록한다!");
 
                         //ClickBtnSendHeart();
                         break;
                     case R.id.UserPage_btnGiftJewel:
+
                         View v = inflater.inflate(R.layout.dialog_give_jewel,null);
-                        Spinner sp_jewel = v.findViewById(R.id.sp_jewel);
-
-                        sp_jewel.setAdapter(myjewelAdapter);
-
-
-
-                        builder.setView(v);
-                        builder.show();
-
-
-
+                       AlertDialog dialog1 = builder.setView(v).create();
+                       dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                       dialog1.show();
+                       Spinner sp_jewel = v.findViewById(R.id.sp_jewel);
+                       sp_jewel.setAdapter(myjewelAdapter);
                         break;
+
+                    case R.id.UserPage_btnShared:
+
+                        // 공유하기 버튼
+                        int aaa= 0;
+                       // String subject = "회원님을 위한 특별한 이성을 발견했습니다.";
+                        String text = "회원님을 위한 특별한 이성을 발견했습니다.\n흥톡에 로그인해 맘에 드는지 확인해보세요 \n" + mMyData.strDownUri;
+
+                        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                        intent.setType("text/plain");
+                       // intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                        intent.putExtra(Intent.EXTRA_TEXT, text);
+                        Intent chooser = Intent.createChooser(intent, "타이틀");
+                        startActivity(chooser);
+                        break;
+
                     case R.id.UserPage_btnGiftHoney:
+
 
                         int nSize = mMyData.arrBlockedDataList.size();
 
@@ -233,6 +287,7 @@ public class UserPageActivity extends AppCompatActivity {
                                 View giftView = inflater.inflate(R.layout.alert_send_gift, null);
                                 builder.setView(giftView);
                                 final AlertDialog dialog = builder.create();
+                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                                 dialog.show();
 
                                 TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
@@ -249,8 +304,9 @@ public class UserPageActivity extends AppCompatActivity {
                         nSendHoneyCnt[0] = 100;
                         final View giftView = inflater.inflate(R.layout.alert_send_gift, null);
                         builder.setView(giftView);
-                        final AlertDialog dialog = builder.create();
-                        dialog.show();
+                        final AlertDialog gold_Dialog = builder.create();
+                        gold_Dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                        gold_Dialog.show();
 
                         TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
                         Button btnHeartCharge = giftView.findViewById(R.id.HeartPop_Charge);
@@ -263,61 +319,61 @@ public class UserPageActivity extends AppCompatActivity {
                         final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
 
                         tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
-                        Msg.setText("100개의 꿀을 보내시겠습니까?");
+                        //Msg.setText("100개의 꿀을 보내시겠습니까?");
 
 
                         btnHeartCharge.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                startActivity(new Intent(getApplicationContext(), HeartActivity.class));
+                                startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                             }
                         });
 
                         btnHeart100.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 100;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 10;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
                             }
                         });
 
                         btnHeart200.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 200;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 20;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보시겠습니까?");
                             }
                         });
 
                         btnHeart300.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 300;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 30;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
                             }
                         });
 
                         btnHeart500.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 500;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 50;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
                             }
                         });
 
                         btnHeart1000.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 1000;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 100;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
                             }
                         });
 
                         btnHeart5000.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 5000;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 500;
+                                Msg.setText(nSendHoneyCnt[0] + "골드를 보내시겠습니까?");
                             }
                         });
 
@@ -329,21 +385,33 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                String strSendMsg = SendMsg.getText().toString();
-                                if (strSendMsg.equals(""))
-                                    strSendMsg = "꿀 보내드려요";
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
 
-                                boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
-                                rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                } else {
+                                    String strSendMsg = SendMsg.getText().toString();
+                                    if (strSendMsg.equals(""))
+                                        strSendMsg = "안녕하세요";
 
-                                if (rtValuew == true) {
-                                    mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
-                                    mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                                    mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
-                                    mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
-                                    Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                    boolean rtValuew = mMyData.makeSendList(stTargetData, strSendMsg.toString());
+                                    rtValuew = mMyData.makeCardList(stTargetData);
+                                     rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                    rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+
+
+
+                                    if (rtValuew == true) {
+                                        mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
+                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                        mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
+                                        mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
+                                        mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
+                                        Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                dialog.dismiss();
+
+
+                                gold_Dialog.dismiss();
 
                             }
                         });
@@ -352,7 +420,7 @@ public class UserPageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                dialog.dismiss();
+                                gold_Dialog.dismiss();
 
                             }
                         });
@@ -408,24 +476,25 @@ public class UserPageActivity extends AppCompatActivity {
 
                         builder.setView(view1);
 
-                        final AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
+                        final AlertDialog msgDialog = builder.create();
+                        msgDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                        msgDialog.show();
                         btn_cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                alertDialog.dismiss();
+                                msgDialog.dismiss();
                             }
                         });
                         Button btn_send = view1.findViewById(R.id.btn_send);
                         btn_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                mNotiFunc.SendMSGToFCM(stTargetData);
                                 boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
                                 if (rtValuew == true) {
-                                    mNotiFunc.SendMSGToFCM(stTargetData);
                                     Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
                                 }
-                                alertDialog.dismiss();
+                                msgDialog.dismiss();
                             }
                         });
 
@@ -447,7 +516,7 @@ public class UserPageActivity extends AppCompatActivity {
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    startActivity(new Intent(getApplicationContext(),HeartActivity.class));
+                                                    startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
 
                                                 }
                                             });
@@ -461,60 +530,164 @@ public class UserPageActivity extends AppCompatActivity {
             }
         };
 
+
+        final GestureDetector gestureDetector = new GestureDetector(UserPageActivity.this,new GestureDetector.SimpleOnGestureListener()
+        {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e)
+            {
+                return true;
+            }
+        });
+
         btnRegister.setOnClickListener(listener);
         btnGiftHoney.setOnClickListener(listener);
         btnGiftJewel.setOnClickListener(listener);
 
+        btnShare.setOnClickListener(listener);
+
         btnMessage.setOnClickListener(listener);
 
-
-        listView = (ListView) findViewById(R.id.lv_fan);
-        UserPageFanAdapter fanAdapter = new UserPageFanAdapter(this, stTargetData.arrFanList);
-        listView.setAdapter(fanAdapter);
-
-        listView_Star = (ListView) findViewById(R.id.lv_star);
-        UserPageStarAdapter StarAdapter = new UserPageStarAdapter(this, stTargetData.arrStarList);
-        listView_Star.setAdapter(StarAdapter);
-
         LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
-        layout.setOnClickListener(new View.OnClickListener() {
+        View Divide_Fan = (View)findViewById(R.id.Divide_fan);
 
+        if(stTargetData.arrFanList.size() == 0 && stTargetData.arrStarList.size() == 0 ) {
+            layout.setVisibility(View.GONE);
+            Divide_Fan.setVisibility(View.GONE);
+        }
+
+        LinearLayout layoutFanLike = (LinearLayout) findViewById(R.id.ll_fan_like);
+        LinearLayout layoutFanLiked = (LinearLayout) findViewById(R.id.ll_fan_liked);
+
+        if(stTargetData.arrFanList.size() != 0)
+        {
+            tv_like = findViewById(R.id.tv_like);
+            tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
+            listView_like = (RecyclerView) findViewById(R.id.lv_like);
+            LikeAdapter likeAdapter = new LikeAdapter(this, stTargetData.arrFanList);
+            listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+            listView_like.setAdapter(likeAdapter);
+
+            listView_like.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
+            {
+
+                @Override
+                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                    if(gestureDetector.onTouchEvent(e))
+                    {
+                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", TempSendUserData);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                }
+
+                @Override
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                }
+            });
+
+        }
+        else
+            layoutFanLike.setVisibility(View.GONE);
+
+
+
+        if(stTargetData.arrStarList.size() != 0)
+        {
+            tv_liked = findViewById(R.id.tv_liked);
+            tv_liked.setText(stTargetData.NickName+"님이 좋아하는 사람들");
+
+            listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
+            LikedAdapter LikedAdapter = new LikedAdapter(this, stTargetData.arrStarList);
+            listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+            listView_liked.setAdapter(LikedAdapter);
+
+            listView_liked.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
+            {
+
+                @Override
+                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                    if(gestureDetector.onTouchEvent(e))
+                    {
+                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", TempSendUserData);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                }
+
+                @Override
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                }
+            });
+        }
+        else
+            layoutFanLiked.setVisibility(View.GONE);
+
+
+
+
+
+  /*      listView_liked.addOnItemTouchListener(new nItem() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
-
                 Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
                 Bundle bundle = new Bundle();
-
-
                 bundle.putSerializable("Target", TempSendUserData);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
+            }
+        });*/
 
+   /*     listView_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
+                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", TempSendUserData);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
+            }
+        });*/
 
-             //   intent.putExtra("StarData", StarData);
-
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
+                Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", TempSendUserData);
                 intent.putExtras(bundle);
                 startActivity(intent);
 
             }
         });
-
-        int nLayoutSize = 0;
-        if (stTargetData.arrFanList.size() > stTargetData.arrStarList.size())
-            nLayoutSize = stTargetData.arrFanList.size();
-        else if (stTargetData.arrFanList.size() < stTargetData.arrStarList.size())
-            nLayoutSize = stTargetData.arrStarList.size();
-
-        if (nLayoutSize == 0) {
-            layout.setVisibility(View.GONE);
-        } else {
-            final int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
-
-            //layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * nLayoutSize * LinearLayout.LayoutParams.MATCH_PARENT));
-            layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, nLayoutSize * height + 50));
-        }
     }
 
     private void SetStickerImg() {
@@ -609,28 +782,45 @@ public class UserPageActivity extends AppCompatActivity {
 
     }
 
-    private void buildalertDialog(String s, String s1, String s2) {
+    private void buildAlertDialog(AlertDialog.Builder builder1, String s, String s1, String s2) {
 
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-        alertDialogBuilder.setTitle(s);
-        alertDialogBuilder.setMessage(s1)
-                .setCancelable(true)
-                .setPositiveButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                })
-                .setNegativeButton(s2,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                boolean rtValuew = mMyData.makeCardList(stTargetData);
-                                Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+
+        final AlertDialog dialog = builder1.setView(v).create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        final Button btn_exit;
+        final Button btn_no;
+        final TextView tv_title;
+        final TextView tv_msg;
+
+        tv_title = v.findViewById(R.id.title);
+        tv_msg = v.findViewById(R.id.msg);
+
+        tv_title.setText(s);
+        tv_msg.setText(s1);
+
+        btn_exit = (Button) v.findViewById(R.id.btn_yes);
+        btn_exit.setText(s2);
+        btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean rtValuew = mMyData.makeCardList(stTargetData);
+                Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        btn_no = (Button) v.findViewById(R.id.btn_no);
+        btn_no.setText("취소");
+        btn_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 
     public void getTargetfanData() {
@@ -713,7 +903,7 @@ public class UserPageActivity extends AppCompatActivity {
         }
     }
 
-    private void RefreshData() {
+    private void RefreshData(final SwipeRefreshLayout refreshlayout) {
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("User").child(stTargetData.Idx);
 
@@ -727,7 +917,14 @@ public class UserPageActivity extends AppCompatActivity {
                         //stTargetData.PublicRoomStatus = tempUserData.PublicRoomStatus;
 
                         stTargetData = tempUserData;
+                        refreshlayout.setRefreshing(false);
 
+                        Intent intent = getIntent();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("Target", stTargetData);
+                        intent.putExtras(bundle);
+                        finish();
+                        startActivity(intent);
                     }
 
                     @Override

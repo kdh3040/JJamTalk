@@ -5,10 +5,12 @@ package com.hodo.jjamtalk.Data;
  */
 
 public class ChatData {
+    private MyData mMyData = MyData.getInstance();
+
     public String strFrom;
     public String strTo;
     public String strMsg;
-    public Long lTime;
+    public String lTime;
     public String strImg;
     public String strId;
 
@@ -17,14 +19,14 @@ public class ChatData {
     }
 
 
-    public ChatData(String from_person, String to_person, String message, long nowTime, String image_URL){
+    public ChatData(String from_person, String to_person, String message, String nowTime, String image_URL){
         strFrom= from_person;
         strTo = to_person;
         strMsg = message;
         lTime= nowTime;
         strImg = image_URL;
     }
-    public Long gettime(){
+    public String gettime(){
         return lTime;
     }
 

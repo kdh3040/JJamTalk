@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -50,12 +51,91 @@ public class BuyJewelActivity extends AppCompatActivity {
         btn_openbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View v = getLayoutInflater().inflate(R.layout.dialog_exit_app,null,false);
+                AlertDialog.Builder builder = new AlertDialog.Builder(BuyJewelActivity.this);
+                final AlertDialog dialog = builder.setView(v).create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
 
 
-                    String alertTitle = "상자 까기";
-                    new AlertDialog.Builder(mActivity)
+                TextView tv_title = v.findViewById(R.id.title);
+                tv_title.setText("상자 열기");
+                TextView tv_msg = v.findViewById(R.id.msg);
+                tv_msg.setText("상자를 여시겠습니까? (7골드 필요)");
+
+                Button btn_yes = v.findViewById(R.id.btn_yes);
+                btn_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                        if(mMyData.getUserHoney() > 7){
+                            mMyData.setUserHoney(mMyData.getUserHoney() - 7);
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                            View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_jewelbox_opened, null);
+                            ImageView Img_Opened = (ImageView)v.findViewById(R.id.opened_img);
+                            TextView Text_Opened = (TextView) v.findViewById(R.id.opened_text);
+                            //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+
+                            int result = Select_OpenedItem();
+                            View_OpenedItem(v, result, Img_Opened, Text_Opened);
+                            mMyData.setMyItem(result);
+
+                            Button btn_confirm = v.findViewById(R.id.opened_btn);
+
+                            builder.setView(v);
+
+                            final AlertDialog dialog = builder.create();
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                            dialog.show();
+
+                            btn_confirm.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                        }else {
+
+                            Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
+
+                        }
+
+
+                    }
+                });
+
+                btn_yes.setText("네");
+
+                Button btn_no = v.findViewById(R.id.btn_no);
+
+
+                btn_no.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+
+                    public void onClick(View view) {
+
+                        dialog.dismiss();
+
+
+                    }
+
+                });
+
+                btn_no.setText("아니오");
+
+
+
+
+
+
+
+                    String alertTitle = "상자 열기";
+                    /*new AlertDialog.Builder(mActivity)
                             .setTitle(alertTitle)
-                            .setMessage("3꿀을 소비하여 상자를 까시겠습니까")
+
+                            .setMessage("3꿀을 소비하여 상자를 여시겠습니까")
                             .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -66,16 +146,18 @@ public class BuyJewelActivity extends AppCompatActivity {
                                         View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_jewelbox_opened, null);
                                         ImageView Img_Opened = (ImageView)v.findViewById(R.id.opened_img);
                                         TextView Text_Opened = (TextView) v.findViewById(R.id.opened_text);
-                                        Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+                                        //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
 
                                         int result = Select_OpenedItem();
                                         View_OpenedItem(v, result, Img_Opened, Text_Opened);
                                         mMyData.setMyItem(result);
 
                                         Button btn_confirm = v.findViewById(R.id.opened_btn);
+
                                         builder.setView(v);
 
                                     final AlertDialog dialog = builder.create();
+                                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                                     dialog.show();
 
                                         btn_confirm.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +169,7 @@ public class BuyJewelActivity extends AppCompatActivity {
 
                                 }else {
 
-                                    Toast.makeText(getApplicationContext(), "꿀이 부족합니다", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
 
                                 }
 
@@ -98,7 +180,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.cancel();
                                 }
-                            }).show();
+                            }).show();*/
 
             }
         });
@@ -128,7 +210,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("실버 획득!!");
+                text_Opened.setText("명품 구두 획득!!");
                 break;
             }
             case 2:
@@ -145,7 +227,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("골드 획득!!");
+                text_Opened.setText("명품 드레스 획득!!");
                 break;
             }
             case 3:
@@ -162,7 +244,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("진주 획득!!");
+                text_Opened.setText("명품 가방 획득!!");
                 break;
             }
             case 4:
@@ -213,7 +295,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("사파이어 획득!!");
+                text_Opened.setText("명품 자동차 획득!!");
                 break;
             }
             case 7:
@@ -230,7 +312,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("루비 획득!!");
+                text_Opened.setText("    요트 획득!!");
                 break;
             }
             case 8:
@@ -247,7 +329,7 @@ public class BuyJewelActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                text_Opened.setText("다이아 획득!!");
+                text_Opened.setText("자가용 비행기 획득!!");
                 break;
             }
         }
@@ -258,17 +340,16 @@ public class BuyJewelActivity extends AppCompatActivity {
     private int Select_OpenedItem() {
         int rtValue = 0;
         int nGrade = 0;
-        nGrade = (int) (Math.random()*500)+1;
+        nGrade = (int) (Math.random()*2000)+1;
 
-        if(151 <= nGrade) rtValue = 1;
+        if(604 <= nGrade) rtValue = 1;
 
-        else if(42 <= nGrade && nGrade <= 150)  rtValue = 2;
-
-        else if(22 <= nGrade && nGrade <= 41)  rtValue = 3;
-        else if(17 <= nGrade && nGrade <= 21)  rtValue = 4;
-        else if(12 <= nGrade && nGrade <= 16)  rtValue = 5;
-        else if(7 <= nGrade && nGrade <= 11) rtValue = 6;
-        else if(2 <= nGrade && nGrade <= 6) rtValue = 7;
+        else if(160 <= nGrade && nGrade <= 603)  rtValue = 2;
+        else if(80 <= nGrade && nGrade <= 160)  rtValue = 3;
+        else if(58 <= nGrade && nGrade <= 80)  rtValue = 4;
+        else if(28 <= nGrade && nGrade <= 58)  rtValue = 5;
+        else if(15 <= nGrade && nGrade <= 27) rtValue = 6;
+        else if(2 <= nGrade && nGrade <= 14) rtValue = 7;
         else if(1 == nGrade) rtValue = 8;
 
         return rtValue;

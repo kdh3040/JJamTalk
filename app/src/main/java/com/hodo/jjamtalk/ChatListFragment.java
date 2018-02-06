@@ -3,9 +3,12 @@ package com.hodo.jjamtalk;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,17 +16,28 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.hodo.jjamtalk.Data.FanData;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.SendData;
 import com.hodo.jjamtalk.Data.UIData;
+import com.hodo.jjamtalk.Data.UserData;
 import com.hodo.jjamtalk.ViewHolder.ChatListViewHolder;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -34,19 +48,26 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class ChatListFragment extends Fragment {
     RecyclerView chatListRecyclerView;
     private MyData mMyData = MyData.getInstance();
-    private ArrayList<String> arrChatNameData = new ArrayList<>();
-    private ArrayList<SendData> arrChatData = new ArrayList<>();
+    //private ArrayList<String> arrChatNameData = new ArrayList<>();
+    //private ArrayList<SendData> arrChatData = new ArrayList<>();
     Menu mMenu;
+    Context mTempContext;
     Context mContext;
     UIData mUIData = UIData.getInstance();
     LinearLayout layout_chatlist;
 
     View fragView;
 
+    private void refreshFragMent()
+    {
+        FragmentTransaction trans = getFragmentManager().beginTransaction();
+        trans.detach(this).attach(this).commit();
+    }
+
     ChatListAdapter mAdapter = new ChatListAdapter();
 
-    public ChatListFragment() {
-
+    public ChatListFragment(Context Context) {
+        mTempContext = Context;
     }
 
     /*
@@ -73,11 +94,12 @@ public class ChatListFragment extends Fragment {
 
 
         if (fragView!= null) {
-
+            mAdapter.notifyDataSetChanged();
         }
         else
         {
             fragView = inflater.inflate(R.layout.fragment_chat_list,container,false);
+            fragView.setTag("ChatListFragment");
             chatListRecyclerView = fragView.findViewById(R.id.chat_list_recy);
 
             chatListRecyclerView.setAdapter(mAdapter);
@@ -102,11 +124,7 @@ public class ChatListFragment extends Fragment {
         public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.content_chat_list,parent,false);
 
-
             view.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
-
-
-
             return new ChatListViewHolder(view);
         }
 
@@ -115,30 +133,8 @@ public class ChatListFragment extends Fragment {
             int i = position;
 
 
-
-
-
-
-            //LinearLayout.LayoutParams lpForLL = new LinearLayout.LayoutParams((int)(mUIData.getWidth()*0.6),(int)(mUIData.getWidth()*0.2));
-            //holder.imageView.setLayoutParams(lp);
-            //holder.linearLayout.setLayoutParams(lp);
-
-            //holder.ll_text.setLayoutParams(lpForLL);
-
-            /*GradientDrawable drawable = null;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                drawable = (GradientDrawable)getDrawable(R.drawable.background_rounding);
-            }*/
-
-            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                holder.imageView.setBackground(new ShapeDrawable(new OvalShape()));
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                holder.imageView.setClipToOutline(true);
-            }*/
-            //holder.imageView.setImageResource(R.mipmap.girl1);
-
             Glide.with(mContext)
+                    //.load(mMyData.arrSendDataList.get(position).strTargetImg)
                     .load(mMyData.arrSendDataList.get(position).strTargetImg)
                     .bitmapTransform(new CropCircleTransformation(getActivity()))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -151,43 +147,93 @@ public class ChatListFragment extends Fragment {
             holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    AlertDialog.Builder br = new AlertDialog.Builder(getActivity());
-                    br.setTitle("채팅방에서 나가시겠습니까?");
-                    br.setMessage("나가기를 하면 대화 내용 및 채팅방 정보가 모두 삭제됩니다.");
-                    br.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+
+                    View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_exit_app, null, false);
+
+
+                    final AlertDialog dialog = new AlertDialog.Builder(mContext).setView(v).create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    dialog.show();
+
+                    final Button btn_exit;
+                    final Button btn_no;
+                    final TextView tv_title;
+                    final TextView tv_msg;
+
+                    tv_title = v.findViewById(R.id.title);
+                    tv_msg = v.findViewById(R.id.msg);
+
+                    tv_title.setText("채팅방 삭제");
+                    tv_msg.setText("삭제를 하면 대화 내용 및 채팅방 정보가 모두 삭제됩니다.");
+
+                    btn_exit = (Button) v.findViewById(R.id.btn_yes);
+                    btn_exit.setText("삭제");
+                    btn_exit.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // 취소 구현
-                        }
-                    }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //확인 구현
+                        public void onClick(View view) {
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference table;
+                            table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
+                            table.child(mMyData.arrSendDataList.get(position).strSendName).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    dataSnapshot.getRef().removeValue();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+                            mMyData.arrSendDataList.remove(position);
+                            mMyData.arrSendNameList.remove(position);
+
+                         //   mMyData.arrChatTargetData.remove(position);
+                         //   mMyData.arrMyChatTargetList.remove(position);
+
+                            refreshFragMent();
+                            dialog.dismiss();
                         }
                     });
-                    AlertDialog dialog = br.create();
-                    dialog.show();
+
+                    btn_no = (Button) v.findViewById(R.id.btn_no);
+                    btn_no.setText("취소");
+                    btn_no.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+
                     return false;
                 }
             });
 
 
+/*            String strDate = mMyData.arrSendDataList.get(i).strSendDate;
+            holder.date.setText(strDate);*/
 
+            //holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
 
-            arrChatNameData.add(mMyData.arrSendDataList.get(i).strSendName);
-            arrChatData.add(mMyData.arrSendDataList.get(i));
-            holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
+            holder.date.setText(mMyData.arrSendDataList.get(i).strSendDate);
             holder.nickname.setText(mMyData.arrSendDataList.get(i).strTargetNick);
+
+            if(mMyData.arrSendDataList.get(i).strTargetMsg.equals(""))
+                holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
+            else
+                holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetMsg);
+
+
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String strCharName = arrChatNameData.get(position);
-                    SendData mSendData = arrChatData.get(position);
+                    getChatTargetData(position);
 
-                    Intent intent = new Intent(getContext(),ChatRoomActivity.class);
-                    intent.putExtra("ChatData", mSendData);
-                    startActivity(intent);
+
                     //finish();
+
+
 
                 }
             });
@@ -195,37 +241,72 @@ public class ChatListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return mMyData.arrSendNameList.size();
+            return mMyData.arrSendDataList.size();
+            //return mMyData.arrChatTargetData.size();
         }
-    }
 
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_chat_list,menu);
+        String strTargetIdx;
 
-        //View v = menu.findItem(R.id.tv_leave).getActionView();
+        public void moveChatPage(int position)
+        {
+            SendData mSendData = mMyData.arrSendDataList.get(position);
+            Intent intent = new Intent(getContext(),ChatRoomActivity.class);
+            intent.putExtra("Position", position);
+            intent.putExtra("ChatData", mSendData);
+            intent.putExtra("ChatIdx", strTargetIdx);
 
-
-
-
-
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int curId = item.getItemId();
-        switch(curId){
-            case R.id.clickAll:
-
-                //setDateVisiblity(false);
-                break;
-            case android.R.id.home:
-                onBackPressed();
-                break;
-
+            startActivity(intent);
         }
-        return super.onOptionsItemSelected(item);
+
+
+        public void getChatTargetData(final int position) {
+
+            String[] strIdx = mMyData.arrSendDataList.get(position).strSendName.split("_");
+
+            if(strIdx[0].equals(mMyData.getUserIdx()))
+            {
+                strTargetIdx = strIdx[1];
+            }
+            else
+            {
+                strTargetIdx = strIdx[0];
+            }
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference table = null;
+            table = database.getReference("User");
+
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int saa = 0;
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    if(tempUserData != null)
+                    {
+                        mMyData.mapChatTargetData.put(strTargetIdx, tempUserData);
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.StarList.entrySet()) {
+                            mMyData.mapChatTargetData.get(strTargetIdx).arrStarList.add(entry.getValue());
+                        }
+
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                            mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.add(entry.getValue());
+                        }
+
+                        moveChatPage(position);
+                    }
+
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+            });
+        }
+
     }
-*/
+
 }

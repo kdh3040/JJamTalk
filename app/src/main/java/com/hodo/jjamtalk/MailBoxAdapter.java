@@ -18,7 +18,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.jjamtalk.Data.MyData;
 import com.hodo.jjamtalk.Data.UIData;
 import com.hodo.jjamtalk.Data.UserData;
+import com.hodo.jjamtalk.Util.CommonFunc;
 import com.hodo.jjamtalk.ViewHolder.MailboxViewHolder;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
+import static com.hodo.jjamtalk.Data.CoomonValueData.MAIN_ACTIVITY_CHAT;
 
 /**
  * Created by mjk on 2017. 8. 22..
@@ -28,6 +33,8 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
     Context mContext;
     Activity mActivity;
     private MyData mMyData = MyData.getInstance();
+    private CommonFunc mCommon = CommonFunc.getInstance();
+
     UIData mUIData = UIData.getInstance();
     public UserData stTargetData = new UserData();
 
@@ -48,11 +55,13 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
         Glide.with(mActivity)
                 .load(mMyData.arrGiftHoneyDataList.get(position).strTargetImg)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .bitmapTransform(new CropCircleTransformation(mActivity))
                 .into(holder.imageView);
 
         holder.SendDate.setText(mMyData.arrGiftHoneyDataList.get(position).strSendDate);
 
-        holder.textView.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney));
+        holder.textView.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney)+"개");
 
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +94,7 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
                     // 대화방 만들기 또는 대화방으로 이동
                         boolean rtValuew = mMyData.makeSendList(stTargetData, mMyData.arrGiftHoneyDataList.get(position).strTargetMsg);
                         //mActivity.startActivity(new Intent(mActivity,ChatListActivity.class));
-                        mActivity.finish();
+                        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
                     }
                 });
 
@@ -108,6 +117,8 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
 
                 bundle.putSerializable("Target", stTargetData);
                 intent.putExtra("FanList", stTargetData.arrFanList);
+                intent.putExtra("FanCount", stTargetData.FanCount);
+
                 intent.putExtra("StarList", stTargetData.arrStarList);
                 intent.putExtras(bundle);
 

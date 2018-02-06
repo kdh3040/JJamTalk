@@ -24,7 +24,7 @@ public class ImageViewPager extends AppCompatActivity {
 
         CustomPagerAdapter mCustomPagerAdapter = new CustomPagerAdapter(this, stTargetData);
 
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
+        Custom_ViewPager mViewPager = (Custom_ViewPager)findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
     }
 }

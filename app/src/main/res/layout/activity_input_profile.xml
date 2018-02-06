@@ -1,79 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-<LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="16dp"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/InputProfile_Img"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        app:srcCompat="@mipmap/ic_launcher" />
-
-    <EditText
-        android:id="@+id/InputProfile_Nick"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:hint="닉네임"
-        android:inputType="textPersonName" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="50dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+
+        <ProgressBar
+            android:id="@+id/InputProfile_Progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:secondaryProgress="50"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:id="@+id/InputProfile_SumImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:srcCompat="@mipmap/hdvd" />
+
 
         <TextView
-            android:id="@+id/InputProfile_Age"
-            android:layout_width="wrap_content"
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="나이" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:text="닉네임"
+            android:textColor="@color/textColorLight"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/InputProfile_AgeSpinner"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/InputProfile_NickName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/InputProfile_Gender"
-            android:layout_width="wrap_content"
+            android:id="@+id/textView24"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="나이"
+            android:textColor="@color/textColorLight"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/InputProfile_Age_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/MyProfire_Age" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textView_Gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:text="성별"
+            android:textColor="@color/textColorLight"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/InputProfile_Gender_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/InputProfile_Gender" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="1"
-            android:text="성별" />
+            android:text="하고 싶은 말"
+            android:textColor="@color/textColorLight"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/InputProfile_GenderSpinner"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/InputProfile_Memo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/InputProfile_Check"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="완료!" />
-</LinearLayout>
+        <Button
+            android:id="@+id/InputProfile_Check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="입장하기"
+            android:textColor="@color/textColorLight"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 </ScrollView>
