@@ -340,12 +340,12 @@ public class UserPageActivity extends AppCompatActivity {
 
                             //TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
                             Button btnHeartCharge = giftView.findViewById(R.id.HeartPop_Charge);
-                            Button btnHeart100 = giftView.findViewById(R.id.HeartPop_100);
-                            Button btnHeart200 = giftView.findViewById(R.id.HeartPop_200);
-                            Button btnHeart300 = giftView.findViewById(R.id.HeartPop_300);
-                            Button btnHeart500 = giftView.findViewById(R.id.HeartPop_500);
-                            Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_1000);
-                            Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_5000);
+                            Button btnHeart100 = giftView.findViewById(R.id.HeartPop_10);
+                            Button btnHeart200 = giftView.findViewById(R.id.HeartPop_30);
+                            Button btnHeart300 = giftView.findViewById(R.id.HeartPop_50);
+                            Button btnHeart500 = giftView.findViewById(R.id.HeartPop_100);
+                            Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_300);
+                            Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_500);
                             final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
 
                             //tvHeartCnt.setText("보유 골드: " + Integer.toString(mMyData.getUserHoney()));

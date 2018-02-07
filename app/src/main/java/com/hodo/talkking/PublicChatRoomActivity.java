@@ -197,12 +197,12 @@ public class PublicChatRoomActivity extends AppCompatActivity {
                 });
 
                 //TextView tvHeartCnt = v.findViewById(R.id.HeartPop_MyHeart);
-                Button btnHeart100 = v.findViewById(R.id.HeartPop_100);
-                Button btnHeart200 = v.findViewById(R.id.HeartPop_200);
-                Button btnHeart300 = v.findViewById(R.id.HeartPop_300);
-                Button btnHeart500 = v.findViewById(R.id.HeartPop_500);
-                Button btnHeart1000 = v.findViewById(R.id.HeartPop_1000);
-                Button btnHeart5000 = v.findViewById(R.id.HeartPop_5000);
+                Button btnHeart100 = v.findViewById(R.id.HeartPop_10);
+                Button btnHeart200 = v.findViewById(R.id.HeartPop_30);
+                Button btnHeart300 = v.findViewById(R.id.HeartPop_50);
+                Button btnHeart500 = v.findViewById(R.id.HeartPop_100);
+                Button btnHeart1000 = v.findViewById(R.id.HeartPop_300);
+                Button btnHeart5000 = v.findViewById(R.id.HeartPop_500);
                 final TextView Msg = v.findViewById(R.id.HeartPop_text);
 
                 //tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");

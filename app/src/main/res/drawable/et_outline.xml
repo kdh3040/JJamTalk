@@ -7,8 +7,8 @@ android:thickness="0dp"
 android:shape="rectangle">
 <stroke android:width="3dp"
 
-    android:color="#4799E8"/>
+    android:color="@color/et_line"/>
 <corners android:radius="5dp" />
-    <solid android:color="@color/white"/>
+    <solid android:color="@color/et_bg"/>
 
 </shape>
