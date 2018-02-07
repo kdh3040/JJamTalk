@@ -83,16 +83,18 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_profile" />
 
-    <TextView
+    <ImageView
         android:id="@+id/tv_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:background="@color/si_default_text_color"
         android:gravity="center"
         android:textColor="@color/white"
+        android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="@+id/tv_date"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+
 
     <ImageView
         android:id="@+id/divider"
