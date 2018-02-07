@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
+import android.media.Image;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -17,6 +18,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,6 +62,8 @@ public class CommonFunc {
     private SoundPool mSoundPool = null;
     private int mPlaySoundIndex = 0;
     public String LastBoardWrite;
+
+    public ImageView Card_Alarm, Chat_Alarm, Mail_Alarm, Fan_Alarm;
 
     public void refreshMainActivity(Activity mActivity, int StartFragMent)
     {
@@ -287,5 +291,26 @@ public class CommonFunc {
                 }
             });
         }
+    }
+
+    public void SetCardAlarmVisible(boolean enable)
+    {
+        if(Card_Alarm != null)
+            Card_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
+    }
+    public void SetChatAlarmVisible(boolean enable)
+    {
+        if(Chat_Alarm != null)
+            Chat_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
+    }
+    public void SetFanAlarmVisible(boolean enable)
+    {
+        if(Fan_Alarm != null)
+            Fan_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
+    }
+    public void SetMailAlarmVisible(boolean enable)
+    {
+        if(Mail_Alarm != null)
+            Mail_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
 }

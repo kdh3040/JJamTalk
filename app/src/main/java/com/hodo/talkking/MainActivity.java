@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView ib_home;
     ImageView iv_refresh,iv_honeybox;
 
-    ImageView Card_Alarm, Chat_Alarm, Fan_Alarm, Mail_Alarm;
-
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
     BoardFragment boardFragment;
@@ -271,10 +269,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Card_Alarm = (ImageView)findViewById(R.id.alarm_favor);
-        Chat_Alarm = (ImageView)findViewById(R.id.alarm_chat);
-        Fan_Alarm= (ImageView)findViewById(R.id.alarm_fan);
-        Mail_Alarm= (ImageView)findViewById(R.id.alarm_mail);
+        CommonFunc.getInstance().Card_Alarm = (ImageView)findViewById(R.id.alarm_favor);
+        CommonFunc.getInstance().Chat_Alarm = (ImageView)findViewById(R.id.alarm_chat);
+        CommonFunc.getInstance().Fan_Alarm = (ImageView)findViewById(R.id.alarm_fan);
+        CommonFunc.getInstance().Mail_Alarm = (ImageView)findViewById(R.id.alarm_mail);
 
         final Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -358,6 +356,8 @@ public class MainActivity extends AppCompatActivity {
 
             bCheckConnt = false;
         }
+
+
 
 
         ib_filter = findViewById(R.id.ib_filter);
@@ -757,6 +757,7 @@ public class MainActivity extends AppCompatActivity {
         iv_honeybox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CommonFunc.getInstance().SetMailAlarmVisible(false);
                 startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
                 overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
@@ -821,6 +822,7 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                CommonFunc.getInstance().SetChatAlarmVisible(false);
                 ib_filter.setVisibility(View.INVISIBLE);
                 mMyData.SetCurFrag(2);
                 Fragment frg = null;
@@ -940,7 +942,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
 
     @Override
     public void onDestroy() {

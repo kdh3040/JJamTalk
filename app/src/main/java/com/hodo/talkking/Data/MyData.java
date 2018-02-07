@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
@@ -19,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.hodo.talkking.R;
 import com.hodo.talkking.Util.CommonFunc;
 
 import java.text.SimpleDateFormat;
@@ -674,6 +677,7 @@ public class MyData {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 int saa = 0;
+                CommonFunc.getInstance().SetChatAlarmVisible(true);
                 SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
                     arrChatDataList.put(SendList.ChatRoomName, SendList);
 
@@ -780,6 +784,7 @@ public class MyData {
                 return rtValue;
         }
 
+        CommonFunc.getInstance().SetCardAlarmVisible(true);
         arrCardNameList.add(target.Idx);
         table.child("CardList").child(target.Idx).setValue(target.Idx);
 
@@ -865,6 +870,7 @@ public class MyData {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 int saa = 0;
+                CommonFunc.getInstance().SetMailAlarmVisible(true);
                 SendData SendList = dataSnapshot.getValue(SendData.class);
                 arrGiftHoneyNameList.add(SendList.strSendName);
                 arrGiftHoneyDataList.add(SendList);

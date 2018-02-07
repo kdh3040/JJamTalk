@@ -29,6 +29,7 @@ import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.Util.CommonFunc;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -82,6 +83,7 @@ public class CardListFragment extends Fragment {
             mContext = getContext();
         }
 
+        CommonFunc.getInstance().SetCardAlarmVisible(false);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
     }
