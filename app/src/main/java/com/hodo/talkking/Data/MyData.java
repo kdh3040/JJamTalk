@@ -678,7 +678,7 @@ public class MyData {
                 if (!arrMyFanNameList.contains(tempFanData.Idx)) {
                     arrMyFanNameList.add(tempFanData);
                     arrMyFanDataList.put(tempFanData.Idx, tempFanData);
-
+                    CommonFunc.getInstance().SetFanAlarmVisible(true);
                     if(GetCurFrag() == 3)
                     {
                         Fragment frg = null;
@@ -695,7 +695,7 @@ public class MyData {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 FanData SendList = dataSnapshot.getValue(FanData.class);
                 arrMyFanDataList.put(SendList.Idx, SendList);
-
+                CommonFunc.getInstance().SetFanAlarmVisible(true);
                 if(GetCurFrag() == 3)
                 {
                     Fragment frg = null;
@@ -741,8 +741,20 @@ public class MyData {
                 int saa = 0;
                 SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
                 if (!arrChatNameList.contains(SendList.ChatRoomName)) {
+                    CommonFunc.getInstance().SetChatAlarmVisible(true);
                     arrChatNameList.add(SendList.ChatRoomName);
                     arrChatDataList.put(SendList.ChatRoomName, SendList);
+
+                    if(GetCurFrag() == 2)
+                    {
+                        Fragment frg = null;
+                        frg = mFragmentMng.findFragmentByTag("ChatListFragment");
+                        final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                        ft.detach(frg);
+                        ft.attach(frg);
+                        ft.commit();
+                    }
+
                 }
                 //arrCardList.add(CardList);
             }
