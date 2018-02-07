@@ -170,7 +170,7 @@
         android:layout_height="40dp"
         android:background="@drawable/base_btn_bg"
         android:text="날린다"
-        android:textSize="15dp"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/btn_gift_cancel"
         app:layout_constraintTop_toBottomOf="@+id/HeartPop_text" />
@@ -181,7 +181,7 @@
         android:layout_height="40dp"
         android:background="@drawable/base_btn_bg"
         android:text="취소"
-        android:textSize="15dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_gift_send"
         app:layout_constraintLeft_toRightOf="@+id/btn_gift_send"
         app:layout_constraintRight_toLeftOf="@id/HeartPop_Charge" />
@@ -192,7 +192,7 @@
         android:layout_height="40dp"
         android:background="@drawable/base_btn_bg"
         android:text="골드 충전"
-        android:textSize="15dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_gift_send"
         app:layout_constraintLeft_toRightOf="@+id/btn_gift_cancel"
         app:layout_constraintRight_toRightOf="parent" />
