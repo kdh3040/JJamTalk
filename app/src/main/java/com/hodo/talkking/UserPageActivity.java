@@ -347,10 +347,12 @@ public class UserPageActivity extends AppCompatActivity {
                             Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_300);
                             Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_500);
                             final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
+                            Msg.setText("현재 보유 골드는 "+String.valueOf(mMyData.getUserHoney())+"골드 입니다." );
 
                             //tvHeartCnt.setText("보유 골드: " + Integer.toString(mMyData.getUserHoney()));
                             //Msg.setText("100개의 꿀을 보내시겠습니까?");
 
+                            final Button btn_gift_send = giftView.findViewById(R.id.btn_gift_send);
 
                             btnHeartCharge.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -363,7 +365,16 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 10;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                    }
+
                                 }
                             });
 
@@ -371,7 +382,16 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 30;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    }
+
                                 }
                             });
 
@@ -379,7 +399,16 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 50;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    }
+
                                 }
                             });
 
@@ -387,7 +416,16 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 100;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    }
+
                                 }
                             });
 
@@ -395,7 +433,15 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 500;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    }
                                 }
                             });
 
@@ -403,14 +449,23 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 1000;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    }
+
                                 }
                             });
 
 
                             final EditText SendMsg = giftView.findViewById(R.id.HeartPop_Msg);
 
-                            Button btn_gift_send = giftView.findViewById(R.id.btn_gift_send);
+
                             btn_gift_send.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -560,6 +615,8 @@ public class UserPageActivity extends AppCompatActivity {
                                     }
                                 });
                                 Button btn_send = view1.findViewById(R.id.btn_send);
+
+
                                 btn_send.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {

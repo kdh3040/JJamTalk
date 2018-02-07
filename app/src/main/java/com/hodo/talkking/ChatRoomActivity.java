@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -87,18 +88,16 @@ public class ChatRoomActivity extends AppCompatActivity {
     LinearLayoutManager mLinearLayoutManager;
     SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm");
 
+    private ConstraintLayout GiftLayout;
+
     int     tempPosition;
     SimpleChatData tempChatData;
     String  tempChatIdx;
 
     private ProgressBar progressBar;
-
     private android.app.FragmentManager mFragmentManager;
-
     static  Uri tempSaveUri;
-
     static int a = 0;
-
     private Activity mActivity;
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder{
@@ -167,6 +166,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         tempPosition = (int)bundle.getSerializable("Position");
         tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
 
+        GiftLayout = (ConstraintLayout)findViewById(R.id.ChatGiftLayout);
         //stTargetData.NickName = tempChatData.strTargetNick;
         //stTargetData.Img= tempChatData.strTargetImg;
 

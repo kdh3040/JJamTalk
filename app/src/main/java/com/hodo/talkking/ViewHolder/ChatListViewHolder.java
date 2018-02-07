@@ -14,9 +14,9 @@ import com.hodo.talkking.R;
 
 public class ChatListViewHolder extends RecyclerView.ViewHolder {
 
-    public  ImageView imageView;
+    public  ImageView imageView, check;
     public  ImageView imageGrade, imageItem;
-    public TextView textView,nickname, date, check;
+    public TextView textView,nickname, date;
     public ConstraintLayout linearLayout;
 
     public ChatListViewHolder(View itemView) {
