@@ -30,7 +30,7 @@
         android:id="@+id/InputProfile_SumImg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,97 +38,92 @@
 
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginEnd="28dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
         android:text="닉네임"
-        android:textColor="@color/textColorLight"
+        android:textColor="@android:color/holo_purple"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/InputProfile_NickName"
         app:layout_constraintEnd_toStartOf="@+id/InputProfile_NickName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/InputProfile_NickName" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/InputProfile_NickName"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="58dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="( 최대 8자)"
         android:inputType="textPersonName"
         android:maxLength="8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintStart_toEndOf="@+id/tv_nickname"
         app:layout_constraintTop_toBottomOf="@+id/InputProfile_SumImg" />
 
     <TextView
-        android:id="@+id/textView24"
+        android:id="@+id/tv_age"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginEnd="46dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="나이"
-        android:textColor="@color/textColorLight"
+        android:textColor="@android:color/holo_purple"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/InputProfile_Age_1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+        app:layout_constraintLeft_toLeftOf="@+id/tv_nickname"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nickname" />
 
 
     <Spinner
         android:id="@+id/InputProfile_Age_1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="191dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
         android:entries="@array/MyProfire_Age"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView24"
-        app:layout_constraintTop_toBottomOf="@+id/InputProfile_NickName" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_age"
+        app:layout_constraintLeft_toLeftOf="@+id/InputProfile_NickName" />
 
 
     <TextView
         android:id="@+id/textView_Gender"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginEnd="46dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:text="성별"
-        android:textColor="@color/textColorLight"
+        android:textColor="@android:color/holo_purple"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/InputProfile_Gender_1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        app:layout_constraintLeft_toLeftOf="@+id/tv_age"
+        app:layout_constraintTop_toBottomOf="@+id/tv_age" />
 
 
     <Spinner
         android:id="@+id/InputProfile_Gender_1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:layout_marginEnd="180dp"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
         android:entries="@array/InputProfile_Gender"
-        app:layout_constraintBottom_toTopOf="@+id/textView10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView_Gender" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView_Gender"
+        app:layout_constraintLeft_toLeftOf="@+id/InputProfile_NickName" />
 
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tv_content"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
         android:text="하고 싶은 말"
-        android:textColor="@color/textColorLight"
+        android:textColor="@android:color/holo_purple"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView_Gender"
@@ -137,25 +132,31 @@
     <EditText
         android:id="@+id/InputProfile_Memo"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/et_outline"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:gravity="bottom|left"
+        android:hint="(100자 이내)"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="100"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@id/InputProfile_Check"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
 
     <Button
         android:id="@+id/InputProfile_Check"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/white"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/base_btn_bg"
         android:text="입장하기"
-        android:textColor="@color/textColorLight"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
