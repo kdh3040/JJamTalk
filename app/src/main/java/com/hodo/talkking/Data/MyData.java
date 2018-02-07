@@ -90,7 +90,8 @@ public class MyData {
 
     public int nFanCount;
     public ArrayList<FanData> arrMyFanList = new ArrayList<>();
-    public  Map<String, SimpleUserData> arrMyFanDataList = new LinkedHashMap<String, SimpleUserData>();
+    public ArrayList<FanData> arrMyFanNameList = new ArrayList<>();
+    public  Map<String, FanData> arrMyFanDataList = new LinkedHashMap<String, FanData>();
     public  Map<String, UserData> mapMyFanData = new LinkedHashMap<String, UserData>();
 
     public ArrayList<StarData> arrMyStarList = new ArrayList<>();
@@ -648,6 +649,75 @@ public class MyData {
     public static void set_Instance(MyData _Instance) {
         MyData._Instance = _Instance;
     }
+
+
+    public void getFanList() {
+        String MyID = strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("User");
+        user = table.child(strIdx).child("FanList");
+
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa = 0;
+                FanData tempFanData = new FanData();
+                tempFanData = dataSnapshot.getValue(FanData.class);
+                arrMyFanList.add(tempFanData);
+                if (!arrMyFanNameList.contains(tempFanData.Idx)) {
+                    arrMyFanNameList.add(tempFanData);
+                    arrMyFanDataList.put(tempFanData.Idx, tempFanData);
+
+                    if(GetCurFrag() == 3)
+                    {
+                        Fragment frg = null;
+                        frg = mFragmentMng.findFragmentByTag("FanListFragment");
+                        final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                        ft.detach(frg);
+                        ft.attach(frg);
+                        ft.commit();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                FanData SendList = dataSnapshot.getValue(FanData.class);
+                arrMyFanDataList.put(SendList.Idx, SendList);
+
+                if(GetCurFrag() == 3)
+                {
+                    Fragment frg = null;
+                    frg = mFragmentMng.findFragmentByTag("FanListFragment");
+                    final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                    ft.detach(frg);
+                    ft.attach(frg);
+                    ft.commit();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa = 0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa = 0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
 
     public void getSendList() {
         String MyID = strIdx;
@@ -1241,48 +1311,6 @@ public class MyData {
     }
 
 
-    public void getFanList() {
-        String MyID = strIdx;
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, user;
-        table = database.getReference("User");
-        user = table.child(strIdx).child("FanList");
-
-
-        user.addChildEventListener(new ChildEventListener() {
-            int i = 0;
-
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                int saa = 0;
-                FanData tempFanData = new FanData();
-                tempFanData = dataSnapshot.getValue(FanData.class);
-                arrMyFanList.add(tempFanData);
-                //arrCardList.add(CardList);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int saa = 0;
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                int saa = 0;
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-        });
-    }
-
 
 
     public void makeFanList(UserData stTargetData, int SendCount) {
@@ -1309,10 +1337,11 @@ public class MyData {
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("RecvGold", nTotalSendCnt);
         updateMap.put("Idx", getUserIdx());
+        updateMap.put("NickName", getUserNick());
+        updateMap.put("BestItem", GetBestItem());
+        updateMap.put("Grade", getGrade());
         updateMap.put("Img", getUserImg());
         table.child(getUserIdx()).updateChildren(updateMap);
-
-
 
         //getMyfanData(stTargetData.Idx);
 

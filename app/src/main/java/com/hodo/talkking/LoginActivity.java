@@ -840,14 +840,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 //mMyData.sortStarData();
                             }*/
 
-                            for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.FanList.entrySet()) {
+               /*             for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.FanList.entrySet()) {
                                 FanData tempFanData = new FanData();
                                 tempFanData.Idx = entry.getValue().Idx;
                                 tempFanData.RecvGold = entry.getValue().RecvGold;
                                 mMyData.arrMyFanList.add(tempFanData);
                                 //mMyData.sortStarData();
                             }
-
+*/
 
                             for(LinkedHashMap.Entry<String, String> entry : stRecvData.CardList.entrySet()) {
                                 mMyData.arrCardNameList.add(entry.getValue());
@@ -861,7 +861,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             mMyData.getDownUrl();
                             //mMyData.getAdBannerID();
-                          //  mMyData.getMyfanData();
+                            mMyData.getFanList();
 
                             mMyData.getSetting();
 

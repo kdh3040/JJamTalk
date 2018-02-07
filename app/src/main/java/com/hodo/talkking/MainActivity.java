@@ -50,6 +50,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SettingData;
 import com.hodo.talkking.Data.SimpleChatData;
@@ -887,7 +888,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("StarList", stTargetData.arrStarList);*/
                 intent.putExtra("ViewMode", 0);
                 intent.putExtras(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment,"FanListFragment").commit();
 
                 //startActivity(intent);
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
@@ -1063,7 +1064,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                    FanData DBData = dataSnapshot.getValue(FanData.class);
                     mMyData.arrMyFanDataList.put(mMyData.arrMyFanList.get(finalI).Idx, DBData);
 
                     if(mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
