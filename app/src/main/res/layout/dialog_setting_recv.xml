@@ -12,8 +12,8 @@
         android:background="@drawable/rounded_top_dialog"
         android:gravity="center"
         android:text="수신 거부 설정하기"
-        android:textColor="@color/textColorLight"
-        android:textSize="30dp" />
+        android:textColor="@color/black"
+        android:textSize="20dp" />
 
         <View
             android:id="@+id/Divide_Btn"
