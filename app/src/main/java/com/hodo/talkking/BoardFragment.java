@@ -28,6 +28,7 @@ import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.RecyclerItemClickListener;
 import com.hodo.talkking.ViewHolder.BoardViewHolder;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 import static com.hodo.talkking.Data.CoomonValueData.REPORT_BOARD_DELETE;
@@ -291,16 +292,14 @@ public class BoardFragment extends Fragment {
         View.OnClickListener returnFunc = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(),BoardWriteActivity.class));
-
-                /*if(CommonFunc.getInstance().IsFutureDateCompare(new Date(mMyData.GetLastBoardWriteTime()), 15) == false)
+                if(CommonFunc.getInstance().IsFutureDateCompare(new Date(mMyData.GetLastBoardWriteTime()), 15) == false)
                 {
                     // TODO 환웅
                     CommonFunc.getInstance().ShowDefaultPopup(getContext(), "게시판 작성", "연속으로 게시판을 작성 할 수 없습니다.");
                     return;
                 }
                 else
-                    startActivity(new Intent(getContext(),BoardWriteActivity.class));*/
+                    startActivity(new Intent(getContext(),BoardWriteActivity.class));
             }
         };
 
