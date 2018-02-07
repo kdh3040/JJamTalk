@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/alertop"
+        android:padding="3dp"
+        android:text="내용"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:text="오후4:00"
+        android:textColor="@color/gray_dark"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="@+id/Content"
+        app:layout_constraintRight_toLeftOf="@+id/Content" />
+
+    <TextView
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:text="1"
+        android:textColor="@color/myChatColor"
+        android:textSize="8sp"
+        app:layout_constraintRight_toLeftOf="@+id/Content"
+        app:layout_constraintTop_toTopOf="@+id/Content" />
+
+</android.support.constraint.ConstraintLayout>

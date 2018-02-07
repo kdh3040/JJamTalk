@@ -563,6 +563,12 @@ public class UserPageActivity extends AppCompatActivity {
                                 btn_send.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
+                                        String strMemo = et_msg.getText().toString();
+                                        if(strMemo == null || strMemo.equals(""))
+                                        {
+                                            return;
+                                        }
+
                                         mNotiFunc.SendMSGToFCM(stTargetData);
                                         boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
                                         if (rtValuew == true) {
