@@ -858,6 +858,7 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                CommonFunc.getInstance().SetFanAlarmVisible(false);
                 ib_filter.setVisibility(View.INVISIBLE);
                 mMyData.SetCurFrag(3);
                 view.setSelected(!view.isSelected());
