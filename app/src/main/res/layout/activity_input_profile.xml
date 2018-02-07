@@ -1,167 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:gravity="center_horizontal"
     tools:context="com.hodo.talkking.InputProfile">
 
-<ScrollView
-    android:id="@+id/login_form"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/InputProfile_Progress"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:secondaryProgress="50"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/InputProfile_SumImg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/InputProfile_SumImg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/kakao_default_profile_image" />
 
 
-        <ProgressBar
-            android:id="@+id/InputProfile_Progress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:secondaryProgress="50"
-            android:visibility="invisible"
-            />
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:text="닉네임"
+        android:textColor="@color/textColorLight"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/InputProfile_NickName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/InputProfile_NickName" />
 
-        <ImageView
-            android:id="@+id/InputProfile_SumImg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:srcCompat="@drawable/kakao_default_profile_image" />
+    <EditText
+        android:id="@+id/InputProfile_NickName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="58dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="( 최대 8자)"
+        android:inputType="textPersonName"
+        android:maxLength="8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/InputProfile_SumImg" />
 
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
-            android:text="닉네임"
-            android:textColor="@color/textColorLight"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/InputProfile_NickName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:ems="10"
-            android:hint="( 최대 8자)"
-            android:inputType="textPersonName"
-            android:maxLength="8" />
-
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:text="나이"
-            android:textColor="@color/textColorLight"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="horizontal">
-
-            <Spinner
-                android:id="@+id/InputProfile_Age_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/MyProfire_Age" />
-
-        </LinearLayout>
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="46dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="21dp"
+        android:text="나이"
+        android:textColor="@color/textColorLight"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/InputProfile_Age_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
 
-        <TextView
-            android:id="@+id/textView_Gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
-            android:text="성별"
-            android:textColor="@color/textColorLight"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+    <Spinner
+        android:id="@+id/InputProfile_Age_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="191dp"
+        android:layout_marginTop="8dp"
+        android:entries="@array/MyProfire_Age"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/InputProfile_NickName" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/InputProfile_Gender_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/InputProfile_Gender" />
+    <TextView
+        android:id="@+id/textView_Gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="46dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="18dp"
+        android:text="성별"
+        android:textColor="@color/textColorLight"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/InputProfile_Gender_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
-        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:text="하고 싶은 말"
-            android:textColor="@color/textColorLight"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+    <Spinner
+        android:id="@+id/InputProfile_Gender_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="180dp"
+        android:entries="@array/InputProfile_Gender"
+        app:layout_constraintBottom_toTopOf="@+id/textView10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_Gender" />
 
-        <EditText
-            android:id="@+id/InputProfile_Memo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:ems="10"
-            android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/InputProfile_Check"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="입장하기"
-            android:textColor="@color/textColorLight"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="하고 싶은 말"
+        android:textColor="@color/textColorLight"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView_Gender"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Gender" />
 
-    </LinearLayout>
-</ScrollView>
+    <EditText
+        android:id="@+id/InputProfile_Memo"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-<ProgressBar
-android:id="@+id/login_progress"
-style="?android:attr/progressBarStyleLarge"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginBottom="8dp"
-android:visibility="gone" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/InputProfile_Check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:text="입장하기"
+        android:textColor="@color/textColorLight"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/InputProfile_Memo" />
+
+
+</android.support.constraint.ConstraintLayout>
