@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.R;
 import com.hodo.talkking.Util.CommonFunc;
 
@@ -187,6 +188,7 @@ public class MyData {
 
     public int ConnectDate;
     public long LastBoardWriteTime;
+    public long LastAdsTime;
 
     public int nStartAge, nEndAge;
 
@@ -247,7 +249,7 @@ public class MyData {
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
                           String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
-                          int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime) {
+                          int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime) {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -346,6 +348,7 @@ public class MyData {
 
         ConnectDate = _UserConnDate;
         LastBoardWriteTime = _UserLastBoardWriteTime;
+        LastAdsTime = _UserLastAdsTime;
 
         nStartAge = (Integer.parseInt(getUserAge()) / 10) * 10;
         nEndAge = nStartAge + 19;
@@ -1864,5 +1867,11 @@ public class MyData {
 
     public long GetLastBoardWriteTime(){return LastBoardWriteTime;}
     public void SetLastBoardWriteTime(long time){LastBoardWriteTime = time;}
+
+    public long GetLastAdsTime(){return LastAdsTime;}
+    public void SetLastAdsTime(long time)
+    {
+        FirebaseData.getInstance().SaveLastAdsTime(time);
+    }
 }
 

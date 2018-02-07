@@ -774,5 +774,12 @@ public class FirebaseData {
         });
     }
 
+    public void SaveLastAdsTime(long time) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.DATE_FORMAT);
 
+        DatabaseReference myTable = database.getReference("User").child(MyData.getInstance().getUserIdx()).child("LastAdsTime");
+        MyData.getInstance().SetLastAdsTime(time);
+        myTable.setValue(Long.valueOf(time));
+    }
 }

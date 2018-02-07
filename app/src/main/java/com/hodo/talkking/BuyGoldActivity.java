@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by mjk on 2017. 8. 4..
@@ -109,7 +110,6 @@ public class BuyGoldActivity extends AppCompatActivity {
         Free_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(mMyData.mRewardedVideoAd.isLoaded() == false)
                 {
                     CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 골드 충전", "하루에 한번만 충전 할 수 있습니다.");
@@ -118,6 +118,14 @@ public class BuyGoldActivity extends AppCompatActivity {
                 {
                     CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
                         public void YesListener() {
+                            if(CommonFunc.getInstance().IsFutureDateCompare(new Date(mMyData.GetLastAdsTime()), 1440) == false)
+                            {
+                                // TODO 환웅
+                                CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 골드 충전", "하루에 한번만 충전 할 수 있습니다.");
+                                return;
+                            }
+
+                            mMyData.SetLastAdsTime(CommonFunc.getInstance().GetCurrentTime());
                             mMyData.mRewardedVideoAd.show();
                         }
                     };
