@@ -82,6 +82,8 @@ import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, GoogleApiClient.OnConnectionFailedListener {
 
 
+
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -99,10 +101,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private GoogleApiClient mGoogleApiClient;
     private GoogleSignInOptions gso;
-/*    private TextView mTextView_SignUp;
+    private TextView mTextView_SignUp;
     private TextView mTextView_NeedHelp;
     private Button mEmailSignInButton;
-    private SignInButton mGoogleSignInButton;*/
+    private SignInButton mGoogleSignInButton;
 
     private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
     private LocationFunc mLocalFunc = LocationFunc.getInstance();
@@ -482,7 +484,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        //mTextView_SignUp = (TextView) findViewById(R.id.Login_SignUp);
+        mTextView_SignUp = (TextView) findViewById(R.id.Login_SignUp);
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -494,14 +496,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-/*        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         //populateAutoComplete();
-        mPasswordView = (EditText) findViewById(R.id.password);*/
-/*
+        mPasswordView = (EditText) findViewById(R.id.password);
+
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mTextView_NeedHelp = (TextView) findViewById(R.id.Login_NeedHelp);
         mGoogleSignInButton = (SignInButton) findViewById(R.id.Login_Google);
-*/
+
 
 
 
@@ -513,9 +515,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         else
             {
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(signInIntent, RC_SIGN_IN);
-/*
+         /*       Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                startActivityForResult(signInIntent, RC_SIGN_IN);*/
+
 
             mEmailSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
@@ -543,7 +545,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                     startActivityForResult(signInIntent, RC_SIGN_IN);
                 }
-            });*/
+            });
 
         }
 
