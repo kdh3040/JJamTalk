@@ -230,6 +230,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mMyData.mService != null) {
+            unbindService(mMyData.mServiceConn);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -943,14 +950,6 @@ public class MainActivity extends AppCompatActivity {
                 setImageAlpha(255,100,100,100,100);
                 break;
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-  /*      if (mMyData.mService != null) {
-            unbindService(mMyData.mServiceConn);
-        }*/
     }
 
     private void LoadChatData() {
