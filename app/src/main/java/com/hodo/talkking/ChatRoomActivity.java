@@ -16,7 +16,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -209,7 +212,34 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(tempChatData.ChatRoomName);
 
+        boolean btnSendEnable = true;
         txt_msg = (EditText)findViewById(R.id.et_msg);
+
+
+        txt_msg.addTextChangedListener(new TextWatcher() {
+            int L;
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence q, int s, int c, int a) {
+            }
+
+            public void onTextChanged(CharSequence q, int s, int b, int c) {
+                Log.d("TESTING", " LINES = " + txt_msg.getLineCount());
+                System.out.println("Line Count "+txt_msg.getLineCount());
+
+                L = txt_msg.getLineCount();
+                if(L > 5){
+                    txt_msg.getText().delete(txt_msg.getSelectionEnd() - 1,txt_msg.getSelectionStart());
+                }
+                if(q.toString().equals("\n") || q.toString().equals("\n\n") || q.toString().equals("\n\n\n") || q.toString().equals("\n\n\n\n"))
+                {
+                    btn_send.setEnabled(false);
+                }
+                else
+                    btn_send.setEnabled(true);
+            }
+        });
 
 
 /*        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, tempChatData.Msg, tempChatData.Date, "");
@@ -758,9 +788,15 @@ public class ChatRoomActivity extends AppCompatActivity {
                     // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                     //progressBar.setVisibility(View.INVISIBLE);
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", null, downloadUrl.toString(), 0);
 
-                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", null);
+                    Calendar cal = Calendar.getInstance();
+                    Date date = cal.getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                    String formatStr = sdf.format(date);
+
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0);
+
+                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr);
                     mRef.push().setValue(chat_Data);
 
                     tempSaveUri = downloadUrl;

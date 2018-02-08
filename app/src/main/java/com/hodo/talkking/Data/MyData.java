@@ -30,6 +30,7 @@ import com.hodo.talkking.Util.CommonFunc;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -641,6 +642,13 @@ public class MyData {
         tempMySave.BestItem = bestItem;
         tempMySave.Check = 1;
 
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+        String formatStr = sdf.format(date);
+
+        tempMySave.Date = formatStr;
+
         SimpleChatData tempTargetSave = new SimpleChatData();
         tempTargetSave.ChatRoomName = strCheckName;
         tempTargetSave.Idx = _UserData.Idx;
@@ -649,6 +657,7 @@ public class MyData {
         tempTargetSave.Msg = _strSend.toString();
         tempTargetSave.Grade = _UserData.Grade;
         tempTargetSave.BestItem = _UserData.BestItem;
+        tempTargetSave.Date = formatStr;
 
         tempTargetSave.Check = 0;
 
