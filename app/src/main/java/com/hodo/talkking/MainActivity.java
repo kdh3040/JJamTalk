@@ -229,13 +229,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
+ /*   @Override
     public void onDestroy() {
         super.onDestroy();
         if (mMyData.mService != null) {
             unbindService(mMyData.mServiceConn);
         }
-    }
+    }*/
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -246,6 +246,8 @@ public class MainActivity extends AppCompatActivity {
         mContext = getApplicationContext();
         mFragmentMng = getSupportFragmentManager();
         MobileAds.initialize(getApplicationContext(),"ca-app-pub-8954582850495744~7252454040");
+
+        mMyData.mContext = getApplicationContext();
 
         itembox= findViewById(R.id.iv_itemBox);
         itembox.setOnClickListener(new View.OnClickListener() {

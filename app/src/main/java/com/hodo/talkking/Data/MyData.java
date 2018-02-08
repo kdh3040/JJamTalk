@@ -1,6 +1,8 @@
 package com.hodo.talkking.Data;
 
+import android.app.ActivityManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.hodo.talkking.ChatRoomActivity;
 import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.R;
 import com.hodo.talkking.Util.CommonFunc;
@@ -31,10 +34,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import static android.content.Context.ACTIVITY_SERVICE;
 import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -208,6 +213,8 @@ public class MyData {
     public String[] skuGold = {"gold_10", "gold_20", "gold_50", "gold_100", "gold_200", "gold_500", "gold_1000"};
     public  String sku = null;
     public String price = null;
+
+    public Context mContext;
 
     private MyData() {
         strImg = null;
@@ -758,7 +765,6 @@ public class MyData {
                         ft.attach(frg);
                         ft.commit();
                     }
-
                 }
                 //arrCardList.add(CardList);
             }
@@ -769,6 +775,17 @@ public class MyData {
                 CommonFunc.getInstance().SetChatAlarmVisible(true);
                 SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
                     arrChatDataList.put(SendList.ChatRoomName, SendList);
+
+                ActivityManager activityManager = (ActivityManager) mContext.getSystemService(ACTIVITY_SERVICE);
+                List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
+
+                if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
+                {
+                    CommonFunc.getInstance().PlayVibration(mContext);
+                    CommonFunc.getInstance().PlayAlramSound(mContext, R.raw.katalk);
+                }
+
+
 
               if(GetCurFrag() == 2)
               {
