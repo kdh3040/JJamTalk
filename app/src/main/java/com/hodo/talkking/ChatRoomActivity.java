@@ -554,8 +554,9 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String message = txt_msg.getText().toString();
+                int nLength = message.length();
                 long nowTime = CommonFunc.getInstance().GetCurrentTime();
-                if(message== null || message.equals("")){
+                if (txt_msg.getText().toString().replace(" ", "").equals("")) {
                     return;
                 }else{
                     Calendar cal = Calendar.getInstance();
