@@ -17,11 +17,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.RenderProcessGoneDetail;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -106,12 +106,25 @@ public class ChatRoomActivity extends AppCompatActivity {
         LinearLayout Msg_layout;
         LinearLayout Msg_detail_layout;
 
-        ImageView image_profile,send_Img;
-        TextView message;
+        ImageView image_profile, send_Img1;
+        ImageView send_Img2;
+        TextView message1;
+        TextView message2;
+        TextView from;
+
+        TextView nickname1;
+        TextView to;
+        TextView nickname2;
+        TextView giftMsg;
+        TextView heartCount;
+        ImageView heart;
+        ImageView bg_gift;
+
+
 
         TextView targetName;
 
-        TextView send_new,recv_new;
+        //TextView send_new,recv_new;
 
         ImageView Sender_image_profile,Sender_image_sent;
         TextView Sender_message;
@@ -124,19 +137,36 @@ public class ChatRoomActivity extends AppCompatActivity {
             super(itemView);
             image_profile = (ImageView)itemView.findViewById(R.id.ChatRoom_Img);
            // image_sent = (ImageView)itemView.findViewById(R.id.iv_sent);
-            targetName = (TextView)itemView.findViewById(R.id.ChatRoom_name);
-            message =(TextView)itemView.findViewById(R.id.message);
-            layout = (LinearLayout)itemView.findViewById(R.id.ChatRoom_layout);
+            targetName = (TextView)itemView.findViewById(R.id.ChatRoom_name1);
+            message1 =(TextView)itemView.findViewById(R.id.message1);
+            message2 = itemView.findViewById(R.id.message2);
+            //layout = (LinearLayout)itemView.findViewById(R.id.ChatRoom_layout);
             Msg_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_layout);
-            Msg_detail_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_detail_layout);
-            send_Img = (ImageView)itemView.findViewById(R.id.send_img);
+            //Msg_detail_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_detail_layout);
+            send_Img1 = (ImageView)itemView.findViewById(R.id.send_img1);
 
-            send_new = (TextView)itemView.findViewById(R.id.Send_new);
-            recv_new  = (TextView)itemView.findViewById(R.id.Recv_new);
+            bg_gift =itemView.findViewById(R.id.bg_gift);
+            from = itemView.findViewById(R.id.from);
+            nickname1 = itemView.findViewById(R.id.from_nickname);
+            to = itemView.findViewById(R.id.to);
+            nickname2 = itemView.findViewById(R.id.to_nickname);
+            giftMsg = itemView.findViewById(R.id.giftmessage);
+            heartCount = itemView.findViewById(R.id.heart_count);
+            heart = itemView.findViewById(R.id.heart);
+
+            send_Img2 = (ImageView)itemView.findViewById(R.id.send_img2);
+
+
+
+
+            //send_new = (TextView)itemView.findViewById(R.id.Send_new);
+            //recv_new  = (TextView)itemView.findViewById(R.id.Recv_new);
           //  Sender_image_profile = (ImageView)itemView.findViewById(R.id.Sender_Img);
 
         }
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -193,7 +223,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ChatData, ChatViewHolder>(
                 ChatData.class,
-                R.layout.content_chat_data,
+                R.layout.content_chat_data_constraint,
                 ChatViewHolder.class,
                 mRef){
 
@@ -239,24 +269,39 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                  if( !chat_message.getMsg().equals("")){
 
-                    viewHolder.message.setVisibility(TextView.VISIBLE);
-                    viewHolder.send_Img.setVisibility(TextView.GONE);
+                    viewHolder.message1.setVisibility(TextView.VISIBLE);
+
+                     viewHolder.message1.setText(chat_message.getMsg());
+
+                    viewHolder.message2.setVisibility(View.GONE);
+
+                    viewHolder.send_Img1.setVisibility(TextView.GONE);
+
                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
 
-                    viewHolder.message.setText(chat_message.getMsg());
+                    viewHolder.send_Img2.setVisibility(View.GONE);
+
+
+
                     viewHolder.targetName.setText(stTargetData.NickName);
 
                 }
                 else if( !chat_message.getImg().equals("")){
 
-                     viewHolder.send_Img.setVisibility(TextView.VISIBLE);
-                     viewHolder.message.setVisibility(TextView.GONE);
+                     viewHolder.send_Img1.setVisibility(TextView.VISIBLE);
+
+                     viewHolder.message1.setVisibility(TextView.GONE);
+
+                     viewHolder.message2.setVisibility(View.GONE);
+
                      viewHolder.targetName.setVisibility(TextView.VISIBLE);
 
                     Glide.with(getApplicationContext())
                             .load(chat_message.getImg())
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(viewHolder.send_Img);
+                            .into(viewHolder.send_Img1);
+
+                     viewHolder.send_Img2.setVisibility(View.GONE);
 
                      viewHolder.targetName.setText( stTargetData.NickName);
 
@@ -264,8 +309,10 @@ public class ChatRoomActivity extends AppCompatActivity {
                 else{
                  //   viewHolder.image_sent.setVisibility(ImageView.VISIBLE);
 
-                    viewHolder.send_Img.setVisibility(TextView.GONE);
-                    viewHolder.message.setVisibility(TextView.GONE);
+                    viewHolder.send_Img1.setVisibility(TextView.GONE);
+                     viewHolder.message2.setVisibility(View.GONE);
+                     viewHolder.send_Img2.setVisibility(View.GONE);
+                    viewHolder.message1.setVisibility(TextView.GONE);
                     viewHolder.targetName.setVisibility(TextView.GONE);
                 }
 
@@ -278,28 +325,30 @@ public class ChatRoomActivity extends AppCompatActivity {
                 {
                     Log.d("!@#$%", "11111");
 
-                    if (chat_message.Check == 0)
-                        viewHolder.send_new.setVisibility(View.VISIBLE);
-                    else
-                        viewHolder.send_new.setVisibility(View.GONE);
+                    //if (chat_message.Check == 0)
+                        //viewHolder.send_new.setVisibility(View.VISIBLE);
+                   // else
+                       // viewHolder.send_new.setVisibility(View.GONE);
 
-                    viewHolder.recv_new.setVisibility(View.GONE);
+                   // viewHolder.recv_new.setVisibility(View.GONE);
 
                     //viewHolder.send_new.setVisibility(TextView.VISIBLE);
-/*                    viewHolder.recv_new.setVisibility(TextView.GONE);
+                   //viewHolder.recv_new.setVisibility(TextView.GONE);
 
-                    if(tempChatData.Check == 0)
+                    /*if(tempChatData.Check == 0)
                         viewHolder.send_new.setVisibility(TextView.VISIBLE);
                     else
                         viewHolder.send_new.setVisibility(TextView.GONE);*/
 
                     viewHolder.targetName.setVisibility(TextView.GONE);
                     viewHolder.image_profile.setVisibility(View.GONE);
-                    //viewHolder.message.setBackgroundResource(R.drawable.outbox2);
-                    viewHolder.message.setBackgroundResource(R.drawable.bg_chat_mine);
+                    //viewHolder.message1.setBackgroundResource(R.drawable.outbox2);
 
-                    viewHolder.Msg_layout.setGravity(Gravity.RIGHT);
-                    viewHolder.Msg_detail_layout.setGravity(Gravity.RIGHT);
+                    //viewHolder.message1.setBackgroundResource(R.drawable.bg_chat_mine);
+                    //viewHolder.message2.setBackgroundResource(R.drawable.bg_chat_mine);
+                    viewHolder.message2.setText(chat_message.getMsg());
+                    //viewHolder.Msg_layout.setGravity(Gravity.RIGHT);
+                    //viewHolder.Msg_detail_layout.setGravity(Gravity.RIGHT);
                     a = 0;
 
                   //  viewHolder.Sender_sender.setText(chat_message.getFrom());
@@ -308,8 +357,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                 {
                     Log.d("!@#$%", "22222");
 
-                    viewHolder.send_new.setVisibility(View.GONE);
-                    viewHolder.recv_new.setVisibility(View.GONE);
+                   // viewHolder.send_new.setVisibility(View.GONE);
+                   // viewHolder.recv_new.setVisibility(View.GONE);
 
     /*                viewHolder.send_new.setVisibility(TextView.GONE);
 
@@ -322,7 +371,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                     viewHolder.image_profile.setVisibility(View.VISIBLE);
                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
                     viewHolder.targetName.setText(stTargetData.NickName);
-                    viewHolder.message.setBackgroundResource(R.drawable.bg_chat_yours);
+                    viewHolder.message1.setText(chat_message.getMsg());
+                    //viewHolder.message1.setBackgroundResource(R.drawable.bg_chat_yours);
 
                    Glide.with(getApplicationContext())
                             .load( stTargetData.Img)
@@ -331,8 +381,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                             .thumbnail(0.1f)
                             .into(viewHolder.image_profile);
 
-                    viewHolder.Msg_layout.setGravity(Gravity.LEFT);
-                    viewHolder.Msg_detail_layout.setGravity(Gravity.LEFT);
+                    //viewHolder.Msg_layout.setGravity(Gravity.LEFT);
+                    //viewHolder.Msg_detail_layout.setGravity(Gravity.LEFT);
                     a = 1;
                 }
                 a++;
@@ -347,7 +397,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
                 // If the recycler view is initially being loaded or the
                 // user is at the bottom of the list, scroll to the bottom
-                // of the list to show the newly added message.
+                // of the list to show the newly added message1.
                 if (lastVisiblePosition == -1 ||
                         (positionStart >= (friendlyMessageCount - 1) &&
                                 lastVisiblePosition == (positionStart - 1))) {

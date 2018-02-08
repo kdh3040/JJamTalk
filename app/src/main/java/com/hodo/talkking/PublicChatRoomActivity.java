@@ -75,9 +75,9 @@ public class PublicChatRoomActivity extends AppCompatActivity {
         public PublicChatViewHolder(View itemView) {
             super(itemView);
             image_profile = (ImageView)itemView.findViewById(R.id.ChatRoom_Img);
-            image_sent = (ImageView)itemView.findViewById(R.id.iv_sent);
+            image_sent = (ImageView)itemView.findViewById(R.id.send_img2);
             //sender = (TextView)itemView.findViewById(R.id.ChatRoom_nickname);
-            message =(TextView)itemView.findViewById(R.id.message);
+            message =(TextView)itemView.findViewById(R.id.message1);
             time = (TextView)itemView.findViewById(R.id.time);
         }
     }
@@ -152,7 +152,7 @@ public class PublicChatRoomActivity extends AppCompatActivity {
                         mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
                 // If the recycler view is initially being loaded or the
                 // user is at the bottom of the list, scroll to the bottom
-                // of the list to show the newly added message.
+                // of the list to show the newly added message1.
                 if (lastVisiblePosition == -1 ||
                         (positionStart >= (friendlyMessageCount - 1) &&
                                 lastVisiblePosition == (positionStart - 1))) {

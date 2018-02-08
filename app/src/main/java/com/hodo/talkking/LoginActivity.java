@@ -507,13 +507,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-        /*if(mAuth.getCurrentUser() != null){
+        if(mAuth.getCurrentUser() != null){
             showProgress(true);
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
         }
-        else*/
+        else
             {
          /*       Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, RC_SIGN_IN);*/
@@ -691,7 +691,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         mMyData.setUserIdx(mAwsFunc.CreateUserIdx((acct.getEmail())));
                         GoProfilePage();
 
-                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // If sign in fails, display a message1 to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
