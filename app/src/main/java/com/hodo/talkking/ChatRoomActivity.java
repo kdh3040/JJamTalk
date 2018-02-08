@@ -278,11 +278,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                     if (chat_message.Check == 0)
                         viewHolder.check.setVisibility(View.VISIBLE);
                     else
-                        viewHolder.check.setVisibility(View.INVISIBLE);
+                        viewHolder.check.setVisibility(View.GONE);
 
-                    viewHolder.message1.setVisibility(TextView.INVISIBLE);
-                    viewHolder.targetName.setVisibility(TextView.INVISIBLE);
-                    viewHolder.image_profile.setVisibility(View.INVISIBLE);
+                    viewHolder.message1.setVisibility(TextView.GONE);
+                    viewHolder.targetName.setVisibility(TextView.GONE);
+                    viewHolder.image_profile.setVisibility(View.GONE);
                     viewHolder.send_Img1.setVisibility(TextView.GONE);
 
 
@@ -312,9 +312,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                     if (chat_message.Check == 0)
                         viewHolder.check.setVisibility(View.VISIBLE);
                     else
-                        viewHolder.check.setVisibility(View.INVISIBLE);
+                        viewHolder.check.setVisibility(View.GONE);
 
-                    viewHolder.message2.setVisibility(View.INVISIBLE);
+                    viewHolder.message2.setVisibility(View.GONE);
                     viewHolder.send_Img2.setVisibility(View.GONE);
 
                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
