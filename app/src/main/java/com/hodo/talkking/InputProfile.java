@@ -97,7 +97,6 @@ public class InputProfile extends AppCompatActivity {
     private static String TAG = "InputActivity Log!!";
 
     private View mProgressView;
-    private View mLoginFormView;
 
     /**
      * Shows the progress UI and hides the login form.
@@ -109,19 +108,6 @@ public class InputProfile extends AppCompatActivity {
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-<<<<<<< HEAD
-            /*mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-=======
-         /*   mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
->>>>>>> 4edd5607eee414aa83e007618512f87db5400109
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });*/
 
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
@@ -135,11 +121,7 @@ public class InputProfile extends AppCompatActivity {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-<<<<<<< HEAD
-            //mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-=======
-           // mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
->>>>>>> 4edd5607eee414aa83e007618512f87db5400109
+
         }
     }
 
