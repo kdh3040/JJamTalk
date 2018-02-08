@@ -120,6 +120,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         ImageView heart;
         ImageView bg_gift;
 
+        TextView check;
 
 
         TextView targetName;
@@ -156,6 +157,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             send_Img2 = (ImageView)itemView.findViewById(R.id.send_img2);
 
+            check = (TextView)itemView.findViewById(R.id.check);
 
 
 
@@ -265,127 +267,85 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-                 if( !chat_message.getMsg().equals("")){
-
-                    viewHolder.message1.setVisibility(TextView.VISIBLE);
-
-                     viewHolder.message1.setText(chat_message.getMsg());
-
-                    viewHolder.message2.setVisibility(View.GONE);
-
-                    viewHolder.send_Img1.setVisibility(TextView.GONE);
-
-                    viewHolder.targetName.setVisibility(TextView.VISIBLE);
-
-                    viewHolder.send_Img2.setVisibility(View.GONE);
-
-
-
-                    viewHolder.targetName.setText(stTargetData.NickName);
-
-                }
-                else if( !chat_message.getImg().equals("")){
-
-                     viewHolder.send_Img1.setVisibility(TextView.VISIBLE);
-
-                     viewHolder.message1.setVisibility(TextView.GONE);
-
-                     viewHolder.message2.setVisibility(View.GONE);
-
-                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
-
-                    Glide.with(getApplicationContext())
-                            .load(chat_message.getImg())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(viewHolder.send_Img1);
-
-                     viewHolder.send_Img2.setVisibility(View.GONE);
-
-                     viewHolder.targetName.setText( stTargetData.NickName);
-
-                }
-                else{
-                 //   viewHolder.image_sent.setVisibility(ImageView.VISIBLE);
-
-                    viewHolder.send_Img1.setVisibility(TextView.GONE);
-                     viewHolder.message2.setVisibility(View.GONE);
-                     viewHolder.send_Img2.setVisibility(View.GONE);
-                    viewHolder.message1.setVisibility(TextView.GONE);
-                    viewHolder.targetName.setVisibility(TextView.GONE);
-                }
-
-                //viewHolder.sender.setText(chat_message.getFrom());
+                
 
                 Log.d("!@#$%", chat_message.getMsg() + "    " + position +"     " + chat_message.from);
 
                 if(chat_message.from.equals(mMyData.getUserNick()))
-              //  if(a % 2 == 0)
                 {
                     Log.d("!@#$%", "11111");
 
-                    //if (chat_message.Check == 0)
-                        //viewHolder.send_new.setVisibility(View.VISIBLE);
-                   // else
-                       // viewHolder.send_new.setVisibility(View.GONE);
-
-                   // viewHolder.recv_new.setVisibility(View.GONE);
-
-                    //viewHolder.send_new.setVisibility(TextView.VISIBLE);
-                   //viewHolder.recv_new.setVisibility(TextView.GONE);
-
-                    /*if(tempChatData.Check == 0)
-                        viewHolder.send_new.setVisibility(TextView.VISIBLE);
+                    if (chat_message.Check == 0)
+                        viewHolder.check.setVisibility(View.VISIBLE);
                     else
-                        viewHolder.send_new.setVisibility(TextView.GONE);*/
+                        viewHolder.check.setVisibility(View.INVISIBLE);
 
-                    viewHolder.targetName.setVisibility(TextView.GONE);
-                    viewHolder.image_profile.setVisibility(View.GONE);
-                    //viewHolder.message1.setBackgroundResource(R.drawable.outbox2);
+                    viewHolder.message1.setVisibility(TextView.INVISIBLE);
+                    viewHolder.targetName.setVisibility(TextView.INVISIBLE);
+                    viewHolder.image_profile.setVisibility(View.INVISIBLE);
+                    viewHolder.send_Img1.setVisibility(TextView.GONE);
 
-                    //viewHolder.message1.setBackgroundResource(R.drawable.bg_chat_mine);
-                    //viewHolder.message2.setBackgroundResource(R.drawable.bg_chat_mine);
-                    viewHolder.message2.setText(chat_message.getMsg());
-                    //viewHolder.Msg_layout.setGravity(Gravity.RIGHT);
-                    //viewHolder.Msg_detail_layout.setGravity(Gravity.RIGHT);
+
+                    if( !chat_message.getMsg().equals("")){
+                        viewHolder.message2.setVisibility(View.VISIBLE);
+                        viewHolder.message2.setText(chat_message.getMsg());
+
+                        viewHolder.send_Img2.setVisibility(View.GONE);
+                    }
+                    else if( !chat_message.getImg().equals("")){
+
+                        viewHolder.message2.setVisibility(View.GONE);
+                        viewHolder.send_Img2.setVisibility(View.VISIBLE);
+
+                        Glide.with(getApplicationContext())
+                                .load(chat_message.getImg())
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(viewHolder.send_Img2);
+                    }
                     a = 0;
 
-                  //  viewHolder.Sender_sender.setText(chat_message.getFrom());
                 }
                 else
                 {
                     Log.d("!@#$%", "22222");
 
-                   // viewHolder.send_new.setVisibility(View.GONE);
-                   // viewHolder.recv_new.setVisibility(View.GONE);
-
-    /*                viewHolder.send_new.setVisibility(TextView.GONE);
-
-                    if(tempChatData.Check == 0)
-                        viewHolder.recv_new.setVisibility(TextView.VISIBLE);
+                    if (chat_message.Check == 0)
+                        viewHolder.check.setVisibility(View.VISIBLE);
                     else
-                        viewHolder.recv_new.setVisibility(TextView.GONE);
-    */
+                        viewHolder.check.setVisibility(View.INVISIBLE);
 
-                    viewHolder.image_profile.setVisibility(View.VISIBLE);
+                    viewHolder.message2.setVisibility(View.INVISIBLE);
+                    viewHolder.send_Img2.setVisibility(View.GONE);
+
                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
                     viewHolder.targetName.setText(stTargetData.NickName);
-                    viewHolder.message1.setText(chat_message.getMsg());
-                    //viewHolder.message1.setBackgroundResource(R.drawable.bg_chat_yours);
 
-                   Glide.with(getApplicationContext())
+                    viewHolder.image_profile.setVisibility(View.VISIBLE);
+                    Glide.with(getApplicationContext())
                             .load( stTargetData.Img)
                             .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .thumbnail(0.1f)
                             .into(viewHolder.image_profile);
 
-                    //viewHolder.Msg_layout.setGravity(Gravity.LEFT);
-                    //viewHolder.Msg_detail_layout.setGravity(Gravity.LEFT);
-                    a = 1;
+                    if( !chat_message.getMsg().equals("")){
+                        viewHolder.message1.setVisibility(View.VISIBLE);
+                        viewHolder.message1.setText(chat_message.getMsg());
+
+                        viewHolder.send_Img1.setVisibility(TextView.GONE);
+
+                    }
+                    else if( !chat_message.getImg().equals("")){
+
+                        viewHolder.message1.setVisibility(View.GONE);
+                        viewHolder.send_Img1.setVisibility(View.VISIBLE);
+
+                        Glide.with(getApplicationContext())
+                                .load(chat_message.getImg())
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(viewHolder.send_Img1);
+                    }
                 }
-                a++;
             }
         };
         firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
