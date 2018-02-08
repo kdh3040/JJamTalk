@@ -766,7 +766,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0);
 
-                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", null);
+                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr);
                     mRef.push().setValue(chat_Data);
 
                     tempSaveUri = downloadUrl;
