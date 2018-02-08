@@ -204,8 +204,8 @@ public class MyData {
     public Bundle querySkus = new Bundle();
     public Bundle buyIntentBundle = new Bundle();
     public PendingIntent pendingIntent;
-    public String[] strGold = new String[8];
-    public String[] skuGold = {"gold_10", "gold_20", "gold_50", "gold_100", "gold_200", "gold_300", "gold_500", "gold_1000"};
+    public String[] strGold = new String[7];
+    public String[] skuGold = {"gold_10", "gold_20", "gold_50", "gold_100", "gold_200", "gold_500", "gold_1000"};
     public  String sku = null;
     public String price = null;
 
