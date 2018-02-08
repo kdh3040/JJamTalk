@@ -15,7 +15,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/circle_border"
-        android:padding="1dp"
+        android:padding="2dp"
         android:scaleType="fitCenter"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,8 +23,7 @@
     <TextView
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginBottom="15dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:gravity="bottom"
         android:maxLength="8"
@@ -34,17 +33,18 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_my_card"
-        app:layout_constraintLeft_toRightOf="@+id/iv_my_card" />
+        app:layout_constraintLeft_toRightOf="@+id/iv_my_card"
+        app:layout_constraintTop_toTopOf="@+id/iv_my_card" />
 
     <ImageView
         android:id="@+id/iv_grade"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="15dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_marginLeft="2dp"
         android:gravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_my_card"
-        app:layout_constraintLeft_toRightOf="@+id/tv_nickname" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
+        app:layout_constraintLeft_toRightOf="@+id/tv_nickname"
+        app:layout_constraintTop_toTopOf="@+id/tv_nickname" />
 
     <ImageView
         android:id="@+id/iv_item"
@@ -72,16 +72,6 @@
         android:textStyle="bold"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView24"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_nickname"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_my_card"
-        app:srcCompat="@color/black" />
 
 
 </android.support.constraint.ConstraintLayout>

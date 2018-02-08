@@ -24,14 +24,14 @@
     <TextView
         android:id="@+id/board_writer"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:textColor="@color/black"
+        android:gravity="left|center_vertical"
         android:text="글쓴이"
-        android:gravity="left"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintLeft_toRightOf="@+id/board_thumnail"
-        app:layout_constraintTop_toTopOf="@+id/board_thumnail"
-        />
+        app:layout_constraintTop_toTopOf="@+id/board_thumnail" />
 
     <ImageView
         android:id="@+id/user_grade"
@@ -105,6 +105,8 @@
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="2dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
