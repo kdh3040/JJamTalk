@@ -57,9 +57,10 @@
         android:id="@+id/board_write_date"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
+        android:layout_marginRight="10dp"
         android:layout_weight="1"
         android:text="글쓴 날자"
-        android:textColor="@color/black"
+        android:textColor="@android:color/darker_gray"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/board_thumnail" />
 
@@ -72,7 +73,7 @@
         android:maxLength="30"
         android:minHeight="50dp"
         android:text="본문"
-        android:textColor="@color/black"
+        android:textColor="@android:color/darker_gray"
         app:layout_constraintLeft_toLeftOf="@id/board_writer"
         app:layout_constraintRight_toLeftOf="@+id/board_write_date"
         app:layout_constraintTop_toBottomOf="@+id/board_writer" />
@@ -92,7 +93,8 @@
     <Button
         android:id="@+id/board_report"
         android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="5dp"
         android:scaleType="fitCenter"
         android:text="신고"
         app:layout_constraintRight_toRightOf="parent"
