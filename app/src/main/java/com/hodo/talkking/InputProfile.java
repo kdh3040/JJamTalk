@@ -279,6 +279,7 @@ public class InputProfile extends AppCompatActivity {
                 showProgress(false);
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
+
             }
         }
 
@@ -692,6 +693,7 @@ public class InputProfile extends AppCompatActivity {
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
         mCommon.refreshMainActivity(this, MAIN_ACTIVITY_HOME);
+        finish();
         /*Intent intent = new Intent(InputProfile.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);
