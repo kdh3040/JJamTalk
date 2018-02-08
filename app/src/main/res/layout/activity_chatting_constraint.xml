@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/et_bg">
+    android:background="@color/et_bg"
+    tools:layout_editor_absoluteY="81dp">
+
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chat_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/layout_bot">
+        android:layout_width="0dp"
+        android:layout_height="553dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_msg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -32,46 +39,49 @@
     </FrameLayout>
 -->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/layout_bot"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal"
-        android:weightSum="10"
-        android:background="@color/white"
-        >
+    <ImageView
+        android:id="@+id/imageView36"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_msg"
+        app:srcCompat="@android:color/white" />
 
-        <Button
-            android:id="@+id/btn_plus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            android:layout_weight="1" />
+    <Button
+        android:id="@+id/btn_plus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
 
-        <EditText
-            android:id="@+id/et_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:ems="10"
-            android:inputType="textCapSentences|textMultiLine"
-            android:lines="5"
-            android:minLines="1" />
+        android:text="+"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
-        <Button
-            android:id="@+id/btn_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="전송"
-            android:layout_weight="2"/>
-    </LinearLayout>
+    <EditText
+        android:id="@+id/et_msg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:ems="10"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="5"
+        android:minLines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_plus"
+        app:layout_constraintRight_toLeftOf="@+id/btn_send" />
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:text="전송"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
 
 <!--
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
