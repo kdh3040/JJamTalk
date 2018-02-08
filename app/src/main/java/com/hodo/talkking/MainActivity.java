@@ -166,9 +166,8 @@ public class MainActivity extends AppCompatActivity {
                                 else if (mMyData.sku.equals("gold_50")) mMyData.strGold[2] = mMyData.price;
                                 else if (mMyData.sku.equals("gold_100")) mMyData.strGold[3] = mMyData.price;
                                 else if (mMyData.sku.equals("gold_200")) mMyData.strGold[4] = mMyData.price;
-                                else if (mMyData.sku.equals("gold_300")) mMyData.strGold[5] = mMyData.price;
-                                else if (mMyData.sku.equals("gold_500")) mMyData.strGold[6] = mMyData.price;
-                                else if (mMyData.sku.equals("gold_1000")) mMyData.strGold[7] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_500")) mMyData.strGold[5] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_1000")) mMyData.strGold[6] = mMyData.price;
                             }
                         }
 
@@ -230,6 +229,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mMyData.mService != null) {
+            unbindService(mMyData.mServiceConn);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -943,14 +949,6 @@ public class MainActivity extends AppCompatActivity {
                 setImageAlpha(255,100,100,100,100);
                 break;
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-  /*      if (mMyData.mService != null) {
-            unbindService(mMyData.mServiceConn);
-        }*/
     }
 
     private void LoadChatData() {

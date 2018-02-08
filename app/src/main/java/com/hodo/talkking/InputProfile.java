@@ -110,7 +110,11 @@ public class InputProfile extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
+<<<<<<< HEAD
             /*mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+=======
+         /*   mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+>>>>>>> 4edd5607eee414aa83e007618512f87db5400109
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
@@ -131,7 +135,11 @@ public class InputProfile extends AppCompatActivity {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+<<<<<<< HEAD
             //mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+=======
+           // mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+>>>>>>> 4edd5607eee414aa83e007618512f87db5400109
         }
     }
 
@@ -179,8 +187,12 @@ public class InputProfile extends AppCompatActivity {
                             }
 
                             bSetRecv = true;
-
-
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+                                showProgress(false);
+                                Log.d(TAG, "Account Log in  Complete");
+                                GoMainPage();
+                                finish();
+                            }
 
                         }
 
@@ -198,6 +210,7 @@ public class InputProfile extends AppCompatActivity {
                 showProgress(false);
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
+                finish();
             }
         }
 
@@ -254,6 +267,7 @@ public class InputProfile extends AppCompatActivity {
                                 showProgress(false);
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
+                                finish();
                             }
                         }
 
@@ -273,6 +287,7 @@ public class InputProfile extends AppCompatActivity {
                 showProgress(false);
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
+
             }
         }
 
@@ -342,6 +357,7 @@ public class InputProfile extends AppCompatActivity {
                                 showProgress(false);
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
+                                finish();
                             }
                         }
 
@@ -422,6 +438,7 @@ public class InputProfile extends AppCompatActivity {
                                 showProgress(false);
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
+                                finish();
                             }
                         }
 
@@ -534,6 +551,17 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.setUserNick(strNickName);
                     mFireBaseData.SaveData(mMyData.getUserIdx());
                     bMySet = true;
+
+                    mMyData.getFanList();
+
+                    mMyData.getSetting();
+
+                    mMyData.getSendList();
+                    mMyData.getSendHoneyList();
+                    mMyData.getGiftHoneyList();
+                    mMyData.getRecvHoneyList();
+                    mMyData.getBlockList();
+                    mMyData.getBlockedList();
 
                     PrePareHot initHot = new PrePareHot();
                     initHot.execute(0,0,0);
@@ -673,6 +701,7 @@ public class InputProfile extends AppCompatActivity {
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
         mCommon.refreshMainActivity(this, MAIN_ACTIVITY_HOME);
+        finish();
         /*Intent intent = new Intent(InputProfile.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);
