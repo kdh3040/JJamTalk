@@ -45,6 +45,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hodo.talkking.Data.ChatData;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleChatData;
 import com.hodo.talkking.Data.UserData;
@@ -121,7 +122,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         ImageView bg_gift;
 
         TextView check;
-
+        TextView date1, date2;
 
         TextView targetName;
 
@@ -159,7 +160,8 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             check = (TextView)itemView.findViewById(R.id.check);
 
-
+            date1 = (TextView)itemView.findViewById(R.id.date1);
+            date2 = (TextView)itemView.findViewById(R.id.date2);
 
             //send_new = (TextView)itemView.findViewById(R.id.Send_new);
             //recv_new  = (TextView)itemView.findViewById(R.id.Recv_new);
@@ -284,9 +286,26 @@ public class ChatRoomActivity extends AppCompatActivity {
                     viewHolder.targetName.setVisibility(TextView.GONE);
                     viewHolder.image_profile.setVisibility(View.GONE);
                     viewHolder.send_Img1.setVisibility(TextView.GONE);
+                    viewHolder.date1.setVisibility(TextView.GONE);
+                    viewHolder.date2.setVisibility(TextView.VISIBLE);
 
+                    long time = CommonFunc.getInstance().GetCurrentTime();
+                    Date writeDate = CommonFunc.getInstance().GetStringToDate(chat_message.time, CoomonValueData.DATE_FORMAT);
+                    Date todayDate = new Date(time);
+
+                    if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
+                    {
+                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
+                        viewHolder.date2.setText(ctime.format(new Date(writeDate.getTime())));
+                    }
+                    else
+                    {
+                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
+                        viewHolder.date2.setText(ctime.format(new Date(writeDate.getTime())));
+                    }
 
                     if( !chat_message.getMsg().equals("")){
+
                         viewHolder.message2.setVisibility(View.VISIBLE);
                         viewHolder.message2.setText(chat_message.getMsg());
 
@@ -319,6 +338,24 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
                     viewHolder.targetName.setText(stTargetData.NickName);
+
+                    viewHolder.date2.setVisibility(TextView.GONE);
+                    viewHolder.date1.setVisibility(TextView.VISIBLE);
+
+                    long time = CommonFunc.getInstance().GetCurrentTime();
+                    Date writeDate = CommonFunc.getInstance().GetStringToDate(chat_message.time, CoomonValueData.DATE_FORMAT);
+                    Date todayDate = new Date(time);
+
+                    if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
+                    {
+                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
+                        viewHolder.date1.setText(ctime.format(new Date(writeDate.getTime())));
+                    }
+                    else
+                    {
+                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
+                        viewHolder.date1.setText(ctime.format(new Date(writeDate.getTime())));
+                    }
 
                     viewHolder.image_profile.setVisibility(View.VISIBLE);
                     Glide.with(getApplicationContext())
@@ -518,7 +555,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                                         Calendar cal = Calendar.getInstance();
                                         Date date = cal.getTime();
-                                        SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
                                         String formatStr = sdf.format(date);
 
                                         mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
@@ -561,7 +598,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }else{
                     Calendar cal = Calendar.getInstance();
                     Date date = cal.getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
                     String formatStr = sdf.format(date);
 
                     //mNotiFunc.SendMsgToFCM(stTargetData);
