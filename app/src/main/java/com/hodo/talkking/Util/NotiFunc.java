@@ -232,7 +232,10 @@ public class NotiFunc {
             OutputStream os = conn.getOutputStream();
             os.write(root.toString().getBytes("utf-8"));
             os.flush();
+
             conn.getResponseCode();
+            os.close();
+            conn.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
         }
