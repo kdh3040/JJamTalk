@@ -110,7 +110,7 @@ public class InputProfile extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-<<<<<<< HEAD
+
             /*mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 =======
          /*   mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
@@ -135,11 +135,11 @@ public class InputProfile extends AppCompatActivity {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-<<<<<<< HEAD
+
             //mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-=======
+
            // mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
->>>>>>> 4edd5607eee414aa83e007618512f87db5400109
+
         }
     }
 
