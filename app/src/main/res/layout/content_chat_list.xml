@@ -6,9 +6,9 @@
 
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="82dp"
 
-    tools:layout_editor_absoluteY="81dp">
+    >
 
 
     <ImageView
@@ -34,6 +34,7 @@
         android:maxLength="8"
         android:text="@string/com_kakao_profile_nickname"
         android:textColor="@android:color/black"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/iv_profile"
         app:layout_constraintTop_toTopOf="@+id/iv_profile" />
@@ -60,26 +61,28 @@
 
     <TextView
         android:id="@+id/tv_content"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
 
         android:gravity="center_vertical"
+        android:maxWidth="200dp"
         android:text="TextView"
         android:textColor="@color/chatcontent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
         app:layout_constraintLeft_toLeftOf="@id/tv_nickname"
-        app:layout_constraintRight_toLeftOf="@+id/tv_date"
         app:layout_constraintTop_toBottomOf="@+id/tv_nickname" />
 
 
     <TextView
         android:id="@+id/tv_date"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
 
 
+        android:layout_marginRight="16dp"
         android:text="17/8/19"
         android:textColor="#000000"
+        android:textSize="10sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_profile" />
 
@@ -87,13 +90,12 @@
         android:id="@+id/tv_check"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/si_default_text_color"
         android:gravity="center"
         android:textColor="@color/white"
-        android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_date"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+        app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
     <ImageView
