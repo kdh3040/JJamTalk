@@ -1,6 +1,7 @@
 package com.hodo.talkking.ViewHolder;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -63,6 +64,10 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
 
         BoardMsg.setText(dbData.Msg);
         BoardWriter.setText(dbData.NickName);
+        if(dbData.Gender.equals("여자"))
+            BoardWriter.setTextColor(0xffda1d81);
+        else
+            BoardWriter.setTextColor(0xff005baf);
 
         long time = CommonFunc.getInstance().GetCurrentTime();
         Date writeDate = CommonFunc.getInstance().GetStringToDate(dbData.Date, CoomonValueData.DATE_FORMAT);
