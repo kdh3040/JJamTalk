@@ -305,8 +305,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             int a= 0;
 
             @Override
-            protected void populateViewHolder(ChatViewHolder viewHolder, ChatData chat_message, int position) {
-
+            protected void populateViewHolder(ChatViewHolder viewHolder, final ChatData chat_message, int position) {
 
 
                 viewHolder.image_profile.setOnClickListener(new View.OnClickListener() {
@@ -388,6 +387,21 @@ public class ChatRoomActivity extends AppCompatActivity {
                                     .load(chat_message.getImg())
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .into(viewHolder.send_Img2);
+
+                            viewHolder.send_Img2.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
+                                    Bundle bundle = new Bundle();
+                                    UserData tempUser = new UserData();
+                                    tempUser.ImgCount = 1;
+                                    tempUser.Img= tempUser.ImgGroup0 = chat_message.getImg().toString();
+                                    bundle.putSerializable("Target", tempUser);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                }
+                            });
+
                         }
                     }
                     else
@@ -484,6 +498,21 @@ public class ChatRoomActivity extends AppCompatActivity {
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .into(viewHolder.send_Img1);
                         }
+
+                        viewHolder.send_Img1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
+                                Bundle bundle = new Bundle();
+                                UserData tempUser = new UserData();
+                                tempUser.ImgCount = 1;
+                                tempUser.Img= tempUser.ImgGroup0 = chat_message.getImg().toString();
+                                bundle.putSerializable("Target", tempUser);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+
 
                     }
                     else
