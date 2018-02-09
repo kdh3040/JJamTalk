@@ -14,19 +14,21 @@ public class ChatData {
     public String img;
     public String strId;
     public int Check;
+    public int Heart;
 
     public ChatData(){
 
     }
 
 
-    public ChatData(String from_person, String to_person, String message, String nowTime, String image_URL, int check){
+    public ChatData(String from_person, String to_person, String message, String nowTime, String image_URL, int check, int heart){
         from= from_person;
         to = to_person;
         msg = message;
         time= nowTime;
         img = image_URL;
         Check = check;
+        Heart = heart;
     }
     public String gettime(){
         return time;
