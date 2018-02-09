@@ -115,7 +115,7 @@ public class UserFanActivity extends AppCompatActivity {
 
             holder.imgGrade.setImageResource(mUIData.getGrades()[stTargetData.mapFanData.get(i).Grade]);
 
-            int RecvCnt = stTargetData.arrFanList.get(position).RecvGold * -1;
+            int RecvCnt = stTargetData.arrFanList.get(position).RecvGold;
             holder.textCount.setText(Integer.toString(RecvCnt));
 
         }

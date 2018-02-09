@@ -66,14 +66,10 @@ public class FirebaseData {
     }
 
     public void SaveData(String userIdx) {
-        Random rand = new Random();
-        rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
-
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
-        userIdx = Integer.toString(rand.nextInt(100));
 
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(mMyData.getUserIdx());

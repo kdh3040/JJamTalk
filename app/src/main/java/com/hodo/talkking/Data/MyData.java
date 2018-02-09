@@ -1369,12 +1369,12 @@ public class MyData {
         int nTotalSendCnt = 0;
         for (int i = 0; i < arrSendHoneyDataList.size(); i++) {
             if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
-                nTotalSendCnt -= arrSendHoneyDataList.get(i).nSendHoney;
-            else
+                nTotalSendCnt += arrSendHoneyDataList.get(i).nSendHoney;
+            else {
                 stTargetData.FanCount--;
+                nTotalSendCnt += SendCount;
+            }
         }
-
-        nTotalSendCnt -= SendCount;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;

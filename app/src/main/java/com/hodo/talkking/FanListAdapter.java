@@ -72,7 +72,7 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
         holder.nickname.setText(mMyData.arrMyFanDataList.get(i).NickName);
         holder.giftranking.setText((position + 1) + "위");
 
-        int RecvCnt = mMyData.arrMyFanList.get(position).RecvGold * -1;
+        int RecvCnt = mMyData.arrMyFanList.get(position).RecvGold;
         holder.giftCount.setText(Integer.toString(RecvCnt));
 
     }

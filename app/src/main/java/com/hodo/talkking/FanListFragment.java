@@ -22,13 +22,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -60,6 +66,41 @@ public class FanListFragment extends Fragment {
 
     public FanListFragment() {
 
+        SortByRecvHeart();
+    }
+
+    private void SortByRecvHeart()
+    {
+        Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(mMyData.arrMyFanDataList);
+        //tempDataMap = mMyData.arrMyFanDataList;
+        Iterator it = sortByValue(tempDataMap).iterator();
+        mMyData.arrMyFanDataList.clear();
+        mMyData.arrMyFanList.clear();
+        while(it.hasNext()) {
+            String temp = (String) it.next();
+            System.out.println(temp + " = " + mMyData.arrMyFanDataList.get(temp));
+            mMyData.arrMyFanDataList.put(temp, tempDataMap.get(temp));
+            mMyData.arrMyFanList.add(tempDataMap.get(temp));
+
+        }
+    }
+
+    public static List sortByValue(final Map map) {
+        List<String> list = new ArrayList();
+        list.addAll(map.keySet());
+        Collections.sort(list,new Comparator() {
+
+            public int compare(Object o1,Object o2) {
+                FanData g1 = (FanData)map.get(o1);
+                FanData g2 = (FanData)map.get(o2);
+
+                Object v1 = g1.RecvGold;
+                Object v2 = g2.RecvGold;
+                return ((Comparable) v2).compareTo(v1);
+            }
+        });
+       // Collections.reverse(list); // 주석시 오름차순
+        return list;
     }
 
     @Override
@@ -67,7 +108,9 @@ public class FanListFragment extends Fragment {
 
 
         if (fragView!= null) {
+            SortByRecvHeart();
             fanListAdapter.notifyDataSetChanged();
+
         }
         else
         {
@@ -127,7 +170,7 @@ public class FanListFragment extends Fragment {
             holder.textNick.setText(mMyData.arrMyFanDataList.get(i).NickName);
             holder.textRank.setText((position + 1) + "위");
 
-            int RecvCnt = mMyData.arrMyFanDataList.get(i).RecvGold * -1;
+            int RecvCnt = mMyData.arrMyFanDataList.get(i).RecvGold;
             holder.textCount.setText(Integer.toString(RecvCnt));
 
         }
