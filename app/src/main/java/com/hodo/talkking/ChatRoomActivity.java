@@ -62,6 +62,8 @@ import java.util.Date;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
+import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_CHAT;
 import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -93,8 +95,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ConstraintLayout GiftLayout;
 
     int     tempPosition;
-    SimpleChatData tempChatData;
-    String  tempChatIdx;
+    SimpleChatData tempChatData = new SimpleChatData();
+    String  tempChatRoomName;
 
     private ProgressBar progressBar;
     private android.app.FragmentManager mFragmentManager;
@@ -209,9 +211,18 @@ public class ChatRoomActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         mMyData.SetCurFrag(2);
-        ChatListFragment frg = null;
-        frg = (ChatListFragment)mFragmentMng.findFragmentByTag("ChatListFragment");
-        frg.refresh();
+        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
+     /*   if(tempPosition == -1)
+        {
+            mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
+        }
+        else
+        {
+            ChatListFragment frg = null;
+            frg = (ChatListFragment)mFragmentMng.findFragmentByTag("ChatListFragment");
+            frg.refresh();
+        }*/
+
 
 
     }
@@ -231,7 +242,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         stTargetData = (UserData) bundle.getSerializable("Target");
         tempPosition = (int)bundle.getSerializable("Position");
-        tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
+        if(tempPosition == -1)
+        {
+            tempChatData.Nick = stTargetData.NickName;
+            tempChatData.ChatRoomName = tempChatRoomName = (String)bundle.getSerializable("RoomName");
+        }
+        else
+            tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
 
         GiftLayout = (ConstraintLayout)findViewById(R.id.ChatGiftLayout);
         //stTargetData.NickName = tempChatData.strTargetNick;
