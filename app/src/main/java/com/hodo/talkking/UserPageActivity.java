@@ -837,11 +837,13 @@ public class UserPageActivity extends AppCompatActivity {
     private void buildAlertDialog(AlertDialog.Builder builder1, String s, String s1, String s2) {
 
 
-        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+        View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_exit_app,null,false);
 
         final AlertDialog dialog = builder1.setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        //dialog.getWindow().setLayout(160, 150);
         dialog.show();
+        dialog.getWindow().setLayout(50, 50);
 
         final Button btn_exit;
         final Button btn_no;
