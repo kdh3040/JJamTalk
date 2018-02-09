@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView ib_chatList;
     ImageView ib_board;
     ImageView iv_myPage;
+    TextView txt_title;
     ImageView ib_fan;
     ImageView itembox;
     //ImageButton ib_pcr_open;
@@ -262,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
         nStartFragment = (int) bundle.getSerializable("StartFragment");
 
         iv_myPage = findViewById(R.id.iv_mypage);
+        txt_title = findViewById(R.id.txt_title);
 
 
         Glide.with(getApplicationContext())
@@ -743,6 +745,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ib_filter.setVisibility(View.VISIBLE);
+                iv_myPage.setVisibility(View.VISIBLE);
+                txt_title.setVisibility(TextView.GONE);
+
                 mMyData.SetCurFrag(0);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
@@ -793,6 +798,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ib_filter.setVisibility(View.INVISIBLE);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("게시판");
                 mMyData.SetCurFrag(4);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
                 view.setSelected(!view.isSelected());
@@ -808,6 +816,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ib_filter.setVisibility(View.INVISIBLE);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("즐겨찾기");
                 mMyData.SetCurFrag(1);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
                 view.setSelected(!view.isSelected());
@@ -833,6 +844,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CommonFunc.getInstance().SetChatAlarmVisible(false);
                 ib_filter.setVisibility(View.INVISIBLE);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("채팅");
                 mMyData.SetCurFrag(2);
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
@@ -868,6 +882,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CommonFunc.getInstance().SetFanAlarmVisible(false);
                 ib_filter.setVisibility(View.INVISIBLE);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("팬");
                 mMyData.SetCurFrag(3);
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,255,100);
