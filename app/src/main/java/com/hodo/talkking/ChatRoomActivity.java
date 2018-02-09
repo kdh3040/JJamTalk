@@ -809,7 +809,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                                     rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                     rtValuew = mMyData.makeCardList(stTargetData);
 
-                                    if (rtValuew == true) {
                                         //mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                                         mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
                                         mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
@@ -827,9 +826,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                                         mRef.push().setValue(chat_Data);
                                         dialog.dismiss();
 
-
-
-                                    }
                                 }
 
                                 dialog.dismiss();
