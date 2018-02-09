@@ -956,8 +956,12 @@ public class MainActivity extends AppCompatActivity {
     private void LoadChatData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
-        if(mMyData.arrChatNameList.size() == 0)
+        if(mMyData.arrChatNameList.size() == 0 || mMyData.arrChatNameList.size() == mMyData.arrChatDataList.size())
+        {
             chatListFragment = new ChatListFragment(getApplicationContext());
+            return;
+        }
+
 
         for(int i = 0; i < mMyData.arrChatNameList.size(); i++)
         {
@@ -1052,10 +1056,12 @@ public class MainActivity extends AppCompatActivity {
     private void LoadFanData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
-        if(mMyData.arrMyFanList.size() == 0)
+        if(mMyData.arrMyFanList.size() == 0 || mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
         {
-            if(fanFragment == null)
+            if(fanFragment == null) {
                 fanFragment = new FanListFragment();
+                return;
+            }
         }
 
         for(int i = 0; i < mMyData.arrMyFanList.size(); i++)
