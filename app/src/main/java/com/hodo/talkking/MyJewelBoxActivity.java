@@ -37,6 +37,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView txt_myGold;
 
+
     RecyclerView rv_sell_item;
     TextView txt_price;
 
@@ -182,8 +183,8 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         //txt_price = (TextView)findViewById(R.id.txt_sell_price);
         //txt_price.setVisibility(View.GONE);
 
-        //txt_myGold = (TextView)findViewById(R.id.txt_myGold);
-        //txt_myGold.setText(mMyData.getUserHoney() + " 골드");
+        txt_myGold = (TextView)findViewById(R.id.tv_coin);
+        txt_myGold.setText(mMyData.getUserHoney() + " 골드");
 
         btn_openBox = findViewById(R.id.btn_openBox);
         btn_sellJewely = findViewById(R.id.btn_sellJewely);
@@ -241,6 +242,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
 
 
                                 //txt_myGold.setText(mMyData.getUserHoney() + " 골드");
+                                refreshHearCnt();
                                 Myjeweladapter.notifyDataSetChanged();
                             }else {
                                 Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
@@ -340,6 +342,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                                     });
                                 }
                                 //txt_myGold.setText(mMyData.getUserHoney() + " 골드");
+                                refreshHearCnt();
                                 Myjeweladapter.notifyDataSetChanged();
                         }
                     });
@@ -402,5 +405,10 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 mUIData.bSellItemStatus = !mUIData.bSellItemStatus;
             }
         });*/
+    }
+
+    public void refreshHearCnt()
+    {
+        txt_myGold.setText("보유 골드 : " + mMyData.getUserHoney());
     }
 }
