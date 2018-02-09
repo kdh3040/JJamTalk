@@ -2,11 +2,14 @@ package com.hodo.talkking;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -109,7 +112,17 @@ public class MyPageActivity extends AppCompatActivity {
 
 
         img_MyGrade = findViewById(R.id.rank);
+        img_MyGrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(mActivity);
+                View view = LayoutInflater.from(mActivity).inflate(R.layout.rank_doc,null,false);
 
+                AlertDialog dialog = builder1.setView(view).create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
         DrawMyGrade();
 
 
