@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("HotMember");
             Query query=ref.orderByChild("Point").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -155,25 +155,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 SimpleUserData cTempData = new SimpleUserData();
                                 cTempData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(cTempData != null) {
-
-                                    if(cTempData.Img == null)
-                                        cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                                    mMyData.arrUserAll_Recv.add(cTempData);
-
-                                    if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                    if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
-                                        mMyData.arrUserWoman_Recv.add(cTempData);
-                                    }
-                                    else {
-                                        mMyData.arrUserMan_Recv.add(cTempData);
-                                    }
+                                        if(cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                    mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserAll_Recv.add(cTempData);
+
+                                        if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                        {
+                                            mMyData.arrUserWoman_Recv.add(cTempData);
+                                        }
+                                        else {
+                                            mMyData.arrUserMan_Recv.add(cTempData);
+                                        }
+
+                                        mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        i++;
+                                    }
                                 }
-                                i++;
                             }
 
                             bSetRecv = true;
@@ -229,25 +231,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 SimpleUserData cTempData = new SimpleUserData();
                                 cTempData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(cTempData != null) {
+                                    if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                                        if (cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                    if(cTempData.Img == null)
-                                        cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                                        mMyData.arrUserAll_Send.add(cTempData);
+                                        if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
+                                        }
 
-                                    mMyData.arrUserAll_Send.add(cTempData);
-                                    if(mMyData.arrUserAll_Send.get(i).Gender.equals("여자"))
-                                    {
-                                        mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
+                                        mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
+                                        i++;
                                     }
-                                    else {
-                                        mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
-                                    }
-
-                                    mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge );
-
                                 }
-                                i++;
                             }
 
                             bSetRich = true;
@@ -316,26 +316,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 SimpleUserData stRecvData = new SimpleUserData ();
                                 stRecvData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(stRecvData != null) {
+                                    if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
+                                        if (stRecvData.Img == null)
+                                            stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                    if(stRecvData.Img == null)
-                                        stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                                        mMyData.arrUserAll_Near.add(stRecvData);
 
-                                    mMyData.arrUserAll_Near.add(stRecvData);
+                                        if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
+                                        }
 
-                                    if(mMyData.arrUserAll_Near.get(i).Gender.equals("여자"))
-                                    {
-                                        mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                        mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        i++;
                                     }
-                                    else {
-                                        mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
-                                    }
-
-                                    mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near,mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near,mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near,mMyData.nStartAge, mMyData.nEndAge );
-
                                 }
-                                i++;
                             }
 
                             bSetNear = true;
@@ -397,26 +395,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 SimpleUserData stRecvData = new SimpleUserData ();
                                 stRecvData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(stRecvData != null) {
+                                    if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
+                                        if (stRecvData.Img == null)
+                                            stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                    if(stRecvData.Img == null)
-                                        stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                                        mMyData.arrUserAll_New.add(stRecvData);
 
-                                    mMyData.arrUserAll_New.add(stRecvData);
+                                        if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
+                                        }
 
-                                    if(mMyData.arrUserAll_New.get(i).Gender.equals("여자"))
-                                    {
-                                        mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
+                                        mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
+                                        i++;
                                     }
-                                    else {
-                                        mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
-                                    }
-
-                                    mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New,mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New,mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New,mMyData.nStartAge, mMyData.nEndAge );
-
                                 }
-                                i++;
                             }
 
                             bSetNew = true;
