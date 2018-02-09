@@ -120,7 +120,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         TextView giftMsg;
         TextView heartCount;
         ImageView heart;
-        ImageView bg_gift;
 
         TextView check;
         TextView date1, date2;
@@ -146,6 +145,14 @@ public class ChatRoomActivity extends AppCompatActivity {
         ImageView gift_Heart_img;
         TextView  gift_Heart_Cnt;
 
+
+        TextView gift_check;
+        TextView gift_date;
+
+        TextView send_Img1_date;
+        TextView send_Img2_date;
+        TextView send_img2_check;
+
         //회색글자 처리 뜸 원인불명
         public ChatViewHolder(View itemView) {
             super(itemView);
@@ -158,8 +165,8 @@ public class ChatRoomActivity extends AppCompatActivity {
             Msg_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_layout);
             //Msg_detail_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_detail_layout);
             send_Img1 = (ImageView)itemView.findViewById(R.id.img1);
+            send_Img1_date = (TextView)itemView.findViewById(R.id.img_date1);
 
-            bg_gift =itemView.findViewById(R.id.bg_gift);
             from = itemView.findViewById(R.id.from);
             nickname1 = itemView.findViewById(R.id.from_nickname);
             to = itemView.findViewById(R.id.to);
@@ -169,6 +176,8 @@ public class ChatRoomActivity extends AppCompatActivity {
             heart = itemView.findViewById(R.id.heart);
 
             send_Img2 = (ImageView)itemView.findViewById(R.id.img2);
+            send_Img2_date = (TextView)itemView.findViewById(R.id.img_date2);
+            send_img2_check = (TextView)itemView.findViewById(R.id.img_check);
 
             check = (TextView)itemView.findViewById(R.id.txt_check);
 
@@ -184,7 +193,8 @@ public class ChatRoomActivity extends AppCompatActivity {
             gift_Msg = (TextView) itemView.findViewById(R.id.giftmessage);
             gift_Heart_img = (ImageView)itemView.findViewById(R.id.heart);
             gift_Heart_Cnt = (TextView)itemView.findViewById(R.id.heart_count);
-
+            gift_check= (TextView)itemView.findViewById(R.id.gift_check);
+            gift_date = (TextView)itemView.findViewById(R.id.gift_date);
 
             //send_new = (TextView)itemView.findViewById(R.id.Send_new);
             //recv_new  = (TextView)itemView.findViewById(R.id.Recv_new);
@@ -328,9 +338,18 @@ public class ChatRoomActivity extends AppCompatActivity {
                     Log.d("!@#$%", "11111");
 
                     if (chat_message.Check == 0)
+                    {
+                        viewHolder.send_img2_check.setVisibility(View.VISIBLE);
                         viewHolder.check.setVisibility(View.VISIBLE);
+                        viewHolder.gift_check.setVisibility(View.VISIBLE);
+                    }
+
                     else
+                    {
                         viewHolder.check.setVisibility(View.GONE);
+                        viewHolder.send_img2_check.setVisibility(View.GONE);
+                        viewHolder.gift_check.setVisibility(View.GONE);
+                    }
 
                     viewHolder.message1.setVisibility(TextView.GONE);
                     viewHolder.targetName.setVisibility(TextView.GONE);
@@ -347,14 +366,18 @@ public class ChatRoomActivity extends AppCompatActivity {
                     {
                         SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
                         viewHolder.date2.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
                     }
                     else
                     {
                         SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
                         viewHolder.date2.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
                     }
-
-
 
                     if(chat_message.Heart == 0)
                     {
@@ -366,18 +389,29 @@ public class ChatRoomActivity extends AppCompatActivity {
                         viewHolder.gift_Msg.setVisibility(TextView.GONE);
                         viewHolder.gift_Heart_img.setVisibility(ImageView.GONE);
                         viewHolder.gift_Heart_Cnt.setVisibility(TextView.GONE);
+                        viewHolder.gift_date.setVisibility(TextView.GONE);
+                        viewHolder.gift_check.setVisibility(TextView.GONE);
+
+                        viewHolder.send_Img2.setVisibility(View.GONE);
+                        viewHolder.send_Img2_date.setVisibility(TextView.GONE);
+
+                        viewHolder.send_Img1_date.setVisibility(View.GONE);
+
+                        viewHolder.date2.setVisibility(TextView.GONE);
+                        viewHolder.message2.setVisibility(View.GONE);
+
+
 
                         if( !chat_message.getMsg().equals("")){
 
+                            viewHolder.date2.setVisibility(TextView.VISIBLE);
                             viewHolder.message2.setVisibility(View.VISIBLE);
                             viewHolder.message2.setText(chat_message.getMsg());
-
-                            viewHolder.send_Img2.setVisibility(View.GONE);
                         }
                         else if( !chat_message.getImg().equals("")){
-
-                            viewHolder.message2.setVisibility(View.GONE);
+                            viewHolder.check.setVisibility(View.GONE);
                             viewHolder.send_Img2.setVisibility(View.VISIBLE);
+                            viewHolder.send_Img2_date.setVisibility(TextView.VISIBLE);
 
                             Glide.with(getApplicationContext())
                                     .load(chat_message.getImg())
@@ -402,8 +436,15 @@ public class ChatRoomActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        viewHolder.send_Img2.setVisibility(View.GONE);
+                        viewHolder.date2.setVisibility(TextView.GONE);
+                        viewHolder.check.setVisibility(TextView.GONE);
                         viewHolder.message2.setVisibility(View.GONE);
+
+                        viewHolder.send_Img2.setVisibility(View.GONE);
+                        viewHolder.send_Img1_date.setVisibility(TextView.GONE);
+
+                        viewHolder.send_Img2_date.setVisibility(TextView.GONE);
+                        viewHolder.send_img2_check.setVisibility(TextView.GONE);
 
                         viewHolder.gift_img.setVisibility(ImageView.VISIBLE);
                         viewHolder.gift_from.setVisibility(TextView.VISIBLE);
@@ -417,6 +458,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         viewHolder.gift_Heart_img.setVisibility(ImageView.VISIBLE);
                         viewHolder.gift_Heart_Cnt.setVisibility(TextView.VISIBLE);
                         viewHolder.gift_Heart_Cnt.setText(Integer.toString(chat_message.Heart));
+                        viewHolder.gift_date.setVisibility(View.VISIBLE);
                     }
 
 
@@ -436,7 +478,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                     viewHolder.targetName.setText(stTargetData.NickName);
 
                     viewHolder.date2.setVisibility(TextView.GONE);
-                    viewHolder.date1.setVisibility(TextView.VISIBLE);
+                    viewHolder.send_Img2_date.setVisibility(TextView.GONE);
+                    viewHolder.send_img2_check.setVisibility(TextView.GONE);
+                    viewHolder.date1.setVisibility(TextView.GONE);
+                    viewHolder.check.setVisibility(TextView.GONE);
+                    viewHolder.gift_check.setVisibility(TextView.GONE);
 
                     long time = CommonFunc.getInstance().GetCurrentTime();
                     Date writeDate = CommonFunc.getInstance().GetStringToDate(chat_message.time, CoomonValueData.DATE_FORMAT);
@@ -446,11 +492,15 @@ public class ChatRoomActivity extends AppCompatActivity {
                     {
                         SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
                         viewHolder.date1.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img1_date.setText(ctime.format(new Date(writeDate.getTime())));
                     }
                     else
                     {
                         SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
                         viewHolder.date1.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img1_date.setText(ctime.format(new Date(writeDate.getTime())));
                     }
 
                     viewHolder.image_profile.setVisibility(View.VISIBLE);
@@ -462,9 +512,15 @@ public class ChatRoomActivity extends AppCompatActivity {
                             .into(viewHolder.image_profile);
 
                     if (chat_message.Check == 0)
+                    {
                         viewHolder.check.setVisibility(View.VISIBLE);
+                    }
+
                     else
+                    {
                         viewHolder.check.setVisibility(View.GONE);
+                    }
+
 
                     if(chat_message.Heart == 0)
                     {
@@ -477,17 +533,22 @@ public class ChatRoomActivity extends AppCompatActivity {
                         viewHolder.gift_Heart_img.setVisibility(ImageView.GONE);
                         viewHolder.gift_Heart_Cnt.setVisibility(TextView.GONE);
 
+                        viewHolder.gift_date.setVisibility(TextView.GONE);
+
                         if( !chat_message.getMsg().equals("")){
+                            viewHolder.date1.setVisibility(TextView.VISIBLE);
                             viewHolder.message1.setVisibility(View.VISIBLE);
                             viewHolder.message1.setText(chat_message.getMsg());
 
                             viewHolder.send_Img1.setVisibility(TextView.GONE);
-
+                            viewHolder.send_Img1_date.setVisibility(TextView.GONE);
                         }
                         else if( !chat_message.getImg().equals("")){
 
                             viewHolder.message1.setVisibility(View.GONE);
                             viewHolder.send_Img1.setVisibility(View.VISIBLE);
+                            viewHolder.send_Img1_date.setVisibility(View.VISIBLE);
+                            viewHolder.date1.setVisibility(View.GONE);
 
                             Glide.with(getApplicationContext())
                                     .load(chat_message.getImg())
@@ -513,9 +574,14 @@ public class ChatRoomActivity extends AppCompatActivity {
                     }
                     else
                     {
+
+
+                        viewHolder.image_profile.setVisibility(TextView.GONE);
                         viewHolder.targetName.setVisibility(TextView.GONE);
                         viewHolder.date1.setVisibility(TextView.GONE);
                         viewHolder.send_Img1.setVisibility(TextView.GONE);
+                        viewHolder.send_Img1_date.setVisibility(TextView.GONE);
+
                         viewHolder.message1.setVisibility(View.GONE);
 
                         viewHolder.gift_img.setVisibility(ImageView.VISIBLE);
