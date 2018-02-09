@@ -31,12 +31,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.talkking.Data.ChatData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.Util.LocationFunc;
 import com.hodo.talkking.Util.NotiFunc;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -475,8 +480,6 @@ public class UserPageActivity extends AppCompatActivity {
 
                                     } else {
                                         String strSendMsg = SendMsg.getText().toString();
-                                        if (strSendMsg.equals(""))
-                                            strSendMsg = "안녕하세요";
 
                                         boolean rtValuew = mMyData.makeSendList(stTargetData, strSendMsg.toString());
                                         rtValuew = mMyData.makeCardList(stTargetData);
@@ -485,14 +488,39 @@ public class UserPageActivity extends AppCompatActivity {
 
 
 
-                                        if (rtValuew == true) {
-                                            mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
-                                            mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
-                                            mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                                            mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
-                                            // mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
-                                            Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                        mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
+                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                        mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
+                                        mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
+                                        // mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
+                                        Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+
+                                        Calendar cal = Calendar.getInstance();
+                                        Date date = cal.getTime();
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                                        String formatStr = sdf.format(date);
+
+
+                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, strSendMsg, formatStr, "", 0, nSendHoneyCnt[0]);
+
+
+                                        final String ChatName = mMyData.getUserIdx()+"_"+stTargetData.Idx;
+                                        String ChatName1 = stTargetData.Idx + "_"+ mMyData.getUserIdx();
+                                        DatabaseReference mRef;
+
+                                        if(mMyData.arrChatNameList.contains(ChatName) ) {
+                                            mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
                                         }
+                                        else     if(mMyData.arrChatNameList.contains(ChatName1) ) {
+                                         mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName1);
+                                        }
+                                        else
+                                            mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
+
+
+                                        mRef.push().setValue(chat_Data);
+
+
                                     }
 
 
@@ -599,41 +627,81 @@ public class UserPageActivity extends AppCompatActivity {
 
                             else
                             {
-                                View view1 = inflater.inflate(R.layout.alert_send_msg, null);
-                                Button btn_cancel = view1.findViewById(R.id.btn_cancel);
-                                final EditText et_msg = view1.findViewById(R.id.et_msg);
+                                final String ChatName = mMyData.getUserIdx()+"_"+stTargetData.Idx;
+                                String ChatName1 = stTargetData.Idx + "_"+ mMyData.getUserIdx();
 
-                                builder.setView(view1);
+                                if(mMyData.arrChatNameList.contains(ChatName) )
+                                {
+                                    intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
+                                    Bundle bundle = new Bundle();
 
-                                final AlertDialog msgDialog = builder.create();
-                                msgDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                                msgDialog.show();
-                                btn_cancel.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        msgDialog.dismiss();
-                                    }
-                                });
-                                Button btn_send = view1.findViewById(R.id.btn_send);
+                                    bundle.putSerializable("Target", stTargetData);
+                                    bundle.putSerializable("Position", -1);
+                                    bundle.putSerializable("RoomName", ChatName);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else if(mMyData.arrChatNameList.contains(ChatName1))
+                                {
+                                    intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
+                                    Bundle bundle = new Bundle();
 
+                                    bundle.putSerializable("Target", stTargetData);
+                                    bundle.putSerializable("Position", -1);
+                                    bundle.putSerializable("RoomName", ChatName1);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    finish();
+                                }
 
-                                btn_send.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        String strMemo = et_msg.getText().toString();
-                                        if(strMemo == null || strMemo.equals(""))
-                                        {
-                                            return;
+                                else {
+                                    View view1 = inflater.inflate(R.layout.alert_send_msg, null);
+                                    Button btn_cancel = view1.findViewById(R.id.btn_cancel);
+                                    final EditText et_msg = view1.findViewById(R.id.et_msg);
+
+                                    builder.setView(view1);
+
+                                    final AlertDialog msgDialog = builder.create();
+                                    msgDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                                    msgDialog.show();
+                                    btn_cancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            msgDialog.dismiss();
                                         }
+                                    });
+                                    Button btn_send = view1.findViewById(R.id.btn_send);
 
-                                        mNotiFunc.SendMSGToFCM(stTargetData);
-                                        boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
-                                        if (rtValuew == true) {
-                                            Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+
+                                    btn_send.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            String strMemo = et_msg.getText().toString();
+                                            if(strMemo == null || strMemo.equals(""))
+                                            {
+                                                return;
+                                            }
+
+                                            mNotiFunc.SendMSGToFCM(stTargetData);
+                                            boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
+
+                                            Calendar cal = Calendar.getInstance();
+                                            Date date = cal.getTime();
+                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                                            String formatStr = sdf.format(date);
+
+                                            ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, strMemo, formatStr, "", 0, 0);
+                                            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
+                                            mRef.push().setValue(chat_Data);
+
+
+                                            msgDialog.dismiss();
                                         }
-                                        msgDialog.dismiss();
-                                    }
-                                });
+                                    });
+                                }
+
+
                             }
                         }
                         break;

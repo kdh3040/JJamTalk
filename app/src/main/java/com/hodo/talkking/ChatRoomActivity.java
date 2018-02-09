@@ -62,6 +62,8 @@ import java.util.Date;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
+import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_CHAT;
 import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -93,8 +95,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ConstraintLayout GiftLayout;
 
     int     tempPosition;
-    SimpleChatData tempChatData;
-    String  tempChatIdx;
+    SimpleChatData tempChatData = new SimpleChatData();
+    String  tempChatRoomName;
 
     private ProgressBar progressBar;
     private android.app.FragmentManager mFragmentManager;
@@ -209,9 +211,18 @@ public class ChatRoomActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         mMyData.SetCurFrag(2);
-        ChatListFragment frg = null;
-        frg = (ChatListFragment)mFragmentMng.findFragmentByTag("ChatListFragment");
-        frg.refresh();
+        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
+     /*   if(tempPosition == -1)
+        {
+            mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
+        }
+        else
+        {
+            ChatListFragment frg = null;
+            frg = (ChatListFragment)mFragmentMng.findFragmentByTag("ChatListFragment");
+            frg.refresh();
+        }*/
+
 
 
     }
@@ -219,6 +230,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
+
 
         mMyData.SetCurFrag(5);
 
@@ -231,7 +243,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         stTargetData = (UserData) bundle.getSerializable("Target");
         tempPosition = (int)bundle.getSerializable("Position");
-        tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
+        if(tempPosition == -1)
+        {
+            tempChatData.Nick = stTargetData.NickName;
+            tempChatData.ChatRoomName = tempChatRoomName = (String)bundle.getSerializable("RoomName");
+        }
+        else
+            tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
 
         GiftLayout = (ConstraintLayout)findViewById(R.id.ChatGiftLayout);
         //stTargetData.NickName = tempChatData.strTargetNick;
@@ -241,6 +259,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         //stTargetData.Img= mMyData.arrChatTargetData.get(tempChatIdx).Img;
 
         mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(tempChatData.ChatRoomName);
+        setTitle(stTargetData.NickName);
 
         boolean btnSendEnable = true;
         txt_msg = (EditText)findViewById(R.id.et_msg);
@@ -690,8 +709,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                         final TextView Msg = v.findViewById(R.id.HeartPop_text);
 
                         //tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
-                        Msg.setText("100개의 꿀을 보내시겠습니까?");
-
+                        Msg.setText("현재 보유 골드는 "+String.valueOf(mMyData.getUserHoney())+"골드 입니다." );
+                        final Button btn_gift_send = v.findViewById(R.id.btn_gift_send);
                         final int[] nSendHoneyCnt = new int[1];
                         nSendHoneyCnt[0] = 10;
 
@@ -699,39 +718,79 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 10;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (10코인 필요)");
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                }
                             }
                         });
 
                         btnHeart200.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 20;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (30코인 필요)");
+                                nSendHoneyCnt[0] = 30;
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                }
                             }
                         });
 
                         btnHeart300.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 30;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (50코인 필요)");
+                                nSendHoneyCnt[0] = 50;
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                }
                             }
                         });
 
                         btnHeart500.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 50;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (100코인 필요)");
+                                nSendHoneyCnt[0] = 100;
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                }
                             }
                         });
 
                         btnHeart1000.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 100;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (5000코인 필요)");
+                                nSendHoneyCnt[0] = 300;
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                }
                             }
                         });
 
@@ -739,54 +798,56 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 500;
-                                Msg.setText(nSendHoneyCnt[0] + "하트를 보내시겠습니까? (1000코인 필요)");
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                }
                             }
                         });
 
                         final EditText SendMsg = v.findViewById(R.id.HeartPop_Msg);
 
-                        Button btn_gift_send = v.findViewById(R.id.btn_gift_send);
+
                         btn_gift_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
 
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                    Toast.makeText(getApplicationContext(), "코인이 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
+                                    btn_gift_send.setEnabled(false);
                                 }
                                 else
                                 {
+                                    btn_gift_send.setEnabled(true);
                                     String strSendMsg = SendMsg.getText().toString();
-                                    if (strSendMsg.equals(""))
-                                        strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "하트를 보내셨습니다!!";
-
                                     boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                     rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                    rtValuew = mMyData.makeCardList(stTargetData);
 
-                                    if (rtValuew == true) {
                                         //mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                                         mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
+                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                                         mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
+                                        mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
                                         Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
-
-                                        String message;
-                                        if (SendMsg.getText().toString().equals(""))
-                                            message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "하트를 보내셨습니다!!";
-                                        else
-                                            message = strSendMsg;
 
                                         Calendar cal = Calendar.getInstance();
                                         Date date = cal.getTime();
                                         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
                                         String formatStr = sdf.format(date);
 
-                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, strSendMsg, formatStr, "", 0, nSendHoneyCnt[0]);
 
-                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, message, formatStr, "", 0, nSendHoneyCnt[0]);
-                                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr);
+                                        if(strSendMsg.equals(""))
+                                            strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + " 하트를 보냈습니다";
+                                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, strSendMsg, formatStr);
                                         mRef.push().setValue(chat_Data);
                                         dialog.dismiss();
 
-                                    }
                                 }
 
                                 dialog.dismiss();

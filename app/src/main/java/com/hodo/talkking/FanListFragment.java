@@ -106,7 +106,6 @@ public class FanListFragment extends Fragment {
             //holder.imageView.setImageResource(R.mipmap.hdvd);
 
             String i = mMyData.arrMyFanList.get(position).Idx;
-
             Glide.with(mContext)
                     .load(mMyData.arrMyFanDataList.get(i).Img)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -128,7 +127,7 @@ public class FanListFragment extends Fragment {
             holder.textNick.setText(mMyData.arrMyFanDataList.get(i).NickName);
             holder.textRank.setText((position + 1) + "위");
 
-            int RecvCnt = mMyData.arrMyFanList.get(position).RecvGold * -1;
+            int RecvCnt = mMyData.arrMyFanDataList.get(i).RecvGold * -1;
             holder.textCount.setText(Integer.toString(RecvCnt));
 
         }
