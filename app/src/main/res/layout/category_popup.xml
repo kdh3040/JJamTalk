@@ -47,27 +47,28 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
 
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/base_btn_bg"
         android:buttonTint="@color/bambamcolor"
         android:gravity="center"
         android:text="2개씩"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_filter" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_filter"
+        app:layout_constraintEnd_toStartOf="@+id/rbtn_three"/>
 
     <RadioButton
         android:id="@+id/rbtn_three"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
 
-        android:layout_marginLeft="5dp"
         android:background="@drawable/base_btn_bg"
         android:buttonTint="@color/bambamcolor"
         android:gravity="center"
         android:text="3개씩"
         app:layout_constraintBottom_toBottomOf="@+id/rbtn_two"
-        app:layout_constraintLeft_toRightOf="@+id/rbtn_two" />
+        app:layout_constraintEnd_toStartOf="@+id/rbtn_four"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/rbtn_two" />
 
 
     <RadioButton
@@ -75,13 +76,14 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
 
-        android:layout_marginLeft="5dp"
         android:background="@drawable/base_btn_bg"
         android:buttonTint="@color/bambamcolor"
         android:gravity="center"
         android:text="4개씩"
         app:layout_constraintBottom_toBottomOf="@+id/rbtn_two"
-        app:layout_constraintLeft_toRightOf="@+id/rbtn_three" />
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/rbtn_three" />
 
     <CheckBox
         android:id="@+id/rbtn_man"
@@ -112,7 +114,7 @@
 
     <Spinner
         android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
         android:entries="@array/MyProfire_Age"
@@ -144,7 +146,7 @@
 
     <Spinner
         android:id="@+id/spinner2"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="60dp"
         android:layout_marginLeft="32dp"
         android:entries="@array/MyProfire_Age"

@@ -74,6 +74,15 @@
         app:layout_constraintTop_toTopOf="@+id/iv_honeybox"
         app:srcCompat="@android:color/holo_red_dark" />
 
+    <ImageView
+        android:id="@+id/bg_bottom"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@android:color/white" />
+
     <ImageButton
         android:id="@+id/ib_home"
         android:layout_width="40dp"
@@ -172,7 +181,7 @@
         android:id="@+id/frag_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/ib_chatlist"
+        app:layout_constraintBottom_toTopOf="@+id/bg_bottom"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_mypage"></FrameLayout>
