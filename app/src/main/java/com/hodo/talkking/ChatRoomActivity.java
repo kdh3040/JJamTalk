@@ -822,6 +822,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                                         String formatStr = sdf.format(date);
 
                                         ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, strSendMsg, formatStr, "", 0, nSendHoneyCnt[0]);
+
+                                        if(strSendMsg.equals(""))
+                                            strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + " 하트를 보냈습니다";
                                         mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, strSendMsg, formatStr);
                                         mRef.push().setValue(chat_Data);
                                         dialog.dismiss();
