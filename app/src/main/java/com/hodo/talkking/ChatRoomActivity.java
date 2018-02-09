@@ -231,6 +231,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
 
+
         mMyData.SetCurFrag(5);
 
         mActivity = this;
@@ -258,6 +259,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         //stTargetData.Img= mMyData.arrChatTargetData.get(tempChatIdx).Img;
 
         mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(tempChatData.ChatRoomName);
+        setTitle(stTargetData.NickName);
 
         boolean btnSendEnable = true;
         txt_msg = (EditText)findViewById(R.id.et_msg);
