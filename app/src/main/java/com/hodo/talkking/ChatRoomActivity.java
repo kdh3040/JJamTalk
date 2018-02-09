@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -137,6 +139,17 @@ public class ChatRoomActivity extends AppCompatActivity {
         TextView Sender_sender;
         TextView Sender_time;
 
+
+
+        ImageView gift_img;
+        TextView  gift_from;
+        TextView  gift_from_Nickname;
+        TextView  gift_to;
+        TextView  gift_to_Nickname;
+        TextView  gift_Msg;
+        ImageView gift_Heart_img;
+        TextView  gift_Heart_Cnt;
+
         //회색글자 처리 뜸 원인불명
         public ChatViewHolder(View itemView) {
             super(itemView);
@@ -165,6 +178,17 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             date1 = (TextView)itemView.findViewById(R.id.date1);
             date2 = (TextView)itemView.findViewById(R.id.date2);
+
+
+            gift_img = (ImageView)itemView.findViewById(R.id.bg_gift);
+            gift_from = (TextView)itemView.findViewById(R.id.from);
+            gift_from_Nickname = (TextView)itemView.findViewById(R.id.from_nickname);
+            gift_to = (TextView)itemView.findViewById(R.id.to);
+            gift_to_Nickname = (TextView)itemView.findViewById(R.id.to_nickname);
+            gift_Msg = (TextView) itemView.findViewById(R.id.giftmessage);
+            gift_Heart_img = (ImageView)itemView.findViewById(R.id.heart);
+            gift_Heart_Cnt = (TextView)itemView.findViewById(R.id.heart_count);
+
 
             //send_new = (TextView)itemView.findViewById(R.id.Send_new);
             //recv_new  = (TextView)itemView.findViewById(R.id.Recv_new);
@@ -299,7 +323,8 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     }
                 });
-                
+
+
 
                 Log.d("!@#$%", chat_message.getMsg() + "    " + position +"     " + chat_message.from);
 
@@ -334,34 +359,65 @@ public class ChatRoomActivity extends AppCompatActivity {
                         viewHolder.date2.setText(ctime.format(new Date(writeDate.getTime())));
                     }
 
-                    if( !chat_message.getMsg().equals("")){
 
-                        viewHolder.message2.setVisibility(View.VISIBLE);
-                        viewHolder.message2.setText(chat_message.getMsg());
 
+                    if(chat_message.Heart == 0)
+                    {
+                        viewHolder.gift_img.setVisibility(ImageView.GONE);
+                        viewHolder.gift_from.setVisibility(TextView.GONE);
+                        viewHolder.gift_from_Nickname.setVisibility(TextView.GONE);
+                        viewHolder.gift_to.setVisibility(TextView.GONE);
+                        viewHolder.gift_to_Nickname.setVisibility(TextView.GONE);
+                        viewHolder.gift_Msg.setVisibility(TextView.GONE);
+                        viewHolder.gift_Heart_img.setVisibility(ImageView.GONE);
+                        viewHolder.gift_Heart_Cnt.setVisibility(TextView.GONE);
+
+                        if( !chat_message.getMsg().equals("")){
+
+                            viewHolder.message2.setVisibility(View.VISIBLE);
+                            viewHolder.message2.setText(chat_message.getMsg());
+
+                            viewHolder.send_Img2.setVisibility(View.GONE);
+                        }
+                        else if( !chat_message.getImg().equals("")){
+
+                            viewHolder.message2.setVisibility(View.GONE);
+                            viewHolder.send_Img2.setVisibility(View.VISIBLE);
+
+                            Glide.with(getApplicationContext())
+                                    .load(chat_message.getImg())
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(viewHolder.send_Img2);
+                        }
+                    }
+                    else
+                    {
                         viewHolder.send_Img2.setVisibility(View.GONE);
-                    }
-                    else if( !chat_message.getImg().equals("")){
-
                         viewHolder.message2.setVisibility(View.GONE);
-                        viewHolder.send_Img2.setVisibility(View.VISIBLE);
 
-                        Glide.with(getApplicationContext())
-                                .load(chat_message.getImg())
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .into(viewHolder.send_Img2);
+                        viewHolder.gift_img.setVisibility(ImageView.VISIBLE);
+                        viewHolder.gift_from.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_from_Nickname.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_from_Nickname.setText(mMyData.getUserNick());
+                        viewHolder.gift_to.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_to_Nickname.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_to_Nickname.setText(stTargetData.NickName);
+                        viewHolder.gift_Msg.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_Msg.setText(chat_message.msg);
+                        viewHolder.gift_Heart_img.setVisibility(ImageView.VISIBLE);
+                        viewHolder.gift_Heart_Cnt.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_Heart_Cnt.setText(Integer.toString(chat_message.Heart));
                     }
+
+
+
+
                     a = 0;
 
                 }
                 else
                 {
                     Log.d("!@#$%", "22222");
-
-                    if (chat_message.Check == 0)
-                        viewHolder.check.setVisibility(View.VISIBLE);
-                    else
-                        viewHolder.check.setVisibility(View.GONE);
 
                     viewHolder.message2.setVisibility(View.GONE);
                     viewHolder.send_Img2.setVisibility(View.GONE);
@@ -395,23 +451,67 @@ public class ChatRoomActivity extends AppCompatActivity {
                             .thumbnail(0.1f)
                             .into(viewHolder.image_profile);
 
-                    if( !chat_message.getMsg().equals("")){
-                        viewHolder.message1.setVisibility(View.VISIBLE);
-                        viewHolder.message1.setText(chat_message.getMsg());
+                    if (chat_message.Check == 0)
+                        viewHolder.check.setVisibility(View.VISIBLE);
+                    else
+                        viewHolder.check.setVisibility(View.GONE);
 
+                    if(chat_message.Heart == 0)
+                    {
+                        viewHolder.gift_img.setVisibility(ImageView.GONE);
+                        viewHolder.gift_from.setVisibility(TextView.GONE);
+                        viewHolder.gift_from_Nickname.setVisibility(TextView.GONE);
+                        viewHolder.gift_to.setVisibility(TextView.GONE);
+                        viewHolder.gift_to_Nickname.setVisibility(TextView.GONE);
+                        viewHolder.gift_Msg.setVisibility(TextView.GONE);
+                        viewHolder.gift_Heart_img.setVisibility(ImageView.GONE);
+                        viewHolder.gift_Heart_Cnt.setVisibility(TextView.GONE);
+
+                        if( !chat_message.getMsg().equals("")){
+                            viewHolder.message1.setVisibility(View.VISIBLE);
+                            viewHolder.message1.setText(chat_message.getMsg());
+
+                            viewHolder.send_Img1.setVisibility(TextView.GONE);
+
+                        }
+                        else if( !chat_message.getImg().equals("")){
+
+                            viewHolder.message1.setVisibility(View.GONE);
+                            viewHolder.send_Img1.setVisibility(View.VISIBLE);
+
+                            Glide.with(getApplicationContext())
+                                    .load(chat_message.getImg())
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(viewHolder.send_Img1);
+                        }
+
+                    }
+                    else
+                    {
+                        viewHolder.targetName.setVisibility(TextView.GONE);
+                        viewHolder.date1.setVisibility(TextView.GONE);
                         viewHolder.send_Img1.setVisibility(TextView.GONE);
-
-                    }
-                    else if( !chat_message.getImg().equals("")){
-
                         viewHolder.message1.setVisibility(View.GONE);
-                        viewHolder.send_Img1.setVisibility(View.VISIBLE);
 
-                        Glide.with(getApplicationContext())
-                                .load(chat_message.getImg())
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .into(viewHolder.send_Img1);
+                        viewHolder.gift_img.setVisibility(ImageView.VISIBLE);
+                        viewHolder.gift_from.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_from_Nickname.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_from_Nickname.setText(stTargetData.NickName);
+                        viewHolder.gift_to.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_to_Nickname.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_to_Nickname.setText(mMyData.getUserNick());
+                        viewHolder.gift_Msg.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_Msg.setText(chat_message.msg);
+                        viewHolder.gift_Heart_img.setVisibility(ImageView.VISIBLE);
+                        viewHolder.gift_Heart_Cnt.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_Heart_Cnt.setText(Integer.toString(chat_message.Heart));
                     }
+
+
+
+
+
+
                 }
             }
         };
@@ -590,7 +690,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                                         mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
 
-                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, message, formatStr, "", 0);
+                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, message, formatStr, "", 0, nSendHoneyCnt[0]);
                                         mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr);
                                         mRef.push().setValue(chat_Data);
                                         dialog.dismiss();
@@ -633,7 +733,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     //mNotiFunc.SendMsgToFCM(stTargetData);
 
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0);
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0, 0);
 
                     mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr);
 
@@ -794,7 +894,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
                     String formatStr = sdf.format(date);
 
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0);
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
 
                     mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr);
                     mRef.push().setValue(chat_Data);
