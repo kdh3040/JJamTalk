@@ -83,7 +83,7 @@ public class FanClubActivity extends AppCompatActivity {
                 case 0:
                     return new TargetFanFragment(stTargetData.arrFanList);
                 case 1:
-                    return new TargetLikeFragment(stTargetData.arrStarList);
+                    return new TargetLikeFragment(stTargetData.arrFanList);
             }
             return null;
         }

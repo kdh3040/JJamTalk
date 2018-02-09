@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.SimpleUserData;
 
 import java.util.ArrayList;
@@ -26,14 +27,14 @@ public class TargetFanFragment extends Fragment {
     TargetFanAdapter fanListAdapter;
     Context mContext;
 
-    private ArrayList<SimpleUserData> stTargetData;
+    private ArrayList<FanData> stTargetData;
 
     public TargetFanFragment() {
 
     }
 
     @SuppressLint("ValidFragment")
-    public TargetFanFragment(ArrayList<SimpleUserData> TargetData) {
+    public TargetFanFragment(ArrayList<FanData> TargetData) {
 
         stTargetData = TargetData;
 

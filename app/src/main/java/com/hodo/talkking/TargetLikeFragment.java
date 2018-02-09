@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.SimpleUserData;
 
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ import java.util.ArrayList;
 
 public class TargetLikeFragment extends Fragment{
 
-    private ArrayList<SimpleUserData> stTargetData;
+    private ArrayList<FanData> stTargetData;
 
     public TargetLikeFragment()
     {
 
     }
     @SuppressLint("ValidFragment")
-    public TargetLikeFragment(ArrayList<SimpleUserData> TargetData) {
+    public TargetLikeFragment(ArrayList<FanData> TargetData) {
         stTargetData = TargetData;
     }
 

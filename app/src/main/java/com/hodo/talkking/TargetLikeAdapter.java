@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
@@ -34,9 +35,9 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<TargetLikeViewHolder
     UIData mUIData = UIData.getInstance();
 
     private UserData tempLikeData = new UserData();
-    private ArrayList<SimpleUserData> stTargetData;
+    private ArrayList<FanData> stTargetData;
 
-    public TargetLikeAdapter(Context context, ArrayList<SimpleUserData> TargetData) {
+    public TargetLikeAdapter(Context context, ArrayList<FanData> TargetData) {
         mContext = context;
         stTargetData = TargetData;
     }
@@ -100,10 +101,10 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<TargetLikeViewHolder
                         {
                             tempLikeData.mapStarData.put(strTargetIdx, tempUserData);
 
-                            for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
-                                tempLikeData.mapStarData.get(strTargetIdx).arrStarList.add(entry.getValue());
+             /*               for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
+                                tempLikeData.mapStarData.get(strTargetIdx).arrStarList.add(entry.getValue());*/
 
-                            for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet())
+                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
                                 tempLikeData.mapStarData.get(strTargetIdx).arrFanList.add(entry.getValue());
 
                             moveLikePage(position);

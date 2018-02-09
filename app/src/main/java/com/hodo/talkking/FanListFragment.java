@@ -209,11 +209,11 @@ public class FanListFragment extends Fragment {
                     if (tempUserData != null) {
                         mMyData.mapMyFanData.put(strTargetIdx, tempUserData);
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
+             /*           for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             mMyData.mapMyFanData.get(strTargetIdx).arrStarList.add(entry.getValue());
-                        }
+                        }*/
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
                             mMyData.mapMyFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
                         }
 
