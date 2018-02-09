@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,15 +17,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.RenderProcessGoneDetail;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -161,7 +157,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             //layout = (LinearLayout)itemView.findViewById(R.id.ChatRoom_layout);
             Msg_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_layout);
             //Msg_detail_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_detail_layout);
-            send_Img1 = (ImageView)itemView.findViewById(R.id.send_img1);
+            send_Img1 = (ImageView)itemView.findViewById(R.id.img1);
 
             bg_gift =itemView.findViewById(R.id.bg_gift);
             from = itemView.findViewById(R.id.from);
@@ -172,12 +168,12 @@ public class ChatRoomActivity extends AppCompatActivity {
             heartCount = itemView.findViewById(R.id.heart_count);
             heart = itemView.findViewById(R.id.heart);
 
-            send_Img2 = (ImageView)itemView.findViewById(R.id.send_img2);
+            send_Img2 = (ImageView)itemView.findViewById(R.id.img2);
 
-            check = (TextView)itemView.findViewById(R.id.check);
+            check = (TextView)itemView.findViewById(R.id.txt_check);
 
-            date1 = (TextView)itemView.findViewById(R.id.date1);
-            date2 = (TextView)itemView.findViewById(R.id.date2);
+            date1 = (TextView)itemView.findViewById(R.id.txt_date1);
+            date2 = (TextView)itemView.findViewById(R.id.txt_date2);
 
 
             gift_img = (ImageView)itemView.findViewById(R.id.bg_gift);

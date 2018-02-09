@@ -99,7 +99,7 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
         public PublicHostChatViewHolder(View itemView) {
             super(itemView);
             image_profile = (ImageView)itemView.findViewById(R.id.ChatRoom_Img);
-            image_sent = (ImageView)itemView.findViewById(R.id.send_img2);
+            image_sent = (ImageView)itemView.findViewById(R.id.img2);
             //sender = (TextView)itemView.findViewById(R.id.ChatRoom_nickname);
             message =(TextView)itemView.findViewById(R.id.message1);
             time = (TextView)itemView.findViewById(R.id.time);

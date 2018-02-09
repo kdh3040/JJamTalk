@@ -20,6 +20,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/chat_gift_bg" />
 
+    <TextView
+        android:id="@+id/gift_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="gift_date"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bg_gift"
+        app:layout_constraintLeft_toRightOf="@+id/bg_gift" />
+
+    <TextView
+        android:id="@+id/gift_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/goldColor"
+        app:layout_constraintBottom_toTopOf="@+id/gift_date"
+        app:layout_constraintLeft_toRightOf="@id/bg_gift" />
+
     <ImageView
         android:id="@+id/ChatRoom_Img"
         android:layout_width="40dp"
@@ -40,16 +59,6 @@
 
 
     <TextView
-        android:id="@+id/check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="1"
-        android:textColor="@color/goldColor"
-        app:layout_constraintBottom_toTopOf="@+id/date2"
-        app:layout_constraintRight_toLeftOf="@id/message2" />
-
-    <TextView
         android:id="@+id/message1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,23 +71,60 @@
         app:layout_constraintTop_toBottomOf="@id/ChatRoom_name1" />
 
     <TextView
-        android:id="@+id/date1"
+        android:id="@+id/txt_date1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="날짜1"
+        android:text="txt_date1"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/message1"
         app:layout_constraintLeft_toRightOf="@+id/message1" />
 
     <ImageView
-        android:id="@+id/send_img1"
+        android:id="@+id/img1"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:maxWidth="250dp"
-        android:visibility="gone"
+
         app:layout_constraintLeft_toLeftOf="@id/ChatRoom_name1"
         app:layout_constraintTop_toBottomOf="@id/ChatRoom_name1"
-        app:srcCompat="@drawable/board" />
+        app:srcCompat="@drawable/bee" />
+
+    <TextView
+        android:id="@+id/img_date1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="img_date1"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img1"
+        app:layout_constraintLeft_toRightOf="@+id/img1" />
+
+    <ImageView
+        android:id="@+id/img2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:maxWidth="250dp"
+        android:src="@drawable/coin"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/img_date2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="img_date2"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img2"
+        app:layout_constraintRight_toLeftOf="@+id/img2" />
+
+    <TextView
+        android:id="@+id/img_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/goldColor"
+        app:layout_constraintBottom_toTopOf="@+id/img_date2"
+        app:layout_constraintRight_toLeftOf="@id/img2" />
 
     <TextView
         android:id="@+id/message2"
@@ -93,40 +139,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!--    <ImageView
-        android:id="@+id/Sender_Img"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/bg1" />-->
-
     <TextView
-        android:id="@+id/date2"
+        android:id="@+id/txt_date2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="날짜2"
+        android:text="txt_date2"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/message2"
-        app:layout_constraintRight_toLeftOf="@+id/check" />
+        app:layout_constraintRight_toLeftOf="@+id/txt_check" />
 
-    <ImageView
-        android:id="@+id/send_img2"
-        android:layout_width="200dp"
+    <TextView
+        android:id="@+id/txt_check"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="250dp"
-        android:src="@drawable/coin"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="100dp"
-        android:layout_weight="2"
-        android:orientation="vertical">
-
-</LinearLayout>-->
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/goldColor"
+        app:layout_constraintBottom_toTopOf="@+id/txt_date2"
+        app:layout_constraintRight_toLeftOf="@id/message2" />
 
 
     <TextView
@@ -179,12 +209,9 @@
         android:id="@+id/giftmessage"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="한의 평창동계올림픽 참가를 계기로 15년 만에 남한을 찾은 북한 예술단의 역사적인 공연이 8일 오후 8시부터 강릉아트센터 사임당홀에서 열린다.
-
-점심을 위해 숙소인 묵호항의 여객선 만경봉 92호로 돌아갔던 북한 삼지연 관현악단은 "
-        android:textSize="14sp"
-        android:gravity="center_vertical"
         android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="@id/bg_gift"
         app:layout_constraintRight_toRightOf="@id/bg_gift"
         app:layout_constraintTop_toBottomOf="@+id/to_nickname" />
@@ -207,10 +234,6 @@
         android:id="@+id/heart"
         android:layout_width="50dp"
         android:layout_height="50dp"
-
-
-
-
         app:layout_constraintStart_toEndOf="@+id/heart_count"
         app:layout_constraintBottom_toBottomOf="@+id/heart_count"
         app:srcCompat="@drawable/heart"
