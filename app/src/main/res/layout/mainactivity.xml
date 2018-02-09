@@ -197,7 +197,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bg_bottom"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_honeybox"></FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/bg_topbar"></FrameLayout>
 
     <TextView
         android:id="@+id/tv_home"
