@@ -61,7 +61,7 @@
         android:layout_weight="1"
         android:text="글쓴 날자"
         android:textColor="@android:color/darker_gray"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/divider"
         app:layout_constraintTop_toTopOf="@+id/board_thumnail" />
 
     <TextView
@@ -93,11 +93,16 @@
     <Button
         android:id="@+id/board_report"
         android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/red_btn_bg"
         android:scaleType="fitCenter"
         android:text="신고"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/board_thumnail"
+        app:layout_constraintRight_toRightOf="@+id/divider"
         app:layout_constraintTop_toBottomOf="@+id/board_write_date" />
 
 
