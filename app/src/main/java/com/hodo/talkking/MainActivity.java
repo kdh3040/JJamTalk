@@ -262,12 +262,12 @@ public class MainActivity extends AppCompatActivity {
         iv_myPage = findViewById(R.id.iv_mypage);
         txt_title = findViewById(R.id.txt_title);
 
-        Glide.with(getApplicationContext())
+        /*Glide.with(getApplicationContext())
                 .load(R.drawable.mypage)
                 .thumbnail(0.1f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(iv_myPage);
-
+*/
 
        /* Glide.with(getApplicationContext())
                 .load(mMyData.getUserImg())

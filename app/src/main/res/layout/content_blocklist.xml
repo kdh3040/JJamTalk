@@ -9,20 +9,21 @@
         android:id="@+id/Block_Profile"
         android:layout_width="70dp"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/hedfvb" />
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/profile" />
 
     <TextView
         android:id="@+id/Block_Info"
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textColor="#000000"
-        android:text="안소희" />
+        android:text="닉네임"
+        android:textColor="#000000" />
 
     <Button
         android:id="@+id/btn_unblock"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="차단 해제" />
-    <View style="@style/Divider" />
+
 </LinearLayout>

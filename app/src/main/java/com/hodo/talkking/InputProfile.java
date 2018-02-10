@@ -7,14 +7,20 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -56,7 +62,11 @@ import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.LocationFunc;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -472,7 +482,8 @@ public class InputProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(InputProfile.this, "이미지 등록", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.setType("image/*");
                 startActivityForResult(Intent.createChooser(intent, "Select"), 1);
 
@@ -616,13 +627,68 @@ public class InputProfile extends AppCompatActivity {
                 Uri uri = data.getData();
 
                 mMyData.setUserImg(uri.toString());
-                Glide.with(getApplicationContext())
+                /*String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                Cursor cursor = getContentResolver().query(uri,filePathColumn, null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String picturePath = cursor.getString(columnIndex);
+                cursor.close();
+
+                ParcelFileDescriptor parcelFileDescriptor =
+                        getContentResolver().openFileDescriptor(uri, "r");
+                FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+                loadedBitmap= BitmapFactory.decodeFileDescriptor(fileDescriptor);
+                parcelFileDescriptor.close();
+
+                //Glide.with(this).load("http://i.imgur.com/DvpvklR.png").into(mProfileImage);
+
+                ExifInterface exif = null;
+                try {
+                    File pictureFile = new File(picturePath);
+                    exif = new ExifInterface(pictureFile.getAbsolutePath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                int orientation = ExifInterface.ORIENTATION_NORMAL;
+
+                if (exif != null)
+                    orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                Log.d("hngpic","orientaion="+orientation);
+                switch (orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        loadedBitmap = rotateBitmap(loadedBitmap, 90);
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        loadedBitmap = rotateBitmap(loadedBitmap, 180);
+                        break;
+
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        loadedBitmap = rotateBitmap(loadedBitmap, 270);
+                        break;
+                }
+
+
+                mProfileImage.setImageBitmap(loadedBitmap);
+
+                /*Glide.with(getApplicationContext())
                         .load(mMyData.getUserImg())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
-                        .into(mProfileImage);
+                        .into(mProfileImage);*/
+
+
+
+
+
+
+
+
+
 
                 UploadImage_Firebase(uri);
+
+
 
             } else {
                 Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
@@ -635,16 +701,19 @@ public class InputProfile extends AppCompatActivity {
 
     }
 
+
     private void UploadImage_Firebase(Uri file) {
 
         StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" + 0 );//file.getLastPathSegment());
 
         Bitmap bitmap = null;
         try {
+
+
             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),file);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.createScaledBitmap(bitmap, 350, 350, true);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG  , 20, baos);
             byte[] data = baos.toByteArray();
 
             UploadTask uploadTask = riversRef.putBytes(data);
@@ -671,7 +740,7 @@ public class InputProfile extends AppCompatActivity {
                     Tr(downloadUrl);
                 }
             });
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
