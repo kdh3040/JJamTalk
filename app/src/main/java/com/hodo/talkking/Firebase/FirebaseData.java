@@ -66,14 +66,10 @@ public class FirebaseData {
     }
 
     public void SaveData(String userIdx) {
-        Random rand = new Random();
-        rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
-
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
-        userIdx = Integer.toString(rand.nextInt(100));
 
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(mMyData.getUserIdx());
@@ -509,9 +505,9 @@ public class FirebaseData {
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
         Query data = null;
         if(top)
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Point"). startAt(0).endAt(LOAD_MAIN_COUNT );
+            data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point"). startAt(0).endAt(LOAD_MAIN_COUNT );
         else
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Point").limitToFirst(lastVisibleCount + LOAD_MAIN_COUNT);// . startAt(lastVisibleCount + LOAD_MAIN_COUNT).endAt(lastVisibleCount + LOAD_MAIN_COUNT + LOAD_MAIN_COUNT); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
+            data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").limitToFirst(lastVisibleCount + LOAD_MAIN_COUNT);// . startAt(lastVisibleCount + LOAD_MAIN_COUNT).endAt(lastVisibleCount + LOAD_MAIN_COUNT + LOAD_MAIN_COUNT); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -521,38 +517,34 @@ public class FirebaseData {
                     SimpleUserData cTempData = new SimpleUserData();
                     cTempData = postSnapshot.getValue(SimpleUserData.class);
                     if(cTempData != null) {
+                        if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                            if (cTempData.Img == null)
+                                cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                        if(cTempData.Img == null)
-                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                            boolean bExist = false;
 
-                        boolean bExist = false;
-
-                        for(int j = 0 ; j< mMyData.arrUserAll_Recv.size(); j++)
-                        {
-                            if(mMyData.arrUserAll_Recv.get(j).Idx.equals(cTempData.Idx))
-                            {
-                                bExist = true;
-                                break;
-                            }
-                        }
-
-                        if(bExist == false)
-                        {
-                            mMyData.arrUserAll_Recv.add(cTempData);
-                            if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
-                            {
-                                mMyData.arrUserWoman_Recv.add(mMyData.arrUserAll_Recv.get(i));
-                            }
-                            else {
-                                mMyData.arrUserMan_Recv.add(mMyData.arrUserAll_Recv.get(i));
+                            for (int j = 0; j < mMyData.arrUserAll_Recv.size(); j++) {
+                                if (mMyData.arrUserAll_Recv.get(j).Idx.equals(cTempData.Idx)) {
+                                    bExist = true;
+                                    break;
+                                }
                             }
 
-                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            if (bExist == false) {
+                                mMyData.arrUserAll_Recv.add(cTempData);
+                                if (mMyData.arrUserAll_Recv.get(i).Gender.equals("여자")) {
+                                    mMyData.arrUserWoman_Recv.add(mMyData.arrUserAll_Recv.get(i));
+                                } else {
+                                    mMyData.arrUserMan_Recv.add(mMyData.arrUserAll_Recv.get(i));
+                                }
+
+                                mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                                mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                                mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                            }
+                            i++;
                         }
                     }
-                    i++;
                 }
 
                 UpdateHotAdapter.notifyDataSetChanged();
@@ -587,37 +579,35 @@ public class FirebaseData {
                     cTempData = postSnapshot.getValue(SimpleUserData.class);
                     if(cTempData != null) {
 
-                        if(cTempData.Img == null)
-                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                        if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                            if (cTempData.Img == null)
+                                cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                        boolean bExist = false;
+                            boolean bExist = false;
 
-                        for(int j = 0 ; j< mMyData.arrUserAll_Send.size(); j++)
-                        {
-                            if(mMyData.arrUserAll_Send.get(j).Idx.equals(cTempData.Idx))
-                            {
-                                bExist = true;
-                                break;
-                            }
-                        }
-
-                        if(bExist == false)
-                        {
-                            mMyData.arrUserAll_Send.add(cTempData);
-                            if(mMyData.arrUserAll_Send.get(i).Gender.equals("여자"))
-                            {
-                                mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
-                            }
-                            else {
-                                mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
+                            for (int j = 0; j < mMyData.arrUserAll_Send.size(); j++) {
+                                if (mMyData.arrUserAll_Send.get(j).Idx.equals(cTempData.Idx)) {
+                                    bExist = true;
+                                    break;
+                                }
                             }
 
-                            mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge );
+                            if (bExist == false) {
+                                mMyData.arrUserAll_Send.add(cTempData);
+                                if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
+                                    mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
+                                } else {
+                                    mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
+                                }
+
+                                mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
+                                mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
+                                mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
+                            }
+                            i++;
                         }
                     }
-                    i++;
+
                 }
 
                 UpdateFanAdapter.notifyDataSetChanged();
@@ -661,37 +651,42 @@ public class FirebaseData {
                     cTempData = postSnapshot.getValue(SimpleUserData.class);
                     if(cTempData != null) {
 
-                        if(cTempData.Img == null)
-                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                        boolean bExist = false;
-
-                        for(int j = 0 ; j< mMyData.arrUserAll_Near.size(); j++)
+                        if(!cTempData.Idx.equals(mMyData.getUserIdx()))
                         {
-                            if(mMyData.arrUserAll_Near.get(j).Idx.equals(cTempData.Idx))
-                            {
-                                bExist = true;
-                                break;
-                            }
-                        }
 
-                        if(bExist == false)
-                        {
-                            mMyData.arrUserAll_Near.add(cTempData);
-                            if(mMyData.arrUserAll_Near.get(i).Gender.equals("여자"))
+                            if(cTempData.Img == null)
+                                cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                            boolean bExist = false;
+
+                            for(int j = 0 ; j< mMyData.arrUserAll_Near.size(); j++)
                             {
-                                mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
-                            }
-                            else {
-                                mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
+                                if(mMyData.arrUserAll_Near.get(j).Idx.equals(cTempData.Idx))
+                                {
+                                    bExist = true;
+                                    break;
+                                }
                             }
 
-                            mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
+                            if(bExist == false)
+                            {
+                                mMyData.arrUserAll_Near.add(cTempData);
+                                if(mMyData.arrUserAll_Near.get(i).Gender.equals("여자"))
+                                {
+                                    mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                }
+                                else {
+                                    mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
+                                }
+
+                                mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
+                            }
+                            i++;
                         }
                     }
-                    i++;
+
                 }
 
                 UpdateNearAdapter.notifyDataSetChanged();
@@ -730,38 +725,36 @@ public class FirebaseData {
                     SimpleUserData cTempData = new SimpleUserData();
                     cTempData = postSnapshot.getValue(SimpleUserData.class);
                     if(cTempData != null) {
+                        if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                            if (cTempData.Img == null)
+                                cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                        if(cTempData.Img == null)
-                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                            boolean bExist = false;
 
-                        boolean bExist = false;
-
-                        for(int j = 0 ; j< mMyData.arrUserAll_New.size(); j++)
-                        {
-                            if(mMyData.arrUserAll_New.get(j).Idx.equals(cTempData.Idx))
-                            {
-                                bExist = true;
-                                break;
-                            }
-                        }
-
-                        if(bExist == false)
-                        {
-                            mMyData.arrUserAll_New.add(cTempData);
-                            if(mMyData.arrUserAll_New.get(i).Gender.equals("여자"))
-                            {
-                                mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
-                            }
-                            else {
-                                mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
+                            for (int j = 0; j < mMyData.arrUserAll_New.size(); j++) {
+                                if (mMyData.arrUserAll_New.get(j).Idx.equals(cTempData.Idx)) {
+                                    bExist = true;
+                                    break;
+                                }
                             }
 
-                            mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge );
+                            if (bExist == false) {
+                                mMyData.arrUserAll_New.add(cTempData);
+                                if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
+                                    mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
+                                } else {
+                                    mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
+                                }
+
+                                mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
+                                mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
+                                mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
+                            }
+                            i++;
                         }
                     }
-                    i++;
+
+
                 }
 
                 UpdateNewAdapter.notifyDataSetChanged();

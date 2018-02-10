@@ -132,7 +132,7 @@ public class UserPageActivity extends AppCompatActivity {
         TempSendUserData.arrStarList = stTargetData.arrStarList;
         TempSendUserData.arrFanList = stTargetData.arrFanList;
 
-        getTargetfanData();
+        //getTargetfanData();
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age+"세");
@@ -751,7 +751,7 @@ public class UserPageActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("Target", TempSendUserData);
+                    bundle.putSerializable("Target", stTargetData);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -765,7 +765,7 @@ public class UserPageActivity extends AppCompatActivity {
                     //Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
                     Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("Target", TempSendUserData);
+                    bundle.putSerializable("Target", stTargetData);
                     intent.putExtras(bundle);
                     startActivity(intent);
 
@@ -967,7 +967,7 @@ public class UserPageActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int saa = 0;
                         UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                        TempSendUserData.arrFanData.add(tempUserData);
+                        //TempSendUserData.arrFanData.add(tempUserData);
                         TempSendUserData.mapFanData.put(tempUserData.Idx, tempUserData);
 
                       /*  for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet())

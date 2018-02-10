@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.CoomonValueData;
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UserData;
@@ -78,12 +79,13 @@ public class CommonFunc {
     public void MoveUserPage(Activity mActivity, UserData tempUserData)
     {
 
-        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
+/*        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
             tempUserData.arrStarList.add(entry.getValue());
-        }
+        }*/
 
-        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
+        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
             tempUserData.arrFanList.add(entry.getValue());
+            //tempUserData.FanList.put(entry.getValue().Idx, entry.getValue());
         }
 
         Intent intent = new Intent(mActivity, UserPageActivity.class);

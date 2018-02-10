@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.BoardData;
 import com.hodo.talkking.Data.BoardMsgClientData;
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
@@ -161,11 +162,11 @@ public class BoardFragment extends Fragment {
                     {
                         _BoardWriterData = tempUserData;
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
+                     /*   for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             _BoardWriterData.arrStarList.add(entry.getValue());
-                        }
+                        }*/
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
                             _BoardWriterData.arrFanList.add(entry.getValue());
                         }
 
