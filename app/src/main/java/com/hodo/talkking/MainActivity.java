@@ -217,7 +217,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+            Intent intent = new Intent(mActivity, MainActivity.class);
+            intent.putExtra("StartFragment", 0);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mActivity.startActivity(intent);
+            mActivity.finish();
+            mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
         }
 
         @Override
@@ -246,6 +251,10 @@ public class MainActivity extends AppCompatActivity {
         MobileAds.initialize(getApplicationContext(),"ca-app-pub-8954582850495744~7252454040");
 
         mMyData.mContext = getApplicationContext();
+        mMyData.mActivity = mActivity;
+
+        if(mMyData.arrReportList.size() >= 10)
+            ViewReportPop();
 
         itembox= findViewById(R.id.iv_itemBox);
         itembox.setOnClickListener(new View.OnClickListener() {
@@ -380,6 +389,8 @@ public class MainActivity extends AppCompatActivity {
         ib_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
 
               //  startActivity(new Intent(getApplicationContext(),MainSettingActivity.class));
               //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
@@ -776,7 +787,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CommonFunc.getInstance().SetMailAlarmVisible(false);
                 startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
-                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+              //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
         });
@@ -1109,6 +1120,41 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
+    public void ViewReportPop()
+    {
+        String alertTitle = "종료";
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+
+        final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        final Button btn_exit;
+        final Button btn_no;
+        final TextView title;
+        final TextView msg;
+
+        title =  (TextView) v.findViewById(R.id.title);
+        title.setText("경고");
+
+        msg =  (TextView) v.findViewById(R.id.msg);
+        msg.setText("10건의 신고가 들어왔습니다");
+
+        btn_exit = (Button) v.findViewById(R.id.btn_yes);
+        btn_exit.setText("확인");
+        btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        btn_no = (Button) v.findViewById(R.id.btn_no);
+        btn_no.setVisibility(View.GONE);
+
+    }
+
 
     @Override
     public void onBackPressed(){

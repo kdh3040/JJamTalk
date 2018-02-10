@@ -93,7 +93,7 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             mActivity.startActivity(intent);
                             mActivity.finish();
-                            mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+                            //mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
                             }
                         });

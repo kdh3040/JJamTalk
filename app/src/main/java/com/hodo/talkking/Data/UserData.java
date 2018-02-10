@@ -91,6 +91,7 @@ public class UserData implements Serializable,Parcelable {
     public long LastBoardWriteTime;
     public long LastAdsTime;
 
+    public int ReportedCnt;
     public UserData() {
 
     }
@@ -165,6 +166,7 @@ public class UserData implements Serializable,Parcelable {
         LastBoardWriteTime = in.readLong();
         LastAdsTime = in.readLong();
 
+        ReportedCnt = in.readInt();
     }
 
     public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -249,6 +251,8 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeInt(ConnectDate);
         parcel.writeLong(LastBoardWriteTime);
         parcel.writeLong(LastAdsTime);
+
+        parcel.writeInt(ReportedCnt);
     }
 
 }

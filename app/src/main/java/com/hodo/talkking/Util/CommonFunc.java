@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -27,15 +29,20 @@ import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
+import com.hodo.talkking.Data.SendData;
+import com.hodo.talkking.Data.SimpleChatData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.MainActivity;
 import com.hodo.talkking.R;
 import com.hodo.talkking.UserPageActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by woong on 2018-01-05.
@@ -72,7 +79,7 @@ public class CommonFunc {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mActivity.startActivity(intent);
         mActivity.finish();
-        mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+        //mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
     }
 
     public void MoveUserPage(Activity mActivity, UserData tempUserData)
@@ -98,7 +105,7 @@ public class CommonFunc {
         intent.putExtras(bundle);
 
         mActivity.startActivity(intent);
-        mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+        //mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
     }
 
     public void getUserData(final Activity mActivity, final SimpleUserData Target) {
@@ -213,6 +220,275 @@ public class CommonFunc {
             YesButton.setOnClickListener(null);
             NoButton.setOnClickListener(null);
         }
+    }
+
+
+    public void ShowGiftPopup(Context context, final SimpleChatData SendList)
+    {
+        TextView from, tv_count, msg;
+        ImageView profile, heart;
+        Button confirm, block, report;
+
+        Activity mActivity = mMyData.mActivity;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.alert_mail,null,false);
+        builder.setView(v);
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+
+        from = (TextView) v.findViewById(R.id.from);
+        tv_count = (TextView) v.findViewById(R.id.tv_count);
+        msg = (TextView) v.findViewById(R.id.msg);
+
+        profile = (ImageView) v.findViewById(R.id.profile);
+        heart = (ImageView) v.findViewById(R.id.heart);
+
+        confirm = (Button) v.findViewById(R.id.confirm);
+        block = (Button) v.findViewById(R.id.block);
+        report = (Button) v.findViewById(R.id.report);
+
+        from.setVisibility(TextView.VISIBLE);
+        tv_count.setText(Integer.toString(SendList.SendHeart));
+        msg.setText(SendList.Msg);
+
+        heart.setVisibility(ImageView.VISIBLE);
+        Glide.with(context)
+                .load(SendList.Img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .into(profile);
+
+        confirm.setVisibility(View.VISIBLE);
+        block.setVisibility(View.VISIBLE);
+        report.setVisibility(View.VISIBLE);
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        block.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String RoomName1 = mMyData.getUserIdx() + "_" + SendList.Idx;
+                String RoomName2 = SendList.Idx + "_" + mMyData.getUserIdx();
+                String RoomName = null;
+                int RoomPos = 0;
+                for(int i =0; i <mMyData.arrChatNameList.size(); i++)
+                {
+                    if(mMyData.arrChatNameList.get(i).contains(RoomName1))
+                    {
+                        RoomName = RoomName1;
+                        RoomPos = i;
+                        break;
+                    }
+                    if(mMyData.arrChatNameList.get(i).contains(RoomName2))
+                    {
+                        RoomName = RoomName2;
+                        RoomPos = i;
+                        break;
+                    }
+                }
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference table;
+                table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                table.removeValue();
+
+                table = database.getReference("User/" + SendList.Idx+ "/SendList/").child(RoomName);
+                table.removeValue();
+
+                mMyData.makeBlockList(SendList);
+                FirebaseData.getInstance().DelChatData(RoomName);
+
+                mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(RoomPos));
+                mMyData.arrChatNameList.remove(RoomPos);
+
+                dialog.dismiss();
+            }
+        });
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String RoomName1 = mMyData.getUserIdx() + "_" + SendList.Idx;
+                String RoomName2 = SendList.Idx + "_" + mMyData.getUserIdx();
+                String RoomName = null;
+                int RoomPos = 0;
+                for(int i =0; i <mMyData.arrChatNameList.size(); i++)
+                {
+                    if(mMyData.arrChatNameList.get(i).contains(RoomName1))
+                    {
+                        RoomName = RoomName1;
+                        RoomPos = i;
+                        break;
+                    }
+                    if(mMyData.arrChatNameList.get(i).contains(RoomName2))
+                    {
+                        RoomName = RoomName2;
+                        RoomPos = i;
+                        break;
+                    }
+                }
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference table;
+                table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                table.removeValue();
+
+                table = database.getReference("User/" + SendList.Idx+ "/SendList/").child(RoomName);
+                table.removeValue();
+
+                mMyData.makeBlockList(SendList);
+                FirebaseData.getInstance().DelChatData(RoomName);
+
+                mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(RoomPos));
+                mMyData.arrChatNameList.remove(RoomPos);
+
+
+                table = database.getReference("Reported").child(SendList.Idx);
+                final DatabaseReference user = table;
+
+                Map<String, Object> updateMap = new HashMap<>();
+                updateMap.put("ReportType", 1);
+                user.push().setValue(updateMap);
+
+                dialog.dismiss();
+            }
+        });
+    }
+
+    public void ShowMsgPopup(Context context, final SimpleChatData SendList)
+    {
+        Activity mActivity = mMyData.mActivity;
+        TextView from, tv_count, msg;
+        ImageView profile, heart;
+        Button confirm, block, report;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.alert_msg,null,false);
+        builder.setView(v);
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        from = (TextView) v.findViewById(R.id.from);
+        msg = (TextView) v.findViewById(R.id.msg);
+
+        profile = (ImageView) v.findViewById(R.id.image);
+
+        confirm = (Button) v.findViewById(R.id.confirm);
+        block = (Button) v.findViewById(R.id.block);
+        report = (Button) v.findViewById(R.id.report);
+
+        from.setVisibility(TextView.VISIBLE);
+        msg.setText(SendList.Msg);
+
+        Glide.with(mActivity)
+                .load(SendList.Img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .into(profile);
+
+        confirm.setVisibility(View.VISIBLE);
+        block.setVisibility(View.VISIBLE);
+        report.setVisibility(View.VISIBLE);
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        block.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String RoomName1 = mMyData.getUserIdx() + "_" + SendList.Idx;
+                String RoomName2 = SendList.Idx + "_" + mMyData.getUserIdx();
+                String RoomName = null;
+                int RoomPos = 0;
+                for(int i =0; i <mMyData.arrChatNameList.size(); i++)
+                {
+                    if(mMyData.arrChatNameList.get(i).contains(RoomName1))
+                    {
+                        RoomName = RoomName1;
+                        RoomPos = i;
+                        break;
+                    }
+                    if(mMyData.arrChatNameList.get(i).contains(RoomName2))
+                    {
+                        RoomName = RoomName2;
+                        RoomPos = i;
+                        break;
+                    }
+                }
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference table;
+                table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                table.removeValue();
+
+                table = database.getReference("User/" + SendList.Idx+ "/SendList/").child(RoomName);
+                table.removeValue();
+
+                mMyData.makeBlockList(SendList);
+                FirebaseData.getInstance().DelChatData(RoomName);
+
+                mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(RoomPos));
+                mMyData.arrChatNameList.remove(RoomPos);
+
+                dialog.dismiss();
+            }
+        });
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String RoomName1 = mMyData.getUserIdx() + "_" + SendList.Idx;
+                String RoomName2 = SendList.Idx + "_" + mMyData.getUserIdx();
+                String RoomName = null;
+                int RoomPos = 0;
+                for(int i =0; i <mMyData.arrChatNameList.size(); i++)
+                {
+                    if(mMyData.arrChatNameList.get(i).contains(RoomName1))
+                    {
+                        RoomName = RoomName1;
+                        RoomPos = i;
+                        break;
+                    }
+                    if(mMyData.arrChatNameList.get(i).contains(RoomName2))
+                    {
+                        RoomName = RoomName2;
+                        RoomPos = i;
+                        break;
+                    }
+                }
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference table;
+                table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                table.removeValue();
+
+                table = database.getReference("User/" + SendList.Idx+ "/SendList/").child(RoomName);
+                table.removeValue();
+
+                mMyData.makeBlockList(SendList);
+                FirebaseData.getInstance().DelChatData(RoomName);
+
+                mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(RoomPos));
+                mMyData.arrChatNameList.remove(RoomPos);
+
+
+                table = database.getReference("Reported").child(SendList.Idx);
+                final DatabaseReference user = table;
+
+                Map<String, Object> updateMap = new HashMap<>();
+                updateMap.put("ReportType", 1);
+                user.push().setValue(updateMap);
+
+                dialog.dismiss();
+            }
+        });
     }
 
     public Date GetStringToDate(String date, String format)

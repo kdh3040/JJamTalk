@@ -228,31 +228,9 @@ public class FirebaseData {
     public void DelChatData(String Idx)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        Query queryRef = database.getReference("ChatData").orderByValue().equalTo(Idx);
-
-        queryRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                snapshot.getRef().removeValue();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
+        DatabaseReference table;
+        table = database.getReference( "/ChatData/").child(Idx);
+        table.removeValue();
     }
 
     public void DelSendData(String Idx)

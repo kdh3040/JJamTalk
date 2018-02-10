@@ -40,7 +40,7 @@ public class MailboxActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+        //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
     }
     @Override
