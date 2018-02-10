@@ -911,7 +911,7 @@ public class UserPageActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         //dialog.getWindow().setLayout(160, 150);
         dialog.show();
-        dialog.getWindow().setLayout(50, 50);
+        //dialog.getWindow().setLayout(50, 50);
 
         final Button btn_exit;
         final Button btn_no;
