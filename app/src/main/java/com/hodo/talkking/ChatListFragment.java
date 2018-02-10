@@ -29,7 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
-import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Util.CommonFunc;

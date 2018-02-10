@@ -9,7 +9,6 @@ import android.content.ServiceConnection;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -64,8 +63,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 

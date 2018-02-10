@@ -5,8 +5,13 @@
     <item
         android:id="@+id/btn_report"
         android:icon="@drawable/icon_report"
-        android:title="액션버튼1"
+        android:title="차단"
         app:showAsAction="always|withText" />
 
     />
+    <item
+        android:id="@+id/btn_block"
+        android:icon="@drawable/block"
+        android:title="블락"
+        app:showAsAction="always|withText"></item>
 </menu>

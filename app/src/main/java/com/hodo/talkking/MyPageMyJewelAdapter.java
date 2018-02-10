@@ -13,13 +13,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.ViewHolder.MyJewelViewHolder;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Created by mjk on 2017-10-01.

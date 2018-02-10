@@ -910,7 +910,9 @@ public class ChatRoomActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.btn_report:
+
+
+            case R.id.btn_block:
                 AlertDialog.Builder builder= new AlertDialog.Builder(this);
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
@@ -976,6 +978,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                 dialog.show();
                 break;
 
+            case R.id.btn_report:
+                break;
         }
         return true;
     }
