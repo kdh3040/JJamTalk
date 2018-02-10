@@ -541,7 +541,7 @@ public class InputProfile extends AppCompatActivity {
                     bMySet = true;
 
                     mMyData.getFanList();
-
+                    mMyData.getReportedCnt();
                     mMyData.getSetting();
 
                     mMyData.getSendList();

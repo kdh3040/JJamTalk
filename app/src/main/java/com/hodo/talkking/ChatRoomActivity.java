@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -59,6 +61,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -979,6 +983,84 @@ public class ChatRoomActivity extends AppCompatActivity {
                 break;
 
             case R.id.btn_report:
+                final View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.report_popup, null, false);
+                builder = new AlertDialog.Builder(mActivity);
+                final AlertDialog dialog1 = builder.setView(v).create();
+                dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog1.show();
+                final CheckBox cBox1 = (CheckBox) v.findViewById(R.id.checkBox2);
+                final CheckBox cBox2 = (CheckBox) v.findViewById(R.id.checkBox3);
+                final CheckBox cBox3 = (CheckBox) v.findViewById(R.id.checkBox4);
+
+                Button btn_yes = v.findViewById(R.id.report);
+                btn_yes.setText("네");
+                btn_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int nReportVal = 0;
+                        if(cBox1.isChecked())
+                        {
+                            nReportVal +=1;
+                        }
+                        if(cBox2.isChecked())
+                        {
+                            nReportVal +=2;
+                        }
+                        if(cBox3.isChecked())
+                        {
+                            nReportVal +=3;
+                        }
+
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference table;
+                        table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
+                        final int finalNReportVal = nReportVal;
+                        table.child(tempChatData.ChatRoomName).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                dataSnapshot.getRef().removeValue();
+
+                                mMyData.makeBlockList(tempChatData);
+
+                                mFireBaseData.DelChatData(tempChatData.ChatRoomName);
+                                mFireBaseData.DelSendData(tempChatData.ChatRoomName);
+
+                                mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(tempPosition));
+                                mMyData.arrChatNameList.remove(tempPosition);
+
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference table = database.getReference("Reported").child(stTargetData.Idx);
+                                final DatabaseReference user = table;
+
+                                Map<String, Object> updateMap = new HashMap<>();
+                                updateMap.put("ReportType", finalNReportVal);
+                                user.push().setValue(updateMap);
+
+                                onBackPressed();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        dialog1.cancel();
+                    }
+                });
+
+                Button btn_no = v.findViewById(R.id.cancel);
+                btn_no.setText("닫기");
+                btn_no.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+
+                    public void onClick(View view) {
+                        dialog1.dismiss();
+                    }
+
+                });
                 break;
         }
         return true;

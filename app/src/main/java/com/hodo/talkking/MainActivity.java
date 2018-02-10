@@ -247,6 +247,9 @@ public class MainActivity extends AppCompatActivity {
 
         mMyData.mContext = getApplicationContext();
 
+        if(mMyData.arrReportList.size() >= 10)
+            ViewReportPop();
+
         itembox= findViewById(R.id.iv_itemBox);
         itembox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1109,6 +1112,41 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
+    public void ViewReportPop()
+    {
+        String alertTitle = "종료";
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+
+        final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        final Button btn_exit;
+        final Button btn_no;
+        final TextView title;
+        final TextView msg;
+
+        title =  (TextView) v.findViewById(R.id.title);
+        title.setText("경고");
+
+        msg =  (TextView) v.findViewById(R.id.msg);
+        msg.setText("10건의 신고가 들어왔습니다");
+
+        btn_exit = (Button) v.findViewById(R.id.btn_yes);
+        btn_exit.setText("확인");
+        btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        btn_no = (Button) v.findViewById(R.id.btn_no);
+        btn_no.setVisibility(View.GONE);
+
+    }
+
 
     @Override
     public void onBackPressed(){

@@ -217,6 +217,9 @@ public class MyData {
 
     public Context mContext;
 
+    public int nReportedCnt;
+    public ArrayList<ReportedData> arrReportList = new ArrayList<>();
+
     private MyData() {
         strImg = null;
         strNick = null;
@@ -255,6 +258,8 @@ public class MyData {
         {
             itemList.put( i, 0);
         }
+
+        nReportedCnt = 0;
     }
 
     public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
@@ -676,6 +681,50 @@ public class MyData {
         MyData._Instance = _Instance;
     }
 
+    public void getReportedCnt() {
+        String MyID = strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("Reported");
+        user = table.child(strIdx);
+
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa = 0;
+                ReportedData tempData = new ReportedData();
+                tempData = dataSnapshot.getValue(ReportedData.class);
+                arrReportList.add(tempData);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                int tempData;
+                ReportedData tempAddData = new ReportedData();
+                tempAddData = dataSnapshot.getValue(ReportedData.class);
+                arrReportList.add(tempAddData);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa = 0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa = 0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
 
     public void getFanList() {
         String MyID = strIdx;
