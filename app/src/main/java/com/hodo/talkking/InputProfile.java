@@ -7,7 +7,9 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -48,6 +50,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.hodo.talkking.Data.BoardData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
@@ -58,6 +62,7 @@ import com.hodo.talkking.Util.LocationFunc;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static com.hodo.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
@@ -460,6 +465,24 @@ public class InputProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_profile);
 
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            }
+        };
+
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage("구글 로그인을 위해 연락처 접근 권한이 필요합니다")
+                .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                .setPermissions(android.Manifest.permission.READ_CONTACTS)
+                .check();
+
         //mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.InputProfile_Progress);
 
@@ -472,9 +495,8 @@ public class InputProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(InputProfile.this, "이미지 등록", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent, "Select"), 1);
+                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery,1000);
 
             }
         });
@@ -612,7 +634,7 @@ public class InputProfile extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
+            if (resultCode == RESULT_OK && requestCode == 1000 ){
                 Uri uri = data.getData();
 
                 mMyData.setUserImg(uri.toString());
@@ -640,40 +662,47 @@ public class InputProfile extends AppCompatActivity {
         StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" + 0 );//file.getLastPathSegment());
 
         Bitmap bitmap = null;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),file);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.createScaledBitmap(bitmap, 350, 350, true);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-            byte[] data = baos.toByteArray();
 
-            UploadTask uploadTask = riversRef.putBytes(data);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        progressBar.setVisibility(View.VISIBLE);
-                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                        System.out.println("Upload is " + progress + "% done");
-                        int currentprogress = (int) progress;
-                        progressBar.setProgress(currentprogress);
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                    progressBar.setVisibility(View.INVISIBLE);
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    Tr(downloadUrl);
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String[] filePath = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
+        cursor.moveToFirst();
+        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        bitmap = BitmapFactory.decodeFile(imagePath, options);
+        bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
+        cursor.close();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.createScaledBitmap(bitmap, 350, 350, true);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        byte[] data = baos.toByteArray();
+
+
+        UploadTask uploadTask = riversRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    System.out.println("Upload is " + progress + "% done");
+                    int currentprogress = (int) progress;
+                    progressBar.setProgress(currentprogress);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                progressBar.setVisibility(View.INVISIBLE);
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                Tr(downloadUrl);
+            }
+        });
     }
 
     public void Tr(Uri uri)

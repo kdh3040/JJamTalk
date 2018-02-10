@@ -2,7 +2,11 @@ package com.hodo.talkking;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,12 +31,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Firebase.FirebaseData;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -257,25 +264,23 @@ public class MyProfileActivity extends AppCompatActivity {
 
         bChangeImg = true;
         nImgNumber = i;
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/"+mMyData.getUserIdx() + "/*");
-        startActivityForResult(Intent.createChooser(intent, "Select"), 1);
+/*        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/"+mMyData.getUserIdx() + "*//*");
+        startActivityForResult(Intent.createChooser(intent, "Select"), 1);*/
+
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(gallery,1000);
+
     }
+
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
+          //  if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
+            if (resultCode == RESULT_OK && requestCode == 1000 ){
                 Uri uri = data.getData();
-
-      /*          Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
-
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 4;
-                bitmap = BitmapFactory.decodeFile(uri.toString(), options);
-                int nh = (int) (bitmap.getHeight() * (1024.0 / bitmap.getWidth()));
-                Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 1024, nh, true);*/
-
 
                 if(nImgNumber == 0)
                 {
@@ -322,30 +327,36 @@ public class MyProfileActivity extends AppCompatActivity {
         StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  mMyData.nSaveUri );//file.getLastPathSegment());
 
         Bitmap bitmap = null;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),file);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.createScaledBitmap(bitmap, 350, 350, true);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-            byte[] data = baos.toByteArray();
 
-            UploadTask uploadTask = riversRef.putBytes(data);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    Tr(downloadUrl);
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String[] filePath = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
+        cursor.moveToFirst();
+        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        bitmap = BitmapFactory.decodeFile(imagePath, options);
+        bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
+        cursor.close();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.createScaledBitmap(bitmap, 350, 350, true);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = riversRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                Tr(downloadUrl);
+            }
+        });
     }
 
     public void Tr(Uri uri)
