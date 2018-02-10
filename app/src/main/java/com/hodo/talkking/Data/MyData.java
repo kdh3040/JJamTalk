@@ -1,5 +1,6 @@
 package com.hodo.talkking.Data;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -216,6 +217,7 @@ public class MyData {
     public String price = null;
 
     public Context mContext;
+    public Activity mActivity;
 
     public int nReportedCnt;
     public ArrayList<ReportedData> arrReportList = new ArrayList<>();
@@ -622,7 +624,7 @@ public class MyData {
         return strMemo;
     }
 
-    public boolean makeSendList(UserData _UserData, String _strSend) {
+    public boolean makeSendList(UserData _UserData, String _strSend, int _SendCount) {
         boolean rtValue = false;
 
         UserData SaveUserData = _UserData;
@@ -646,6 +648,7 @@ public class MyData {
         tempMySave.Grade = getGrade();
         tempMySave.BestItem = bestItem;
         tempMySave.Check = 1;
+        tempMySave.SendHeart = _SendCount;
 
         Calendar cal = Calendar.getInstance();
         Date date = cal.getTime();
@@ -663,6 +666,7 @@ public class MyData {
         tempTargetSave.Grade = _UserData.Grade;
         tempTargetSave.BestItem = _UserData.BestItem;
         tempTargetSave.Date = formatStr;
+        tempTargetSave.SendHeart = _SendCount;
 
         tempTargetSave.Check = 0;
 
@@ -841,6 +845,19 @@ public class MyData {
                 {
                     CommonFunc.getInstance().PlayVibration(mContext);
                     CommonFunc.getInstance().PlayAlramSound(mContext, R.raw.katalk);
+
+                    if(GetCurFrag() == 2 || GetCurFrag() == 5)
+                    {
+
+                    }
+                    else
+                    {
+                        if(SendList.SendHeart == 0)
+                            CommonFunc.getInstance().ShowMsgPopup(mContext, SendList);
+                        else
+                            CommonFunc.getInstance().ShowGiftPopup(mContext, SendList);
+                    }
+
                 }
 
 
@@ -1044,6 +1061,11 @@ public class MyData {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                CommonFunc.getInstance().SetMailAlarmVisible(true);
+                SendData SendList = dataSnapshot.getValue(SendData.class);
+                arrGiftHoneyNameList.add(SendList.strSendName);
+                arrGiftHoneyDataList.add(SendList);
+                getGiftData(SendList.strSendName);
             }
 
             @Override
@@ -1905,7 +1927,7 @@ public class MyData {
         return rtValue + 1;
     }
 
-    public void makeLastMSG(UserData  tempData, String Roomname, String strMsg, String lTime) {
+    public void makeLastMSG(UserData  tempData, String Roomname, String strMsg, String lTime, int SendCount) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
@@ -1927,6 +1949,8 @@ public class MyData {
         tempMySave.BestItem = bestItem;
         tempMySave.Date = strLastTime;
         tempMySave.Check = 0;
+        tempMySave.SendHeart = SendCount;
+
 
         SimpleChatData tempTargetSave = new SimpleChatData();
         tempTargetSave.ChatRoomName = Roomname;
@@ -1938,6 +1962,7 @@ public class MyData {
         tempTargetSave.BestItem = tempData.BestItem;
         tempTargetSave.Date = strLastTime;
         tempTargetSave.Check = 1;
+        tempTargetSave.SendHeart = SendCount;
 
         user.setValue(tempTargetSave);
         targetuser.setValue(tempMySave);

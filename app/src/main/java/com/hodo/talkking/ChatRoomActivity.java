@@ -848,7 +848,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                                         if(strSendMsg.equals(""))
                                             strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + " 하트를 보냈습니다";
-                                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, strSendMsg, formatStr);
+                                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, strSendMsg, formatStr, nSendHoneyCnt[0]);
                                         mRef.push().setValue(chat_Data);
                                         dialog.dismiss();
 
@@ -876,27 +876,105 @@ public class ChatRoomActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = txt_msg.getText().toString();
-                int nLength = message.length();
-                long nowTime = CommonFunc.getInstance().GetCurrentTime();
-                if (txt_msg.getText().toString().replace(" ", "").equals("")) {
-                    return;
-                }else{
-                    Calendar cal = Calendar.getInstance();
-                    Date date = cal.getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                    String formatStr = sdf.format(date);
 
-                    //mNotiFunc.SendMsgToFCM(stTargetData);
+                int nSize = mMyData.arrBlockedDataList.size();
 
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0, 0);
+                boolean bBlocked = false;
 
-                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr);
+                for (int i = 0; i < nSize; i++) {
+                    if (mMyData.arrBlockedDataList.get(i).Idx.equals(stTargetData.Idx)) {
+                        bBlocked = true;
+                        break;
+                    }
+                }
 
-                    mRef.push().setValue(chat_Data);
-                    txt_msg.setText("");
+                if(bBlocked == true)
+                {
 
-                    mNotiFunc.SendChatToFCM(message, stTargetData.Token);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                    final int[] nSendHoneyCnt = new int[1];
+                    nSendHoneyCnt[0] = 0;
+                    View giftView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.alert_send_msg, null);
+                    builder.setView(giftView);
+                    final AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    dialog.show();
+
+                    final TextView Msg = giftView.findViewById(R.id.textView);
+                    Msg.setText("메세지 전송 실패");
+
+                    final EditText Edit = giftView.findViewById(R.id.et_msg);
+                    Edit.setVisibility(View.GONE);
+
+                    final TextView Body = giftView.findViewById(R.id.textView4);
+                    Body.setText("당신은 차단 되었습니다");
+
+                    final Button OK = giftView.findViewById(R.id.btn_send);
+                    OK.setText("확인");
+                    OK.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                            onBackPressed();
+                        }
+                    });
+
+                    final Button No = giftView.findViewById(R.id.btn_cancel);
+                    No.setVisibility(View.GONE);
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference table;
+                    table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(tempChatData.ChatRoomName);
+                    table.removeValue();
+
+                    if(tempPosition == -1)
+                    {
+                        int RoomPos = 0;
+                        for(int i =0; i <mMyData.arrChatNameList.size(); i++)
+                        {
+                            if(mMyData.arrChatNameList.get(i).contains(tempChatData.ChatRoomName))
+                            {
+                                RoomPos = i;
+                                break;
+                            }
+                        }
+                        mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(RoomPos));
+                        mMyData.arrChatNameList.remove(RoomPos);
+                    }
+                    else
+                    {
+                        mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(tempPosition));
+                        mMyData.arrChatNameList.remove(tempPosition);
+                    }
+
+
+
+                }
+
+                else
+                {
+                    String message = txt_msg.getText().toString();
+                    int nLength = message.length();
+                    long nowTime = CommonFunc.getInstance().GetCurrentTime();
+                    if (txt_msg.getText().toString().replace(" ", "").equals("")) {
+                        return;
+                    }else{
+                        Calendar cal = Calendar.getInstance();
+                        Date date = cal.getTime();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                        String formatStr = sdf.format(date);
+
+                        //mNotiFunc.SendMsgToFCM(stTargetData);
+
+                        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0, 0);
+
+                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr, 0);
+
+                        mRef.push().setValue(chat_Data);
+                        txt_msg.setText("");
+
+                        mNotiFunc.SendChatToFCM(message, stTargetData.Token);
+                    }
 
                 }
             }
@@ -1134,7 +1212,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                     ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
 
-                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr);
+                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr, 0);
                     mRef.push().setValue(chat_Data);
 
                     tempSaveUri = downloadUrl;

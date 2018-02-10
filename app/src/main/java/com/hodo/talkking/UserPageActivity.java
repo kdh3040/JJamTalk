@@ -481,7 +481,7 @@ public class UserPageActivity extends AppCompatActivity {
                                     } else {
                                         String strSendMsg = SendMsg.getText().toString();
 
-                                        boolean rtValuew = mMyData.makeSendList(stTargetData, strSendMsg.toString());
+                                        boolean rtValuew = mMyData.makeSendList(stTargetData, strSendMsg.toString(),nSendHoneyCnt[0]);
                                         rtValuew = mMyData.makeCardList(stTargetData);
                                         rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                         rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
@@ -684,7 +684,7 @@ public class UserPageActivity extends AppCompatActivity {
                                             }
 
                                             mNotiFunc.SendMSGToFCM(stTargetData);
-                                            boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
+                                            boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString(), 0);
 
                                             Calendar cal = Calendar.getInstance();
                                             Date date = cal.getTime();

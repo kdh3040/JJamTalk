@@ -217,7 +217,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+            Intent intent = new Intent(mActivity, MainActivity.class);
+            intent.putExtra("StartFragment", 0);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mActivity.startActivity(intent);
+            mActivity.finish();
+            mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
         }
 
         @Override
@@ -246,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
         MobileAds.initialize(getApplicationContext(),"ca-app-pub-8954582850495744~7252454040");
 
         mMyData.mContext = getApplicationContext();
+        mMyData.mActivity = mActivity;
 
         if(mMyData.arrReportList.size() >= 10)
             ViewReportPop();
@@ -383,6 +389,8 @@ public class MainActivity extends AppCompatActivity {
         ib_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
 
               //  startActivity(new Intent(getApplicationContext(),MainSettingActivity.class));
               //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
@@ -779,7 +787,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CommonFunc.getInstance().SetMailAlarmVisible(false);
                 startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
-                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+              //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
         });
