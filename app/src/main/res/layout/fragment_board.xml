@@ -18,17 +18,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_write"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
-        android:background="@drawable/base_btn_bg"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
         android:text="글쓰기"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btn_mylist"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_mylist"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btn_mylist" />
+        app:layout_constraintRight_toLeftOf="@+id/btn_mylist"
+        app:srcCompat="@drawable/pencil" />
 
     <Button
         android:id="@+id/btn_mylist"

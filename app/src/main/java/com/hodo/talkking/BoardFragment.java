@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,7 +57,8 @@ public class BoardFragment extends Fragment {
     private UserData _BoardWriterData = new UserData();
     // 보드 리스트 UI
     RecyclerView BoardSlotListRecycler;
-    Button WriteButton, MyWriteListButton;
+    ImageButton WriteButton;
+    Button MyWriteListButton;
 
     public enum BOARD_SCROLL_STATE_TYPE {
         NONE,
@@ -251,7 +253,7 @@ public class BoardFragment extends Fragment {
 
 
 
-            WriteButton = (Button)mFragmentView.findViewById(R.id.btn_write);
+            WriteButton = (ImageButton)mFragmentView.findViewById(R.id.btn_write);
             MyWriteListButton = (Button)mFragmentView.findViewById(R.id.btn_mylist);
 
             //BoardSlotListRecycler.addOnItemTouchListener(GetBoradListClickFunc());
