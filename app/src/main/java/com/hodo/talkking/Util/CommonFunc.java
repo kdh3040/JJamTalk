@@ -3,6 +3,7 @@ package com.hodo.talkking.Util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -21,11 +22,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.talkking.BuyGoldActivity;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
@@ -38,6 +42,8 @@ import com.hodo.talkking.MainActivity;
 import com.hodo.talkking.R;
 import com.hodo.talkking.UserPageActivity;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -614,4 +620,220 @@ public class CommonFunc {
             MyBoard_Write.setVisibility(boardMode ? View.VISIBLE : View.GONE);
     }
 
+
+
+
+
+    public int Select_OpenedItem() {
+        int rtValue = 0;
+        int nGrade = 0;
+        nGrade = (int) (Math.random()*2000)+1;
+
+        if(604 <= nGrade) rtValue = 1;
+
+        else if(160 <= nGrade && nGrade <= 603)  rtValue = 2;
+        else if(80 <= nGrade && nGrade <= 160)  rtValue = 3;
+        else if(58 <= nGrade && nGrade <= 80)  rtValue = 4;
+        else if(28 <= nGrade && nGrade <= 58)  rtValue = 5;
+        else if(15 <= nGrade && nGrade <= 27) rtValue = 6;
+        else if(2 <= nGrade && nGrade <= 14) rtValue = 7;
+        else if(1 == nGrade) rtValue = 8;
+
+        return rtValue;
+    }
+    public void View_OpenedItem(Context context, View v, int result, ImageView img_Opened, TextView text_Opened) {
+        URL url = null;
+        Bitmap bitmap = null;
+
+
+        switch (result) {
+            case 0: {
+                try {
+                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fheel_hng.png?alt=media&token=b63df8ec-7946-455f-a7db-f6555c13b8a3");
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                text_Opened.setText("명품 구두 획득!!");
+                break;
+            }
+            case 1: {
+                try {
+                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fdress_hng.png?alt=media&token=3e195e09-0fcb-4cf9-b154-9c871dac8dc5");
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+
+                text_Opened.setText("명품 드레스 획득!!");
+                break;
+            }
+            case 2: {
+                try {
+                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fbag_hng.png?alt=media&token=14ce0c10-fcaa-4d7b-b196-dc56a1f86233");
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+
+                text_Opened.setText("명품 가방 획득!!");
+                break;
+            }
+            case 3: {
+                try {
+                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fwatch_hng.png?alt=media&token=dbefc601-6770-48f3-a6e7-227a15ae5d36");
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+
+                text_Opened.setText("명품 시계 획득!!");
+                break;
+            }
+            case 4: {
+                try {
+                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fring_hng.png?alt=media&token=2d624e62-9b42-4b44-b268-81ddc4c98ccf");
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                text_Opened.setText("보석 획득!!");
+                break;
+            }
+            case 5: {
+                try {
+                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fcar_hng.png?alt=media&token=8ecd4bfc-3911-4c87-86d5-9ed055c3a864");
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                text_Opened.setText("자동차 획득!!");
+                break;
+            }
+            case 6: {
+                try {
+                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fboat_hng.png?alt=media&token=5c42d065-c643-4517-8751-88a71b45d14d");
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+
+                text_Opened.setText("요트 획득!!");
+                break;
+            }
+            case 7: {
+                try {
+                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fjet_hng.png?alt=media&token=0db8857d-9481-43e8-af74-45f7337deaf5");
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                text_Opened.setText("제트기 획득!!");
+                break;
+            }
+        }
+
+        Glide.with(context)
+                .load(url.toString())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .into(img_Opened);
+    }
+
+    public interface ShowBoxOpen_End{
+        void EndListener();
+    }
+
+    public void ShowBoxOpen(final Context context, final int count, final int bonus, final ShowBoxOpen_End endListener, final ShowBoxOpen_End buyGoldListener)
+    {
+        View v = LayoutInflater.from(context).inflate(R.layout.dialog_exit_app,null,false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        final AlertDialog dialog = builder.setView(v).create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        TextView tv_title = v.findViewById(R.id.title);
+        if(bonus > 0)
+            tv_title.setText("상자 "+count+"개 + 보너스 "+bonus+"개 열기");
+        else
+            tv_title.setText("상자 "+count+"개를 열까요?");
+
+        TextView tv_msg = v.findViewById(R.id.msg);
+
+
+        if(mMyData.getUserHoney() > CoomonValueData.OPEN_BOX_COST  * count){
+            tv_msg.setText(CoomonValueData.OPEN_BOX_COST + "골드가 필요합니다");
+            Button btn_yes = v.findViewById(R.id.btn_yes);
+            btn_yes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                    if(mMyData.getUserHoney() > (CoomonValueData.OPEN_BOX_COST * count)){
+                        mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
+                        for(int i = 0 ; i< count + bonus; i++)
+                        {
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            View v = LayoutInflater.from(context).inflate(R.layout.dialog_jewelbox_opened, null);
+                            ImageView Img_Opened = (ImageView)v.findViewById(R.id.opened_img);
+                            TextView Text_Opened = (TextView) v.findViewById(R.id.opened_text);
+                            //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+
+                            int result = CommonFunc.getInstance().Select_OpenedItem();
+                            CommonFunc.getInstance().View_OpenedItem(context, v, result, Img_Opened, Text_Opened);
+                            mMyData.setMyItem(result);
+
+                            Button btn_confirm = v.findViewById(R.id.opened_btn);
+                            builder.setView(v);
+
+                            final AlertDialog dialog = builder.create();
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                            dialog.show();
+
+                            btn_confirm.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog.dismiss();
+                                }
+                            });
+                        }
+
+                        endListener.EndListener();
+                    }else {
+                        Toast.makeText(context, "골드가 부족합니다", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+            btn_yes.setText("네");
+            Button btn_no = v.findViewById(R.id.btn_no);
+            btn_no.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+
+            });
+
+            btn_no.setText("아니오");
+        }
+        else
+        {
+            int nGold = (CoomonValueData.OPEN_BOX_COST * count) - mMyData.getUserHoney();
+            tv_msg.setText(nGold + "골드가 부족합니다");
+            Button btn_yes = v.findViewById(R.id.btn_yes);
+            btn_yes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    buyGoldListener.EndListener();
+                    dialog.cancel();
+
+                }
+            });
+
+            btn_yes.setText("골드 충전하기");
+            Button btn_no = v.findViewById(R.id.btn_no);
+            btn_no.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+            btn_no.setText("닫기");
+        }
+    }
 }

@@ -29,4 +29,6 @@ public class CoomonValueData  {
     public static final long DAY_MILLI_SECONDS = 86400000;
     public static final long HOUR_MILLI_SECONDS = 3600000;
     public static final long MIN_MILLI_SECONDS = 60000;
+
+    public static final int OPEN_BOX_COST = 7;
 }
