@@ -34,7 +34,7 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
     public TextView BoardMsg, BoardWriter, BoardDate;
     public ImageView BoardThumnail, BoardUserItem, BoardUserGrade;//, BoardUserGender;
     public Button BoardDeleteButton;
-    public Button BoardReportButton;
+    public ImageButton BoardReportButton;
     private ConstraintLayout BoardLayout;
 
     public BoardViewHolder(View itemView) {
@@ -44,7 +44,7 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         BoardDate = (TextView) itemView.findViewById(R.id.board_write_date);
         BoardThumnail = (ImageView) itemView.findViewById(R.id.board_thumnail);
         BoardDeleteButton = (Button) itemView.findViewById(R.id.board_delete);
-        BoardReportButton = (Button) itemView.findViewById(R.id.board_report);
+        BoardReportButton = (ImageButton) itemView.findViewById(R.id.board_report);
         BoardUserItem = (ImageView) itemView.findViewById(R.id.user_item);
         BoardUserGrade = (ImageView) itemView.findViewById(R.id.user_grade);
         //BoardUserGender = (ImageView) itemView.findViewById(R.id.user_gender);

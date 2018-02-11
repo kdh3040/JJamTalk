@@ -90,20 +90,20 @@
         app:layout_constraintRight_toRightOf="parent"
         />
 
-    <Button
+    <ImageButton
         android:id="@+id/board_report"
-        android:layout_width="50dp"
+        android:layout_width="30dp"
         android:layout_height="0dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/red_btn_bg"
+        android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:text="신고"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
+
+
         app:layout_constraintBottom_toBottomOf="@+id/board_thumnail"
         app:layout_constraintRight_toRightOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/board_write_date" />
+        app:layout_constraintTop_toBottomOf="@+id/board_write_date"
+        app:srcCompat="@drawable/report" />
 
 
     <ImageView
