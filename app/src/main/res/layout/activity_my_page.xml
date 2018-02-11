@@ -96,7 +96,7 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:gravity="center_vertical|start"
@@ -104,18 +104,20 @@
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/edit_profile"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/edit_profile" />
 
     <TextView
         android:id="@+id/textView23"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:gravity="center_vertical|start"
+        android:gravity="left|center_vertical"
         android:text="설정"
-        android:textSize="20dp"
         android:textColor="@color/black"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/coin"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/edit_setting"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -127,8 +129,8 @@
         android:layout_marginStart="8dp"
         android:gravity="center_vertical|start"
         android:text="0"
+        android:textColor="@android:color/black"
         android:textSize="20dp"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/coin_charge"
         app:layout_constraintStart_toEndOf="@+id/edit_coin"
@@ -138,12 +140,14 @@
         android:id="@+id/coin_charge"
         android:layout_width="118dp"
         android:layout_height="40dp"
-        android:layout_marginRight="8dp"
-        android:text="코인충전하기"
+        android:layout_marginLeft="16dp"
 
+        android:layout_marginRight="16dp"
+        android:background="@drawable/base_btn_bg"
+        android:text="코인충전하기"
         app:layout_constraintBaseline_toBaselineOf="@+id/coin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/coin" />
+        app:layout_constraintLeft_toRightOf="@+id/coin"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

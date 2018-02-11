@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UIData;
+import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.ViewHolder.MyJewelViewHolder;
 
 /**
@@ -54,6 +55,8 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                 final int[] nSellCount = {mMyData.itemList.get(nSellIdx)};
                 if(nSellCount[0] == 0)
                 {
+                    MyJewelBoxActivity myBoxActivity = (MyJewelBoxActivity)mActivity;
+                    myBoxActivity.ShowOpenBox(1, 0);
                     return;
                 }
                 final int nSellGold = mUIdata.getSellJewelValue()[nSellIdx];
