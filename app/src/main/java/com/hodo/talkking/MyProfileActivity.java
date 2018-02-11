@@ -309,6 +309,10 @@ public class MyProfileActivity extends AppCompatActivity {
 
                 mMyData.urSaveUri = uri;
                 mMyData.nSaveUri = nImgNumber;
+
+                if(mMyData.nSaveUri == 0)
+                    UploadThumbNailImage_Firebase(mMyData.urSaveUri);
+
                 UploadImage_Firebase(mMyData.urSaveUri);
 
             } else {
@@ -322,6 +326,72 @@ public class MyProfileActivity extends AppCompatActivity {
 
     }
 
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight, boolean thumbnail) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+        if(thumbnail == true)
+            inSampleSize = 8;
+
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    private void UploadThumbNailImage_Firebase(Uri file) {
+
+        StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  "ThumbNail" );//file.getLastPathSegment());
+
+        Bitmap bitmap = null;
+
+        String[] filePath = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
+        cursor.moveToFirst();
+        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+        options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
+
+        bitmap = BitmapFactory.decodeFile(imagePath, options);
+        bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
+        cursor.close();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //bitmap.createScaledBitmap(bitmap, 50, 50, true);
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = riversRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                TrThumbNail(downloadUrl);
+            }
+        });
+    }
+
+
     private void UploadImage_Firebase(Uri file) {
 
         StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  mMyData.nSaveUri );//file.getLastPathSegment());
@@ -334,13 +404,17 @@ public class MyProfileActivity extends AppCompatActivity {
         String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+        options.inSampleSize = calculateInSampleSize(options, 100, 100 , false);
+
         bitmap = BitmapFactory.decodeFile(imagePath, options);
         bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
         cursor.close();
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.createScaledBitmap(bitmap, 350, 350, true);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        //bitmap.createScaledBitmap(bitmap, 50, 50, true);
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = riversRef.putBytes(data);
@@ -359,17 +433,18 @@ public class MyProfileActivity extends AppCompatActivity {
         });
     }
 
+    public void TrThumbNail(Uri uri)
+    {
+        mMyData.setUserImg(uri.toString());
+        mFireBaseData.SaveData(mMyData.getUserIdx());
+        Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
+    }
+
     public void Tr(Uri uri)
     {
-        if( mMyData.nSaveUri == 0)
-        {
-            mMyData.setUserImg(uri.toString());
-        }
-
         mMyData.setUserProfileImg( mMyData.nSaveUri, uri.toString());
         mFireBaseData.SaveData(mMyData.getUserIdx());
         Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

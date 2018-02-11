@@ -179,7 +179,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
         Glide.with(getApplicationContext())
-                .load(stTargetData.Img)
+                .load(stTargetData.ImgGroup0)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 
