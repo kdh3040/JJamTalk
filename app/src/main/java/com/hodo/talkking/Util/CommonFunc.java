@@ -793,17 +793,20 @@ public class CommonFunc {
 
     public boolean CheckTextMaxLength(String text, int maxLength, Context context, String Title, boolean emptyCheck)
     {
-        if(text.length() <= maxLength)
-            return true;
+        boolean emptyString = false;
+        if(text.equals("\n") || text.equals("\n\n") || text.equals("\n\n\n") || text.equals("\n\n\n\n") || text.replace(" ", "").equals(""))
+            emptyString = true;
 
-        if(text.length() > 0)
+        if(text.length() > maxLength && emptyString == false)
             ShowDefaultPopup(context, Title, maxLength+"자 이하로 작성 하셔야 합니다.");
         else
         {
-            if(emptyCheck)
+            if(emptyCheck && emptyString)
                 ShowDefaultPopup(context, Title, "빈 공간 없이 작성해 주세요.");
         }
 
+        if(text.length() <= maxLength)
+            return true;
 
         return false;
     }

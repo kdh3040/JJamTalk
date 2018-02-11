@@ -27,6 +27,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.PublicRoomChatData;
 import com.hodo.talkking.Data.UIData;
@@ -230,6 +231,8 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(CommonFunc.getInstance().CheckTextMaxLength(txt_msg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_CHAT, mActivity ,"채팅", true) == false)
+                    return;
                 String message = txt_msg.getText().toString();
                 long nowTime = CommonFunc.getInstance().GetCurrentTime();
                 if(txt_msg.getText() == null){
