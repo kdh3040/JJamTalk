@@ -794,7 +794,7 @@ public class CommonFunc {
     public boolean CheckTextMaxLength(String text, int maxLength, Context context, String Title, boolean emptyCheck)
     {
         boolean emptyString = false;
-        if(text.equals("\n") || text.equals("\n\n") || text.equals("\n\n\n") || text.equals("\n\n\n\n") || text.replace(" ", "").equals(""))
+        if(text.equals("") || text.equals("\n") || text.equals("\n\n") || text.equals("\n\n\n") || text.equals("\n\n\n\n") || text.replace(" ", "").equals(""))
             emptyString = true;
 
         if(text.length() > maxLength && emptyString == false)
