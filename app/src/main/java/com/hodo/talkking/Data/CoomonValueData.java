@@ -31,4 +31,12 @@ public class CoomonValueData  {
     public static final long MIN_MILLI_SECONDS = 60000;
 
     public static final int OPEN_BOX_COST = 7;
+
+    public static final int TEXT_MAX_LENGTH_BOARD = 100;
+    public static final int TEXT_MAX_LENGTH_CHAT = 100;
+    public static final int TEXT_MAX_LENGTH_MAIL = 20;
+    public static final int TEXT_MAX_LENGTH_SEND_HONEY = 30;
+    public static final int TEXT_MAX_LENGTH_NICKNAME = 8;
+    public static final int TEXT_MAX_LENGTH_MEMO = 100;
+
 }

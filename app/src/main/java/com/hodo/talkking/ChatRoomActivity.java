@@ -821,6 +821,10 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
+                                if(CommonFunc.getInstance().CheckTextMaxLength(SendMsg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_SEND_HONEY, getApplicationContext() ,"하트 날리기", true) == false)
+                                    return;
+
+
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                     btn_gift_send.setEnabled(false);
                                 }
@@ -876,6 +880,9 @@ public class ChatRoomActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(CommonFunc.getInstance().CheckTextMaxLength(txt_msg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_CHAT, mActivity ,"채팅", true) == false)
+                    return;
 
                 int nSize = mMyData.arrBlockedDataList.size();
 

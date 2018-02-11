@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.hodo.talkking.Data.BoardMsgDBData;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.Util.CommonFunc;
@@ -71,6 +72,10 @@ public class BoardWriteActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             //mMydata.setUserHoney(mMydata.getUserHoney() - 10);
+
+                            if(CommonFunc.getInstance().CheckTextMaxLength(txt_Memo.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_BOARD, BoardWriteActivity.this ,"게시판 글쓰기", true) == false)
+                                return;
+
 
                             BoardMsgDBData sendData = new BoardMsgDBData();
                             sendData.NickName = mMydata.getUserNick();
