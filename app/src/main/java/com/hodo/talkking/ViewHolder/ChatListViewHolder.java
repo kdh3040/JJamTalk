@@ -32,7 +32,7 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
         imageGrade = itemView.findViewById(R.id.iv_grade);
         imageItem = itemView.findViewById(R.id.iv_item);
 
-        textView = itemView.findViewById(R.id.tv_content);
+        textView = itemView.findViewById(R.id.tv_chat);
         date = itemView.findViewById(R.id.tv_date);
         check = itemView.findViewById(R.id.tv_check);
     }

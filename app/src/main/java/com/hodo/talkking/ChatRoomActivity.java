@@ -713,7 +713,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         final TextView Msg = v.findViewById(R.id.HeartPop_text);
 
                         //tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
-                        Msg.setText("현재 보유 골드는 "+String.valueOf(mMyData.getUserHoney())+"골드 입니다." );
+                        Msg.setText("현재 보유 코인은 "+String.valueOf(mMyData.getUserHoney())+"코인 입니다." );
                         final Button btn_gift_send = v.findViewById(R.id.btn_gift_send);
                         final int[] nSendHoneyCnt = new int[1];
                         nSendHoneyCnt[0] = 10;
@@ -725,11 +725,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                     int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                     btn_gift_send.setEnabled(false);
-                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
                                 }
                                 else {
                                     btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
                                 }
                             }
                         });
@@ -741,11 +741,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                     int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                     btn_gift_send.setEnabled(false);
-                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
                                 }
                                 else {
                                     btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
                                 }
                             }
                         });
@@ -757,11 +757,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                     int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                     btn_gift_send.setEnabled(false);
-                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
                                 }
                                 else {
                                     btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
                                 }
                             }
                         });
@@ -773,11 +773,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                     int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                     btn_gift_send.setEnabled(false);
-                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
                                 }
                                 else {
                                     btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
                                 }
                             }
                         });
@@ -789,11 +789,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                     int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                     btn_gift_send.setEnabled(false);
-                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다");
                                 }
                                 else {
                                     btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
                                 }
                             }
                         });
@@ -805,11 +805,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                     int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                     btn_gift_send.setEnabled(false);
-                                    Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
                                 }
                                 else {
                                     btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
                                 }
                             }
                         });

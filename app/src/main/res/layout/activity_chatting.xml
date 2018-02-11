@@ -49,21 +49,26 @@
 
     <Button
         android:id="@+id/btn_plus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_margin="10dp"
         android:layout_weight="1"
-        android:text="+" />
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:text="+"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/et_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/btn_send"
         android:layout_toRightOf="@+id/btn_plus"
         android:layout_weight="7"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textCapSentences|textMultiLine"
         android:lines="5"
@@ -72,11 +77,13 @@
 
     <Button
         android:id="@+id/btn_send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
         android:layout_weight="2"
+        android:background="@drawable/base_btn_bg"
         android:text="전송" />
 
 

@@ -802,7 +802,7 @@ public class CommonFunc {
         else
         {
             if(emptyCheck && emptyString)
-                ShowDefaultPopup(context, Title, "빈 공간 없이 작성해 주세요.");
+                ShowDefaultPopup(context, Title, "채팅 내용이 없습니다.");
         }
 
         if(text.length() <= maxLength)

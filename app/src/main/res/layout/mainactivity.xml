@@ -122,24 +122,20 @@
 
     <ImageButton
         android:id="@+id/ib_home"
-        android:layout_width="40dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/ib_chatlist"
-        app:layout_constraintEnd_toStartOf="@+id/ib_cardlist"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/ib_cardlist"
         app:srcCompat="@drawable/icon_home"></ImageButton>
 
 
     <ImageButton
         android:id="@+id/ib_cardlist"
-        android:layout_width="40dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/ib_chatlist"
@@ -159,15 +155,13 @@
 
     <ImageButton
         android:id="@+id/ib_chatlist"
-        android:layout_width="40dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/tv_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_chat"
+        app:layout_constraintLeft_toRightOf="@+id/ib_cardlist"
+        app:layout_constraintRight_toLeftOf="@+id/ib_fan"
         app:srcCompat="@drawable/chat_icon"></ImageButton>
 
     <ImageView
@@ -181,10 +175,8 @@
 
     <ImageButton
         android:id="@+id/ib_fan"
-        android:layout_width="40dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/ib_chatlist"
@@ -203,10 +195,8 @@
 
     <ImageButton
         android:id="@+id/ib_board"
-        android:layout_width="40dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/ib_chatlist"
@@ -230,52 +220,47 @@
         android:gravity="center_horizontal"
         android:text="홈"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/ib_home"
-        app:layout_constraintRight_toRightOf="@+id/ib_home" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_favor" />
 
     <TextView
         android:id="@+id/tv_favor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:text="즐겨찾기"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/tv_home"
-        app:layout_constraintRight_toLeftOf="@+id/tv_content" />
+        app:layout_constraintRight_toLeftOf="@+id/tv_chat" />
 
     <TextView
-        android:id="@+id/tv_content"
-        android:layout_width="50dp"
+        android:id="@+id/tv_chat"
+        android:layout_width="0dp"
         android:layout_height="20dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:gravity="center_horizontal"
         android:text="채팅"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintLeft_toRightOf="@+id/tv_favor"
+        app:layout_constraintRight_toLeftOf="@+id/tv_fan" />
 
     <TextView
         android:id="@+id/tv_fan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="팬"
+        android:text="나의 팬"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/ib_fan"
-        app:layout_constraintRight_toRightOf="@+id/ib_fan" />
+        app:layout_constraintLeft_toRightOf="@+id/tv_chat"
+        app:layout_constraintRight_toLeftOf="@+id/tv_board" />
 
     <TextView
         android:id="@+id/tv_board"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:gravity="center_horizontal"
         android:text="게시판"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/tv_board"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_fan" />
 </android.support.constraint.ConstraintLayout>

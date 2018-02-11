@@ -74,7 +74,7 @@ public class BoardItemActivity extends AppCompatActivity {
         MasterName = (TextView) findViewById(R.id.tv_nickname);
         MasterInfo = (TextView) findViewById(R.id.tv_info);
         BoardWriteDate = (TextView) findViewById(R.id.tv_date);
-        BoardNote = (TextView) findViewById(R.id.tv_content);
+        BoardNote = (TextView) findViewById(R.id.tv_chat);
         BoardViewCount = (TextView) findViewById(R.id.tv_pagecount);
         MasterProfile = (ImageView)findViewById(R.id.iv_profile);
 

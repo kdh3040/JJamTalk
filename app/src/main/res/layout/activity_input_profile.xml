@@ -117,7 +117,7 @@
 
 
     <TextView
-        android:id="@+id/tv_content"
+        android:id="@+id/tv_chat"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
@@ -146,7 +146,7 @@
         app:layout_constraintBottom_toTopOf="@id/InputProfile_Check"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_chat" />
 
     <Button
         android:id="@+id/InputProfile_Check"
