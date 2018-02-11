@@ -1071,7 +1071,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 final CheckBox cBox3 = (CheckBox) v.findViewById(R.id.checkBox4);
 
                 Button btn_yes = v.findViewById(R.id.report);
-                btn_yes.setText("네");
+                btn_yes.setText("신고");
                 btn_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -1129,7 +1129,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 });
 
                 Button btn_no = v.findViewById(R.id.cancel);
-                btn_no.setText("닫기");
+                btn_no.setText("취소");
                 btn_no.setOnClickListener(new View.OnClickListener() {
 
                     @Override

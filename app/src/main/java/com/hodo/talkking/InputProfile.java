@@ -646,55 +646,17 @@ public class InputProfile extends AppCompatActivity {
                 Uri uri = data.getData();
 
                 mMyData.setUserImg(uri.toString());
-                /*String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                Cursor cursor = getContentResolver().query(uri,filePathColumn, null, null, null);
-                cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String picturePath = cursor.getString(columnIndex);
-                cursor.close();
-
-                ParcelFileDescriptor parcelFileDescriptor =
-                        getContentResolver().openFileDescriptor(uri, "r");
-                FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-                loadedBitmap= BitmapFactory.decodeFileDescriptor(fileDescriptor);
-                parcelFileDescriptor.close();
-
-                //Glide.with(this).load("http://i.imgur.com/DvpvklR.png").into(mProfileImage);
-
-                ExifInterface exif = null;
-                try {
-                    File pictureFile = new File(picturePath);
-                    exif = new ExifInterface(pictureFile.getAbsolutePath());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                int orientation = ExifInterface.ORIENTATION_NORMAL;
-
-                if (exif != null)
-                    orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-                Log.d("hngpic","orientaion="+orientation);
-                switch (orientation) {
-                    case ExifInterface.ORIENTATION_ROTATE_90:
-                        loadedBitmap = rotateBitmap(loadedBitmap, 90);
-                        break;
-                    case ExifInterface.ORIENTATION_ROTATE_180:
-                        loadedBitmap = rotateBitmap(loadedBitmap, 180);
-                        break;
-
-                    case ExifInterface.ORIENTATION_ROTATE_270:
-                        loadedBitmap = rotateBitmap(loadedBitmap, 270);
-                        break;
-                }
 
 
-                mProfileImage.setImageBitmap(loadedBitmap);
 
-                /*Glide.with(getApplicationContext())
+
+
+
+                Glide.with(getApplicationContext())
                         .load(mMyData.getUserImg())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
-                        .into(mProfileImage);*/
+                        .into(mProfileImage);
 
 
 

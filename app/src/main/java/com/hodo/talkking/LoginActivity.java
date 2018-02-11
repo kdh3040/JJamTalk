@@ -523,13 +523,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-        /*if(mAuth.getCurrentUser() != null){
+        if(mAuth.getCurrentUser() != null){
             showProgress(true);
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
         }
-        else*/
+        else
             {
          /*       Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, RC_SIGN_IN);*/

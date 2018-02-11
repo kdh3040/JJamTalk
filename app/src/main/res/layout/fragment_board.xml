@@ -22,20 +22,25 @@
         android:id="@+id/btn_write"
         android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/base_btn_bg"
         android:text="글쓰기"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn_mylist"
-        app:layout_constraintEnd_toStartOf="@+id/btn_mylist"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_mylist" />
 
     <Button
         android:id="@+id/btn_mylist"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginBottom="1dp"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/blue_btn_bg"
         android:text="내가 쓴 글"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_write" />
+        app:layout_constraintLeft_toRightOf="@+id/btn_write"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
