@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(),BoardWriteActivity.class));
             }
         });
-        CommonFunc.getInstance().MyBoard_Write = (ImageView)findViewById(R.id.iv_myboardwrite);
+        CommonFunc.getInstance().MyBoard_Write = (Button)findViewById(R.id.iv_myboardwrite);
         CommonFunc.getInstance().MyBoard_Write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
