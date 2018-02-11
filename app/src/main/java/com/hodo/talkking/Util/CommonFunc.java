@@ -71,8 +71,8 @@ public class CommonFunc {
     public String LastBoardWrite;
 
     public ImageView Card_Alarm, Chat_Alarm, Mail_Alarm, Fan_Alarm;
-    public ImageView Item_Box, Honey_Box, Board_Write, MyBoard_Write;
-
+    public ImageView Item_Box, Honey_Box, Board_Write;
+    public Button MyBoard_Write;
     public void refreshMainActivity(Activity mActivity, int StartFragMent)
     {
         Intent intent = new Intent(mActivity, MainActivity.class);
