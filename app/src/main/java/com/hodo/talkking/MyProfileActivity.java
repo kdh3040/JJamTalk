@@ -306,7 +306,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
                 if(nImgNumber <= mMyData.getUserImgCnt() - 1)
                 {
-                    Toast.makeText(this, "사진 되었습니다.", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(this, "사진 되었습니다.", Toast.LENGTH_LONG).show();
                 }
                 else
                     mMyData.setUserImgCnt(mMyData.getUserImgCnt()+1);
@@ -320,11 +320,11 @@ public class MyProfileActivity extends AppCompatActivity {
                 UploadImage_Firebase(mMyData.urSaveUri);
 
             } else {
-                Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, "Oops! 로딩에 오류가 있습니다.", Toast.LENGTH_LONG).show();
+          //  Toast.makeText(this, "Oops! 로딩에 오류가 있습니다.", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
@@ -441,14 +441,14 @@ public class MyProfileActivity extends AppCompatActivity {
     {
         mMyData.setUserImg(uri.toString());
         mFireBaseData.SaveData(mMyData.getUserIdx());
-        Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
     }
 
     public void Tr(Uri uri)
     {
         mMyData.setUserProfileImg( mMyData.nSaveUri, uri.toString());
         mFireBaseData.SaveData(mMyData.getUserIdx());
-        Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
+       // Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -465,7 +465,7 @@ public class MyProfileActivity extends AppCompatActivity {
             if(CommonFunc.getInstance().CheckTextMaxLength(et_Memo.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_MEMO, MyProfileActivity.this ,"하고 싶은 말", false) == false)
                 return false;
             //프로필 저장 구현
-            Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
 
           /*  if(bChangeImg)
                 UploadImage_Firebase(mMyData.urSaveUri);*/
@@ -481,7 +481,7 @@ public class MyProfileActivity extends AppCompatActivity {
         }
         if(item.getItemId() == android.R.id.home)
         {
-            Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
+          //  Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
 
          /*   if(bChangeImg)
                 UploadImage_Firebase(mMyData.urSaveUri);*/
@@ -538,7 +538,7 @@ public class MyProfileActivity extends AppCompatActivity {
             return;
 
         super.onBackPressed();
-        Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
+       // Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
 
          /*   if(bChangeImg)
                 UploadImage_Firebase(mMyData.urSaveUri);*/

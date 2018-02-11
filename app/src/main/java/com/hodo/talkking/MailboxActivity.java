@@ -68,7 +68,7 @@ public class MailboxActivity extends AppCompatActivity {
                 mMyData.arrGiftUserDataList.clear();
                 mailBoxAdapter.notifyDataSetChanged();
 
-                Toast.makeText(getApplicationContext(),"삭제되었습니다",Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),"삭제되었습니다",Toast.LENGTH_LONG).show();
                 break;
             case 2:
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -84,7 +84,7 @@ public class MailboxActivity extends AppCompatActivity {
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        Toast.makeText(getApplicationContext(),"삭제되었습니다",Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(getApplicationContext(),"삭제되었습니다",Toast.LENGTH_LONG).show();
 
                                     }
                                 });

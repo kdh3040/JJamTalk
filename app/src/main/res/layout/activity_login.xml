@@ -13,9 +13,7 @@
     android:background="@color/goldColor"
     tools:context="com.hodo.talkking.LoginActivity">
 
-    <!-- Login progress -->
-
-    <ScrollView
+     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -104,13 +102,15 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="구글" />
-            </LinearLayout>
+            </LinearLayout>-->
 
-        </LinearLayout>
+
+       </LinearLayout>
     </ScrollView>
 
 
-<!--    <ImageView
+
+<!--   <ImageView
 
         android:id="@+id/logo"
         android:layout_width="200dp"
@@ -124,8 +124,11 @@
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:visibility="visible" />
 
 </RelativeLayout>

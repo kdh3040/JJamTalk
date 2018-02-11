@@ -50,7 +50,7 @@ public class Rank_NewMemberFragment extends Fragment {
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Toast.makeText(view.getContext(), position + "번 째 아이템 클릭", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(view.getContext(), position + "번 째 아이템 클릭", Toast.LENGTH_SHORT).show();
                        if (mAppStatus.bCheckMultiSend == false) {
                             switch (mSetting.getnSearchSetting()) {
                                 /*case 0:
@@ -96,7 +96,7 @@ public class Rank_NewMemberFragment extends Fragment {
                 nSize = recyclerView.getAdapter().getItemCount() - 1;
 
                 if (lastVisibleItemPosition == nSize) {
-                    Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
                     FirebaseData.getInstance().GetNewData(NewAdapter, nSize, false);
                 }
             }

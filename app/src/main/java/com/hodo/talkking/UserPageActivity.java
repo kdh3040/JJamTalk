@@ -482,7 +482,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                        Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
+                                       // Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
 
                                     } else {
                                         String strSendMsg = SendMsg.getText().toString();
@@ -499,7 +499,7 @@ public class UserPageActivity extends AppCompatActivity {
                                         mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
                                         mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
                                         // mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
-                                        Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                      //  Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
 
                                         Calendar cal = Calendar.getInstance();
                                         Date date = cal.getTime();
@@ -939,7 +939,7 @@ public class UserPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean rtValuew = mMyData.makeCardList(stTargetData);
-                Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
+              // Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

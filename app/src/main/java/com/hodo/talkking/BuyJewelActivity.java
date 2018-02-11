@@ -95,7 +95,7 @@ public class BuyJewelActivity extends AppCompatActivity {
 
                         }else {
 
-                            Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
+                           // Toast.makeText(getApplicationContext(), "골드가 부족합니다", Toast.LENGTH_LONG).show();
 
                         }
 

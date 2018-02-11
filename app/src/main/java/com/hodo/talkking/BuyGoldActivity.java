@@ -227,7 +227,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(con, txt.getText(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(con, txt.getText(), Toast.LENGTH_SHORT).show();
 
                     String tempStrGold = null;
                     switch (i)

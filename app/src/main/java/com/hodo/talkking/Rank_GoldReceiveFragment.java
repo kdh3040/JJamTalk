@@ -106,7 +106,7 @@ public class Rank_GoldReceiveFragment extends Fragment {
                 nSize = recyclerView.getAdapter().getItemCount() - 1;
 
                 if (lastVisibleItemPosition == nSize) {
-                    Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
                     FirebaseData.getInstance().GetHotData(HotAdapter, nSize, false);
                 }
             }
