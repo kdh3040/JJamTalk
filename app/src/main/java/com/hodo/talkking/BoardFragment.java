@@ -56,6 +56,7 @@ public class BoardFragment extends Fragment {
     private UserData _BoardWriterData = new UserData();
     // 보드 리스트 UI
     RecyclerView BoardSlotListRecycler;
+    Button WriteButton, MyWriteListButton;
 
     public enum BOARD_SCROLL_STATE_TYPE {
         NONE,
@@ -246,9 +247,17 @@ public class BoardFragment extends Fragment {
 
                 }
             });
-        }
 
-        CommonFunc.getInstance().SetMainActivityTopRightBtn(true);
+
+
+
+            WriteButton = (Button)mFragmentView.findViewById(R.id.btn_write);
+            MyWriteListButton = (Button)mFragmentView.findViewById(R.id.btn_mylist);
+
+            //BoardSlotListRecycler.addOnItemTouchListener(GetBoradListClickFunc());
+            WriteButton.setOnClickListener(GetWriteBoradFunc());
+            MyWriteListButton.setOnClickListener(GetMyWriteBoradListFunc());
+        }
         return mFragmentView;
     }
 
@@ -275,6 +284,37 @@ public class BoardFragment extends Fragment {
             @Override
             public void onLongItemClick(View view, int position) {}
         });
+
+        return returnFunc;
+    }
+
+    private View.OnClickListener GetWriteBoradFunc()
+    {
+        View.OnClickListener returnFunc = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(CommonFunc.getInstance().IsFutureDateCompare(new Date(mMyData.GetLastBoardWriteTime()), 15) == false)
+                {
+                    // TODO 환웅
+                    CommonFunc.getInstance().ShowDefaultPopup(getContext(), "게시판 작성", "연속으로 게시판을 작성 할 수 없습니다.");
+                    return;
+                }
+                else
+                    startActivity(new Intent(getContext(),BoardWriteActivity.class));
+            }
+        };
+
+        return returnFunc;
+    }
+
+    private View.OnClickListener GetMyWriteBoradListFunc()
+    {
+        View.OnClickListener returnFunc = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),BoardMyListActivity.class));
+            }
+        };
 
         return returnFunc;
     }

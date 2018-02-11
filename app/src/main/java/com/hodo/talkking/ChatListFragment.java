@@ -113,7 +113,7 @@ public class ChatListFragment extends Fragment {
             chatListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             mAdapter.notifyDataSetChanged();
         }
-        CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
+
         return fragView;
     }
 /*

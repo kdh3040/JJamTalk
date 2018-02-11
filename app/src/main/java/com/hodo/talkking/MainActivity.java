@@ -69,7 +69,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 
@@ -81,11 +80,12 @@ public class MainActivity extends AppCompatActivity {
     ImageView iv_myPage;
     TextView txt_title;
     ImageView ib_fan;
+    ImageView itembox;
     //ImageButton ib_pcr_open;
     ImageView ib_filter;
     ImageButton ib_buy_jewel;
     ImageView ib_home;
-    ImageView iv_refresh;
+    ImageView iv_refresh,iv_honeybox;
 
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
@@ -264,6 +264,14 @@ public class MainActivity extends AppCompatActivity {
         if(mMyData.arrReportList.size() >= 10)
             ViewReportPop();
 
+        itembox= findViewById(R.id.iv_itemBox);
+        itembox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
+            }
+        });
+
 
         Bundle bundle = getIntent().getExtras();
         nStartFragment = (int) bundle.getSerializable("StartFragment");
@@ -296,46 +304,6 @@ public class MainActivity extends AppCompatActivity {
         CommonFunc.getInstance().Chat_Alarm = (ImageView)findViewById(R.id.alarm_chat);
         CommonFunc.getInstance().Fan_Alarm = (ImageView)findViewById(R.id.alarm_fan);
         CommonFunc.getInstance().Mail_Alarm = (ImageView)findViewById(R.id.alarm_mail);
-        CommonFunc.getInstance().Item_Box = (ImageView)findViewById(R.id.iv_itemBox);
-        CommonFunc.getInstance().Item_Box.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
-            }
-        });
-
-        CommonFunc.getInstance().Honey_Box = (ImageView)findViewById(R.id.iv_honeybox);
-        CommonFunc.getInstance().Honey_Box.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CommonFunc.getInstance().SetMailAlarmVisible(false);
-                startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
-
-            }
-        });
-
-        CommonFunc.getInstance().Board_Write = (ImageView)findViewById(R.id.iv_boardwrite);
-        CommonFunc.getInstance().Board_Write.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastBoardWriteTime()), 15) == false)
-                {
-                    // TODO 환웅
-                    CommonFunc.getInstance().ShowDefaultPopup(MainActivity.this, "게시판 작성", "연속으로 게시판을 작성 할 수 없습니다.");
-                    return;
-                }
-                else
-                    startActivity(new Intent(getApplicationContext(),BoardWriteActivity.class));
-            }
-        });
-        CommonFunc.getInstance().MyBoard_Write = (ImageView)findViewById(R.id.iv_myboardwrite);
-        CommonFunc.getInstance().MyBoard_Write.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BoardMyListActivity.class));
-
-            }
-        });
 
         final Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -820,7 +788,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        iv_honeybox = (ImageView)findViewById(R.id.iv_honeybox);
+        //iv_honeybox.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.postBox), PorterDuff.Mode.MULTIPLY);
+        iv_honeybox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommonFunc.getInstance().SetMailAlarmVisible(false);
+                startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
+              //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
+            }
+        });
 
         //tv_MainTitle = (TextView)findViewById(R.id.tv_maintitle);
 
