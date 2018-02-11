@@ -12,15 +12,11 @@
         android:layout_height="0dp"
 
         android:background="@android:color/transparent"
-<<<<<<< HEAD
-        app:layout_constraintBottom_toTopOf="@+id/btn_mylist"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-=======
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
->>>>>>> 418b071d88686dea8690c7d0186b8c7137468538
+
         app:layout_constraintTop_toTopOf="parent" />
 
 
