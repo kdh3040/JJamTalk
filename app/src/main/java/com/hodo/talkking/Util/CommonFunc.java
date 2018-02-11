@@ -71,6 +71,7 @@ public class CommonFunc {
     public String LastBoardWrite;
 
     public ImageView Card_Alarm, Chat_Alarm, Mail_Alarm, Fan_Alarm;
+    public ImageView Item_Box, Honey_Box, Board_Write, MyBoard_Write;
 
     public void refreshMainActivity(Activity mActivity, int StartFragMent)
     {
@@ -528,20 +529,30 @@ public class CommonFunc {
         return new Date(GetCurrentTime());
     }
 
-    public boolean IsFutureDateCompare(Date pastDate, int min)
+    // 현재 시간이 지정한 시간보다 지났나?
+    public boolean IsCurrentDateCompare(Date pastDate, int offsetMin)
     {
-        if(min <= 0)
-            return false;
-
         if(pastDate.equals(new Date(0)))
             return true;
 
-        Date futureDate = new Date(pastDate.getTime() + min * CoomonValueData.MIN_MILLI_SECONDS);
-
-        if(futureDate.compareTo(pastDate) > 0)
-            return false;
+        Date currentDate = new Date(GetCurrentTime());
+        if(offsetMin <= 0)
+        {
+            if(currentDate.compareTo(pastDate) > 0)
+                return true;
+            else
+                return false;
+        }
         else
-            return true;
+        {
+            Date compareDate = new Date(pastDate.getTime() + offsetMin * CoomonValueData.MIN_MILLI_SECONDS);
+
+            if(currentDate.compareTo(compareDate) > 0)
+                return true;
+            else
+                return false;
+        }
+
     }
 
     public void PlayVibration(Context context)
@@ -590,4 +601,17 @@ public class CommonFunc {
         if(Mail_Alarm != null)
             Mail_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
+
+    public void SetMainActivityTopRightBtn(boolean boardMode)
+    {
+        if(Item_Box != null)
+            Item_Box.setVisibility(boardMode ? View.GONE : View.VISIBLE);
+        if(Honey_Box != null)
+            Honey_Box.setVisibility(boardMode ? View.GONE : View.VISIBLE);
+        if(Board_Write != null)
+            Board_Write.setVisibility(boardMode ? View.VISIBLE : View.GONE);
+        if(MyBoard_Write != null)
+            MyBoard_Write.setVisibility(boardMode ? View.VISIBLE : View.GONE);
+    }
+
 }
