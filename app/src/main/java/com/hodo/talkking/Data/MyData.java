@@ -293,7 +293,7 @@ public class MyData {
 
         strImg = _UserImg;
 
-        strProfileImg[0] = _UserImg;
+        strProfileImg[0] = _UserImgGroup0;
         strProfileImg[1] = _UserImgGroup1;
         strProfileImg[2] = _UserImgGroup2;
         strProfileImg[3] = _UserImgGroup3;

@@ -178,7 +178,7 @@ public class MyPageActivity extends AppCompatActivity {
 
 
         Glide.with(getApplicationContext())
-                .load(mMyData.getUserImg())
+                .load(mMyData.getUserProfileImg(0))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(img_Mypic);
