@@ -82,17 +82,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/MyProfile_Img1" />
 
-        <EditText
+        <TextView
             android:id="@+id/MyProfile_NickName"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
-            android:ems="10"
-            android:gravity="bottom"
-            android:hint="(8자 이내)"
-            android:inputType="textPersonName"
+            android:gravity="center_vertical"
             android:maxLength="8"
+            android:text="asdasd"
+            android:textSize="18sp"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="@+id/nickname"
             app:layout_constraintLeft_toRightOf="@+id/nickname"

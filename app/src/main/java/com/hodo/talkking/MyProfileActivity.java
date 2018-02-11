@@ -1,18 +1,23 @@
 package com.hodo.talkking;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.ColorDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -28,18 +34,23 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.hodo.talkking.Data.ChatData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Firebase.FirebaseData;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -48,7 +59,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  */
 
 public class MyProfileActivity extends AppCompatActivity {
-    private EditText et_Memo, et_NickName;
+    private EditText et_Memo;
     private ImageView Img_Sum;
     private ImageView[] Img_Profiles = new ImageView[4];
     private int nImgNumber;
@@ -57,6 +68,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private MyData mMyData = MyData.getInstance();
     private UserData stTargetData = new UserData();
 
+    private TextView et_NickName;
     private Button Btn_Insta;
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -109,7 +121,7 @@ public class MyProfileActivity extends AppCompatActivity {
         et_Memo = (EditText) findViewById(R.id.MyProfile_Memo);
         et_Memo.setText(mMyData.getUserMemo());
 
-        et_NickName = (EditText) findViewById(R.id.MyProfile_NickName);
+        et_NickName = (TextView) findViewById(R.id.MyProfile_NickName);
         et_NickName.setText(mMyData.getUserNick());
 
         View.OnClickListener listener = new View.OnClickListener() {
@@ -149,7 +161,70 @@ public class MyProfileActivity extends AppCompatActivity {
                         popUp(3);
                         break;
                     //case R.id.MyProfile_Btn_Insta:
+                    case R.id.MyProfile_NickName:
+                        LayoutInflater inflater = LayoutInflater.from(activity);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        View view1 = inflater.inflate(R.layout.alert_send_msg, null);
+                        Button btn_cancel = view1.findViewById(R.id.btn_cancel);
+                        final EditText et_msg = view1.findViewById(R.id.et_msg);
 
+                        et_msg.setHint("(8글자 이내)");
+                        int maxLengthofEditText = 8;
+                        et_msg.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLengthofEditText)});
+
+                        TextView title = (TextView)view1.findViewById(R.id.textView);
+                        title.setText("닉네임 변경");
+
+                        TextView body = (TextView)view1.findViewById(R.id.textView4);
+                        body.setText("닉네임 변경은 50골드가 필요합니다");
+
+                        builder.setView(view1);
+
+                        final AlertDialog msgDialog = builder.create();
+                        msgDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                        msgDialog.show();
+                        btn_cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                msgDialog.dismiss();
+                            }
+                        });
+                        Button btn_send = view1.findViewById(R.id.btn_send);
+
+                        if(mMyData.getUserHoney() < 50)
+                        {
+                            btn_send.setText("골드 구매");
+                            btn_send.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    startActivity(new Intent(activity, BuyGoldActivity.class));
+                                    msgDialog.dismiss();
+                                }
+                            });
+                        }
+                        else
+                        {
+                            btn_send.setText("변경");
+
+                            btn_send.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    String strMemo = et_msg.getText().toString();
+                                    if(strMemo == null || strMemo.equals(""))
+                                    {
+                                        return;
+                                    }
+
+                                    mMyData.setUserHoney(mMyData.getUserHoney() - 50);
+                                    mMyData.setUserNick(strMemo);
+                                    et_NickName.setText(strMemo);
+
+                                    msgDialog.dismiss();
+                                }
+                            });
+                        }
+
+                        break;
                         //break;
 
                 }
@@ -161,6 +236,8 @@ public class MyProfileActivity extends AppCompatActivity {
         Img_Profiles[1].setOnClickListener(listener);
         Img_Profiles[2].setOnClickListener(listener);
         Img_Profiles[3].setOnClickListener(listener);
+
+        et_NickName.setOnClickListener(listener);
 
         //Btn_Insta.setOnClickListener(listener);
 
@@ -464,7 +541,6 @@ public class MyProfileActivity extends AppCompatActivity {
           /*  if(bChangeImg)
                 UploadImage_Firebase(mMyData.urSaveUri);*/
 
-            mMyData.setUserNick(et_NickName.getText().toString());
             mMyData.setProfileData(et_Memo.getText());
             mFireBaseData.SaveData(mMyData.getUserIdx());
             bChangeImg = false;
@@ -480,7 +556,6 @@ public class MyProfileActivity extends AppCompatActivity {
          /*   if(bChangeImg)
                 UploadImage_Firebase(mMyData.urSaveUri);*/
 
-            mMyData.setUserNick(et_NickName.getText().toString());
             mMyData.setProfileData(et_Memo.getText());
             mFireBaseData.SaveData(mMyData.getUserIdx());
             bChangeImg = false;
@@ -531,7 +606,6 @@ public class MyProfileActivity extends AppCompatActivity {
          /*   if(bChangeImg)
                 UploadImage_Firebase(mMyData.urSaveUri);*/
 
-        mMyData.setUserNick(et_NickName.getText().toString());
         mMyData.setProfileData(et_Memo.getText());
         mFireBaseData.SaveData(mMyData.getUserIdx());
         bChangeImg = false;
