@@ -276,7 +276,7 @@ public class PublicChatRoomActivity extends AppCompatActivity {
                         if (rtValuew == true) {
                             mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                             mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                            Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
 
                             String message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
 

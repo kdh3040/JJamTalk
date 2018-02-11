@@ -99,7 +99,6 @@ public class InputProfile extends AppCompatActivity {
 
     private Button CheckBtn;
 
-    private ProgressBar progressBar;
     private FusedLocationProviderClient mFusedLocationClient;
 
     LocationManager locationManager;
@@ -111,45 +110,14 @@ public class InputProfile extends AppCompatActivity {
     private int nUserSet = 0;
     private static String TAG = "InputActivity Log!!";
 
-    private View mProgressView;
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-
-
-
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-
-
-        }
-    }
-
+    ProgressBar progressBar;
 
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
+            progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
@@ -193,8 +161,7 @@ public class InputProfile extends AppCompatActivity {
 
                             bSetRecv = true;
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                                showProgress(false);
-                                Log.d(TAG, "Account Log in  Complete");
+                             //   Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
                                 finish();
                             }
@@ -212,8 +179,7 @@ public class InputProfile extends AppCompatActivity {
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
+             //   Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
                 finish();
             }
@@ -229,6 +195,7 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
@@ -267,8 +234,7 @@ public class InputProfile extends AppCompatActivity {
                             bSetRich = true;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                                showProgress(false);
-                                Log.d(TAG, "Account Log in  Complete");
+                             //   Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
                                 finish();
                             }
@@ -287,8 +253,7 @@ public class InputProfile extends AppCompatActivity {
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
+              //  Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
 
             }
@@ -304,7 +269,9 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
         }
+
 
         @Override
         protected Integer doInBackground(Integer... voids) {
@@ -356,8 +323,7 @@ public class InputProfile extends AppCompatActivity {
                             bSetNear = true;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                                showProgress(false);
-                                Log.d(TAG, "Account Log in  Complete");
+                             //   Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
                                 finish();
                             }
@@ -376,8 +342,7 @@ public class InputProfile extends AppCompatActivity {
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
+              //  Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
             }
         }
@@ -392,7 +357,9 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
         }
+
 
         @Override
         protected Integer doInBackground(Integer... voids) {
@@ -437,8 +404,8 @@ public class InputProfile extends AppCompatActivity {
 
                             bSetNew = true;
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                                showProgress(false);
-                                Log.d(TAG, "Account Log in  Complete");
+
+                               // Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
                                 finish();
                             }
@@ -457,8 +424,7 @@ public class InputProfile extends AppCompatActivity {
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
+               // Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
             }
         }
@@ -473,6 +439,8 @@ public class InputProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_profile);
+
+        progressBar = (ProgressBar) findViewById(R.id.InputProfile_Progress) ;
 
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -492,10 +460,6 @@ public class InputProfile extends AppCompatActivity {
                 .setPermissions(android.Manifest.permission.READ_CONTACTS)
                 .check();
 
-        //mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.InputProfile_Progress);
-
-        progressBar = (ProgressBar)findViewById(R.id.InputProfile_Progress);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -745,8 +709,17 @@ public class InputProfile extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                progressBar.setVisibility(ProgressBar.GONE);
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 Tr(downloadUrl);
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                progressBar.setVisibility(ProgressBar.VISIBLE);
+                progressBar.setProgress((int)progress) ;
+                System.out.println("Upload is " + progress + "% done");
             }
         });
     }
@@ -767,6 +740,8 @@ public class InputProfile extends AppCompatActivity {
         Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
     }
     private void GoMainPage() {
+
+        progressBar.setVisibility(ProgressBar.GONE);
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
         mCommon.refreshMainActivity(this, MAIN_ACTIVITY_HOME);

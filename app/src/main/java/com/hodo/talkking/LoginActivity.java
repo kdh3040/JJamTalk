@@ -33,6 +33,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
+import com.hodo.talkking.Data.PublicRoomChatData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Firebase.FirebaseData;
@@ -98,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
+
     private View mLoginFormView;
 
     private GoogleApiClient mGoogleApiClient;
@@ -134,321 +136,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private Activity mActivity;
     private long pressedTime;
 
+    ProgressBar progressBar;
 
-
-    public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Integer doInBackground(Integer... integers) {
-            DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("HotMember");
-            Query query=ref.orderByChild("Point").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
-            query.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            int i = 0;
-                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
-                            {
-                                SimpleUserData cTempData = new SimpleUserData();
-                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
-                                if(cTempData != null) {
-                                    if (!cTempData.Idx.equals(mMyData.getUserIdx()))
-                                    {
-                                        if(cTempData.Img == null)
-                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                                        mMyData.arrUserAll_Recv.add(cTempData);
-
-                                        if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
-                                        {
-                                            mMyData.arrUserWoman_Recv.add(cTempData);
-                                        }
-                                        else {
-                                            mMyData.arrUserMan_Recv.add(cTempData);
-                                        }
-
-                                        mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                        mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                        mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                        i++;
-                                    }
-                                }
-                            }
-
-                            bSetRecv = true;
-
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                                showProgress(false);
-                                Log.d(TAG, "Account Log in  Complete");
-                                GoMainPage();
-                            }
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
-            return 0;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
-                GoMainPage();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... params) {
-            super.onProgressUpdate(params);
-        }
-    }
-
-    public class PrePareFan extends AsyncTask<Integer, Integer, Integer>  {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Integer doInBackground(Integer... voids) {
-            DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query= ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
-            query.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            int i = 0;
-                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData cTempData = new SimpleUserData();
-                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
-                                if(cTempData != null) {
-                                    if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
-                                        if (cTempData.Img == null)
-                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                                        mMyData.arrUserAll_Send.add(cTempData);
-                                        if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
-                                            mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
-                                        } else {
-                                            mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
-                                        }
-
-                                        mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
-                                        i++;
-                                    }
-                                }
-                            }
-
-                            bSetRich = true;
-
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                                showProgress(false);
-                                Log.d(TAG, "Account Log in  Complete");
-                                GoMainPage();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //handle databaseError
-                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                        }
-                    });
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
-                GoMainPage();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-        }
-    }
-
-    public class PrePareNear extends AsyncTask<Integer, Integer, Integer>  {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Integer doInBackground(Integer... voids) {
-
-            Double lStartLon = mMyData.getUserLon() - 10;
-            Double lStartLat = mMyData.getUserLat() - 10;
-
-            Double lEndLon = mMyData.getUserLon() + 10;
-            Double IEndLat = mMyData.getUserLon() + 10;
-
-            DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query=ref
-                    .orderByChild("Lon")
-                    .startAt(lStartLon).endAt(lEndLon).limitToFirst(FIRST_LOAD_MAIN_COUNT);
-                    ;
-
-
-            query.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            int i = 0, j=0, k=0;
-                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData stRecvData = new SimpleUserData ();
-                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
-                                if(stRecvData != null) {
-                                    if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
-                                        if (stRecvData.Img == null)
-                                            stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                                        mMyData.arrUserAll_Near.add(stRecvData);
-
-                                        if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
-                                            mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
-                                        } else {
-                                            mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
-                                        }
-
-                                        mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                        i++;
-                                    }
-                                }
-                            }
-
-                            bSetNear = true;
-
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                                showProgress(false);
-                                Log.d(TAG, "Account Log in  Complete");
-                                GoMainPage();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //handle databaseError
-                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                        }
-                    });
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
-                GoMainPage();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-        }
-    }
-
-    public class PrePareNew extends AsyncTask<Integer, Integer, Integer>  {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Integer doInBackground(Integer... voids) {
-            long time = CommonFunc.getInstance().GetCurrentTime();
-            SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
-            int nTodayDate =  Integer.parseInt(ctime.format(new Date(time)));
-            int nStartDate = nTodayDate - 7;
-
-            DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query=ref.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate)).limitToFirst(FIRST_LOAD_MAIN_COUNT);;
-            query.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            int i = 0, j=0, k=0;
-                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData stRecvData = new SimpleUserData ();
-                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
-                                if(stRecvData != null) {
-                                    if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
-                                        if (stRecvData.Img == null)
-                                            stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                                        mMyData.arrUserAll_New.add(stRecvData);
-
-                                        if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
-                                            mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
-                                        } else {
-                                            mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
-                                        }
-
-                                        mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
-                                        i++;
-                                    }
-                                }
-                            }
-
-                            bSetNew = true;
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                                showProgress(false);
-                                Log.d(TAG, "Account Log in  Complete");
-                                GoMainPage();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //handle databaseError
-                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                        }
-                    });
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
-                GoMainPage();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -468,23 +157,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         mActivity = this;
 
-        PermissionListener permissionlistener = new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-            }
 
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-            }
-        };
-
-        new TedPermission(this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleMessage("구글 로그인을 위해 연락처 접근 권한이 필요합니다")
-                .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
-                .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                .setPermissions(android.Manifest.permission.READ_CONTACTS)
-                .check();
 
         bSetNear = bSetNew = bSetRich = bSetRecv = false;
 
@@ -499,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         provider = locationManager.getBestProvider(new Criteria(), false);
 
         //mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        progressBar = findViewById(R.id.login_progress);
         mTextView_SignUp = (TextView) findViewById(R.id.Login_SignUp);
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -512,6 +185,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+
+                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                int aaa = 0;
+            }
+        };
+
+        new TedPermission(LoginActivity.this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage("구글 로그인을 위해 연락처 접근 권한이 필요합니다")
+                .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                .setPermissions(android.Manifest.permission.READ_CONTACTS)
+                .check();
+
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         //populateAutoComplete();
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -521,18 +218,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mGoogleSignInButton = (SignInButton) findViewById(R.id.Login_Google);
 
 
+        /*LoginTask login = new LoginTask();
+        login.execute(0,0,0);*/
 
 
-      /*  if(mAuth.getCurrentUser() != null){
-            showProgress(true);
+       if(mAuth.getCurrentUser() != null){
             strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
             Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
             InitData_Mine();
         }
-        else*/
+        else
             {
-         /*       Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(signInIntent, RC_SIGN_IN);*/
+                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                startActivityForResult(signInIntent, RC_SIGN_IN);
 
 
             mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -614,9 +312,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     private void GoMainPage() {
 
-
-
-
+        progressBar.setVisibility(ProgressBar.GONE);
         FirebaseData.getInstance().GetInitBoardData();
         FirebaseData.getInstance().GetInitMyBoardData();
         FirebaseData.getInstance().SaveData(mMyData.getUserIdx());
@@ -685,7 +381,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
 
                 else {
-                    showProgress(true);
                     // Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
                     InitData_Mine();
 
@@ -716,9 +411,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                           // Log.w(TAG, "signInWithCredential", task.getException());
+                           // Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
                         }
                         // ...
                     }
@@ -785,7 +479,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
+
 
             //strMyIdx = "87";
             //strMyIdx = "81";
@@ -804,8 +498,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     if(task.isSuccessful()){
                                         InitData_Mine();
                                     }else {
-                                        Toast.makeText(LoginActivity.this,
-                                                "Log In Failed", Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(LoginActivity.this,"Log In Failed", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
@@ -930,41 +623,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         return password.length() > 4;
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            /*mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });*/
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            //mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -1014,7 +672,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
         // be available.
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
-        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -1068,7 +726,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
 
             if (success) {
                 finish();
@@ -1081,7 +738,372 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            showProgress(false);
+        }
+    }
+
+
+    public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            DatabaseReference ref;
+            ref = FirebaseDatabase.getInstance().getReference().child("HotMember");
+            Query query=ref.orderByChild("Point").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
+                            {
+                                SimpleUserData cTempData = new SimpleUserData();
+                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                                if(cTempData != null) {
+                                    if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    {
+                                        if(cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_Recv.add(cTempData);
+
+                                        if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                        {
+                                            mMyData.arrUserWoman_Recv.add(cTempData);
+                                        }
+                                        else {
+                                            mMyData.arrUserMan_Recv.add(cTempData);
+                                        }
+
+                                        mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        i++;
+                                    }
+                                }
+                            }
+
+                            bSetRecv = true;
+
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+
+                                Log.d(TAG, "Account Log in  Complete");
+                                GoMainPage();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+
+                Log.d(TAG, "Account Log in  Complete");
+                GoMainPage();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... params) {
+            super.onProgressUpdate(params);
+        }
+    }
+
+    public class PrePareFan extends AsyncTask<Integer, Integer, Integer>  {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... voids) {
+            DatabaseReference ref;
+            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            Query query= ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                SimpleUserData cTempData = new SimpleUserData();
+                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                                if(cTempData != null) {
+                                    if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                                        if (cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_Send.add(cTempData);
+                                        if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
+                                        }
+
+                                        mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
+                                        i++;
+                                    }
+                                }
+                            }
+
+                            bSetRich = true;
+
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+
+                                Log.d(TAG, "Account Log in  Complete");
+                                GoMainPage();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                        }
+                    });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+
+                Log.d(TAG, "Account Log in  Complete");
+                GoMainPage();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+    public class PrePareNear extends AsyncTask<Integer, Integer, Integer>  {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... voids) {
+
+            Double lStartLon = mMyData.getUserLon() - 10;
+            Double lStartLat = mMyData.getUserLat() - 10;
+
+            Double lEndLon = mMyData.getUserLon() + 10;
+            Double IEndLat = mMyData.getUserLon() + 10;
+
+            DatabaseReference ref;
+            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            Query query=ref
+                    .orderByChild("Lon")
+                    .startAt(lStartLon).endAt(lEndLon).limitToFirst(FIRST_LOAD_MAIN_COUNT);
+            ;
+
+
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0, j=0, k=0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                SimpleUserData stRecvData = new SimpleUserData ();
+                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
+                                if(stRecvData != null) {
+                                    if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
+                                        if (stRecvData.Img == null)
+                                            stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_Near.add(stRecvData);
+
+                                        if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
+                                        }
+
+                                        mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        i++;
+                                    }
+                                }
+                            }
+
+                            bSetNear = true;
+
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+
+                                Log.d(TAG, "Account Log in  Complete");
+                                GoMainPage();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                        }
+                    });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+
+                Log.d(TAG, "Account Log in  Complete");
+                GoMainPage();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+    public class PrePareNew extends AsyncTask<Integer, Integer, Integer>  {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... voids) {
+            long time = CommonFunc.getInstance().GetCurrentTime();
+            SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
+            int nTodayDate =  Integer.parseInt(ctime.format(new Date(time)));
+            int nStartDate = nTodayDate - 7;
+
+            DatabaseReference ref;
+            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            Query query=ref.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate)).limitToFirst(FIRST_LOAD_MAIN_COUNT);;
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0, j=0, k=0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                SimpleUserData stRecvData = new SimpleUserData ();
+                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
+                                if(stRecvData != null) {
+                                    if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
+                                        if (stRecvData.Img == null)
+                                            stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_New.add(stRecvData);
+
+                                        if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
+                                        }
+
+                                        mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
+                                        i++;
+                                    }
+                                }
+                            }
+
+                            bSetNew = true;
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+
+                                Log.d(TAG, "Account Log in  Complete");
+                                GoMainPage();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                        }
+                    });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+
+                Log.d(TAG, "Account Log in  Complete");
+                GoMainPage();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+    public class LoginTask extends AsyncTask<Integer, Integer, Integer>  {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... voids) {
+
+            PermissionListener permissionlistener = new PermissionListener() {
+                @Override
+                public void onPermissionGranted() {
+
+                    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                    startActivityForResult(signInIntent, RC_SIGN_IN);
+                }
+
+                @Override
+                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    int aaa = 0;
+                }
+            };
+
+            new TedPermission(LoginActivity.this)
+                    .setPermissionListener(permissionlistener)
+                    .setRationaleMessage("구글 로그인을 위해 연락처 접근 권한이 필요합니다")
+                    .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                    .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                    .setPermissions(android.Manifest.permission.READ_CONTACTS)
+                    .check();
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
         }
     }
 

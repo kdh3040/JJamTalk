@@ -146,7 +146,7 @@ public class Rank_NearFragment extends Fragment {
                 nSize = recyclerView.getAdapter().getItemCount() - 1;
 
                 if (lastVisibleItemPosition == nSize) {
-                    Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
                     FirebaseData.getInstance().GetNearData(NearAdopter, nSize, false);
                 }
             }

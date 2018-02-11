@@ -278,7 +278,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             }
 
             public void onTextChanged(CharSequence q, int s, int b, int c) {
-                Log.d("TESTING", " LINES = " + txt_msg.getLineCount());
+             //   Log.d("TESTING", " LINES = " + txt_msg.getLineCount());
                 System.out.println("Line Count "+txt_msg.getLineCount());
 
                 L = txt_msg.getLineCount();
@@ -354,11 +354,11 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
 
-                Log.d("!@#$%", chat_message.getMsg() + "    " + position +"     " + chat_message.from);
+               // Log.d("!@#$%", chat_message.getMsg() + "    " + position +"     " + chat_message.from);
 
                 if(chat_message.from.equals(mMyData.getUserNick()))
                 {
-                    Log.d("!@#$%", "11111");
+                  //  Log.d("!@#$%", "11111");
 
                     if (chat_message.Check == 0)
                     {
@@ -492,7 +492,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Log.d("!@#$%", "22222");
+                  //  Log.d("!@#$%", "22222");
 
                     viewHolder.message2.setVisibility(View.GONE);
                     viewHolder.send_Img2.setVisibility(View.GONE);
@@ -1155,11 +1155,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                 UploadImage_Firebase(tempSaveUri);
 
             } else {
-                Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
+               // Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, "Oops! 로딩에 오류가 있습니다.", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "Oops! 로딩에 오류가 있습니다.", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 

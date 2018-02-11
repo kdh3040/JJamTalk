@@ -30,9 +30,9 @@ public class UIData {
     private String ItemsReference[] = {"페레가모 구두", "구찌 드레스", "헤르메스 가방", "롤렉스 시계", "다이아몬드", "페라리", "럭셔리 요트", "전용기"};
     private int jewels[] = {R.drawable.heel_hng,R.drawable.dress_hng,R.drawable.bag_hng,R.drawable.watch_hng,R.drawable.ring_hng,R.drawable.heart,R.drawable.boat_hng,R.drawable.jet_hng};
     private int grades[] = {R.drawable.rank_bronze,R.drawable.rank_silver,R.drawable.rank_gold,R.drawable.rank_diamond,R.drawable.rank_vip,R.drawable.rank_vvip};
-    private int sellJewelValue[] = {5,5,5,5,7,7,10,20};
+    private int sellJewelValue[] = {4,4,4,4,4,4,4,4};
     private int genderIcon[] = {R.drawable.rank_bronze, R.drawable.rank_silver};
-    private int ad_Reward[] = {10,20,30,40,50,60};
+    private int ad_Reward[] = {10,15,20,25,30,35};
 
     private LinearLayout.LayoutParams llp_ListItem;
     public boolean bSellItemStatus = false;

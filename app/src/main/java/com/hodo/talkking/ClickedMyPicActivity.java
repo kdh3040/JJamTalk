@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -54,7 +55,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
     UIData mUIData = UIData.getInstance();
     Activity mActivity;
 
-
+    private ImageView bg_fan;
     private SwipeRefreshLayout refreshlayout;
 
     @Override
@@ -79,10 +80,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         txtProfile.setText(mMyData.getUserNick() + ",  " + mMyData.getUserAge()+"세");
 
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
-        if(mMyData.getUserMemo()== null || mMyData.getUserMemo().equals(""))
-            txtMemo.setText("안녕하세요  "+mMyData.getUserNick()+"입니다");
-        else
-            txtMemo.setText(mMyData.getUserMemo());
+        txtMemo.setText(mMyData.getUserMemo());
 
         btnShare = (ImageButton)findViewById(R.id.UserPage_btnShared);
         btnShare.setVisibility(View.GONE);
@@ -161,7 +159,20 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         });
 
         imgFan=findViewById(R.id.ic_fan);
-        imgFan.setVisibility(View.GONE);
+        imgFan.setVisibility(View.VISIBLE);
+        bg_fan= findViewById(R.id.bg_fan);
+        bg_fan.setVisibility(View.VISIBLE);
+
+        if(mMyData.arrMyFanList.size() != 0) {
+            //tv_like = findViewById(R.id.tv_like);
+            //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
+            listView_like = (RecyclerView) findViewById(R.id.lv_like);
+            TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), mMyData.arrMyFanList);
+            listView_like.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            listView_like.setAdapter(likeAdapter);
+
+
+        }
         //LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
         //ImageView divide_Fan = (ImageView)findViewById(R.id.divide_fan);
         //divide_Fan.setVisibility(View.GONE);

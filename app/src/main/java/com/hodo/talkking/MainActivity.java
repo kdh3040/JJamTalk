@@ -705,7 +705,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
         /*ib_pcr_open = (ImageButton)findViewById(R.id.ib_pcr_open);
         ib_pcr_open.setOnClickListener(new View.OnClickListener() {
             @Override
