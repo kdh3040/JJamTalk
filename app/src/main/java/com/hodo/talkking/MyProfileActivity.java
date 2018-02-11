@@ -233,13 +233,15 @@ public class MyProfileActivity extends AppCompatActivity {
             }
         });
 
-        dialog.tv_camera.setOnClickListener(new View.OnClickListener() {
+        /*dialog.tv_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 카메라로 찍기
 
             }
         });
+        });*/
+
         dialog.tv_album.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
