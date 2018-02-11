@@ -57,6 +57,7 @@ import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.hodo.talkking.Data.BoardData;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Firebase.FirebaseData;
@@ -555,6 +556,9 @@ public class InputProfile extends AppCompatActivity {
             public void onClick(View view) {
                 String strNickName = mNickName.getText().toString();
                 String strImg = mMyData.getUserImg();
+
+                if(CommonFunc.getInstance().CheckTextMaxLength(mNickName.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, getApplicationContext() ,"닉네임", true) == false)
+                    return;
 
                 if ("".equals(strNickName)) {
                     Toast.makeText(InputProfile.this, "이름을 입력 해주세요", Toast.LENGTH_SHORT).show();

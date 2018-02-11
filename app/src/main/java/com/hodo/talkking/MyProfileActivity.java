@@ -33,9 +33,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Firebase.FirebaseData;
+import com.hodo.talkking.Util.CommonFunc;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -458,6 +460,10 @@ public class MyProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_save){
+            if(CommonFunc.getInstance().CheckTextMaxLength(et_NickName.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, MyProfileActivity.this ,"닉네임", true) == false)
+                return false;
+            if(CommonFunc.getInstance().CheckTextMaxLength(et_Memo.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_MEMO, MyProfileActivity.this ,"하고 싶은 말", false) == false)
+                return false;
             //프로필 저장 구현
             Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
 
@@ -525,6 +531,12 @@ public class MyProfileActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        if(CommonFunc.getInstance().CheckTextMaxLength(et_NickName.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_NICKNAME,MyProfileActivity.this,"닉네임", true) == false)
+            return;
+        if(CommonFunc.getInstance().CheckTextMaxLength(et_Memo.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_MEMO, MyProfileActivity.this ,"하고 싶은 말", false) == false)
+            return;
+
         super.onBackPressed();
         Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
 

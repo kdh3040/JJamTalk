@@ -32,10 +32,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.ChatData;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Firebase.FirebaseData;
+import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.LocationFunc;
 import com.hodo.talkking.Util.NotiFunc;
 
@@ -475,6 +477,10 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
 
+                                    if(CommonFunc.getInstance().CheckTextMaxLength(SendMsg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_SEND_HONEY, getApplicationContext() ,"하트 날리기", true) == false)
+                                        return;
+
+
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                         Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
 
@@ -677,6 +683,9 @@ public class UserPageActivity extends AppCompatActivity {
                                     btn_send.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
+                                            if(CommonFunc.getInstance().CheckTextMaxLength(et_msg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this ,"쪽지 쓰기", true) == false)
+                                                return;
+
                                             String strMemo = et_msg.getText().toString();
                                             if(strMemo == null || strMemo.equals(""))
                                             {

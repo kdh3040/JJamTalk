@@ -65,8 +65,7 @@ public class CommonFunc {
         return _Instance;
     }
 
-    private CommonFunc()
-    {
+    private CommonFunc() {
 
     }
 
@@ -79,8 +78,8 @@ public class CommonFunc {
     public ImageView Card_Alarm, Chat_Alarm, Mail_Alarm, Fan_Alarm;
     public ImageView Item_Box, Honey_Box, Board_Write;
     public Button MyBoard_Write;
-    public void refreshMainActivity(Activity mActivity, int StartFragMent)
-    {
+
+    public void refreshMainActivity(Activity mActivity, int StartFragMent) {
         Intent intent = new Intent(mActivity, MainActivity.class);
         intent.putExtra("StartFragment", StartFragMent);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -89,8 +88,7 @@ public class CommonFunc {
         //mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
     }
 
-    public void MoveUserPage(Activity mActivity, UserData tempUserData)
-    {
+    public void MoveUserPage(Activity mActivity, UserData tempUserData) {
 
 /*        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
             tempUserData.arrStarList.add(entry.getValue());
@@ -126,8 +124,7 @@ public class CommonFunc {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int saa = 0;
                 UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                if(tempUserData != null)
-                {
+                if (tempUserData != null) {
                     MoveUserPage(mActivity, tempUserData);
                     //moveCardPage(position);
                 }
@@ -148,7 +145,7 @@ public class CommonFunc {
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                if(mInterstitialAd.isLoaded()) {
+                if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
             }
@@ -163,26 +160,23 @@ public class CommonFunc {
         mInterstitialAd.loadAd(adRequest);
     }
 
-    public interface ShowDefaultPopup_YesListener{
+    public interface ShowDefaultPopup_YesListener {
         void YesListener();
     }
 
-    public void ShowDefaultPopup(Context context, String title, String centerDesc)
-    {
+    public void ShowDefaultPopup(Context context, String title, String centerDesc) {
         ShowDefaultPopup(context, null, title, centerDesc, null, null, false);
     }
 
-    public void ShowDefaultPopup(Context context, final ShowDefaultPopup_YesListener listenerYes, String title, String centerDesc, String yesDesc, String noDesc)
-    {
+    public void ShowDefaultPopup(Context context, final ShowDefaultPopup_YesListener listenerYes, String title, String centerDesc, String yesDesc, String noDesc) {
         ShowDefaultPopup(context, listenerYes, title, centerDesc, yesDesc, noDesc, true);
     }
 
-    public void ShowDefaultPopup(Context context, final ShowDefaultPopup_YesListener listenerYes, String title, String centerDesc, String yesDesc, String noDesc, Boolean btnView)
-    {
+    public void ShowDefaultPopup(Context context, final ShowDefaultPopup_YesListener listenerYes, String title, String centerDesc, String yesDesc, String noDesc, Boolean btnView) {
         TextView Title, CenterDesc;
         Button YesButton, NoButton;
 
-        View v = LayoutInflater.from(context).inflate(R.layout.dialog_exit_app,null,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.dialog_exit_app, null, false);
 
         Title = (TextView) v.findViewById(R.id.title);
         CenterDesc = (TextView) v.findViewById(R.id.msg);
@@ -197,8 +191,7 @@ public class CommonFunc {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
 
-        if(btnView)
-        {
+        if (btnView) {
             YesButton.setVisibility(View.VISIBLE);
             NoButton.setVisibility(View.VISIBLE);
             YesButton.setText(yesDesc);
@@ -207,7 +200,7 @@ public class CommonFunc {
             YesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(listenerYes != null)
+                    if (listenerYes != null)
                         listenerYes.YesListener();
                     dialog.dismiss();
                 }
@@ -218,9 +211,7 @@ public class CommonFunc {
                     dialog.dismiss();
                 }
             });
-        }
-        else
-        {
+        } else {
             YesButton.setVisibility(View.GONE);
             NoButton.setVisibility(View.GONE);
 
@@ -230,8 +221,7 @@ public class CommonFunc {
     }
 
 
-    public void ShowGiftPopup(Context context, final SimpleChatData SendList)
-    {
+    public void ShowGiftPopup(Context context, final SimpleChatData SendList) {
         TextView from, tv_count, msg;
         ImageView profile, heart;
         Button confirm, block, report;
@@ -239,7 +229,7 @@ public class CommonFunc {
         Activity mActivity = mMyData.mActivity;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-        View v = LayoutInflater.from(mActivity).inflate(R.layout.alert_mail,null,false);
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.alert_mail, null, false);
         builder.setView(v);
         final AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -286,16 +276,13 @@ public class CommonFunc {
                 String RoomName2 = SendList.Idx + "_" + mMyData.getUserIdx();
                 String RoomName = null;
                 int RoomPos = 0;
-                for(int i =0; i <mMyData.arrChatNameList.size(); i++)
-                {
-                    if(mMyData.arrChatNameList.get(i).contains(RoomName1))
-                    {
+                for (int i = 0; i < mMyData.arrChatNameList.size(); i++) {
+                    if (mMyData.arrChatNameList.get(i).contains(RoomName1)) {
                         RoomName = RoomName1;
                         RoomPos = i;
                         break;
                     }
-                    if(mMyData.arrChatNameList.get(i).contains(RoomName2))
-                    {
+                    if (mMyData.arrChatNameList.get(i).contains(RoomName2)) {
                         RoomName = RoomName2;
                         RoomPos = i;
                         break;
@@ -303,10 +290,10 @@ public class CommonFunc {
                 }
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference table;
-                table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                table = database.getReference("User/" + mMyData.getUserIdx() + "/SendList/").child(RoomName);
                 table.removeValue();
 
-                table = database.getReference("User/" + SendList.Idx+ "/SendList/").child(RoomName);
+                table = database.getReference("User/" + SendList.Idx + "/SendList/").child(RoomName);
                 table.removeValue();
 
                 mMyData.makeBlockList(SendList);
@@ -325,16 +312,13 @@ public class CommonFunc {
                 String RoomName2 = SendList.Idx + "_" + mMyData.getUserIdx();
                 String RoomName = null;
                 int RoomPos = 0;
-                for(int i =0; i <mMyData.arrChatNameList.size(); i++)
-                {
-                    if(mMyData.arrChatNameList.get(i).contains(RoomName1))
-                    {
+                for (int i = 0; i < mMyData.arrChatNameList.size(); i++) {
+                    if (mMyData.arrChatNameList.get(i).contains(RoomName1)) {
                         RoomName = RoomName1;
                         RoomPos = i;
                         break;
                     }
-                    if(mMyData.arrChatNameList.get(i).contains(RoomName2))
-                    {
+                    if (mMyData.arrChatNameList.get(i).contains(RoomName2)) {
                         RoomName = RoomName2;
                         RoomPos = i;
                         break;
@@ -342,10 +326,10 @@ public class CommonFunc {
                 }
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference table;
-                table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                table = database.getReference("User/" + mMyData.getUserIdx() + "/SendList/").child(RoomName);
                 table.removeValue();
 
-                table = database.getReference("User/" + SendList.Idx+ "/SendList/").child(RoomName);
+                table = database.getReference("User/" + SendList.Idx + "/SendList/").child(RoomName);
                 table.removeValue();
 
                 mMyData.makeBlockList(SendList);
@@ -367,15 +351,14 @@ public class CommonFunc {
         });
     }
 
-    public void ShowMsgPopup(Context context, final SimpleChatData SendList)
-    {
+    public void ShowMsgPopup(Context context, final SimpleChatData SendList) {
         Activity mActivity = mMyData.mActivity;
         TextView from, tv_count, msg;
         ImageView profile, heart;
         Button confirm, block, report;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-        View v = LayoutInflater.from(mActivity).inflate(R.layout.alert_msg,null,false);
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.alert_msg, null, false);
         builder.setView(v);
         final AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -416,16 +399,13 @@ public class CommonFunc {
                 String RoomName2 = SendList.Idx + "_" + mMyData.getUserIdx();
                 String RoomName = null;
                 int RoomPos = 0;
-                for(int i =0; i <mMyData.arrChatNameList.size(); i++)
-                {
-                    if(mMyData.arrChatNameList.get(i).contains(RoomName1))
-                    {
+                for (int i = 0; i < mMyData.arrChatNameList.size(); i++) {
+                    if (mMyData.arrChatNameList.get(i).contains(RoomName1)) {
                         RoomName = RoomName1;
                         RoomPos = i;
                         break;
                     }
-                    if(mMyData.arrChatNameList.get(i).contains(RoomName2))
-                    {
+                    if (mMyData.arrChatNameList.get(i).contains(RoomName2)) {
                         RoomName = RoomName2;
                         RoomPos = i;
                         break;
@@ -433,10 +413,10 @@ public class CommonFunc {
                 }
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference table;
-                table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                table = database.getReference("User/" + mMyData.getUserIdx() + "/SendList/").child(RoomName);
                 table.removeValue();
 
-                table = database.getReference("User/" + SendList.Idx+ "/SendList/").child(RoomName);
+                table = database.getReference("User/" + SendList.Idx + "/SendList/").child(RoomName);
                 table.removeValue();
 
                 mMyData.makeBlockList(SendList);
@@ -456,16 +436,13 @@ public class CommonFunc {
                 String RoomName2 = SendList.Idx + "_" + mMyData.getUserIdx();
                 String RoomName = null;
                 int RoomPos = 0;
-                for(int i =0; i <mMyData.arrChatNameList.size(); i++)
-                {
-                    if(mMyData.arrChatNameList.get(i).contains(RoomName1))
-                    {
+                for (int i = 0; i < mMyData.arrChatNameList.size(); i++) {
+                    if (mMyData.arrChatNameList.get(i).contains(RoomName1)) {
                         RoomName = RoomName1;
                         RoomPos = i;
                         break;
                     }
-                    if(mMyData.arrChatNameList.get(i).contains(RoomName2))
-                    {
+                    if (mMyData.arrChatNameList.get(i).contains(RoomName2)) {
                         RoomName = RoomName2;
                         RoomPos = i;
                         break;
@@ -473,10 +450,10 @@ public class CommonFunc {
                 }
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference table;
-                table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                table = database.getReference("User/" + mMyData.getUserIdx() + "/SendList/").child(RoomName);
                 table.removeValue();
 
-                table = database.getReference("User/" + SendList.Idx+ "/SendList/").child(RoomName);
+                table = database.getReference("User/" + SendList.Idx + "/SendList/").child(RoomName);
                 table.removeValue();
 
                 mMyData.makeBlockList(SendList);
@@ -498,25 +475,20 @@ public class CommonFunc {
         });
     }
 
-    public Date GetStringToDate(String date, String format)
-    {
+    public Date GetStringToDate(String date, String format) {
         SimpleDateFormat tt = new SimpleDateFormat(format);
 
-        try
-        {
-            return  tt.parse(date);
-        }
-        catch(Exception ex)
-        {
+        try {
+            return tt.parse(date);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
         return null;
     }
 
-    public boolean IsTodayDate(Date date_1, Date date_2)
-    {
-        if(date_1.getYear() == date_2.getYear() &&
+    public boolean IsTodayDate(Date date_1, Date date_2) {
+        if (date_1.getYear() == date_2.getYear() &&
                 date_1.getMonth() == date_2.getMonth() &&
                 date_1.getDay() == date_2.getDay())
             return true;
@@ -524,36 +496,30 @@ public class CommonFunc {
         return false;
     }
 
-    public long GetCurrentTime()
-    {
+    public long GetCurrentTime() {
         // 우리나라는 UTC + 9:00 이기 때문에 더해줘야 한다.
         return System.currentTimeMillis();
     }
 
-    public Date GetCurrentDate()
-    {
+    public Date GetCurrentDate() {
         return new Date(GetCurrentTime());
     }
 
     // 현재 시간이 지정한 시간보다 지났나?
-    public boolean IsCurrentDateCompare(Date pastDate, int offsetMin)
-    {
-        if(pastDate.equals(new Date(0)))
+    public boolean IsCurrentDateCompare(Date pastDate, int offsetMin) {
+        if (pastDate.equals(new Date(0)))
             return true;
 
         Date currentDate = new Date(GetCurrentTime());
-        if(offsetMin <= 0)
-        {
-            if(currentDate.compareTo(pastDate) > 0)
+        if (offsetMin <= 0) {
+            if (currentDate.compareTo(pastDate) > 0)
                 return true;
             else
                 return false;
-        }
-        else
-        {
+        } else {
             Date compareDate = new Date(pastDate.getTime() + offsetMin * CoomonValueData.MIN_MILLI_SECONDS);
 
-            if(currentDate.compareTo(compareDate) > 0)
+            if (currentDate.compareTo(compareDate) > 0)
                 return true;
             else
                 return false;
@@ -561,20 +527,16 @@ public class CommonFunc {
 
     }
 
-    public void PlayVibration(Context context)
-    {
-        if(mMyData.nAlarmSetting_Vibration)
-        {
-            final Vibrator vibrator = (Vibrator)context.getSystemService(context.VIBRATOR_SERVICE);
+    public void PlayVibration(Context context) {
+        if (mMyData.nAlarmSetting_Vibration) {
+            final Vibrator vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
             vibrator.vibrate(500);
         }
     }
 
-    public void PlayAlramSound(Context context, int resId)
-    {
-        if(mMyData.nAlarmSetting_Sound)
-        {
-            if(mSoundPool == null)
+    public void PlayAlramSound(Context context, int resId) {
+        if (mMyData.nAlarmSetting_Sound) {
+            if (mSoundPool == null)
                 mSoundPool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
 
             mPlaySoundIndex = mSoundPool.load(context, resId, 1);
@@ -587,60 +549,56 @@ public class CommonFunc {
         }
     }
 
-    public void SetCardAlarmVisible(boolean enable)
-    {
-        if(Card_Alarm != null)
+    public void SetCardAlarmVisible(boolean enable) {
+        if (Card_Alarm != null)
             Card_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
-    public void SetChatAlarmVisible(boolean enable)
-    {
-        if(Chat_Alarm != null)
+
+    public void SetChatAlarmVisible(boolean enable) {
+        if (Chat_Alarm != null)
             Chat_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
-    public void SetFanAlarmVisible(boolean enable)
-    {
-        if(Fan_Alarm != null)
+
+    public void SetFanAlarmVisible(boolean enable) {
+        if (Fan_Alarm != null)
             Fan_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
-    public void SetMailAlarmVisible(boolean enable)
-    {
-        if(Mail_Alarm != null)
+
+    public void SetMailAlarmVisible(boolean enable) {
+        if (Mail_Alarm != null)
             Mail_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
 
-    public void SetMainActivityTopRightBtn(boolean boardMode)
-    {
-        if(Item_Box != null)
+    public void SetMainActivityTopRightBtn(boolean boardMode) {
+        if (Item_Box != null)
             Item_Box.setVisibility(boardMode ? View.GONE : View.VISIBLE);
-        if(Honey_Box != null)
+        if (Honey_Box != null)
             Honey_Box.setVisibility(boardMode ? View.GONE : View.VISIBLE);
-        if(Board_Write != null)
+        if (Board_Write != null)
             Board_Write.setVisibility(boardMode ? View.VISIBLE : View.GONE);
-        if(MyBoard_Write != null)
+        if (MyBoard_Write != null)
             MyBoard_Write.setVisibility(boardMode ? View.VISIBLE : View.GONE);
     }
-
-
-
 
 
     public int Select_OpenedItem() {
         int rtValue = 0;
         int nGrade = 0;
-        nGrade = (int) (Math.random()*2000)+1;
+        nGrade = (int) (Math.random() * 2000) + 1;
 
-        if(604 <= nGrade) rtValue = 1;
+        if (604 <= nGrade) rtValue = 1;
 
-        else if(160 <= nGrade && nGrade <= 603)  rtValue = 2;
-        else if(80 <= nGrade && nGrade <= 160)  rtValue = 3;
-        else if(58 <= nGrade && nGrade <= 80)  rtValue = 4;
-        else if(28 <= nGrade && nGrade <= 58)  rtValue = 5;
-        else if(15 <= nGrade && nGrade <= 27) rtValue = 6;
-        else if(2 <= nGrade && nGrade <= 14) rtValue = 7;
-        else if(1 == nGrade) rtValue = 8;
+        else if (160 <= nGrade && nGrade <= 603) rtValue = 2;
+        else if (80 <= nGrade && nGrade <= 160) rtValue = 3;
+        else if (58 <= nGrade && nGrade <= 80) rtValue = 4;
+        else if (28 <= nGrade && nGrade <= 58) rtValue = 5;
+        else if (15 <= nGrade && nGrade <= 27) rtValue = 6;
+        else if (2 <= nGrade && nGrade <= 14) rtValue = 7;
+        else if (1 == nGrade) rtValue = 8;
 
         return rtValue;
     }
+
     public void View_OpenedItem(Context context, View v, int result, ImageView img_Opened, TextView text_Opened) {
         URL url = null;
         Bitmap bitmap = null;
@@ -732,41 +690,39 @@ public class CommonFunc {
                 .into(img_Opened);
     }
 
-    public interface ShowBoxOpen_End{
+    public interface ShowBoxOpen_End {
         void EndListener();
     }
 
-    public void ShowBoxOpen(final Context context, final int count, final int bonus, final ShowBoxOpen_End endListener, final ShowBoxOpen_End buyGoldListener)
-    {
-        View v = LayoutInflater.from(context).inflate(R.layout.dialog_exit_app,null,false);
+    public void ShowBoxOpen(final Context context, final int count, final int bonus, final ShowBoxOpen_End endListener, final ShowBoxOpen_End buyGoldListener) {
+        View v = LayoutInflater.from(context).inflate(R.layout.dialog_exit_app, null, false);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final AlertDialog dialog = builder.setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
 
         TextView tv_title = v.findViewById(R.id.title);
-        if(bonus > 0)
-            tv_title.setText("상자 "+count+"개 + 보너스 "+bonus+"개 열기");
+        if (bonus > 0)
+            tv_title.setText("상자 " + count + "개 + 보너스 " + bonus + "개 열기");
         else
-            tv_title.setText("상자 "+count+"개를 열까요?");
+            tv_title.setText("상자 " + count + "개를 열까요?");
 
         TextView tv_msg = v.findViewById(R.id.msg);
 
 
-        if(mMyData.getUserHoney() > CoomonValueData.OPEN_BOX_COST  * count){
+        if (mMyData.getUserHoney() > CoomonValueData.OPEN_BOX_COST * count) {
             tv_msg.setText(CoomonValueData.OPEN_BOX_COST + "골드가 필요합니다");
             Button btn_yes = v.findViewById(R.id.btn_yes);
             btn_yes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     dialog.cancel();
-                    if(mMyData.getUserHoney() > (CoomonValueData.OPEN_BOX_COST * count)){
+                    if (mMyData.getUserHoney() > (CoomonValueData.OPEN_BOX_COST * count)) {
                         mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
-                        for(int i = 0 ; i< count + bonus; i++)
-                        {
+                        for (int i = 0; i < count + bonus; i++) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                             View v = LayoutInflater.from(context).inflate(R.layout.dialog_jewelbox_opened, null);
-                            ImageView Img_Opened = (ImageView)v.findViewById(R.id.opened_img);
+                            ImageView Img_Opened = (ImageView) v.findViewById(R.id.opened_img);
                             TextView Text_Opened = (TextView) v.findViewById(R.id.opened_text);
                             //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
 
@@ -790,7 +746,7 @@ public class CommonFunc {
                         }
 
                         endListener.EndListener();
-                    }else {
+                    } else {
                         Toast.makeText(context, "골드가 부족합니다", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -809,9 +765,7 @@ public class CommonFunc {
             });
 
             btn_no.setText("아니오");
-        }
-        else
-        {
+        } else {
             int nGold = (CoomonValueData.OPEN_BOX_COST * count) - mMyData.getUserHoney();
             tv_msg.setText(nGold + "골드가 부족합니다");
             Button btn_yes = v.findViewById(R.id.btn_yes);
@@ -835,5 +789,22 @@ public class CommonFunc {
             });
             btn_no.setText("닫기");
         }
+    }
+
+    public boolean CheckTextMaxLength(String text, int maxLength, Context context, String Title, boolean emptyCheck)
+    {
+        if(text.length() <= maxLength)
+            return true;
+
+        if(text.length() > 0)
+            ShowDefaultPopup(context, Title, maxLength+"자 이하로 작성 하셔야 합니다.");
+        else
+        {
+            if(emptyCheck)
+                ShowDefaultPopup(context, Title, "빈 공간 없이 작성해 주세요.");
+        }
+
+
+        return false;
     }
 }
