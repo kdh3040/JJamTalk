@@ -77,6 +77,7 @@ import static com.hodo.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.GENDER_MAN;
 import static com.hodo.talkking.Data.CoomonValueData.GENDER_WOMAN;
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.hodo.talkking.MyProfileActivity.calculateInSampleSize;
 
 public class InputProfile extends AppCompatActivity {
 
@@ -647,11 +648,6 @@ public class InputProfile extends AppCompatActivity {
 
                 mMyData.setUserImg(uri.toString());
 
-
-
-
-
-
                 Glide.with(getApplicationContext())
                         .load(mMyData.getUserImg())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -659,17 +655,8 @@ public class InputProfile extends AppCompatActivity {
                         .into(mProfileImage);
 
 
-
-
-
-
-
-
-
-
+                UploadThumbNailImage_Firebase(uri);
                 UploadImage_Firebase(uri);
-
-
 
             } else {
                 Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
@@ -682,6 +669,46 @@ public class InputProfile extends AppCompatActivity {
 
     }
 
+    private void UploadThumbNailImage_Firebase(Uri file) {
+
+        StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  "ThumbNail" );//file.getLastPathSegment());
+
+        Bitmap bitmap = null;
+
+        String[] filePath = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
+        cursor.moveToFirst();
+        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+        options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
+
+        bitmap = BitmapFactory.decodeFile(imagePath, options);
+        bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
+        cursor.close();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //bitmap.createScaledBitmap(bitmap, 50, 50, true);
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = riversRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                TrThumbNail(downloadUrl);
+            }
+        });
+    }
 
     private void UploadImage_Firebase(Uri file) {
 
@@ -695,15 +722,18 @@ public class InputProfile extends AppCompatActivity {
         String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+        options.inSampleSize = calculateInSampleSize(options, 100, 100 , false);
+
         bitmap = BitmapFactory.decodeFile(imagePath, options);
         bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
         cursor.close();
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.createScaledBitmap(bitmap, 350, 350, true);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 5, baos);
-        byte[] data = baos.toByteArray();
+        //bitmap.createScaledBitmap(bitmap, 50, 50, true);
 
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = riversRef.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -711,35 +741,31 @@ public class InputProfile extends AppCompatActivity {
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
             }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                    System.out.println("Upload is " + progress + "% done");
-                    int currentprogress = (int) progress;
-                    progressBar.setProgress(currentprogress);
-            }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                progressBar.setVisibility(View.INVISIBLE);
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 Tr(downloadUrl);
             }
         });
     }
 
-    public void Tr(Uri uri)
+    public void TrThumbNail(Uri uri)
     {
         mMyData.setUserImg(uri.toString());
-        mMyData.setUserProfileImg(0, uri.toString());
         mMyData.setUserImgCnt(1);
-
+        mFireBaseData.SaveData(mMyData.getUserIdx());
         Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
     }
 
+    public void Tr(Uri uri)
+    {
+        mMyData.setUserProfileImg( mMyData.nSaveUri, uri.toString());
+        mMyData.setUserImgCnt(1);
+        mFireBaseData.SaveData(mMyData.getUserIdx());
+        Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
+    }
     private void GoMainPage() {
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
