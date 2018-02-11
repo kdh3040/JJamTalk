@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.hodo.talkking.Util.CommonFunc;
+
 import github.chenupt.springindicator.SpringIndicator;
 
 import static com.hodo.talkking.R.id.vp;
@@ -71,7 +73,7 @@ public class HomeFragment extends Fragment {
             });
         }
 
-
+        CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
         return fragView;
     }
 
