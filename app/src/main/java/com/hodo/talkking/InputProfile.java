@@ -701,7 +701,7 @@ public class InputProfile extends AppCompatActivity {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.createScaledBitmap(bitmap, 350, 350, true);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 5, baos);
         byte[] data = baos.toByteArray();
 
 

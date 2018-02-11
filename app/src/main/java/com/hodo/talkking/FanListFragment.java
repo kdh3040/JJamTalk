@@ -27,6 +27,7 @@ import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.Util.CommonFunc;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -121,7 +122,7 @@ public class FanListFragment extends Fragment {
             fanListAdapter.notifyDataSetChanged();
             mContext = getContext();
         }
-
+        CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
     }
