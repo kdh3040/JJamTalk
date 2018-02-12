@@ -1,6 +1,7 @@
 package com.hodo.talkking.Firebase;
 
 import android.app.Activity;
+import android.provider.Contacts;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -63,6 +64,69 @@ public class FirebaseData {
     private FirebaseData()
     {
 
+    }
+
+    public String  CreateUserIdx(final String Uid)
+    {
+        final long[] tempVal = {0};
+        final String[] rtStr = new String[1];
+
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        DatabaseReference data = fierBaseDataInstance.getReference("UserCount");
+        data.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Long index = mutableData.getValue(Long.class);
+                if(index == null)
+                    return Transaction.success(mutableData);
+
+                index++;
+
+                mutableData.setValue(index);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                // TODO 환웅 성공 했을때 오는 함수 인듯
+                // TODO 환웅 콜백 함수가 있나?
+                tempVal[0] = dataSnapshot.getValue(long.class);
+                rtStr[0] = Long.toString(tempVal[0]);
+
+                mMyData.setUserIdx(rtStr[0]);
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference table = database.getReference("UserIdx");
+                final DatabaseReference user = table.child(Uid);
+                user.setValue(rtStr[0]);
+
+
+            }
+        });
+
+        return rtStr[0];
+    }
+
+    public String  GetUserIdx(final String Uid)
+    {
+        final long[] tempVal = {0};
+        final String[] rtStr = new String[1];
+
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(Uid);
+
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                rtStr[0] = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return rtStr[0];
     }
 
     public void SaveData(String userIdx) {

@@ -44,6 +44,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,13 +52,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -117,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     //private BoardData mBoardData = BoardData.getInstance();
 
     //String strMyIdx = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
-    String strMyIdx; // = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
+    //String strMyIdx; // = mAwsFunc.GetUserIdx(Auth.getCurrentUser().getEmail());
     //String strMyIdx;
     DatabaseReference ref;
 
@@ -152,10 +156,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+
+
+
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mActivity = this;
+
 
 
 
@@ -173,7 +188,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         //mLoginFormView = findViewById(R.id.login_form);
         progressBar = findViewById(R.id.login_progress);
-        mTextView_SignUp = (TextView) findViewById(R.id.Login_SignUp);
+
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -185,30 +200,101 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null)
+        {
 
-        PermissionListener permissionlistener = new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
+            final long[] tempVal = {0};
+            final String[] rtStr = new String[1];
 
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(signInIntent, RC_SIGN_IN);
+            FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+            Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(currentUser.getUid());
+
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    rtStr[0] = dataSnapshot.getValue(String.class);
+
+                    mMyData.setUserIdx(rtStr[0]);
+                    InitData_Mine();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else
+        {
+
+
+            PermissionListener permissionlistener = new PermissionListener() {
+                @Override
+                public void onPermissionGranted() {
+                    go();
+                }
+
+                @Override
+                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    int aaa = 0;
+                }
+            };
+
+
+            new TedPermission(LoginActivity.this)
+                    .setPermissionListener(permissionlistener)
+                    .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                    .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA)
+                    .check();
+
+
+
+
+
+    /*
+           */
+
+
+        }
+
+
+
+
+/*
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+*/
+
+
+       /* OptionalPendingResult<GoogleSignInResult> pendingResult = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+        if(pendingResult != null)
+        {
+            if(pendingResult.isDone())
+            {
+                GoogleSignInResult signInResult = pendingResult.get();
+                onSilentLoginFinished(signInResult);
             }
+        }
+*/
 
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                int aaa = 0;
-            }
-        };
+/*
+        LoginTask login = new LoginTask();
+        login.execute(0,0,0);
+*/
 
-        new TedPermission(LoginActivity.this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleMessage("구글 로그인을 위해 연락처 접근 권한이 필요합니다")
-                .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
-                .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                .setPermissions(android.Manifest.permission.READ_CONTACTS)
-                .check();
+        // Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+
+        /*Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);*/
 
 
+
+
+
+
+
+/*
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         //populateAutoComplete();
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -216,10 +302,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mTextView_NeedHelp = (TextView) findViewById(R.id.Login_NeedHelp);
         mGoogleSignInButton = (SignInButton) findViewById(R.id.Login_Google);
+        mTextView_SignUp = (TextView) findViewById(R.id.Login_SignUp);
 
-
-        /*LoginTask login = new LoginTask();
-        login.execute(0,0,0);*/
+        *//*LoginTask login = new LoginTask();
+        login.execute(0,0,0);*//*
 
 
        if(mAuth.getCurrentUser() != null){
@@ -261,10 +347,67 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             });
 
-        }
+        }*/
 
     }
 
+    private void go()
+    {
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInAnonymously:success");
+
+                            final FirebaseUser user = mAuth.getCurrentUser();
+
+
+                            FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                            DatabaseReference data = fierBaseDataInstance.getReference("UserCount");
+                            data.runTransaction(new Transaction.Handler() {
+                                @Override
+                                public Transaction.Result doTransaction(MutableData mutableData) {
+                                    Long index = mutableData.getValue(Long.class);
+                                    if (index == null)
+                                        return Transaction.success(mutableData);
+
+                                    index++;
+
+                                    mutableData.setValue(index);
+                                    return Transaction.success(mutableData);
+                                }
+
+                                @Override
+                                public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                                    final long[] tempVal = {0};
+                                    final String[] rtStr = new String[1];
+
+                                    tempVal[0] = dataSnapshot.getValue(long.class);
+                                    rtStr[0] = Long.toString(tempVal[0]);
+
+
+                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                    DatabaseReference table = database.getReference("UserIdx");
+                                    final DatabaseReference UserIdx = table.child(user.getUid());
+                                    UserIdx.setValue(rtStr[0]);
+
+                                    mMyData.setUserIdx(rtStr[0]);
+                                    GoProfilePage();
+                                }
+                            });
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInAnonymously:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+    }
 
     @Override
     protected void onDestroy() {
@@ -276,14 +419,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onResume() {
         super.onResume();
 
-        Log.d("nUserSet !!!", "nUserSet : " + nUserSet);
+/*        Log.d("nUserSet !!!", "nUserSet : " + nUserSet);
         if (mLocalFunc.checkLocationPermission(getApplicationContext(), this)) {
             if (ContextCompat.checkSelfPermission(this,
                     android.Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 getLocation();
             }
-        }
+        }*/
     }
 
     public void getLocation() {
@@ -368,9 +511,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 GoogleSignInAccount acct = result.getSignInAccount();
 
-                strMyIdx = mAwsFunc.GetUserIdx(acct.getEmail());
+                mMyData.setUserIdx(mAwsFunc.GetUserIdx(acct.getEmail()));
 
-                if(strMyIdx == null || strMyIdx.equals("") ){
+                if(mMyData.getUserIdx() == null || mMyData.getUserIdx().equals("") ){
 
                     Log.d(TAG, "표시되는 전체 이름 =" + acct.getDisplayName());
                     Log.d(TAG, "표시되는 이름=" + acct.getGivenName());
@@ -411,8 +554,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                           // Log.w(TAG, "signInWithCredential", task.getException());
-                           // Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
+                            // Log.w(TAG, "signInWithCredential", task.getException());
+                            // Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
                         }
                         // ...
                     }
@@ -447,7 +590,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-        strMyIdx = mAwsFunc.GetUserIdx(email);
+        mMyData.setUserIdx(mAwsFunc.GetUserIdx(email));
 
 
 
@@ -485,8 +628,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             //strMyIdx = "81";
 
 
-  //          InitData_Near();
- //           InitData_New();
+            //          InitData_Near();
+            //           InitData_New();
 //            InitData_Hot();
 
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
@@ -509,7 +652,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void InitData_Mine() {
 
-        ref = FirebaseDatabase.getInstance().getReference().child("User").child(strMyIdx);
+        ref = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx());
         //ref.addValueEventListener(
         ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -601,7 +744,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             PrePareNew initNew = new PrePareNew();
                             initNew.execute(0,0,0);
 
-                                bInit = true;
+                            bInit = true;
                         }
                     }
 
@@ -612,7 +755,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 });
     }
-    
+
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
@@ -1069,29 +1212,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Integer doInBackground(Integer... voids) {
-
-            PermissionListener permissionlistener = new PermissionListener() {
-                @Override
-                public void onPermissionGranted() {
-
-                    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                    startActivityForResult(signInIntent, RC_SIGN_IN);
-                }
-
-                @Override
-                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                    int aaa = 0;
-                }
-            };
-
-            new TedPermission(LoginActivity.this)
-                    .setPermissionListener(permissionlistener)
-                    .setRationaleMessage("구글 로그인을 위해 연락처 접근 권한이 필요합니다")
-                    .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
-                    .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                    .setPermissions(android.Manifest.permission.READ_CONTACTS)
-                    .check();
-
 
             return null;
         }
