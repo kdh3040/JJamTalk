@@ -711,7 +711,7 @@ public class CommonFunc {
 
 
         if (mMyData.getUserHoney() > CoomonValueData.OPEN_BOX_COST * count) {
-            tv_msg.setText(CoomonValueData.OPEN_BOX_COST + "골드가 필요합니다");
+            tv_msg.setText((CoomonValueData.OPEN_BOX_COST * count) + "골드가 필요합니다");
             Button btn_yes = v.findViewById(R.id.btn_yes);
             btn_yes.setOnClickListener(new View.OnClickListener() {
                 @Override

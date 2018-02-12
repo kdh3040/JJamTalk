@@ -247,8 +247,8 @@ public class BoardFragment extends Fragment {
 
                 }
             });
-            CommonFunc.getInstance().SetMainActivityTopRightBtn(true);
         }
+        CommonFunc.getInstance().SetMainActivityTopRightBtn(true);
         return mFragmentView;
     }
 
