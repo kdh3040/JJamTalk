@@ -129,6 +129,22 @@ public class FirebaseData {
         return rtStr[0];
     }
 
+
+    public void   DelUser(final String Uid, final  String Idx)
+    {
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        DatabaseReference data = fierBaseDataInstance.getReference("UserIdx").child(Uid);
+        data.removeValue();
+
+        data = fierBaseDataInstance.getReference("User").child(Idx);
+        data.removeValue();
+
+
+        data = fierBaseDataInstance.getReference("UserIdx_History");
+        final DatabaseReference user = data.child(Uid);
+        user.setValue(Idx);
+    }
+
     public void SaveData(String userIdx) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
