@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
     TextView txt_title;
     ImageView ib_fan;
     //ImageButton ib_pcr_open;
-    ImageView ib_filter;
     ImageButton ib_buy_jewel;
     ImageView ib_home;
     ImageView iv_refresh;
@@ -337,104 +336,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        CommonFunc.getInstance().Filter = findViewById(R.id.ib_filter);
+        CommonFunc.getInstance().Filter.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.boardBgColor), PorterDuff.Mode.MULTIPLY);
 
-        final Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-
-        mUIData.setHeight(height);
-        mUIData.setWidth(width);
-        mUIData.setLlp_ListItem(new LinearLayout.LayoutParams(width,height/7));
-
-        //int mHeight = mUIData.getHeight();
-        int mWidth = mUIData.getWidth();
-        int mHeight = mUIData.getHeight();
-
-
-        mMyData.skuList.add("gold_10");
-        mMyData.skuList.add("gold_20");
-        mMyData.skuList.add("gold_50");
-        mMyData.skuList.add("gold_100");
-        mMyData.skuList.add("gold_200");
-        mMyData.skuList.add("gold_300");
-        mMyData.skuList.add("gold_500");
-        mMyData.skuList.add("gold_1000");
-
-        mMyData.querySkus.putStringArrayList("ITEM_ID_LIST", mMyData.skuList);
-
-        mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
-        mMyData.mRewardedVideoAd.loadAd("ca-app-pub-8954582850495744/9112330627",
-                new AdRequest.Builder().build());
-
-        Prepare prepareJob = new Prepare();
-
-        prepareJob.execute();
-
-        boolean bCheckConnt = mMyData.CheckConnectDate();
-        if(bCheckConnt == true)
-        {
-            String alertTitle = "종료";
-            View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
-
-            final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-            dialog.show();
-
-            final TextView txt_Title;
-            txt_Title = (TextView)v.findViewById(R.id.title);
-            txt_Title.setText("출석 체크 보상");
-            final TextView txt_Body;
-            txt_Body = (TextView)v.findViewById(R.id.msg);
-            txt_Body.setText("매일 "+mUIData.getAdReward()[mMyData.getGrade()]+"골드 추가");
-
-            final Button btn_exit;
-            final Button btn_no;
-
-            btn_exit = (Button) v.findViewById(R.id.btn_yes);
-            btn_exit.setText("확인");
-            btn_exit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-
-            btn_no = (Button) v.findViewById(R.id.btn_no);
-            btn_no.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-            btn_no.setVisibility(View.GONE);
-            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss (DialogInterface var1){
-                    mMyData.setUserHoney(mMyData.getUserHoney()+mUIData.getAdReward()[mMyData.getGrade()]);
-                    mMyData.setPoint(mUIData.getAdReward()[mMyData.getGrade()]);
-                }
-
-            });
-
-            bCheckConnt = false;
-        }
-
-
-
-
-        ib_filter = findViewById(R.id.ib_filter);
-        ib_filter.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.boardBgColor), PorterDuff.Mode.MULTIPLY);
-
-        ib_filter.setOnClickListener(new View.OnClickListener() {
+        CommonFunc.getInstance().Filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
 
-              //  startActivity(new Intent(getApplicationContext(),MainSettingActivity.class));
-              //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+                //  startActivity(new Intent(getApplicationContext(),MainSettingActivity.class));
+                //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                 View v = LayoutInflater.from(mActivity).inflate(R.layout.category_popup,null,false);
@@ -445,9 +357,9 @@ public class MainActivity extends AppCompatActivity {
                 filter_dialog.show();
 
 
-                 final RadioButton rbtn_two;
-                 final RadioButton rbtn_three;
-                 final RadioButton rbtn_four;
+                final RadioButton rbtn_two;
+                final RadioButton rbtn_three;
+                final RadioButton rbtn_four;
 
                 final CheckBox cbox_man;
                 final CheckBox cbox_woman;
@@ -456,13 +368,13 @@ public class MainActivity extends AppCompatActivity {
 
                 spin_StartAge = (Spinner) v.findViewById(R.id.spinner1);
                 spin_StartAge.setSelection(mMyData.nStartAge - 17);
-               // spin_StartAge.setPrompt(String.valueOf(mMyData.nStartAge));
+                // spin_StartAge.setPrompt(String.valueOf(mMyData.nStartAge));
                 spin_StartAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int position, long id) {
                         mMyData.nStartAge = position + 17;
-                 }
+                    }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -471,7 +383,7 @@ public class MainActivity extends AppCompatActivity {
 
                 spin_EndAge = (Spinner) v.findViewById(R.id.spinner2);
                 spin_EndAge.setSelection(mMyData.nEndAge - 17);
-               // spin_EndAge.setPrompt(String.valueOf(mMyData.nEndAge));
+                // spin_EndAge.setPrompt(String.valueOf(mMyData.nEndAge));
                 spin_EndAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
@@ -704,6 +616,88 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        final Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+        mUIData.setHeight(height);
+        mUIData.setWidth(width);
+        mUIData.setLlp_ListItem(new LinearLayout.LayoutParams(width,height/7));
+
+        //int mHeight = mUIData.getHeight();
+        int mWidth = mUIData.getWidth();
+        int mHeight = mUIData.getHeight();
+
+
+        mMyData.skuList.add("gold_10");
+        mMyData.skuList.add("gold_20");
+        mMyData.skuList.add("gold_50");
+        mMyData.skuList.add("gold_100");
+        mMyData.skuList.add("gold_200");
+        mMyData.skuList.add("gold_300");
+        mMyData.skuList.add("gold_500");
+        mMyData.skuList.add("gold_1000");
+
+        mMyData.querySkus.putStringArrayList("ITEM_ID_LIST", mMyData.skuList);
+
+        mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
+        mMyData.mRewardedVideoAd.loadAd("ca-app-pub-8954582850495744/9112330627",
+                new AdRequest.Builder().build());
+
+        Prepare prepareJob = new Prepare();
+
+        prepareJob.execute();
+
+        boolean bCheckConnt = mMyData.CheckConnectDate();
+        if(bCheckConnt == true)
+        {
+            String alertTitle = "종료";
+            View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+
+            final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.show();
+
+            final TextView txt_Title;
+            txt_Title = (TextView)v.findViewById(R.id.title);
+            txt_Title.setText("출석 체크 보상");
+            final TextView txt_Body;
+            txt_Body = (TextView)v.findViewById(R.id.msg);
+            txt_Body.setText("매일 "+mUIData.getAdReward()[mMyData.getGrade()]+"골드 추가");
+
+            final Button btn_exit;
+            final Button btn_no;
+
+            btn_exit = (Button) v.findViewById(R.id.btn_yes);
+            btn_exit.setText("확인");
+            btn_exit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            btn_no = (Button) v.findViewById(R.id.btn_no);
+            btn_no.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+            btn_no.setVisibility(View.GONE);
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss (DialogInterface var1){
+                    mMyData.setUserHoney(mMyData.getUserHoney()+mUIData.getAdReward()[mMyData.getGrade()]);
+                    mMyData.setPoint(mUIData.getAdReward()[mMyData.getGrade()]);
+                }
+
+            });
+
+            bCheckConnt = false;
+        }
 
        // Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
         /*ib_pcr_open = (ImageButton)findViewById(R.id.ib_pcr_open);
@@ -799,7 +793,6 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
-                ib_filter.setVisibility(View.VISIBLE);
                 iv_myPage.setVisibility(View.VISIBLE);
                 txt_title.setVisibility(TextView.GONE);
 
@@ -840,7 +833,6 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
-                ib_filter.setVisibility(View.INVISIBLE);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("게시판");
@@ -858,7 +850,6 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
-                ib_filter.setVisibility(View.INVISIBLE);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("즐겨찾기");
@@ -886,7 +877,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CommonFunc.getInstance().SetChatAlarmVisible(false);
-                ib_filter.setVisibility(View.INVISIBLE);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("채팅");
@@ -924,7 +914,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CommonFunc.getInstance().SetFanAlarmVisible(false);
-                ib_filter.setVisibility(View.INVISIBLE);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("팬");

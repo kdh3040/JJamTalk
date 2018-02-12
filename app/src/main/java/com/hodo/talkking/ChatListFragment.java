@@ -114,6 +114,7 @@ public class ChatListFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
         }
         CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
+        CommonFunc.getInstance().SetMainActivityTopRightBtnForFilter(false);
         return fragView;
     }
 /*

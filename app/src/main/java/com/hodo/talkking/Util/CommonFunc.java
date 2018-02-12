@@ -76,7 +76,7 @@ public class CommonFunc {
     public String LastBoardWrite;
 
     public ImageView Card_Alarm, Chat_Alarm, Mail_Alarm, Fan_Alarm;
-    public ImageView Item_Box, Honey_Box, Board_Write;
+    public ImageView Item_Box, Honey_Box, Board_Write, Filter;
     public Button MyBoard_Write;
 
     public void refreshMainActivity(Activity mActivity, int StartFragMent) {
@@ -579,6 +579,14 @@ public class CommonFunc {
         if (MyBoard_Write != null)
             MyBoard_Write.setVisibility(boardMode ? View.VISIBLE : View.GONE);
     }
+
+    public void SetMainActivityTopRightBtnForFilter(boolean homeMode) {
+        if (Filter != null)
+            Filter.setVisibility(homeMode ? View.VISIBLE : View.GONE);
+    }
+
+
+
 
 
     public int Select_OpenedItem() {

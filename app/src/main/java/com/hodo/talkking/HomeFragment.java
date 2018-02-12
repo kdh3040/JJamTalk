@@ -74,6 +74,7 @@ public class HomeFragment extends Fragment {
         }
 
         CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
+        CommonFunc.getInstance().SetMainActivityTopRightBtnForFilter(true);
         return fragView;
     }
 

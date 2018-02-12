@@ -123,6 +123,7 @@ public class FanListFragment extends Fragment {
             mContext = getContext();
         }
         CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
+        CommonFunc.getInstance().SetMainActivityTopRightBtnForFilter(false);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
     }
