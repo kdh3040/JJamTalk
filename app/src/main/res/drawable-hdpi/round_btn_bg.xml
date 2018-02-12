@@ -8,12 +8,8 @@
         android:height="50dp"
         android:width="50dp"></size>
 
-    <stroke
-        android:width="2dip"
-        android:color="@color/colorAccentDark" />
-    <gradient
-        android:startColor="@color/colorPrimaryLight"
+    <solid android:color="@color/bambamcolor" />
 
-        android:endColor="@color/colorAccent"
-        android:angle="45"/>
+
+
 </shape>
