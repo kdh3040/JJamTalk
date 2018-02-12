@@ -67,6 +67,7 @@ import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Firebase.FirebaseData;
+import com.hodo.talkking.Util.AwsFunc;
 import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.LocationFunc;
 
@@ -449,7 +450,7 @@ public class InputProfile extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.InputProfile_Progress) ;
 
-        PermissionListener permissionlistener = new PermissionListener() {
+  /*      PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
             }
@@ -463,9 +464,8 @@ public class InputProfile extends AppCompatActivity {
                 .setPermissionListener(permissionlistener)
                 .setRationaleMessage("구글 로그인을 위해 연락처 접근 권한이 필요합니다")
                 .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
-                .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                .setPermissions(android.Manifest.permission.READ_CONTACTS)
-                .check();
+                .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.READ_CONTACTS,  android.Manifest.permission.ACCESS_FINE_LOCATION)
+                .check();*/
 
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -586,13 +586,13 @@ public class InputProfile extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (mLocalFunc.checkLocationPermission(getApplicationContext(), this)) {
+/*        if (mLocalFunc.checkLocationPermission(getApplicationContext(), this)) {
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 getLocation();
             }
-        }
+        }*/
     }
 
     public void getLocation() {
@@ -765,6 +765,7 @@ public class InputProfile extends AppCompatActivity {
     @Override
     public void onBackPressed(){
 
+
         String alertTitle = "종료";
         View v = LayoutInflater.from(this).inflate(R.layout.dialog_exit_app,null,false);
 
@@ -785,7 +786,12 @@ public class InputProfile extends AppCompatActivity {
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+                String  str = AwsFunc.getInstance().DelAccount(mMyData.getUserIdx());
+                if(str.equals("1"))
+                {
+                    int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+                }
+
             }
         });
 

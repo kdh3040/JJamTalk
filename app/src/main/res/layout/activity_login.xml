@@ -12,6 +12,7 @@
     android:focusableInTouchMode="true"
     android:background="@color/goldColor"
     tools:context="com.hodo.talkking.LoginActivity">
+<!--
 
      <ScrollView
         android:id="@+id/login_form"
@@ -102,23 +103,24 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="구글" />
-            </LinearLayout>-->
+            </LinearLayout>&ndash;&gt;
 
 
        </LinearLayout>
     </ScrollView>
+-->
 
 
 
-<!--   <ImageView
+   <ImageView
 
         android:id="@+id/logo"
-        android:layout_width="200dp"
-        android:layout_height="130dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_logo"></ImageView>-->
+        android:src="@drawable/talk"></ImageView>
 
 
     <ProgressBar
