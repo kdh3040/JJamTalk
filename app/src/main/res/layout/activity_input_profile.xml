@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/kakao_default_profile_image" />
+        app:srcCompat="@drawable/picture" />
 
     <ProgressBar
         android:id="@+id/InputProfile_Progress"
