@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/profile" />
+            app:srcCompat="@drawable/picture" />
 
 
         <ImageView
@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/MyProfile_Img3"
-            app:srcCompat="@android:drawable/ic_secure" />
+            app:srcCompat="@drawable/picture" />
 
         <ImageView
             android:id="@+id/MyProfile_Img3"
@@ -43,7 +43,7 @@
             app:layout_constraintEnd_toStartOf="@+id/MyProfile_Img4"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/MyProfile_Img2"
-            app:srcCompat="@android:drawable/ic_secure" />
+            app:srcCompat="@drawable/picture" />
 
         <ImageView
             android:id="@+id/MyProfile_Img1"
@@ -55,7 +55,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/MyProfile_SumImg"
-            app:srcCompat="@mipmap/hdvd" />
+            app:srcCompat="@drawable/picture" />
 
         <ImageView
             android:id="@+id/MyProfile_Img2"
@@ -65,7 +65,7 @@
             app:layout_constraintEnd_toStartOf="@+id/MyProfile_Img3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/MyProfile_Img1"
-            app:srcCompat="@drawable/pic" />
+            app:srcCompat="@drawable/picture" />
 
 
         <TextView
@@ -95,6 +95,37 @@
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="@+id/nickname"
             app:layout_constraintLeft_toRightOf="@+id/nickname"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:text="성별"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/age"
+            app:layout_constraintLeft_toRightOf="@+id/MyProfile_Age_1" />
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="남자"
+            app:layout_constraintBottom_toBottomOf="@+id/gender"
+            app:layout_constraintLeft_toRightOf="@+id/gender" />
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여자"
+            app:layout_constraintBottom_toBottomOf="@+id/gender"
+            app:layout_constraintLeft_toRightOf="@+id/male"
             app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
