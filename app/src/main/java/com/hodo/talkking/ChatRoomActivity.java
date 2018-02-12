@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -664,7 +665,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 builder.setView(popup);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
-                Button btn_gal = popup.findViewById(R.id.btn_gallery);
+                ImageButton btn_gal = popup.findViewById(R.id.btn_gal);
                 btn_gal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -684,7 +685,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     }
                 });*/
 
-                Button btn_gift = popup.findViewById(R.id.btn_gift);
+                ImageButton btn_gift = popup.findViewById(R.id.btn_gift);
                 btn_gift.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

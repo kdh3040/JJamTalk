@@ -98,6 +98,37 @@
             app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:text="성별"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/age"
+            app:layout_constraintLeft_toRightOf="@+id/MyProfile_Age_1" />
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="남자"
+            app:layout_constraintBottom_toBottomOf="@+id/gender"
+            app:layout_constraintLeft_toRightOf="@+id/gender" />
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여자"
+            app:layout_constraintBottom_toBottomOf="@+id/gender"
+            app:layout_constraintLeft_toRightOf="@+id/male"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
             android:id="@+id/age"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
