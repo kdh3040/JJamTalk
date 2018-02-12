@@ -8,6 +8,7 @@ public class ChatData {
     private MyData mMyData = MyData.getInstance();
 
     public String from;
+    public String fromIdx;
     public String to;
     public String msg;
     public String time;
@@ -21,7 +22,8 @@ public class ChatData {
     }
 
 
-    public ChatData(String from_person, String to_person, String message, String nowTime, String image_URL, int check, int heart){
+    public ChatData(String from_Idx, String from_person, String to_person, String message, String nowTime, String image_URL, int check, int heart){
+        fromIdx = from_Idx;
         from= from_person;
         to = to_person;
         msg = message;

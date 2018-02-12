@@ -322,7 +322,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 ChatData chat_message = super.parseSnapshot(snapshot);
                 if(chat_message != null){
                     chat_message.setId(snapshot.getKey());
-                    if(chat_message.getFrom().equals(tempChatData.Nick))
+                    if(chat_message.fromIdx.equals(tempChatData.Idx))
                     {
                         chat_message.Check = 1;
                         mRef.child(chat_message.strId).child("Check").setValue(chat_message.Check);
@@ -357,7 +357,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                // Log.d("!@#$%", chat_message.getMsg() + "    " + position +"     " + chat_message.from);
 
-                if(chat_message.from.equals(mMyData.getUserNick()))
+                if(chat_message.fromIdx.equals(mMyData.getUserIdx()))
                 {
                   //  Log.d("!@#$%", "11111");
 
@@ -849,7 +849,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
                                         String formatStr = sdf.format(date);
 
-                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, strSendMsg, formatStr, "", 0, nSendHoneyCnt[0]);
+                                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, strSendMsg, formatStr, "", 0, nSendHoneyCnt[0]);
 
                                         if(strSendMsg.equals(""))
                                             strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + " 하트를 보냈습니다";
@@ -974,7 +974,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                         //mNotiFunc.SendMsgToFCM(stTargetData);
 
-                        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0, 0);
+                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0, 0);
 
                         mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr, 0);
 
@@ -1218,7 +1218,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
                     String formatStr = sdf.format(date);
 
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
+                    ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
 
                     mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr, 0);
                     mRef.push().setValue(chat_Data);

@@ -507,7 +507,7 @@ public class UserPageActivity extends AppCompatActivity {
                                         String formatStr = sdf.format(date);
 
 
-                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, strSendMsg, formatStr, "", 0, nSendHoneyCnt[0]);
+                                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, strSendMsg, formatStr, "", 0, nSendHoneyCnt[0]);
 
 
                                         final String ChatName = mMyData.getUserIdx()+"_"+stTargetData.Idx;
@@ -700,7 +700,7 @@ public class UserPageActivity extends AppCompatActivity {
                                             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
                                             String formatStr = sdf.format(date);
 
-                                            ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, strMemo, formatStr, "", 0, 0);
+                                            ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, strMemo, formatStr, "", 0, 0);
                                             DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
                                             mRef.push().setValue(chat_Data);
 

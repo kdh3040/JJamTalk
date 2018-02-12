@@ -252,23 +252,13 @@ public class MyProfileActivity extends AppCompatActivity {
                 .into(Img_Sum);
 
 
-        for (int i = 0; i < 4; i++) {
-            if (mMyData.strProfileImg[i].equals("")) {
-                Glide.with(getApplicationContext())
-                        .load(R.drawable.profile)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        //   .bitmapTransform(new RoundedCornersTransformation(getApplicationContext()))
-                        .thumbnail(0.1f)
-                        .into(Img_Profiles[i]);
-
-            } else {
+        for (int i = 0; i < mMyData.getUserImgCnt(); i++) {
                 Glide.with(getApplicationContext())
                         .load(mMyData.strProfileImg[i])
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
-            }
         }
 
     }
@@ -605,10 +595,10 @@ public class MyProfileActivity extends AppCompatActivity {
          /*   if(bChangeImg)
                 UploadImage_Firebase(mMyData.urSaveUri);*/
 
-        mMyData.setProfileData(et_Memo.getText());
+      /* mMyData.setProfileData(et_Memo.getText());
         mFireBaseData.SaveData(mMyData.getUserIdx());
         bChangeImg = false;
-
+*/
         Intent intent = new Intent(this, MyPageActivity.class);
         startActivity(intent);
         finish();
