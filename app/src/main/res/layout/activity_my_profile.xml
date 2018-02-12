@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/profile" />
+            app:srcCompat="@drawable/picture" />
 
 
         <ImageView
@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/MyProfile_Img3"
-            app:srcCompat="@android:drawable/ic_secure" />
+            app:srcCompat="@drawable/picture" />
 
         <ImageView
             android:id="@+id/MyProfile_Img3"
@@ -43,7 +43,7 @@
             app:layout_constraintEnd_toStartOf="@+id/MyProfile_Img4"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/MyProfile_Img2"
-            app:srcCompat="@android:drawable/ic_secure" />
+            app:srcCompat="@drawable/picture" />
 
         <ImageView
             android:id="@+id/MyProfile_Img1"
@@ -55,7 +55,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/MyProfile_SumImg"
-            app:srcCompat="@mipmap/hdvd" />
+            app:srcCompat="@drawable/picture" />
 
         <ImageView
             android:id="@+id/MyProfile_Img2"
@@ -65,7 +65,7 @@
             app:layout_constraintEnd_toStartOf="@+id/MyProfile_Img3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/MyProfile_Img1"
-            app:srcCompat="@drawable/pic" />
+            app:srcCompat="@drawable/picture" />
 
 
         <TextView
