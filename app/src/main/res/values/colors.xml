@@ -24,7 +24,8 @@
 
 <color name = "topColor">#000000</color>
     <color name = "alertop">#ffd700</color>
-
+<color name = "hotpink">#ffc0cb</color>
+    <color name = "lightpink">#ffb6c1</color>
 
         <color name="colorPrimaryDark">#1a237e</color>
         <color name="colorPrimaryLight">#dbffff</color>
