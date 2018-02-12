@@ -357,7 +357,6 @@ public class MainActivity extends AppCompatActivity {
                 filter_dialog.show();
 
 
-                final RadioButton rbtn_two;
                 final RadioButton rbtn_three;
                 final RadioButton rbtn_four;
 
@@ -431,7 +430,6 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-                rbtn_two = (RadioButton) v.findViewById(R.id.rbtn_two);
                 rbtn_three = (RadioButton) v.findViewById(R.id.rbtn_three);
                 rbtn_four = (RadioButton) v.findViewById(R.id.rbtn_four);
 
@@ -468,41 +466,25 @@ public class MainActivity extends AppCompatActivity {
 
                 if(mSetting.getnViewSetting() == 0)
                 {
-                    rbtn_two.setChecked(true);
                     rbtn_three.setChecked(false);
                     rbtn_four.setChecked(false);
                 }
                 else if(mSetting.getnViewSetting() == 1)
                 {
-                    rbtn_two.setChecked(false);
                     rbtn_three.setChecked(true);
                     rbtn_four.setChecked(false);
                 }
                 else if(mSetting.getnViewSetting() == 2)
                 {
-                    rbtn_two.setChecked(false);
                     rbtn_three.setChecked(false);
                     rbtn_four.setChecked(true);
                 }
 
 
-                rbtn_two.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(rbtn_two.isChecked()) {
-                            rbtn_two.setChecked(true);
-                            rbtn_three.setChecked(false);
-                            rbtn_four.setChecked(false);
-                            mSetting.setnViewSetting(0);
-                        }
-                    }
-                });
-
                 rbtn_three.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if(rbtn_three.isChecked()) {
-                            rbtn_two.setChecked(false);
                             rbtn_three.setChecked(true);
                             rbtn_four.setChecked(false);
                             mSetting.setnViewSetting(1);
@@ -516,7 +498,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if(rbtn_four.isChecked())
                         {
-                            rbtn_two.setChecked(false);
                             rbtn_three.setChecked(false);
                             rbtn_four.setChecked(true);
                             mSetting.setnViewSetting(2);
@@ -600,9 +581,7 @@ public class MainActivity extends AppCompatActivity {
                 RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-                        if(rbtn_two.isChecked())
-                            mSetting.setnViewSetting(0);
-                        else if(rbtn_three.isChecked())
+                       if(rbtn_three.isChecked())
                             mSetting.setnViewSetting(1);
                         else if(rbtn_four.isChecked())
                             mSetting.setnViewSetting(2);
