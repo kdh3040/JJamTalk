@@ -793,19 +793,19 @@ public class CommonFunc {
 
     public boolean CheckTextMaxLength(String text, int maxLength, Context context, String Title, boolean emptyCheck)
     {
-        boolean emptyString = false;
-        if(text.equals("") || text.equals("\n") || text.equals("\n\n") || text.equals("\n\n\n") || text.equals("\n\n\n\n") || text.replace(" ", "").equals(""))
-            emptyString = true;
+        String tempStr = text;
+        tempStr = tempStr.replace("\n",""); // 개행 문자 제거
+        tempStr = tempStr.replace(" ",""); // 공란제거
 
-        if(text.length() > maxLength && emptyString == false)
+        if(tempStr.length() > maxLength)
             ShowDefaultPopup(context, Title, maxLength+"자 이하로 작성 하셔야 합니다.");
         else
         {
-            if(emptyCheck && emptyString)
+            if(emptyCheck && tempStr.length() <= 0)
                 ShowDefaultPopup(context, Title, "채팅 내용이 없습니다.");
         }
 
-        if(text.length() <= maxLength)
+        if(tempStr.length() > 0 && tempStr.length() <= maxLength)
             return true;
 
         return false;
