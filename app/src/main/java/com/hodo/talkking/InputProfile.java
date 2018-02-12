@@ -786,11 +786,12 @@ public class InputProfile extends AppCompatActivity {
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String  str = AwsFunc.getInstance().DelAccount(mMyData.getUserIdx());
+                int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+             /*   String  str = AwsFunc.getInstance().DelAccount(mMyData.getUserIdx());
                 if(str.equals("1"))
                 {
                     int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
-                }
+                }*/
 
             }
         });
