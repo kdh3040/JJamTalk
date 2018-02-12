@@ -2031,6 +2031,7 @@ public class MyData {
     public void SetLastAdsTime(long time)
     {
         FirebaseData.getInstance().SaveLastAdsTime(time);
+        LastAdsTime = time;
     }
 }
 
