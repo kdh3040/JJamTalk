@@ -1,21 +1,24 @@
 package com.hodo.talkking;
 
+import android.*;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -50,6 +53,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SettingData;
 import com.hodo.talkking.Data.SimpleChatData;
@@ -63,8 +69,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import java.util.Date;
 
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 
@@ -74,15 +79,13 @@ public class MainActivity extends AppCompatActivity {
     ImageView ib_chatList;
     ImageView ib_board;
     ImageView iv_myPage;
+    TextView txt_title;
     ImageView ib_fan;
-    ImageView itembox;
     //ImageButton ib_pcr_open;
     ImageView ib_filter;
     ImageButton ib_buy_jewel;
     ImageView ib_home;
-    ImageView iv_refresh,iv_honeybox;
-
-    ImageView Card_Alarm, Chat_Alarm, Fan_Alarm, Mail_Alarm;
+    ImageView iv_refresh;
 
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
@@ -167,9 +170,8 @@ public class MainActivity extends AppCompatActivity {
                                 else if (mMyData.sku.equals("gold_50")) mMyData.strGold[2] = mMyData.price;
                                 else if (mMyData.sku.equals("gold_100")) mMyData.strGold[3] = mMyData.price;
                                 else if (mMyData.sku.equals("gold_200")) mMyData.strGold[4] = mMyData.price;
-                                else if (mMyData.sku.equals("gold_300")) mMyData.strGold[5] = mMyData.price;
-                                else if (mMyData.sku.equals("gold_500")) mMyData.strGold[6] = mMyData.price;
-                                else if (mMyData.sku.equals("gold_1000")) mMyData.strGold[7] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_500")) mMyData.strGold[5] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_1000")) mMyData.strGold[6] = mMyData.price;
                             }
                         }
 
@@ -221,7 +223,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+            Intent intent = new Intent(mActivity, MainActivity.class);
+            intent.putExtra("StartFragment", 0);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mActivity.startActivity(intent);
+            mActivity.finish();
+            mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
         }
 
         @Override
@@ -230,6 +237,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+ /*   @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mMyData.mService != null) {
+            unbindService(mMyData.mServiceConn);
+        }
+    }*/
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -242,27 +258,32 @@ public class MainActivity extends AppCompatActivity {
         mFragmentMng = getSupportFragmentManager();
         MobileAds.initialize(getApplicationContext(),"ca-app-pub-8954582850495744~7252454040");
 
-        itembox= findViewById(R.id.iv_itemBox);
-        itembox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
-            }
-        });
+        mMyData.mContext = getApplicationContext();
+        mMyData.mActivity = mActivity;
+
+        if(mMyData.arrReportList.size() >= 10)
+            ViewReportPop();
 
 
         Bundle bundle = getIntent().getExtras();
         nStartFragment = (int) bundle.getSerializable("StartFragment");
 
         iv_myPage = findViewById(R.id.iv_mypage);
+        txt_title = findViewById(R.id.txt_title);
 
+        /*Glide.with(getApplicationContext())
+                .load(R.drawable.mypage)
+                .thumbnail(0.1f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(iv_myPage);
+*/
 
-        Glide.with(getApplicationContext())
+       /* Glide.with(getApplicationContext())
                 .load(mMyData.getUserImg())
                 .thumbnail(0.1f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
-                .into(iv_myPage);
+                .into(iv_myPage);*/
 
         iv_myPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,10 +292,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Card_Alarm = (ImageView)findViewById(R.id.alarm_favor);
-        Chat_Alarm = (ImageView)findViewById(R.id.alarm_chat);
-        Fan_Alarm= (ImageView)findViewById(R.id.alarm_fan);
-        Mail_Alarm= (ImageView)findViewById(R.id.alarm_mail);
+        CommonFunc.getInstance().Card_Alarm = (ImageView)findViewById(R.id.alarm_favor);
+        CommonFunc.getInstance().Chat_Alarm = (ImageView)findViewById(R.id.alarm_chat);
+        CommonFunc.getInstance().Fan_Alarm = (ImageView)findViewById(R.id.alarm_fan);
+        CommonFunc.getInstance().Mail_Alarm = (ImageView)findViewById(R.id.alarm_mail);
+        CommonFunc.getInstance().Item_Box = (ImageView)findViewById(R.id.iv_itemBox);
+        CommonFunc.getInstance().Item_Box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
+            }
+        });
+
+        CommonFunc.getInstance().Honey_Box = (ImageView)findViewById(R.id.iv_honeybox);
+        CommonFunc.getInstance().Honey_Box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommonFunc.getInstance().SetMailAlarmVisible(false);
+                startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
+
+            }
+        });
+
+        CommonFunc.getInstance().Board_Write = (ImageView)findViewById(R.id.iv_boardwrite);
+        CommonFunc.getInstance().Board_Write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastBoardWriteTime()), 15) == false)
+                {
+                    // TODO 환웅
+                    CommonFunc.getInstance().ShowDefaultPopup(MainActivity.this, "게시판 작성", "연속으로 게시판을 작성 할 수 없습니다.");
+                    return;
+                }
+                else
+                    startActivity(new Intent(getApplicationContext(),BoardWriteActivity.class));
+            }
+        });
+        CommonFunc.getInstance().MyBoard_Write = (Button)findViewById(R.id.iv_myboardwrite);
+        CommonFunc.getInstance().MyBoard_Write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),BoardMyListActivity.class));
+
+            }
+        });
+
 
         final Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -360,12 +422,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
+
         ib_filter = findViewById(R.id.ib_filter);
         ib_filter.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.boardBgColor), PorterDuff.Mode.MULTIPLY);
 
         ib_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
 
               //  startActivity(new Intent(getApplicationContext(),MainSettingActivity.class));
               //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
@@ -639,7 +705,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
         /*ib_pcr_open = (ImageButton)findViewById(R.id.ib_pcr_open);
         ib_pcr_open.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -734,6 +800,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ib_filter.setVisibility(View.VISIBLE);
+                iv_myPage.setVisibility(View.VISIBLE);
+                txt_title.setVisibility(TextView.GONE);
+
                 mMyData.SetCurFrag(0);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
@@ -748,17 +817,6 @@ public class MainActivity extends AppCompatActivity {
                 }else{
 
                 }
-
-            }
-        });
-
-        iv_honeybox = (ImageView)findViewById(R.id.iv_honeybox);
-        //iv_honeybox.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.postBox), PorterDuff.Mode.MULTIPLY);
-        iv_honeybox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
-                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
         });
@@ -783,6 +841,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ib_filter.setVisibility(View.INVISIBLE);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("게시판");
                 mMyData.SetCurFrag(4);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
                 view.setSelected(!view.isSelected());
@@ -798,6 +859,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ib_filter.setVisibility(View.INVISIBLE);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("즐겨찾기");
                 mMyData.SetCurFrag(1);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
                 view.setSelected(!view.isSelected());
@@ -821,7 +885,11 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                CommonFunc.getInstance().SetChatAlarmVisible(false);
                 ib_filter.setVisibility(View.INVISIBLE);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("채팅");
                 mMyData.SetCurFrag(2);
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
@@ -855,7 +923,11 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                CommonFunc.getInstance().SetFanAlarmVisible(false);
                 ib_filter.setVisibility(View.INVISIBLE);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("팬");
                 mMyData.SetCurFrag(3);
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,255,100);
@@ -887,7 +959,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("StarList", stTargetData.arrStarList);*/
                 intent.putExtra("ViewMode", 0);
                 intent.putExtras(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment,"FanListFragment").commit();
 
                 //startActivity(intent);
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
@@ -941,20 +1013,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-  /*      if (mMyData.mService != null) {
-            unbindService(mMyData.mServiceConn);
-        }*/
-    }
-
     private void LoadChatData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
-        if(mMyData.arrChatNameList.size() == 0)
+        if(mMyData.arrChatNameList.size() == 0 || mMyData.arrChatNameList.size() == mMyData.arrChatDataList.size())
+        {
             chatListFragment = new ChatListFragment(getApplicationContext());
+            return;
+        }
+
 
         for(int i = 0; i < mMyData.arrChatNameList.size(); i++)
         {
@@ -1049,10 +1116,12 @@ public class MainActivity extends AppCompatActivity {
     private void LoadFanData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
-        if(mMyData.arrMyFanList.size() == 0)
+        if(mMyData.arrMyFanList.size() == 0 || mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
         {
-            if(fanFragment == null)
+            if(fanFragment == null) {
                 fanFragment = new FanListFragment();
+                return;
+            }
         }
 
         for(int i = 0; i < mMyData.arrMyFanList.size(); i++)
@@ -1063,7 +1132,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                    FanData DBData = dataSnapshot.getValue(FanData.class);
                     mMyData.arrMyFanDataList.put(mMyData.arrMyFanList.get(finalI).Idx, DBData);
 
                     if(mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
@@ -1080,6 +1149,41 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
+    public void ViewReportPop()
+    {
+        String alertTitle = "종료";
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+
+        final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        final Button btn_exit;
+        final Button btn_no;
+        final TextView title;
+        final TextView msg;
+
+        title =  (TextView) v.findViewById(R.id.title);
+        title.setText("경고");
+
+        msg =  (TextView) v.findViewById(R.id.msg);
+        msg.setText("10건의 신고가 들어왔습니다");
+
+        btn_exit = (Button) v.findViewById(R.id.btn_yes);
+        btn_exit.setText("확인");
+        btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        btn_no = (Button) v.findViewById(R.id.btn_no);
+        btn_no.setVisibility(View.GONE);
+
+    }
+
 
     @Override
     public void onBackPressed(){

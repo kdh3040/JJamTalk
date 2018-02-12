@@ -1,150 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical"
-        android:paddingBottom="20dp">
+
+<android.support.constraint.ConstraintLayout android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:paddingBottom="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <ImageView
             android:id="@+id/MyProfile_SumImg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_width="174dp"
+            android:layout_height="148dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/profile" />
+
+
+        <ImageView
+            android:id="@+id/MyProfile_Img4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/MyProfile_Img3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/MyProfile_Img3"
+            app:srcCompat="@android:drawable/ic_secure" />
+
+        <ImageView
+            android:id="@+id/MyProfile_Img3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="@+id/MyProfile_Img2"
+            app:layout_constraintEnd_toStartOf="@+id/MyProfile_Img4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/MyProfile_Img2"
+            app:srcCompat="@android:drawable/ic_secure" />
+
+        <ImageView
+            android:id="@+id/MyProfile_Img1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/MyProfile_Img2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/MyProfile_SumImg"
             app:srcCompat="@mipmap/hdvd" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/MyProfile_Img2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="@+id/MyProfile_Img1"
+            app:layout_constraintEnd_toStartOf="@+id/MyProfile_Img3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/MyProfile_Img1"
+            app:srcCompat="@drawable/pic" />
 
-            <ImageView
-                android:id="@+id/MyProfile_Img1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                app:srcCompat="@mipmap/hdvd" />
-
-            <ImageView
-                android:id="@+id/MyProfile_Img2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/ic_secure" />
-
-            <ImageView
-                android:id="@+id/MyProfile_Img3"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/ic_secure" />
-
-            <ImageView
-                android:id="@+id/MyProfile_Img4"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/ic_secure" />
-
-        </LinearLayout>
 
         <TextView
-            android:id="@+id/textView18"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:id="@+id/nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
             android:text="닉네임"
-            android:textColor="@color/bambamcolor"
+            android:textColor="@android:color/holo_purple"
             android:textSize="18sp"
             android:textStyle="bold"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/MyProfile_Img1" />
 
-        <EditText
+        <TextView
             android:id="@+id/MyProfile_NickName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
+            android:maxLength="8"
+            android:text="asdasd"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/nickname"
+            app:layout_constraintLeft_toRightOf="@+id/nickname"
+            app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
-            android:id="@+id/textView24"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
             android:text="나이"
-            android:textColor="@color/bambamcolor"
+            android:textColor="@android:color/holo_purple"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/nickname"
+            app:layout_constraintTop_toBottomOf="@+id/nickname" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/MyProfile_Age_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/MyProfire_Age" />
+        <Spinner
+            android:id="@+id/MyProfile_Age_1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:entries="@array/MyProfire_Age"
+            app:layout_constraintBottom_toBottomOf="@+id/age"
+            app:layout_constraintLeft_toLeftOf="@+id/MyProfile_NickName" />
 
-        </LinearLayout>
 
         <TextView
-            android:id="@+id/textView10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:text="하고 싶은 말"
-            android:textColor="@color/bambamcolor"
+            android:id="@+id/say"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+
+            android:text="하고 싶은 말 (선택)"
+            android:textColor="@android:color/holo_purple"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/nickname"
+            app:layout_constraintTop_toBottomOf="@+id/age" />
 
         <EditText
             android:id="@+id/MyProfile_Memo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginRight="16dp"
+
+            android:layout_marginTop="16dp"
+            android:background="@drawable/et_outline"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:gravity="bottom|left"
+            android:hint="(100자 이내)"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLength="100"
 
-        <TextView
-            android:id="@+id/MyProfile_Insta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:textColor="@color/bambamcolor"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:minLines="1"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
 
-        <Button
-            android:id="@+id/MyProfile_Btn_Insta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="내 instagram 사진 연결하기"
-            android:textColor="@color/bambamcolor"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            app:layout_constraintLeft_toLeftOf="@+id/nickname"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/say" />
 
-    </LinearLayout>
-</ScrollView>
+    </android.support.constraint.ConstraintLayout>

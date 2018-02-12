@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UIData;
+import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.ViewHolder.MyJewelViewHolder;
 
 /**
@@ -26,7 +27,6 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
     Context mContext;
     UIData mUIdata = UIData.getInstance();
     MyData mMyData = MyData.getInstance();
-
     Activity mActivity;
 
     public MyPageMyJewelAdapter(Context context,Activity activity) {
@@ -48,8 +48,17 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final int nSellIdx = mMyData.itemIdx.get(position);
+               // final int nSellIdx =  mMyData.itemIdx.indexOf(position);
+
+                //final int nSellIdx = mMyData.itemIdx.get(position);
+                final int nSellIdx =  position;
                 final int[] nSellCount = {mMyData.itemList.get(nSellIdx)};
+                if(nSellCount[0] == 0)
+                {
+                    MyJewelBoxActivity myBoxActivity = (MyJewelBoxActivity)mActivity;
+                    myBoxActivity.ShowOpenBox(1, 0);
+                    return;
+                }
                 final int nSellGold = mUIdata.getSellJewelValue()[nSellIdx];
                 final String strSellItem = mUIdata.getItems()[nSellIdx];
                 final String strSellItemRef = mUIdata.getItemsReference()[nSellIdx];
@@ -66,7 +75,7 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                     tv_title.setText("골드로 교환할까요?");
                     TextView tv_msg = v.findViewById(R.id.msg);
 
-                    tv_msg.setText(nSellGold + "골드로 교환할 수 있습니다.");
+                    tv_msg.setText(strSellItem + "를" + "\n" + nSellGold + "골드로 교환할 수 있습니다.");
                     Button btn_yes = v.findViewById(R.id.btn_yes);
                     btn_yes.setText("네");
                     btn_yes.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +86,7 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                             mMyData.itemList.put(nSellIdx, --nSellCount[0]);
                             mMyData.SaveMyItem(nSellIdx, nSellCount[0]);
                             if(nSellCount[0] == 0) {
-                                mMyData.itemList.remove(nSellIdx);
+                                mMyData.itemList.put(nSellIdx, 0);
                                 mMyData.nItemCount--;
                             }
 
@@ -87,7 +96,7 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             mActivity.startActivity(intent);
                             mActivity.finish();
-                            mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+                            //mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
                             }
                         });
@@ -113,10 +122,18 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
             }
         });
 
-        int index = mMyData.itemIdx.get(position);
-        holder.iv.setImageResource(mUIdata.getJewels()[index]);
-        int count = mMyData.itemList.get(index);
-        holder.tv.setText("x" + Integer.toString(count));
+
+        if(mMyData.itemList.get(position) != 0)
+        {
+            holder.iv.setImageResource(mUIdata.getJewels()[position]);
+            holder.tv.setText("x" + mMyData.itemList.get(position));
+        }
+        else
+        {
+            holder.iv.setImageResource(R.drawable.ic_fan);
+            holder.tv.setText("뽑아보세요");
+        }
+
 
         holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/1,mUIdata.getHeight()/10));
 
@@ -124,6 +141,7 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
 
     @Override
     public int getItemCount() {
-        return mMyData.nItemCount;
+        //return mMyData.nItemCount;
+        return 8;
     }
 }

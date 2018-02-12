@@ -1,183 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
+
     android:layout_height="wrap_content"
 
-    android:background="@drawable/dialog_bg"
-    android:orientation="vertical"
 
+    tools:layout_editor_absoluteY="81dp">
 
-    >
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_width="0dp"
+        android:layout_height="430dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dialog_bg" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="match_parent"
+        android:id="@+id/title"
+        android:layout_width="0dp"
 
-        android:layout_height="70dp"
+        android:layout_height="50dp"
 
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="3dp"
         android:background="@drawable/rounded_top_dialog"
         android:gravity="center"
         android:text="하트 날리기"
         android:textColor="@color/black"
-        android:textSize="30dp" />
-    <View
-        android:id="@+id/Divide_Btn"
-        style="@style/AlertDivider"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        />
-    <LinearLayout
 
+    <ImageView
+        android:id="@+id/imageView35"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:srcCompat="@android:color/black" />
+
+    <Button
+        android:id="@+id/HeartPop_10"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/pink_btn_bg"
+        android:drawablePadding="5dp"
+
+        android:text="10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/HeartPop_30"
+        app:layout_constraintTop_toBottomOf="@+id/imageView35" />
+
+    <Button
+        android:id="@+id/HeartPop_30"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/pink_btn_bg"
+        android:text="30"
+        app:layout_constraintBottom_toBottomOf="@+id/HeartPop_10"
+        app:layout_constraintLeft_toRightOf="@+id/HeartPop_10"
+        app:layout_constraintRight_toLeftOf="@id/HeartPop_50" />
+
+    <Button
+        android:id="@+id/HeartPop_50"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/pink_btn_bg"
+        android:text="50"
+        app:layout_constraintBottom_toBottomOf="@+id/HeartPop_10"
+        app:layout_constraintLeft_toRightOf="@+id/HeartPop_30"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+    <Button
+        android:id="@+id/HeartPop_100"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+
+        android:layout_marginTop="8dp"
+        android:background="@drawable/pink2_btn_bg"
+        android:text="100"
+        app:layout_constraintLeft_toLeftOf="@+id/HeartPop_10"
+        app:layout_constraintRight_toRightOf="@+id/HeartPop_10"
+        app:layout_constraintTop_toBottomOf="@+id/HeartPop_10" />
+
+    <Button
+        android:id="@+id/HeartPop_300"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+
+        android:background="@drawable/pink2_btn_bg"
+        android:text="300"
+        app:layout_constraintBottom_toBottomOf="@+id/HeartPop_100"
+        app:layout_constraintLeft_toLeftOf="@+id/HeartPop_30"
+        app:layout_constraintRight_toRightOf="@+id/HeartPop_30" />
+
+    <Button
+        android:id="@+id/HeartPop_500"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+
+        android:background="@drawable/pink_btn_bg"
+        android:text="500"
+        app:layout_constraintBottom_toBottomOf="@+id/HeartPop_100"
+        app:layout_constraintLeft_toLeftOf="@+id/HeartPop_50"
+        app:layout_constraintRight_toRightOf="@+id/HeartPop_50" />
+
+
+    <EditText
+        android:id="@+id/HeartPop_Msg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
 
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="20dp">
+        android:layout_margin="32dp"
+        android:background="@drawable/et_outline"
+        android:gravity="bottom|left"
+        android:hint="동봉할 메세지(50자 이내)"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="50"
+        android:minLines="3"
+        android:padding="10dp"
+        android:textColor="@android:color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HeartPop_100" />
 
-        <Button
-            android:id="@+id/HeartPop_100"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_enabled"
-            android:drawableLeft="@drawable/heart_icon"
-            android:text="10" />
-
-        <Button
-            android:id="@+id/HeartPop_200"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_enabled"
-            android:drawableLeft="@drawable/heart_icon"
-            android:text="30" />
-
-        <Button
-            android:id="@+id/HeartPop_300"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_enabled"
-            android:drawableLeft="@drawable/heart_icon"
-            android:text="50" />
-    </LinearLayout>
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="20dp">
-
-        <Button
-            android:id="@+id/HeartPop_500"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_enabled"
-            android:drawableLeft="@drawable/heart_icon"
-            android:text="100" />
-
-        <Button
-            android:id="@+id/HeartPop_1000"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_enabled"
-            android:drawableLeft="@drawable/heart_icon"
-            android:text="500" />
-
-        <Button
-            android:id="@+id/HeartPop_5000"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_enabled"
-            android:drawableLeft="@drawable/heart_icon"
-            android:text="1000" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-
-        <EditText
-            android:id="@+id/HeartPop_Msg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_margin="10dp"
-            android:background="@drawable/et_outline"
-            android:hint="동봉할 메세지(30자 이내)"
-            android:inputType="textPersonName"
-            android:maxLength="30"
-            android:minLines="3"
-            android:textColor="@color/textColorDark" />
-    </LinearLayout>
 
     <TextView
 
 
         android:id="@+id/HeartPop_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
 
 
+        android:layout_marginEnd="5dp"
+
+        android:layout_marginStart="5dp"
         android:background="@color/white"
-
         android:gravity="center"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:textColor="@color/textColorDark" />
+        android:textColor="@color/textColorDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HeartPop_Msg" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/rounded_bottom_white"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_gift_send"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/base_btn_bg"
-            android:text="날린다"
-            android:textSize="15dp" />
+    <Button
+        android:id="@+id/btn_gift_send"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/base_btn_bg"
+        android:text="날린다"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn_gift_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/HeartPop_text" />
 
-        <Button
-            android:id="@+id/btn_gift_cancel"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/base_btn_bg"
-            android:text="취소"
-            android:textSize="15dp" />
+    <Button
+        android:id="@+id/btn_gift_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/base_btn_bg"
+        android:text="취소"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_gift_send"
+        app:layout_constraintLeft_toRightOf="@+id/btn_gift_send"
+        app:layout_constraintRight_toLeftOf="@id/HeartPop_Charge" />
 
-        <Button
-            android:id="@+id/HeartPop_Charge"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/base_btn_bg"
-            android:text="골드 충전"
-            android:textSize="15dp" />
+    <Button
+        android:id="@+id/HeartPop_Charge"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/base_btn_bg"
+        android:text="골드 충전"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_gift_send"
+        app:layout_constraintLeft_toRightOf="@+id/btn_gift_cancel"
+        app:layout_constraintRight_toRightOf="parent" />
 
-    </LinearLayout>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

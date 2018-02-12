@@ -27,6 +27,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.PublicRoomChatData;
 import com.hodo.talkking.Data.UIData;
@@ -99,9 +100,9 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
         public PublicHostChatViewHolder(View itemView) {
             super(itemView);
             image_profile = (ImageView)itemView.findViewById(R.id.ChatRoom_Img);
-            image_sent = (ImageView)itemView.findViewById(R.id.iv_sent);
+            image_sent = (ImageView)itemView.findViewById(R.id.img2);
             //sender = (TextView)itemView.findViewById(R.id.ChatRoom_nickname);
-            message =(TextView)itemView.findViewById(R.id.message);
+            message =(TextView)itemView.findViewById(R.id.message1);
             time = (TextView)itemView.findViewById(R.id.time);
         }
     }
@@ -181,7 +182,7 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
                         mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
                 // If the recycler view is initially being loaded or the
                 // user is at the bottom of the list, scroll to the bottom
-                // of the list to show the newly added message.
+                // of the list to show the newly added message1.
                 if (lastVisiblePosition == -1 ||
                         (positionStart >= (friendlyMessageCount - 1) &&
                                 lastVisiblePosition == (positionStart - 1))) {
@@ -230,6 +231,8 @@ public class PublicChatRoomHostActivity extends AppCompatActivity{
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(CommonFunc.getInstance().CheckTextMaxLength(txt_msg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_CHAT, mActivity ,"채팅", true) == false)
+                    return;
                 String message = txt_msg.getText().toString();
                 long nowTime = CommonFunc.getInstance().GetCurrentTime();
                 if(txt_msg.getText() == null){

@@ -7,20 +7,29 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -28,10 +37,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,7 +60,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.hodo.talkking.Data.BoardData;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Firebase.FirebaseData;
@@ -56,13 +71,20 @@ import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.LocationFunc;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+import static com.hodo.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.GENDER_MAN;
 import static com.hodo.talkking.Data.CoomonValueData.GENDER_WOMAN;
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.hodo.talkking.MyProfileActivity.calculateInSampleSize;
 
 public class InputProfile extends AppCompatActivity {
 
@@ -84,7 +106,6 @@ public class InputProfile extends AppCompatActivity {
 
     private Button CheckBtn;
 
-    private ProgressBar progressBar;
     private FusedLocationProviderClient mFusedLocationClient;
 
     LocationManager locationManager;
@@ -96,57 +117,21 @@ public class InputProfile extends AppCompatActivity {
     private int nUserSet = 0;
     private static String TAG = "InputActivity Log!!";
 
-    private View mProgressView;
-    private View mLoginFormView;
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
-
+    ProgressBar progressBar;
 
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
+            progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query=ref.orderByChild("Point");//키가 id와 같은걸 쿼리로 가져옴
+            ref = FirebaseDatabase.getInstance().getReference().child("HotMember");
+            Query query=ref.orderByChild("Point").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴;//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -158,29 +143,35 @@ public class InputProfile extends AppCompatActivity {
                                 cTempData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(cTempData != null) {
 
-                                    if(cTempData.Img == null)
-                                        cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                                    mMyData.arrUserAll_Recv.add(cTempData);
-
-                                    if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                    if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
-                                        mMyData.arrUserWoman_Recv.add(cTempData);
-                                    }
-                                    else {
-                                        mMyData.arrUserMan_Recv.add(cTempData);
-                                    }
+                                        if(cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                    mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserAll_Recv.add(cTempData);
+
+                                        if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                        {
+                                            mMyData.arrUserWoman_Recv.add(cTempData);
+                                        }
+                                        else {
+                                            mMyData.arrUserMan_Recv.add(cTempData);
+                                        }
+
+                                        mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        i++;
+                                    }
                                 }
-                                i++;
                             }
 
                             bSetRecv = true;
-
-
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
+                             //   Log.d(TAG, "Account Log in  Complete");
+                                GoMainPage();
+                                finish();
+                            }
 
                         }
 
@@ -195,9 +186,9 @@ public class InputProfile extends AppCompatActivity {
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
+             //   Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
+                finish();
             }
         }
 
@@ -211,13 +202,14 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
         protected Integer doInBackground(Integer... voids) {
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query= ref.orderByChild("FanCount");//.limitToFirst(3);//키가 id와 같은걸 쿼리로 가져옴
+            Query query= ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -227,33 +219,31 @@ public class InputProfile extends AppCompatActivity {
                                 SimpleUserData cTempData = new SimpleUserData();
                                 cTempData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(cTempData != null) {
+                                    if (!cTempData.Idx.equals(mMyData.getUserIdx()))  {
+                                        if (cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                    if(cTempData.Img == null)
-                                        cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                                        mMyData.arrUserAll_Send.add(cTempData);
+                                        if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
+                                        }
 
-                                    mMyData.arrUserAll_Send.add(cTempData);
-                                    if(mMyData.arrUserAll_Send.get(i).Gender.equals("여자"))
-                                    {
-                                        mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
+                                        mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
+                                        i++;
                                     }
-                                    else {
-                                        mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
-                                    }
-
-                                    mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge );
-
                                 }
-                                i++;
                             }
 
                             bSetRich = true;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                                showProgress(false);
-                                Log.d(TAG, "Account Log in  Complete");
+                             //   Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
+                                finish();
                             }
                         }
 
@@ -270,9 +260,9 @@ public class InputProfile extends AppCompatActivity {
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
+              //  Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
+
             }
         }
 
@@ -286,7 +276,9 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
         }
+
 
         @Override
         protected Integer doInBackground(Integer... voids) {
@@ -301,7 +293,7 @@ public class InputProfile extends AppCompatActivity {
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
             Query query=ref
                     .orderByChild("Lon")
-                    .startAt(lStartLon).endAt(lEndLon)
+                    .startAt(lStartLon).endAt(lEndLon).limitToFirst(FIRST_LOAD_MAIN_COUNT);
                     ;
 
 
@@ -314,34 +306,33 @@ public class InputProfile extends AppCompatActivity {
                                 SimpleUserData stRecvData = new SimpleUserData ();
                                 stRecvData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(stRecvData != null) {
+                                    if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
+                                        if (stRecvData.Img == null)
+                                            stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                    if(stRecvData.Img == null)
-                                        stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                                        mMyData.arrUserAll_Near.add(stRecvData);
 
-                                    mMyData.arrUserAll_Near.add(stRecvData);
+                                        if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
+                                        }
 
-                                    if(mMyData.arrUserAll_Near.get(i).Gender.equals("여자"))
-                                    {
-                                        mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                        mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        i++;
                                     }
-                                    else {
-                                        mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
-                                    }
-
-                                    mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near,mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near,mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near,mMyData.nStartAge, mMyData.nEndAge );
 
                                 }
-                                i++;
                             }
 
                             bSetNear = true;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                                showProgress(false);
-                                Log.d(TAG, "Account Log in  Complete");
+                             //   Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
+                                finish();
                             }
                         }
 
@@ -358,8 +349,7 @@ public class InputProfile extends AppCompatActivity {
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
+              //  Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
             }
         }
@@ -374,7 +364,9 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
         }
+
 
         @Override
         protected Integer doInBackground(Integer... voids) {
@@ -385,7 +377,7 @@ public class InputProfile extends AppCompatActivity {
 
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query=ref.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate));
+            Query query=ref.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate)).limitToFirst(FIRST_LOAD_MAIN_COUNT);
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -395,33 +387,34 @@ public class InputProfile extends AppCompatActivity {
                                 SimpleUserData stRecvData = new SimpleUserData ();
                                 stRecvData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(stRecvData != null) {
+                                    if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
+                                        if (stRecvData.Img == null)
+                                            stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                    if(stRecvData.Img == null)
-                                        stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                                        mMyData.arrUserAll_New.add(stRecvData);
 
-                                    mMyData.arrUserAll_New.add(stRecvData);
+                                        if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
+                                        }
 
-                                    if(mMyData.arrUserAll_New.get(i).Gender.equals("여자"))
-                                    {
-                                        mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
+                                        mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
+
+
+                                        i++;
                                     }
-                                    else {
-                                        mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
-                                    }
-
-                                    mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New,mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New,mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New,mMyData.nStartAge, mMyData.nEndAge );
-
                                 }
-                                i++;
                             }
 
                             bSetNew = true;
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                                showProgress(false);
-                                Log.d(TAG, "Account Log in  Complete");
+
+                               // Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
+                                finish();
                             }
                         }
 
@@ -438,8 +431,7 @@ public class InputProfile extends AppCompatActivity {
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                showProgress(false);
-                Log.d(TAG, "Account Log in  Complete");
+               // Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
             }
         }
@@ -455,10 +447,26 @@ public class InputProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_profile);
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.InputProfile_Progress);
+        progressBar = (ProgressBar) findViewById(R.id.InputProfile_Progress) ;
 
-        progressBar = (ProgressBar)findViewById(R.id.InputProfile_Progress);
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            }
+        };
+
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage("구글 로그인을 위해 연락처 접근 권한이 필요합니다")
+                .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                .setPermissions(android.Manifest.permission.READ_CONTACTS)
+                .check();
+
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -467,9 +475,8 @@ public class InputProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(InputProfile.this, "이미지 등록", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent, "Select"), 1);
+                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery,1000);
 
             }
         });
@@ -520,6 +527,9 @@ public class InputProfile extends AppCompatActivity {
                 String strNickName = mNickName.getText().toString();
                 String strImg = mMyData.getUserImg();
 
+                if(CommonFunc.getInstance().CheckTextMaxLength(mNickName.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, getApplicationContext() ,"닉네임", true) == false)
+                    return;
+
                 if ("".equals(strNickName)) {
                     Toast.makeText(InputProfile.this, "이름을 입력 해주세요", Toast.LENGTH_SHORT).show();
                 }
@@ -534,6 +544,17 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.setUserNick(strNickName);
                     mFireBaseData.SaveData(mMyData.getUserIdx());
                     bMySet = true;
+
+                    mMyData.getFanList();
+                    mMyData.getReportedCnt();
+                    mMyData.getSetting();
+
+                    mMyData.getSendList();
+                    mMyData.getSendHoneyList();
+                    mMyData.getGiftHoneyList();
+                    mMyData.getRecvHoneyList();
+                    mMyData.getBlockList();
+                    mMyData.getBlockedList();
 
                     PrePareHot initHot = new PrePareHot();
                     initHot.execute(0,0,0);
@@ -596,16 +617,19 @@ public class InputProfile extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
+            if (resultCode == RESULT_OK && requestCode == 1000 ){
                 Uri uri = data.getData();
 
                 mMyData.setUserImg(uri.toString());
+
                 Glide.with(getApplicationContext())
                         .load(mMyData.getUserImg())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(0.1f)
                         .into(mProfileImage);
 
+
+                UploadThumbNailImage_Firebase(uri);
                 UploadImage_Firebase(uri);
 
             } else {
@@ -619,64 +643,165 @@ public class InputProfile extends AppCompatActivity {
 
     }
 
+    private void UploadThumbNailImage_Firebase(Uri file) {
+
+        StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  "ThumbNail" );//file.getLastPathSegment());
+
+        Bitmap bitmap = null;
+
+        String[] filePath = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
+        cursor.moveToFirst();
+        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+        options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
+
+        bitmap = BitmapFactory.decodeFile(imagePath, options);
+        bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
+        cursor.close();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //bitmap.createScaledBitmap(bitmap, 50, 50, true);
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = riversRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                TrThumbNail(downloadUrl);
+            }
+        });
+    }
+
     private void UploadImage_Firebase(Uri file) {
 
         StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" + 0 );//file.getLastPathSegment());
 
         Bitmap bitmap = null;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),file);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.createScaledBitmap(bitmap, 350, 350, true);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-            byte[] data = baos.toByteArray();
 
-            UploadTask uploadTask = riversRef.putBytes(data);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        progressBar.setVisibility(View.VISIBLE);
-                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                        System.out.println("Upload is " + progress + "% done");
-                        int currentprogress = (int) progress;
-                        progressBar.setProgress(currentprogress);
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                    progressBar.setVisibility(View.INVISIBLE);
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    Tr(downloadUrl);
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String[] filePath = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
+        cursor.moveToFirst();
+        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+        options.inSampleSize = calculateInSampleSize(options, 100, 100 , false);
+
+        bitmap = BitmapFactory.decodeFile(imagePath, options);
+        bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
+        cursor.close();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //bitmap.createScaledBitmap(bitmap, 50, 50, true);
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = riversRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                progressBar.setVisibility(ProgressBar.GONE);
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                Tr(downloadUrl);
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                progressBar.setVisibility(ProgressBar.VISIBLE);
+                progressBar.setProgress((int)progress) ;
+                System.out.println("Upload is " + progress + "% done");
+            }
+        });
+    }
+
+    public void TrThumbNail(Uri uri)
+    {
+        mMyData.setUserImg(uri.toString());
+        mMyData.setUserImgCnt(1);
+        mFireBaseData.SaveData(mMyData.getUserIdx());
+        Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
     }
 
     public void Tr(Uri uri)
     {
-        mMyData.setUserImg(uri.toString());
-        mMyData.setUserProfileImg(0, uri.toString());
+        mMyData.setUserProfileImg( mMyData.nSaveUri, uri.toString());
         mMyData.setUserImgCnt(1);
-
+        mFireBaseData.SaveData(mMyData.getUserIdx());
         Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
     }
-
     private void GoMainPage() {
+
+        progressBar.setVisibility(ProgressBar.GONE);
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
         mCommon.refreshMainActivity(this, MAIN_ACTIVITY_HOME);
+        finish();
         /*Intent intent = new Intent(InputProfile.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);
         finish();*/
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        String alertTitle = "종료";
+        View v = LayoutInflater.from(this).inflate(R.layout.dialog_exit_app,null,false);
+
+        final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        final Button btn_exit;
+        final Button btn_no;
+        final TextView title;
+        final AdView mAdView;
+
+        title =  (TextView) v.findViewById(R.id.title);
+        title.setVisibility(View.GONE);
+
+
+        btn_exit = (Button) v.findViewById(R.id.btn_yes);
+        btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+            }
+        });
+
+        btn_no = (Button) v.findViewById(R.id.btn_no);
+        btn_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+
+        mAdView = (AdView)v.findViewById(R.id.adView);
+        mAdView.setVisibility(View.VISIBLE);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
 }

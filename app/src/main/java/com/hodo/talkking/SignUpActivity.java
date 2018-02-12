@@ -73,7 +73,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         startActivity(intent);
 
                                     } else {
-                                        Toast.makeText(SignUpActivity.this,"이메일 입력이 잘못되었습니다",Toast.LENGTH_LONG).show();
+                                       // Toast.makeText(SignUpActivity.this,"이메일 입력이 잘못되었습니다",Toast.LENGTH_LONG).show();
                                         //보통 이메일이 이미 존재하거나, 이메일 형식이아니거나, 비밀번호가 6자리 이상이 아닐 때 발생 
                                     }
                                 }

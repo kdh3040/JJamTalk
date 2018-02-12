@@ -10,19 +10,28 @@
     tools:layout_editor_absoluteY="81dp">
 
 
-
+    <ImageView
+        android:id="@+id/bg_pic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nickname"
+        app:srcCompat="@color/chatRoomBg" />
 
     <ImageView
         android:id="@+id/profile"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/hdvd" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/nickname"
@@ -35,18 +44,9 @@
         android:text="닉네임"
         android:textColor="@color/black"
         android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile" />
-
-    <ImageView
-        android:id="@+id/jewel"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/nickname"
-        app:layout_constraintLeft_toRightOf="@+id/rank"
-        app:srcCompat="@mipmap/randombox" />
 
     <ImageView
         android:id="@+id/rank"
@@ -57,15 +57,12 @@
         app:srcCompat="@drawable/rank_bronze" />
 
     <ImageView
-        android:id="@+id/divider"
-        android:layout_width="344dp"
-        android:layout_height="3dp"
-        android:layout_marginTop="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/black" />
+        android:id="@+id/jewel"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nickname"
+        app:layout_constraintLeft_toRightOf="@+id/rank"
+        app:srcCompat="@mipmap/randombox" />
 
     <ImageView
         android:id="@+id/edit_profile"
@@ -74,7 +71,7 @@
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/edit_setting"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/nickname"
         app:srcCompat="@drawable/profile" />
 
     <ImageView
@@ -99,27 +96,28 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:gravity="center_vertical|start"
         android:text="프로필"
-        android:textSize="20dp"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/textView23"
-        app:layout_constraintStart_toEndOf="@+id/edit_profile"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_profile"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit_profile" />
 
     <TextView
         android:id="@+id/textView23"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:gravity="center_vertical|start"
+        android:gravity="left|center_vertical"
         android:text="설정"
-        android:textSize="20dp"
         android:textColor="@color/black"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/coin"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/edit_setting"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -131,8 +129,8 @@
         android:layout_marginStart="8dp"
         android:gravity="center_vertical|start"
         android:text="0"
+        android:textColor="@android:color/black"
         android:textSize="20dp"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/coin_charge"
         app:layout_constraintStart_toEndOf="@+id/edit_coin"
@@ -142,12 +140,14 @@
         android:id="@+id/coin_charge"
         android:layout_width="118dp"
         android:layout_height="40dp"
-        android:layout_marginRight="8dp"
-        android:text="코인충전하기"
+        android:layout_marginLeft="16dp"
 
+        android:layout_marginRight="16dp"
+        android:background="@drawable/base_btn_bg"
+        android:text="코인충전하기"
         app:layout_constraintBaseline_toBaselineOf="@+id/coin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/coin" />
+        app:layout_constraintLeft_toRightOf="@+id/coin"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

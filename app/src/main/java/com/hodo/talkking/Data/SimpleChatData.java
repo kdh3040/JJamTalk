@@ -25,7 +25,7 @@ public class SimpleChatData implements Serializable,Parcelable {
 
     public int Check;
 
-
+    public int SendHeart;
     public SimpleChatData() {
         ChatRoomName = null;
         Msg = null;
@@ -46,6 +46,7 @@ public class SimpleChatData implements Serializable,Parcelable {
         Grade = in.readInt();
         BestItem = in.readInt();
         Check = in.readInt();
+        SendHeart = in.readInt();
     }
 
     public static final Parcelable.Creator<SimpleChatData> CREATOR = new Parcelable.Creator<SimpleChatData>() {
@@ -76,5 +77,6 @@ public class SimpleChatData implements Serializable,Parcelable {
         parcel.writeInt(Grade);
         parcel.writeInt(BestItem);
         parcel.writeInt(Check);
+        parcel.writeInt(SendHeart);
     }
 }

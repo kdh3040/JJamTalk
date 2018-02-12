@@ -14,9 +14,9 @@ import com.hodo.talkking.R;
 
 public class ChatListViewHolder extends RecyclerView.ViewHolder {
 
-    public  ImageView imageView;
+    public  ImageView imageView, check;
     public  ImageView imageGrade, imageItem;
-    public TextView textView,nickname, date, check;
+    public TextView textView,nickname, date;
     public ConstraintLayout linearLayout;
 
     public ChatListViewHolder(View itemView) {
@@ -32,7 +32,7 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
         imageGrade = itemView.findViewById(R.id.iv_grade);
         imageItem = itemView.findViewById(R.id.iv_item);
 
-        textView = itemView.findViewById(R.id.tv_content);
+        textView = itemView.findViewById(R.id.tv_chat);
         date = itemView.findViewById(R.id.tv_date);
         check = itemView.findViewById(R.id.tv_check);
     }

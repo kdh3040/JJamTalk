@@ -31,12 +31,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.talkking.Data.ChatData;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Firebase.FirebaseData;
+import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.LocationFunc;
 import com.hodo.talkking.Util.NotiFunc;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -44,7 +51,8 @@ import com.hodo.talkking.Util.NotiFunc;
 
 public class UserPageActivity extends AppCompatActivity {
     private UserData stTargetData;
-    ImageView ic_fan;
+    private ImageView bg_fan;
+    private ImageView ic_fan;
     private MyData mMyData = MyData.getInstance();
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
     private FirebaseData mFireBase = FirebaseData.getInstance();
@@ -109,8 +117,8 @@ public class UserPageActivity extends AppCompatActivity {
         });*/
 
         mMyData.SetCurFrag(0);
-
-        ic_fan = findViewById(R.id.ic_fan);
+        ic_fan =findViewById(R.id.ic_fan);
+        bg_fan= findViewById(R.id.bg_fan);
         btnShare = (ImageButton)findViewById(R.id.UserPage_btnShared);
 
         myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIdata.getJewels());
@@ -126,7 +134,7 @@ public class UserPageActivity extends AppCompatActivity {
         TempSendUserData.arrStarList = stTargetData.arrStarList;
         TempSendUserData.arrFanList = stTargetData.arrFanList;
 
-        getTargetfanData();
+        //getTargetfanData();
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age+"세");
@@ -173,7 +181,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
         Glide.with(getApplicationContext())
-                .load(stTargetData.Img)
+                .load(stTargetData.ImgGroup0)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 
@@ -339,17 +347,19 @@ public class UserPageActivity extends AppCompatActivity {
 
                             //TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
                             Button btnHeartCharge = giftView.findViewById(R.id.HeartPop_Charge);
-                            Button btnHeart100 = giftView.findViewById(R.id.HeartPop_100);
-                            Button btnHeart200 = giftView.findViewById(R.id.HeartPop_200);
-                            Button btnHeart300 = giftView.findViewById(R.id.HeartPop_300);
-                            Button btnHeart500 = giftView.findViewById(R.id.HeartPop_500);
-                            Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_1000);
-                            Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_5000);
+                            Button btnHeart100 = giftView.findViewById(R.id.HeartPop_10);
+                            Button btnHeart200 = giftView.findViewById(R.id.HeartPop_30);
+                            Button btnHeart300 = giftView.findViewById(R.id.HeartPop_50);
+                            Button btnHeart500 = giftView.findViewById(R.id.HeartPop_100);
+                            Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_300);
+                            Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_500);
                             final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
+                            Msg.setText("현재 보유 골드는 "+String.valueOf(mMyData.getUserHoney())+"골드 입니다." );
 
                             //tvHeartCnt.setText("보유 골드: " + Integer.toString(mMyData.getUserHoney()));
                             //Msg.setText("100개의 꿀을 보내시겠습니까?");
 
+                            final Button btn_gift_send = giftView.findViewById(R.id.btn_gift_send);
 
                             btnHeartCharge.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -362,7 +372,16 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 10;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                    }
+
                                 }
                             });
 
@@ -370,7 +389,16 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 30;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    }
+
                                 }
                             });
 
@@ -378,7 +406,16 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 50;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    }
+
                                 }
                             });
 
@@ -386,7 +423,16 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 100;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    }
+
                                 }
                             });
 
@@ -394,7 +440,15 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 500;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    }
                                 }
                             });
 
@@ -402,41 +456,77 @@ public class UserPageActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     nSendHoneyCnt[0] = 1000;
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                        btn_gift_send.setEnabled(false);
+                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                    }
+                                    else {
+                                        btn_gift_send.setEnabled(true);
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                    }
+
                                 }
                             });
 
 
                             final EditText SendMsg = giftView.findViewById(R.id.HeartPop_Msg);
 
-                            Button btn_gift_send = giftView.findViewById(R.id.btn_gift_send);
+
                             btn_gift_send.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
 
+                                    if(CommonFunc.getInstance().CheckTextMaxLength(SendMsg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_SEND_HONEY, getApplicationContext() ,"하트 날리기", true) == false)
+                                        return;
+
+
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                        Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
+                                       // Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
 
                                     } else {
                                         String strSendMsg = SendMsg.getText().toString();
-                                        if (strSendMsg.equals(""))
-                                            strSendMsg = "안녕하세요";
 
-                                        boolean rtValuew = mMyData.makeSendList(stTargetData, strSendMsg.toString());
+                                        boolean rtValuew = mMyData.makeSendList(stTargetData, strSendMsg.toString(),nSendHoneyCnt[0]);
                                         rtValuew = mMyData.makeCardList(stTargetData);
                                         rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                         rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
 
 
 
-                                        if (rtValuew == true) {
-                                            mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
-                                            mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
-                                            mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                                            mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
-                                            // mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
-                                            Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                        mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
+                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                        mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
+                                        mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
+                                        // mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
+                                      //  Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+
+                                        Calendar cal = Calendar.getInstance();
+                                        Date date = cal.getTime();
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                                        String formatStr = sdf.format(date);
+
+
+                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, strSendMsg, formatStr, "", 0, nSendHoneyCnt[0]);
+
+
+                                        final String ChatName = mMyData.getUserIdx()+"_"+stTargetData.Idx;
+                                        String ChatName1 = stTargetData.Idx + "_"+ mMyData.getUserIdx();
+                                        DatabaseReference mRef;
+
+                                        if(mMyData.arrChatNameList.contains(ChatName) ) {
+                                            mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
                                         }
+                                        else     if(mMyData.arrChatNameList.contains(ChatName1) ) {
+                                         mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName1);
+                                        }
+                                        else
+                                            mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
+
+
+                                        mRef.push().setValue(chat_Data);
+
+
                                     }
 
 
@@ -543,33 +633,84 @@ public class UserPageActivity extends AppCompatActivity {
 
                             else
                             {
-                                View view1 = inflater.inflate(R.layout.alert_send_msg, null);
-                                Button btn_cancel = view1.findViewById(R.id.btn_cancel);
-                                final EditText et_msg = view1.findViewById(R.id.et_msg);
+                                final String ChatName = mMyData.getUserIdx()+"_"+stTargetData.Idx;
+                                String ChatName1 = stTargetData.Idx + "_"+ mMyData.getUserIdx();
 
-                                builder.setView(view1);
+                                if(mMyData.arrChatNameList.contains(ChatName) )
+                                {
+                                    intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
+                                    Bundle bundle = new Bundle();
 
-                                final AlertDialog msgDialog = builder.create();
-                                msgDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                                msgDialog.show();
-                                btn_cancel.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        msgDialog.dismiss();
-                                    }
-                                });
-                                Button btn_send = view1.findViewById(R.id.btn_send);
-                                btn_send.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        mNotiFunc.SendMSGToFCM(stTargetData);
-                                        boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString());
-                                        if (rtValuew == true) {
-                                            Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                    bundle.putSerializable("Target", stTargetData);
+                                    bundle.putSerializable("Position", -1);
+                                    bundle.putSerializable("RoomName", ChatName);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else if(mMyData.arrChatNameList.contains(ChatName1))
+                                {
+                                    intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
+                                    Bundle bundle = new Bundle();
+
+                                    bundle.putSerializable("Target", stTargetData);
+                                    bundle.putSerializable("Position", -1);
+                                    bundle.putSerializable("RoomName", ChatName1);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                                else {
+                                    View view1 = inflater.inflate(R.layout.alert_send_msg, null);
+                                    Button btn_cancel = view1.findViewById(R.id.btn_cancel);
+                                    final EditText et_msg = view1.findViewById(R.id.et_msg);
+
+                                    builder.setView(view1);
+
+                                    final AlertDialog msgDialog = builder.create();
+                                    msgDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                                    msgDialog.show();
+                                    btn_cancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            msgDialog.dismiss();
                                         }
-                                        msgDialog.dismiss();
-                                    }
-                                });
+                                    });
+                                    Button btn_send = view1.findViewById(R.id.btn_send);
+
+
+                                    btn_send.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            if(CommonFunc.getInstance().CheckTextMaxLength(et_msg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this ,"쪽지 쓰기", true) == false)
+                                                return;
+
+                                            String strMemo = et_msg.getText().toString();
+                                            if(strMemo == null || strMemo.equals(""))
+                                            {
+                                                return;
+                                            }
+
+                                            mNotiFunc.SendMSGToFCM(stTargetData);
+                                            boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString(), 0);
+
+                                            Calendar cal = Calendar.getInstance();
+                                            Date date = cal.getTime();
+                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                                            String formatStr = sdf.format(date);
+
+                                            ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, strMemo, formatStr, "", 0, 0);
+                                            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
+                                            mRef.push().setValue(chat_Data);
+
+
+                                            msgDialog.dismiss();
+                                        }
+                                    });
+                                }
+
+
                             }
                         }
                         break;
@@ -614,12 +755,12 @@ public class UserPageActivity extends AppCompatActivity {
 
             TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData.arrFanList);
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-            ic_fan.setOnClickListener(new View.OnClickListener() {
+            bg_fan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("Target", TempSendUserData);
+                    bundle.putSerializable("Target", stTargetData);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -633,7 +774,7 @@ public class UserPageActivity extends AppCompatActivity {
                     //Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
                     Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("Target", TempSendUserData);
+                    bundle.putSerializable("Target", stTargetData);
                     intent.putExtras(bundle);
                     startActivity(intent);
 
@@ -773,11 +914,13 @@ public class UserPageActivity extends AppCompatActivity {
     private void buildAlertDialog(AlertDialog.Builder builder1, String s, String s1, String s2) {
 
 
-        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+        View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_exit_app,null,false);
 
         final AlertDialog dialog = builder1.setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        //dialog.getWindow().setLayout(160, 150);
         dialog.show();
+        //dialog.getWindow().setLayout(50, 50);
 
         final Button btn_exit;
         final Button btn_no;
@@ -796,7 +939,7 @@ public class UserPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean rtValuew = mMyData.makeCardList(stTargetData);
-                Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
+              // Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -833,7 +976,7 @@ public class UserPageActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int saa = 0;
                         UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                        TempSendUserData.arrFanData.add(tempUserData);
+                        //TempSendUserData.arrFanData.add(tempUserData);
                         TempSendUserData.mapFanData.put(tempUserData.Idx, tempUserData);
 
                       /*  for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet())

@@ -25,10 +25,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
-import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.Util.CommonFunc;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -81,7 +82,8 @@ public class CardListFragment extends Fragment {
             cardListAdapter.notifyDataSetChanged();
             mContext = getContext();
         }
-
+        CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
+        CommonFunc.getInstance().SetCardAlarmVisible(false);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
     }
@@ -90,7 +92,7 @@ public class CardListFragment extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_my_card,parent,false);
-           // view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
+
 
             return new ViewHolder(view);
         }
@@ -263,11 +265,11 @@ public class CardListFragment extends Fragment {
                     {
                         mMyData.mapMyCardData.put(strTargetIdx, tempUserData);
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
+                  /*      for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             mMyData.mapMyCardData.get(strTargetIdx).arrStarList.add(entry.getValue());
-                        }
+                        }*/
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
                             mMyData.mapMyCardData.get(strTargetIdx).arrFanList.add(entry.getValue());
                         }
 

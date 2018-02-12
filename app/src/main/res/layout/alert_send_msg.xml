@@ -1,87 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
 
-    android:orientation="vertical"
-   android:background="@drawable/dialog_bg">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/bg_bottom"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:background="@drawable/dialog_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
 
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
         android:background="@drawable/rounded_top_dialog"
         android:gravity="center"
         android:text="쪽지 쓰기"
         android:textColor="@color/black"
-        android:textSize="30dp" />
-    <View
-        android:id="@+id/Divide_Btn"
-        style="@style/AlertDivider"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        />
-<FrameLayout
+    <ImageView
+        android:id="@+id/imageView23"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@android:color/black" />
 
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:layout_width="match_parent">
 
     <EditText
         android:id="@+id/et_msg"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:layout_centerVertical="true"
-        android:layout_margin="20dp"
+        android:layout_margin="32dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/et_outline"
-        android:gravity="left"
-        android:hint="30자 이내"
-        android:inputType="text"
-        android:maxLength="30"
-        android:maxWidth="50dp" />
+        android:gravity="bottom"
+        android:hint="(50자 이내)"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="50"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
 
-
-    </FrameLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="50dp"
 
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="32dp"
         android:background="@color/white"
         android:gravity="center"
         android:text="쪽지를 보내시겠습니까?"
         android:textColor="@color/black"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_msg" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
 
-        android:background="@drawable/rounded_bottom_white"
-        android:orientation="horizontal">
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
 
-        <Button
-            android:id="@+id/btn_send"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/base_btn_bg"
 
-            android:text="보낸다"
-            android:textColor="@color/black" />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/base_btn_bg"
+        android:text="보낸다"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintRight_toLeftOf="@id/btn_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/base_btn_bg"
-            android:text="취소"
-            android:textColor="@color/black" />
-    </LinearLayout>
-</LinearLayout>
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+
+        android:background="@drawable/base_btn_bg"
+
+        android:text="취소"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_send"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_send" />
+
+</android.support.constraint.ConstraintLayout>

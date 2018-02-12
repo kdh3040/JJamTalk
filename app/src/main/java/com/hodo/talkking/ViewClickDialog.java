@@ -28,7 +28,7 @@ public class ViewClickDialog extends Dialog {
         setContentView(Layout);
 
         tv_see = (TextView)findViewById(R.id.tv_see);
-        tv_camera = (TextView)findViewById(R.id.tv_camera);
+        //tv_camera = (TextView)findViewById(R.id.tv_camera);
         tv_album = (TextView)findViewById(R.id.tv_album);
         tv_delete = (TextView)findViewById(R.id.tv_delete);
 

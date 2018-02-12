@@ -5,55 +5,61 @@
     android:id="@+id/dialog_open_mail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/chat_gift_bg"
     android:orientation="vertical"
+    android:padding="32dp"
     tools:layout_editor_absoluteY="81dp">
 
 
     <TextView
-        android:id="@+id/tv_from"
+        android:id="@+id/from"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_marginRight="70dp"
         android:gravity="left|center_vertical"
         android:text="From"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_mailfrom"
-        android:layout_width="40dp"
+    <TextView
+        android:id="@+id/tv_mailfrom"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
         android:gravity="right|center_vertical"
-        app:layout_constraintLeft_toRightOf="@+id/tv_from"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hedfvb" />
+
+        app:layout_constraintLeft_toRightOf="@+id/from"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/tv_count"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="8dp"
         android:gravity="bottom"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_mailfrom" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_mailfrom" />
 
     <ImageView
-        android:id="@+id/imageView33"
+        android:id="@+id/heart"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_count"
-        app:layout_constraintLeft_toRightOf="@+id/tv_count"
+        app:layout_constraintStart_toEndOf="@+id/tv_count"
         app:srcCompat="@drawable/heart" />
 
     <TextView
-        android:id="@+id/tv_mailbox_sendmsg"
+        android:id="@+id/msg"
         android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
         android:text="동봉한 메세지가 없네요~"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -61,31 +67,24 @@
 
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="답장"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_accept_honey"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btn_accept_honey" />
-
-    <Button
-        android:id="@+id/btn_accept_honey"
+        android:id="@+id/confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@drawable/base_btn_bg"
         android:text="확인"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_mailbox_sendmsg" />
+        app:layout_constraintRight_toLeftOf="@+id/btn_ok"
+        app:layout_constraintTop_toBottomOf="@+id/msg" />
 
     <Button
         android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/base_btn_bg"
         android:text="삭제"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_accept_honey"
-        app:layout_constraintLeft_toRightOf="@+id/btn_accept_honey"
+        app:layout_constraintBottom_toBottomOf="@+id/confirm"
+        app:layout_constraintLeft_toRightOf="@+id/confirm"
         app:layout_constraintRight_toRightOf="parent" />
 
 

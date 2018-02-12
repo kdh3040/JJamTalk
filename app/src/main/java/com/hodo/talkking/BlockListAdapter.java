@@ -53,7 +53,7 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListViewHolder> 
                 //차단 해제
                 mMyData.delBlockList(mMyData.arrBlockDataList.get(position));
                 mMyData.arrBlockDataList.remove(position);
-                Toast.makeText(mContext, position + "번", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, position + "번", Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
             }
         });

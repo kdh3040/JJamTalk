@@ -15,6 +15,7 @@ import com.hodo.talkking.Data.SettingData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Util.AppStatus;
+import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.LocationFunc;
 import com.hodo.talkking.ViewHolder.GridUserViewHolder;
 
@@ -67,6 +68,15 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
         holder.iv_honey_rank.setLayoutParams(lpForIcon);
+
+        RelativeLayout.LayoutParams lpForBgTxt  = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2));
+        lpForBgTxt.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lpForBgTxt.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        lpForBgTxt.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+        holder.bg_tv.setLayoutParams(lpForBgTxt);
+
+
         //holder.textView.setVisibility(View.INVISIBLE);
 
         Log.d("Guide !!!! ", "Start");

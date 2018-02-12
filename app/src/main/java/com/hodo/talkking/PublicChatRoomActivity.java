@@ -75,9 +75,9 @@ public class PublicChatRoomActivity extends AppCompatActivity {
         public PublicChatViewHolder(View itemView) {
             super(itemView);
             image_profile = (ImageView)itemView.findViewById(R.id.ChatRoom_Img);
-            image_sent = (ImageView)itemView.findViewById(R.id.iv_sent);
+            image_sent = (ImageView)itemView.findViewById(R.id.img2);
             //sender = (TextView)itemView.findViewById(R.id.ChatRoom_nickname);
-            message =(TextView)itemView.findViewById(R.id.message);
+            message =(TextView)itemView.findViewById(R.id.message1);
             time = (TextView)itemView.findViewById(R.id.time);
         }
     }
@@ -152,7 +152,7 @@ public class PublicChatRoomActivity extends AppCompatActivity {
                         mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
                 // If the recycler view is initially being loaded or the
                 // user is at the bottom of the list, scroll to the bottom
-                // of the list to show the newly added message.
+                // of the list to show the newly added message1.
                 if (lastVisiblePosition == -1 ||
                         (positionStart >= (friendlyMessageCount - 1) &&
                                 lastVisiblePosition == (positionStart - 1))) {
@@ -197,12 +197,12 @@ public class PublicChatRoomActivity extends AppCompatActivity {
                 });
 
                 //TextView tvHeartCnt = v.findViewById(R.id.HeartPop_MyHeart);
-                Button btnHeart100 = v.findViewById(R.id.HeartPop_100);
-                Button btnHeart200 = v.findViewById(R.id.HeartPop_200);
-                Button btnHeart300 = v.findViewById(R.id.HeartPop_300);
-                Button btnHeart500 = v.findViewById(R.id.HeartPop_500);
-                Button btnHeart1000 = v.findViewById(R.id.HeartPop_1000);
-                Button btnHeart5000 = v.findViewById(R.id.HeartPop_5000);
+                Button btnHeart100 = v.findViewById(R.id.HeartPop_10);
+                Button btnHeart200 = v.findViewById(R.id.HeartPop_30);
+                Button btnHeart300 = v.findViewById(R.id.HeartPop_50);
+                Button btnHeart500 = v.findViewById(R.id.HeartPop_100);
+                Button btnHeart1000 = v.findViewById(R.id.HeartPop_300);
+                Button btnHeart5000 = v.findViewById(R.id.HeartPop_500);
                 final TextView Msg = v.findViewById(R.id.HeartPop_text);
 
                 //tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
@@ -276,7 +276,7 @@ public class PublicChatRoomActivity extends AppCompatActivity {
                         if (rtValuew == true) {
                             mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                             mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                            Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
 
                             String message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
 

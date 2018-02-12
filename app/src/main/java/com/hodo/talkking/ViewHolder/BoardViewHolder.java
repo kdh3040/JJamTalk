@@ -1,6 +1,8 @@
 package com.hodo.talkking.ViewHolder;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -30,9 +32,10 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class BoardViewHolder extends RecyclerView.ViewHolder {
 
     public TextView BoardMsg, BoardWriter, BoardDate;
-    public ImageView BoardThumnail, BoardUserItem, BoardUserGrade, BoardUserGender;
-    public ImageButton BoardDeleteButton;
-    public Button BoardReportButton;
+    public ImageView BoardThumnail, BoardUserItem, BoardUserGrade;//, BoardUserGender;
+    public Button BoardDeleteButton;
+    public ImageButton BoardReportButton;
+    private ConstraintLayout BoardLayout;
 
     public BoardViewHolder(View itemView) {
         super(itemView);
@@ -40,11 +43,11 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         BoardWriter = (TextView) itemView.findViewById(R.id.board_writer);
         BoardDate = (TextView) itemView.findViewById(R.id.board_write_date);
         BoardThumnail = (ImageView) itemView.findViewById(R.id.board_thumnail);
-        BoardDeleteButton = (ImageButton) itemView.findViewById(R.id.board_delete);
-        BoardReportButton = (Button) itemView.findViewById(R.id.board_report);
+        BoardDeleteButton = (Button) itemView.findViewById(R.id.board_delete);
+        BoardReportButton = (ImageButton) itemView.findViewById(R.id.board_report);
         BoardUserItem = (ImageView) itemView.findViewById(R.id.user_item);
         BoardUserGrade = (ImageView) itemView.findViewById(R.id.user_grade);
-        BoardUserGender = (ImageView) itemView.findViewById(R.id.user_gender);
+        //BoardUserGender = (ImageView) itemView.findViewById(R.id.user_gender);
     }
 
     public void SetBoardViewHolder(Context context, BoardMsgClientData data, Boolean mine, Boolean deleteEnable)
@@ -61,6 +64,10 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
 
         BoardMsg.setText(dbData.Msg);
         BoardWriter.setText(dbData.NickName);
+        if(dbData.Gender.equals("여자"))
+            BoardWriter.setTextColor(0xffda1d81);
+        else
+            BoardWriter.setTextColor(0xff005baf);
 
         long time = CommonFunc.getInstance().GetCurrentTime();
         Date writeDate = CommonFunc.getInstance().GetStringToDate(dbData.Date, CoomonValueData.DATE_FORMAT);
@@ -86,13 +93,13 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
             BoardUserItem.setVisibility(View.INVISIBLE);
 
         BoardUserGrade.setImageResource(UIData.getInstance().getGrades()[data.GetDBData().Grade]);
-        if(data.GetDBData().Gender == null)
-            BoardUserItem.setVisibility(View.INVISIBLE);
+      /*  if(data.GetDBData().Gender == null)
+            BoardUserGender.setVisibility(View.INVISIBLE);
         else
         {
-            BoardUserItem.setVisibility(View.VISIBLE);
+            BoardUserGender.setVisibility(View.VISIBLE);
             BoardUserGender.setImageResource(UIData.getInstance().getGenderIcon(data.GetDBData().Gender));
-        }
+        }*/
 
 
         Log.d("!!!!!!", "!!!!!!!!!!!" + dbData.Msg);

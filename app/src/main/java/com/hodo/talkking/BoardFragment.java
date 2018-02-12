@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.BoardData;
 import com.hodo.talkking.Data.BoardMsgClientData;
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
@@ -28,6 +29,7 @@ import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.RecyclerItemClickListener;
 import com.hodo.talkking.ViewHolder.BoardViewHolder;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 import static com.hodo.talkking.Data.CoomonValueData.REPORT_BOARD_DELETE;
@@ -160,11 +162,11 @@ public class BoardFragment extends Fragment {
                     {
                         _BoardWriterData = tempUserData;
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
+                     /*   for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             _BoardWriterData.arrStarList.add(entry.getValue());
-                        }
+                        }*/
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
                             _BoardWriterData.arrFanList.add(entry.getValue());
                         }
 
@@ -245,16 +247,7 @@ public class BoardFragment extends Fragment {
 
                 }
             });
-
-
-
-
-            WriteButton = (Button)mFragmentView.findViewById(R.id.btn_write);
-            MyWriteListButton = (Button)mFragmentView.findViewById(R.id.btn_mylist);
-
-            //BoardSlotListRecycler.addOnItemTouchListener(GetBoradListClickFunc());
-            WriteButton.setOnClickListener(GetWriteBoradFunc());
-            MyWriteListButton.setOnClickListener(GetMyWriteBoradListFunc());
+            CommonFunc.getInstance().SetMainActivityTopRightBtn(true);
         }
         return mFragmentView;
     }
@@ -282,39 +275,6 @@ public class BoardFragment extends Fragment {
             @Override
             public void onLongItemClick(View view, int position) {}
         });
-
-        return returnFunc;
-    }
-
-    private View.OnClickListener GetWriteBoradFunc()
-    {
-        View.OnClickListener returnFunc = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(),BoardWriteActivity.class));
-
-                /*if(CommonFunc.getInstance().IsFutureDateCompare(new Date(mMyData.GetLastBoardWriteTime()), 15) == false)
-                {
-                    // TODO 환웅
-                    CommonFunc.getInstance().ShowDefaultPopup(getContext(), "게시판 작성", "연속으로 게시판을 작성 할 수 없습니다.");
-                    return;
-                }
-                else
-                    startActivity(new Intent(getContext(),BoardWriteActivity.class));*/
-            }
-        };
-
-        return returnFunc;
-    }
-
-    private View.OnClickListener GetMyWriteBoradListFunc()
-    {
-        View.OnClickListener returnFunc = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(),BoardMyListActivity.class));
-            }
-        };
 
         return returnFunc;
     }

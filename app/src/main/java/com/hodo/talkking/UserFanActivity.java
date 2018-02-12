@@ -30,7 +30,12 @@ import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -44,13 +49,45 @@ public class UserFanActivity extends AppCompatActivity {
     ViewPager viewPager;
 
     private UserData stTargetData;
-    public ArrayList<FanData> FanList = new ArrayList<>();
-    public ArrayList<UserData> FanData = new ArrayList<>();
+    //public ArrayList<FanData> FanList = new ArrayList<>();
+    //public ArrayList<UserData> FanData = new ArrayList<>();
     private UIData mUIData = UIData.getInstance();
     private MyData mMyData = MyData.getInstance();
 
     Activity mActivity;
     RecyclerView UserFanRecycler;
+
+    private void SortByRecvHeart()
+    {
+         Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(stTargetData.FanList);
+
+        Iterator it = sortByValue(tempDataMap).iterator();
+        stTargetData.FanList.clear();
+        stTargetData.arrFanList.clear();
+        while(it.hasNext()) {
+            String temp = (String) it.next();
+            stTargetData.FanList.put(temp, tempDataMap.get(temp));
+            stTargetData.arrFanList.add(tempDataMap.get(temp));
+        }
+    }
+
+    public static List sortByValue(final Map map) {
+        List<String> list = new ArrayList();
+        list.addAll(map.keySet());
+        Collections.sort(list,new Comparator() {
+
+            public int compare(Object o1,Object o2) {
+                FanData g1 = (FanData)map.get(o1);
+                FanData g2 = (FanData)map.get(o2);
+
+                Object v1 = g1.RecvGold;
+                Object v2 = g2.RecvGold;
+                return ((Comparable) v2).compareTo(v1);
+            }
+        });
+        // Collections.reverse(list); // 주석시 오름차순
+        return list;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,16 +95,21 @@ public class UserFanActivity extends AppCompatActivity {
         mActivity = this;
         setContentView(R.layout.activity_user_fan_club);
 
+        Intent intent = getIntent();
+        Bundle bundle = this.getIntent().getExtras();
+        stTargetData = (UserData) bundle.getSerializable("Target");
+
+        mMyData.SetCurFrag(0);
+
+        SortByRecvHeart();
+
         UserFanRecycler = (RecyclerView)findViewById(R.id.user_fan_list);
         UserFanRecycler.setAdapter(new UserFanActivity.UserFanListAdapter());
         UserFanRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);
 
-        Intent intent = getIntent();
-        Bundle bundle = this.getIntent().getExtras();
-        stTargetData = (UserData) bundle.getSerializable("Target");
-        mMyData.SetCurFrag(0);
+
     }
 
     private class UserFanListAdapter extends RecyclerView.Adapter<UserFanListAdapter.ViewHolder> {
@@ -95,27 +137,27 @@ public class UserFanActivity extends AppCompatActivity {
             String i = stTargetData.arrFanList.get(position).Idx;
 
             Glide.with(mActivity)
-                    .load(stTargetData.mapFanData.get(i).Img)
+                    .load(stTargetData.FanList.get(i).Img)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .bitmapTransform(new CropCircleTransformation(mActivity))
                     .thumbnail(0.1f)
                     .into(holder.img);
 
-            holder.textNick.setText(stTargetData.mapFanData.get(i).NickName);
+            holder.textNick.setText(stTargetData.FanList.get(i).NickName);
             holder.textRank.setText((position + 1) + "위");
 
 
-            if(stTargetData.mapFanData.get(i).BestItem == 0)
+            if(stTargetData.FanList.get(i).BestItem == 0)
                 //holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
                 holder.imgItem.setVisibility(View.INVISIBLE);
             else {
                 holder.imgItem.setVisibility(View.VISIBLE);
-                holder.imgItem.setImageResource(mUIData.getJewels()[stTargetData.mapFanData.get(i).BestItem - 1]);
+                holder.imgItem.setImageResource(mUIData.getJewels()[stTargetData.FanList.get(i).BestItem - 1]);
             }
 
-            holder.imgGrade.setImageResource(mUIData.getGrades()[stTargetData.mapFanData.get(i).Grade]);
+            holder.imgGrade.setImageResource(mUIData.getGrades()[stTargetData.FanList.get(i).Grade]);
 
-            int RecvCnt = stTargetData.arrFanList.get(position).RecvGold * -1;
+            int RecvCnt = stTargetData.FanList.get(i).RecvGold;
             holder.textCount.setText(Integer.toString(RecvCnt));
 
         }
@@ -123,7 +165,7 @@ public class UserFanActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return stTargetData.arrFanList.size();
+            return stTargetData.FanList.size();
         }
 
         public void moveFanPage(int position) {
@@ -142,7 +184,7 @@ public class UserFanActivity extends AppCompatActivity {
         public void getMyfanData(final int position) {
             String i = stTargetData.arrFanList.get(position).Idx;
 
-            final String strTargetIdx = stTargetData.mapFanData.get(i).Idx;
+            final String strTargetIdx = stTargetData.FanList.get(i).Idx;
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table = null;
             table = database.getReference("User");
@@ -155,7 +197,7 @@ public class UserFanActivity extends AppCompatActivity {
                     if (tempUserData != null) {
                         stTargetData.mapFanData.put(strTargetIdx, tempUserData);
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
                             stTargetData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
                         }
 

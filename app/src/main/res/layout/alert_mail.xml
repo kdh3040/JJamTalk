@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_open_mail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/chat_gift_bg"
+    android:padding="32dp">
+
+
+    <TextView
+        android:id="@+id/from"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginRight="70dp"
+        android:gravity="left|center_vertical"
+        android:text="From"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/profile"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintLeft_toRightOf="@+id/from"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile" />
+
+
+    <Button
+        android:id="@+id/report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="신고"
+        app:layout_constraintLeft_toRightOf="@+id/profile"
+        app:layout_constraintTop_toTopOf="@+id/profile" />
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="16dp"
+        android:gravity="bottom"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/from" />
+
+    <ImageView
+        android:id="@+id/heart"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_count"
+        app:layout_constraintStart_toEndOf="@+id/tv_count"
+        app:srcCompat="@drawable/heart" />
+
+    <TextView
+        android:id="@+id/msg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:text="동봉한 메세지가 없네요~"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_count" />
+
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/base_btn_bg"
+        android:text="확인"
+        app:layout_constraintEnd_toStartOf="@+id/block"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/msg" />
+
+    <Button
+        android:id="@+id/block"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="차단"
+        app:layout_constraintBottom_toBottomOf="@+id/confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/confirm" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,6 +1,9 @@
 package com.hodo.talkking.Data;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
@@ -19,18 +24,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.hodo.talkking.ChatRoomActivity;
+import com.hodo.talkking.Firebase.FirebaseData;
+import com.hodo.talkking.R;
 import com.hodo.talkking.Util.CommonFunc;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import static android.content.Context.ACTIVITY_SERVICE;
 import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -90,7 +101,8 @@ public class MyData {
 
     public int nFanCount;
     public ArrayList<FanData> arrMyFanList = new ArrayList<>();
-    public  Map<String, SimpleUserData> arrMyFanDataList = new LinkedHashMap<String, SimpleUserData>();
+    public ArrayList<FanData> arrMyFanNameList = new ArrayList<>();
+    public  Map<String, FanData> arrMyFanDataList = new LinkedHashMap<String, FanData>();
     public  Map<String, UserData> mapMyFanData = new LinkedHashMap<String, UserData>();
 
     public ArrayList<StarData> arrMyStarList = new ArrayList<>();
@@ -184,6 +196,7 @@ public class MyData {
 
     public int ConnectDate;
     public long LastBoardWriteTime;
+    public long LastAdsTime;
 
     public int nStartAge, nEndAge;
 
@@ -198,10 +211,16 @@ public class MyData {
     public Bundle querySkus = new Bundle();
     public Bundle buyIntentBundle = new Bundle();
     public PendingIntent pendingIntent;
-    public String[] strGold = new String[8];
-    public String[] skuGold = {"gold_10", "gold_20", "gold_50", "gold_100", "gold_200", "gold_300", "gold_500", "gold_1000"};
+    public String[] strGold = new String[7];
+    public String[] skuGold = {"gold_10", "gold_20", "gold_50", "gold_100", "gold_200", "gold_500", "gold_1000"};
     public  String sku = null;
     public String price = null;
+
+    public Context mContext;
+    public Activity mActivity;
+
+    public int nReportedCnt;
+    public ArrayList<ReportedData> arrReportList = new ArrayList<>();
 
     private MyData() {
         strImg = null;
@@ -237,6 +256,12 @@ public class MyData {
         Point = 0;
         ConnectDate = 0;
 
+        for(int i =0; i < 8; i++)
+        {
+            itemList.put( i, 0);
+        }
+
+        nReportedCnt = 0;
     }
 
     public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
@@ -244,7 +269,7 @@ public class MyData {
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
                           String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
-                          int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime) {
+                          int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime) {
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -268,7 +293,7 @@ public class MyData {
 
         strImg = _UserImg;
 
-        strProfileImg[0] = _UserImg;
+        strProfileImg[0] = _UserImgGroup0;
         strProfileImg[1] = _UserImgGroup1;
         strProfileImg[2] = _UserImgGroup2;
         strProfileImg[3] = _UserImgGroup3;
@@ -343,6 +368,7 @@ public class MyData {
 
         ConnectDate = _UserConnDate;
         LastBoardWriteTime = _UserLastBoardWriteTime;
+        LastAdsTime = _UserLastAdsTime;
 
         nStartAge = (Integer.parseInt(getUserAge()) / 10) * 10;
         nEndAge = nStartAge + 19;
@@ -598,7 +624,7 @@ public class MyData {
         return strMemo;
     }
 
-    public boolean makeSendList(UserData _UserData, String _strSend) {
+    public boolean makeSendList(UserData _UserData, String _strSend, int _SendCount) {
         boolean rtValue = false;
 
         UserData SaveUserData = _UserData;
@@ -622,6 +648,14 @@ public class MyData {
         tempMySave.Grade = getGrade();
         tempMySave.BestItem = bestItem;
         tempMySave.Check = 1;
+        tempMySave.SendHeart = _SendCount;
+
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+        String formatStr = sdf.format(date);
+
+        tempMySave.Date = formatStr;
 
         SimpleChatData tempTargetSave = new SimpleChatData();
         tempTargetSave.ChatRoomName = strCheckName;
@@ -631,6 +665,8 @@ public class MyData {
         tempTargetSave.Msg = _strSend.toString();
         tempTargetSave.Grade = _UserData.Grade;
         tempTargetSave.BestItem = _UserData.BestItem;
+        tempTargetSave.Date = formatStr;
+        tempTargetSave.SendHeart = _SendCount;
 
         tempTargetSave.Check = 0;
 
@@ -649,6 +685,119 @@ public class MyData {
         MyData._Instance = _Instance;
     }
 
+    public void getReportedCnt() {
+        String MyID = strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("Reported");
+        user = table.child(strIdx);
+
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa = 0;
+                ReportedData tempData = new ReportedData();
+                tempData = dataSnapshot.getValue(ReportedData.class);
+                arrReportList.add(tempData);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                int tempData;
+                ReportedData tempAddData = new ReportedData();
+                tempAddData = dataSnapshot.getValue(ReportedData.class);
+                arrReportList.add(tempAddData);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa = 0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa = 0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
+    public void getFanList() {
+        String MyID = strIdx;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("User");
+        user = table.child(strIdx).child("FanList");
+
+
+        user.addChildEventListener(new ChildEventListener() {
+            int i = 0;
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int saa = 0;
+                FanData tempFanData = new FanData();
+                tempFanData = dataSnapshot.getValue(FanData.class);
+                arrMyFanList.add(tempFanData);
+                if (!arrMyFanNameList.contains(tempFanData.Idx)) {
+                    arrMyFanNameList.add(tempFanData);
+                    arrMyFanDataList.put(tempFanData.Idx, tempFanData);
+                    CommonFunc.getInstance().SetFanAlarmVisible(true);
+                    if(GetCurFrag() == 3)
+                    {
+                        Fragment frg = null;
+                        frg = mFragmentMng.findFragmentByTag("FanListFragment");
+                        final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                        ft.detach(frg);
+                        ft.attach(frg);
+                        ft.commit();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                FanData SendList = dataSnapshot.getValue(FanData.class);
+                arrMyFanDataList.put(SendList.Idx, SendList);
+                CommonFunc.getInstance().SetFanAlarmVisible(true);
+                if(GetCurFrag() == 3)
+                {
+                    Fragment frg = null;
+                    frg = mFragmentMng.findFragmentByTag("FanListFragment");
+                    final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                    ft.detach(frg);
+                    ft.attach(frg);
+                    ft.commit();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int saa = 0;
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                int saa = 0;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
+
     public void getSendList() {
         String MyID = strIdx;
 
@@ -665,8 +814,19 @@ public class MyData {
                 int saa = 0;
                 SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
                 if (!arrChatNameList.contains(SendList.ChatRoomName)) {
+                    CommonFunc.getInstance().SetChatAlarmVisible(true);
                     arrChatNameList.add(SendList.ChatRoomName);
                     arrChatDataList.put(SendList.ChatRoomName, SendList);
+
+                    if(GetCurFrag() == 2)
+                    {
+                        Fragment frg = null;
+                        frg = mFragmentMng.findFragmentByTag("ChatListFragment");
+                        final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                        ft.detach(frg);
+                        ft.attach(frg);
+                        ft.commit();
+                    }
                 }
                 //arrCardList.add(CardList);
             }
@@ -674,8 +834,33 @@ public class MyData {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 int saa = 0;
+                CommonFunc.getInstance().SetChatAlarmVisible(true);
                 SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
                     arrChatDataList.put(SendList.ChatRoomName, SendList);
+
+                ActivityManager activityManager = (ActivityManager) mContext.getSystemService(ACTIVITY_SERVICE);
+                List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
+
+                if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
+                {
+                    CommonFunc.getInstance().PlayVibration(mContext);
+                    CommonFunc.getInstance().PlayAlramSound(mContext, R.raw.katalk);
+
+                    if(GetCurFrag() == 2 || GetCurFrag() == 5)
+                    {
+
+                    }
+                    else
+                    {
+                        if(SendList.SendHeart == 0)
+                            CommonFunc.getInstance().ShowMsgPopup(mContext, SendList);
+                        else
+                            CommonFunc.getInstance().ShowGiftPopup(mContext, SendList);
+                    }
+
+                }
+
+
 
               if(GetCurFrag() == 2)
               {
@@ -780,6 +965,7 @@ public class MyData {
                 return rtValue;
         }
 
+        CommonFunc.getInstance().SetCardAlarmVisible(true);
         arrCardNameList.add(target.Idx);
         table.child("CardList").child(target.Idx).setValue(target.Idx);
 
@@ -865,6 +1051,7 @@ public class MyData {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 int saa = 0;
+                CommonFunc.getInstance().SetMailAlarmVisible(true);
                 SendData SendList = dataSnapshot.getValue(SendData.class);
                 arrGiftHoneyNameList.add(SendList.strSendName);
                 arrGiftHoneyDataList.add(SendList);
@@ -874,6 +1061,11 @@ public class MyData {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                CommonFunc.getInstance().SetMailAlarmVisible(true);
+                SendData SendList = dataSnapshot.getValue(SendData.class);
+                arrGiftHoneyNameList.add(SendList.strSendName);
+                arrGiftHoneyDataList.add(SendList);
+                getGiftData(SendList.strSendName);
             }
 
             @Override
@@ -1211,7 +1403,19 @@ public class MyData {
                         TempSettingData stRecvData = new TempSettingData();
                         stRecvData = dataSnapshot.getValue(TempSettingData.class);
                         if (stRecvData != null) {
-                           // nSearchMode = stRecvData.SearchMode;
+
+                            if(stRecvData.StartAge == 0 || stRecvData.EndAge == 0)
+                            {
+                                nStartAge = (Integer.parseInt(getUserAge()) / 10) * 10;
+                                nEndAge = nStartAge + 19;
+                            }
+                            else
+                            {
+                                nStartAge = stRecvData.StartAge;
+                                nEndAge = stRecvData.EndAge;
+                            }
+
+                            nSearchMode = stRecvData.SearchMode;
                             nViewMode = stRecvData.ViewMode;
                             nRecvMsgReject = stRecvData.RecvMsgReject == 0 ? false : true;
                             nAlarmSetting_Sound = stRecvData.AlarmMode_Sound;
@@ -1229,48 +1433,6 @@ public class MyData {
     }
 
 
-    public void getFanList() {
-        String MyID = strIdx;
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, user;
-        table = database.getReference("User");
-        user = table.child(strIdx).child("FanList");
-
-
-        user.addChildEventListener(new ChildEventListener() {
-            int i = 0;
-
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                int saa = 0;
-                FanData tempFanData = new FanData();
-                tempFanData = dataSnapshot.getValue(FanData.class);
-                arrMyFanList.add(tempFanData);
-                //arrCardList.add(CardList);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int saa = 0;
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                int saa = 0;
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-        });
-    }
-
 
 
     public void makeFanList(UserData stTargetData, int SendCount) {
@@ -1278,12 +1440,12 @@ public class MyData {
         int nTotalSendCnt = 0;
         for (int i = 0; i < arrSendHoneyDataList.size(); i++) {
             if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
-                nTotalSendCnt -= arrSendHoneyDataList.get(i).nSendHoney;
-            else
+                nTotalSendCnt += arrSendHoneyDataList.get(i).nSendHoney;
+            else {
                 stTargetData.FanCount--;
+                nTotalSendCnt += SendCount;
+            }
         }
-
-        nTotalSendCnt -= SendCount;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
@@ -1297,10 +1459,11 @@ public class MyData {
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("RecvGold", nTotalSendCnt);
         updateMap.put("Idx", getUserIdx());
+        updateMap.put("NickName", getUserNick());
+        updateMap.put("BestItem", GetBestItem());
+        updateMap.put("Grade", getGrade());
         updateMap.put("Img", getUserImg());
         table.child(getUserIdx()).updateChildren(updateMap);
-
-
 
         //getMyfanData(stTargetData.Idx);
 
@@ -1764,7 +1927,7 @@ public class MyData {
         return rtValue + 1;
     }
 
-    public void makeLastMSG(UserData  tempData, String Roomname, String strMsg, String lTime) {
+    public void makeLastMSG(UserData  tempData, String Roomname, String strMsg, String lTime, int SendCount) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
@@ -1786,6 +1949,8 @@ public class MyData {
         tempMySave.BestItem = bestItem;
         tempMySave.Date = strLastTime;
         tempMySave.Check = 0;
+        tempMySave.SendHeart = SendCount;
+
 
         SimpleChatData tempTargetSave = new SimpleChatData();
         tempTargetSave.ChatRoomName = Roomname;
@@ -1797,6 +1962,7 @@ public class MyData {
         tempTargetSave.BestItem = tempData.BestItem;
         tempTargetSave.Date = strLastTime;
         tempTargetSave.Check = 1;
+        tempTargetSave.SendHeart = SendCount;
 
         user.setValue(tempTargetSave);
         targetuser.setValue(tempMySave);
@@ -1846,5 +2012,11 @@ public class MyData {
 
     public long GetLastBoardWriteTime(){return LastBoardWriteTime;}
     public void SetLastBoardWriteTime(long time){LastBoardWriteTime = time;}
+
+    public long GetLastAdsTime(){return LastAdsTime;}
+    public void SetLastAdsTime(long time)
+    {
+        FirebaseData.getInstance().SaveLastAdsTime(time);
+    }
 }
 

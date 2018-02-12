@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by mjk on 2017. 8. 4..
@@ -78,27 +79,25 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         HeartItem mHeartItem;
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "10골드 900원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "10골드 1000원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "20골드 1700원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "32골드 3000원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "50골드 4500원");
-        list.add(mHeartItem);
-
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "100골드 9100원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "55골드 4900원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "200골드 17500원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "120골드 9900원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "300골드 26000원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "250골드 29000원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "500하트 44000원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "650골드 49000원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "1000골드 80000원");
+        mHeartItem = new HeartItem(R.drawable.heart_icon, "1400하트 99000원");
         list.add(mHeartItem);
+
 
         HeartItemAdapter adapter = new HeartItemAdapter(this, R.layout.content_cash_charge, list);
 
@@ -109,7 +108,6 @@ public class BuyGoldActivity extends AppCompatActivity {
         Free_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(mMyData.mRewardedVideoAd.isLoaded() == false)
                 {
                     CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 골드 충전", "하루에 한번만 충전 할 수 있습니다.");
@@ -118,6 +116,14 @@ public class BuyGoldActivity extends AppCompatActivity {
                 {
                     CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
                         public void YesListener() {
+                            if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastAdsTime()), 1440) == false)
+                            {
+                                // TODO 환웅
+                                CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 골드 충전", "하루에 한번만 충전 할 수 있습니다.");
+                                return;
+                            }
+
+                            mMyData.SetLastAdsTime(CommonFunc.getInstance().GetCurrentTime());
                             mMyData.mRewardedVideoAd.show();
                         }
                     };
@@ -221,7 +227,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(con, txt.getText(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(con, txt.getText(), Toast.LENGTH_SHORT).show();
 
                     String tempStrGold = null;
                     switch (i)
@@ -247,9 +253,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                         case 6:
                             tempStrGold = mMyData.skuGold[6];
                             break;
-                        case 7:
-                            tempStrGold = mMyData.skuGold[7];
-                            break;
+
 
                     }
 
@@ -323,32 +327,29 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
         else if(ID.equals(mMyData.skuGold[1]))
         {
-            nPrice = 20;
+            nPrice = 32;
         }
         else if(ID.equals(mMyData.skuGold[2]))
         {
-            nPrice = 50;
+            nPrice = 55;
         }
         else if(ID.equals(mMyData.skuGold[3]))
         {
-            nPrice = 100;
+            nPrice = 120;
         }
         else if(ID.equals(mMyData.skuGold[4]))
         {
-            nPrice = 200;
+            nPrice = 250;
         }
         else if(ID.equals(mMyData.skuGold[5]))
         {
-            nPrice = 300;
+            nPrice = 650;
         }
         else if(ID.equals(mMyData.skuGold[6]))
         {
-            nPrice = 500;
+            nPrice = 1400;
         }
-        else if(ID.equals(mMyData.skuGold[7]))
-        {
-            nPrice = 1000;
-        }
+
 
         mMyData.setUserHoney(mMyData.getUserHoney() +  nPrice);
         mMyData.setPoint( nPrice);

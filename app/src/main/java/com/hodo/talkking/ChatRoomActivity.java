@@ -6,22 +6,26 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,6 +48,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hodo.talkking.Data.ChatData;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleChatData;
 import com.hodo.talkking.Data.UserData;
@@ -56,9 +61,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
+import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_CHAT;
 import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -87,18 +96,16 @@ public class ChatRoomActivity extends AppCompatActivity {
     LinearLayoutManager mLinearLayoutManager;
     SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm");
 
+    private ConstraintLayout GiftLayout;
+
     int     tempPosition;
-    SimpleChatData tempChatData;
-    String  tempChatIdx;
+    SimpleChatData tempChatData = new SimpleChatData();
+    String  tempChatRoomName;
 
     private ProgressBar progressBar;
-
     private android.app.FragmentManager mFragmentManager;
-
     static  Uri tempSaveUri;
-
     static int a = 0;
-
     private Activity mActivity;
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder{
@@ -107,12 +114,25 @@ public class ChatRoomActivity extends AppCompatActivity {
         LinearLayout Msg_layout;
         LinearLayout Msg_detail_layout;
 
-        ImageView image_profile,send_Img;
-        TextView message;
+        ImageView image_profile, send_Img1;
+        ImageView send_Img2;
+        TextView message1;
+        TextView message2;
+        TextView from;
+
+        TextView nickname1;
+        TextView to;
+        TextView nickname2;
+        TextView giftMsg;
+        TextView heartCount;
+        ImageView heart;
+
+        TextView check;
+        TextView date1, date2;
 
         TextView targetName;
 
-        TextView send_new,recv_new;
+        //TextView send_new,recv_new;
 
         ImageView Sender_image_profile,Sender_image_sent;
         TextView Sender_message;
@@ -120,32 +140,93 @@ public class ChatRoomActivity extends AppCompatActivity {
         TextView Sender_sender;
         TextView Sender_time;
 
+
+
+        ImageView gift_img;
+        TextView  gift_from;
+        TextView  gift_from_Nickname;
+        TextView  gift_to;
+        TextView  gift_to_Nickname;
+        TextView  gift_Msg;
+        ImageView gift_Heart_img;
+        TextView  gift_Heart_Cnt;
+
+
+        TextView gift_check;
+        TextView gift_date;
+
+        TextView send_Img1_date;
+        TextView send_Img2_date;
+        TextView send_img2_check;
+
         //회색글자 처리 뜸 원인불명
         public ChatViewHolder(View itemView) {
             super(itemView);
             image_profile = (ImageView)itemView.findViewById(R.id.ChatRoom_Img);
            // image_sent = (ImageView)itemView.findViewById(R.id.iv_sent);
-            targetName = (TextView)itemView.findViewById(R.id.ChatRoom_name);
-            message =(TextView)itemView.findViewById(R.id.message);
-            layout = (LinearLayout)itemView.findViewById(R.id.ChatRoom_layout);
+            targetName = (TextView)itemView.findViewById(R.id.ChatRoom_name1);
+            message1 =(TextView)itemView.findViewById(R.id.message1);
+            message2 = itemView.findViewById(R.id.message2);
+            //layout = (LinearLayout)itemView.findViewById(R.id.ChatRoom_layout);
             Msg_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_layout);
-            Msg_detail_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_detail_layout);
-            send_Img = (ImageView)itemView.findViewById(R.id.send_img);
+            //Msg_detail_layout= (LinearLayout)itemView.findViewById(R.id.ChatRoom_msg_detail_layout);
+            send_Img1 = (ImageView)itemView.findViewById(R.id.img1);
+            send_Img1_date = (TextView)itemView.findViewById(R.id.img_date1);
 
-            send_new = (TextView)itemView.findViewById(R.id.Send_new);
-            recv_new  = (TextView)itemView.findViewById(R.id.Recv_new);
+            from = itemView.findViewById(R.id.from);
+            nickname1 = itemView.findViewById(R.id.from_nickname);
+            to = itemView.findViewById(R.id.to);
+            nickname2 = itemView.findViewById(R.id.to_nickname);
+            giftMsg = itemView.findViewById(R.id.giftmessage);
+            heartCount = itemView.findViewById(R.id.heart_count);
+            heart = itemView.findViewById(R.id.heart);
+
+            send_Img2 = (ImageView)itemView.findViewById(R.id.img2);
+            send_Img2_date = (TextView)itemView.findViewById(R.id.img_date2);
+            send_img2_check = (TextView)itemView.findViewById(R.id.img_check);
+
+            check = (TextView)itemView.findViewById(R.id.txt_check);
+
+            date1 = (TextView)itemView.findViewById(R.id.txt_date1);
+            date2 = (TextView)itemView.findViewById(R.id.txt_date2);
+
+
+            gift_img = (ImageView)itemView.findViewById(R.id.bg_gift);
+            gift_from = (TextView)itemView.findViewById(R.id.from);
+            gift_from_Nickname = (TextView)itemView.findViewById(R.id.from_nickname);
+            gift_to = (TextView)itemView.findViewById(R.id.to);
+            gift_to_Nickname = (TextView)itemView.findViewById(R.id.to_nickname);
+            gift_Msg = (TextView) itemView.findViewById(R.id.giftmessage);
+            gift_Heart_img = (ImageView)itemView.findViewById(R.id.heart);
+            gift_Heart_Cnt = (TextView)itemView.findViewById(R.id.heart_count);
+            gift_check= (TextView)itemView.findViewById(R.id.gift_check);
+            gift_date = (TextView)itemView.findViewById(R.id.gift_date);
+
+            //send_new = (TextView)itemView.findViewById(R.id.Send_new);
+            //recv_new  = (TextView)itemView.findViewById(R.id.Recv_new);
           //  Sender_image_profile = (ImageView)itemView.findViewById(R.id.Sender_Img);
 
         }
     }
 
+
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         mMyData.SetCurFrag(2);
-        ChatListFragment frg = null;
-        frg = (ChatListFragment)mFragmentMng.findFragmentByTag("ChatListFragment");
-        frg.refresh();
+        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
+     /*   if(tempPosition == -1)
+        {
+            mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
+        }
+        else
+        {
+            ChatListFragment frg = null;
+            frg = (ChatListFragment)mFragmentMng.findFragmentByTag("ChatListFragment");
+            frg.refresh();
+        }*/
+
 
 
     }
@@ -153,6 +234,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
+
 
         mMyData.SetCurFrag(5);
 
@@ -165,8 +247,15 @@ public class ChatRoomActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         stTargetData = (UserData) bundle.getSerializable("Target");
         tempPosition = (int)bundle.getSerializable("Position");
-        tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
+        if(tempPosition == -1)
+        {
+            tempChatData.Nick = stTargetData.NickName;
+            tempChatData.ChatRoomName = tempChatRoomName = (String)bundle.getSerializable("RoomName");
+        }
+        else
+            tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
 
+        GiftLayout = (ConstraintLayout)findViewById(R.id.ChatGiftLayout);
         //stTargetData.NickName = tempChatData.strTargetNick;
         //stTargetData.Img= tempChatData.strTargetImg;
 
@@ -174,8 +263,36 @@ public class ChatRoomActivity extends AppCompatActivity {
         //stTargetData.Img= mMyData.arrChatTargetData.get(tempChatIdx).Img;
 
         mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(tempChatData.ChatRoomName);
+        setTitle(stTargetData.NickName);
 
+        boolean btnSendEnable = true;
         txt_msg = (EditText)findViewById(R.id.et_msg);
+
+
+        txt_msg.addTextChangedListener(new TextWatcher() {
+            int L;
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence q, int s, int c, int a) {
+            }
+
+            public void onTextChanged(CharSequence q, int s, int b, int c) {
+             //   Log.d("TESTING", " LINES = " + txt_msg.getLineCount());
+                System.out.println("Line Count "+txt_msg.getLineCount());
+
+                L = txt_msg.getLineCount();
+                if(L > 5){
+                    txt_msg.getText().delete(txt_msg.getSelectionEnd() - 1,txt_msg.getSelectionStart());
+                }
+                if(q.toString().equals("\n") || q.toString().equals("\n\n") || q.toString().equals("\n\n\n") || q.toString().equals("\n\n\n\n"))
+                {
+                    btn_send.setEnabled(false);
+                }
+                else
+                    btn_send.setEnabled(true);
+            }
+        });
 
 
 /*        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, tempChatData.Msg, tempChatData.Date, "");
@@ -193,7 +310,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ChatData, ChatViewHolder>(
                 ChatData.class,
-                R.layout.content_chat_data,
+                R.layout.content_chat_data_constraint,
                 ChatViewHolder.class,
                 mRef){
 
@@ -217,8 +334,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             int a= 0;
 
             @Override
-            protected void populateViewHolder(ChatViewHolder viewHolder, ChatData chat_message, int position) {
-
+            protected void populateViewHolder(ChatViewHolder viewHolder, final ChatData chat_message, int position) {
 
 
                 viewHolder.image_profile.setOnClickListener(new View.OnClickListener() {
@@ -237,105 +353,280 @@ public class ChatRoomActivity extends AppCompatActivity {
                 });
 
 
-                 if( !chat_message.getMsg().equals("")){
 
-                    viewHolder.message.setVisibility(TextView.VISIBLE);
-                    viewHolder.send_Img.setVisibility(TextView.GONE);
-                    viewHolder.targetName.setVisibility(TextView.VISIBLE);
-
-                    viewHolder.message.setText(chat_message.getMsg());
-                    viewHolder.targetName.setText(stTargetData.NickName);
-
-                }
-                else if( !chat_message.getImg().equals("")){
-
-                     viewHolder.send_Img.setVisibility(TextView.VISIBLE);
-                     viewHolder.message.setVisibility(TextView.GONE);
-                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
-
-                    Glide.with(getApplicationContext())
-                            .load(chat_message.getImg())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(viewHolder.send_Img);
-
-                     viewHolder.targetName.setText( stTargetData.NickName);
-
-                }
-                else{
-                 //   viewHolder.image_sent.setVisibility(ImageView.VISIBLE);
-
-                    viewHolder.send_Img.setVisibility(TextView.GONE);
-                    viewHolder.message.setVisibility(TextView.GONE);
-                    viewHolder.targetName.setVisibility(TextView.GONE);
-                }
-
-                //viewHolder.sender.setText(chat_message.getFrom());
-
-                Log.d("!@#$%", chat_message.getMsg() + "    " + position +"     " + chat_message.from);
+               // Log.d("!@#$%", chat_message.getMsg() + "    " + position +"     " + chat_message.from);
 
                 if(chat_message.from.equals(mMyData.getUserNick()))
-              //  if(a % 2 == 0)
                 {
-                    Log.d("!@#$%", "11111");
+                  //  Log.d("!@#$%", "11111");
 
                     if (chat_message.Check == 0)
-                        viewHolder.send_new.setVisibility(View.VISIBLE);
+                    {
+                        viewHolder.send_img2_check.setVisibility(View.VISIBLE);
+                        viewHolder.check.setVisibility(View.VISIBLE);
+                        viewHolder.gift_check.setVisibility(View.VISIBLE);
+                    }
+
                     else
-                        viewHolder.send_new.setVisibility(View.GONE);
+                    {
+                        viewHolder.check.setVisibility(View.GONE);
+                        viewHolder.send_img2_check.setVisibility(View.GONE);
+                        viewHolder.gift_check.setVisibility(View.GONE);
+                    }
 
-                    viewHolder.recv_new.setVisibility(View.GONE);
-
-                    //viewHolder.send_new.setVisibility(TextView.VISIBLE);
-/*                    viewHolder.recv_new.setVisibility(TextView.GONE);
-
-                    if(tempChatData.Check == 0)
-                        viewHolder.send_new.setVisibility(TextView.VISIBLE);
-                    else
-                        viewHolder.send_new.setVisibility(TextView.GONE);*/
-
+                    viewHolder.message1.setVisibility(TextView.GONE);
                     viewHolder.targetName.setVisibility(TextView.GONE);
                     viewHolder.image_profile.setVisibility(View.GONE);
-                    //viewHolder.message.setBackgroundResource(R.drawable.outbox2);
-                    viewHolder.message.setBackgroundResource(R.drawable.bg_chat_mine);
+                    viewHolder.send_Img1.setVisibility(TextView.GONE);
+                    viewHolder.date1.setVisibility(TextView.GONE);
+                    viewHolder.date2.setVisibility(TextView.VISIBLE);
 
-                    viewHolder.Msg_layout.setGravity(Gravity.RIGHT);
-                    viewHolder.Msg_detail_layout.setGravity(Gravity.RIGHT);
+                    long time = CommonFunc.getInstance().GetCurrentTime();
+                    Date writeDate = CommonFunc.getInstance().GetStringToDate(chat_message.time, CoomonValueData.DATE_FORMAT);
+                    Date todayDate = new Date(time);
+
+                    if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
+                    {
+                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
+                        viewHolder.date2.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
+                    }
+                    else
+                    {
+                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
+                        viewHolder.date2.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
+                    }
+
+                    if(chat_message.Heart == 0)
+                    {
+                        viewHolder.gift_img.setVisibility(ImageView.GONE);
+                        viewHolder.gift_from.setVisibility(TextView.GONE);
+                        viewHolder.gift_from_Nickname.setVisibility(TextView.GONE);
+                        viewHolder.gift_to.setVisibility(TextView.GONE);
+                        viewHolder.gift_to_Nickname.setVisibility(TextView.GONE);
+                        viewHolder.gift_Msg.setVisibility(TextView.GONE);
+                        viewHolder.gift_Heart_img.setVisibility(ImageView.GONE);
+                        viewHolder.gift_Heart_Cnt.setVisibility(TextView.GONE);
+                        viewHolder.gift_date.setVisibility(TextView.GONE);
+                        viewHolder.gift_check.setVisibility(TextView.GONE);
+
+                        viewHolder.send_Img2.setVisibility(View.GONE);
+                        viewHolder.send_Img2_date.setVisibility(TextView.GONE);
+
+                        viewHolder.send_Img1_date.setVisibility(View.GONE);
+
+                        viewHolder.date2.setVisibility(TextView.GONE);
+                        viewHolder.message2.setVisibility(View.GONE);
+
+
+
+                        if( !chat_message.getMsg().equals("")){
+
+                            viewHolder.date2.setVisibility(TextView.VISIBLE);
+                            viewHolder.message2.setVisibility(View.VISIBLE);
+                            viewHolder.message2.setText(chat_message.getMsg());
+                        }
+                        else if( !chat_message.getImg().equals("")){
+                            viewHolder.check.setVisibility(View.GONE);
+                            viewHolder.send_Img2.setVisibility(View.VISIBLE);
+                            viewHolder.send_Img2_date.setVisibility(TextView.VISIBLE);
+
+                            Glide.with(getApplicationContext())
+                                    .load(chat_message.getImg())
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(viewHolder.send_Img2);
+
+                            viewHolder.send_Img2.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
+                                    Bundle bundle = new Bundle();
+                                    UserData tempUser = new UserData();
+                                    tempUser.ImgCount = 1;
+                                    tempUser.Img= tempUser.ImgGroup0 = chat_message.getImg().toString();
+                                    bundle.putSerializable("Target", tempUser);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                }
+                            });
+
+                        }
+                    }
+                    else
+                    {
+                        viewHolder.date2.setVisibility(TextView.GONE);
+                        viewHolder.check.setVisibility(TextView.GONE);
+                        viewHolder.message2.setVisibility(View.GONE);
+
+                        viewHolder.send_Img2.setVisibility(View.GONE);
+                        viewHolder.send_Img1_date.setVisibility(TextView.GONE);
+
+                        viewHolder.send_Img2_date.setVisibility(TextView.GONE);
+                        viewHolder.send_img2_check.setVisibility(TextView.GONE);
+
+                        viewHolder.gift_img.setVisibility(ImageView.VISIBLE);
+                        viewHolder.gift_from.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_from_Nickname.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_from_Nickname.setText(mMyData.getUserNick());
+                        viewHolder.gift_to.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_to_Nickname.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_to_Nickname.setText(stTargetData.NickName);
+                        viewHolder.gift_Msg.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_Msg.setText(chat_message.msg);
+                        viewHolder.gift_Heart_img.setVisibility(ImageView.VISIBLE);
+                        viewHolder.gift_Heart_Cnt.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_Heart_Cnt.setText(Integer.toString(chat_message.Heart));
+                        viewHolder.gift_date.setVisibility(View.VISIBLE);
+                    }
+
+
+
+
                     a = 0;
 
-                  //  viewHolder.Sender_sender.setText(chat_message.getFrom());
                 }
                 else
                 {
-                    Log.d("!@#$%", "22222");
+                  //  Log.d("!@#$%", "22222");
 
-                    viewHolder.send_new.setVisibility(View.GONE);
-                    viewHolder.recv_new.setVisibility(View.GONE);
+                    viewHolder.message2.setVisibility(View.GONE);
+                    viewHolder.send_Img2.setVisibility(View.GONE);
 
-    /*                viewHolder.send_new.setVisibility(TextView.GONE);
-
-                    if(tempChatData.Check == 0)
-                        viewHolder.recv_new.setVisibility(TextView.VISIBLE);
-                    else
-                        viewHolder.recv_new.setVisibility(TextView.GONE);
-    */
-
-                    viewHolder.image_profile.setVisibility(View.VISIBLE);
                     viewHolder.targetName.setVisibility(TextView.VISIBLE);
                     viewHolder.targetName.setText(stTargetData.NickName);
-                    viewHolder.message.setBackgroundResource(R.drawable.bg_chat_yours);
 
-                   Glide.with(getApplicationContext())
+                    viewHolder.date2.setVisibility(TextView.GONE);
+                    viewHolder.send_Img2_date.setVisibility(TextView.GONE);
+                    viewHolder.send_img2_check.setVisibility(TextView.GONE);
+                    viewHolder.date1.setVisibility(TextView.GONE);
+                    viewHolder.check.setVisibility(TextView.GONE);
+                    viewHolder.gift_check.setVisibility(TextView.GONE);
+
+                    long time = CommonFunc.getInstance().GetCurrentTime();
+                    Date writeDate = CommonFunc.getInstance().GetStringToDate(chat_message.time, CoomonValueData.DATE_FORMAT);
+                    Date todayDate = new Date(time);
+
+                    if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
+                    {
+                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
+                        viewHolder.date1.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img1_date.setText(ctime.format(new Date(writeDate.getTime())));
+                    }
+                    else
+                    {
+                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
+                        viewHolder.date1.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.send_Img1_date.setText(ctime.format(new Date(writeDate.getTime())));
+                    }
+
+                    viewHolder.image_profile.setVisibility(View.VISIBLE);
+                    Glide.with(getApplicationContext())
                             .load( stTargetData.Img)
                             .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .thumbnail(0.1f)
                             .into(viewHolder.image_profile);
 
-                    viewHolder.Msg_layout.setGravity(Gravity.LEFT);
-                    viewHolder.Msg_detail_layout.setGravity(Gravity.LEFT);
-                    a = 1;
+                    if (chat_message.Check == 0)
+                    {
+                        viewHolder.check.setVisibility(View.VISIBLE);
+                    }
+
+                    else
+                    {
+                        viewHolder.check.setVisibility(View.GONE);
+                    }
+
+
+                    if(chat_message.Heart == 0)
+                    {
+                        viewHolder.gift_img.setVisibility(ImageView.GONE);
+                        viewHolder.gift_from.setVisibility(TextView.GONE);
+                        viewHolder.gift_from_Nickname.setVisibility(TextView.GONE);
+                        viewHolder.gift_to.setVisibility(TextView.GONE);
+                        viewHolder.gift_to_Nickname.setVisibility(TextView.GONE);
+                        viewHolder.gift_Msg.setVisibility(TextView.GONE);
+                        viewHolder.gift_Heart_img.setVisibility(ImageView.GONE);
+                        viewHolder.gift_Heart_Cnt.setVisibility(TextView.GONE);
+
+                        viewHolder.gift_date.setVisibility(TextView.GONE);
+
+                        if( !chat_message.getMsg().equals("")){
+                            viewHolder.date1.setVisibility(TextView.VISIBLE);
+                            viewHolder.message1.setVisibility(View.VISIBLE);
+                            viewHolder.message1.setText(chat_message.getMsg());
+
+                            viewHolder.send_Img1.setVisibility(TextView.GONE);
+                            viewHolder.send_Img1_date.setVisibility(TextView.GONE);
+                        }
+                        else if( !chat_message.getImg().equals("")){
+
+                            viewHolder.message1.setVisibility(View.GONE);
+                            viewHolder.send_Img1.setVisibility(View.VISIBLE);
+                            viewHolder.send_Img1_date.setVisibility(View.VISIBLE);
+                            viewHolder.date1.setVisibility(View.GONE);
+
+                            Glide.with(getApplicationContext())
+                                    .load(chat_message.getImg())
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(viewHolder.send_Img1);
+                        }
+
+                        viewHolder.send_Img1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
+                                Bundle bundle = new Bundle();
+                                UserData tempUser = new UserData();
+                                tempUser.ImgCount = 1;
+                                tempUser.Img= tempUser.ImgGroup0 = chat_message.getImg().toString();
+                                bundle.putSerializable("Target", tempUser);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+
+
+                    }
+                    else
+                    {
+
+
+                        viewHolder.image_profile.setVisibility(TextView.GONE);
+                        viewHolder.targetName.setVisibility(TextView.GONE);
+                        viewHolder.date1.setVisibility(TextView.GONE);
+                        viewHolder.send_Img1.setVisibility(TextView.GONE);
+                        viewHolder.send_Img1_date.setVisibility(TextView.GONE);
+
+                        viewHolder.message1.setVisibility(View.GONE);
+
+                        viewHolder.gift_img.setVisibility(ImageView.VISIBLE);
+                        viewHolder.gift_from.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_from_Nickname.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_from_Nickname.setText(stTargetData.NickName);
+                        viewHolder.gift_to.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_to_Nickname.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_to_Nickname.setText(mMyData.getUserNick());
+                        viewHolder.gift_Msg.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_Msg.setText(chat_message.msg);
+                        viewHolder.gift_Heart_img.setVisibility(ImageView.VISIBLE);
+                        viewHolder.gift_Heart_Cnt.setVisibility(TextView.VISIBLE);
+                        viewHolder.gift_Heart_Cnt.setText(Integer.toString(chat_message.Heart));
+                    }
+
+
+
+
+
+
                 }
-                a++;
             }
         };
         firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -347,7 +638,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
                 // If the recycler view is initially being loaded or the
                 // user is at the bottom of the list, scroll to the bottom
-                // of the list to show the newly added message.
+                // of the list to show the newly added message1.
                 if (lastVisiblePosition == -1 ||
                         (positionStart >= (friendlyMessageCount - 1) &&
                                 lastVisiblePosition == (positionStart - 1))) {
@@ -384,14 +675,14 @@ public class ChatRoomActivity extends AppCompatActivity {
                     }
                 });
 
-                Button btn_cam = popup.findViewById(R.id.btn_camera);
+                /*Button btn_cam = popup.findViewById(R.id.btn_camera);
                 btn_cam.setVisibility(View.GONE);
                 btn_cam.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                     }
-                });
+                });*/
 
                 Button btn_gift = popup.findViewById(R.id.btn_gift);
                 btn_gift.setOnClickListener(new View.OnClickListener() {
@@ -413,17 +704,17 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
                         //TextView tvHeartCnt = v.findViewById(R.id.HeartPop_MyHeart);
-                        Button btnHeart100 = v.findViewById(R.id.HeartPop_100);
-                        Button btnHeart200 = v.findViewById(R.id.HeartPop_200);
-                        Button btnHeart300 = v.findViewById(R.id.HeartPop_300);
-                        Button btnHeart500 = v.findViewById(R.id.HeartPop_500);
-                        Button btnHeart1000 = v.findViewById(R.id.HeartPop_1000);
-                        Button btnHeart5000 = v.findViewById(R.id.HeartPop_5000);
+                        Button btnHeart100 = v.findViewById(R.id.HeartPop_10);
+                        Button btnHeart200 = v.findViewById(R.id.HeartPop_30);
+                        Button btnHeart300 = v.findViewById(R.id.HeartPop_50);
+                        Button btnHeart500 = v.findViewById(R.id.HeartPop_100);
+                        Button btnHeart1000 = v.findViewById(R.id.HeartPop_300);
+                        Button btnHeart5000 = v.findViewById(R.id.HeartPop_500);
                         final TextView Msg = v.findViewById(R.id.HeartPop_text);
 
                         //tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
-                        Msg.setText("100개의 꿀을 보내시겠습니까?");
-
+                        Msg.setText("현재 보유 코인은 "+String.valueOf(mMyData.getUserHoney())+"코인 입니다." );
+                        final Button btn_gift_send = v.findViewById(R.id.btn_gift_send);
                         final int[] nSendHoneyCnt = new int[1];
                         nSendHoneyCnt[0] = 10;
 
@@ -431,39 +722,79 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 10;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
+                                }
                             }
                         });
 
                         btnHeart200.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 20;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 30;
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
+                                }
                             }
                         });
 
                         btnHeart300.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 30;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 50;
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
+                                }
                             }
                         });
 
                         btnHeart500.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 50;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 100;
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
+                                }
                             }
                         });
 
                         btnHeart1000.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                nSendHoneyCnt[0] = 100;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                nSendHoneyCnt[0] = 300;
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다");
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
+                                }
                             }
                         });
 
@@ -471,54 +802,60 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 nSendHoneyCnt[0] = 500;
-                                Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                                    btn_gift_send.setEnabled(false);
+                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
+                                }
+                                else {
+                                    btn_gift_send.setEnabled(true);
+                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
+                                }
                             }
                         });
 
                         final EditText SendMsg = v.findViewById(R.id.HeartPop_Msg);
 
-                        Button btn_gift_send = v.findViewById(R.id.btn_gift_send);
+
                         btn_gift_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
 
+                                if(CommonFunc.getInstance().CheckTextMaxLength(SendMsg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_SEND_HONEY, getApplicationContext() ,"하트 날리기", true) == false)
+                                    return;
+
+
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                    Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
+                                    btn_gift_send.setEnabled(false);
                                 }
                                 else
                                 {
+                                    btn_gift_send.setEnabled(true);
                                     String strSendMsg = SendMsg.getText().toString();
-                                    if (strSendMsg.equals(""))
-                                        strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
-
                                     boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                     rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
+                                    rtValuew = mMyData.makeCardList(stTargetData);
 
-                                    if (rtValuew == true) {
                                         //mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                                         mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
+                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                                         mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
+                                        mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
                                         Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
-
-                                        String message;
-                                        if (SendMsg.getText().toString().equals(""))
-                                            message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
-                                        else
-                                            message = strSendMsg;
 
                                         Calendar cal = Calendar.getInstance();
                                         Date date = cal.getTime();
-                                        SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
                                         String formatStr = sdf.format(date);
 
-                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, strSendMsg, formatStr, "", 0, nSendHoneyCnt[0]);
 
-                                        ChatData chat_Data = new ChatData(mMyData.getUserNick(),  stTargetData.NickName, message, formatStr, "", 0);
-                                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr);
+                                        if(strSendMsg.equals(""))
+                                            strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + " 하트를 보냈습니다";
+                                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, strSendMsg, formatStr, nSendHoneyCnt[0]);
                                         mRef.push().setValue(chat_Data);
                                         dialog.dismiss();
 
-                                    }
                                 }
 
                                 dialog.dismiss();
@@ -543,26 +880,108 @@ public class ChatRoomActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = txt_msg.getText().toString();
-                long nowTime = CommonFunc.getInstance().GetCurrentTime();
-                if(txt_msg.getText() == null || txt_msg.getText().equals("")){
+
+                if(CommonFunc.getInstance().CheckTextMaxLength(txt_msg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_CHAT, mActivity ,"채팅", true) == false)
                     return;
-                }else{
-                    Calendar cal = Calendar.getInstance();
-                    Date date = cal.getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
-                    String formatStr = sdf.format(date);
 
-                    //mNotiFunc.SendMsgToFCM(stTargetData);
+                int nSize = mMyData.arrBlockedDataList.size();
 
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0);
+                boolean bBlocked = false;
 
-                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr);
+                for (int i = 0; i < nSize; i++) {
+                    if (mMyData.arrBlockedDataList.get(i).Idx.equals(stTargetData.Idx)) {
+                        bBlocked = true;
+                        break;
+                    }
+                }
 
-                    mRef.push().setValue(chat_Data);
-                    txt_msg.setText("");
+                if(bBlocked == true)
+                {
 
-                    mNotiFunc.SendChatToFCM(message, stTargetData.Token);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                    final int[] nSendHoneyCnt = new int[1];
+                    nSendHoneyCnt[0] = 0;
+                    View giftView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.alert_send_msg, null);
+                    builder.setView(giftView);
+                    final AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    dialog.show();
+
+                    final TextView Msg = giftView.findViewById(R.id.textView);
+                    Msg.setText("메세지 전송 실패");
+
+                    final EditText Edit = giftView.findViewById(R.id.et_msg);
+                    Edit.setVisibility(View.GONE);
+
+                    final TextView Body = giftView.findViewById(R.id.textView4);
+                    Body.setText("당신은 차단 되었습니다");
+
+                    final Button OK = giftView.findViewById(R.id.btn_send);
+                    OK.setText("확인");
+                    OK.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                            onBackPressed();
+                        }
+                    });
+
+                    final Button No = giftView.findViewById(R.id.btn_cancel);
+                    No.setVisibility(View.GONE);
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference table;
+                    table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(tempChatData.ChatRoomName);
+                    table.removeValue();
+
+                    if(tempPosition == -1)
+                    {
+                        int RoomPos = 0;
+                        for(int i =0; i <mMyData.arrChatNameList.size(); i++)
+                        {
+                            if(mMyData.arrChatNameList.get(i).contains(tempChatData.ChatRoomName))
+                            {
+                                RoomPos = i;
+                                break;
+                            }
+                        }
+                        mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(RoomPos));
+                        mMyData.arrChatNameList.remove(RoomPos);
+                    }
+                    else
+                    {
+                        mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(tempPosition));
+                        mMyData.arrChatNameList.remove(tempPosition);
+                    }
+
+
+
+                }
+
+                else
+                {
+                    String message = txt_msg.getText().toString();
+                    int nLength = message.length();
+                    long nowTime = CommonFunc.getInstance().GetCurrentTime();
+                    if (txt_msg.getText().toString().replace(" ", "").equals("")) {
+                        return;
+                    }else{
+                        Calendar cal = Calendar.getInstance();
+                        Date date = cal.getTime();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                        String formatStr = sdf.format(date);
+
+                        //mNotiFunc.SendMsgToFCM(stTargetData);
+
+                        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0, 0);
+
+                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr, 0);
+
+                        mRef.push().setValue(chat_Data);
+                        txt_msg.setText("");
+
+                        mNotiFunc.SendChatToFCM(message, stTargetData.Token);
+                    }
 
                 }
             }
@@ -580,7 +999,9 @@ public class ChatRoomActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.btn_report:
+
+
+            case R.id.btn_block:
                 AlertDialog.Builder builder= new AlertDialog.Builder(this);
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
@@ -646,6 +1067,86 @@ public class ChatRoomActivity extends AppCompatActivity {
                 dialog.show();
                 break;
 
+            case R.id.btn_report:
+                final View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.report_popup, null, false);
+                builder = new AlertDialog.Builder(mActivity);
+                final AlertDialog dialog1 = builder.setView(v).create();
+                dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog1.show();
+                final CheckBox cBox1 = (CheckBox) v.findViewById(R.id.checkBox2);
+                final CheckBox cBox2 = (CheckBox) v.findViewById(R.id.checkBox3);
+                final CheckBox cBox3 = (CheckBox) v.findViewById(R.id.checkBox4);
+
+                Button btn_yes = v.findViewById(R.id.report);
+                btn_yes.setText("신고");
+                btn_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int nReportVal = 0;
+                        if(cBox1.isChecked())
+                        {
+                            nReportVal +=1;
+                        }
+                        if(cBox2.isChecked())
+                        {
+                            nReportVal +=2;
+                        }
+                        if(cBox3.isChecked())
+                        {
+                            nReportVal +=3;
+                        }
+
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference table;
+                        table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
+                        final int finalNReportVal = nReportVal;
+                        table.child(tempChatData.ChatRoomName).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                dataSnapshot.getRef().removeValue();
+
+                                mMyData.makeBlockList(tempChatData);
+
+                                mFireBaseData.DelChatData(tempChatData.ChatRoomName);
+                                mFireBaseData.DelSendData(tempChatData.ChatRoomName);
+
+                                mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(tempPosition));
+                                mMyData.arrChatNameList.remove(tempPosition);
+
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference table = database.getReference("Reported").child(stTargetData.Idx);
+                                final DatabaseReference user = table;
+
+                                Map<String, Object> updateMap = new HashMap<>();
+                                updateMap.put("ReportType", finalNReportVal);
+                                user.push().setValue(updateMap);
+
+                                onBackPressed();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        dialog1.cancel();
+                    }
+                });
+
+                Button btn_no = v.findViewById(R.id.cancel);
+                btn_no.setText("취소");
+                btn_no.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+
+                    public void onClick(View view) {
+                        dialog1.dismiss();
+                    }
+
+                });
+                break;
         }
         return true;
     }
@@ -661,11 +1162,11 @@ public class ChatRoomActivity extends AppCompatActivity {
                 UploadImage_Firebase(tempSaveUri);
 
             } else {
-                Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
+               // Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, "Oops! 로딩에 오류가 있습니다.", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "Oops! 로딩에 오류가 있습니다.", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
@@ -710,9 +1211,15 @@ public class ChatRoomActivity extends AppCompatActivity {
                     // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                     //progressBar.setVisibility(View.INVISIBLE);
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", null, downloadUrl.toString(), 0);
 
-                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", null);
+                    Calendar cal = Calendar.getInstance();
+                    Date date = cal.getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                    String formatStr = sdf.format(date);
+
+                    ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
+
+                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr, 0);
                     mRef.push().setValue(chat_Data);
 
                     tempSaveUri = downloadUrl;

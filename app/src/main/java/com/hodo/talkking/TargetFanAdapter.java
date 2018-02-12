@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
@@ -34,12 +35,12 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
     Context mContext;
     UIData mUIData = UIData.getInstance();
-    private ArrayList<SimpleUserData> stTargetData;
+    private ArrayList<FanData> stTargetData;
 
     private UserData tempFanData = new UserData();
     private UserData tempSendUserData = new UserData();
 
-    public TargetFanAdapter(Context context, ArrayList<SimpleUserData> TargetData) {
+    public TargetFanAdapter(Context context, ArrayList<FanData> TargetData) {
         mContext = context;
         stTargetData = TargetData;
     }
@@ -71,7 +72,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
         holder.nickname.setText(stTargetData.get(position).NickName);
         holder.giftranking.setText((position + 1) + "위");
 
-        int RecvCnt = stTargetData.get(position).RecvGold * -1;
+        int RecvCnt = stTargetData.get(position).RecvGold;
         holder.giftCount.setText(Integer.toString(RecvCnt) + "하트");
 
 
@@ -123,10 +124,10 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
                         {
                             tempFanData.mapFanData.put(strTargetIdx, tempUserData);
 
-                            for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
+                     /*       for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
                                 tempFanData.mapFanData.get(strTargetIdx).arrStarList.add(entry.getValue());
-
-                            for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet())
+*/
+                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
                                 tempFanData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
 
                             moveFanPage(position);

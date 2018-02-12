@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/chat_gift_bg">
+
+    <TextView
+        android:id="@+id/mycoin"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/vvip"
+        android:gravity="center"
+        android:text="나의 누적 코인 :" />
+
+    <TextView
+        android:id="@+id/tv_rank"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="RANK" />
+
+    <TextView
+        android:id="@+id/tv_coin"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tv_rank"
+        android:gravity="center"
+        android:text="누적 코인" />
+
+    <ImageView
+        android:id="@+id/bronze"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="false"
+        android:layout_below="@+id/tv_rank"
+        app:srcCompat="@drawable/rank_bronze" />
+
+    <ImageView
+        android:id="@+id/silver"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/bronze"
+        app:srcCompat="@drawable/rank_silver" />
+
+    <ImageView
+        android:id="@+id/gold"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/silver"
+        app:srcCompat="@drawable/rank_gold" />
+
+    <ImageView
+        android:id="@+id/diamond"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/gold"
+        app:srcCompat="@drawable/rank_diamond" />
+
+    <ImageView
+        android:id="@+id/vip"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/diamond"
+        app:srcCompat="@drawable/rank_vip" />
+
+    <ImageView
+        android:id="@+id/vvip"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/vip"
+        app:srcCompat="@drawable/rank_vvip" />
+
+    <TextView
+        android:id="@+id/tv_bronze"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tv_rank"
+        android:layout_toRightOf="@+id/bronze"
+        android:gravity="center"
+        android:text="Bronze" />
+
+    <TextView
+        android:id="@+id/tv_silver"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/silver"
+        android:layout_toRightOf="@+id/silver"
+        android:gravity="center"
+        android:text="Silver" />
+
+    <TextView
+        android:id="@+id/tv_gold"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/gold"
+        android:layout_toRightOf="@+id/gold"
+        android:gravity="center"
+        android:text="Gold" />
+
+    <TextView
+        android:id="@+id/tv_diamond"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/diamond"
+        android:layout_toRightOf="@+id/diamond"
+        android:gravity="center"
+        android:text="Diamond" />
+
+    <TextView
+        android:id="@+id/tv_vip"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/vip"
+        android:layout_toRightOf="@+id/vip"
+        android:gravity="center"
+        android:text="VIP" />
+
+    <TextView
+        android:id="@+id/tv_vvip"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/vvip"
+        android:layout_toRightOf="@+id/vvip"
+        android:gravity="center"
+        android:text="VVIP" />
+
+    <TextView
+        android:id="@+id/tv_bronze2"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tv_rank"
+        android:layout_toRightOf="@+id/tv_bronze"
+        android:gravity="center"
+        android:text="100코인" />
+
+    <TextView
+        android:id="@+id/tv_silver2"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/silver"
+        android:layout_toRightOf="@+id/tv_silver"
+        android:gravity="center"
+        android:text="200코인" />
+
+    <TextView
+        android:id="@+id/tv_gold2"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/gold"
+        android:layout_toRightOf="@+id/tv_gold"
+        android:gravity="center"
+        android:text="300코인" />
+
+    <TextView
+        android:id="@+id/tv_diamond2"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/diamond"
+        android:layout_toRightOf="@+id/tv_diamond"
+        android:gravity="center"
+        android:text="500코인" />
+
+    <TextView
+        android:id="@+id/tv_vip2"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/vip"
+        android:layout_toRightOf="@+id/tv_vip"
+        android:gravity="center"
+        android:text="1000코인" />
+
+    <TextView
+        android:id="@+id/tv_vvip2"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/vvip"
+        android:layout_toRightOf="@+id/tv_vvip"
+        android:gravity="center"
+        android:text="2000코인" />
+
+</RelativeLayout>

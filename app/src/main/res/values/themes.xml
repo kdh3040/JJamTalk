@@ -20,8 +20,10 @@
         <item name = "titleTextColor">@color/black</item>
 
 
+
     </style>
     <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+
 
         <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
     </style>

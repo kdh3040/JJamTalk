@@ -26,12 +26,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.talkking.Data.CoomonValueData;
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
-import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.ViewHolder.ChatListViewHolder;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -109,7 +113,7 @@ public class ChatListFragment extends Fragment {
             chatListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             mAdapter.notifyDataSetChanged();
         }
-
+        CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
         return fragView;
     }
 /*
@@ -232,7 +236,22 @@ public class ChatListFragment extends Fragment {
 
             //holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
 
-            holder.date.setText(mMyData.arrChatDataList.get(str).Date);
+            long time = CommonFunc.getInstance().GetCurrentTime();
+            Date writeDate = CommonFunc.getInstance().GetStringToDate(mMyData.arrChatDataList.get(str).Date, CoomonValueData.DATE_FORMAT);
+            Date todayDate = new Date(time);
+
+            if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
+            {
+                SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
+                holder.date.setText(ctime.format(new Date(writeDate.getTime())));
+            }
+            else
+            {
+                SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
+                holder.date.setText(ctime.format(new Date(writeDate.getTime())));
+            }
+
+
             holder.nickname.setText(mMyData.arrChatDataList.get(str).Nick);
 
             if(mMyData.arrChatDataList.get(str).Check == 0)
@@ -303,11 +322,11 @@ public class ChatListFragment extends Fragment {
                     {
                         mMyData.mapChatTargetData.put(strTargetIdx, tempUserData);
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
+                      /*  for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             mMyData.mapChatTargetData.get(strTargetIdx).arrStarList.add(entry.getValue());
-                        }
+                        }*/
 
-                        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
+                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
                             mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.add(entry.getValue());
                         }
 

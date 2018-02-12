@@ -1,188 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/content_board"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/BoardconstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    tools:layout_editor_absoluteY="81dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/board_thumnail"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+
+        android:background="@drawable/circle_border"
+        android:padding="2dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/board_writer"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal">
+        android:layout_marginLeft="10dp"
+        android:gravity="left|center_vertical"
+        android:text="글쓴이"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@+id/board_thumnail"
+        app:layout_constraintTop_toTopOf="@+id/board_thumnail" />
+
+    <ImageView
+        android:id="@+id/user_grade"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="3dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bee"
+        app:layout_constraintLeft_toRightOf="@+id/board_writer"
+        app:layout_constraintTop_toTopOf="@+id/board_writer" />
+
+    <ImageView
+        android:id="@+id/user_item"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:scaleType="fitCenter"
+
+        android:src="@drawable/bee"
+        app:layout_constraintLeft_toRightOf="@+id/user_grade"
+        app:layout_constraintTop_toTopOf="@+id/user_grade" />
+
+    <TextView
+        android:id="@+id/board_write_date"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:text="글쓴 날자"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintRight_toRightOf="@+id/divider"
+        app:layout_constraintTop_toTopOf="@+id/board_thumnail" />
+
+    <TextView
+        android:id="@+id/board_msg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:maxLength="30"
+        android:minHeight="50dp"
+        android:text="본문"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintLeft_toLeftOf="@id/board_writer"
+        app:layout_constraintRight_toLeftOf="@+id/board_write_date"
+        app:layout_constraintTop_toBottomOf="@+id/board_writer" />
+
+    <Button
+        android:id="@+id/board_delete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/bee"
+        android:visibility="invisible"
+        android:text="삭제"
+        app:layout_constraintTop_toBottomOf="@+id/board_write_date"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <ImageButton
+        android:id="@+id/board_report"
+        android:layout_width="30dp"
+        android:layout_height="0dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
 
 
-        <ImageView
-            android:id="@+id/board_thumnail"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="fitCenter"
-            android:background="@drawable/circle_border"
-            android:padding="2dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-           android:layout_gravity="center"
-            android:weightSum="4"
-            android:orientation="horizontal">
+        app:layout_constraintBottom_toBottomOf="@+id/board_thumnail"
+        app:layout_constraintRight_toRightOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/board_write_date"
+        app:srcCompat="@drawable/report" />
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:weightSum="2"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:weightSum="5"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/user_grade"
-                        android:layout_width="180dp"
-                        android:layout_height="20dp"
-                        android:layout_weight="1"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/bee"
-                        />
-                    <ImageView
-                        android:id="@+id/user_item"
-                        android:layout_width="180dp"
-                        android:layout_height="20dp"
-                        android:layout_weight="1"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/bee"
-                        />
-                    <ImageView
-                        android:id="@+id/user_gender"
-                        android:layout_width="180dp"
-                        android:layout_height="20dp"
-                        android:layout_weight="1"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/bee"
-                        />
-                    <TextView
-                        android:id="@+id/board_writer"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:text="글쓴이"
-                        android:gravity="left"
-                        />
-                    <TextView
-                        android:id="@+id/board_write_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:text="글쓴 날자"
-                        android:gravity="left"
-                        />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/board_msg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:text="본문"
-                    />
-            </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/board_delete"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/bee"
-            />
-
-        <Button
-            android:id="@+id/board_report"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:text="신고"
-            />
-
-    </LinearLayout>
-    </LinearLayout>
-    <View style="@style/Divider" />
-</LinearLayout>
-<!--
-        <ImageView
-            android:id="@+id/iv_board"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:srcCompat="@mipmap/ic_launcher" />
-
-        <TextView
-            android:id="@+id/tv_board_id2"
-            android:layout_width="match_parent"
-            android:layout_weight="2"
-            android:padding="5dp"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="18sp" />
+    <ImageView
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/board_msg"
+        app:srcCompat="@android:color/black" />
 
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:clickable="true"
-            android:orientation="vertical">
+
+</android.support.constraint.ConstraintLayout>
+    <!--
+            <ImageView
+                android:id="@+id/iv_board"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                app:srcCompat="@mipmap/ic_launcher" />
 
             <TextView
-                android:id="@+id/tv_board_id"
+                android:id="@+id/tv_board_id2"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
                 android:layout_weight="2"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/tv_board_msg"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:padding="5dp"
-                android:textColor="@android:color/holo_blue_dark" />
 
-            <TextView
-                android:id="@+id/tv_board_like_count"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:padding="5dp"
-                android:textColor="@android:color/holo_blue_dark" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_board_reply_count"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:padding="5dp"
-                android:textColor="@android:color/holo_blue_dark" />
-            <TextView
-                android:id="@+id/tv_board_write_date"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:padding="5dp"
-                android:textColor="@android:color/holo_blue_dark" />
-        </LinearLayout>-->
+                <TextView
+                    android:id="@+id/tv_board_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:padding="5dp"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_board_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:padding="5dp"
+                    android:textColor="@android:color/holo_blue_dark" />
+
+                <TextView
+                    android:id="@+id/tv_board_like_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:padding="5dp"
+                    android:textColor="@android:color/holo_blue_dark" />
+
+                <TextView
+                    android:id="@+id/tv_board_reply_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:padding="5dp"
+                    android:textColor="@android:color/holo_blue_dark" />
+                <TextView
+                    android:id="@+id/tv_board_write_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:padding="5dp"
+                    android:textColor="@android:color/holo_blue_dark" />
+            </LinearLayout>-->

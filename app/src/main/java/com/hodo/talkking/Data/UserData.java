@@ -68,9 +68,10 @@ public class UserData implements Serializable,Parcelable {
     public  ArrayList<UserData> arrChatTargetData = new ArrayList<>();
 
     public int FanCount;
-    public  Map<String, SimpleUserData> FanList = new LinkedHashMap<String, SimpleUserData>();
-    public  ArrayList<SimpleUserData> arrFanList = new ArrayList<>();
-    public  ArrayList<UserData> arrFanData = new ArrayList<>();
+
+    public  ArrayList<FanData> arrFanList = new ArrayList<>();
+    public  ArrayList<FanData> arrFanData = new ArrayList<>();
+    public  Map<String, FanData> FanList = new LinkedHashMap<String, FanData>();
     public  Map<String, UserData> mapFanData = new LinkedHashMap<String, UserData>();
 
     //public  ArrayList<StarData>StarList = new ArrayList<>();
@@ -88,7 +89,9 @@ public class UserData implements Serializable,Parcelable {
 
     public int ConnectDate;
     public long LastBoardWriteTime;
+    public long LastAdsTime;
 
+    public int ReportedCnt;
     public UserData() {
 
     }
@@ -142,9 +145,10 @@ public class UserData implements Serializable,Parcelable {
         arrChatTargetData = (ArrayList<UserData>) in.readSerializable();
 
         FanCount = in.readInt();
-        FanList = (HashMap<String, SimpleUserData>) in.readSerializable();
-        arrFanList = (ArrayList<SimpleUserData>) in.readSerializable();
-        arrFanData = (ArrayList<UserData>) in.readSerializable();
+
+        arrFanList = (ArrayList<FanData>) in.readSerializable();
+        arrFanData = (ArrayList<FanData>) in.readSerializable();
+        FanList = (HashMap<String, FanData>) in.readSerializable();
         mapFanData = (HashMap<String, UserData>) in.readSerializable();
 
         StarList  = (HashMap<String, SimpleUserData>) in.readSerializable();
@@ -160,7 +164,9 @@ public class UserData implements Serializable,Parcelable {
 
         ConnectDate = in.readInt();
         LastBoardWriteTime = in.readLong();
+        LastAdsTime = in.readLong();
 
+        ReportedCnt = in.readInt();
     }
 
     public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -225,9 +231,10 @@ public class UserData implements Serializable,Parcelable {
 
         parcel.writeInt(FanCount);
 
-        parcel.writeSerializable((Serializable) FanList);
+
         parcel.writeSerializable(arrFanList);
         parcel.writeSerializable(arrFanData);
+        parcel.writeSerializable((Serializable) FanList);
         parcel.writeSerializable((Serializable) mapFanData);
 
         parcel.writeSerializable((Serializable) StarList);
@@ -243,6 +250,9 @@ public class UserData implements Serializable,Parcelable {
 
         parcel.writeInt(ConnectDate);
         parcel.writeLong(LastBoardWriteTime);
+        parcel.writeLong(LastAdsTime);
+
+        parcel.writeInt(ReportedCnt);
     }
 
 }

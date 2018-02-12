@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -66,24 +65,25 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
             public void onClick(View view) {
                 View giftView = LayoutInflater.from(view.getContext()).inflate(R.layout.alert_open_mail,null);
 
-                final ImageView popup_ImageView  = giftView.findViewById(R.id.iv_mailfrom);
+                //final ImageView popup_ImageView  = giftView.findViewById(R.id.iv_mailfrom);
                 TextView popup_textcount  = giftView.findViewById(R.id.tv_count );
-                TextView popup_textMsg  = giftView.findViewById(R.id.tv_mailbox_sendmsg);
-
-                Glide.with(mActivity)
+                TextView popup_textMsg  = giftView.findViewById(R.id.msg);
+                TextView popup_textNickname = giftView.findViewById(R.id.tv_mailfrom);
+                /*Glide.with(mActivity)
                         .load(mMyData.arrGiftHoneyDataList.get(position).strTargetImg)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(popup_ImageView);
+                        .into(popup_ImageView);*/
 
                 popup_textcount.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney));
                 popup_textMsg.setText(mMyData.arrGiftHoneyDataList.get(position).strTargetMsg);
+                popup_textNickname.setText(mMyData.arrGiftHoneyDataList.get(position).strTargetNick);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setView(giftView);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
 
-                Button btnChatStart = giftView.findViewById(R.id.btn_accept_honey);
+                Button btnChatStart = giftView.findViewById(R.id.confirm);
                 Button btnOK = giftView.findViewById(R.id.btn_ok);
 
                 btnOK.setOnClickListener(new View.OnClickListener() {

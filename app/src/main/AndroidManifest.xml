@@ -16,6 +16,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="com.android.vending.BILLING"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.REORDER_TASKS"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
 
     <application
@@ -33,19 +39,22 @@
             android:screenOrientation="portrait"
 
            />
-        <activity android:name="com.hodo.talkking.StartLogo">
+      <!--  <activity android:name="com.hodo.talkking.StartLogo">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
 
 
-        </activity>
+        </activity>-->
         <activity
             android:name="com.hodo.talkking.LoginActivity"
             android:theme ="@style/NoTitleBar"
             android:screenOrientation="portrait">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
@@ -65,6 +74,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.hodo.talkking.MyProfileActivity"
             android:theme="@style/MyTheme"
+            android:label="프로필 설정"
             android:screenOrientation="portrait"
             />
         <activity android:name="com.hodo.talkking.MyPageActivity"

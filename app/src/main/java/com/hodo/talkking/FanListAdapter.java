@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
@@ -72,7 +73,7 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
         holder.nickname.setText(mMyData.arrMyFanDataList.get(i).NickName);
         holder.giftranking.setText((position + 1) + "위");
 
-        int RecvCnt = mMyData.arrMyFanList.get(position).RecvGold * -1;
+        int RecvCnt = mMyData.arrMyFanList.get(position).RecvGold;
         holder.giftCount.setText(Integer.toString(RecvCnt));
 
     }
@@ -113,11 +114,11 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
                 {
                     mMyData.mapMyFanData.put(strTargetIdx, tempUserData);
 
-                    for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
+             /*       for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                         mMyData.mapMyFanData.get(strTargetIdx).arrStarList.add(entry.getValue());
-                    }
+                    }*/
 
-                    for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.FanList.entrySet()) {
+                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
                         mMyData.mapMyFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
                     }
 

@@ -13,6 +13,10 @@ public class FanData implements Serializable,Parcelable {
     private static final long  serialVersionUID = 1L;
 
     public String Idx;
+    public String NickName;
+    public int BestItem;
+    public int Grade;
+    public String Img;
     public int RecvGold;
 
     public static final Creator<FanData> CREATOR = new Creator<FanData>() {
@@ -29,6 +33,10 @@ public class FanData implements Serializable,Parcelable {
 
     public FanData(Parcel in) {
         Idx = in.readString();
+        NickName = in.readString();
+        BestItem = in.readInt();
+        Grade = in.readInt();
+        Img = in.readString();
         RecvGold = in.readInt();
     }
 
@@ -44,6 +52,10 @@ public class FanData implements Serializable,Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(Idx);
+        parcel.writeString(NickName);
+        parcel.writeInt(BestItem);
+        parcel.writeInt(Grade);
+        parcel.writeString(Img);
         parcel.writeInt(RecvGold);
     }
 }
