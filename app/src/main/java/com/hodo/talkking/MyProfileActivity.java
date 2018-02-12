@@ -264,31 +264,38 @@ public class MyProfileActivity extends AppCompatActivity {
     }
 
     private void popUp(final int index) {
-        final ViewClickDialog dialog = new ViewClickDialog(activity, index);
-        dialog.show();
 
-        dialog.tv_see.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 사진 보기
-                stTargetData.ImgGroup0 = mMyData.getUserImg();
-                stTargetData.ImgGroup1 = mMyData.strProfileImg[0];
-                stTargetData.ImgGroup2 = mMyData.strProfileImg[1];
-                stTargetData.ImgGroup3 = mMyData.strProfileImg[2];
-                stTargetData.ImgGroup4 = mMyData.strProfileImg[3];
+        if(mMyData.strProfileImg[index].equals("1"))
+        {
+            LoadImage(index);
+        }
+        else
+        {
+            final ViewClickDialog dialog = new ViewClickDialog(activity, index);
+            dialog.show();
 
-                stTargetData.ImgCount = mMyData.getUserImgCnt();
+            dialog.tv_see.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // 사진 보기
+                    stTargetData.ImgGroup0 = mMyData.getUserImg();
+                    stTargetData.ImgGroup1 = mMyData.strProfileImg[0];
+                    stTargetData.ImgGroup2 = mMyData.strProfileImg[1];
+                    stTargetData.ImgGroup3 = mMyData.strProfileImg[2];
+                    stTargetData.ImgGroup4 = mMyData.strProfileImg[3];
 
-                Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("Target", stTargetData);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                    stTargetData.ImgCount = mMyData.getUserImgCnt();
 
-                //startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
-                dialog.dismiss();
-            }
-        });
+                    Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Target", stTargetData);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                    //startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
+                    dialog.dismiss();
+                }
+            });
 
         /*dialog.tv_camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,27 +306,29 @@ public class MyProfileActivity extends AppCompatActivity {
         });
         });*/
 
-        dialog.tv_album.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 앨범 선택
-                LoadImage(view, index);
-                dialog.dismiss();
-            }
-        });
-        dialog.tv_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 사진 삭제
-                DeleteData(index);
-                DeleteFireBaseData(index);
-                dialog.dismiss();
-            }
-        });
+            dialog.tv_album.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // 앨범 선택
+                    LoadImage(index);
+                    dialog.dismiss();
+                }
+            });
+            dialog.tv_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // 사진 삭제
+                    DeleteData(index);
+                    DeleteFireBaseData(index);
+                    dialog.dismiss();
+                }
+            });
+        }
+
 
     }
 
-    private void LoadImage(View view, int i) {
+    private void LoadImage(int i) {
 
         bChangeImg = true;
         nImgNumber = i;
@@ -560,7 +569,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
     public  void DeleteData(final int Index)
     {
-        mMyData.delUserProfileImg(Index, "http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg");
+        mMyData.delUserProfileImg(Index, "1");
         mMyData.setUserImgCnt(mMyData.getUserImgCnt()-1);
 
         Glide.with(getApplicationContext())

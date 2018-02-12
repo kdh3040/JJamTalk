@@ -242,7 +242,7 @@ public class MyData {
 
 
         for (int i = 0; i < 4; i++) {
-            strProfileImg[i] = null;
+            strProfileImg[i] = "1";
         }
 
         nFanCount = 0;
@@ -302,6 +302,15 @@ public class MyData {
         nImgCount = _UserImgCount;
 
         strImg = _UserImg;
+
+        if(_UserImgGroup0 == null || _UserImgGroup0.equals(""))
+            _UserImgGroup0 = "1";
+        if(_UserImgGroup1 == null || _UserImgGroup1.equals(""))
+            _UserImgGroup1 = "1";
+        if(_UserImgGroup2 == null || _UserImgGroup2.equals(""))
+            _UserImgGroup2 = "1";
+        if(_UserImgGroup3 == null ||_UserImgGroup3.equals(""))
+            _UserImgGroup3 = "1";
 
         strProfileImg[0] = _UserImgGroup0;
         strProfileImg[1] = _UserImgGroup1;
