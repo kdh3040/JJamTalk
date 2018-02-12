@@ -675,14 +675,14 @@ public class ChatRoomActivity extends AppCompatActivity {
                     }
                 });
 
-                Button btn_cam = popup.findViewById(R.id.btn_camera);
+                /*Button btn_cam = popup.findViewById(R.id.btn_camera);
                 btn_cam.setVisibility(View.GONE);
                 btn_cam.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                     }
-                });
+                });*/
 
                 Button btn_gift = popup.findViewById(R.id.btn_gift);
                 btn_gift.setOnClickListener(new View.OnClickListener() {
