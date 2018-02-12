@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         mTextInfo.setText("이메일과 비밀 번호를 6자리 이상 입력해주세요");
 
-        mBtnSignUp.setOnClickListener(new View.OnClickListener() {
+      /*  mBtnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -80,7 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
                             });
                 }
             }
-        });
+        });*/
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);

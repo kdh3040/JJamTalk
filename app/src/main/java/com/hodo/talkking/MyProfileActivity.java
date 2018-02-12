@@ -180,6 +180,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
                         builder.setView(view1);
 
+
                         final AlertDialog msgDialog = builder.create();
                         msgDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                         msgDialog.show();

@@ -30,7 +30,7 @@ public class AwsFunc {
     {
 
     }
-
+/*
     public String CreateUserIdx(String Email)
     {
         String rtValue = null;
@@ -114,6 +114,6 @@ public class AwsFunc {
             e.printStackTrace();
         }
         return rtValue;
-    }
+    }*/
 
 }

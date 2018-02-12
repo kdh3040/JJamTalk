@@ -230,23 +230,23 @@ public class SettingActivity extends AppCompatActivity {
 
                 CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
                     public void YesListener() {
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                        user.delete()
+
+
+
+                        FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+
+                        FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
+                        currentUser.delete()
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Log.d("Setting Delete Account", "User account deleted.");
+                                            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                                         }
                                     }
                                 });
 
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference Ref = database.getReference("User");
-                        Ref.child(mMyData.getUserIdx()).removeValue();
 
-                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                     }
                 };
 

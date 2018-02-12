@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
@@ -40,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.UUID;
 
 import static android.content.Context.ACTIVITY_SERVICE;
 import static com.hodo.talkking.MainActivity.mFragmentMng;
@@ -222,6 +224,10 @@ public class MyData {
 
     public int nReportedCnt;
     public ArrayList<ReportedData> arrReportList = new ArrayList<>();
+
+    public String ANDROID_ID;
+    public volatile  static UUID uuid;
+
 
     private MyData() {
         strUid = null;

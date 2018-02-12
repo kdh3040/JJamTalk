@@ -50,6 +50,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -786,9 +788,19 @@ public class InputProfile extends AppCompatActivity {
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseData.getInstance().DelUser(mMyData.getUserUid(), mMyData.getUserIdx());
-                int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+                FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
 
+                FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
+                currentUser.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d(TAG, "User account deleted.");
+                                    int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+                                }
+                            }
+                        });
 
             }
         });
