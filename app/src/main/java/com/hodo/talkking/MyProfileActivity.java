@@ -244,30 +244,19 @@ public class MyProfileActivity extends AppCompatActivity {
         //Img_Profiles[4].setOnClickListener(listener);*/
 
         Glide.with(getApplicationContext())
-                .load(mMyData.getUserImg())
+                .load(mMyData.strProfileImg[0])
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 //   .bitmapTransform(new RoundedCornersTransformation(getApplicationContext()))
                 .thumbnail(0.1f)
                 .into(Img_Sum);
 
-        Glide.with(getApplicationContext())
-                .load(mMyData.getUserImg())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
-                .thumbnail(0.1f)
-                .into(Img_Profiles[0]);
 
-/*        Glide.with(getApplicationContext())
-                .load(mMyData.arrImgList.get(0))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(Img_Profiles[0]);*/
-
-        for (int i = 1; i < 4; i++) {
-            if (mMyData.strProfileImg[i] == null) {
+        for (int i = 0; i < 4; i++) {
+            if (mMyData.strProfileImg[i].equals("")) {
                 Glide.with(getApplicationContext())
-                        .load("http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg")
+                        .load(R.drawable.profile)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                        //   .bitmapTransform(new RoundedCornersTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
 
@@ -439,12 +428,21 @@ public class MyProfileActivity extends AppCompatActivity {
         Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
         cursor.moveToFirst();
         String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+
+        bitmap = BitmapFactory.decodeFile(imagePath);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 30)
+        {
+            options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
+            bitmap = BitmapFactory.decodeFile(imagePath, options);
+        }
 
-        options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
+        else
+        {
+            bitmap = BitmapFactory.decodeFile(imagePath, options);
+        }
 
-        bitmap = BitmapFactory.decodeFile(imagePath, options);
         bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
         cursor.close();
 

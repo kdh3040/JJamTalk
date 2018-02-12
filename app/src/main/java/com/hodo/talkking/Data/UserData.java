@@ -2,6 +2,7 @@ package com.hodo.talkking.Data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.Contacts;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class UserData implements Serializable,Parcelable {
 
     private static final long  serialVersionUID = 2L;
 
+    public String Uid;
     public String Idx;
     public String Token;
 
@@ -99,7 +101,7 @@ public class UserData implements Serializable,Parcelable {
     public UserData(Parcel in) {
 
 
-
+        Uid = in.readString();
         Idx = in.readString();
         Token = in.readString();
         Img = in.readString();
@@ -188,6 +190,7 @@ public class UserData implements Serializable,Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(Uid);
         parcel.writeString(Idx);
         parcel.writeString(Token);
         parcel.writeString(Img);

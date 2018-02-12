@@ -109,6 +109,7 @@ public class MyData {
     public  Map<String, SimpleUserData> arrMyStarDataList = new LinkedHashMap<String, SimpleUserData>();
     public  Map<String, UserData> mapMyStarData = new LinkedHashMap<String, UserData>();
 
+    private String strUid;
     private String strIdx;
     private String strToken;
 
@@ -223,6 +224,7 @@ public class MyData {
     public ArrayList<ReportedData> arrReportList = new ArrayList<>();
 
     private MyData() {
+        strUid = null;
         strImg = null;
         strNick = null;
         strGender = null;
@@ -234,7 +236,7 @@ public class MyData {
 
 
         for (int i = 0; i < 4; i++) {
-            strProfileImg[i] = "http://imagescdn.gettyimagesbank.com/500/14/730/414/0/512600801.jpg";
+            strProfileImg[i] = null;
         }
 
         nFanCount = 0;
@@ -264,12 +266,14 @@ public class MyData {
         nReportedCnt = 0;
     }
 
-    public void setMyData(String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
+    public void setMyData(String _UserUid, String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
                           String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
                           int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime) {
+
+        strUid = _UserUid;
         strIdx = _UserIdx;
         strToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -460,6 +464,10 @@ public class MyData {
 
     public String getUserIdx() {
         return strIdx;
+    }
+
+    public String getUserUid() {
+        return strUid;
     }
 
     public void setUserToken(String userToken) {
