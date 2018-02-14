@@ -231,13 +231,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        final long[] tempVal = {0};
+        final String[] rtStr = new String[1];
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null)
         {
-
-            final long[] tempVal = {0};
-            final String[] rtStr = new String[1];
-
             FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
             Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
 
@@ -259,11 +258,36 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         else
         {
 
+            final boolean[] bCheckedMyIdx = {false};
 
             PermissionListener permissionlistener = new PermissionListener() {
                 @Override
                 public void onPermissionGranted() {
-                    go();
+
+                        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                        Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
+
+                        data.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                bCheckedMyIdx[0] = true;
+                                rtStr[0] = dataSnapshot.getValue(String.class);
+
+                                if(rtStr[0] == null || rtStr[0].equals("") )
+                                    go();
+                                else
+                                {
+                                    mMyData.setUserIdx(rtStr[0]);
+                                    InitData_Mine();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                 }
 
                 @Override
@@ -278,10 +302,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                     .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE)
                     .check();
-
-
-
-
 
     /*
            */
