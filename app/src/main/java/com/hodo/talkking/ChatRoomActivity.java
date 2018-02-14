@@ -653,12 +653,13 @@ public class ChatRoomActivity extends AppCompatActivity {
                 View popup= inflater.inflate(R.layout.popup_chatroom,null);
 
                 builder.setView(popup);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
+                final AlertDialog dialog_gal_gift = builder.create();
+                dialog_gal_gift.show();
                 ImageButton btn_gal = popup.findViewById(R.id.btn_gal);
                 btn_gal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        dialog_gal_gift.dismiss();
                         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                         intent.setType("image/*");
                         startActivityForResult(Intent.createChooser(intent,"Select Picture"),REQUEST_IMAGE);
@@ -679,7 +680,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 btn_gift.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        dialog_gal_gift.dismiss();
                         View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.alert_send_gift,null);
                         builder.setView(v);
                         final AlertDialog dialog = builder.create();
@@ -850,8 +851,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 }
 
                                 dialog.dismiss();
-
-
+                                CommonFunc.getInstance().ShowDefaultPopup(ChatRoomActivity.this, "하트 날리기", "하트를 보냈습니다.");
                             }
                         });
                         Button btn_gift_cancel = v.findViewById(R.id.btn_gift_cancel);

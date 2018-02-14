@@ -534,6 +534,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
                                     gold_Dialog.dismiss();
+                                    CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "하트 날리기", "하트를 보냈습니다.");
 
                                 }
                             });
@@ -712,6 +713,8 @@ public class UserPageActivity extends AppCompatActivity {
 
 
                                             msgDialog.dismiss();
+
+                                            CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "쪽지", "쪽지를 보냈습니다.");
                                         }
                                     });
                                 }
