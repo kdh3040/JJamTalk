@@ -858,7 +858,7 @@ public class MainActivity extends AppCompatActivity {
                 CommonFunc.getInstance().SetChatAlarmVisible(false);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
-                txt_title.setText("채팅");
+                txt_title.setText("채팅 목록");
                 mMyData.SetCurFrag(2);
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
@@ -895,7 +895,7 @@ public class MainActivity extends AppCompatActivity {
                 CommonFunc.getInstance().SetFanAlarmVisible(false);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
-                txt_title.setText("팬");
+                txt_title.setText("나의 팬");
                 mMyData.SetCurFrag(3);
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,255,100);
@@ -956,22 +956,36 @@ public class MainActivity extends AppCompatActivity {
             case 0:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
                 setImageAlpha(255,100,100,100,100);
+                iv_myPage.setVisibility(View.VISIBLE);
+                txt_title.setVisibility(TextView.GONE);
                 break;
             case 1:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
                 setImageAlpha(100,255,100,100,100);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("즐겨찾기");
                 break;
             case 2:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
                 setImageAlpha(100,100,255,100,100);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("채팅 목록");
                 break;
             case 3:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment).commit();
                 setImageAlpha(100,100,100,255,100);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("나의 팬");
                 break;
             case 4:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
                 setImageAlpha(100,100,100,100,255);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("게시판");
                 break;
 
             default:
