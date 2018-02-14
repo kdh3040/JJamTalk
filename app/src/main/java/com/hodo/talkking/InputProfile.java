@@ -29,6 +29,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -821,4 +822,24 @@ public class InputProfile extends AppCompatActivity {
         mAdView.loadAd(adRequest);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_HOME){
+            FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+
+            FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
+            currentUser.delete()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "User account deleted.");
+                                int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+                            }
+                        }
+                    });
+
+        }
+        return true;
+    }
 }
