@@ -495,7 +495,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
                                         mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
-                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0], strSendMsg);
                                         mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
                                         mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
                                         // mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
@@ -692,7 +692,7 @@ public class UserPageActivity extends AppCompatActivity {
                                                 return;
                                             }
 
-                                            mNotiFunc.SendMSGToFCM(stTargetData);
+                                            mNotiFunc.SendMSGToFCM(stTargetData, strMemo);
                                             boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString(), 0);
 
                                             Calendar cal = Calendar.getInstance();

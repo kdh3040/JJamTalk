@@ -775,6 +775,27 @@ public class MyData {
                     arrMyFanNameList.add(tempFanData);
                     arrMyFanDataList.put(tempFanData.Idx, tempFanData);
                     CommonFunc.getInstance().SetFanAlarmVisible(true);
+                    if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                        if(GetCurFrag() == 3)
+                        {
+                            Fragment frg = null;
+                            frg = mFragmentMng.findFragmentByTag("FanListFragment");
+                            final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                            ft.detach(frg);
+                            ft.attach(frg);
+                            ft.commit();
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                FanData SendList = dataSnapshot.getValue(FanData.class);
+                arrMyFanDataList.put(SendList.Idx, SendList);
+                CommonFunc.getInstance().SetFanAlarmVisible(true);
+                if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
                     if(GetCurFrag() == 3)
                     {
                         Fragment frg = null;
@@ -785,22 +806,7 @@ public class MyData {
                         ft.commit();
                     }
                 }
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                FanData SendList = dataSnapshot.getValue(FanData.class);
-                arrMyFanDataList.put(SendList.Idx, SendList);
-                CommonFunc.getInstance().SetFanAlarmVisible(true);
-                if(GetCurFrag() == 3)
-                {
-                    Fragment frg = null;
-                    frg = mFragmentMng.findFragmentByTag("FanListFragment");
-                    final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                    ft.detach(frg);
-                    ft.attach(frg);
-                    ft.commit();
-                }
             }
 
             @Override
@@ -841,14 +847,15 @@ public class MyData {
                     arrChatNameList.add(SendList.ChatRoomName);
                     arrChatDataList.put(SendList.ChatRoomName, SendList);
 
-                    if(GetCurFrag() == 2)
-                    {
-                        Fragment frg = null;
-                        frg = mFragmentMng.findFragmentByTag("ChatListFragment");
-                        final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                        ft.detach(frg);
-                        ft.attach(frg);
-                        ft.commit();
+                    if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                        if (GetCurFrag() == 2) {
+                            Fragment frg = null;
+                            frg = mFragmentMng.findFragmentByTag("ChatListFragment");
+                            final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                            ft.detach(frg);
+                            ft.attach(frg);
+                            ft.commit();
+                        }
                     }
                 }
                 //arrCardList.add(CardList);
@@ -864,41 +871,40 @@ public class MyData {
                 ActivityManager activityManager = (ActivityManager) mContext.getSystemService(ACTIVITY_SERVICE);
                 List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
 
-                if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
-                {
-                    CommonFunc.getInstance().PlayVibration(mContext);
-                    CommonFunc.getInstance().PlayAlramSound(mContext, R.raw.katalk);
 
-                    if(GetCurFrag() == 2 || GetCurFrag() == 5)
-                    {
+                if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
 
-                    }
-                    else
+                    if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
                     {
-                        if(SendList.SendHeart == 0)
-                            CommonFunc.getInstance().ShowMsgPopup(mContext, SendList);
+                        CommonFunc.getInstance().PlayVibration(mContext);
+                        CommonFunc.getInstance().PlayAlramSound(mContext, R.raw.katalk);
+
+        /*                if(GetCurFrag() == 2 || GetCurFrag() == 5)
+                        {
+
+                        }
                         else
-                            CommonFunc.getInstance().ShowGiftPopup(mContext, SendList);
+                        {
+                            if(SendList.SendHeart == 0)
+                                CommonFunc.getInstance().ShowMsgPopup(mContext, SendList);
+                            else
+                                CommonFunc.getInstance().ShowGiftPopup(mContext, SendList);
+                        }*/
+
                     }
 
+                    if (GetCurFrag() == 2) {
+                        Fragment frg = null;
+                        frg = mFragmentMng.findFragmentByTag("ChatListFragment");
+                        final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                        ft.detach(frg);
+                        ft.attach(frg);
+                        ft.commit();
+                    } else if (GetCurFrag() == 5) {
+                        SendList.Check = 1;
+                        arrChatDataList.put(SendList.ChatRoomName, SendList);
+                    }
                 }
-
-
-
-              if(GetCurFrag() == 2)
-              {
-                  Fragment frg = null;
-                  frg = mFragmentMng.findFragmentByTag("ChatListFragment");
-                  final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                  ft.detach(frg);
-                  ft.attach(frg);
-                  ft.commit();
-              }
-
-              else if(GetCurFrag() == 5) {
-                  SendList.Check = 1;
-                  arrChatDataList.put(SendList.ChatRoomName, SendList);
-              }
             }
 
             @Override

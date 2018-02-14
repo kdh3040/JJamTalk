@@ -2,8 +2,14 @@ package com.hodo.talkking.Firebase;
 
 
 import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -56,6 +62,46 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         if (remoteMessage.getNotification() != null) {
+            Resources res = getResources();
+            String body = remoteMessage.getNotification().getBody();
+            String title = remoteMessage.getNotification().getTitle();
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+
+            builder.setContentTitle(title)
+                    .setContentText(body)
+                    .setSmallIcon(R.drawable.picture)
+                    .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
+                    .setAutoCancel(true)
+                    .setWhen(System.currentTimeMillis());
+                    //.setDefaults(Notification.DEFAULT_ALL);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                builder.setCategory(Notification.CATEGORY_MESSAGE)
+                        .setPriority(Notification.PRIORITY_HIGH)
+                        .setVisibility(Notification.VISIBILITY_PUBLIC);
+            }
+
+            NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.notify(1234, builder.build());
+
+            ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
+
+
+            if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
+            {
+            /*    builder.setCategory(Notification.CATEGORY_MESSAGE)
+                        .setVibrate(new long[] {1000})
+                        .setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));*/
+
+
+                CommonFunc.getInstance().PlayVibration(getApplicationContext());
+                CommonFunc.getInstance().PlayAlramSound(getApplicationContext(), R.raw.katalk);
+            }
+
+
+/*
 
             String body = remoteMessage.getNotification().getBody();
             Log.d(TAG, "Notification Body: " + body);
@@ -85,14 +131,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             }
 
-            ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-            List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
 
-            if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
-            {
-                CommonFunc.getInstance().PlayVibration(getApplicationContext());
-                CommonFunc.getInstance().PlayAlramSound(getApplicationContext(), R.raw.katalk);
-            }
 
             Intent intent = new Intent(this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -103,22 +142,26 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (remoteMessage.getNotification() != null) {
                 Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
                notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
-                        .setSmallIcon(R.mipmap.ic_launcher) // 알림 영역에 노출 될 아이콘.
+                        .setSmallIcon(R.drawable.picture) // 알림 영역에 노출 될 아이콘.
                         .setContentTitle(getString(R.string.app_name)) // 알림 영역에 노출 될 타이틀
+                       .setPriority(2)
                         .setContentText(body); // Firebase Console 에서 사용자가 전달한 메시지내용
+
             }
 
             else
             {
               notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
-                        .setSmallIcon(R.mipmap.ic_launcher) // 알림 영역에 노출 될 아이콘.
+                        .setSmallIcon(R.drawable.picture) // 알림 영역에 노출 될 아이콘.
                         .setContentTitle(getString(R.string.app_name)) // 알림 영역에 노출 될 타이틀
                         .setContentText(body) // Firebase Console 에서 사용자가 전달한 메시지내용
+                        .setPriority(2)
                         .setContentIntent(pending);
             }
 
                 NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
                 notificationManagerCompat.notify(0x1001, notificationBuilder.build());
+*/
 
 
         }

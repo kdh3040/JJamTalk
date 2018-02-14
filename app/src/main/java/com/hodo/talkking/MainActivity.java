@@ -20,6 +20,7 @@ import android.os.RemoteException;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -245,6 +246,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }*/
 
+
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+            if (mMyData.GetCurFrag() == 2) {
+                Fragment frg = null;
+                frg = mFragmentMng.findFragmentByTag("ChatListFragment");
+                final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                ft.detach(frg);
+                ft.attach(frg);
+                ft.commit();
+            }
+        }
+    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
