@@ -529,7 +529,7 @@ public class InputProfile extends AppCompatActivity {
                 String strNickName = mNickName.getText().toString();
                 String strImg = mMyData.getUserImg();
 
-                if(CommonFunc.getInstance().CheckTextMaxLength(mNickName.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, getApplicationContext() ,"닉네임", true) == false)
+                if(CommonFunc.getInstance().CheckTextMaxLength(mNickName.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, InputProfile.this ,"닉네임", true) == false)
                     return;
 
                 if ("".equals(strNickName)) {

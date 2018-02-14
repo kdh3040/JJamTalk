@@ -810,7 +810,7 @@ public class CommonFunc {
         else
         {
             if(emptyCheck && tempStr.length() <= 0)
-                ShowDefaultPopup(context, Title, "채팅 내용이 없습니다.");
+                ShowDefaultPopup(context, Title, "내용이 없습니다.");
         }
 
         if(tempStr.length() > 0 && tempStr.length() <= maxLength)
