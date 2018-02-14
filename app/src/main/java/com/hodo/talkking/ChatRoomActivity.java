@@ -822,7 +822,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                if(CommonFunc.getInstance().CheckTextMaxLength(SendMsg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_SEND_HONEY, getApplicationContext() ,"하트 날리기", true) == false)
+                                if(CommonFunc.getInstance().CheckTextMaxLength(SendMsg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_SEND_HONEY, ChatRoomActivity.this ,"하트 날리기", true) == false)
                                     return;
 
 
