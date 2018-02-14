@@ -68,37 +68,72 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
-            builder.setContentTitle(title)
-                    .setContentText(body)
-                    .setSmallIcon(R.drawable.picture)
-                    .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
-                    .setAutoCancel(true)
-                    .setWhen(System.currentTimeMillis());
-                    //.setDefaults(Notification.DEFAULT_ALL);
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                builder.setCategory(Notification.CATEGORY_MESSAGE)
-                        .setPriority(Notification.PRIORITY_HIGH)
-                        .setVisibility(Notification.VISIBILITY_PUBLIC);
-            }
-
-            NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.notify(1234, builder.build());
-
             ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
             List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
 
+            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
 
+                if(mMyData.GetCurFrag() == 2 || mMyData.GetCurFrag() == 5)
+                {
+                    builder.setContentTitle(title)
+                            .setContentText(body)
+                            .setSmallIcon(R.drawable.picture)
+                            .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
+                            .setAutoCancel(true)
+                            .setWhen(System.currentTimeMillis());
+
+                    if (mMyData.nAlarmSetting_Vibration) {
+                        builder.setVibrate(new long[] {1000});
+                    }
+                    if (mMyData.nAlarmSetting_Sound)
+                    {
+                        builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
+                    }
+                    NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    nm.notify(1234, builder.build());
+                }
+
+                else
+                {
+                    builder.setContentTitle(title)
+                            .setContentText(body)
+                            .setSmallIcon(R.drawable.picture)
+                            .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
+                            .setAutoCancel(true)
+                            .setWhen(System.currentTimeMillis())
+                            .setDefaults(Notification.DEFAULT_LIGHTS);
+
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                        builder.setCategory(Notification.CATEGORY_MESSAGE)
+                                .setPriority(Notification.PRIORITY_HIGH)
+                                .setVisibility(Notification.VISIBILITY_PUBLIC);
+                    }
+
+                    if (mMyData.nAlarmSetting_Vibration) {
+                        builder.setVibrate(new long[] {1000});
+                    }
+                    if (mMyData.nAlarmSetting_Sound)
+                    {
+                        builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
+                    }
+                    NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    nm.notify(1234, builder.build());
+                }
+
+            }
+/*
             if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
             {
-            /*    builder.setCategory(Notification.CATEGORY_MESSAGE)
+            */
+/*    builder.setCategory(Notification.CATEGORY_MESSAGE)
                         .setVibrate(new long[] {1000})
-                        .setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));*/
+                        .setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));*//*
 
 
                 CommonFunc.getInstance().PlayVibration(getApplicationContext());
                 CommonFunc.getInstance().PlayAlramSound(getApplicationContext(), R.raw.katalk);
             }
+*/
 
 
 /*

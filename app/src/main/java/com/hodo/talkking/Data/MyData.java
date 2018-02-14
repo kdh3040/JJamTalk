@@ -874,12 +874,12 @@ public class MyData {
 
                 if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
 
-                    if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
+   /*                 if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
                     {
                         CommonFunc.getInstance().PlayVibration(mContext);
                         CommonFunc.getInstance().PlayAlramSound(mContext, R.raw.katalk);
 
-        /*                if(GetCurFrag() == 2 || GetCurFrag() == 5)
+        *//*                if(GetCurFrag() == 2 || GetCurFrag() == 5)
                         {
 
                         }
@@ -889,10 +889,10 @@ public class MyData {
                                 CommonFunc.getInstance().ShowMsgPopup(mContext, SendList);
                             else
                                 CommonFunc.getInstance().ShowGiftPopup(mContext, SendList);
-                        }*/
+                        }*//*
 
                     }
-
+*/
                     if (GetCurFrag() == 2) {
                         Fragment frg = null;
                         frg = mFragmentMng.findFragmentByTag("ChatListFragment");
