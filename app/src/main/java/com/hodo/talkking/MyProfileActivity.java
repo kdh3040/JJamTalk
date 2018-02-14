@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +65,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private ImageView[] Img_Profiles = new ImageView[4];
     private int nImgNumber;
     private Spinner Spinner_Age;
+    private RadioButton male, female;
     private  int nAge1, nAge2;
     private MyData mMyData = MyData.getInstance();
     private UserData stTargetData = new UserData();
@@ -75,9 +77,13 @@ public class MyProfileActivity extends AppCompatActivity {
     StorageReference storageRef = storage.getReferenceFromUrl("gs://talkking-2aa18.appspot.com/");
     Activity activity = this;
 
+    private String strThumbNail, strImg;
+
     private boolean bChangeImg = false;
 
+
     DatabaseReference ref;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,6 +111,40 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        male = (RadioButton)findViewById(R.id.male);
+        male.setChecked(false);
+        female = (RadioButton)findViewById(R.id.female);
+        female.setChecked(false);
+
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(female.isChecked()) {
+                    male.setChecked(true);
+                    female.setChecked(false);
+                    mMyData.setUserGender("남자");
+                }
+            }
+        });
+
+        female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(male.isChecked()) {
+                    female.setChecked(true);
+                    male.setChecked(false);
+                    mMyData.setUserGender("여자");
+                }
+            }
+        });
+
+
+        if(mMyData.getUserGender().equals("남자"))
+            male.setChecked(true);
+        else
+            female.setChecked(true);
+
 
         Img_Sum = (ImageView) findViewById(R.id.MyProfile_SumImg);
 
@@ -330,7 +370,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private void LoadImage(int i) {
 
-        bChangeImg = true;
+
         nImgNumber = i;
 /*        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/"+mMyData.getUserIdx() + "*//*");
@@ -463,6 +503,8 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                strThumbNail = downloadUrl.toString();
+                bChangeImg = true;
                 TrThumbNail(downloadUrl);
             }
         });
@@ -506,6 +548,8 @@ public class MyProfileActivity extends AppCompatActivity {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 Tr(downloadUrl);
+
+                //strImg = downloadUrl.toString();
             }
         });
     }
@@ -538,6 +582,10 @@ public class MyProfileActivity extends AppCompatActivity {
 
           /*  if(bChangeImg)
                 UploadImage_Firebase(mMyData.urSaveUri);*/
+         /*   if(bChangeImg == true)
+                mMyData.setUserImg(strThumbNail);
+
+            mMyData.setUserProfileImg( mMyData.nSaveUri, strImg);*/
 
             mMyData.setProfileData(et_Memo.getText());
             mFireBaseData.SaveData(mMyData.getUserIdx());
