@@ -270,22 +270,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         txt_msg = (EditText)findViewById(R.id.et_msg);
 
 
-        txt_msg.addTextChangedListener(new TextWatcher() {
-            int L;
-            public void afterTextChanged(Editable s) {
-            }
-
-            public void beforeTextChanged(CharSequence q, int s, int c, int a) {
-            }
-
-            public void onTextChanged(CharSequence q, int s, int b, int c) {
-                String msg = txt_msg.getText().toString();
-                msg = CommonFunc.getInstance().RemoveEmptyString(msg);
-                btn_send.setEnabled(msg.isEmpty() == false);
-            }
-        });
-
-
 /*        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, tempChatData.Msg, tempChatData.Date, "");
         mRef.push().setValue(chat_Data);*/
 
@@ -707,7 +691,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                         //tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
                         Msg.setText("현재 보유 코인은 "+String.valueOf(mMyData.getUserHoney())+"코인 입니다." );
                         final Button btn_gift_send = v.findViewById(R.id.btn_gift_send);
-                        btn_gift_send.setEnabled(false);
                         final int[] nSendHoneyCnt = new int[1];
                         nSendHoneyCnt[0] = 10;
 
@@ -808,21 +791,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                         });
 
                         final EditText SendMsg = v.findViewById(R.id.HeartPop_Msg);
-                        SendMsg.addTextChangedListener(new TextWatcher() {
-                            int L;
-                            public void afterTextChanged(Editable s) {
-                            }
-
-                            public void beforeTextChanged(CharSequence q, int s, int c, int a) {
-                            }
-
-                            public void onTextChanged(CharSequence q, int s, int b, int c) {
-                                String msg = SendMsg.getText().toString();
-                                msg = CommonFunc.getInstance().RemoveEmptyString(msg);
-                                btn_gift_send.setEnabled(msg.isEmpty() == false);
-                            }
-                        });
-
 
                         btn_gift_send.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -883,7 +851,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             }
         });
         btn_send = (Button)findViewById(R.id.btn_send);
-        btn_send.setEnabled(false);
+
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -88,6 +88,7 @@
             android:maxLength="100"
             android:minLines="1"
             android:maxLines="5"
+            android:hint="(100자 이내)"
             />
 
         <Button
