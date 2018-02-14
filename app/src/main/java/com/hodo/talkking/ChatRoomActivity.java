@@ -707,6 +707,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         //tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
                         Msg.setText("현재 보유 코인은 "+String.valueOf(mMyData.getUserHoney())+"코인 입니다." );
                         final Button btn_gift_send = v.findViewById(R.id.btn_gift_send);
+                        btn_gift_send.setEnabled(false);
                         final int[] nSendHoneyCnt = new int[1];
                         nSendHoneyCnt[0] = 10;
 
@@ -882,6 +883,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             }
         });
         btn_send = (Button)findViewById(R.id.btn_send);
+        btn_send.setEnabled(false);
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
