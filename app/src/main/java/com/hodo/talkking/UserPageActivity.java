@@ -683,10 +683,13 @@ public class UserPageActivity extends AppCompatActivity {
                                     btn_send.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            if(CommonFunc.getInstance().CheckTextMaxLength(et_msg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this ,"쪽지 쓰기", true) == false)
-                                                return;
 
                                             String strMemo = et_msg.getText().toString();
+                                            strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
+
+                                            if(CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this ,"쪽지 쓰기", true) == false)
+                                                return;
+
                                             if(strMemo == null || strMemo.equals(""))
                                             {
                                                 return;

@@ -818,4 +818,21 @@ public class CommonFunc {
 
         return false;
     }
+
+    public String RemoveEmptyString(String text)
+    {
+        String returnString = "";
+
+        boolean frontEmpty = true;
+        for(int index = 0 ; index < text.length() ; ++index)
+        {
+            if(frontEmpty && (text.charAt(index) == ' ' || text.charAt(index) == '\n'))
+                continue;
+
+            frontEmpty = false;
+            returnString += text.charAt(index);
+        }
+
+        return returnString;
+    }
 }

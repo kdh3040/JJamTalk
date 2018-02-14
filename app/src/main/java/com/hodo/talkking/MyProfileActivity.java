@@ -42,9 +42,11 @@ import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.hodo.talkking.Data.ChatData;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Firebase.FirebaseData;
+import com.hodo.talkking.Util.CommonFunc;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -251,10 +253,10 @@ public class MyProfileActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     String strMemo = et_msg.getText().toString();
-                                    if(strMemo == null || strMemo.equals(""))
-                                    {
+                                    strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
+
+                                    if(CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, MyProfileActivity.this ,"닉네임", true) == false)
                                         return;
-                                    }
 
                                     mMyData.setUserHoney(mMyData.getUserHoney() - 50);
                                     mMyData.setUserNick(strMemo);
