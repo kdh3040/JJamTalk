@@ -15,7 +15,7 @@ import java.net.URL;
 
 public class NotiFunc {
 
-    private String SERVER_KEY = "AAAAccOh5zg:APA91bGpV8OODt9IWTdDRKDK-TWkfdIMymbUgAhw0v0Yp3QHkPSArm4Ir8m5gzK5hxjrTrJ7iobjxAbylw7SR1cncxtaU3ctKj2qOAqNgIMUIMdzpSQ3Or-xTn64xiZEN5n06iNk-qeJ";
+    private String SERVER_KEY = "AAAA6jLM7_4:APA91bE4W2A2LGIkPmn975GLKL7pFzg9yqfczKrY41GKzCfIFEH97H2AGbAzNsaK-LgzkhuNVa6PqWfnrR9yf87fjIJpcZ6i9wr7jLIXPjjpHOX-98y_nzB41ZGR9FLW-spfyMM9zW3B";
     private String MSG_URL = "https://fcm.googleapis.com/fcm/send";
 
     private static NotiFunc _Instance;
@@ -35,7 +35,7 @@ public class NotiFunc {
     private MyData mMyData = MyData.getInstance();
 
 
-    public void SendMSGToFCM(final UserData stTargetData) {
+    public void SendMSGToFCM(final UserData stTargetData, String strMsg) {
         try {
 
             // FMC 메시지 생성 start
@@ -43,9 +43,9 @@ public class NotiFunc {
             JSONObject notification = new JSONObject();
             JSONObject data = new JSONObject();
 
-            notification.put("body", mMyData.getUserNick() + "님이 쪽지를 보냈습니다");
+            notification.put("body", strMsg);
 
-            notification.put("title", "꿀톡");
+            notification.put("title", mMyData.getUserNick() + "님이 쪽지를 보냈습니다");
             data.put("Img", stTargetData.Img);
             data.put("Idx", stTargetData.Idx);
             data.put("NickName", mMyData.getUserNick());
@@ -155,7 +155,7 @@ public class NotiFunc {
         }
     }
 
-    public void SendHoneyToFCM(final UserData stTargetData, int nHoneyCnt) {
+    public void SendHoneyToFCM(final UserData stTargetData, int nHoneyCnt, String strMsg) {
         try {
 
             // FMC 메시지 생성 start
@@ -163,9 +163,9 @@ public class NotiFunc {
             JSONObject notification = new JSONObject();
             JSONObject data = new JSONObject();
 
-            notification.put("body", mMyData.getUserNick() + "님이 골드를 보냈습니다");
+            notification.put("body", strMsg);
 
-            notification.put("title", "굿톡");
+            notification.put("title", mMyData.getUserNick() + "님이 하트를" + nHoneyCnt+ "개 보냈습니다");
 
             data.put("Img", stTargetData.Img);
             data.put("Idx", stTargetData.Idx);
@@ -197,7 +197,7 @@ public class NotiFunc {
         }
     }
 
-    public void SendChatToFCM(String Msg, String token) {
+    public void SendChatToFCM(final UserData stTargetData, String Msg) {
         try {
 
             // FMC 메시지 생성 start
@@ -205,19 +205,16 @@ public class NotiFunc {
             JSONObject notification = new JSONObject();
             JSONObject data = new JSONObject();
 
-            notification.put("body", mMyData.getUserNick() + "님이 메세지를 보냈습니다");
+            notification.put("body", Msg);
 
-            notification.put("title", "킹톡");
-
-            data.put("Img", mMyData.getUserImg());
-            data.put("Idx", mMyData.getUserIdx());
-            data.put("Gender", mMyData.getUserGender());
+            notification.put("title", mMyData.getUserNick() + "님이 메세지를 보냈습니다");
+            data.put("Img", stTargetData.Img);
+            data.put("Idx", stTargetData.Idx);
             data.put("NickName", mMyData.getUserNick());
-            data.put("Msg", Msg);
-            data.put("Type", "Chatting");
+            data.put("Type", "Msg");
 
             root.put("notification", notification);
-            root.put("to", token);
+            root.put("to", stTargetData.Token);
             root.put("data", data);
             // FMC 메시지 생성 end
 
@@ -232,10 +229,7 @@ public class NotiFunc {
             OutputStream os = conn.getOutputStream();
             os.write(root.toString().getBytes("utf-8"));
             os.flush();
-
             conn.getResponseCode();
-            os.close();
-            conn.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
         }

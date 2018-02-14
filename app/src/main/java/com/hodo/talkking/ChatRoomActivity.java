@@ -839,7 +839,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                                         //mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
                                         mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
-                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
+                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0],strSendMsg );
                                         mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
                                         mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
                                         Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
@@ -981,7 +981,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         mRef.push().setValue(chat_Data);
                         txt_msg.setText("");
 
-                        mNotiFunc.SendChatToFCM(message, stTargetData.Token);
+                        mNotiFunc.SendChatToFCM(stTargetData, message);
                     }
 
                 }
