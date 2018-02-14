@@ -11,6 +11,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -363,6 +365,7 @@ public class UserPageActivity extends AppCompatActivity {
                             //Msg.setText("100개의 꿀을 보내시겠습니까?");
 
                             final Button btn_gift_send = giftView.findViewById(R.id.btn_gift_send);
+                            btn_gift_send.setEnabled(false);
 
                             btnHeartCharge.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -475,6 +478,20 @@ public class UserPageActivity extends AppCompatActivity {
 
                             final EditText SendMsg = giftView.findViewById(R.id.HeartPop_Msg);
 
+                            SendMsg.addTextChangedListener(new TextWatcher() {
+                                public void afterTextChanged(Editable s) {
+                                }
+
+                                public void beforeTextChanged(CharSequence q, int s, int c, int a) {
+                                }
+
+                                public void onTextChanged(CharSequence q, int s, int b, int c) {
+                                    String msg = SendMsg.getText().toString();
+                                    msg = CommonFunc.getInstance().RemoveEmptyString(msg);
+                                    btn_gift_send.setEnabled(msg.isEmpty() == false);
+                                }
+                            });
+
 
                             btn_gift_send.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -534,6 +551,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
                                     gold_Dialog.dismiss();
+                                    CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "하트 날리기", "하트를 보냈습니다.");
 
                                 }
                             });
@@ -712,6 +730,8 @@ public class UserPageActivity extends AppCompatActivity {
 
 
                                             msgDialog.dismiss();
+
+                                            CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "쪽지", "쪽지를 보냈습니다.");
                                         }
                                     });
                                 }

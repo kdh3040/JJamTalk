@@ -362,7 +362,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             @Override
             public void onRewarded(RewardItem reward) {
 
-                int aaa = 0;
+                CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "보상", mUIData.getAdReward()[mMyData.getGrade()] + "골드를 획득 하였습니다.");
                 mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
                 refreshHearCnt();
                 // Reward the user.
