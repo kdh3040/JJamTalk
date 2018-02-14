@@ -160,7 +160,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                 Log.d("Guide !!!! ", "Case 3");
               //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
 
-                holder.textView.setText(-1 * mMyData.arrUserAll_Send.get(i).FanCount+"명");
+                holder.textView.setText(-1 * mMyData.arrUserAll_Send_Age.get(i).FanCount+"명");
                 holder.iv_honey_rank.setImageResource(R.drawable.ic_fan);
 
 
