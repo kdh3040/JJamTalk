@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <RadioButton
+    <TextView
         android:id="@+id/rbtn_two"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
@@ -51,7 +51,7 @@
         android:background="@drawable/base_btn_bg"
         android:buttonTint="@color/bambamcolor"
         android:gravity="center"
-        android:text="2개씩"
+        android:text="표시 개수"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_filter"
         app:layout_constraintEnd_toStartOf="@+id/rbtn_three"/>
@@ -85,6 +85,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/rbtn_three" />
 
+    <TextView
+        android:id="@+id/txt_Gender"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+
+        android:layout_marginTop="16dp"
+        android:background="@drawable/base_btn_bg"
+        android:buttonTint="@color/bambamcolor"
+        android:gravity="center"
+        android:text="표시 성별"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rbtn_two"
+        app:layout_constraintEnd_toStartOf="@+id/rbtn_three"/>
+
     <CheckBox
         android:id="@+id/rbtn_man"
         android:layout_width="0dp"
@@ -95,9 +109,9 @@
         android:background="@drawable/base_btn_bg"
         android:buttonTint="@color/bambamcolor"
         android:text="남자"
-        app:layout_constraintLeft_toLeftOf="@+id/rbtn_two"
-        app:layout_constraintRight_toRightOf="@+id/rbtn_two"
-        app:layout_constraintTop_toBottomOf="@+id/rbtn_two" />
+        app:layout_constraintLeft_toLeftOf="@+id/rbtn_three"
+        app:layout_constraintRight_toRightOf="@+id/rbtn_three"
+        app:layout_constraintTop_toBottomOf="@+id/rbtn_three" />
 
     <CheckBox
         android:id="@+id/rbtn_woman"
@@ -107,9 +121,9 @@
         android:background="@drawable/base_btn_bg"
         android:buttonTint="@color/bambamcolor"
         android:text="여자"
-        app:layout_constraintLeft_toLeftOf="@+id/rbtn_three"
+        app:layout_constraintLeft_toLeftOf="@+id/rbtn_four"
         app:layout_constraintLeft_toRightOf="@+id/rbtn_man"
-        app:layout_constraintRight_toRightOf="@+id/rbtn_three"
+        app:layout_constraintRight_toRightOf="@+id/rbtn_four"
         app:layout_constraintTop_toTopOf="@+id/rbtn_man" />
 
     <Spinner
