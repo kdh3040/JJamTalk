@@ -807,6 +807,20 @@ public class ChatRoomActivity extends AppCompatActivity {
                         });
 
                         final EditText SendMsg = v.findViewById(R.id.HeartPop_Msg);
+                        SendMsg.addTextChangedListener(new TextWatcher() {
+                            int L;
+                            public void afterTextChanged(Editable s) {
+                            }
+
+                            public void beforeTextChanged(CharSequence q, int s, int c, int a) {
+                            }
+
+                            public void onTextChanged(CharSequence q, int s, int b, int c) {
+                                String msg = SendMsg.getText().toString();
+                                msg = CommonFunc.getInstance().RemoveEmptyString(msg);
+                                btn_gift_send.setEnabled(msg.isEmpty() == false);
+                            }
+                        });
 
 
                         btn_gift_send.setOnClickListener(new View.OnClickListener() {

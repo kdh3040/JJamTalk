@@ -11,6 +11,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -474,6 +476,20 @@ public class UserPageActivity extends AppCompatActivity {
 
 
                             final EditText SendMsg = giftView.findViewById(R.id.HeartPop_Msg);
+
+                            SendMsg.addTextChangedListener(new TextWatcher() {
+                                public void afterTextChanged(Editable s) {
+                                }
+
+                                public void beforeTextChanged(CharSequence q, int s, int c, int a) {
+                                }
+
+                                public void onTextChanged(CharSequence q, int s, int b, int c) {
+                                    String msg = SendMsg.getText().toString();
+                                    msg = CommonFunc.getInstance().RemoveEmptyString(msg);
+                                    btn_gift_send.setEnabled(msg.isEmpty() == false);
+                                }
+                            });
 
 
                             btn_gift_send.setOnClickListener(new View.OnClickListener() {
