@@ -85,7 +85,7 @@
             android:background="@android:color/transparent"
             android:ems="10"
             android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="300"
+            android:maxLength="100"
             android:minLines="1"
             android:maxLines="5"
             />
