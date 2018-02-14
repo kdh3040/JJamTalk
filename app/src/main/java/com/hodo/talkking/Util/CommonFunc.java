@@ -878,12 +878,29 @@ public class CommonFunc {
         else
         {
             if(emptyCheck && tempStr.length() <= 0)
-                ShowDefaultPopup(context, Title, "채팅 내용이 없습니다.");
+                ShowDefaultPopup(context, Title, "내용이 없습니다.");
         }
 
         if(tempStr.length() > 0 && tempStr.length() <= maxLength)
             return true;
 
         return false;
+    }
+
+    public String RemoveEmptyString(String text)
+    {
+        String returnString = "";
+
+        boolean frontEmpty = true;
+        for(int index = 0 ; index < text.length() ; ++index)
+        {
+            if(frontEmpty && (text.charAt(index) == ' ' || text.charAt(index) == '\n'))
+                continue;
+
+            frontEmpty = false;
+            returnString += text.charAt(index);
+        }
+
+        return returnString;
     }
 }
