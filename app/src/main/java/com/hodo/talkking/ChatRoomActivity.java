@@ -279,19 +279,9 @@ public class ChatRoomActivity extends AppCompatActivity {
             }
 
             public void onTextChanged(CharSequence q, int s, int b, int c) {
-             //   Log.d("TESTING", " LINES = " + txt_msg.getLineCount());
-                System.out.println("Line Count "+txt_msg.getLineCount());
-
-                L = txt_msg.getLineCount();
-                if(L > 5){
-                    txt_msg.getText().delete(txt_msg.getSelectionEnd() - 1,txt_msg.getSelectionStart());
-                }
-                if(q.toString().equals("\n") || q.toString().equals("\n\n") || q.toString().equals("\n\n\n") || q.toString().equals("\n\n\n\n"))
-                {
-                    btn_send.setEnabled(false);
-                }
-                else
-                    btn_send.setEnabled(true);
+                String msg = txt_msg.getText().toString();
+                msg = CommonFunc.getInstance().RemoveEmptyString(msg);
+                btn_send.setEnabled(msg.isEmpty() == false);
             }
         });
 
