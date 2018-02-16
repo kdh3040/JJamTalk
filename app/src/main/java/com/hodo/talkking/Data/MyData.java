@@ -229,6 +229,8 @@ public class MyData {
     public volatile  static UUID uuid;
 
 
+    public int badgecount;
+
     private MyData() {
         strUid = null;
         strImg = null;
@@ -270,6 +272,7 @@ public class MyData {
         }
 
         nReportedCnt = 0;
+        badgecount = 0;
     }
 
     public void setMyData(String _UserUid, String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
