@@ -846,7 +846,12 @@ public class MainActivity extends AppCompatActivity {
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("게시판");
                 mMyData.SetCurFrag(4);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
+
+                if(boardFragment == null)
+                    boardFragment = new BoardFragment();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
+
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,100,255);
 
@@ -863,7 +868,10 @@ public class MainActivity extends AppCompatActivity {
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("즐겨찾기");
                 mMyData.SetCurFrag(1);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
+                if(cardListFragment == null)
+                    LoadCardData();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
                 view.setSelected(!view.isSelected());
 
                 setImageAlpha(100,255,100,100,100);
@@ -893,7 +901,10 @@ public class MainActivity extends AppCompatActivity {
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
 
-                mFragmentMng.beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
+                if(chatListFragment == null)
+                    LoadChatData();
+                else
+                    mFragmentMng.beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
 
                // mCommon.mFragmentManager.beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
 
@@ -957,7 +968,11 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("StarList", stTargetData.arrStarList);*/
                 intent.putExtra("ViewMode", 0);
                 intent.putExtras(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment,"FanListFragment").commit();
+                if(fanFragment == null)
+                    LoadFanData();
+                else {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fanFragment, "FanListFragment").commit();
+                }
 
                 //startActivity(intent);
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
@@ -984,34 +999,54 @@ public class MainActivity extends AppCompatActivity {
         switch (nStartFragment)
         {
             case 0:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+                if(homeFragment == null)
+                    homeFragment = new HomeFragment();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+
                 setImageAlpha(255,100,100,100,100);
                 iv_myPage.setVisibility(View.VISIBLE);
                 txt_title.setVisibility(TextView.GONE);
                 break;
             case 1:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
+                if(cardListFragment == null)
+                    LoadCardData();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
+
                 setImageAlpha(100,255,100,100,100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("즐겨찾기");
                 break;
             case 2:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+                if(chatListFragment == null)
+                    LoadChatData();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+
                 setImageAlpha(100,100,255,100,100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("채팅 목록");
                 break;
             case 3:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment).commit();
+                if(fanFragment == null)
+                    LoadFanData();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment).commit();
+
                 setImageAlpha(100,100,100,255,100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("나의 팬");
                 break;
             case 4:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
+                if(boardFragment == null)
+                    boardFragment = new BoardFragment();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
+
                 setImageAlpha(100,100,100,100,255);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
@@ -1019,7 +1054,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             default:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+                if(homeFragment == null)
+                    homeFragment = new HomeFragment();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+
                 setImageAlpha(255,100,100,100,100);
                 break;
         }
