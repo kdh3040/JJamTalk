@@ -284,7 +284,7 @@ public class UserPageActivity extends AppCompatActivity {
                         // 공유하기 버튼
                         int aaa= 0;
                        // String subject = "회원님을 위한 특별한 이성을 발견했습니다.";
-                        String text = "회원님을 위한 특별한 이성을 발견했습니다.\n흥톡에 로그인해 맘에 드는지 확인해보세요 \n" + mMyData.strDownUri;
+                        String text = "회원님을 위한 특별한 이성을 발견했습니다.\n톡킹에 로그인해 맘에 드는지 확인해보세요 \n" + mMyData.strDownUri;
 
                         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                         intent.setType("text/plain");

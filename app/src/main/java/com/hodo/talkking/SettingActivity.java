@@ -168,7 +168,7 @@ public class SettingActivity extends AppCompatActivity {
         btn_Share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text = "회원님을 위한 특별한 어플을 발견했습니다.\n흥톡에 로그인해보세요 \n" + mMyData.strDownUri;
+                String text = "회원님을 위한 특별한 어플을 발견했습니다.\n톡킹에 로그인해보세요 \n" + mMyData.strDownUri;
                 Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 // intent.putExtra(Intent.EXTRA_SUBJECT, subject);

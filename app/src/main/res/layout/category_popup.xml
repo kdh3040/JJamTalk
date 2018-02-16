@@ -48,7 +48,6 @@
         android:layout_height="60dp"
 
         android:layout_marginTop="16dp"
-        android:background="@drawable/base_btn_bg"
         android:buttonTint="@color/bambamcolor"
         android:gravity="center"
         android:text="표시 개수"
@@ -91,7 +90,6 @@
         android:layout_height="60dp"
 
         android:layout_marginTop="16dp"
-        android:background="@drawable/base_btn_bg"
         android:buttonTint="@color/bambamcolor"
         android:gravity="center"
         android:text="표시 성별"
