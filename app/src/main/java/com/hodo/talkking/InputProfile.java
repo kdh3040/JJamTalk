@@ -660,9 +660,17 @@ public class InputProfile extends AppCompatActivity {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 
-        options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
+        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 60)
+        {
+            options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
+            bitmap = BitmapFactory.decodeFile(imagePath, options);
+        }
 
-        bitmap = BitmapFactory.decodeFile(imagePath, options);
+        else
+        {
+            bitmap = BitmapFactory.decodeFile(imagePath, options);
+        }
+
         bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
         cursor.close();
 

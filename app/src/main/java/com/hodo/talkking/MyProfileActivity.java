@@ -474,7 +474,7 @@ public class MyProfileActivity extends AppCompatActivity {
         bitmap = BitmapFactory.decodeFile(imagePath);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 30)
+        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 60)
         {
             options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
             bitmap = BitmapFactory.decodeFile(imagePath, options);
