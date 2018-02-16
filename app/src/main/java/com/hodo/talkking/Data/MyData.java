@@ -2045,11 +2045,19 @@ public class MyData {
         if(itemList.size() == 0)
             return  rtValue;
 
-        TreeMap<Integer,Integer> tm = new TreeMap<Integer,Integer>(itemList);
+        Map<Integer, Integer> tempItemList = new HashMap<Integer, Integer>();
+
+        for (int i=0 ;i < itemList.size(); i++)
+        {
+            if(itemList.get(i) != 0)
+                tempItemList.put(i, itemList.get(i));
+        }
+
+        TreeMap<Integer,Integer> tm = new TreeMap<Integer,Integer>(tempItemList);
         Iterator<Integer> iteratorKey = tm.descendingKeySet().iterator(); //키값 내림차순 정렬
         rtValue = iteratorKey.next();
         //System.out.println(key+","+tm.get(key));
-        return rtValue + 1;
+        return rtValue;
     }
 
     public void makeLastMSG(UserData  tempData, String Roomname, String strMsg, String lTime, int SendCount) {

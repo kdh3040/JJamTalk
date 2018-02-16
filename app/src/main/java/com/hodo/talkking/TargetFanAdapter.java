@@ -75,13 +75,16 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
         int RecvCnt = stTargetData.get(position).RecvGold;
         holder.giftCount.setText(Integer.toString(RecvCnt) + "하트");
 
+        holder.imageBest.setVisibility(View.VISIBLE);
 
         if(stTargetData.get(position).BestItem == 0)
+        {
+            holder.imageBest.setImageResource(R.mipmap.randombox);
+        }
             //holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
-            holder.imageBest.setVisibility(View.INVISIBLE);
+
         else {
-            holder.imageBest.setVisibility(View.VISIBLE);
-            holder.imageBest.setImageResource(mUIData.getJewels()[stTargetData.get(position).BestItem - 1]);
+            holder.imageBest.setImageResource(mUIData.getJewels()[stTargetData.get(position).BestItem]);
         }
 
         holder.imageGrade.setImageResource(mUIData.getGrades()[stTargetData.get(position).Grade]);

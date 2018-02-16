@@ -151,13 +151,16 @@ public class ChatListFragment extends Fragment {
                     .thumbnail(0.1f)
                     .into(holder.imageView);
 
+            holder.imageItem.setVisibility(View.VISIBLE);
+
             if(mMyData.arrChatDataList.get(str).BestItem == 0)
+            {
+                holder.imageItem.setImageResource(R.mipmap.randombox);
+            }
                 //imgBestItem.setImageResource(R.drawable.gold);
-                holder.imageItem.setVisibility(View.INVISIBLE);
             else
             {
-                holder.imageItem.setVisibility(View.VISIBLE);
-                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrChatDataList.get(str).BestItem - 1]);
+                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrChatDataList.get(str).BestItem]);
             }
 
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrChatDataList.get(str).Grade]);
