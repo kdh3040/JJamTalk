@@ -771,6 +771,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             //mMyData.getCardList();
 
+                            getLocation();
                             mMyData.getDownUrl();
                             //mMyData.getAdBannerID();
                             mMyData.getFanList();
@@ -1102,11 +1103,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Integer doInBackground(Integer... voids) {
 
-            Double lStartLon = mMyData.getUserLon() - 10;
-            Double lStartLat = mMyData.getUserLat() - 10;
+            Double lStartLon = mMyData.getUserLon() - 0.05;
+            Double lStartLat = mMyData.getUserLat() - 0.05;
 
-            Double lEndLon = mMyData.getUserLon() + 10;
-            Double IEndLat = mMyData.getUserLon() + 10;
+            Double lEndLon = mMyData.getUserLon() + 0.05;
+            Double IEndLat = mMyData.getUserLon() + 0.05;
 
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
@@ -1114,7 +1115,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     .orderByChild("Lon")
                     .startAt(lStartLon).endAt(lEndLon).limitToFirst(FIRST_LOAD_MAIN_COUNT);
             ;
-
 
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {

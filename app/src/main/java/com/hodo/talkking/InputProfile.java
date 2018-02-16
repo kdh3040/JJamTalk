@@ -287,11 +287,11 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Integer... voids) {
 
-            Double lStartLon = mMyData.getUserLon() - 10;
-            Double lStartLat = mMyData.getUserLat() - 10;
+            Double lStartLon = mMyData.getUserLon() - 0.05;
+            Double lStartLat = mMyData.getUserLat() - 0.05;
 
-            Double lEndLon = mMyData.getUserLon() + 10;
-            Double IEndLat = mMyData.getUserLon() + 10;
+            Double lEndLon = mMyData.getUserLon() + 0.05;
+            Double IEndLat = mMyData.getUserLon() + 0.05;
 
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
@@ -530,6 +530,7 @@ public class InputProfile extends AppCompatActivity {
                 String strNickName = mNickName.getText().toString();
                 strNickName = CommonFunc.getInstance().RemoveEmptyString(strNickName);
                 String strImg = mMyData.getUserImg();
+                getLocation();
 
                 if(CommonFunc.getInstance().CheckTextMaxLength(strNickName, CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, InputProfile.this ,"닉네임", true) == false)
                     return;
