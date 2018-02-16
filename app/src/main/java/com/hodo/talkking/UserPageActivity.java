@@ -344,7 +344,7 @@ public class UserPageActivity extends AppCompatActivity {
                         else
                         {
                             final int[] nSendHoneyCnt = new int[1];
-                            nSendHoneyCnt[0] = 100;
+                            nSendHoneyCnt[0] = 10;
                             final View giftView = inflater.inflate(R.layout.alert_send_gift, null);
                             builder.setView(giftView);
                             final AlertDialog gold_Dialog = builder.create();
@@ -537,7 +537,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
                                     gold_Dialog.dismiss();
-                                    CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "하트 날리기", "하트를 보냈습니다.");
+                                    CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "하트 날리기", nSendHoneyCnt[0]  + "하트를 보냈습니다.");
 
                                 }
                             });

@@ -853,7 +853,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 }
 
                                 dialog.dismiss();
-                                CommonFunc.getInstance().ShowDefaultPopup(ChatRoomActivity.this, "하트 날리기", "하트를 보냈습니다.");
+                                CommonFunc.getInstance().ShowDefaultPopup(ChatRoomActivity.this, "하트 날리기",  nSendHoneyCnt[0] +" 하트를 보냈습니다.");
                             }
                         });
                         Button btn_gift_cancel = v.findViewById(R.id.btn_gift_cancel);
