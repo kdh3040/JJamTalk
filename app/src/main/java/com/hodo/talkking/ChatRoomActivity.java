@@ -216,7 +216,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         mMyData.SetCurFrag(2);
-        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
+      //  mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
      /*   if(tempPosition == -1)
         {
             mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);

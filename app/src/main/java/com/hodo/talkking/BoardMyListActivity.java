@@ -88,7 +88,8 @@ public class BoardMyListActivity extends AppCompatActivity {
                                     FirebaseData.getInstance().GetInitBoardData();
                                     FirebaseData.getInstance().GetInitMyBoardData();
 
-                                    mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
+                                    //mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
+                                    onBackPressed();
                                 }
                             };
 
@@ -108,5 +109,12 @@ public class BoardMyListActivity extends AppCompatActivity {
         public int getItemCount() {
             return mBoardInstanceData.MyBoardList.size();
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mMyData.SetCurFrag(4);
     }
 }

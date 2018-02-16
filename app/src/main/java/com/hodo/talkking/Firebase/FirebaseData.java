@@ -3,6 +3,8 @@ package com.hodo.talkking.Firebase;
 import android.app.Activity;
 import android.provider.Contacts;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,6 +48,7 @@ import static com.hodo.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.LOAD_BOARD_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
+import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
  * Created by boram on 2017-08-05.
@@ -384,7 +387,17 @@ public class FirebaseData {
                     BoardData.getInstance().AddBoardData(postSnapshot, false);
                 }
 
-                mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
+                mActivity.finish();
+
+                Fragment frg = null;
+                frg = mFragmentMng.findFragmentByTag("BoardFragment");
+                final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                ft.detach(frg);
+                ft.attach(frg);
+                ft.commitAllowingStateLoss();
+
+
+               // mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
    /*
                 Intent intent = new Intent(mActivity, MainActivity.class);
                 intent.putExtra("StartFragment", 4);

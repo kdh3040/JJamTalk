@@ -807,7 +807,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mMyData.SetCurFrag(0);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment, "HomeFragment").commit();
                 //ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
                 setImageAlpha(255,100,100,100,100);
@@ -850,7 +850,7 @@ public class MainActivity extends AppCompatActivity {
                 if(boardFragment == null)
                     boardFragment = new BoardFragment();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment, "BoardFragment").commit();
 
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,100,255);
@@ -871,7 +871,7 @@ public class MainActivity extends AppCompatActivity {
                 if(cardListFragment == null)
                     LoadCardData();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment, "CardListFragment").commit();
                 view.setSelected(!view.isSelected());
 
                 setImageAlpha(100,255,100,100,100);
@@ -1002,7 +1002,7 @@ public class MainActivity extends AppCompatActivity {
                 if(homeFragment == null)
                     homeFragment = new HomeFragment();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment, "HomeFragment").commit();
 
                 setImageAlpha(255,100,100,100,100);
                 iv_myPage.setVisibility(View.VISIBLE);
@@ -1012,7 +1012,7 @@ public class MainActivity extends AppCompatActivity {
                 if(cardListFragment == null)
                     LoadCardData();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment, "CardListFragment").commit();
 
                 setImageAlpha(100,255,100,100,100);
                 iv_myPage.setVisibility(View.GONE);
@@ -1023,7 +1023,7 @@ public class MainActivity extends AppCompatActivity {
                 if(chatListFragment == null)
                     LoadChatData();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
 
                 setImageAlpha(100,100,255,100,100);
                 iv_myPage.setVisibility(View.GONE);
@@ -1034,7 +1034,7 @@ public class MainActivity extends AppCompatActivity {
                 if(fanFragment == null)
                     LoadFanData();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment, "FanListFragment").commit();
 
                 setImageAlpha(100,100,100,255,100);
                 iv_myPage.setVisibility(View.GONE);
@@ -1045,7 +1045,7 @@ public class MainActivity extends AppCompatActivity {
                 if(boardFragment == null)
                     boardFragment = new BoardFragment();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment, "BoardFragment").commit();
 
                 setImageAlpha(100,100,100,100,255);
                 iv_myPage.setVisibility(View.GONE);
@@ -1057,7 +1057,7 @@ public class MainActivity extends AppCompatActivity {
                 if(homeFragment == null)
                     homeFragment = new HomeFragment();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment,"HomeFragment").commit();
 
                 setImageAlpha(255,100,100,100,100);
                 break;
