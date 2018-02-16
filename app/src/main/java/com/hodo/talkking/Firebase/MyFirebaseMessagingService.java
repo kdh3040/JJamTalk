@@ -61,10 +61,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        if (remoteMessage.getNotification() != null) {
+        if (remoteMessage.getData() != null) {
             Resources res = getResources();
-            String body = remoteMessage.getNotification().getBody();
-            String title = remoteMessage.getNotification().getTitle();
+            String body = remoteMessage.getData().get("body");
+            String title = remoteMessage.getData().get("title");
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
@@ -122,6 +122,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             }
 
+            else {
+                builder.setContentTitle(title)
+                        .setContentText(body)
+                        .setSmallIcon(R.drawable.picture)
+                        .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
+                        .setAutoCancel(true)
+                        .setWhen(System.currentTimeMillis());
+
+                if (mMyData.nAlarmSetting_Vibration) {
+                    builder.setVibrate(new long[] {1000});
+                }
+                if (mMyData.nAlarmSetting_Sound)
+                {
+                    builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
+                }
+                NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                nm.notify(1234, builder.build());
+            }
 
            mMyData.badgecount++ ;
             Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
