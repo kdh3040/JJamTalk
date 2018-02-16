@@ -97,14 +97,14 @@ public class MyProfileActivity extends AppCompatActivity {
         String strUserAge = mMyData.getUserAge();
         int nUserAge = Integer.parseInt(strUserAge);
 
-        nUserAge -= 17;
+        nUserAge -= 20;
         Spinner_Age.setSelection(nUserAge);
         Spinner_Age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 nAge1 = position;
-                nAge1 += 17;
+                nAge1 += 20;
                 String strAge = Integer.toString(nAge1);
                 mMyData.setUserAge(strAge);
             }

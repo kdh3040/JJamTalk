@@ -384,13 +384,13 @@ public class MainActivity extends AppCompatActivity {
                 final Spinner spin_StartAge, spin_EndAge;
 
                 spin_StartAge = (Spinner) v.findViewById(R.id.spinner1);
-                spin_StartAge.setSelection(mMyData.nStartAge - 17);
+                spin_StartAge.setSelection(mMyData.nStartAge - 20);
                 // spin_StartAge.setPrompt(String.valueOf(mMyData.nStartAge));
                 spin_StartAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int position, long id) {
-                        mMyData.nStartAge = position + 17;
+                        mMyData.nStartAge = position + 20;
                     }
 
                     @Override
@@ -399,13 +399,13 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 spin_EndAge = (Spinner) v.findViewById(R.id.spinner2);
-                spin_EndAge.setSelection(mMyData.nEndAge - 17);
+                spin_EndAge.setSelection(mMyData.nEndAge - 20);
                 // spin_EndAge.setPrompt(String.valueOf(mMyData.nEndAge));
                 spin_EndAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int position, long id) {
-                        mMyData.nEndAge = position + 17;
+                        mMyData.nEndAge = position + 20;
                     }
 
                     @Override
