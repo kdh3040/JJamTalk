@@ -146,7 +146,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     ProgressBar progressBar;
 
-
+    final long[] tempVal = {0};
+    String rtStr = null;
 
     @Override
     public void onBackPressed() {
@@ -237,7 +238,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         final String[] rtStr = new String[1];
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
+    /*    if(currentUser != null)
         {
             FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
             Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
@@ -257,7 +258,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             });
         }
-        else
+        else*/
         {
 
             final boolean[] bCheckedMyIdx = {false};
@@ -434,19 +435,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                 @Override
                                 public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                                    final long[] tempVal = {0};
-                                    final String[] rtStr = new String[1];
+
 
                                     tempVal[0] = dataSnapshot.getValue(long.class);
-                                    rtStr[0] = Long.toString(tempVal[0]);
+                                    rtStr = Long.toString(tempVal[0]);
 
 
-                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                    DatabaseReference table = database.getReference("UserIdx");
-                                    final DatabaseReference UserIdx = table.child(mMyData.ANDROID_ID);
-                                    UserIdx.setValue(rtStr[0]);
 
-                                    mMyData.setUserIdx(rtStr[0]);
                                     GoProfilePage();
                                 }
                             });
@@ -503,6 +498,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void GoProfilePage() {
         Intent intent = new Intent(LoginActivity.this, InputProfile.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Idx", rtStr);
+        intent.putExtras(bundle);
+
         startActivity(intent);
         finish();
     }
