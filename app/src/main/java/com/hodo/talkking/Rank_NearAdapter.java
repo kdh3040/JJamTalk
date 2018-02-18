@@ -154,8 +154,14 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Near_Age.get(i).Lat, mMyData.arrUserWoman_Near_Age.get(i).Lon,"kilometer");
                 if(Dist < 1.0)
                     holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
-                else
+                else if(Dist < 100.0)
+                {
                     holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
+                }
+
+                else
+                    break;
+
 
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Near_Age.get(i).Img)

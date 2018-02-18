@@ -231,16 +231,16 @@ public class SettingActivity extends AppCompatActivity {
                 CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
                     public void YesListener() {
 
-
-
-                        FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
-
                         FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
                         currentUser.delete()
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
+                                            FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+
+                                            mMyData.Clear();
+
                                             startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                                         }
                                     }

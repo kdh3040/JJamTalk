@@ -223,7 +223,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         mMyData.SetCurFrag(2);
-        
+
         ChatListFragment frg = null;
         if(mFragmentMng != null)
         {

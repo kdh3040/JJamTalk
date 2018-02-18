@@ -458,7 +458,7 @@ public class InputProfile extends AppCompatActivity {
         final DatabaseReference UserIdx = table.child(mMyData.ANDROID_ID);
         UserIdx.setValue(strIdx);
         mMyData.setUserIdx(strIdx);
-
+        getLocation();
 
         progressBar = (ProgressBar) findViewById(R.id.InputProfile_Progress) ;
 
@@ -561,7 +561,7 @@ public class InputProfile extends AppCompatActivity {
                 String strNickName = mNickName.getText().toString();
                 strNickName = CommonFunc.getInstance().RemoveEmptyString(strNickName);
                 String strImg = mMyData.getUserImg();
-                getLocation();
+
 
                 if(CommonFunc.getInstance().CheckTextMaxLength(strNickName, CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, InputProfile.this ,"닉네임", true) == false)
                     return;
@@ -578,6 +578,8 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.nStartAge = (Integer.parseInt(mMyData.getUserAge()) / 10) * 10;
                     mMyData.nEndAge = mMyData.nStartAge + 19;
                     mMyData.setUserNick(strNickName);
+                    mMyData.setUserHoney(50);
+
                     mFireBaseData.SaveData(mMyData.getUserIdx());
                     bMySet = true;
 
@@ -642,6 +644,15 @@ public class InputProfile extends AppCompatActivity {
                     Location tempLoc = task.getResult();
                     mMyData.setUserLon(tempLoc.getLongitude());
                     mMyData.setUserLat(tempLoc.getLatitude());
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+
+                    // DatabaseReference user = table.child( userIdx);
+                    final DatabaseReference user = table.child(mMyData.getUserIdx());
+
+                    user.child("Lon").setValue(mMyData.getUserLon());
+                    user.child("Lat").setValue(mMyData.getUserLat());
                 }
             }
         };

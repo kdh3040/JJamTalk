@@ -281,6 +281,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 else
                                 {
                                     mMyData.setUserIdx(rtStr[0]);
+                                    getLocation();
                                     InitData_Mine();
                                 }
                             }
@@ -485,6 +486,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Location tempLoc = task.getResult();
                     mMyData.setUserLon(tempLoc.getLongitude());
                     mMyData.setUserLat(tempLoc.getLatitude());
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+
+                    // DatabaseReference user = table.child( userIdx);
+                    final DatabaseReference user = table.child(mMyData.getUserIdx());
+
+                    user.child("Lon").setValue(mMyData.getUserLon());
+                    user.child("Lat").setValue(mMyData.getUserLat());
+
                     //InitData_Near();
                 }
             }
@@ -770,7 +781,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             //mMyData.getCardList();
 
-                            getLocation();
+
                             mMyData.getDownUrl();
                             mMyData.getImageLoading();
                             //mMyData.getAdBannerID();
