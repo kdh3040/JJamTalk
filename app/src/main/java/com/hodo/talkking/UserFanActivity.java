@@ -146,13 +146,16 @@ public class UserFanActivity extends AppCompatActivity {
             holder.textNick.setText(stTargetData.FanList.get(i).NickName);
             holder.textRank.setText((position + 1) + "위");
 
+            holder.imgItem.setVisibility(View.VISIBLE);
 
             if(stTargetData.FanList.get(i).BestItem == 0)
+            {
+                holder.imgItem.setImageResource(R.mipmap.randombox);
+            }
                 //holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
-                holder.imgItem.setVisibility(View.INVISIBLE);
+
             else {
-                holder.imgItem.setVisibility(View.VISIBLE);
-                holder.imgItem.setImageResource(mUIData.getJewels()[stTargetData.FanList.get(i).BestItem - 1]);
+                holder.imgItem.setImageResource(mUIData.getJewels()[stTargetData.FanList.get(i).BestItem]);
             }
 
             holder.imgGrade.setImageResource(mUIData.getGrades()[stTargetData.FanList.get(i).Grade]);

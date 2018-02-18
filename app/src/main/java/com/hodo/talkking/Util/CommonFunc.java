@@ -662,15 +662,15 @@ public class CommonFunc {
         int nGrade = 0;
         nGrade = (int) (Math.random() * 2000) + 1;
 
-        if (604 <= nGrade) rtValue = 1;
+        if (604 <= nGrade) rtValue = 0;
 
-        else if (160 <= nGrade && nGrade <= 603) rtValue = 2;
-        else if (80 <= nGrade && nGrade <= 160) rtValue = 3;
-        else if (58 <= nGrade && nGrade <= 80) rtValue = 4;
-        else if (28 <= nGrade && nGrade <= 58) rtValue = 5;
-        else if (15 <= nGrade && nGrade <= 27) rtValue = 6;
-        else if (2 <= nGrade && nGrade <= 14) rtValue = 7;
-        else if (1 == nGrade) rtValue = 8;
+        else if (160 <= nGrade && nGrade <= 603) rtValue = 1;
+        else if (80 <= nGrade && nGrade <= 160) rtValue = 2;
+        else if (58 <= nGrade && nGrade <= 80) rtValue = 3;
+        else if (28 <= nGrade && nGrade <= 58) rtValue = 4;
+        else if (15 <= nGrade && nGrade <= 27) rtValue = 5;
+        else if (2 <= nGrade && nGrade <= 14) rtValue = 6;
+        else if (1 == nGrade) rtValue = 7;
 
         return rtValue;
     }

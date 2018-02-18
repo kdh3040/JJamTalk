@@ -84,13 +84,16 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
             BoardDate.setText(ctime.format(new Date(writeDate.getTime())));
         }
 
+        BoardUserItem.setVisibility(View.VISIBLE);
         if(data.GetDBData().BestItem > 0)
         {
-            BoardUserItem.setVisibility(View.VISIBLE);
-            BoardUserItem.setImageResource(UIData.getInstance().getJewels()[data.GetDBData().BestItem - 1]);
+            BoardUserItem.setImageResource(UIData.getInstance().getJewels()[data.GetDBData().BestItem]);
         }
         else
-            BoardUserItem.setVisibility(View.INVISIBLE);
+        {
+            BoardUserItem.setImageResource(R.mipmap.randombox);
+        }
+
 
         BoardUserGrade.setImageResource(UIData.getInstance().getGrades()[data.GetDBData().Grade]);
       /*  if(data.GetDBData().Gender == null)

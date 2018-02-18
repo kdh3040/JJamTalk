@@ -61,10 +61,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        if (remoteMessage.getNotification() != null) {
+        if (remoteMessage.getData() != null) {
             Resources res = getResources();
-            String body = remoteMessage.getNotification().getBody();
-            String title = remoteMessage.getNotification().getTitle();
+            String body = remoteMessage.getData().get("body");
+            String title = remoteMessage.getData().get("title");
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
@@ -121,84 +121,32 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 }
 
             }
-/*
-            if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
-            {
-            */
-/*    builder.setCategory(Notification.CATEGORY_MESSAGE)
-                        .setVibrate(new long[] {1000})
-                        .setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));*//*
 
+            else {
+                builder.setContentTitle(title)
+                        .setContentText(body)
+                        .setSmallIcon(R.drawable.picture)
+                        .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
+                        .setAutoCancel(true)
+                        .setWhen(System.currentTimeMillis());
 
-                CommonFunc.getInstance().PlayVibration(getApplicationContext());
-                CommonFunc.getInstance().PlayAlramSound(getApplicationContext(), R.raw.katalk);
-            }
-*/
-
-
-/*
-
-            String body = remoteMessage.getNotification().getBody();
-            Log.d(TAG, "Notification Body: " + body);
-
-
-            if (remoteMessage.getData().size() > 0) {
-                Map<String, String> data = remoteMessage.getData();
-                strSenderImg= data.get("Img");
-                strSenderName= data.get("NickName");
-
-                strSenderGender= data.get("Gender");
-                strSenderIdx= data.get("Idx");
-
-                strSenderType = data.get("Type");
-
-             //   strSenderHoney = data.get("Honey");
-               // strSenderHeart = data.get("Heart");
-
-                //getTargetData(strSenderGender, strSenderIdx);
-
-
-                Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+                if (mMyData.nAlarmSetting_Vibration) {
+                    builder.setVibrate(new long[] {1000});
+                }
+                if (mMyData.nAlarmSetting_Sound)
+                {
+                    builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
+                }
+                NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                nm.notify(1234, builder.build());
             }
 
-            // Check if message contains a notification payload.
-            if (remoteMessage.getNotification() != null) {
-                Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            }
-
-
-
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            PendingIntent pending = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-
-            NotificationCompat.Builder notificationBuilder;
-
-            if (remoteMessage.getNotification() != null) {
-                Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-               notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
-                        .setSmallIcon(R.drawable.picture) // 알림 영역에 노출 될 아이콘.
-                        .setContentTitle(getString(R.string.app_name)) // 알림 영역에 노출 될 타이틀
-                       .setPriority(2)
-                        .setContentText(body); // Firebase Console 에서 사용자가 전달한 메시지내용
-
-            }
-
-            else
-            {
-              notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
-                        .setSmallIcon(R.drawable.picture) // 알림 영역에 노출 될 아이콘.
-                        .setContentTitle(getString(R.string.app_name)) // 알림 영역에 노출 될 타이틀
-                        .setContentText(body) // Firebase Console 에서 사용자가 전달한 메시지내용
-                        .setPriority(2)
-                        .setContentIntent(pending);
-            }
-
-                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-                notificationManagerCompat.notify(0x1001, notificationBuilder.build());
-*/
-
-
+           mMyData.badgecount++ ;
+            Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+            intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+            intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+            intent.putExtra("badge_count", mMyData.badgecount);
+            sendBroadcast(intent);
         }
     }
 

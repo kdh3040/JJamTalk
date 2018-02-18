@@ -168,7 +168,7 @@ public class SettingActivity extends AppCompatActivity {
         btn_Share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text = "회원님을 위한 특별한 어플을 발견했습니다.\n흥톡에 로그인해보세요 \n" + mMyData.strDownUri;
+                String text = "회원님을 위한 특별한 어플을 발견했습니다.\n톡킹에 로그인해보세요 \n" + mMyData.strDownUri;
                 Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 // intent.putExtra(Intent.EXTRA_SUBJECT, subject);
@@ -426,6 +426,24 @@ public class SettingActivity extends AppCompatActivity {
             sw_SearchWoman.setChecked(true);
         }
     }*/
+
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            if (mMyData.badgecount >= 1) {
+                mMyData.badgecount = 0;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
+            }
+        }
+    }
+
 
     private void initNotiValue() {
 

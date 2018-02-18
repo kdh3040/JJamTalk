@@ -97,14 +97,14 @@ public class MyProfileActivity extends AppCompatActivity {
         String strUserAge = mMyData.getUserAge();
         int nUserAge = Integer.parseInt(strUserAge);
 
-        nUserAge -= 17;
+        nUserAge -= 20;
         Spinner_Age.setSelection(nUserAge);
         Spinner_Age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 nAge1 = position;
-                nAge1 += 17;
+                nAge1 += 20;
                 String strAge = Integer.toString(nAge1);
                 mMyData.setUserAge(strAge);
             }
@@ -474,7 +474,7 @@ public class MyProfileActivity extends AppCompatActivity {
         bitmap = BitmapFactory.decodeFile(imagePath);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 30)
+        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 60)
         {
             options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
             bitmap = BitmapFactory.decodeFile(imagePath, options);
@@ -615,6 +615,23 @@ public class MyProfileActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            if (mMyData.badgecount >= 1) {
+                mMyData.badgecount = 0;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
+            }
+        }
     }
 
     public  void DeleteData(final int Index)

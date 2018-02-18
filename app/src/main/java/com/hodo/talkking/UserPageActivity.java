@@ -188,14 +188,15 @@ public class UserPageActivity extends AppCompatActivity {
                 .into(imgProfile);
 
         imgBestItem = (ImageView)findViewById(R.id.iv_item);
+        imgBestItem.setVisibility(View.VISIBLE);
 
         if(stTargetData.BestItem == 0)
-            //imgBestItem.setImageResource(R.drawable.gold);
-            imgBestItem.setVisibility(View.INVISIBLE);
+        {
+            imgBestItem.setImageResource(R.mipmap.randombox);
+        }
         else
         {
-            imgBestItem.setVisibility(View.VISIBLE);
-            imgBestItem.setImageResource(mUIdata.getJewels()[stTargetData.BestItem - 1]);
+            imgBestItem.setImageResource(mUIdata.getJewels()[stTargetData.BestItem]);
         }
 
         imgGrade = (ImageView)findViewById(R.id.iv_rank);
@@ -283,7 +284,7 @@ public class UserPageActivity extends AppCompatActivity {
                         // 공유하기 버튼
                         int aaa= 0;
                        // String subject = "회원님을 위한 특별한 이성을 발견했습니다.";
-                        String text = "회원님을 위한 특별한 이성을 발견했습니다.\n흥톡에 로그인해 맘에 드는지 확인해보세요 \n" + mMyData.strDownUri;
+                        String text = "회원님을 위한 특별한 이성을 발견했습니다.\n톡킹에 로그인해 맘에 드는지 확인해보세요 \n" + mMyData.strDownUri;
 
                         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                         intent.setType("text/plain");
@@ -343,7 +344,7 @@ public class UserPageActivity extends AppCompatActivity {
                         else
                         {
                             final int[] nSendHoneyCnt = new int[1];
-                            nSendHoneyCnt[0] = 100;
+                            nSendHoneyCnt[0] = 10;
                             final View giftView = inflater.inflate(R.layout.alert_send_gift, null);
                             builder.setView(giftView);
                             final AlertDialog gold_Dialog = builder.create();
@@ -536,7 +537,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
                                     gold_Dialog.dismiss();
-                                    CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "하트 날리기", "하트를 보냈습니다.");
+                                    CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "하트 날리기", nSendHoneyCnt[0]  + "하트를 보냈습니다.");
 
                                 }
                             });
@@ -1072,6 +1073,23 @@ public class UserPageActivity extends AppCompatActivity {
                         //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
                     }
                 });
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            if (mMyData.badgecount >= 1) {
+                mMyData.badgecount = 0;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
+            }
+        }
     }
 
 }

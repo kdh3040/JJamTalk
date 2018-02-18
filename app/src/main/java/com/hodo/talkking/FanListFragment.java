@@ -158,13 +158,15 @@ public class FanListFragment extends Fragment {
                     .thumbnail(0.1f)
                     .into(holder.img);
 
+            holder.imageItem.setVisibility(View.VISIBLE);
+
             if(mMyData.arrMyFanDataList.get(i).BestItem == 0)
-                //imgBestItem.setImageResource(R.drawable.gold);
-                holder.imageItem.setVisibility(View.INVISIBLE);
+            {
+                holder.imageItem.setImageResource(R.mipmap.randombox);
+            }
             else
             {
-                holder.imageItem.setVisibility(View.VISIBLE);
-                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrMyFanDataList.get(i).BestItem - 1]);
+                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrMyFanDataList.get(i).BestItem]);
             }
 
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrMyFanDataList.get(i).Grade]);

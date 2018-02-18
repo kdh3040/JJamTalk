@@ -2,6 +2,7 @@ package com.hodo.talkking;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -132,5 +133,22 @@ public class BoardWriteActivity extends AppCompatActivity {
         sendData.BestItem = mMydata.GetBestItem();
 
         mFireBaseData.SaveBoardData(sendData);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            if (mMydata.badgecount >= 1) {
+                mMydata.badgecount = 0;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMydata.badgecount);
+                sendBroadcast(intent);
+            }
+        }
     }
 }

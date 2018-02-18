@@ -253,6 +253,18 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();  // Always call the superclass method first
 
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            if ( mMyData.badgecount >= 1)
+            {
+                mMyData.badgecount = 0;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
+            }
+
+
             if (mMyData.GetCurFrag() == 2) {
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
@@ -384,13 +396,13 @@ public class MainActivity extends AppCompatActivity {
                 final Spinner spin_StartAge, spin_EndAge;
 
                 spin_StartAge = (Spinner) v.findViewById(R.id.spinner1);
-                spin_StartAge.setSelection(mMyData.nStartAge - 17);
+                spin_StartAge.setSelection(mMyData.nStartAge - 20);
                 // spin_StartAge.setPrompt(String.valueOf(mMyData.nStartAge));
                 spin_StartAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int position, long id) {
-                        mMyData.nStartAge = position + 17;
+                        mMyData.nStartAge = position + 20;
                     }
 
                     @Override
@@ -399,13 +411,13 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 spin_EndAge = (Spinner) v.findViewById(R.id.spinner2);
-                spin_EndAge.setSelection(mMyData.nEndAge - 17);
+                spin_EndAge.setSelection(mMyData.nEndAge - 20);
                 // spin_EndAge.setPrompt(String.valueOf(mMyData.nEndAge));
                 spin_EndAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int position, long id) {
-                        mMyData.nEndAge = position + 17;
+                        mMyData.nEndAge = position + 20;
                     }
 
                     @Override
@@ -795,7 +807,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mMyData.SetCurFrag(0);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment, "HomeFragment").commit();
                 //ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
                 setImageAlpha(255,100,100,100,100);
@@ -834,7 +846,12 @@ public class MainActivity extends AppCompatActivity {
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("게시판");
                 mMyData.SetCurFrag(4);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
+
+                if(boardFragment == null)
+                    boardFragment = new BoardFragment();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment, "BoardFragment").commit();
+
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,100,255);
 
@@ -851,7 +868,10 @@ public class MainActivity extends AppCompatActivity {
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("즐겨찾기");
                 mMyData.SetCurFrag(1);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
+                if(cardListFragment == null)
+                    LoadCardData();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment, "CardListFragment").commit();
                 view.setSelected(!view.isSelected());
 
                 setImageAlpha(100,255,100,100,100);
@@ -881,7 +901,10 @@ public class MainActivity extends AppCompatActivity {
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
 
-                mFragmentMng.beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
+                if(chatListFragment == null)
+                    LoadChatData();
+                else
+                    mFragmentMng.beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
 
                // mCommon.mFragmentManager.beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
 
@@ -945,7 +968,11 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("StarList", stTargetData.arrStarList);*/
                 intent.putExtra("ViewMode", 0);
                 intent.putExtras(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment,"FanListFragment").commit();
+                if(fanFragment == null)
+                    LoadFanData();
+                else {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fanFragment, "FanListFragment").commit();
+                }
 
                 //startActivity(intent);
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
@@ -972,34 +999,54 @@ public class MainActivity extends AppCompatActivity {
         switch (nStartFragment)
         {
             case 0:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+                if(homeFragment == null)
+                    homeFragment = new HomeFragment();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment, "HomeFragment").commit();
+
                 setImageAlpha(255,100,100,100,100);
                 iv_myPage.setVisibility(View.VISIBLE);
                 txt_title.setVisibility(TextView.GONE);
                 break;
             case 1:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment).commit();
+                if(cardListFragment == null)
+                    LoadCardData();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment, "CardListFragment").commit();
+
                 setImageAlpha(100,255,100,100,100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("즐겨찾기");
                 break;
             case 2:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+                if(chatListFragment == null)
+                    LoadChatData();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
+
                 setImageAlpha(100,100,255,100,100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("채팅 목록");
                 break;
             case 3:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment).commit();
+                if(fanFragment == null)
+                    LoadFanData();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment, "FanListFragment").commit();
+
                 setImageAlpha(100,100,100,255,100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("나의 팬");
                 break;
             case 4:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment).commit();
+                if(boardFragment == null)
+                    boardFragment = new BoardFragment();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment, "BoardFragment").commit();
+
                 setImageAlpha(100,100,100,100,255);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
@@ -1007,7 +1054,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             default:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
+                if(homeFragment == null)
+                    homeFragment = new HomeFragment();
+                else
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment,"HomeFragment").commit();
+
                 setImageAlpha(255,100,100,100,100);
                 break;
         }

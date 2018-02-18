@@ -216,7 +216,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         mMyData.SetCurFrag(2);
-        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
+      //  mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
      /*   if(tempPosition == -1)
         {
             mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
@@ -231,6 +231,25 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            if (mMyData.badgecount >= 1) {
+                mMyData.badgecount = 0;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
+            }
+        }
+    }
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -834,7 +853,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 }
 
                                 dialog.dismiss();
-                                CommonFunc.getInstance().ShowDefaultPopup(ChatRoomActivity.this, "하트 날리기", "하트를 보냈습니다.");
+                                CommonFunc.getInstance().ShowDefaultPopup(ChatRoomActivity.this, "하트 날리기",  nSendHoneyCnt[0] +" 하트를 보냈습니다.");
                             }
                         });
                         Button btn_gift_cancel = v.findViewById(R.id.btn_gift_cancel);

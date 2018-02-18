@@ -43,9 +43,9 @@ public class NotiFunc {
             JSONObject notification = new JSONObject();
             JSONObject data = new JSONObject();
 
-            notification.put("body", strMsg);
+            data.put("body", strMsg);
 
-            notification.put("title", mMyData.getUserNick() + "님이 쪽지를 보냈습니다");
+            data.put("title", mMyData.getUserNick() + "님이 쪽지를 보냈습니다");
             data.put("Img", stTargetData.Img);
             data.put("Idx", stTargetData.Idx);
             data.put("NickName", mMyData.getUserNick());
@@ -53,89 +53,6 @@ public class NotiFunc {
 
             root.put("notification", notification);
             root.put("to", stTargetData.Token);
-            root.put("data", data);
-            // FMC 메시지 생성 end
-
-            URL Url = new URL(MSG_URL);
-            HttpURLConnection conn = (HttpURLConnection) Url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.addRequestProperty("Authorization", "key=" + SERVER_KEY);
-            conn.setRequestProperty("Accept", "application/json");
-            conn.setRequestProperty("Content-type", "application/json");
-            OutputStream os = conn.getOutputStream();
-            os.write(root.toString().getBytes("utf-8"));
-            os.flush();
-            conn.getResponseCode();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void SendHeartToFCM(final UserData stTargetData, int nHeartCnt) {
-        try {
-
-            // FMC 메시지 생성 start
-            JSONObject root = new JSONObject();
-            JSONObject notification = new JSONObject();
-            JSONObject data = new JSONObject();
-
-            notification.put("body", mMyData.getUserNick() + "님이 좋아요를 보냈습니다");
-
-            notification.put("title", "꿀톡");
-
-            data.put("Img", stTargetData.Img);
-            data.put("Idx", stTargetData.Idx);
-            data.put("Gender", stTargetData.Gender);
-            data.put("NickName", mMyData.getUserNick());
-            data.put("Heart", nHeartCnt);
-            data.put("Type", "Heart");
-
-            root.put("notification", notification);
-            root.put("to", stTargetData.Token);
-            root.put("data", data);
-            // FMC 메시지 생성 end
-
-            URL Url = new URL(MSG_URL);
-            HttpURLConnection conn = (HttpURLConnection) Url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.addRequestProperty("Authorization", "key=" + SERVER_KEY);
-            conn.setRequestProperty("Accept", "application/json");
-            conn.setRequestProperty("Content-type", "application/json");
-            OutputStream os = conn.getOutputStream();
-            os.write(root.toString().getBytes("utf-8"));
-            os.flush();
-            conn.getResponseCode();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void SendMsgToFCM(final UserData stTargetData) {
-        try {
-
-            // FMC 메시지 생성 start
-            JSONObject root = new JSONObject();
-            JSONObject notification = new JSONObject();
-            JSONObject data = new JSONObject();
-
-            notification.put("body", mMyData.getUserNick() + "님이 메세지를 보냈습니다");
-
-            notification.put("title", "굿톡");
-
-            data.put("Img", stTargetData.Img);
-            data.put("Idx", stTargetData.Idx);
-            data.put("Gender", stTargetData.Gender);
-            data.put("NickName", mMyData.getUserNick());
-            data.put("Type", "Msg");
-
-            root.put("notification", notification);
-            root.put("to", stTargetData.Token);
-            root.put("data", data);
             // FMC 메시지 생성 end
 
             URL Url = new URL(MSG_URL);
@@ -163,10 +80,8 @@ public class NotiFunc {
             JSONObject notification = new JSONObject();
             JSONObject data = new JSONObject();
 
-            notification.put("body", strMsg);
-
-            notification.put("title", mMyData.getUserNick() + "님이 하트를" + nHoneyCnt+ "개 보냈습니다");
-
+            data.put("body", strMsg);
+            data.put("title", mMyData.getUserNick() + "님이 하트를" + nHoneyCnt+ "개 보냈습니다");
             data.put("Img", stTargetData.Img);
             data.put("Idx", stTargetData.Idx);
             data.put("Gender", stTargetData.Gender);
@@ -174,10 +89,8 @@ public class NotiFunc {
             data.put("Type", "Honey");
            // data.put("Honey", nHoneyCnt);
 
-
-            root.put("notification", notification);
+            root.put("data", notification);
             root.put("to", stTargetData.Token);
-            root.put("data", data);
             // FMC 메시지 생성 end
 
             URL Url = new URL(MSG_URL);
@@ -205,17 +118,16 @@ public class NotiFunc {
             JSONObject notification = new JSONObject();
             JSONObject data = new JSONObject();
 
-            notification.put("body", Msg);
+            data.put("body", Msg);
 
-            notification.put("title", mMyData.getUserNick() + "님이 메세지를 보냈습니다");
+            data.put("title", mMyData.getUserNick() + "님이 메세지를 보냈습니다");
             data.put("Img", stTargetData.Img);
             data.put("Idx", stTargetData.Idx);
             data.put("NickName", mMyData.getUserNick());
             data.put("Type", "Msg");
 
-            root.put("notification", notification);
+            root.put("notification", data);
             root.put("to", stTargetData.Token);
-            root.put("data", data);
             // FMC 메시지 생성 end
 
             URL Url = new URL(MSG_URL);

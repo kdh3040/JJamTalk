@@ -90,18 +90,16 @@ public class MyPageActivity extends AppCompatActivity {
 */
 
 
-
-
-
         iv_MyGift=findViewById(R.id.jewel);
+        iv_MyGift.setVisibility(View.VISIBLE);
 
         if(mMyData.bestItem == 0)
-            //iv_MyGift.setImageResource(R.drawable.gold);
-            iv_MyGift.setVisibility(View.INVISIBLE);
+        {
+            iv_MyGift.setImageResource(R.mipmap.randombox);
+        }
         else
         {
-            iv_MyGift.setVisibility(View.VISIBLE);
-            iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem  - 1]);
+            iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
         }
 
 
@@ -213,6 +211,22 @@ public class MyPageActivity extends AppCompatActivity {
         adapter = new MyPageJewelAdapter(getApplicationContext());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            if (mMyData.badgecount >= 1) {
+                mMyData.badgecount = 0;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
+            }
+        }
+    }
+
     private void DrawMyGrade() {
         mMyData.SetMyGrade();
 
@@ -248,10 +262,7 @@ public class MyPageActivity extends AppCompatActivity {
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
         //txt_MyHeartCnt.setText(" 보유 골드 : " + nGold + " 골드");
         txt_MyGoldCnt.setText(nGold+"");
-        if(mMyData.bestItem == 0)
-            iv_MyGift.setImageResource(R.drawable.coin);
-        else
-            iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem  - 1]);
+        iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
 
         DrawMyGrade();
     }

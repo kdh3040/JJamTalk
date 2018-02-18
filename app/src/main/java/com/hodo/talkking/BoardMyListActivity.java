@@ -1,6 +1,7 @@
 package com.hodo.talkking;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,22 @@ public class BoardMyListActivity extends AppCompatActivity {
     RecyclerView MyBoardSlotListRecycler;
 
     @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            if (mMyData.badgecount >= 1) {
+                mMyData.badgecount = 0;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
+            }
+        }
+    }
+
+        @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
@@ -71,7 +88,8 @@ public class BoardMyListActivity extends AppCompatActivity {
                                     FirebaseData.getInstance().GetInitBoardData();
                                     FirebaseData.getInstance().GetInitMyBoardData();
 
-                                    mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
+                                    //mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
+                                    onBackPressed();
                                 }
                             };
 
@@ -91,5 +109,12 @@ public class BoardMyListActivity extends AppCompatActivity {
         public int getItemCount() {
             return mBoardInstanceData.MyBoardList.size();
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mMyData.SetCurFrag(4);
     }
 }
