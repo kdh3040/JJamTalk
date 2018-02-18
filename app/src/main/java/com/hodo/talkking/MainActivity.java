@@ -293,6 +293,15 @@ public class MainActivity extends AppCompatActivity {
         if(mMyData.arrReportList.size() >= 10)
             ViewReportPop();
 
+        if ( mMyData.badgecount >= 1)
+        {
+            mMyData.badgecount = 0;
+            Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+            intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+            intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+            intent.putExtra("badge_count", mMyData.badgecount);
+            sendBroadcast(intent);
+        }
 
         Bundle bundle = getIntent().getExtras();
         nStartFragment = (int) bundle.getSerializable("StartFragment");

@@ -29,14 +29,21 @@ import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
+import com.hodo.talkking.Data.SimpleChatData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.ViewHolder.ChatListViewHolder;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -65,15 +72,17 @@ public class ChatListFragment extends Fragment {
 
     public  void refresh()
     {
+        SortByChatDate();
         mAdapter.notifyDataSetChanged();
     }
 
     ChatListAdapter mAdapter = new ChatListAdapter();
 
-    public ChatListFragment() {}
+    public ChatListFragment() {SortByChatDate();}
 
     @SuppressLint("ValidFragment")
     public ChatListFragment(Context Context) {
+        SortByChatDate();
         mTempContext = Context;
     }
 
@@ -101,6 +110,7 @@ public class ChatListFragment extends Fragment {
 
 
         if (fragView!= null) {
+            SortByChatDate();
             mAdapter.notifyDataSetChanged();
         }
         else
@@ -126,6 +136,40 @@ public class ChatListFragment extends Fragment {
 
     }*/
 
+
+    private void SortByChatDate()
+    {
+        Map<String, SimpleChatData> tempDataMap = new LinkedHashMap<String, SimpleChatData>(mMyData.arrChatDataList);
+        //tempDataMap = mMyData.arrMyFanDataList;
+        Iterator it = sortByValue(tempDataMap).iterator();
+        mMyData.arrChatDataList.clear();
+        mMyData.arrChatNameList.clear();
+        while(it.hasNext()) {
+            String temp = (String) it.next();
+            System.out.println(temp + " = " + mMyData.arrChatDataList.get(temp));
+            mMyData.arrChatDataList.put(temp, tempDataMap.get(temp));
+            mMyData.arrChatNameList.add(tempDataMap.get(temp).ChatRoomName);
+
+        }
+    }
+
+    public static List sortByValue(final Map map) {
+        List<String> list = new ArrayList();
+        list.addAll(map.keySet());
+        Collections.sort(list,new Comparator() {
+
+            public int compare(Object o1,Object o2) {
+                SimpleChatData g1 = (SimpleChatData)map.get(o1);
+                SimpleChatData g2 = (SimpleChatData)map.get(o2);
+
+                Object v1 = g1.Date;
+                Object v2 = g2.Date;
+                return ((Comparable) v2).compareTo(v1);
+            }
+        });
+        // Collections.reverse(list); // 주석시 오름차순
+        return list;
+    }
 
     private class ChatListAdapter extends RecyclerView.Adapter<ChatListViewHolder> {
         @Override
