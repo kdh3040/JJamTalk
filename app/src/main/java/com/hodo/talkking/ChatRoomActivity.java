@@ -111,6 +111,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     static  Uri tempSaveUri;
     static int a = 0;
     private Activity mActivity;
+    final String[] postId = {null};
+    final boolean[] bPrePare = {false};
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder{
 
@@ -1185,7 +1187,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     }
 
-    private void UploadImage_Firebase(Uri file) {
+    private void UploadImage_Firebase(final Uri file) {
 
         StorageReference riversRef = storageRef.child("chatRoom/" + mMyData.getUserIdx() + "/" + tempSaveUri);//file.getLastPathSegment());
 
@@ -1206,6 +1208,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         byte[] data = baos.toByteArray();
 
+
         UploadTask uploadTask = riversRef.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -1220,6 +1223,27 @@ public class ChatRoomActivity extends AppCompatActivity {
                 System.out.println("Upload is " + progress + "% done");
                 int currentprogress = (int) progress;
                 progressBar.setProgress(currentprogress);*/
+
+                if(bPrePare[0] == false)
+                {
+                    Calendar cal = Calendar.getInstance();
+                    Date date = cal.getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                    String formatStr = sdf.format(date);
+
+                    ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, mMyData.strImgLodingUri, 0, 0);
+
+                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr, 0);
+
+                    DatabaseReference pushedPostRef = mRef.push();
+                    postId[0] = pushedPostRef.getKey();
+                    pushedPostRef.setValue(chat_Data);
+
+
+                    bPrePare[0] = true;
+                }
+
+
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -1235,10 +1259,21 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                 ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
 
+              /*  ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
+
                 mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr, 0);
-                mRef.push().setValue(chat_Data);
+                mRef.push().setValue(chat_Data);*/
+
+                Map<String, Object> updateMap = new HashMap<>();
+                updateMap.put("img", downloadUrl.toString());
+                mRef.child( postId[0]).updateChildren(updateMap);
+
+             /*   mRef.child( postId[0]).setValue(chat_Data);
+                mRef.child( postId[0]).updateChildren()*/
+                //mRef.push().setValue(chat_Data);
 
                 tempSaveUri = downloadUrl;
+                bPrePare[0] = false;
             }
         });
     }

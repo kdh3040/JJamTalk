@@ -575,6 +575,9 @@ public class InputProfile extends AppCompatActivity {
                     mFireBaseData.SaveData(mMyData.getUserIdx());
                     bMySet = true;
 
+                    mMyData.getDownUrl();
+                    mMyData.getImageLoading();
+
                     mMyData.getFanList();
                     mMyData.getReportedCnt();
                     mMyData.getSetting();

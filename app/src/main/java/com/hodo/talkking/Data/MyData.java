@@ -186,6 +186,7 @@ public class MyData {
     public  Uri urSaveUri;
     public  int nSaveUri;
 
+    public  String strImgLodingUri;
     public  String strDownUri;
     public  String strBannerID = "ca-app-pub-8954582850495744/1996257938";
 
@@ -962,6 +963,28 @@ public class MyData {
 
         });
 
+    }
+
+    public void getImageLoading() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("ImgUrl");
+
+        table.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int saa = 0;
+                String tempUserData = dataSnapshot.getValue(String.class);
+                strImgLodingUri = tempUserData;
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
     }
 
     public void getDownUrl() {
