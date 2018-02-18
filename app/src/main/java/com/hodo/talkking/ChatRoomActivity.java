@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
@@ -65,11 +66,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import gun0912.tedbottompicker.TedBottomPicker;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_CHAT;
 import static com.hodo.talkking.MainActivity.mFragmentMng;
+import static com.hodo.talkking.MyProfileActivity.calculateInSampleSize;
 
 /**
  * Created by mjk on 2017. 8. 10..
@@ -663,9 +666,23 @@ public class ChatRoomActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         dialog_gal_gift.dismiss();
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                        intent.setType("image/*");
-                        startActivityForResult(Intent.createChooser(intent,"Select Picture"),REQUEST_IMAGE);
+
+                        TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(ChatRoomActivity.this)
+                                .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
+                                    @Override
+                                    public void onImageSelected(Uri uri) {
+                                        // uri 활용
+                                        tempSaveUri = uri;
+                                        UploadImage_Firebase(tempSaveUri);
+                                    }
+                                })
+                                .create();
+
+                        bottomSheetDialogFragment.show(getSupportFragmentManager());
+
+                     /*   Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setType("image*//*");
+                        startActivityForResult(Intent.createChooser(intent,"Select Picture"),REQUEST_IMAGE);*/
 
                     }
                 });
@@ -1172,56 +1189,56 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         Bitmap bitmap = null;
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 4;
-        //bitmap = BitmapFactory.decodeFile("/sdcard/image.jpg", options);
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        options.inSampleSize = calculateInSampleSize(options, 100, 100 , 2);
 
         try {
-            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), file);
-
-            //bitmap = BitmapFactory.decodeFile(file.f, options);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getWidth(), true);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-            byte[] data = baos.toByteArray();
-
-            UploadTask uploadTask = riversRef.putBytes(data);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-    /*                progressBar.setVisibility(View.VISIBLE);
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                    System.out.println("Upload is " + progress + "% done");
-                    int currentprogress = (int) progress;
-                    progressBar.setProgress(currentprogress);*/
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                    //progressBar.setVisibility(View.INVISIBLE);
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-
-                    Calendar cal = Calendar.getInstance();
-                    Date date = cal.getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                    String formatStr = sdf.format(date);
-
-                    ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
-
-                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr, 0);
-                    mRef.push().setValue(chat_Data);
-
-                    tempSaveUri = downloadUrl;
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
+        } catch (Exception e) {
         }
+
+
+        //bitmap = BitmapFactory.decodeFile(file.f, options);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = riversRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+/*                progressBar.setVisibility(View.VISIBLE);
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                System.out.println("Upload is " + progress + "% done");
+                int currentprogress = (int) progress;
+                progressBar.setProgress(currentprogress);*/
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                //progressBar.setVisibility(View.INVISIBLE);
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                Calendar cal = Calendar.getInstance();
+                Date date = cal.getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                String formatStr = sdf.format(date);
+
+                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
+
+                mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr, 0);
+                mRef.push().setValue(chat_Data);
+
+                tempSaveUri = downloadUrl;
+            }
+        });
     }
 
     @Override

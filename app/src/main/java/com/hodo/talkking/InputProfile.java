@@ -84,6 +84,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import gun0912.tedbottompicker.TedBottomPicker;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 import static com.hodo.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.GENDER_MAN;
 import static com.hodo.talkking.Data.CoomonValueData.GENDER_WOMAN;
@@ -477,9 +480,31 @@ public class InputProfile extends AppCompatActivity {
         mProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(InputProfile.this, "이미지 등록", Toast.LENGTH_SHORT).show();
+
+                TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(InputProfile.this)
+                        .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
+                            @Override
+                            public void onImageSelected(Uri uri) {
+                                // uri 활용
+                                mMyData.setUserImg(uri.toString());
+
+                                Glide.with(getApplicationContext())
+                                        .load(mMyData.getUserImg())
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                        .thumbnail(0.1f)
+                                        .into(mProfileImage);
+
+                                UploadThumbNailImage_Firebase(uri);
+                                UploadImage_Firebase(uri);
+                            }
+                        })
+                        .create();
+
+                bottomSheetDialogFragment.show(getSupportFragmentManager());
+
+            /*    Toast.makeText(InputProfile.this, "이미지 등록", Toast.LENGTH_SHORT).show();
                 Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(gallery,1000);
+                startActivityForResult(gallery,1000);*/
 
             }
         });
@@ -663,7 +688,7 @@ public class InputProfile extends AppCompatActivity {
 
         if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 60)
         {
-            options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
+            options.inSampleSize = calculateInSampleSize(options, 100, 100 , 8);
             bitmap = BitmapFactory.decodeFile(imagePath, options);
         }
 
@@ -710,7 +735,7 @@ public class InputProfile extends AppCompatActivity {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 
-        options.inSampleSize = calculateInSampleSize(options, 100, 100 , false);
+        options.inSampleSize = calculateInSampleSize(options, 100, 100 , 2);
 
         bitmap = BitmapFactory.decodeFile(imagePath, options);
         bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
