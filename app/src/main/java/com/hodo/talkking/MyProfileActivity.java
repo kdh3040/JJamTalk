@@ -295,13 +295,25 @@ public class MyProfileActivity extends AppCompatActivity {
                 .into(Img_Sum);
 
 
-        for (int i = 0; i < mMyData.getUserImgCnt(); i++) {
+        for (int i = 0; i < 4; i++) {
+            if(mMyData.strProfileImg[i].equals("1"))
+            {
+                Glide.with(getApplicationContext())
+                        .load(R.drawable.picture)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                       // .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                        .thumbnail(0.1f)
+                        .into(Img_Profiles[i]);
+            }
+            else
+            {
                 Glide.with(getApplicationContext())
                         .load(mMyData.strProfileImg[i])
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
+            }
         }
 
     }
@@ -696,16 +708,28 @@ public class MyProfileActivity extends AppCompatActivity {
                 .thumbnail(0.1f)
                 .into(Img_Sum);
 
-        for(int i=0;i<4;i++)
-        {
-            Glide.with(getApplicationContext())
-                .load(mMyData.getUserProfileImg(i))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
-                .thumbnail(0.1f)
-                .into(Img_Profiles[i]);
-        }
+        for (int i = 0; i < 4; i++) {
 
+            if(mMyData.strProfileImg[i].equals("1"))
+            {
+                Glide.with(getApplicationContext())
+                        .load(R.drawable.picture)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                      //  .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                        .thumbnail(0.1f)
+                        .into(Img_Profiles[i]);
+            }
+            else
+            {
+                Glide.with(getApplicationContext())
+                        .load(mMyData.strProfileImg[i])
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                        .thumbnail(0.1f)
+                        .into(Img_Profiles[i]);
+            }
+
+        }
     }
 
     public  void DeleteFireBaseData(final int Index)
