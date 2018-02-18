@@ -184,7 +184,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="꿀톡 공유하기"
+                android:text="톡킹 공유하기"
 
                 android:textSize="18sp"
                 android:textStyle="bold" />
