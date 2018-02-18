@@ -447,6 +447,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                     tempUser.ImgCount = 1;
                                     tempUser.Img= tempUser.ImgGroup0 = chat_message.getImg().toString();
                                     bundle.putSerializable("Target", tempUser);
+                                    bundle.putSerializable("Index", 0);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                 }
@@ -585,6 +586,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 tempUser.ImgCount = 1;
                                 tempUser.Img= tempUser.ImgGroup0 = chat_message.getImg().toString();
                                 bundle.putSerializable("Target", tempUser);
+                                bundle.putSerializable("Index", 0);
                                 intent.putExtras(bundle);
                                 startActivity(intent);
                             }

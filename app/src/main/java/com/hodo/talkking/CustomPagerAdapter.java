@@ -44,15 +44,39 @@ public class CustomPagerAdapter extends PagerAdapter{
 
     private CommonFunc mCommon = CommonFunc.getInstance();
 
-    public CustomPagerAdapter(Context context, UserData TargetData) {
+    public CustomPagerAdapter(Context context, UserData TargetData, int index) {
         mContext = context;
         mLayoutInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         stTargetData = TargetData;
 
-        strImgGroup[0] = stTargetData.ImgGroup0;
-        strImgGroup[1] = stTargetData.ImgGroup1;
-        strImgGroup[2] = stTargetData.ImgGroup2;
-        strImgGroup[3] = stTargetData.ImgGroup3;
+        switch (index)
+        {
+            case 0:
+                strImgGroup[0] = stTargetData.ImgGroup0;
+                strImgGroup[1] = stTargetData.ImgGroup1;
+                strImgGroup[2] = stTargetData.ImgGroup2;
+                strImgGroup[3] = stTargetData.ImgGroup3;
+                break;
+            case 1:
+                strImgGroup[0] = stTargetData.ImgGroup1;
+                strImgGroup[1] = stTargetData.ImgGroup0;
+                strImgGroup[2] = stTargetData.ImgGroup2;
+                strImgGroup[3] = stTargetData.ImgGroup3;
+                break;
+            case 2:
+                strImgGroup[0] = stTargetData.ImgGroup2;
+                strImgGroup[1] = stTargetData.ImgGroup0;
+                strImgGroup[2] = stTargetData.ImgGroup1;
+                strImgGroup[3] = stTargetData.ImgGroup3;
+                break;
+            case 3:
+                strImgGroup[0] = stTargetData.ImgGroup3;
+                strImgGroup[1] = stTargetData.ImgGroup0;
+                strImgGroup[2] = stTargetData.ImgGroup1;
+                strImgGroup[3] = stTargetData.ImgGroup2;
+                break;
+        }
+
 
     }
 

@@ -175,17 +175,17 @@ public class MyProfileActivity extends AppCompatActivity {
                     case R.id.MyProfile_SumImg:
                       //  startActivity(new Intent(getApplicationContext(), ImageViewPager.class));
 
-                        stTargetData.ImgGroup0 = mMyData.getUserImg();
-                        stTargetData.ImgGroup1 = mMyData.strProfileImg[0];
-                        stTargetData.ImgGroup2 = mMyData.strProfileImg[1];
-                        stTargetData.ImgGroup3 = mMyData.strProfileImg[2];
-                        stTargetData.ImgGroup4 = mMyData.strProfileImg[3];
+                        stTargetData.ImgGroup0 =  mMyData.strProfileImg[0];
+                        stTargetData.ImgGroup1 = mMyData.strProfileImg[1];
+                        stTargetData.ImgGroup2 = mMyData.strProfileImg[2];
+                        stTargetData.ImgGroup3 = mMyData.strProfileImg[3];
 
                         stTargetData.ImgCount = mMyData.getUserImgCnt();
 
                         Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Target", stTargetData);
+                        bundle.putSerializable("Index", 0);
                         intent.putExtras(bundle);
                         startActivity(intent);
 
@@ -336,17 +336,17 @@ public class MyProfileActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // 사진 보기
-                    stTargetData.ImgGroup0 = mMyData.getUserImg();
-                    stTargetData.ImgGroup1 = mMyData.strProfileImg[0];
-                    stTargetData.ImgGroup2 = mMyData.strProfileImg[1];
-                    stTargetData.ImgGroup3 = mMyData.strProfileImg[2];
-                    stTargetData.ImgGroup4 = mMyData.strProfileImg[3];
+                    stTargetData.ImgGroup0 = mMyData.strProfileImg[0];
+                    stTargetData.ImgGroup1 = mMyData.strProfileImg[1];
+                    stTargetData.ImgGroup2 = mMyData.strProfileImg[2];
+                    stTargetData.ImgGroup3 = mMyData.strProfileImg[3];
 
                     stTargetData.ImgCount = mMyData.getUserImgCnt();
 
                     Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Target", stTargetData);
+                    bundle.putSerializable("Index", index);
                     intent.putExtras(bundle);
                     startActivity(intent);
 

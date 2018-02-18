@@ -28,8 +28,9 @@ public class ImageViewPager extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         stTargetData = (UserData)bundle.getSerializable("Target");
+        int index = (int)bundle.getSerializable("Index");
 
-        CustomPagerAdapter mCustomPagerAdapter = new CustomPagerAdapter(this, stTargetData);
+        CustomPagerAdapter mCustomPagerAdapter = new CustomPagerAdapter(this, stTargetData, index);
 
         Custom_ViewPager mViewPager = (Custom_ViewPager)findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);

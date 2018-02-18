@@ -175,6 +175,7 @@ public class UserPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Target", stTargetData);
+                bundle.putSerializable("Index", 0);
                 intent.putExtras(bundle);
                 startActivity(intent);
 
