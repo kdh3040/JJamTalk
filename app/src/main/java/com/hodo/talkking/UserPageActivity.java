@@ -445,7 +445,7 @@ public class UserPageActivity extends AppCompatActivity {
                             btnHeart1000.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    nSendHoneyCnt[0] = 500;
+                                    nSendHoneyCnt[0] = 300;
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                         int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                         btn_gift_send.setEnabled(false);
@@ -461,7 +461,7 @@ public class UserPageActivity extends AppCompatActivity {
                             btnHeart5000.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    nSendHoneyCnt[0] = 1000;
+                                    nSendHoneyCnt[0] = 500;
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                         int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                         btn_gift_send.setEnabled(false);

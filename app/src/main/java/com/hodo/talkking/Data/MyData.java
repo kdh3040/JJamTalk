@@ -796,7 +796,31 @@ public class MyData {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 FanData SendList = dataSnapshot.getValue(FanData.class);
-                arrMyFanDataList.put(SendList.Idx, SendList);
+
+                boolean bEqual = false;
+                int Idx = 0;
+                for(int i=0; i<arrMyFanNameList.size(); i++)
+                {
+                    if(arrMyFanNameList.get(i).Idx.equals(SendList.Idx))
+                    {
+                        bEqual = true;
+                        Idx = i;
+                        break;
+                    }
+                }
+                if(bEqual == false)
+                {
+                    arrMyFanNameList.add(SendList);
+                    arrMyFanDataList.put(SendList.Idx, SendList);
+                }
+
+                else
+                {
+                    /*int nRecv = arrMyFanDataList.get(SendList.Idx).RecvGold;
+                    SendList.RecvGold += nRecv;*/
+                    arrMyFanDataList.put(SendList.Idx, SendList);
+                }
+
                 CommonFunc.getInstance().SetFanAlarmVisible(true);
                 if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
                     if(GetCurFrag() == 3)
@@ -1517,57 +1541,65 @@ public class MyData {
         {
             Set<String> keySet = stTargetData.FanList.keySet();
             Iterator iterator = keySet.iterator();
+            boolean bExist = false;
             while(iterator.hasNext()){
                 String element = (String) iterator.next();
 
                 if(stTargetData.FanList.get(element).Idx.equals(getUserIdx()))
                 {
-                    stTargetData.FanList.get(getUserIdx()).RecvGold += SendCount;
-                    nTotalSendCnt = stTargetData.FanList.get(getUserIdx()).RecvGold;
+                    bExist = true;
+                    break;
                 }
-                else
-                {
-                    FanData tempFan = new FanData();
-                    tempFan.Idx = getUserIdx();
-                    tempFan.NickName = getUserNick();
-                    tempFan.BestItem = GetBestItem();
-                    tempFan.Grade = getGrade();
-                    tempFan.Img = getUserImg();
-                    tempFan.RecvGold = SendCount;
-                    nTotalSendCnt = SendCount;
-                    stTargetData.FanList.put(getUserIdx(), tempFan);
-                    stTargetData.arrFanList.add(tempFan);
-                    stTargetData.FanCount--;
+            }
 
+
+            if(bExist == true)
+            {
+                stTargetData.FanList.get(getUserIdx()).RecvGold += SendCount;
+                nTotalSendCnt = stTargetData.FanList.get(getUserIdx()).RecvGold;
+            }
+
+            else
+            {
+                FanData tempFan = new FanData();
+                tempFan.Idx = getUserIdx();
+                tempFan.NickName = getUserNick();
+                tempFan.BestItem = GetBestItem();
+                tempFan.Grade = getGrade();
+                tempFan.Img = getUserImg();
+                tempFan.RecvGold = SendCount;
+                nTotalSendCnt = SendCount;
+                stTargetData.FanList.put(getUserIdx(), tempFan);
+                stTargetData.arrFanList.add(tempFan);
+                stTargetData.FanCount--;
+
+                for(int i = 0; i < arrUserAll_Send.size(); i++)
+                {
+                    if(arrUserAll_Send.get(i).Idx.equals(stTargetData.Idx)) {
+                        arrUserAll_Send.get(i).FanCount = stTargetData.FanCount;
+                        break;
+                    }
+                }
+
+                if(stTargetData.Gender.equals("여자"))
+                {
                     for(int i = 0; i < arrUserAll_Send.size(); i++)
                     {
-                        if(arrUserAll_Send.get(i).Idx.equals(stTargetData.Idx)) {
-                            arrUserAll_Send.get(i).FanCount = stTargetData.FanCount;
+                        if(arrUserWoman_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                            arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount;
                             break;
                         }
                     }
-
-                    if(stTargetData.Gender.equals("여자"))
+                }
+                else
+                {
+                    for(int i = 0; i < arrUserAll_Send.size(); i++)
                     {
-                        for(int i = 0; i < arrUserAll_Send.size(); i++)
-                        {
-                            if(arrUserWoman_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount;
-                                break;
-                            }
+                        if(arrUserMan_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                            arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount;
+                            break;
                         }
                     }
-                    else
-                    {
-                        for(int i = 0; i < arrUserAll_Send.size(); i++)
-                        {
-                            if(arrUserMan_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount;
-                                break;
-                            }
-                        }
-                    }
-
                 }
             }
         }

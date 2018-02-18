@@ -40,7 +40,6 @@ public class NotiFunc {
 
             // FMC 메시지 생성 start
             JSONObject root = new JSONObject();
-            JSONObject notification = new JSONObject();
             JSONObject data = new JSONObject();
 
             data.put("body", strMsg);
@@ -51,7 +50,7 @@ public class NotiFunc {
             data.put("NickName", mMyData.getUserNick());
             data.put("Type", "Msg");
 
-            root.put("notification", notification);
+            root.put("data", data);
             root.put("to", stTargetData.Token);
             // FMC 메시지 생성 end
 
@@ -77,7 +76,6 @@ public class NotiFunc {
 
             // FMC 메시지 생성 start
             JSONObject root = new JSONObject();
-            JSONObject notification = new JSONObject();
             JSONObject data = new JSONObject();
 
             data.put("body", strMsg);
@@ -89,7 +87,7 @@ public class NotiFunc {
             data.put("Type", "Honey");
            // data.put("Honey", nHoneyCnt);
 
-            root.put("data", notification);
+            root.put("data", data);
             root.put("to", stTargetData.Token);
             // FMC 메시지 생성 end
 
@@ -115,7 +113,6 @@ public class NotiFunc {
 
             // FMC 메시지 생성 start
             JSONObject root = new JSONObject();
-            JSONObject notification = new JSONObject();
             JSONObject data = new JSONObject();
 
             data.put("body", Msg);
@@ -126,7 +123,7 @@ public class NotiFunc {
             data.put("NickName", mMyData.getUserNick());
             data.put("Type", "Msg");
 
-            root.put("notification", data);
+            root.put("data", data);
             root.put("to", stTargetData.Token);
             // FMC 메시지 생성 end
 
