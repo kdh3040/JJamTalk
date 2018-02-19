@@ -5,12 +5,15 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Criteria;
@@ -84,6 +87,12 @@ import com.hodo.talkking.Util.AwsFunc;
 import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.LocationFunc;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -157,6 +166,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     final long[] tempVal = {0};
     String rtStr = null;
+    String version = null;
+
+    String marketVersion, verSion;
+    AlertDialog.Builder mDialog;
 
     @Override
     public void onBackPressed() {
@@ -183,6 +196,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mActivity = this;
+
+
+/*        mDialog = new AlertDialog.Builder(this);
+        new getMarketVersion().execute();*/
+
+
+        try {
+            PackageInfo i = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0);
+            version = i.versionName;
+        } catch(PackageManager.NameNotFoundException e) { }
 
         getApplication().registerActivityLifecycleCallbacks(new CommonFunc.MyActivityLifecycleCallbacks());
 
@@ -1315,6 +1338,80 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             super.onProgressUpdate(values);
         }
     }
+
+
+    public  class getMarketVersion extends AsyncTask<Void, Void, String> {
+
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+                Document doc = Jsoup
+                     /*   .connect(
+                                "https://play.google.com/store/apps/details?id=패키지명 적으세요" )*/
+                        .connect(
+                                "https://play.google.com/store/apps/details?id=com.hodo.talkking&hl=ko&ah=g8NB2YFme5iIsyT0jkSW1gFAaFg" )
+                        .get();
+                Elements Version = doc.select(".content");
+
+                for (Element v : Version) {
+                    if (v.attr("itemprop").equals("softwareVersion")) {
+                        marketVersion = v.text();
+                    }
+                }
+                return marketVersion;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            PackageInfo pi = null;
+            try {
+                pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            verSion = pi.versionName;
+            marketVersion = result;
+
+            if (!verSion.equals(marketVersion)) {
+                mDialog.setMessage("업데이트 후 사용해주세요.")
+                        .setCancelable(false)
+                        .setPositiveButton("업데이트 바로가기",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        Intent marketLaunch = new Intent(
+                                                Intent.ACTION_VIEW);
+                                        marketLaunch.setData(Uri
+                                                //.parse("https://play.google.com/store/apps/details?id=패키지명 적으세요"));
+                                                .parse("https://play.google.com/apps/testing/com.hodo.talkking"));
+
+                                        startActivity(marketLaunch);
+                                        finish();
+                                    }
+                                });
+                AlertDialog alert = mDialog.create();
+                alert.setTitle("안 내");
+                alert.show();
+            }
+
+            super.onPostExecute(result);
+        }
+    }
+
 
 }
 
