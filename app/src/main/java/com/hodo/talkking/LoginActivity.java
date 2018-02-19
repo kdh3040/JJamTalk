@@ -217,12 +217,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
 
-        ImgLoading = (ImageView)findViewById(R.id.loading);
+        /*ImgLoading = (ImageView)findViewById(R.id.loading);
+
         Glide.with(getApplicationContext())
                 //.load(mMyData.arrSendDataList.get(position).strTargetImg)
                 .load(R.drawable.logo_loading)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(ImgLoading);
+                .into(ImgLoading);*/
 
 
         bSetNear = bSetNew = bSetRich = bSetRecv = false;
