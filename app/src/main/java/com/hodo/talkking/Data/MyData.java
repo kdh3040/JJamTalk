@@ -55,7 +55,7 @@ public class MyData {
     private static MyData _Instance;
     private BlockData blockList;
     private int fanCount;
-  //  private FirebaseData mFireBase = FirebaseData.getInstance();
+    //  private FirebaseData mFireBase = FirebaseData.getInstance();
 
 
     public static MyData getInstance() {
@@ -186,6 +186,7 @@ public class MyData {
     public  Uri urSaveUri;
     public  int nSaveUri;
 
+    public  String strImgLodingUri;
     public  String strDownUri;
     public  String strBannerID = "ca-app-pub-8954582850495744/1996257938";
 
@@ -231,6 +232,7 @@ public class MyData {
 
     public int badgecount;
 
+
     private MyData() {
         strUid = null;
         strImg = null;
@@ -274,6 +276,133 @@ public class MyData {
         nReportedCnt = 0;
         badgecount = 0;
     }
+
+    public void Clear()
+    {
+        arrUserMan_Near.clear();
+        arrUserWoman_Near.clear();
+        arrUserAll_Near .clear();
+
+        arrUserMan_New.clear();
+        arrUserWoman_New.clear();
+        arrUserAll_New.clear();
+
+        arrUserMan_Send.clear();
+        arrUserWoman_Send.clear();
+        arrUserAll_Send.clear();
+
+        arrUserMan_Recv.clear();
+        arrUserWoman_Recv.clear();
+        arrUserAll_Recv.clear();
+
+
+        arrUserMan_Near_Age.clear();
+        arrUserWoman_Near_Age.clear();
+        arrUserAll_Near_Age.clear();
+
+        arrUserMan_New_Age.clear();
+        arrUserWoman_New_Age.clear();
+        arrUserAll_New_Age.clear();
+
+        arrUserMan_Send_Age.clear();
+        arrUserWoman_Send_Age.clear();
+        arrUserAll_Send_Age.clear();
+
+        arrUserMan_Recv_Age.clear();
+        arrUserWoman_Recv_Age.clear();
+        arrUserAll_Recv_Age.clear();
+        
+        mapChatTargetData.clear();
+
+        arrMyFanList.clear();
+        arrMyFanNameList.clear();
+        arrMyFanDataList.clear();
+        mapMyFanData.clear();
+
+        arrMyStarList.clear();
+        arrMyStarDataList.clear();
+        mapMyStarData.clear();
+
+
+        arrBlockNameList.clear();
+        arrBlockDataList.clear();
+
+        arrBlockedDataList.clear();
+
+        arrGiftHoneyNameList.clear();
+        arrGiftHoneyDataList.clear();
+        arrGiftUserDataList.clear();
+
+        arrRecvHoneyNameList.clear();
+        arrRecvHoneyDataList.clear();
+
+        arrSendHoneyNameList.clear();
+        arrSendHoneyDataList.clear();
+
+        arrChatNameList.clear();
+        arrChatDataList.clear();
+
+        arrCardNameList.clear();
+        arrCarDataList.clear();
+        mapMyCardData.clear();
+
+
+        nFanCount = 0;
+        
+        strUid = null;
+        strIdx= null;
+        strToken= null;
+
+        strImg= null;
+
+        strNick= null;
+        strGender= null;
+        strAge= null;
+
+        lLat = 0;
+        lLon= 0;
+
+        nHoney= 0;
+        nSendCount = 0;
+        nRecvCount = 0;
+
+        strDate = null;
+
+        strMemo = null;
+
+        nSearchMode = 0;
+        nAlarmSetting_Sound = false;
+        nAlarmSetting_Vibration = false;
+        nViewMode = 1;
+        nRecvMsgReject = false;
+
+        nImgCount = 0;
+        for(int i = 0 ; i < 4; i++)
+        {
+            strProfileImg[i] = "1";
+        }
+
+
+        nItemCount = 0;
+        item_1 = 0;
+        item_2 = 0;
+        item_3 = 0;
+        item_4 = 0;
+        item_5 = 0;
+        item_6 = 0;
+        item_7 = 0;
+        item_8 = 0;
+
+        bestItem = 0;
+
+        for(int i =0; i < 8; i++)
+        {
+            itemList.put( i, 0);
+        }
+
+        itemIdx = null;
+    }
+
 
     public void setMyData(String _UserUid, String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
@@ -893,7 +1022,7 @@ public class MyData {
                 int saa = 0;
                 CommonFunc.getInstance().SetChatAlarmVisible(true);
                 SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
-                    arrChatDataList.put(SendList.ChatRoomName, SendList);
+                arrChatDataList.put(SendList.ChatRoomName, SendList);
 
                 ActivityManager activityManager = (ActivityManager) mContext.getSystemService(ACTIVITY_SERVICE);
                 List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
@@ -964,26 +1093,48 @@ public class MyData {
 
     }
 
+    public void getImageLoading() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("ImgUrl");
+
+        table.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int saa = 0;
+                String tempUserData = dataSnapshot.getValue(String.class);
+                strImgLodingUri = tempUserData;
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
     public void getDownUrl() {
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
         table = database.getReference("DownUrl");
 
-            table.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int saa = 0;
-                    String tempUserData = dataSnapshot.getValue(String.class);
-                    strDownUri = tempUserData;
+        table.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int saa = 0;
+                String tempUserData = dataSnapshot.getValue(String.class);
+                strDownUri = tempUserData;
 
-                }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
 
-            });
+        });
     }
 
     public void getAdBannerID() {
@@ -1061,7 +1212,7 @@ public class MyData {
 
     public void getGiftData(String Idx) {
 
-       // arrMyStarDataList.clear();
+        // arrMyStarDataList.clear();
 
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -1660,7 +1811,7 @@ public class MyData {
         updateMap.put("SendGold", nTotalSendCnt);
         updateMap.put("Idx", stTargetData.Idx);
         table.child("StarList").child(stTargetData.Idx).updateChildren(updateMap);
-       //
+        //
 
         final StarData tempStarList = new StarData();
         tempStarList.Idx = stTargetData.Idx;
@@ -1671,16 +1822,16 @@ public class MyData {
             if (arrMyStarList.get(i).equals(tempStarList.Idx)) {
                 bSame = true;
                 arrMyStarList.get(i).SendGold = nTotalSendCnt;
-               // sortStarData();
+                // sortStarData();
                 break;
             }
         }
 
         if (bSame == false) {
             arrMyStarList.add(tempStarList);
-           // arrMyStarDataList.put(tempStarList.Idx, tempStarList);
+            // arrMyStarDataList.put(tempStarList.Idx, tempStarList);
             //sortStarData();
-           // getMyStarData(tempStarList.Idx);
+            // getMyStarData(tempStarList.Idx);
 
             Query data = database.getReference().child("SimpleData").child(tempStarList.Idx);
             data.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1900,100 +2051,100 @@ public class MyData {
     }
 
     public void setMyItem(int myItem) {
-       switch (myItem)
-       {
-           case 0:
-           {
-               if(item_1 == 0) {
-                   nItemCount++;
-               }
+        switch (myItem)
+        {
+            case 0:
+            {
+                if(item_1 == 0) {
+                    nItemCount++;
+                }
 
-               item_1++;
-               itemList.put(0, item_1);
+                item_1++;
+                itemList.put(0, item_1);
 
-               break;
-           }
-           case 1:
-           {
-               if(item_2 == 0){
-                   nItemCount++;
-               }
+                break;
+            }
+            case 1:
+            {
+                if(item_2 == 0){
+                    nItemCount++;
+                }
 
-               item_2++;
-               itemList.put(1, item_2);
+                item_2++;
+                itemList.put(1, item_2);
 
-               break;
-           }
-           case 2:
-           {
-               if(item_3 == 0){
-                   nItemCount++;
-               }
+                break;
+            }
+            case 2:
+            {
+                if(item_3 == 0){
+                    nItemCount++;
+                }
 
-               item_3++;
-               itemList.put(2, item_3);
+                item_3++;
+                itemList.put(2, item_3);
 
-               break;
-           }
-           case 3:
-           {
-               if(item_4 == 0){
-                   nItemCount++;
-               }
+                break;
+            }
+            case 3:
+            {
+                if(item_4 == 0){
+                    nItemCount++;
+                }
 
-               item_4++;
-               itemList.put(3, item_4);
+                item_4++;
+                itemList.put(3, item_4);
 
-               break;
-           }
-           case 4:
-           {
-               if(item_5 == 0){
-                   nItemCount++;
-               }
+                break;
+            }
+            case 4:
+            {
+                if(item_5 == 0){
+                    nItemCount++;
+                }
 
-               item_5++;
-               itemList.put(4, item_5);
+                item_5++;
+                itemList.put(4, item_5);
 
-               break;
-           }
-           case 5:
-           {
-               if(item_6 == 0){
-                   nItemCount++;
-               }
+                break;
+            }
+            case 5:
+            {
+                if(item_6 == 0){
+                    nItemCount++;
+                }
 
-               item_6++;
-               itemList.put(5, item_6);
-               break;
-           }
-           case 6:
-           {
-               if(item_7 == 0){
-                   nItemCount++;
-               }
+                item_6++;
+                itemList.put(5, item_6);
+                break;
+            }
+            case 6:
+            {
+                if(item_7 == 0){
+                    nItemCount++;
+                }
 
-               item_7++;
-               itemList.put(6, item_7);
+                item_7++;
+                itemList.put(6, item_7);
 
-               break;
-           }
-           case 7:
-           {
-               if(item_8 == 0){
-                   nItemCount++;
-               }
+                break;
+            }
+            case 7:
+            {
+                if(item_8 == 0){
+                    nItemCount++;
+                }
 
-               item_8++;
-               itemList.put(7, item_8);
-               break;
-           }
-       }
+                item_8++;
+                itemList.put(7, item_8);
+                break;
+            }
+        }
 
-       bestItem = SetBestItem();
+        bestItem = SetBestItem();
 
-       refreshItemIdex();
-     //   SaveMyItem();
+        refreshItemIdex();
+        //   SaveMyItem();
     }
 
     public void SaveMyItem()

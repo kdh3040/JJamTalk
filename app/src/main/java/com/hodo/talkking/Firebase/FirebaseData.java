@@ -147,6 +147,10 @@ public class FirebaseData {
         data = fierBaseDataInstance.getReference("User").child(Idx);
         data.removeValue();
 
+        data = fierBaseDataInstance.getReference("SimpleData").child(Idx);
+        data.removeValue();
+
+
         data = fierBaseDataInstance.getReference("UserIdx_History");
         final DatabaseReference user = data;
         user.push().child(Uid).setValue(Idx);
@@ -157,7 +161,6 @@ public class FirebaseData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
-
 
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(mMyData.getUserIdx());
@@ -191,6 +194,12 @@ public class FirebaseData {
         user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
         user.child("FanCount").setValue(-1 * mMyData.getFanCount());
+
+        user.child("Point").setValue(mMyData.getPoint());
+
+        user.child("Grade").setValue(mMyData.getGrade());
+        user.child("BestItem").setValue(mMyData.bestItem);
+        user.child("Honey").setValue(mMyData.getUserHoney());
 
         // 심플 디비 저장
         SaveSimpleData();
@@ -234,7 +243,7 @@ public class FirebaseData {
 
         user.child("Grade").setValue(mMyData.getGrade());
         user.child("BestItem").setValue(mMyData.bestItem);
-
+        user.child("Honey").setValue(mMyData.getUserHoney());
 
     }
 

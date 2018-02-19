@@ -69,6 +69,7 @@ import com.hodo.talkking.Data.BoardData;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
+import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.Util.AwsFunc;
 import com.hodo.talkking.Util.CommonFunc;
@@ -83,6 +84,9 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import gun0912.tedbottompicker.TedBottomPicker;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.hodo.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.GENDER_MAN;
@@ -115,13 +119,15 @@ public class InputProfile extends AppCompatActivity {
     LocationManager locationManager;
     String provider;
 
-    private boolean bMySet = false;
+    private boolean bMySet, bMyThumb, bMyImg = false;
     private boolean bSetNear, bSetNew, bSetRich, bSetRecv = false;
 
     private int nUserSet = 0;
     private static String TAG = "InputActivity Log!!";
 
     ProgressBar progressBar;
+
+    private  String strIdx;
 
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
         @Override
@@ -171,8 +177,7 @@ public class InputProfile extends AppCompatActivity {
                             }
 
                             bSetRecv = true;
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                             //   Log.d(TAG, "Account Log in  Complete");
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
                                 GoMainPage();
                                 finish();
                             }
@@ -189,8 +194,7 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-             //   Log.d(TAG, "Account Log in  Complete");
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
                 GoMainPage();
                 finish();
             }
@@ -244,8 +248,7 @@ public class InputProfile extends AppCompatActivity {
 
                             bSetRich = true;
 
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                             //   Log.d(TAG, "Account Log in  Complete");
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
                                 GoMainPage();
                                 finish();
                             }
@@ -263,10 +266,9 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-              //  Log.d(TAG, "Account Log in  Complete");
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
                 GoMainPage();
-
+                finish();
             }
         }
 
@@ -333,8 +335,7 @@ public class InputProfile extends AppCompatActivity {
 
                             bSetNear = true;
 
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-                             //   Log.d(TAG, "Account Log in  Complete");
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
                                 GoMainPage();
                                 finish();
                             }
@@ -352,9 +353,9 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-              //  Log.d(TAG, "Account Log in  Complete");
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
                 GoMainPage();
+                finish();
             }
         }
 
@@ -414,9 +415,7 @@ public class InputProfile extends AppCompatActivity {
                             }
 
                             bSetNew = true;
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-
-                               // Log.d(TAG, "Account Log in  Complete");
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
                                 GoMainPage();
                                 finish();
                             }
@@ -434,9 +433,9 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true){
-               // Log.d(TAG, "Account Log in  Complete");
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
                 GoMainPage();
+                finish();
             }
         }
 
@@ -450,6 +449,17 @@ public class InputProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_profile);
+
+        final Bundle bundle = getIntent().getExtras();
+        strIdx = (String) bundle.getSerializable("Idx");
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("UserIdx");
+        final DatabaseReference UserIdx = table.child(mMyData.ANDROID_ID);
+        UserIdx.setValue(strIdx);
+        mMyData.setUserIdx(strIdx);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        getLocation();
 
         progressBar = (ProgressBar) findViewById(R.id.InputProfile_Progress) ;
 
@@ -471,15 +481,37 @@ public class InputProfile extends AppCompatActivity {
                 .check();*/
 
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
 
         mProfileImage = (ImageView) findViewById(R.id.InputProfile_SumImg);
         mProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(InputProfile.this, "이미지 등록", Toast.LENGTH_SHORT).show();
+
+                TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(InputProfile.this)
+                        .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
+                            @Override
+                            public void onImageSelected(Uri uri) {
+                                // uri 활용
+                                mMyData.setUserImg(uri.toString());
+
+                                Glide.with(getApplicationContext())
+                                        .load(mMyData.getUserImg())
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                        .thumbnail(0.1f)
+                                        .into(mProfileImage);
+
+                                UploadThumbNailImage_Firebase(uri);
+                                UploadImage_Firebase(uri);
+                            }
+                        })
+                        .create();
+
+                bottomSheetDialogFragment.show(getSupportFragmentManager());
+
+            /*    Toast.makeText(InputProfile.this, "이미지 등록", Toast.LENGTH_SHORT).show();
                 Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(gallery,1000);
+                startActivityForResult(gallery,1000);*/
 
             }
         });
@@ -530,7 +562,7 @@ public class InputProfile extends AppCompatActivity {
                 String strNickName = mNickName.getText().toString();
                 strNickName = CommonFunc.getInstance().RemoveEmptyString(strNickName);
                 String strImg = mMyData.getUserImg();
-                getLocation();
+
 
                 if(CommonFunc.getInstance().CheckTextMaxLength(strNickName, CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, InputProfile.this ,"닉네임", true) == false)
                     return;
@@ -547,8 +579,13 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.nStartAge = (Integer.parseInt(mMyData.getUserAge()) / 10) * 10;
                     mMyData.nEndAge = mMyData.nStartAge + 19;
                     mMyData.setUserNick(strNickName);
+                    mMyData.setUserHoney(50);
+
                     mFireBaseData.SaveData(mMyData.getUserIdx());
                     bMySet = true;
+
+                    mMyData.getDownUrl();
+                    mMyData.getImageLoading();
 
                     mMyData.getFanList();
                     mMyData.getReportedCnt();
@@ -608,6 +645,15 @@ public class InputProfile extends AppCompatActivity {
                     Location tempLoc = task.getResult();
                     mMyData.setUserLon(tempLoc.getLongitude());
                     mMyData.setUserLat(tempLoc.getLatitude());
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+
+                    // DatabaseReference user = table.child( userIdx);
+                    final DatabaseReference user = table.child(mMyData.getUserIdx());
+
+                    user.child("Lon").setValue(mMyData.getUserLon());
+                    user.child("Lat").setValue(mMyData.getUserLat());
                 }
             }
         };
@@ -653,27 +699,38 @@ public class InputProfile extends AppCompatActivity {
         StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  "ThumbNail" );//file.getLastPathSegment());
 
         Bitmap bitmap = null;
-
-        String[] filePath = { MediaStore.Images.Media.DATA };
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+       /* String[] filePath = { MediaStore.Images.Media.DATA };
         Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
         cursor.moveToFirst();
         String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        cursor.close();*/
+
+
+        try {
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+        } catch (Exception e) {
+        }
 
         if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 60)
         {
-            options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
-            bitmap = BitmapFactory.decodeFile(imagePath, options);
+            options.inSampleSize = calculateInSampleSize(options, 100, 100 , 8);
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            } catch (Exception e) {
+            }
         }
 
         else
         {
-            bitmap = BitmapFactory.decodeFile(imagePath, options);
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            } catch (Exception e) {
+            }
         }
 
-        bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
-        cursor.close();
+        bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         //bitmap.createScaledBitmap(bitmap, 50, 50, true);
@@ -702,23 +759,17 @@ public class InputProfile extends AppCompatActivity {
         StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" + 0 );//file.getLastPathSegment());
 
         Bitmap bitmap = null;
-
-        String[] filePath = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
-        cursor.moveToFirst();
-        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        options.inSampleSize = calculateInSampleSize(options, 100, 100 , 2);
 
-        options.inSampleSize = calculateInSampleSize(options, 100, 100 , false);
-
-        bitmap = BitmapFactory.decodeFile(imagePath, options);
-        bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
-        cursor.close();
+        try {
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
+        } catch (Exception e) {
+        }
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        //bitmap.createScaledBitmap(bitmap, 50, 50, true);
-
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         byte[] data = baos.toByteArray();
 
@@ -752,7 +803,7 @@ public class InputProfile extends AppCompatActivity {
         mMyData.setUserImg(uri.toString());
         mMyData.setUserImgCnt(1);
         mFireBaseData.SaveData(mMyData.getUserIdx());
-        Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
+        bMyThumb = true;
     }
 
     public void Tr(Uri uri)
@@ -760,7 +811,8 @@ public class InputProfile extends AppCompatActivity {
         mMyData.setUserProfileImg( mMyData.nSaveUri, uri.toString());
         mMyData.setUserImgCnt(1);
         mFireBaseData.SaveData(mMyData.getUserIdx());
-        Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
+        bMyImg = true;
+
     }
     private void GoMainPage() {
 

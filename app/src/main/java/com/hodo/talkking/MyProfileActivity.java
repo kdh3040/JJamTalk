@@ -55,6 +55,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import gun0912.tedbottompicker.TedBottomPicker;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
@@ -174,17 +175,17 @@ public class MyProfileActivity extends AppCompatActivity {
                     case R.id.MyProfile_SumImg:
                       //  startActivity(new Intent(getApplicationContext(), ImageViewPager.class));
 
-                        stTargetData.ImgGroup0 = mMyData.getUserImg();
-                        stTargetData.ImgGroup1 = mMyData.strProfileImg[0];
-                        stTargetData.ImgGroup2 = mMyData.strProfileImg[1];
-                        stTargetData.ImgGroup3 = mMyData.strProfileImg[2];
-                        stTargetData.ImgGroup4 = mMyData.strProfileImg[3];
+                        stTargetData.ImgGroup0 =  mMyData.strProfileImg[0];
+                        stTargetData.ImgGroup1 = mMyData.strProfileImg[1];
+                        stTargetData.ImgGroup2 = mMyData.strProfileImg[2];
+                        stTargetData.ImgGroup3 = mMyData.strProfileImg[3];
 
                         stTargetData.ImgCount = mMyData.getUserImgCnt();
 
                         Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Target", stTargetData);
+                        bundle.putSerializable("Index", 0);
                         intent.putExtras(bundle);
                         startActivity(intent);
 
@@ -294,13 +295,25 @@ public class MyProfileActivity extends AppCompatActivity {
                 .into(Img_Sum);
 
 
-        for (int i = 0; i < mMyData.getUserImgCnt(); i++) {
+        for (int i = 0; i < 4; i++) {
+            if(mMyData.strProfileImg[i].equals("1"))
+            {
+                Glide.with(getApplicationContext())
+                        .load(R.drawable.picture)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                       // .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                        .thumbnail(0.1f)
+                        .into(Img_Profiles[i]);
+            }
+            else
+            {
                 Glide.with(getApplicationContext())
                         .load(mMyData.strProfileImg[i])
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
+            }
         }
 
     }
@@ -310,6 +323,9 @@ public class MyProfileActivity extends AppCompatActivity {
         if(mMyData.strProfileImg[index].equals("1"))
         {
             LoadImage(index);
+
+           // nImgNumber = index;
+
         }
         else
         {
@@ -320,17 +336,17 @@ public class MyProfileActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // 사진 보기
-                    stTargetData.ImgGroup0 = mMyData.getUserImg();
-                    stTargetData.ImgGroup1 = mMyData.strProfileImg[0];
-                    stTargetData.ImgGroup2 = mMyData.strProfileImg[1];
-                    stTargetData.ImgGroup3 = mMyData.strProfileImg[2];
-                    stTargetData.ImgGroup4 = mMyData.strProfileImg[3];
+                    stTargetData.ImgGroup0 = mMyData.strProfileImg[0];
+                    stTargetData.ImgGroup1 = mMyData.strProfileImg[1];
+                    stTargetData.ImgGroup2 = mMyData.strProfileImg[2];
+                    stTargetData.ImgGroup3 = mMyData.strProfileImg[3];
 
                     stTargetData.ImgCount = mMyData.getUserImgCnt();
 
                     Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Target", stTargetData);
+                    bundle.putSerializable("Index", index);
                     intent.putExtras(bundle);
                     startActivity(intent);
 
@@ -374,12 +390,56 @@ public class MyProfileActivity extends AppCompatActivity {
 
 
         nImgNumber = i;
+
+        TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(MyProfileActivity.this)
+                .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
+                    @Override
+                    public void onImageSelected(Uri uri) {
+                        // uri 활용
+                        if(nImgNumber == 0)
+                        {
+                            mMyData.setUserImg(uri.toString());
+                            Glide.with(getApplicationContext())
+                                    .load(mMyData.getUserImg())
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .thumbnail(0.1f)
+                                    .into(Img_Sum);
+                        }
+
+                        mMyData.setUserProfileImg(nImgNumber, uri.toString());
+                        Glide.with(getApplicationContext())
+                                .load(mMyData.getUserProfileImg(nImgNumber))
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                                .thumbnail(0.1f)
+                                .into(Img_Profiles[nImgNumber]);
+
+                        if(nImgNumber <= mMyData.getUserImgCnt() - 1)
+                        {
+                            // Toast.makeText(this, "사진 되었습니다.", Toast.LENGTH_LONG).show();
+                        }
+                        else
+                            mMyData.setUserImgCnt(mMyData.getUserImgCnt()+1);
+
+                        mMyData.urSaveUri = uri;
+                        mMyData.nSaveUri = nImgNumber;
+
+                        if(mMyData.nSaveUri == 0)
+                            UploadThumbNailImage_Firebase(mMyData.urSaveUri);
+
+                        UploadImage_Firebase(mMyData.urSaveUri);
+                    }
+                })
+                .create();
+
+        bottomSheetDialogFragment.show(getSupportFragmentManager());
+
 /*        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/"+mMyData.getUserIdx() + "*//*");
         startActivityForResult(Intent.createChooser(intent, "Select"), 1);*/
 
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(gallery,1000);
+      /*  Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(gallery,1000);*/
 
     }
 
@@ -437,13 +497,11 @@ public class MyProfileActivity extends AppCompatActivity {
     }
 
     public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight, boolean thumbnail) {
+            BitmapFactory.Options options, int reqWidth, int reqHeight, int SampleSize) {
         // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;
-        int inSampleSize = 1;
-        if(thumbnail == true)
-            inSampleSize = 8;
+        int inSampleSize = SampleSize;
 
 
         if (height > reqHeight || width > reqWidth) {
@@ -465,28 +523,38 @@ public class MyProfileActivity extends AppCompatActivity {
         StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  "ThumbNail" );//file.getLastPathSegment());
 
         Bitmap bitmap = null;
-
-        String[] filePath = { MediaStore.Images.Media.DATA };
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+       /* String[] filePath = { MediaStore.Images.Media.DATA };
         Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
         cursor.moveToFirst();
         String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+        cursor.close();*/
 
-        bitmap = BitmapFactory.decodeFile(imagePath);
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+
+        try {
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+        } catch (Exception e) {
+        }
+
         if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 60)
         {
-            options.inSampleSize = calculateInSampleSize(options, 100, 100 , true);
-            bitmap = BitmapFactory.decodeFile(imagePath, options);
+            options.inSampleSize = calculateInSampleSize(options, 100, 100 , 8);
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            } catch (Exception e) {
+            }
         }
 
         else
         {
-            bitmap = BitmapFactory.decodeFile(imagePath, options);
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            } catch (Exception e) {
+            }
         }
 
-        bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
-        cursor.close();
+        bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         //bitmap.createScaledBitmap(bitmap, 50, 50, true);
@@ -516,25 +584,19 @@ public class MyProfileActivity extends AppCompatActivity {
     private void UploadImage_Firebase(Uri file) {
 
         StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  mMyData.nSaveUri );//file.getLastPathSegment());
-
         Bitmap bitmap = null;
-
-        String[] filePath = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
-        cursor.moveToFirst();
-        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        options.inSampleSize = calculateInSampleSize(options, 100, 100 , 2);
 
-        options.inSampleSize = calculateInSampleSize(options, 100, 100 , false);
 
-        bitmap = BitmapFactory.decodeFile(imagePath, options);
-        bitmap = ExifUtils.rotateBitmap(imagePath,bitmap);
-        cursor.close();
+        try {
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
+        } catch (Exception e) {
+        }
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        //bitmap.createScaledBitmap(bitmap, 50, 50, true);
-
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         byte[] data = baos.toByteArray();
 
@@ -646,16 +708,28 @@ public class MyProfileActivity extends AppCompatActivity {
                 .thumbnail(0.1f)
                 .into(Img_Sum);
 
-        for(int i=0;i<4;i++)
-        {
-            Glide.with(getApplicationContext())
-                .load(mMyData.getUserProfileImg(i))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
-                .thumbnail(0.1f)
-                .into(Img_Profiles[i]);
-        }
+        for (int i = 0; i < 4; i++) {
 
+            if(mMyData.strProfileImg[i].equals("1"))
+            {
+                Glide.with(getApplicationContext())
+                        .load(R.drawable.picture)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                      //  .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                        .thumbnail(0.1f)
+                        .into(Img_Profiles[i]);
+            }
+            else
+            {
+                Glide.with(getApplicationContext())
+                        .load(mMyData.strProfileImg[i])
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                        .thumbnail(0.1f)
+                        .into(Img_Profiles[i]);
+            }
+
+        }
     }
 
     public  void DeleteFireBaseData(final int Index)
