@@ -288,8 +288,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         tempPosition = (int)bundle.getSerializable("Position");
         if(tempPosition == -1)
         {
-            tempChatData.Nick = stTargetData.NickName;
             tempChatData.ChatRoomName = tempChatRoomName = (String)bundle.getSerializable("RoomName");
+            tempChatData.Msg = "";
+            tempChatData.Nick = stTargetData.NickName;
+            tempChatData.Idx = stTargetData.Idx;
+            tempChatData.Img = stTargetData.Img;
+            tempChatData.Date = "";
+            tempChatData.Check = 0;
         }
         else
             tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
@@ -1049,8 +1054,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 mFireBaseData.DelChatData(tempChatData.ChatRoomName);
                                 mFireBaseData.DelSendData(tempChatData.ChatRoomName);
 
-                                mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(tempPosition));
-                                mMyData.arrChatNameList.remove(tempPosition);
+                                mMyData.arrChatDataList.remove(tempChatData.ChatRoomName);
+                                int findIndex = mMyData.arrChatNameList.indexOf(tempChatData.ChatRoomName);
+                                mMyData.arrChatNameList.remove(findIndex);
 
                                 onBackPressed();
 
@@ -1140,8 +1146,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 mFireBaseData.DelChatData(tempChatData.ChatRoomName);
                                 mFireBaseData.DelSendData(tempChatData.ChatRoomName);
 
-                                mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(tempPosition));
-                                mMyData.arrChatNameList.remove(tempPosition);
+                                mMyData.arrChatDataList.remove(tempChatData.ChatRoomName);
+                                int findIndex = mMyData.arrChatNameList.indexOf(tempChatData.ChatRoomName);
+                                mMyData.arrChatNameList.remove(findIndex);
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference table = database.getReference("Reported").child(stTargetData.Idx);

@@ -79,7 +79,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
 
         //holder.textView.setVisibility(View.INVISIBLE);
 
-        Log.d("Guide !!!! ", "Start");
+        //Log.d("Guide !!!! ", "Start");
         int i = position;
 
         switch (mSetting.getnSearchSetting())
@@ -157,7 +157,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                 break;
             case 0:
             case 3:
-                Log.d("Guide !!!! ", "Case 3");
+                //Log.d("Guide !!!! ", "Case 3");
               //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
 
                 holder.textView.setText(-1 * mMyData.arrUserAll_Send_Age.get(i).FanCount+"명");
@@ -192,13 +192,13 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
        }
 */
         if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
-            Log.d("Guide !!!! ", "getItem 1");
+            //Log.d("Guide !!!! ", "getItem 1");
             rtValue = mMyData.arrUserAll_Send_Age.size();
         } else if (mSetting.getnSearchSetting() == 1) {
-            Log.d("Guide !!!! ", "getItem 3");
+            //Log.d("Guide !!!! ", "getItem 3");
             rtValue = mMyData.arrUserMan_Send_Age.size();
         } else if (mSetting.getnSearchSetting() == 2) {
-            Log.d("Guide !!!! ", "getItem 2");
+            //Log.d("Guide !!!! ", "getItem 2");
             rtValue = mMyData.arrUserWoman_Send_Age.size();
         }
         return rtValue;

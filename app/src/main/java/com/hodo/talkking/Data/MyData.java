@@ -1220,11 +1220,11 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
         table = database.getReference("User");
-        Log.d("!!!!!!", "getMyStarData  " + arrMyStarList.size());
+        //Log.d("!!!!!!", "getMyStarData  " + arrMyStarList.size());
 
         strTargetIdx = Idx;
 
-        Log.d("!!!!!!", "size OK  " + arrMyStarList.size());
+        //Log.d("!!!!!!", "size OK  " + arrMyStarList.size());
 
         table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

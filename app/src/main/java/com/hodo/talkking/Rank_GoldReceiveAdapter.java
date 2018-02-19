@@ -77,7 +77,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
         //holder.textView.setText("100만 꿀");
         //holder.iv_honey_rank.setVisibility(View.INVISIBLE);
 
-        Log.d("Guide !!!! ", "Start");
+        //Log.d("Guide !!!! ", "Start");
         int i = position;
 
         switch (mSetting.getnSearchSetting())
@@ -138,7 +138,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
                 break;
             case 0:
             case 3:
-                Log.d("Guide !!!! ", "Case 3");
+                //Log.d("Guide !!!! ", "Case 3");
                 //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
                 holder.textView.setText(mMyData.arrUserAll_Recv_Age.get(i).NickName+ ", " + mMyData.arrUserAll_Recv_Age.get(i).Age);
                 Glide.with(mContext)
