@@ -142,7 +142,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
                 break;
             case 0:
             case 3:
-                Log.d("Guide !!!! ", "Case 3");
+                //Log.d("Guide !!!! ", "Case 3");
                 holder.textView.setText(mMyData.arrUserAll_New_Age.get(i).NickName + ", " + mMyData.arrUserAll_New_Age.get(i).Age);
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_New_Age.get(i).Img)
@@ -170,13 +170,13 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
         }*/
 
         if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3 ) {
-            Log.d("Guide !!!! ", "getItem 3");
+            //Log.d("Guide !!!! ", "getItem 3");
             rtValue = mMyData.arrUserAll_New_Age.size();
         } else if (mSetting.getnSearchSetting() == 1) {
-            Log.d("Guide !!!! ", "getItem 1");
+            //Log.d("Guide !!!! ", "getItem 1");
             rtValue = mMyData.arrUserMan_New_Age.size();
         } else if (mSetting.getnSearchSetting() == 2) {
-            Log.d("Guide !!!! ", "getItem 2");
+            //Log.d("Guide !!!! ", "getItem 2");
             rtValue = mMyData.arrUserWoman_New_Age.size();
         }
         return rtValue;
