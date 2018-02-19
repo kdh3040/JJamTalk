@@ -16,10 +16,12 @@ import android.database.Cursor;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.ContactsContract;
 import android.provider.Settings;
@@ -36,10 +38,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -86,6 +91,8 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.hodo.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
@@ -144,7 +151,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private Activity mActivity;
     private long pressedTime;
 
-    ProgressBar progressBar;
+    //ProgressBar progressBar;
+
+    private ImageView ImgLoading;
 
     final long[] tempVal = {0};
     String rtStr = null;
@@ -208,6 +217,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
 
+        ImgLoading = (ImageView)findViewById(R.id.loading);
+        Glide.with(getApplicationContext())
+                //.load(mMyData.arrSendDataList.get(position).strTargetImg)
+                .load(R.drawable.logo_loading)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(ImgLoading);
+
+
         bSetNear = bSetNew = bSetRich = bSetRecv = false;
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -221,7 +238,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         provider = locationManager.getBestProvider(new Criteria(), false);
 
         //mLoginFormView = findViewById(R.id.login_form);
-        progressBar = findViewById(R.id.login_progress);
+        //progressBar = findViewById(R.id.login_progress);
 
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -236,6 +253,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         final long[] tempVal = {0};
         final String[] rtStr = new String[1];
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
     /*    if(currentUser != null)
@@ -403,7 +425,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             });
 
         }*/
-
+            }
+        }, 5000);
     }
 
     private void go()
@@ -518,7 +541,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     private void GoMainPage() {
 
-        progressBar.setVisibility(ProgressBar.GONE);
+      //  progressBar.setVisibility(ProgressBar.GONE);
         FirebaseData.getInstance().GetInitBoardData();
         FirebaseData.getInstance().GetInitMyBoardData();
         FirebaseData.getInstance().SaveData(mMyData.getUserIdx());
@@ -956,7 +979,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+            //progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
@@ -1034,7 +1057,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+            //progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
@@ -1108,7 +1131,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+           // progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
@@ -1194,7 +1217,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+        //    progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
@@ -1273,7 +1296,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+          //  progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override

@@ -458,6 +458,7 @@ public class InputProfile extends AppCompatActivity {
         final DatabaseReference UserIdx = table.child(mMyData.ANDROID_ID);
         UserIdx.setValue(strIdx);
         mMyData.setUserIdx(strIdx);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
 
         progressBar = (ProgressBar) findViewById(R.id.InputProfile_Progress) ;
@@ -480,7 +481,7 @@ public class InputProfile extends AppCompatActivity {
                 .check();*/
 
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
 
         mProfileImage = (ImageView) findViewById(R.id.InputProfile_SumImg);
         mProfileImage.setOnClickListener(new View.OnClickListener() {
