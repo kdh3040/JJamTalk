@@ -22,7 +22,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hodo.talkking.ChatRoomActivity;
@@ -1639,7 +1641,7 @@ public class MyData {
 
     }
 
-    public void makeFanList(UserData stTargetData, int SendCount) {
+    public void makeFanList(final UserData stTargetData, int SendCount) {
 
         int nTotalSendCnt = 0;
 
@@ -1656,36 +1658,78 @@ public class MyData {
             nTotalSendCnt = SendCount;
             stTargetData.FanList.put(getUserIdx(), tempFan);
             stTargetData.arrFanList.add(tempFan);
-            stTargetData.FanCount--;
 
-            for(int i = 0; i < arrUserAll_Send.size(); i++)
-            {
-                if(arrUserAll_Send.get(i).Idx.equals(stTargetData.Idx)) {
-                    arrUserAll_Send.get(i).FanCount = stTargetData.FanCount;
-                    break;
-                }
-            }
+            FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+            DatabaseReference data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("FanCount");
+            data.runTransaction(new Transaction.Handler() {
+                @Override
+                public Transaction.Result doTransaction(MutableData mutableData) {
+                    Long index = mutableData.getValue(Long.class);
+                    if (index == null) {
+                        mutableData.setValue(-1);
+                        return Transaction.success(mutableData);
+                    }
 
-            if(stTargetData.Gender.equals("여자"))
-            {
-                for(int i = 0; i < arrUserAll_Send.size(); i++)
-                {
-                    if(arrUserWoman_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                        arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount;
-                        break;
-                    }
+                    index--;
+
+                    mutableData.setValue(index);
+                    return Transaction.success(mutableData);
                 }
-            }
-            else
-            {
-                for(int i = 0; i < arrUserAll_Send.size(); i++)
-                {
-                    if(arrUserMan_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                        arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount;
-                        break;
+
+                @Override
+                public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                    stTargetData.FanCount = dataSnapshot.getValue(Long.class);
+
+                    for(int i = 0; i < arrUserAll_Send_Age.size(); i++)
+                    {
+                        if(arrUserAll_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                            arrUserAll_Send_Age.get(i).FanCount = stTargetData.FanCount;
+                            break;
+                        }
                     }
+
+                    if(stTargetData.Gender.equals("여자"))
+                    {
+                        for(int i = 0; i < arrUserWoman_Send_Age.size(); i++)
+                        {
+                            if(arrUserWoman_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for(int i = 0; i < arrUserMan_Send_Age.size(); i++)
+                        {
+                            if(arrUserMan_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount;
+                                break;
+                            }
+                        }
+                    }
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference table;
+                    table = database.getReference("User/" + stTargetData.Idx);
+
+                    Map<String, Object> updateFanCountMap = new HashMap<>();
+                    updateFanCountMap.put("FanCount", stTargetData.FanCount);
+                    table.updateChildren(updateFanCountMap);
+
+                    table = database.getReference("SimpleData/" + stTargetData.Idx);
+
+                    updateFanCountMap.put("FanCount", stTargetData.FanCount);
+                    table.updateChildren(updateFanCountMap);
+
                 }
-            }
+            });
+
+
+
+
+
 
         }
         else
@@ -1722,49 +1766,80 @@ public class MyData {
                 nTotalSendCnt = SendCount;
                 stTargetData.FanList.put(getUserIdx(), tempFan);
                 stTargetData.arrFanList.add(tempFan);
-                stTargetData.FanCount--;
 
-                for(int i = 0; i < arrUserAll_Send.size(); i++)
-                {
-                    if(arrUserAll_Send.get(i).Idx.equals(stTargetData.Idx)) {
-                        arrUserAll_Send.get(i).FanCount = stTargetData.FanCount;
-                        break;
+                FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                DatabaseReference data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("FanCount");
+                data.runTransaction(new Transaction.Handler() {
+                    @Override
+                    public Transaction.Result doTransaction(MutableData mutableData) {
+                        Long index = mutableData.getValue(Long.class);
+                    if (index == null) {
+                        mutableData.setValue(-1);
+                        return Transaction.success(mutableData);
                     }
-                }
+                        index--;
 
-                if(stTargetData.Gender.equals("여자"))
-                {
-                    for(int i = 0; i < arrUserAll_Send.size(); i++)
-                    {
-                        if(arrUserWoman_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                            arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount;
-                            break;
-                        }
+                        mutableData.setValue(index);
+                        return Transaction.success(mutableData);
                     }
-                }
-                else
-                {
-                    for(int i = 0; i < arrUserAll_Send.size(); i++)
-                    {
-                        if(arrUserMan_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                            arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount;
-                            break;
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+
+                        stTargetData.FanCount = dataSnapshot.getValue(Long.class);
+
+                        for(int i = 0; i < arrUserAll_Send_Age.size(); i++)
+                        {
+                            if(arrUserAll_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                arrUserAll_Send_Age.get(i).FanCount = stTargetData.FanCount;
+                                break;
+                            }
                         }
+
+                        if(stTargetData.Gender.equals("여자"))
+                        {
+                            for(int i = 0; i < arrUserWoman_Send_Age.size(); i++)
+                            {
+                                if(arrUserWoman_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                    arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for(int i = 0; i < arrUserMan_Send_Age.size(); i++)
+                            {
+                                if(arrUserMan_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                    arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount;
+                                    break;
+                                }
+                            }
+                        }
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference table;
+                        table = database.getReference("User/" + stTargetData.Idx);
+
+                        Map<String, Object> updateFanCountMap = new HashMap<>();
+                        updateFanCountMap.put("FanCount", stTargetData.FanCount);
+                        table.updateChildren(updateFanCountMap);
+
+                        table = database.getReference("SimpleData/" + stTargetData.Idx);
+
+                        updateFanCountMap.put("FanCount", stTargetData.FanCount);
+                        table.updateChildren(updateFanCountMap);
+
                     }
-                }
+                });
             }
         }
 
 
 
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        table = database.getReference("User/" + stTargetData.Idx);
-
-        Map<String, Object> updateFanCountMap = new HashMap<>();
-        updateFanCountMap.put("FanCount", stTargetData.FanCount);
-        table.updateChildren(updateFanCountMap);
 
         table = database.getReference("User/" + stTargetData.Idx).child("FanList");
         Map<String, Object> updateMap = new HashMap<>();
