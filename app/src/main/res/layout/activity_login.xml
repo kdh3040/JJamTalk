@@ -105,7 +105,6 @@
 -->
 
 
-
     <ImageView
 
         android:id="@+id/logo"
@@ -116,7 +115,7 @@
         android:layout_marginRight="50dp"
         android:layout_marginTop="50dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/logotalking"
+        android:src="@drawable/logotalking600"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
