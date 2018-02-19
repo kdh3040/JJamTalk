@@ -69,7 +69,7 @@ public class UserData implements Serializable,Parcelable {
 
     public  ArrayList<UserData> arrChatTargetData = new ArrayList<>();
 
-    public int FanCount;
+    public long FanCount;
 
     public  ArrayList<FanData> arrFanList = new ArrayList<>();
     public  ArrayList<FanData> arrFanData = new ArrayList<>();
@@ -146,7 +146,7 @@ public class UserData implements Serializable,Parcelable {
 
         arrChatTargetData = (ArrayList<UserData>) in.readSerializable();
 
-        FanCount = in.readInt();
+        FanCount = in.readLong();
 
         arrFanList = (ArrayList<FanData>) in.readSerializable();
         arrFanData = (ArrayList<FanData>) in.readSerializable();
@@ -232,7 +232,7 @@ public class UserData implements Serializable,Parcelable {
 
         parcel.writeSerializable(arrChatTargetData);
 
-        parcel.writeInt(FanCount);
+        parcel.writeLong(FanCount);
 
 
         parcel.writeSerializable(arrFanList);

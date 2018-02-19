@@ -34,7 +34,7 @@ public class SimpleUserData implements Serializable,Parcelable {
     // 뉴페이스
     public String Date;
     //팬보유순
-    public int FanCount;
+    public long FanCount;
     //추천순
     public int Point;
 
@@ -125,7 +125,7 @@ public class SimpleUserData implements Serializable,Parcelable {
         parcel.writeDouble(Lon);
         parcel.writeString(Date);
 
-        parcel.writeInt(FanCount);
+        parcel.writeLong(FanCount);
         parcel.writeInt(Point);
 
         parcel.writeInt(BestItem);
