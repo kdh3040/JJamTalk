@@ -119,7 +119,7 @@ public class InputProfile extends AppCompatActivity {
     LocationManager locationManager;
     String provider;
 
-    private boolean bMySet, bMyThumb, bMyImg = false;
+    private boolean bMySet, bMyThumb, bMyImg, bMyLoc = false;
     private boolean bSetNear, bSetNew, bSetRich, bSetRecv = false;
 
     private int nUserSet = 0;
@@ -177,7 +177,7 @@ public class InputProfile extends AppCompatActivity {
                             }
 
                             bSetRecv = true;
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
                                 finish();
                             }
@@ -194,10 +194,11 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                 GoMainPage();
                 finish();
             }
+
         }
 
         @Override
@@ -248,10 +249,11 @@ public class InputProfile extends AppCompatActivity {
 
                             bSetRich = true;
 
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
                                 finish();
                             }
+
                         }
 
                         @Override
@@ -266,10 +268,11 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                 GoMainPage();
                 finish();
             }
+
         }
 
         @Override
@@ -289,11 +292,11 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Integer... voids) {
 
-            Double lStartLon = mMyData.getUserLon() - 0.05;
-            Double lStartLat = mMyData.getUserLat() - 0.05;
+            Double lStartLon = mMyData.getUserLon() - 0.1;
+            Double lStartLat = mMyData.getUserLat() - 0.1;
 
-            Double lEndLon = mMyData.getUserLon() + 0.05;
-            Double IEndLat = mMyData.getUserLon() + 0.05;
+            Double lEndLon = mMyData.getUserLon() + 0.1;
+            Double IEndLat = mMyData.getUserLon() + 0.1;
 
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
@@ -335,10 +338,11 @@ public class InputProfile extends AppCompatActivity {
 
                             bSetNear = true;
 
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
                                 finish();
                             }
+
                         }
 
                         @Override
@@ -353,10 +357,11 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                 GoMainPage();
                 finish();
             }
+
         }
 
         @Override
@@ -415,10 +420,11 @@ public class InputProfile extends AppCompatActivity {
                             }
 
                             bSetNew = true;
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
                                 finish();
                             }
+
                         }
 
                         @Override
@@ -433,10 +439,11 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true){
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                 GoMainPage();
                 finish();
             }
+
         }
 
         @Override
@@ -525,7 +532,7 @@ public class InputProfile extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 nAge1 = position;
-                nAge1 += 17;
+                nAge1 += 20;
                 String strAge = Integer.toString(nAge1);
                 mMyData.setUserAge(strAge);
             }
@@ -581,7 +588,7 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.setUserNick(strNickName);
                     mMyData.setUserHoney(50);
 
-                    mFireBaseData.SaveData(mMyData.getUserIdx());
+
                     bMySet = true;
 
                     mMyData.getDownUrl();
@@ -646,14 +653,21 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.setUserLon(tempLoc.getLongitude());
                     mMyData.setUserLat(tempLoc.getLatitude());
 
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    bMyLoc = true;
+                    if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+                        GoMainPage();
+                        finish();
+                    }
+
+
+/*                    FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
                     // DatabaseReference user = table.child( userIdx);
                     final DatabaseReference user = table.child(mMyData.getUserIdx());
 
                     user.child("Lon").setValue(mMyData.getUserLon());
-                    user.child("Lat").setValue(mMyData.getUserLat());
+                    user.child("Lat").setValue(mMyData.getUserLat());*/
                 }
             }
         };
@@ -802,7 +816,6 @@ public class InputProfile extends AppCompatActivity {
     {
         mMyData.setUserImg(uri.toString());
         mMyData.setUserImgCnt(1);
-        mFireBaseData.SaveData(mMyData.getUserIdx());
         bMyThumb = true;
     }
 
@@ -810,12 +823,12 @@ public class InputProfile extends AppCompatActivity {
     {
         mMyData.setUserProfileImg( mMyData.nSaveUri, uri.toString());
         mMyData.setUserImgCnt(1);
-        mFireBaseData.SaveData(mMyData.getUserIdx());
         bMyImg = true;
 
     }
     private void GoMainPage() {
 
+        mFireBaseData.SaveData(mMyData.getUserIdx());
         progressBar.setVisibility(ProgressBar.GONE);
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();

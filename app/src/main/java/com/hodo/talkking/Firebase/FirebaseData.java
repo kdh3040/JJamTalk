@@ -617,10 +617,10 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_Recv.add(cTempData);
-                                if (mMyData.arrUserAll_Recv.get(i).Gender.equals("여자")) {
-                                    mMyData.arrUserWoman_Recv.add(mMyData.arrUserAll_Recv.get(i));
+                                if (mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() -1).Gender.equals("여자")) {
+                                    mMyData.arrUserWoman_Recv.add(mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() -1));
                                 } else {
-                                    mMyData.arrUserMan_Recv.add(mMyData.arrUserAll_Recv.get(i));
+                                    mMyData.arrUserMan_Recv.add(mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() -1));
                                 }
 
                                 mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
@@ -679,10 +679,10 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_Send.add(cTempData);
-                                if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
-                                    mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
+                                if (mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size() - 1).Gender.equals("여자")) {
+                                    mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size() - 1));
                                 } else {
-                                    mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
+                                    mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size() - 1));
                                 }
 
                                 mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
@@ -756,12 +756,12 @@ public class FirebaseData {
                             if(bExist == false)
                             {
                                 mMyData.arrUserAll_Near.add(cTempData);
-                                if(mMyData.arrUserAll_Near.get(i).Gender.equals("여자"))
+                                if(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1).Gender.equals("여자"))
                                 {
-                                    mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                    mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
                                 }
                                 else {
-                                    mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
+                                    mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
                                 }
 
                                 mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge );
@@ -825,10 +825,10 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_New.add(cTempData);
-                                if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
-                                    mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
+                                if (mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() -1).Gender.equals("여자")) {
+                                    mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() -1));
                                 } else {
-                                    mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
+                                    mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() -1));
                                 }
 
                                 mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
