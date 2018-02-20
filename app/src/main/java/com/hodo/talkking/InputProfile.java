@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -627,8 +628,6 @@ public class InputProfile extends AppCompatActivity {
                 }
             }
         });
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        provider = locationManager.getBestProvider(new Criteria(), false);
     }
 
     @Override
@@ -644,38 +643,41 @@ public class InputProfile extends AppCompatActivity {
         }*/
     }
 
+
     public void getLocation() {
-        OnCompleteListener<Location> mCompleteListener = new OnCompleteListener<Location>() {
-            @Override
-            public void onComplete(@NonNull Task<Location> task) {
-                if (task.isSuccessful() && task.getResult() != null) {
-                    Location tempLoc = task.getResult();
-                    mMyData.setUserLon(tempLoc.getLongitude());
-                    mMyData.setUserLat(tempLoc.getLatitude());
 
-                    bMyLoc = true;
-                    if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
-                        GoMainPage();
-                        finish();
-                    }
+        LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
+        boolean enabled = service
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
+        if (!enabled) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
 
-/*                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
-
-                    // DatabaseReference user = table.child( userIdx);
-                    final DatabaseReference user = table.child(mMyData.getUserIdx());
-
-                    user.child("Lon").setValue(mMyData.getUserLon());
-                    user.child("Lat").setValue(mMyData.getUserLat());*/
-                }
-            }
-        };
-
+        Criteria criteria = new Criteria();
+        provider = service.getBestProvider(criteria, false);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
-        mFusedLocationClient.getLastLocation().addOnCompleteListener(this, mCompleteListener);
+        Location location = service.getLastKnownLocation(provider);
+
+        mMyData.setUserLon(location.getLongitude());
+        mMyData.setUserLat(location.getLatitude());
+
+        bMyLoc = true;
+        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+            GoMainPage();
+            finish();
+        }
     }
 
 
