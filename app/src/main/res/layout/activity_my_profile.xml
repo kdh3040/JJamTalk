@@ -146,6 +146,7 @@
             android:id="@+id/MyProfile_Age_1"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:spinnerMode="dialog"
             android:entries="@array/MyProfire_Age"
             app:layout_constraintBottom_toBottomOf="@+id/age"
             app:layout_constraintLeft_toLeftOf="@+id/MyProfile_NickName" />
