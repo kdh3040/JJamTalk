@@ -38,7 +38,10 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
 
     @Override
     public MyJewelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.holder_jewel,null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.holder_jewel,parent, false);
+
+        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        view.setLayoutParams(lp);
 
         return new MyJewelViewHolder(view);
     }
@@ -135,13 +138,13 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
         }
 
 
-        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth()/1,mUIdata.getHeight()/10));
+        holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(mUIdata.getWidth(),mUIdata.getHeight()/10));
 
     }
 
     @Override
     public int getItemCount() {
         //return mMyData.nItemCount;
-        return 8;
+        return 7;
     }
 }

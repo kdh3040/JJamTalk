@@ -666,11 +666,10 @@ public class CommonFunc {
 
         else if (160 <= nGrade && nGrade <= 603) rtValue = 1;
         else if (80 <= nGrade && nGrade <= 160) rtValue = 2;
-        else if (58 <= nGrade && nGrade <= 80) rtValue = 3;
-        else if (28 <= nGrade && nGrade <= 58) rtValue = 4;
-        else if (15 <= nGrade && nGrade <= 27) rtValue = 5;
-        else if (2 <= nGrade && nGrade <= 14) rtValue = 6;
-        else if (1 == nGrade) rtValue = 7;
+        else if (45 <= nGrade && nGrade <= 79) rtValue = 3;
+        else if (15 <= nGrade && nGrade <= 44) rtValue = 4;
+        else if (2 <= nGrade && nGrade <= 14) rtValue = 5;
+        else if (1 == nGrade ) rtValue = 6;
 
         return rtValue;
     }
