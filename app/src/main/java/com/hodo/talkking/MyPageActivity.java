@@ -163,14 +163,6 @@ public class MyPageActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),BuyGoldActivity.class));
             }
         });
-        /*btn_buyjewel = (Button)findViewById(R.id.btn_buyjewel);
-        btn_buyjewel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BuyJewelActivity.class));
-            }
-        });
-*/
 
         img_Mypic = (ImageView)findViewById(R.id.profile);
 
@@ -262,7 +254,14 @@ public class MyPageActivity extends AppCompatActivity {
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
         //txt_MyHeartCnt.setText(" 보유 골드 : " + nGold + " 골드");
         txt_MyGoldCnt.setText(nGold+"");
-        iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
+        if(mMyData.bestItem == 0)
+        {
+            iv_MyGift.setImageResource(R.mipmap.randombox);
+        }
+        else
+        {
+            iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
+        }
 
         DrawMyGrade();
     }

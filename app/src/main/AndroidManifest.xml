@@ -5,15 +5,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="com.android.vending.BILLING"/>
@@ -27,8 +23,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-
 
     <application
 
@@ -124,13 +118,6 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="com.hodo.talkking.BuyJewelActivity"
-            android:parentActivityName="com.hodo.talkking.MyPageActivity"
-            android:theme ="@style/NoTitleBar"
-            android:screenOrientation="portrait"
-            android:label="상자 구입"
-           >
-        </activity>
         <activity android:name="com.hodo.talkking.PublicChatOptionMenuBanActivity"
             android:label="차단 리스트"
             android:windowSoftInputMode="stateAlwaysHidden"
