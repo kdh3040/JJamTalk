@@ -3,26 +3,59 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="10dp"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/bg_topbar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/goldColor" />
+
+    <ImageView
+        android:id="@+id/bg_back"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_backarrow" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="내 아이템"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        app:layout_constraintLeft_toRightOf="@id/bg_back"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
         android:id="@+id/iv_coin"
-        android:layout_width="50dp"
+        android:layout_width="30dp"
         android:layout_height="50dp"
         app:srcCompat="@drawable/coin"
+        android:layout_margin="10dp"
         tools:layout_editor_absoluteX="94dp"
+        app:layout_constraintRight_toLeftOf="@id/tv_coin"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tv_coin"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:text="sad"
+        android:text="보유 코인"
         android:textSize="20dp"
+        android:layout_marginRight="10dp"
         android:gravity="center_vertical"
-        app:layout_constraintLeft_toRightOf="@+id/iv_coin"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -32,6 +65,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:srcCompat="@drawable/coin"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_coin"/>
 
@@ -52,6 +87,7 @@
         android:layout_height="50dp"
         android:text="클로버"
         android:textSize="20dp"
+        android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin0"/>
@@ -60,6 +96,8 @@
         android:id="@+id/btn_item0"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_coin"/>
 
@@ -68,6 +106,8 @@
         android:id="@+id/iv_coin1"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/tv_coin"
@@ -92,6 +132,7 @@
         android:layout_height="50dp"
         android:text="클로버"
         android:textSize="20dp"
+        android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin1"/>
@@ -101,6 +142,8 @@
         android:id="@+id/btn_item1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_coin0"/>
 
@@ -110,6 +153,8 @@
         android:id="@+id/iv_coin2"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/tv_coin"
@@ -134,6 +179,7 @@
         android:layout_height="50dp"
         android:text="클로버"
         android:textSize="20dp"
+        android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin2"/>
@@ -142,6 +188,8 @@
         android:id="@+id/btn_item2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_coin1"/>
 
@@ -149,6 +197,8 @@
         android:id="@+id/iv_coin3"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/tv_coin"
@@ -173,6 +223,7 @@
         android:layout_height="50dp"
         android:text="클로버"
         android:textSize="20dp"
+        android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin3"/>
@@ -181,6 +232,8 @@
         android:id="@+id/btn_item3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_coin2"/>
 
@@ -188,6 +241,8 @@
         android:id="@+id/iv_coin4"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/tv_coin"
@@ -212,6 +267,7 @@
         android:layout_height="50dp"
         android:text="클로버"
         android:textSize="20dp"
+        android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin4"/>
@@ -221,6 +277,8 @@
         android:id="@+id/btn_item4"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_coin3"/>
 
@@ -228,6 +286,8 @@
         android:id="@+id/iv_coin5"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/tv_coin"
@@ -252,6 +312,7 @@
         android:layout_height="50dp"
         android:text="클로버"
         android:textSize="20dp"
+        android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin5"/>
@@ -260,6 +321,8 @@
         android:id="@+id/btn_item5"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_coin4"/>
 
@@ -267,6 +330,8 @@
         android:id="@+id/iv_coin6"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/tv_coin"
@@ -291,6 +356,7 @@
         android:layout_height="50dp"
         android:text="클로버"
         android:textSize="20dp"
+        android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin6"/>
@@ -299,6 +365,8 @@
         android:id="@+id/btn_item6"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_coin5"/>
 
@@ -310,8 +378,7 @@
         android:background="@drawable/button_pressed"
         android:text="상자 1개 열기"
         android:textColor="@color/textColorDark"
-
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

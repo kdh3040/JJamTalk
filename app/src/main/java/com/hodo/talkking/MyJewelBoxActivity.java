@@ -59,14 +59,17 @@ public class MyJewelBoxActivity extends AppCompatActivity {
     TextView txt_item[] = new TextView[7];
     TextView txt_itemCnt[] = new TextView[7];
 
+    ImageView BackArrow;
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_jewel_box);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mActivity = this;
+
+        BackArrow = (ImageView)findViewById(R.id.bg_back);
 
         btn_item[0] = (ImageView)findViewById(R.id.btn_item0);
         btn_item[1] = (ImageView)findViewById(R.id.btn_item1);
@@ -136,7 +139,12 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 ShowOpenBox(10,1);
             }
         });
-
+        BackArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyJewelBoxActivity.super.onBackPressed();
+            }
+        });
         for(int i = 0 ;i < 7; i++)
         {
             final int finalI = i;
