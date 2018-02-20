@@ -3,6 +3,7 @@ package com.hodo.talkking.Util;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
@@ -37,6 +38,7 @@ import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SendData;
 import com.hodo.talkking.Data.SimpleChatData;
 import com.hodo.talkking.Data.SimpleUserData;
+import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.LoginActivity;
@@ -675,98 +677,209 @@ public class CommonFunc {
     }
 
     public void View_OpenedItem(Context context, View v, int result, ImageView img_Opened, TextView text_Opened) {
-        URL url = null;
-        Bitmap bitmap = null;
-
-
         switch (result) {
             case 0: {
-                try {
-                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fheel_hng.png?alt=media&token=b63df8ec-7946-455f-a7db-f6555c13b8a3");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                text_Opened.setText("명품 구두 획득!!");
+                img_Opened.setImageResource(UIData.getInstance().getJewels()[0]);
+                text_Opened.setText(R.string.Item_0_text);
                 break;
             }
             case 1: {
-                try {
-                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fdress_hng.png?alt=media&token=3e195e09-0fcb-4cf9-b154-9c871dac8dc5");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-
-                text_Opened.setText("명품 드레스 획득!!");
+                img_Opened.setImageResource(UIData.getInstance().getJewels()[1]);
+                text_Opened.setText(R.string.Item_1_text);
                 break;
             }
             case 2: {
-                try {
-                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fbag_hng.png?alt=media&token=14ce0c10-fcaa-4d7b-b196-dc56a1f86233");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-
-                text_Opened.setText("명품 가방 획득!!");
+                img_Opened.setImageResource(UIData.getInstance().getJewels()[2]);
+                text_Opened.setText(R.string.Item_2_text);
                 break;
             }
             case 3: {
-                try {
-                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fwatch_hng.png?alt=media&token=dbefc601-6770-48f3-a6e7-227a15ae5d36");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-
-                text_Opened.setText("명품 시계 획득!!");
+                img_Opened.setImageResource(UIData.getInstance().getJewels()[3]);
+                text_Opened.setText(R.string.Item_3_text);
                 break;
             }
             case 4: {
-                try {
-                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fring_hng.png?alt=media&token=2d624e62-9b42-4b44-b268-81ddc4c98ccf");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                text_Opened.setText("보석 획득!!");
+                img_Opened.setImageResource(UIData.getInstance().getJewels()[4]);
+                text_Opened.setText(R.string.Item_4_text);
                 break;
             }
             case 5: {
-                try {
-                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fcar_hng.png?alt=media&token=8ecd4bfc-3911-4c87-86d5-9ed055c3a864");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                text_Opened.setText("자동차 획득!!");
+                img_Opened.setImageResource(UIData.getInstance().getJewels()[5]);
+                text_Opened.setText(R.string.Item_5_text);
                 break;
             }
             case 6: {
-                try {
-                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fboat_hng.png?alt=media&token=5c42d065-c643-4517-8751-88a71b45d14d");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-
-                text_Opened.setText("요트 획득!!");
-                break;
-            }
-            case 7: {
-                try {
-                    url = new URL("https://firebasestorage.googleapis.com/v0/b/jamtalk-cf526.appspot.com/o/test%2Fjet_hng.png?alt=media&token=0db8857d-9481-43e8-af74-45f7337deaf5");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                text_Opened.setText("제트기 획득!!");
+                img_Opened.setImageResource(UIData.getInstance().getJewels()[6]);
+                text_Opened.setText(R.string.Item_6_text);
                 break;
             }
         }
 
-        Glide.with(context)
-                .load(url.toString())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .thumbnail(0.1f)
-                .into(img_Opened);
     }
 
     public interface ShowBoxOpen_End {
         void EndListener();
+    }
+
+    public interface ViewBox_End {
+        void EndListener();
+    }
+
+
+    public void BuyItemPopup(final Context context, final ShowBoxOpen_End endListener)
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View v = LayoutInflater.from(context).inflate(R.layout.popup_item_get, null);
+        ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
+        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
+        //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+
+        final int result = CommonFunc.getInstance().Select_OpenedItem();
+        CommonFunc.getInstance().View_OpenedItem(context, v, result, Img_Opened, Text_Opened);
+        mMyData.setMyItem(result);
+
+        Button btn_confirm = v.findViewById(R.id.button3);
+        Button btn_sell = v.findViewById(R.id.button2);
+        builder.setView(v);
+
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        btn_sell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+                View v = LayoutInflater.from(context).inflate(R.layout.dialog_exit_app,null,false);
+
+                final AlertDialog dialog = new AlertDialog.Builder(context).setView(v).create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
+
+                final TextView txt_Title;
+                txt_Title = (TextView)v.findViewById(R.id.title);
+                txt_Title.setText("아이템 판매");
+                final TextView txt_Body;
+                txt_Body = (TextView)v.findViewById(R.id.msg);
+                txt_Body.setText(UIData.getInstance().getItems()[result] + " 아이템을 4골드에 판매합니다");
+
+                final Button btn_exit;
+                final Button btn_no;
+
+                btn_exit = (Button) v.findViewById(R.id.btn_yes);
+                btn_exit.setText("판매");
+                btn_exit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int nCount = mMyData.itemList.get(result);
+                        nCount--;
+                        mMyData.itemList.put(result, nCount);
+                        mMyData.setUserHoney(mMyData.getUserHoney() + 4);
+                        mMyData.SetBestItem();
+                        mMyData.SaveMyItem(result, nCount);
+                        mMyData.refreshItemIdex();
+                        endListener.EndListener();
+                        dialog.dismiss();
+                    }
+                });
+
+                btn_no = (Button) v.findViewById(R.id.btn_no);
+                btn_no.setText("닫기");
+                btn_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+        });
+    }
+
+    public void ViewBox(final Context context, final int Index, final ShowBoxOpen_End endListener)
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View v = LayoutInflater.from(context).inflate(R.layout.popup_item_get, null);
+        ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
+        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
+        //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+
+        CommonFunc.getInstance().View_OpenedItem(context, v, Index, Img_Opened, Text_Opened);
+
+        Button btn_confirm = v.findViewById(R.id.button3);
+        Button btn_sell = v.findViewById(R.id.button2);
+        builder.setView(v);
+
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        btn_sell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+                View v = LayoutInflater.from(context).inflate(R.layout.dialog_exit_app,null,false);
+
+                final AlertDialog dialog = new AlertDialog.Builder(context).setView(v).create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
+
+                final TextView txt_Title;
+                txt_Title = (TextView)v.findViewById(R.id.title);
+                txt_Title.setText("아이템 판매");
+                final TextView txt_Body;
+                txt_Body = (TextView)v.findViewById(R.id.msg);
+                txt_Body.setText(UIData.getInstance().getItems()[Index] + " 아이템을 4골드에 판매합니다");
+
+                final Button btn_exit;
+                final Button btn_no;
+
+                btn_exit = (Button) v.findViewById(R.id.btn_yes);
+                btn_exit.setText("판매");
+                btn_exit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int nCount = mMyData.itemList.get(Index);
+                        nCount--;
+                        mMyData.itemList.put(Index, nCount);
+                        mMyData.setUserHoney(mMyData.getUserHoney() + 4);
+                        mMyData.SetBestItem();
+                        mMyData.SaveMyItem(Index, nCount);
+                        mMyData.refreshItemIdex();
+                        endListener.EndListener();
+                        dialog.dismiss();
+                    }
+                });
+
+                btn_no = (Button) v.findViewById(R.id.btn_no);
+                btn_no.setText("닫기");
+                btn_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+        });
     }
 
     public void ShowBoxOpen(final Context context, final int count, final int bonus, final ShowBoxOpen_End endListener, final ShowBoxOpen_End buyGoldListener) {
@@ -795,29 +908,7 @@ public class CommonFunc {
                     if (mMyData.getUserHoney() > (CoomonValueData.OPEN_BOX_COST * count)) {
                         mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
                         for (int i = 0; i < count + bonus; i++) {
-                            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                            View v = LayoutInflater.from(context).inflate(R.layout.dialog_jewelbox_opened, null);
-                            ImageView Img_Opened = (ImageView) v.findViewById(R.id.opened_img);
-                            TextView Text_Opened = (TextView) v.findViewById(R.id.opened_text);
-                            //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
-
-                            int result = CommonFunc.getInstance().Select_OpenedItem();
-                            CommonFunc.getInstance().View_OpenedItem(context, v, result, Img_Opened, Text_Opened);
-                            mMyData.setMyItem(result);
-
-                            Button btn_confirm = v.findViewById(R.id.opened_btn);
-                            builder.setView(v);
-
-                            final AlertDialog dialog = builder.create();
-                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                            dialog.show();
-
-                            btn_confirm.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
+                            BuyItemPopup(context, endListener);
                         }
 
                         endListener.EndListener();

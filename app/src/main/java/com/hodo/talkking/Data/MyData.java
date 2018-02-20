@@ -2330,6 +2330,7 @@ public class MyData {
         TreeMap<Integer,Integer> tm = new TreeMap<Integer,Integer>(tempItemList);
         Iterator<Integer> iteratorKey = tm.descendingKeySet().iterator(); //키값 내림차순 정렬
         rtValue = iteratorKey.next();
+        bestItem = rtValue;
         //System.out.println(key+","+tm.get(key));
         return rtValue;
     }
