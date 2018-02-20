@@ -81,13 +81,13 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         img_item[5] = (ImageView)findViewById(R.id.iv_coin5);
         img_item[6] = (ImageView)findViewById(R.id.iv_coin6);
 
-        txt_item[0] = (TextView) findViewById(R.id.tv_coin0);
+        /*txt_item[0] = (TextView) findViewById(R.id.tv_coin0);
         txt_item[1] = (TextView)findViewById(R.id.tv_coin1);
         txt_item[2] = (TextView)findViewById(R.id.tv_coin2);
         txt_item[3] = (TextView)findViewById(R.id.tv_coin3);
         txt_item[4] = (TextView)findViewById(R.id.tv_coin4);
         txt_item[5] = (TextView)findViewById(R.id.tv_coin5);
-        txt_item[6] = (TextView)findViewById(R.id.tv_coin6);
+        txt_item[6] = (TextView)findViewById(R.id.tv_coin6);*/
 
         txt_itemCnt[0] = (TextView) findViewById(R.id.tv_cnt0);
         txt_itemCnt[1] = (TextView)findViewById(R.id.tv_cnt1);
@@ -112,8 +112,8 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         //txt_price = (TextView)findViewById(R.id.txt_sell_price);
         //txt_price.setVisibility(View.GONE);
 
-        txt_myGold = (TextView)findViewById(R.id.tv_coin);
-        txt_myGold.setText(mMyData.getUserHoney() + " 골드");
+        /*txt_myGold = (TextView)findViewById(R.id.tv_coin);
+        txt_myGold.setText(mMyData.getUserHoney() + " 골드");*/
 
         btn_openBox = findViewById(R.id.btn_openBox);
         btn_sellJewely = findViewById(R.id.btn_sellJewely);
@@ -210,13 +210,13 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         {
             if( mMyData.itemList.get(i) != 0) {
                 img_item[i].setImageResource(UIData.getInstance().getJewels()[i]);
-                txt_item[i].setText(UIData.getInstance().getItems()[i]);
+                //txt_item[i].setText(UIData.getInstance().getItems()[i]);
                 txt_itemCnt[i].setVisibility(TextView.VISIBLE);
                 txt_itemCnt[i].setText(mMyData.itemList.get(i).toString() + "개");
             }
             else{
                 img_item[i].setImageResource(R.mipmap.randombox);
-                txt_item[i].setText(UIData.getInstance().getItems()[i]);
+                //txt_item[i].setText(UIData.getInstance().getItems()[i]);
                 txt_itemCnt[i].setVisibility(TextView.GONE);
             }
 
@@ -226,12 +226,12 @@ public class MyJewelBoxActivity extends AppCompatActivity {
 
     public void refreshHearCnt()
     {
-        txt_myGold.setText("보유 골드 : " + mMyData.getUserHoney());
+        //txt_myGold.setText("보유 골드 : " + mMyData.getUserHoney());
     }
 
     public void refreshItemStatus(int itemIdx, int itemCnt)
     {
-        txt_myGold.setText("보유 골드 : " + mMyData.getUserHoney());
+        //txt_myGold.setText("보유 골드 : " + mMyData.getUserHoney());
     }
 
     public void ShowOpenBox(int count, int bonus)

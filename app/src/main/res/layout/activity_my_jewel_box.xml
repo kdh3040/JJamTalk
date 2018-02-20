@@ -1,335 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="10dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
     <ImageView
-        android:id="@+id/iv_coin"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/coin"
-        tools:layout_editor_absoluteX="94dp"
-        tools:ignore="MissingConstraints" />
+        android:id="@+id/btn_item0"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
 
-    <TextView
-        android:id="@+id/tv_coin"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="sad"
-        android:textSize="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintLeft_toRightOf="@+id/iv_coin"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/pink_btn_bg"
+        app:layout_constraintBottom_toTopOf="@+id/btn_item1"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btn_item1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/pink_btn_bg"
+        app:layout_constraintBottom_toTopOf="@+id/btn_item2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_item0" />
+
+    <ImageView
+        android:id="@+id/btn_item2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/pink_btn_bg"
+
+        app:layout_constraintBottom_toTopOf="@+id/btn_item3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_item1" />
+
+    <ImageView
+        android:id="@+id/btn_item3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/pink_btn_bg"
+        app:layout_constraintBottom_toTopOf="@+id/btn_item4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_item2" />
+
+    <ImageView
+        android:id="@+id/btn_item4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/pink_btn_bg"
+        app:layout_constraintBottom_toTopOf="@+id/btn_item5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_item3" />
+
+    <ImageView
+        android:id="@+id/btn_item5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/pink_btn_bg"
+        app:layout_constraintBottom_toTopOf="@+id/btn_item6"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_item4" />
+
+    <ImageView
+        android:id="@+id/btn_item6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/pink_btn_bg"
+        app:layout_constraintBottom_toTopOf="@+id/bg_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_item5" />
+
+    <ImageView
+        android:id="@+id/bg_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_item6" />
 
     <ImageView
         android:id="@+id/iv_coin0"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/coin"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin"/>
-
-    <TextView
-        android:id="@+id/tv_coin0"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="클로버"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintLeft_toRightOf="@+id/iv_coin0"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin0"/>
-
-    <TextView
-        android:id="@+id/tv_cnt0"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="클로버"
-        android:textSize="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin0"/>
-
-    <ImageView
-        android:id="@+id/btn_item0"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin"/>
-
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item0"
+        app:layout_constraintStart_toStartOf="@+id/btn_item0"
+        app:layout_constraintTop_toTopOf="@+id/btn_item0"
+        app:srcCompat="@drawable/coin" />
 
     <ImageView
         android:id="@+id/iv_coin1"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/tv_coin"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin0"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item1"
+        app:layout_constraintStart_toStartOf="@+id/btn_item1"
+        app:layout_constraintTop_toTopOf="@+id/btn_item1"
         app:srcCompat="@drawable/coin" />
-
-    <TextView
-        android:id="@+id/tv_coin1"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="다이아몬드"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintLeft_toRightOf="@+id/iv_coin1"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin1"
-        />
-
-    <TextView
-        android:id="@+id/tv_cnt1"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="클로버"
-        android:textSize="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin1"/>
-
-
-    <ImageView
-        android:id="@+id/btn_item1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin0"/>
-
-
 
     <ImageView
         android:id="@+id/iv_coin2"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/tv_coin"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin1"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item2"
+        app:layout_constraintStart_toStartOf="@+id/btn_item2"
+        app:layout_constraintTop_toTopOf="@+id/btn_item2"
         app:srcCompat="@drawable/coin" />
-
-    <TextView
-        android:id="@+id/tv_coin2"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="하트"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintLeft_toRightOf="@+id/iv_coin2"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin2"
-        />
-
-    <TextView
-        android:id="@+id/tv_cnt2"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="클로버"
-        android:textSize="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin2"/>
-
-    <ImageView
-        android:id="@+id/btn_item2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin1"/>
 
     <ImageView
         android:id="@+id/iv_coin3"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/tv_coin"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin2"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item3"
+        app:layout_constraintStart_toStartOf="@+id/btn_item3"
+        app:layout_constraintTop_toTopOf="@+id/btn_item3"
         app:srcCompat="@drawable/coin" />
-
-    <TextView
-        android:id="@+id/tv_coin3"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="스페이드"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintLeft_toRightOf="@+id/iv_coin3"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin3"
-        />
-
-    <TextView
-        android:id="@+id/tv_cnt3"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="클로버"
-        android:textSize="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin3"/>
-
-    <ImageView
-        android:id="@+id/btn_item3"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin2"/>
 
     <ImageView
         android:id="@+id/iv_coin4"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/tv_coin"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin3"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item4"
+        app:layout_constraintStart_toStartOf="@+id/btn_item4"
+        app:layout_constraintTop_toTopOf="@+id/btn_item4"
         app:srcCompat="@drawable/coin" />
-
-    <TextView
-        android:id="@+id/tv_coin4"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="잭"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintLeft_toRightOf="@+id/iv_coin4"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin4"
-        />
-
-    <TextView
-        android:id="@+id/tv_cnt4"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="클로버"
-        android:textSize="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin4"/>
-
-
-    <ImageView
-        android:id="@+id/btn_item4"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin3"/>
 
     <ImageView
         android:id="@+id/iv_coin5"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/tv_coin"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin4"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item5"
+        app:layout_constraintStart_toStartOf="@+id/btn_item5"
+        app:layout_constraintTop_toTopOf="@+id/btn_item5"
         app:srcCompat="@drawable/coin" />
-
-    <TextView
-        android:id="@+id/tv_coin5"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="퀸"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintLeft_toRightOf="@+id/iv_coin5"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin5"
-        />
-
-    <TextView
-        android:id="@+id/tv_cnt5"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="클로버"
-        android:textSize="20dp"
-        android:gravity="center_vertical"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin5"/>
-
-    <ImageView
-        android:id="@+id/btn_item5"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin4"/>
 
     <ImageView
         android:id="@+id/iv_coin6"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/tv_coin"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin5"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item6"
+        app:layout_constraintStart_toStartOf="@+id/btn_item6"
+        app:layout_constraintTop_toTopOf="@+id/btn_item6"
         app:srcCompat="@drawable/coin" />
 
     <TextView
-        android:id="@+id/tv_coin6"
+        android:id="@+id/tv_cnt0"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="킹"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_height="0dp"
+        android:layout_marginRight="50dp"
         android:gravity="center_vertical"
-        app:layout_constraintLeft_toRightOf="@+id/iv_coin6"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin6"
-        />
+        android:text="클로버"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin0"
+        app:layout_constraintRight_toRightOf="@+id/btn_item0"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin0" />
+
+    <TextView
+        android:id="@+id/tv_cnt1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center_vertical"
+        android:text="클로버"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin1"
+        app:layout_constraintRight_toRightOf="@+id/btn_item1"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin1" />
+
+    <TextView
+        android:id="@+id/tv_cnt2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center_vertical"
+        android:text="클로버"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin2"
+        app:layout_constraintRight_toRightOf="@+id/btn_item2"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin2" />
+
+    <TextView
+        android:id="@+id/tv_cnt3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center_vertical"
+        android:text="클로버"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin3"
+        app:layout_constraintRight_toRightOf="@+id/btn_item3"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin3" />
+
+    <TextView
+        android:id="@+id/tv_cnt4"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center_vertical"
+        android:text="클로버"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin4"
+        app:layout_constraintRight_toRightOf="@+id/btn_item4"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin4" />
+
+    <TextView
+        android:id="@+id/tv_cnt5"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center_vertical"
+        android:text="클로버"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin5"
+        app:layout_constraintRight_toRightOf="@+id/btn_item5"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin5" />
 
     <TextView
         android:id="@+id/tv_cnt6"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="클로버"
-        android:textSize="20dp"
+        android:layout_height="0dp"
+        android:layout_marginRight="50dp"
         android:gravity="center_vertical"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin6"/>
-
-    <ImageView
-        android:id="@+id/btn_item6"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_coin5"/>
+        android:text="클로버"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin6"
+        app:layout_constraintRight_toRightOf="@+id/btn_item6"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin6" />
 
 
     <Button
         android:id="@+id/btn_openBox"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:background="@drawable/button_pressed"
-        android:text="상자 1개 열기"
-        android:textColor="@color/textColorDark"
+        android:layout_height="0dp"
 
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="30dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        android:background="@drawable/base_btn_bg"
+        android:text="상자 1개 열기"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/bg_bottom"
+        app:layout_constraintEnd_toStartOf="@+id/btn_sellJewely"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bg_bottom" />
 
 
     <Button
         android:id="@+id/btn_sellJewely"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:background="@drawable/button_pressed"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/base_btn_bg"
         android:text="상자 10개 열기"
-        android:layout_marginRight="30dp"
-        android:textColor="@color/textColorDark"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="@+id/btn_openBox"
-        />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_openBox"
+        app:layout_constraintTop_toTopOf="@+id/bg_bottom" />
 
 
 </android.support.constraint.ConstraintLayout>
