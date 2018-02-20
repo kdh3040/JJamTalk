@@ -85,10 +85,10 @@ public class MyJewelBoxActivity extends Activity {
         txt_item[5] = (TextView)findViewById(R.id.tv_cnt5);
         txt_item[6] = (TextView)findViewById(R.id.tv_cnt6);
 
-        Img_Coin = (ImageView)findViewById(R.id.iv_Coin);
+        Img_Coin = (ImageView)findViewById(R.id.iv_coin);
         txt_Coin = (TextView)findViewById(R.id.tv_coin);
 
-        Btn_Back = (ImageView)findViewById(R.id.iv_Back);
+        Btn_Back = (ImageView)findViewById(R.id.back);
         Btn_Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,7 +141,7 @@ public class MyJewelBoxActivity extends Activity {
     private void refreshHearCnt() {
         Img_Back.setVisibility(View.VISIBLE);
         Btn_Back.setVisibility(View.VISIBLE);
-        Img_Coin.setVisibility(View.VISIBLE);
+        //Img_Coin.setVisibility(View.VISIBLE);
         txt_Coin.setText(Integer.toString(mMyData.getUserHoney()));
     }
 
