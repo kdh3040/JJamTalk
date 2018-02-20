@@ -300,11 +300,21 @@ public class UserPageActivity extends AppCompatActivity {
 
                         int nSize = mMyData.arrBlockedDataList.size();
 
+                        int nBlockSize = mMyData.arrBlockDataList.size();
+
                         boolean bBlocked = false;
+                        boolean bBlock = false;
 
                         for (int i = 0; i < nSize; i++) {
                             if (mMyData.arrBlockedDataList.get(i).Idx.equals(stTargetData.Idx)) {
                                 bBlocked = true;
+                                break;
+                            }
+                        }
+
+                        for (int i = 0; i < nBlockSize; i++) {
+                            if (mMyData.arrBlockDataList.get(i).Idx.equals(stTargetData.Idx)) {
+                                bBlock = true;
                                 break;
                             }
                         }
@@ -328,6 +338,39 @@ public class UserPageActivity extends AppCompatActivity {
 
                             final TextView Body = giftView.findViewById(R.id.textView4);
                             Body.setText("당신은 차단 되었습니다");
+
+                            final Button OK = giftView.findViewById(R.id.btn_send);
+                            OK.setText("확인");
+                            OK.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            final Button No = giftView.findViewById(R.id.btn_cancel);
+                            No.setVisibility(View.GONE);
+                        }
+
+                        else if(bBlock == true)
+                        {
+                            // 블락됬습니다 표시
+                            final int[] nSendHoneyCnt = new int[1];
+                            nSendHoneyCnt[0] = 0;
+                            View giftView = inflater.inflate(R.layout.alert_send_msg, null);
+                            builder.setView(giftView);
+                            final AlertDialog dialog = builder.create();
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                            dialog.show();
+
+                            final TextView Msg = giftView.findViewById(R.id.textView);
+                            Msg.setText("날리기 실패");
+
+                            final EditText Edit = giftView.findViewById(R.id.et_msg);
+                            Edit.setVisibility(View.GONE);
+
+                            final TextView Body = giftView.findViewById(R.id.textView4);
+                            Body.setText("당신이 차단한 상대입니다");
 
                             final Button OK = giftView.findViewById(R.id.btn_send);
                             OK.setText("확인");
@@ -560,7 +603,9 @@ public class UserPageActivity extends AppCompatActivity {
                     case R.id.UserPage_btnMessage:
 
                         nSize = mMyData.arrBlockedDataList.size();
-                        boolean bBlock = false;
+                        nBlockSize= mMyData.arrBlockDataList.size();
+                        boolean bMsgBlock = false;
+                        boolean bMsgBlocked = false;
 
                         if (stTargetData.RecvMsgReject >= 1) {
                             // 블락됬습니다 표시
@@ -601,12 +646,20 @@ public class UserPageActivity extends AppCompatActivity {
                             for (int i = 0; i < nSize; i++) {
                                 if (mMyData.arrBlockedDataList.get(i).Idx.equals(stTargetData.Idx)) {
 
-                                    bBlock = true;
+                                    bMsgBlocked = true;
                                     break;
                                 }
                             }
 
-                            if(bBlock == true)
+                            for (int i = 0; i < nBlockSize; i++) {
+                                if (mMyData.arrBlockDataList.get(i).Idx.equals(stTargetData.Idx)) {
+
+                                    bMsgBlock = true;
+                                    break;
+                                }
+                            }
+
+                            if(bMsgBlocked == true)
                             {
                                 // 블락됬습니다 표시
                                 final int[] nSendHoneyCnt = new int[1];
@@ -625,6 +678,39 @@ public class UserPageActivity extends AppCompatActivity {
 
                                 final TextView Body = giftView.findViewById(R.id.textView4);
                                 Body.setText("당신은 차단 되었습니다");
+
+                                final Button OK = giftView.findViewById(R.id.btn_send);
+                                OK.setText("확인");
+                                OK.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                                final Button No = giftView.findViewById(R.id.btn_cancel);
+                                No.setVisibility(View.GONE);
+                            }
+
+                            else   if(bMsgBlock == true)
+                            {
+                                // 블락됬습니다 표시
+                                final int[] nSendHoneyCnt = new int[1];
+                                nSendHoneyCnt[0] = 0;
+                                View giftView = inflater.inflate(R.layout.alert_send_msg, null);
+                                builder.setView(giftView);
+                                final AlertDialog dialog = builder.create();
+                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                                dialog.show();
+
+                                final TextView Msg = giftView.findViewById(R.id.textView);
+                                Msg.setText("날리기 실패");
+
+                                final EditText Edit = giftView.findViewById(R.id.et_msg);
+                                Edit.setVisibility(View.GONE);
+
+                                final TextView Body = giftView.findViewById(R.id.textView4);
+                                Body.setText("당신이 차단한 상대입니다");
 
                                 final Button OK = giftView.findViewById(R.id.btn_send);
                                 OK.setText("확인");

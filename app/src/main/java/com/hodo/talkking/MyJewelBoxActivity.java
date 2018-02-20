@@ -20,11 +20,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Util.CommonFunc;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by User0 on 2018-02-20.
@@ -147,6 +151,7 @@ public class MyJewelBoxActivity extends Activity {
             Img_item[i].setImageResource(mUIData.getJewels()[i]);
             if(mMyData.itemList.get(i) != 0)
             {
+                Img_item[i].setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.MULTIPLY);
                 txt_item[i].setText(mMyData.itemList.get(i).toString() + "개");
             }
             else

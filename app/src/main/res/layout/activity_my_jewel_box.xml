@@ -353,7 +353,7 @@
 
         android:layout_marginBottom="8dp"
         android:background="@drawable/base_btn_bg"
-        android:text="상자 1개 열기"
+        android:text="1개 열기"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="@+id/bg_mid"
         app:layout_constraintEnd_toStartOf="@+id/btn_sellJewely"
@@ -368,7 +368,7 @@
         android:layout_height="0dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/base_btn_bg"
-        android:text="상자 10개 열기"
+        android:text="10개 열기"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="@+id/btn_openBox"
         app:layout_constraintRight_toRightOf="parent"
