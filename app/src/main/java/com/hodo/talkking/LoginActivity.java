@@ -205,7 +205,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         try {
             PackageInfo i = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0);
             version = i.versionName;
-        } catch(PackageManager.NameNotFoundException e) { }
+        } catch (PackageManager.NameNotFoundException e) {
+        }
 
         getApplication().registerActivityLifecycleCallbacks(new CommonFunc.MyActivityLifecycleCallbacks());
 
@@ -224,9 +225,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     // to handle the case where the user grants the permission. See the documentation
                     // for ActivityCompat#requestPermissions for more details.
                     return;
-                }
-                else
-                {
+                } else {
                     final String deviceId = ((TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
                     mMyData.uuid = deviceId != null ? UUID
                             .nameUUIDFromBytes(deviceId
@@ -257,23 +256,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mAuth = FirebaseAuth.getInstance();
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        provider = locationManager.getBestProvider(new Criteria(), false);
-
-        //mLoginFormView = findViewById(R.id.login_form);
-        //progressBar = findViewById(R.id.login_progress);
-
-
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
 
         final long[] tempVal = {0};
         final String[] rtStr = new String[1];
@@ -313,31 +295,43 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 @Override
                 public void onPermissionGranted() {
 
-                        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
-                        Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
+                    //mLoginFormView = findViewById(R.id.login_form);
+                    //progressBar = findViewById(R.id.login_progress);
 
-                        data.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                bCheckedMyIdx[0] = true;
-                                rtStr[0] = dataSnapshot.getValue(String.class);
 
-                                if(rtStr[0] == null || rtStr[0].equals("") )
-                                    go();
-                                else
-                                {
-                                    mMyData.setUserIdx(rtStr[0]);
-                                    getLocation();
-                                    InitData_Mine();
-                                }
+                /*    gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                            .requestIdToken(getString(R.string.default_web_client_id))
+                            .requestEmail()
+                            .build();
+
+                    mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                            .enableAutoManage(this *//* FragmentActivity *//*, this *//* OnConnectionFailedListener *//*)
+                            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                            .build();*/
+
+                    FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                    Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
+
+                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            bCheckedMyIdx[0] = true;
+                            rtStr[0] = dataSnapshot.getValue(String.class);
+
+                            if (rtStr[0] == null || rtStr[0].equals(""))
+                                go();
+                            else {
+                                mMyData.setUserIdx(rtStr[0]);
+                                getLocation();
+                                InitData_Mine();
                             }
+                        }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                            }
-                        });
-
+                        }
+                    });
                 }
 
                 @Override
@@ -346,21 +340,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             };
 
-
             new TedPermission(LoginActivity.this)
                     .setPermissionListener(permissionlistener)
                     .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
-                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE)
+                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE)
                     .check();
 
-    /*
-           */
-
-
         }
-
-
-
 
 /*
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -453,8 +439,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }, 5000);*/
     }
 
-    private void go()
-    {
+    private void go() {
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -485,9 +470,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
 
 
-                                    tempVal[0] = dataSnapshot.getValue(long.class);
+                                    tempVal[0] = dataSnapshot.getValue(Long.class);
                                     rtStr = Long.toString(tempVal[0]);
-
 
 
                                     GoProfilePage();
@@ -526,6 +510,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     public void getLocation() {
+
+        LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
+        boolean enabled = service
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        if (!enabled) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
+
+        Criteria criteria = new Criteria();
+        provider = service.getBestProvider(criteria, false);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = service.getLastKnownLocation(provider);
+
+        mMyData.setUserLon(location.getLongitude());
+        mMyData.setUserLat(location.getLatitude());
+
+        bMyLoc = true;
+        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+
+            Log.d(TAG, "Account Log in  Complete");
+            GoMainPage();
+        }
+
+        /*
         OnCompleteListener<Location> mCompleteListener = new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
@@ -550,7 +569,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        mFusedLocationClient.getLastLocation().addOnCompleteListener(this, mCompleteListener);
+        mFusedLocationClient.getLastLocation().addOnCompleteListener(this, mCompleteListener);*/
     }
 
     private void GoProfilePage() {
