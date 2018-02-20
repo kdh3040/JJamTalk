@@ -4,6 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -215,9 +219,13 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 txt_itemCnt[i].setText(mMyData.itemList.get(i).toString() + "개");
             }
             else{
-                img_item[i].setImageResource(R.mipmap.randombox);
+
+
+                img_item[i].setImageResource(UIData.getInstance().getJewels()[i]);
+                img_item[i].setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.MULTIPLY);
+
                 txt_item[i].setText(UIData.getInstance().getItems()[i]);
-                txt_itemCnt[i].setVisibility(TextView.GONE);
+                txt_itemCnt[i].setText("미 보유");
             }
 
 
