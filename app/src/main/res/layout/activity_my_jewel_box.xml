@@ -27,14 +27,6 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-
-    <android.support.constraint.Group
-        android:id="@+id/itemGroup_0"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        app:constraint_referenced_ids="iv_coin0,tv_coin0,tv_cnt0" />
-
     <ImageView
         android:id="@+id/iv_coin0"
         android:layout_width="50dp"
@@ -64,12 +56,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin0"/>
 
+    <ImageView
+        android:id="@+id/btn_item0"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_coin"/>
 
-    <android.support.constraint.Group
-        android:id="@+id/itemGroup_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="iv_coin1,tv_coin1,tv_cnt1" />
 
     <ImageView
         android:id="@+id/iv_coin1"
@@ -104,11 +97,13 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin1"/>
 
 
-    <android.support.constraint.Group
-        android:id="@+id/itemGroup_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="iv_coin2,tv_coin2,tv_cnt2" />
+    <ImageView
+        android:id="@+id/btn_item1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_coin0"/>
+
 
 
     <ImageView
@@ -143,11 +138,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin2"/>
 
-    <android.support.constraint.Group
-        android:id="@+id/itemGroup_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="iv_coin3,tv_coin3,tv_cnt3" />
+    <ImageView
+        android:id="@+id/btn_item2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_coin1"/>
 
     <ImageView
         android:id="@+id/iv_coin3"
@@ -181,12 +177,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin3"/>
 
-
-    <android.support.constraint.Group
-        android:id="@+id/itemGroup_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="iv_coin4,tv_coin4,tv_cnt4" />
+    <ImageView
+        android:id="@+id/btn_item3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_coin2"/>
 
     <ImageView
         android:id="@+id/iv_coin4"
@@ -221,11 +217,12 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin4"/>
 
 
-    <android.support.constraint.Group
-        android:id="@+id/itemGroup_5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="iv_coin5,tv_coin5,tv_cnt5" />
+    <ImageView
+        android:id="@+id/btn_item4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_coin3"/>
 
     <ImageView
         android:id="@+id/iv_coin5"
@@ -259,11 +256,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin5"/>
 
-    <android.support.constraint.Group
-        android:id="@+id/itemGroup_6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="iv_coin6,tv_coin6,tv_cnt6" />
+    <ImageView
+        android:id="@+id/btn_item5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_coin4"/>
 
     <ImageView
         android:id="@+id/iv_coin6"
@@ -296,6 +294,13 @@
         android:gravity="center_vertical"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin6"/>
+
+    <ImageView
+        android:id="@+id/btn_item6"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_coin5"/>
 
 
     <Button

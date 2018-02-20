@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.constraint.Group;
 import android.support.v7.app.AlertDialog;
@@ -48,12 +49,12 @@ public class MyJewelBoxActivity extends AppCompatActivity {
     Button btn_sellJewely;
     Activity mActivity;
 
+    ImageView btn_item[] = new ImageView[7];
+
     ImageView img_item[] = new ImageView[7];
     TextView txt_item[] = new TextView[7];
     TextView txt_itemCnt[] = new TextView[7];
 
-
-    Group itemGroup[] = new Group[7];
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -62,6 +63,15 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_jewel_box);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mActivity = this;
+
+        btn_item[0] = (ImageView)findViewById(R.id.btn_item0);
+        btn_item[1] = (ImageView)findViewById(R.id.btn_item1);
+        btn_item[2] = (ImageView)findViewById(R.id.btn_item2);
+        btn_item[3] = (ImageView)findViewById(R.id.btn_item3);
+        btn_item[4] = (ImageView)findViewById(R.id.btn_item4);
+        btn_item[5] = (ImageView)findViewById(R.id.btn_item5);
+        btn_item[6] = (ImageView)findViewById(R.id.btn_item6);
+
 
         img_item[0] = (ImageView)findViewById(R.id.iv_coin0);
         img_item[1] = (ImageView)findViewById(R.id.iv_coin1);
@@ -86,14 +96,6 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         txt_itemCnt[4] = (TextView)findViewById(R.id.tv_cnt4);
         txt_itemCnt[5] = (TextView)findViewById(R.id.tv_cnt5);
         txt_itemCnt[6] = (TextView)findViewById(R.id.tv_cnt6);
-
-        itemGroup[0] = (Group)findViewById(R.id.itemGroup_0);
-        itemGroup[1] = (Group)findViewById(R.id.itemGroup_1);
-        itemGroup[2] = (Group)findViewById(R.id.itemGroup_2);
-        itemGroup[3] = (Group)findViewById(R.id.itemGroup_3);
-        itemGroup[4] = (Group)findViewById(R.id.itemGroup_4);
-        itemGroup[5] = (Group)findViewById(R.id.itemGroup_5);
-        itemGroup[6] = (Group)findViewById(R.id.itemGroup_6);
 
         SetMyItemStatus();
 /*        recyclerView = (RecyclerView)findViewById(R.id.rv_myjewel);
@@ -127,52 +129,61 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         btn_sellJewely.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowOpenBox(1,1);
+                ShowOpenBox(10,1);
             }
         });
 
-        itemGroup[0].setOnClickListener(new View.OnClickListener() {
+        for(int i = 0 ;i < 7; i++)
+        {
+            final int finalI = i;
+            btn_item[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mMyData.itemList.get(finalI) == 0)
+                        ShowOpenBox(1,0);
+                }
+            });
+        }
+
+
+   /*
+        btn_item[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mMyData.itemList.get(2) == 0)
+                    ShowOpenBox(1,0);
+            }
+        });
+        btn_item[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ShowOpenBox(1,0);
             }
         });
-        itemGroup[1].setOnClickListener(new View.OnClickListener() {
+        btn_item[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ShowOpenBox(1,0);
             }
         });
-        itemGroup[2].setOnClickListener(new View.OnClickListener() {
+        btn_item[4].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ShowOpenBox(1,0);
             }
         });
-        itemGroup[3].setOnClickListener(new View.OnClickListener() {
+        btn_item[5].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ShowOpenBox(1,0);
             }
         });
-        itemGroup[4].setOnClickListener(new View.OnClickListener() {
+        btn_item[6].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ShowOpenBox(1,0);
             }
-        });
-        itemGroup[5].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShowOpenBox(1,0);
-            }
-        });
-        itemGroup[6].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShowOpenBox(1,0);
-            }
-        });
+        });*/
 
      /*   btn_sellJewely.setOnClickListener(new View.OnClickListener() {
             @Override
