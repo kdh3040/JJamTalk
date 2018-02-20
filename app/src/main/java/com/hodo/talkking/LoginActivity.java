@@ -533,11 +533,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return;
         }
         Location location = service.getLastKnownLocation(provider);
-
-        mMyData.setUserLon(location.getLongitude());
-        mMyData.setUserLat(location.getLatitude());
-
         bMyLoc = true;
+        if(location != null)
+        {
+            mMyData.setUserLon(location.getLongitude());
+            mMyData.setUserLat(location.getLatitude());
+        }
+
         if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
 
             Log.d(TAG, "Account Log in  Complete");

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +48,8 @@ import com.hodo.talkking.Util.NotiFunc;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -209,7 +213,21 @@ public class UserPageActivity extends AppCompatActivity {
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(imgBestItem);*/
 
+/*
+if(mMyData.itemList.get(i) != 0)
+            {
+                Img_item[i].setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.MULTIPLY);
+                txt_item[i].setText(mMyData.itemList.get(i).toString() + "개");
+            }
+            else
+            {
+                Img_item[i].setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.MULTIPLY);
+                txt_item[i].setText("미 보유");
+
+            }
+ */
         btnRegister = findViewById(R.id.UserPage_btnRegister);
+        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.bee : R.drawable.favorite);
         btnRegister.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
         btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
         btnGiftHoney.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
@@ -266,7 +284,33 @@ public class UserPageActivity extends AppCompatActivity {
                         break;*/
 
                     case R.id.UserPage_btnRegister:
-                        buildAlertDialog(builder,"즐겨찾기에 등록할까요?", "즐겨찾기에 등록하시면"+ "\n" + "언제든 찾을 수 있죠!", "등록한다");
+
+                        CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                            public void YesListener() {
+                                if(mMyData.IsCardList(stTargetData.Idx) == false)
+                                    mMyData.makeCardList(stTargetData);
+                                else
+                                    mMyData.removeCardList(stTargetData);
+
+                                Fragment frg = null;
+                                frg = mFragmentMng.findFragmentByTag("CardListFragment");
+                                if(frg != null)
+                                {
+                                    final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                                    ft.detach(frg);
+                                    ft.attach(frg);
+                                    ft.commitAllowingStateLoss();
+                                }
+
+
+                                btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.bee : R.drawable.favorite);
+                            }
+                        };
+
+                        if(mMyData.IsCardList(stTargetData.Idx) == false)
+                            CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, listener, "즐겨찾기", "즐겨찾기에 등록하시면"+ "\n" + "언제든 찾을 수 있죠!", "등록한다", "아니요");
+                        else
+                            CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, listener, "즐겨찾기", "즐겨찾기를 취소하시겠습니까?", "취소한다", "아니요");
 
                         //ClickBtnSendHeart();
                         break;
@@ -1010,48 +1054,6 @@ public class UserPageActivity extends AppCompatActivity {
 
     }*/
 
-    private void buildAlertDialog(AlertDialog.Builder builder1, String s, String s1, String s2) {
-
-
-        View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_exit_app,null,false);
-
-        final AlertDialog dialog = builder1.setView(v).create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        //dialog.getWindow().setLayout(160, 150);
-        dialog.show();
-        //dialog.getWindow().setLayout(50, 50);
-
-        final Button btn_exit;
-        final Button btn_no;
-        final TextView tv_title;
-        final TextView tv_msg;
-
-        tv_title = v.findViewById(R.id.title);
-        tv_msg = v.findViewById(R.id.msg);
-
-        tv_title.setText(s);
-        tv_msg.setText(s1);
-
-        btn_exit = (Button) v.findViewById(R.id.btn_yes);
-        btn_exit.setText(s2);
-        btn_exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean rtValuew = mMyData.makeCardList(stTargetData);
-              // Toast.makeText(getApplicationContext(),rtValuew + "",Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        });
-
-        btn_no = (Button) v.findViewById(R.id.btn_no);
-        btn_no.setText("취소");
-        btn_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-    }
 
     public void getTargetfanData() {
 

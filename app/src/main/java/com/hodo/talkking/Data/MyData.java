@@ -1169,10 +1169,8 @@ public class MyData {
         table = database.getReference("User/" + getUserIdx());
 
 
-        for (int i = 0; i < arrCardNameList.size(); i++) {
-            if (arrCardNameList.get(i).equals(target.Idx))
-                return rtValue;
-        }
+        if(IsCardList(target.Idx))
+            return false;
 
         CommonFunc.getInstance().SetCardAlarmVisible(true);
         arrCardNameList.add(target.Idx);
@@ -1197,6 +1195,21 @@ public class MyData {
 
         return rtValue;
 
+    }
+    public void removeCardList(final UserData target) {
+
+        arrCardNameList.remove(target.Idx);
+        arrCarDataList.remove(target.Idx);
+    }
+
+
+    public boolean IsCardList(String idx) {
+        for (int i = 0; i < arrCardNameList.size(); i++) {
+            if (arrCardNameList.get(i).equals(idx))
+                return true;
+        }
+
+        return false;
     }
 
 
