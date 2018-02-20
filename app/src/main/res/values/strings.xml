@@ -32,6 +32,24 @@
     </string-array>
 
 
+    <string name="Item_0_text">클로버 소개 글</string>
+    <string name="Item_1_text">다이아 소개 글</string>
+    <string name="Item_2_text">하트 소개 글</string>
+    <string name="Item_3_text">스페이드 소개 글</string>
+    <string name="Item_4_text">잭 소개 글</string>
+    <string name="Item_5_text">퀸 소개 글</string>
+    <string name="Item_6_text">킹 소개 글</string>
+
+    <string-array name="OpenItem_text">
+        <item>클로버 소개 글</item>
+        <item>다이아 소개 글</item>
+        <item>하트 소개 글</item>
+        <item>스페이드 소개 글</item>
+        <item>잭 소개 글</item>
+        <item>퀸 소개 글</item>
+        <item>킹 소개 글</item>
+    </string-array>
+
     <string-array name="MyProfire_Age">
 
         <item>20</item>

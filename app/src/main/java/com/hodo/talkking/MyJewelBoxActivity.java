@@ -123,6 +123,8 @@ public class MyJewelBoxActivity extends Activity {
                 public void onClick(View view) {
                     if(mMyData.itemList.get(finalI) == 0)
                         ShowOpenBox(1,0);
+                    else
+                        ViewItem(finalI);
                 }
             });
         }
@@ -163,8 +165,22 @@ public class MyJewelBoxActivity extends Activity {
         }
     }
 
+    public void ViewItem(int Index)
+    {
+        CommonFunc.ShowBoxOpen_End endlistener = new CommonFunc.ShowBoxOpen_End() {
+            public void EndListener() {
+                refreshHearCnt();
+                SetMyItemStatus();
+            }
+        };
+
+        CommonFunc.getInstance().ViewBox(mActivity, Index, endlistener);
+    }
+
     public void ShowOpenBox(int count, int bonus)
     {
+
+
         CommonFunc.ShowBoxOpen_End endlistener = new CommonFunc.ShowBoxOpen_End() {
             public void EndListener() {
                 refreshHearCnt();
