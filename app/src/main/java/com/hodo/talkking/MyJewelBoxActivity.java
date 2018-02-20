@@ -148,11 +148,7 @@ public class MyJewelBoxActivity extends Activity {
     private void SetMyItemStatus() {
         for(int i = 0; i< 7; i++)
         {
-            Glide.with(getApplicationContext())
-                    .load(mUIData.getJewels()[i])
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(Img_item[i]);
-
+            Img_item[i].setImageResource(mUIData.getJewels()[i]);
             if(mMyData.itemList.get(i) != 0)
             {
                 Img_item[i].setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.MULTIPLY);
