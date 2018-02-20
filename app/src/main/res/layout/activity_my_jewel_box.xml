@@ -67,6 +67,18 @@
 
 
     <ImageView
+        android:id="@+id/bg_mid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bg_topbar"
+        app:srcCompat="@android:color/white" />
+
+    <ImageView
         android:id="@+id/btn_item0"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -79,7 +91,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_item1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bg_topbar" />
+        app:layout_constraintTop_toTopOf="@+id/bg_mid" />
 
     <ImageView
         android:id="@+id/btn_item1"
@@ -339,10 +351,11 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
 
+        android:layout_marginBottom="8dp"
         android:background="@drawable/base_btn_bg"
         android:text="상자 1개 열기"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/bg_bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/bg_mid"
         app:layout_constraintEnd_toStartOf="@+id/btn_sellJewely"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

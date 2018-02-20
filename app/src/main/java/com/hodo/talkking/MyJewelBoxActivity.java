@@ -137,7 +137,7 @@ public class MyJewelBoxActivity extends Activity {
     private void refreshHearCnt() {
         Img_Back.setVisibility(View.VISIBLE);
         Btn_Back.setVisibility(View.VISIBLE);
-        //Img_Coin.setVisibility(View.VISIBLE);
+        Img_Coin.setVisibility(View.VISIBLE);
         txt_Coin.setText(Integer.toString(mMyData.getUserHoney()));
     }
 
