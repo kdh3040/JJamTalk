@@ -85,6 +85,7 @@
         android:id="@+id/InputProfile_Age_1"
         android:layout_width="130dp"
         android:layout_height="40dp"
+        android:spinnerMode="dialog"
         android:entries="@array/MyProfire_Age"
         app:layout_constraintBottom_toBottomOf="@+id/tv_age"
         app:layout_constraintLeft_toLeftOf="@+id/InputProfile_NickName" />
@@ -110,6 +111,7 @@
         android:id="@+id/InputProfile_Gender_1"
         android:layout_width="130dp"
         android:layout_height="40dp"
+        android:spinnerMode="dialog"
         android:entries="@array/InputProfile_Gender"
         app:layout_constraintBottom_toBottomOf="@+id/textView_Gender"
         app:layout_constraintLeft_toLeftOf="@+id/InputProfile_NickName" />

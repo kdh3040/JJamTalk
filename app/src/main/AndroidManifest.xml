@@ -194,7 +194,7 @@
             android:label= "선물한 꿀"      android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hodo.talkking.MyJewelBoxActivity"
-            android:theme="@style/MyTheme"
+            android:theme="@style/NoTitleBar"
             android:parentActivityName="com.hodo.talkking.MyPageActivity"
             android:label="내 아이템"      android:screenOrientation="portrait"></activity>
     </application>
