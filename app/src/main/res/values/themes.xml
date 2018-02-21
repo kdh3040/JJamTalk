@@ -13,8 +13,8 @@
     </style>
 
     <style name= "MyTheme" parent="@style/Theme.AppCompat.DayNight">
-        <item name="colorPrimary">@color/gray_light</item>
-        <item name="colorPrimaryDark">@color/gray_dark</item>
+        <item name="colorPrimary">@color/goldColor</item>
+        <item name="colorPrimaryDark">@color/goldColorDark</item>
         <item name="colorAccent">@color/bambamcolor</item>
         <item name = "android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
         <item name = "titleTextColor">@color/black</item>

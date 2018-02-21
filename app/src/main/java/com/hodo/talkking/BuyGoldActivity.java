@@ -85,7 +85,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         loadRewardedVideoAd(getApplicationContext());
 
         txt_heartStatus = (TextView)findViewById(R.id.Heart_MyHeart);
-        txt_heartStatus.setText("보유 골드 : " + mMyData.getUserHoney());
+        txt_heartStatus.setText("보유 코인 : " + mMyData.getUserHoney());
 
         HeartChargeList = (ListView)findViewById(R.id.Heart_list);
 
@@ -94,23 +94,23 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         HeartItem mHeartItem;
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "10골드 1000원");
+        mHeartItem = new HeartItem(R.drawable.coin, "10코인 1000원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "32골드 3000원");
+        mHeartItem = new HeartItem(R.drawable.coin, "32코인 3000원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "55골드 4900원");
-        list.add(mHeartItem);
-
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "120골드 9900원");
+        mHeartItem = new HeartItem(R.drawable.coin, "55코인 4900원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "250골드 29000원");
+        mHeartItem = new HeartItem(R.drawable.coin, "120코인 9900원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "650골드 49000원");
+        mHeartItem = new HeartItem(R.drawable.coin, "250코인 19000원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.heart_icon, "1400하트 99000원");
+        mHeartItem = new HeartItem(R.drawable.coin, "650코인 49000원");
+        list.add(mHeartItem);
+
+        mHeartItem = new HeartItem(R.drawable.coin, "1400코인 99000원");
         list.add(mHeartItem);
 
 
@@ -125,7 +125,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(mMyData.mRewardedVideoAd.isLoaded() == false)
                 {
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 골드 충전", "하루에 한번만 충전 할 수 있습니다.");
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "하루에 한번만 충전 할 수 있습니다.");
                 }
                 else
                 {
@@ -134,7 +134,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                             if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastAdsTime()), 1440) == false)
                             {
                                 // TODO 환웅
-                                CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 골드 충전", "하루에 한번만 충전 할 수 있습니다.");
+                                CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "하루에 한번만 충전 할 수 있습니다.");
                                 return;
                             }
 
@@ -143,7 +143,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                         }
                     };
 
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, "무료 골드 충전", "광고를 보시고 " + mUIData.getAdReward()[mMyData.getGrade()] +"골드를 획득 하시겠습니까?", "예", "아니요");
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, "무료 코인 충전", "광고를 보시고 " + mUIData.getAdReward()[mMyData.getGrade()] +"코인을 획득 하시겠습니까?", "예", "아니요");
                 }
             }
         });
@@ -180,7 +180,7 @@ public class BuyGoldActivity extends AppCompatActivity {
 
     public void refreshHearCnt()
     {
-        txt_heartStatus.setText("보유 골드 : " + mMyData.getUserHoney());
+        txt_heartStatus.setText("보유 코인 : " + mMyData.getUserHoney());
     }
 
 
@@ -377,7 +377,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             @Override
             public void onRewarded(RewardItem reward) {
 
-                CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "보상", mUIData.getAdReward()[mMyData.getGrade()] + "골드를 획득 하였습니다.");
+                CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "보상", mUIData.getAdReward()[mMyData.getGrade()] + "코인을 획득 하였습니다.");
                 mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
                 refreshHearCnt();
                 // Reward the user.

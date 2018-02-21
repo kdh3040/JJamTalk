@@ -11,6 +11,7 @@
     <color name= "boardLikeColor">#ff0000</color>
     <color name= "boardBgColor">#ffffff</color>
     <color name ="goldColor">#ffd700</color>
+    <color name ="goldColorDark">#e1c52b</color>
     <color name= "myChatColor">#ffeb3b</color>
     <color name= "yourChatColor">#ffffff</color>
     <color name= "chatRoomBg">#c5cae9</color>
@@ -21,7 +22,8 @@
     <color name="et_bg">#f3ecff</color>
     <color name="et_line">#e4d8f7</color>
 <color name= "memoColor">#1976d2</color>
-
+    <color name= "menColor">#5fb9e6</color>
+    <color name= "womenColor">#ff47bc</color>
 <color name = "topColor">#000000</color>
     <color name = "alertop">#ffd700</color>
 <color name = "hotpink">#ffc0cb</color>

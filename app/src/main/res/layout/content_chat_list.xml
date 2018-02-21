@@ -110,7 +110,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/tv_nickname"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_profile"
-        app:srcCompat="@android:color/black" />
+        app:srcCompat="@color/gray" />
 
 
 </android.support.constraint.ConstraintLayout>
