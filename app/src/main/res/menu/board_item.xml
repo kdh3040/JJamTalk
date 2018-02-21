@@ -4,7 +4,7 @@
     <!-- 액션버튼  -->
     <item
         android:id="@+id/btn_report"
-        android:icon="@drawable/icon_report"
+        android:icon="@drawable/report"
         android:title="차단"
         app:showAsAction="always|withText" />
 
