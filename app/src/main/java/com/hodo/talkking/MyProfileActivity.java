@@ -65,6 +65,8 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class MyProfileActivity extends AppCompatActivity {
     private EditText et_Memo;
     private ImageView Img_Sum;
+    private Button change_nick;
+
     private ImageView[] Img_Profiles = new ImageView[4];
     private int nImgNumber;
     private Spinner Spinner_Age;
@@ -97,6 +99,7 @@ public class MyProfileActivity extends AppCompatActivity {
         Spinner_Age = (Spinner) findViewById(R.id.MyProfile_Age_1);
         String strUserAge = mMyData.getUserAge();
         int nUserAge = Integer.parseInt(strUserAge);
+
 
         nUserAge -= 20;
         Spinner_Age.setSelection(nUserAge);
@@ -204,7 +207,7 @@ public class MyProfileActivity extends AppCompatActivity {
                         popUp(3);
                         break;
                     //case R.id.MyProfile_Btn_Insta:
-                    case R.id.MyProfile_NickName:
+                    case R.id.change_nick:
                         LayoutInflater inflater = LayoutInflater.from(activity);
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         View view1 = inflater.inflate(R.layout.alert_send_msg, null);
@@ -281,8 +284,9 @@ public class MyProfileActivity extends AppCompatActivity {
         Img_Profiles[2].setOnClickListener(listener);
         Img_Profiles[3].setOnClickListener(listener);
 
-        et_NickName.setOnClickListener(listener);
-
+        //et_NickName.setOnClickListener(listener);
+        change_nick = findViewById(R.id.change_nick);
+        change_nick.setOnClickListener(listener);
         //Btn_Insta.setOnClickListener(listener);
 
         //Img_Profiles[4].setOnClickListener(listener);*/
@@ -310,7 +314,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(mMyData.strProfileImg[i])
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                        //.bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
             }
@@ -410,7 +414,7 @@ public class MyProfileActivity extends AppCompatActivity {
                         Glide.with(getApplicationContext())
                                 .load(mMyData.getUserProfileImg(nImgNumber))
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                                //.bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                                 .thumbnail(0.1f)
                                 .into(Img_Profiles[nImgNumber]);
 
@@ -466,7 +470,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(mMyData.getUserProfileImg(nImgNumber))
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                       // .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[nImgNumber]);
 
@@ -724,7 +728,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(mMyData.strProfileImg[i])
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                        //.bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
             }

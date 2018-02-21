@@ -19,7 +19,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nickname"
-        app:srcCompat="@color/chatRoomBg" />
+        app:srcCompat="@color/gray_light" />
 
     <ImageView
         android:id="@+id/profile"

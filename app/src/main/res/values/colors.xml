@@ -42,6 +42,7 @@
         <color name="black_light">#985b10</color>
         <color name="gray_dark">#424242</color>
         <color name="gray_light">#e0e0e0</color>
+    <color name = "gray_verylight">#f0f0f0</color>
         <color name="brown">#5d4037</color>
         <color name="colorPrimaryTrans">#40ffffff</color>
 

@@ -19,9 +19,9 @@
         android:translationZ="5dp"
 
         android:background="@android:color/transparent"
-        app:tabIndicatorColor="@color/tabTextColor"
-        app:tabSelectedTextColor="@color/tabTextColor"
-        app:tabTextColor="@android:color/black" />
+        app:tabIndicatorColor="@color/gray_dark"
+        app:tabSelectedTextColor="@color/gray_dark"
+        app:tabTextColor="@color/gray" />
     <!--app:tabBackground="@color/tabBackground"-->
 
 
