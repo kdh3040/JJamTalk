@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/black</item>
 
@@ -100,7 +100,7 @@
 
     <style name = "NoTitleBar" parent="Theme.AppCompat.Light" >
         <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/goldColorDark</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--<item name="android:buttonStyle">@style/button</item>-->
         <item name ="windowNoTitle">true</item>

@@ -130,7 +130,10 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="com.hodo.talkking.BuyGoldActivity"       android:screenOrientation="portrait"/>
+        <activity android:name="com.hodo.talkking.BuyGoldActivity"
+            android:screenOrientation="portrait"
+            android:label="코인 충전"
+            />
         <activity android:name="com.hodo.talkking.ImageActivity"
             android:theme ="@style/NoTitleBar"
             android:screenOrientation="portrait"/>
