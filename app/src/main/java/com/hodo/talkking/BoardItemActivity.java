@@ -57,7 +57,7 @@ public class BoardItemActivity extends AppCompatActivity {
         // 댓글 리스트 추가
         BoardUIList = (ListView) findViewById(R.id.listview_board_reply);
         BoardReplyListAdapter = new BoardReplyListAdapter(getApplicationContext());
-        BoardUIList.addHeaderView(getLayoutInflater().inflate(R.layout.header_board_item, null, false));
+        //BoardUIList.addHeaderView(getLayoutInflater().inflate(R.layout.header_board_item, null, false));
         BoardUIList.addFooterView(getLayoutInflater().inflate(R.layout.footer_board_item, null, false));
         BoardUIList.setAdapter(BoardReplyListAdapter);
 
@@ -72,10 +72,10 @@ public class BoardItemActivity extends AppCompatActivity {
         BoardMsgDBData dbData = mBoardClientData.GetDBData();
 
         MasterName = (TextView) findViewById(R.id.tv_nickname);
-        MasterInfo = (TextView) findViewById(R.id.tv_info);
+        //MasterInfo = (TextView) findViewById(R.id.tv_info);
         BoardWriteDate = (TextView) findViewById(R.id.tv_date);
         BoardNote = (TextView) findViewById(R.id.tv_chat);
-        BoardViewCount = (TextView) findViewById(R.id.tv_pagecount);
+        //BoardViewCount = (TextView) findViewById(R.id.tv_pagecount);
         MasterProfile = (ImageView)findViewById(R.id.iv_profile);
 
         MasterName.setText(dbData.NickName);
@@ -88,7 +88,7 @@ public class BoardItemActivity extends AppCompatActivity {
     }
 
     private void SetHeaderButtonData() {
-        LikeButton = (ImageButton) findViewById(R.id.ib_vote_like);
+        /*LikeButton = (ImageButton) findViewById(R.id.ib_vote_like);
         LikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,9 +103,9 @@ public class BoardItemActivity extends AppCompatActivity {
 
                     mFireBaseData.SaveBoardLikeData(mBoardClientData.GetDBData().Key, sendData);
                     mBoardClientData.LikeCnt++;
-                }*/
+                }
             }
-        });
+        });*/
     }
 
     private void SetFooterButtonData() {
