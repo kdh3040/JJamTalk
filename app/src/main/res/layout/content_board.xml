@@ -68,12 +68,11 @@
         android:id="@+id/board_msg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
         android:maxLength="30"
         android:minHeight="50dp"
         android:text="본문"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/gray"
         app:layout_constraintLeft_toLeftOf="@id/board_writer"
         app:layout_constraintRight_toLeftOf="@+id/board_write_date"
         app:layout_constraintTop_toBottomOf="@+id/board_writer" />
@@ -92,9 +91,9 @@
 
     <ImageButton
         android:id="@+id/board_report"
-        android:layout_width="30dp"
+        android:layout_width="20dp"
         android:layout_height="0dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
@@ -109,14 +108,12 @@
     <ImageView
         android:id="@+id/divider"
         android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_height="1dp"
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/board_msg"
-        app:srcCompat="@color/gray" />
+        app:srcCompat="@color/gray_light" />
 
 
 
