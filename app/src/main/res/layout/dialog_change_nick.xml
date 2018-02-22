@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/divider"
+        android:id="@+id/divider_fan"
         android:layout_width="0dp"
         android:layout_height="3dp"
         app:layout_constraintLeft_toLeftOf="parent"

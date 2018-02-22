@@ -466,7 +466,7 @@ if(mMyData.itemList.get(i) != 0)
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                         int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                         btn_gift_send.setEnabled(false);
-                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                        Msg.setText("코인이 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);

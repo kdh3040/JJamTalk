@@ -14,10 +14,10 @@
         android:id="@+id/bg"
         android:layout_width="0dp"
         android:layout_height="430dp"
+        android:background="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/dialog_bg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/title"
@@ -25,61 +25,52 @@
 
         android:layout_height="50dp"
 
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/rounded_top_dialog"
+        android:background="@color/alertopAlpha1"
         android:gravity="center"
-        android:text="하트 날리기"
+        android:text="하트 날려서 팬이 되어보세요!"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView
-        android:id="@+id/imageView35"
-        android:layout_width="0dp"
-        android:layout_height="3dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:srcCompat="@android:color/black" />
-
     <Button
         android:id="@+id/HeartPop_10"
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/pink_btn_bg"
-        android:drawablePadding="5dp"
+        android:background="@drawable/heart"
 
+        android:drawablePadding="5dp"
         android:text="10"
+        android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/HeartPop_30"
-        app:layout_constraintTop_toBottomOf="@+id/imageView35" />
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <Button
         android:id="@+id/HeartPop_30"
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:background="@drawable/pink_btn_bg"
+        android:background="@drawable/heart"
         android:text="30"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/HeartPop_10"
         app:layout_constraintLeft_toRightOf="@+id/HeartPop_10"
         app:layout_constraintRight_toLeftOf="@id/HeartPop_50" />
 
     <Button
         android:id="@+id/HeartPop_50"
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/pink_btn_bg"
+        android:background="@drawable/heart"
         android:text="50"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/HeartPop_10"
         app:layout_constraintLeft_toRightOf="@+id/HeartPop_30"
         app:layout_constraintRight_toRightOf="parent" />
@@ -87,34 +78,37 @@
 
     <Button
         android:id="@+id/HeartPop_100"
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
 
         android:layout_marginTop="8dp"
-        android:background="@drawable/pink2_btn_bg"
+        android:background="@drawable/heart"
         android:text="100"
+        android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="@+id/HeartPop_10"
         app:layout_constraintRight_toRightOf="@+id/HeartPop_10"
         app:layout_constraintTop_toBottomOf="@+id/HeartPop_10" />
 
     <Button
         android:id="@+id/HeartPop_300"
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
 
-        android:background="@drawable/pink2_btn_bg"
+        android:background="@drawable/heart"
         android:text="300"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/HeartPop_100"
         app:layout_constraintLeft_toLeftOf="@+id/HeartPop_30"
         app:layout_constraintRight_toRightOf="@+id/HeartPop_30" />
 
     <Button
         android:id="@+id/HeartPop_500"
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
 
-        android:background="@drawable/pink_btn_bg"
+        android:background="@drawable/heart"
         android:text="500"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/HeartPop_100"
         app:layout_constraintLeft_toLeftOf="@+id/HeartPop_50"
         app:layout_constraintRight_toRightOf="@+id/HeartPop_50" />

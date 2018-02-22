@@ -61,7 +61,7 @@
         android:layout_weight="1"
         android:text="글쓴 날자"
         android:textColor="@android:color/darker_gray"
-        app:layout_constraintRight_toRightOf="@+id/divider"
+        app:layout_constraintRight_toRightOf="@+id/divider_fan"
         app:layout_constraintTop_toTopOf="@+id/board_thumnail" />
 
     <TextView
@@ -100,13 +100,13 @@
 
 
         app:layout_constraintBottom_toBottomOf="@+id/board_thumnail"
-        app:layout_constraintRight_toRightOf="@+id/divider"
+        app:layout_constraintRight_toRightOf="@+id/divider_fan"
         app:layout_constraintTop_toBottomOf="@+id/board_write_date"
         app:srcCompat="@drawable/report" />
 
 
     <ImageView
-        android:id="@+id/divider"
+        android:id="@+id/divider_fan"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"

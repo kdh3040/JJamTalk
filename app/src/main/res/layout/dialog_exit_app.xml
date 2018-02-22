@@ -35,7 +35,7 @@
         android:id="@+id/Divide_Btn"
         style="@style/AlertDivider"
 
-        />
+        android:background="@color/goldColor" />
 
     <TextView
         android:id="@+id/msg"

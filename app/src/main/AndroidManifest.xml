@@ -77,7 +77,7 @@
         <activity android:name="com.hodo.talkking.MyProfileActivity"
             android:parentActivityName="com.hodo.talkking.MyPageActivity"
             android:theme="@style/MyTheme"
-            android:label="프로필 설정"
+            android:label="프로필"
             android:screenOrientation="portrait"
             />
         <activity android:name="com.hodo.talkking.MyPageActivity"
