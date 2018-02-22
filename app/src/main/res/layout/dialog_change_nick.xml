@@ -14,7 +14,7 @@
         android:id="@+id/bg_bottom"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/dialog_bg"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/imageView24"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -25,10 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
 
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/rounded_top_dialog"
+        android:background="@color/alertopAlpha1"
         android:gravity="center"
         android:text="쪽지 쓰기"
         android:textColor="@color/black"
@@ -37,15 +34,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/divider_fan"
-        android:layout_width="0dp"
-        android:layout_height="3dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@color/goldColor" />
 
 
     <EditText
@@ -94,7 +82,7 @@
         android:layout_margin="20dp"
 
 
-        android:background="@drawable/base_btn_bg"
+        android:background="@drawable/blue_btn_bg"
         android:text="보낸다"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -107,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
 
-        android:background="@drawable/base_btn_bg"
+        android:background="@drawable/red_btn_bg"
 
         android:text="취소"
         android:textColor="@color/black"

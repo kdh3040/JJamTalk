@@ -132,7 +132,7 @@
         android:layout_marginStart="8dp"
         android:gravity="center_vertical|start"
         android:text="0"
-        android:textColor="@android:color/black"
+        android:textColor="@color/goldColorDark"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/coin_charge"
