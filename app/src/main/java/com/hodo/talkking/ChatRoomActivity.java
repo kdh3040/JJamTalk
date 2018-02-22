@@ -4,25 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,7 +54,6 @@ import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.NotiFunc;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -71,8 +63,6 @@ import java.util.Map;
 import gun0912.tedbottompicker.TedBottomPicker;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
-import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
-import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_CHAT;
 import static com.hodo.talkking.MainActivity.mFragmentMng;
 import static com.hodo.talkking.MyProfileActivity.calculateInSampleSize;
 
@@ -310,7 +300,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         setTitle(stTargetData.NickName);
 
         boolean btnSendEnable = true;
-        txt_msg = (EditText)findViewById(R.id.et_msg);
+        txt_msg = (EditText)findViewById(R.id.et_nick);
 
 
 /*        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, tempChatData.Msg, tempChatData.Date, "");
@@ -944,10 +934,10 @@ public class ChatRoomActivity extends AppCompatActivity {
                     final TextView Msg = giftView.findViewById(R.id.textView);
                     Msg.setText("메세지 전송 실패");
 
-                    final EditText Edit = giftView.findViewById(R.id.et_msg);
+                    final EditText Edit = giftView.findViewById(R.id.et_nick);
                     Edit.setVisibility(View.GONE);
 
-                    final TextView Body = giftView.findViewById(R.id.textView4);
+                    final TextView Body = giftView.findViewById(R.id.tv_change_nick);
                     Body.setText("당신은 차단 되었습니다");
 
                     final Button OK = giftView.findViewById(R.id.btn_send);

@@ -13,8 +13,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -26,7 +24,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -377,10 +374,10 @@ if(mMyData.itemList.get(i) != 0)
                             final TextView Msg = giftView.findViewById(R.id.textView);
                             Msg.setText("날리기 실패");
 
-                            final EditText Edit = giftView.findViewById(R.id.et_msg);
+                            final EditText Edit = giftView.findViewById(R.id.et_nick);
                             Edit.setVisibility(View.GONE);
 
-                            final TextView Body = giftView.findViewById(R.id.textView4);
+                            final TextView Body = giftView.findViewById(R.id.tv_change_nick);
                             Body.setText("당신은 차단 되었습니다");
 
                             final Button OK = giftView.findViewById(R.id.btn_send);
@@ -410,10 +407,10 @@ if(mMyData.itemList.get(i) != 0)
                             final TextView Msg = giftView.findViewById(R.id.textView);
                             Msg.setText("날리기 실패");
 
-                            final EditText Edit = giftView.findViewById(R.id.et_msg);
+                            final EditText Edit = giftView.findViewById(R.id.et_nick);
                             Edit.setVisibility(View.GONE);
 
-                            final TextView Body = giftView.findViewById(R.id.textView4);
+                            final TextView Body = giftView.findViewById(R.id.tv_change_nick);
                             Body.setText("당신이 차단한 상대입니다");
 
                             final Button OK = giftView.findViewById(R.id.btn_send);
@@ -664,10 +661,10 @@ if(mMyData.itemList.get(i) != 0)
                             final TextView Msg = giftView.findViewById(R.id.textView);
                             Msg.setText("수신 거부 알림");
 
-                            final EditText Edit = giftView.findViewById(R.id.et_msg);
+                            final EditText Edit = giftView.findViewById(R.id.et_nick);
                             Edit.setVisibility(View.GONE);
 
-                            final TextView Body = giftView.findViewById(R.id.textView4);
+                            final TextView Body = giftView.findViewById(R.id.tv_change_nick);
                             Body.setText("상대방이 쪽지 수신을" + "\n" +"거부 하였습니다");
 
                             final Button OK = giftView.findViewById(R.id.btn_send);
@@ -717,10 +714,10 @@ if(mMyData.itemList.get(i) != 0)
                                 final TextView Msg = giftView.findViewById(R.id.textView);
                                 Msg.setText("날리기 실패");
 
-                                final EditText Edit = giftView.findViewById(R.id.et_msg);
+                                final EditText Edit = giftView.findViewById(R.id.et_nick);
                                 Edit.setVisibility(View.GONE);
 
-                                final TextView Body = giftView.findViewById(R.id.textView4);
+                                final TextView Body = giftView.findViewById(R.id.tv_change_nick);
                                 Body.setText("당신은 차단 되었습니다");
 
                                 final Button OK = giftView.findViewById(R.id.btn_send);
@@ -750,10 +747,10 @@ if(mMyData.itemList.get(i) != 0)
                                 final TextView Msg = giftView.findViewById(R.id.textView);
                                 Msg.setText("날리기 실패");
 
-                                final EditText Edit = giftView.findViewById(R.id.et_msg);
+                                final EditText Edit = giftView.findViewById(R.id.et_nick);
                                 Edit.setVisibility(View.GONE);
 
-                                final TextView Body = giftView.findViewById(R.id.textView4);
+                                final TextView Body = giftView.findViewById(R.id.tv_change_nick);
                                 Body.setText("당신이 차단한 상대입니다");
 
                                 final Button OK = giftView.findViewById(R.id.btn_send);
@@ -802,7 +799,7 @@ if(mMyData.itemList.get(i) != 0)
                                 else {
                                     View view1 = inflater.inflate(R.layout.alert_send_msg, null);
                                     Button btn_cancel = view1.findViewById(R.id.btn_cancel);
-                                    final EditText et_msg = view1.findViewById(R.id.et_msg);
+                                    final EditText et_msg = view1.findViewById(R.id.et_nick);
 
                                     builder.setView(view1);
 

@@ -1,17 +1,12 @@
 package com.hodo.talkking;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -35,13 +30,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
-import com.hodo.talkking.Data.ChatData;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UserData;
@@ -49,14 +40,8 @@ import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.Util.CommonFunc;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import gun0912.tedbottompicker.TedBottomPicker;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by mjk on 2017. 8. 5..
@@ -210,9 +195,9 @@ public class MyProfileActivity extends AppCompatActivity {
                     case R.id.change_nick:
                         LayoutInflater inflater = LayoutInflater.from(activity);
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                        View view1 = inflater.inflate(R.layout.alert_send_msg, null);
+                        View view1 = inflater.inflate(R.layout.dialog_change_nick, null);
                         Button btn_cancel = view1.findViewById(R.id.btn_cancel);
-                        final EditText et_msg = view1.findViewById(R.id.et_msg);
+                        final EditText et_msg = view1.findViewById(R.id.et_nick);
 
                         et_msg.setHint("(8글자 이내)");
                         int maxLengthofEditText = 8;
@@ -221,8 +206,8 @@ public class MyProfileActivity extends AppCompatActivity {
                         TextView title = (TextView)view1.findViewById(R.id.textView);
                         title.setText("닉네임 변경");
 
-                        TextView body = (TextView)view1.findViewById(R.id.textView4);
-                        body.setText("닉네임 변경은 50골드가 필요합니다");
+                        TextView body = (TextView)view1.findViewById(R.id.tv_change_nick);
+                        body.setText("닉네임 변경 시 50코인이 소모됩니다");
 
                         builder.setView(view1);
 
@@ -237,11 +222,12 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         });
                         Button btn_send = view1.findViewById(R.id.btn_send);
+/*
 
-                        if(mMyData.getUserHoney() < 50)
-                        {
-                            btn_send.setText("골드 구매");
-                            btn_send.setOnClickListener(new View.OnClickListener() {
+
+
+                           btn_send.setText("코인 구매");
+                           btn_send.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     startActivity(new Intent(activity, BuyGoldActivity.class));
@@ -250,12 +236,20 @@ public class MyProfileActivity extends AppCompatActivity {
                             });
                         }
                         else
-                        {
-                            btn_send.setText("변경");
+                        {*/
+                        btn_send.setText("변경");
 
-                            btn_send.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                        btn_send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                if(mMyData.getUserHoney() < 50)
+                                    {
+
+                                    Toast.makeText(getApplicationContext(),"코인이 부족합니다.",Toast.LENGTH_SHORT).show();
+                                }else
+                                    {
+
                                     String strMemo = et_msg.getText().toString();
                                     strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
 
@@ -265,18 +259,22 @@ public class MyProfileActivity extends AppCompatActivity {
                                     mMyData.setUserHoney(mMyData.getUserHoney() - 50);
                                     mMyData.setUserNick(strMemo);
                                     et_NickName.setText(strMemo);
-
+                                        Toast.makeText(getApplicationContext(),"닉네임 변경 완료!",Toast.LENGTH_SHORT).show();
                                     msgDialog.dismiss();
+
+                                    }
                                 }
                             });
+                        break;
                         }
 
-                        break;
+
+
                         //break;
 
                 }
-            }
-        };
+            };
+
 
         Img_Sum.setOnClickListener(listener);
         Img_Profiles[0].setOnClickListener(listener);

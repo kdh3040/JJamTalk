@@ -26,6 +26,8 @@
     <color name= "womenColor">#ff47bc</color>
 <color name = "topColor">#000000</color>
     <color name = "alertop">#ffd700</color>
+    <color name = "alertopAlpha1">#33ffd700</color>
+    <color name = "alertopAlpha">#11ffd700</color>
 <color name = "hotpink">#ffc0cb</color>
     <color name = "lightpink">#ffb6c1</color>
 
