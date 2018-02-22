@@ -435,7 +435,7 @@ if(mMyData.itemList.get(i) != 0)
                             final AlertDialog gold_Dialog = builder.create();
                             gold_Dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                             gold_Dialog.show();
-
+                            final TextView coin_size = giftView.findViewById(R.id.tv_coin);
                             //TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
                             Button btnHeartCharge = giftView.findViewById(R.id.HeartPop_Charge);
                             Button btnHeart100 = giftView.findViewById(R.id.HeartPop_10);
@@ -445,7 +445,8 @@ if(mMyData.itemList.get(i) != 0)
                             Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_300);
                             Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_500);
                             final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
-                            Msg.setText("현재 보유 골드는 "+String.valueOf(mMyData.getUserHoney())+"골드 입니다." );
+                            coin_size.setText(String.valueOf(mMyData.getUserHoney()));
+                            //Msg.setText("현재 보유 골드는 "+String.valueOf(mMyData.getUserHoney())+"골드 입니다." );
 
                             //tvHeartCnt.setText("보유 골드: " + Integer.toString(mMyData.getUserHoney()));
                             //Msg.setText("100개의 꿀을 보내시겠습니까?");
@@ -466,11 +467,11 @@ if(mMyData.itemList.get(i) != 0)
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                         int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                         btn_gift_send.setEnabled(false);
-                                        Msg.setText("코인이 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"골드 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
                                     }
 
                                 }
@@ -483,11 +484,11 @@ if(mMyData.itemList.get(i) != 0)
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                         int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                         btn_gift_send.setEnabled(false);
-                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?("+nSendHoneyCnt[0]+"코인 필요)");
                                     }
 
                                 }
@@ -500,11 +501,11 @@ if(mMyData.itemList.get(i) != 0)
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                         int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                         btn_gift_send.setEnabled(false);
-                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 필요)");
                                     }
 
                                 }
@@ -517,11 +518,11 @@ if(mMyData.itemList.get(i) != 0)
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                         int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                         btn_gift_send.setEnabled(false);
-                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 필요)");
                                     }
 
                                 }
@@ -534,11 +535,11 @@ if(mMyData.itemList.get(i) != 0)
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                         int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                         btn_gift_send.setEnabled(false);
-                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까? ("+nSendHoneyCnt[0]+"코인 필요)");
                                     }
                                 }
                             });
@@ -550,11 +551,11 @@ if(mMyData.itemList.get(i) != 0)
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                         int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
                                         btn_gift_send.setEnabled(false);
-                                        Msg.setText("골드가 부족합니다. ("+String.valueOf(nPrice)+"골드 필요)" );
+                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"골드 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 필요)");
                                     }
 
                                 }
