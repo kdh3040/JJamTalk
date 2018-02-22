@@ -42,7 +42,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="50dp"
         android:gravity="center_vertical"
-        android:text="현재 보유 :"
+        android:text="현재 코인 :"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
@@ -160,6 +160,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:textColor="@android:color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeartPop_500" />

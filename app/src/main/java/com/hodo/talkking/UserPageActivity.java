@@ -471,7 +471,7 @@ if(mMyData.itemList.get(i) != 0)
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 소모)");
                                     }
 
                                 }
@@ -488,7 +488,7 @@ if(mMyData.itemList.get(i) != 0)
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?("+nSendHoneyCnt[0]+"코인 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?("+nSendHoneyCnt[0]+"코인 소모)");
                                     }
 
                                 }
@@ -505,7 +505,7 @@ if(mMyData.itemList.get(i) != 0)
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 소모)");
                                     }
 
                                 }
@@ -522,7 +522,7 @@ if(mMyData.itemList.get(i) != 0)
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 소모)");
                                     }
 
                                 }
@@ -539,7 +539,7 @@ if(mMyData.itemList.get(i) != 0)
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까? ("+nSendHoneyCnt[0]+"코인 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까? ("+nSendHoneyCnt[0]+"코인 소모)");
                                     }
                                 }
                             });
@@ -555,7 +555,7 @@ if(mMyData.itemList.get(i) != 0)
                                     }
                                     else {
                                         btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 필요)");
+                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 소모)");
                                     }
 
                                 }
