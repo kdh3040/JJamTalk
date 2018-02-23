@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
         nStartFragment = (int) bundle.getSerializable("StartFragment");
 
         logo = findViewById(R.id.iv_logo);
-        
+
 
 
         iv_myPage = findViewById(R.id.iv_mypage);
