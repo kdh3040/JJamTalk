@@ -14,7 +14,7 @@
 
     <style name= "MyTheme" parent="@style/Theme.AppCompat.DayNight">
         <item name="colorPrimary">@color/Green</item>
-        <item name="colorPrimaryDark">@color/GreenDark</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
         <item name="colorAccent">@color/bambamcolor</item>
         <item name = "android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
         <item name = "titleTextColor">@android:color/white</item>
