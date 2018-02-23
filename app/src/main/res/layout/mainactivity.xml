@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView33"
+        android:id="@+id/iv_logo"
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:scaleType="centerCrop"

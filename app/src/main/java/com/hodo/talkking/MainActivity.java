@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView ib_home;
     ImageView iv_refresh;
 
+    ImageView logo;
+
     TextView tv_MainTitle;
     LinearLayout layout_lowbar,layout_topbar;
     BoardFragment boardFragment;
@@ -305,6 +307,10 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         nStartFragment = (int) bundle.getSerializable("StartFragment");
+
+        logo = findViewById(R.id.iv_logo);
+        
+
 
         iv_myPage = findViewById(R.id.iv_mypage);
         txt_title = findViewById(R.id.txt_title);
