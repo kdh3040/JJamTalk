@@ -33,8 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/yellow_btn_bg"
-            android:text="무료충전" />
+            android:background="@drawable/purple_btn_bg"
+            android:text="무료충전"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btn_Free_2"

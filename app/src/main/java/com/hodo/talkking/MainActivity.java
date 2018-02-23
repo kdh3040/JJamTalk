@@ -821,6 +821,7 @@ public class MainActivity extends AppCompatActivity {
                 //ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
                 setImageAlpha(255,100,100,100,100);
+                ib_home.setImageResource(R.drawable.icon_home_dark);
 
                 view.setSelected(!view.isSelected());
                 if(view.isSelected()){
@@ -864,6 +865,7 @@ public class MainActivity extends AppCompatActivity {
 
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,100,255);
+                ib_board.setImageResource(R.drawable.board_dark);
 
 
             }
@@ -885,6 +887,7 @@ public class MainActivity extends AppCompatActivity {
                 view.setSelected(!view.isSelected());
 
                 setImageAlpha(100,255,100,100,100);
+                ib_cardList.setImageResource(R.drawable.favor_dark);
 
                 if(view.isSelected()){
                     int a = 0;
@@ -924,6 +927,7 @@ public class MainActivity extends AppCompatActivity {
                // getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,255,100,100);
+                ib_chatList.setImageResource(R.drawable.chat_icon_dark);
                 /*
 
                 ib_fan.setImageResource(R.drawable.btn_fan_normal);
@@ -1318,13 +1322,13 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void setImageAlpha(int home, int card, int chat, int fan, int board ){
-        ib_fan.setImageAlpha(fan);
+        /*ib_fan.setImageAlpha(fan);
         ib_board.setImageAlpha(board);
         ib_chatList.setImageAlpha(chat);
         ib_cardList.setImageAlpha(card);
-        ib_home.setImageAlpha(home);
+        ib_home.setImageAlpha(home);*/
 
-
+//ib_fan.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
     }
 

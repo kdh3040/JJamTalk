@@ -144,9 +144,9 @@
         android:layout_width="118dp"
         android:layout_height="40dp"
         android:layout_marginLeft="16dp"
-
+        android:textColor="@android:color/white"
         android:layout_marginRight="16dp"
-        android:background="@drawable/yellow_btn_bg"
+        android:background="@drawable/purple_btn_bg"
         android:text="코인충전하기"
         app:layout_constraintBaseline_toBaselineOf="@+id/coin"
         app:layout_constraintLeft_toRightOf="@+id/coin"

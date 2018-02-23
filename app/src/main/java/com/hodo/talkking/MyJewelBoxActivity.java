@@ -121,10 +121,11 @@ public class MyJewelBoxActivity extends Activity {
             Btn_item[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(mMyData.itemList.get(finalI) == 0)
-                        ShowOpenBox(1,0);
-                    else
-                        ViewItem(finalI);
+                    if(mMyData.itemList.get(finalI) == 0){
+                        //ShowOpenBox(1,0);
+                         }
+                    else{
+                        ViewItem(finalI);}
                 }
             });
         }

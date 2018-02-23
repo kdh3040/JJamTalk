@@ -4,17 +4,68 @@
     android:id="@+id/relativeLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/boardNickColor">
+    android:background="@android:color/white">
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chat_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/edt_layout"
+        android:layout_above="@+id/imageView14"
         android:layout_alignParentTop="true">
 
     </android.support.v7.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/et_nick"
+        android:layout_weight="1"
+        app:srcCompat="@android:color/white" />
+
+    <Button
+        android:id="@+id/btn_plus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/purple_stroke_btn_bg"
+        android:gravity="center"
+        android:text="+"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/purple_btn_bg"
+        android:text="전송"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/et_nick"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_vertical"
+        android:layout_toLeftOf="@+id/btn_send"
+        android:layout_toRightOf="@+id/btn_plus"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:hint="(100자 이내)"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="100"
+        android:maxLines="5"
+        android:minHeight="50dp"
+        android:minLines="1" />
 
 
     <!--
@@ -34,72 +85,6 @@
         android:layout_weight="9">
     </FrameLayout>
 -->
-
-    <LinearLayout
-        android:id="@+id/edt_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:background="@android:color/white"
-        android:orientation="horizontal"
-        android:weightSum="10">
-
-        <!--
-        <ImageView
-            android:id="@+id/bg"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/et_msg"
-            app:srcCompat="@android:color/white" />
--->
-
-        <Button
-            android:id="@+id/btn_plus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:text="+"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/et_nick"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center_vertical"
-            android:layout_toLeftOf="@+id/btn_send"
-            android:layout_toRightOf="@+id/btn_plus"
-            android:layout_weight="7"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:hint="(100자 이내)"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="100"
-            android:maxLines="5"
-            android:minLines="1" />
-
-        <Button
-            android:id="@+id/btn_send"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            android:layout_weight="2"
-            android:background="@drawable/base_btn_bg"
-            android:text="전송" />
-
-    </LinearLayout>
 
 
 </RelativeLayout>
