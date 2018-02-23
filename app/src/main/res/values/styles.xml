@@ -107,6 +107,12 @@
 
     </style>
 
+    <style name="PrimaryButton" parent="Theme.AppCompat">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:shape">oval</item>
+    </style>
+
     <style name = "setting" parent="Theme.AppCompat.Light" >
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/gray</item>

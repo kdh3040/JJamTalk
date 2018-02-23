@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -274,6 +276,7 @@ if(mMyData.itemList.get(i) != 0)
             LayoutInflater inflater = LayoutInflater.from(mActivity);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
@@ -282,8 +285,10 @@ if(mMyData.itemList.get(i) != 0)
                         break;*/
 
                     case R.id.UserPage_btnRegister:
+                        
 
                         CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                             public void YesListener() {
                                 if(mMyData.IsCardList(stTargetData.Idx) == false)
                                     mMyData.makeCardList(stTargetData);
