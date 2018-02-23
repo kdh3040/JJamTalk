@@ -914,8 +914,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CommonFunc.getInstance().SetChatAlarmVisible(false);
                 iv_myPage.setVisibility(View.GONE);
-                txt_title.setVisibility(TextView.VISIBLE);
-                txt_title.setText("채팅 목록");
+                //txt_title.setVisibility(TextView.VISIBLE);
+                //txt_title.setText("채팅 목록");
                 mMyData.SetCurFrag(2);
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
