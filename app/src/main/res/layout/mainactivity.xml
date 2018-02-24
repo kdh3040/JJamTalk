@@ -99,7 +99,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/bg_topbar"
         app:layout_constraintRight_toLeftOf="@+id/iv_myboardwrite"
         app:layout_constraintTop_toTopOf="@+id/bg_topbar"
-        app:srcCompat="@drawable/pencil"></ImageView>
+        app:srcCompat="@drawable/write"></ImageView>
 
     <Button
         android:id="@+id/iv_myboardwrite"
@@ -190,7 +190,7 @@
         app:layout_constraintLeft_toRightOf="@+id/ib_cardlist"
         app:layout_constraintRight_toLeftOf="@+id/ib_fan"
         app:layout_constraintTop_toTopOf="@+id/bg_bottom"
-        app:srcCompat="@drawable/chat_icon"></ImageButton>
+        app:srcCompat="@drawable/chat"></ImageButton>
 
     <ImageView
         android:id="@+id/alarm_chat"
@@ -214,7 +214,7 @@
         app:layout_constraintLeft_toRightOf="@+id/ib_chatlist"
         app:layout_constraintRight_toLeftOf="@+id/ib_board"
         app:layout_constraintTop_toTopOf="@+id/bg_bottom"
-        app:srcCompat="@drawable/ic_fan"></ImageButton>
+        app:srcCompat="@drawable/myfan"></ImageButton>
 
     <ImageView
         android:id="@+id/alarm_fan"

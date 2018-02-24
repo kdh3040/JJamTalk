@@ -819,6 +819,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 iv_myPage.setVisibility(View.VISIBLE);
+                logo.setVisibility(View.VISIBLE);
                 txt_title.setVisibility(TextView.GONE);
 
                 mMyData.SetCurFrag(0);
@@ -860,6 +861,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 iv_myPage.setVisibility(View.GONE);
+                logo.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("게시판");
                 mMyData.SetCurFrag(4);
@@ -883,6 +885,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 iv_myPage.setVisibility(View.GONE);
+                logo.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("즐겨찾기");
                 mMyData.SetCurFrag(1);
@@ -914,8 +917,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CommonFunc.getInstance().SetChatAlarmVisible(false);
                 iv_myPage.setVisibility(View.GONE);
+                logo.setVisibility(View.GONE);
                 //txt_title.setVisibility(TextView.VISIBLE);
-                //txt_title.setText("채팅 목록");
+                txt_title.setText("채팅 목록");
                 mMyData.SetCurFrag(2);
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
@@ -933,7 +937,7 @@ public class MainActivity extends AppCompatActivity {
                // getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,255,100,100);
-                ib_chatList.setImageResource(R.drawable.chat_icon_dark);
+                ib_chatList.setImageResource(R.drawable.chat_dark);
                 /*
 
                 ib_fan.setImageResource(R.drawable.btn_fan_normal);
@@ -955,11 +959,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CommonFunc.getInstance().SetFanAlarmVisible(false);
                 iv_myPage.setVisibility(View.GONE);
+                logo.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("나의 팬");
                 mMyData.SetCurFrag(3);
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,255,100);
+                ib_fan.setImageResource(R.drawable.myfan_dark);
 /*
                 ib_fan.setImageResource(R.drawable.btn_fan_selected);
                 ib_board.setImageResource(R.drawable.btn_board_normal);
