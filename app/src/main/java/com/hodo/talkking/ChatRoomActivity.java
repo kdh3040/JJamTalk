@@ -729,6 +729,9 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
                         //TextView tvHeartCnt = v.findViewById(R.id.HeartPop_MyHeart);
+                        final int[] nSendHoneyCnt = new int[1];
+                        nSendHoneyCnt[0] = 10;
+
                         Button btnHeart100 = v.findViewById(R.id.HeartPop_10);
                         Button btnHeart200 = v.findViewById(R.id.HeartPop_30);
                         Button btnHeart300 = v.findViewById(R.id.HeartPop_50);
@@ -736,12 +739,10 @@ public class ChatRoomActivity extends AppCompatActivity {
                         Button btnHeart1000 = v.findViewById(R.id.HeartPop_300);
                         Button btnHeart5000 = v.findViewById(R.id.HeartPop_500);
                         final TextView Msg = v.findViewById(R.id.HeartPop_text);
-
+                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 소모)");
                         //tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
-                        Msg.setText("현재 보유 코인은 "+String.valueOf(mMyData.getUserHoney())+"코인 입니다." );
+                        //Msg.setText("현재 보유 코인은 "+String.valueOf(mMyData.getUserHoney())+"코인 입니다." );
                         final Button btn_gift_send = v.findViewById(R.id.btn_gift_send);
-                        final int[] nSendHoneyCnt = new int[1];
-                        nSendHoneyCnt[0] = 10;
 
                         btnHeart100.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -844,10 +845,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                         btn_gift_send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
-                                if(CommonFunc.getInstance().CheckTextMaxLength(SendMsg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_SEND_HONEY, ChatRoomActivity.this ,"하트 날리기", true) == false)
-                                    return;
-
 
                                 if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                     btn_gift_send.setEnabled(false);

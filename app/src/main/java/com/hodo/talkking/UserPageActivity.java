@@ -444,6 +444,7 @@ if(mMyData.itemList.get(i) != 0)
                             Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_300);
                             Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_500);
                             final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
+                            Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 소모)");
                             coin_size.setText(String.valueOf(mMyData.getUserHoney()));
                             //Msg.setText("현재 보유 골드는 "+String.valueOf(mMyData.getUserHoney())+"골드 입니다." );
 
@@ -567,10 +568,6 @@ if(mMyData.itemList.get(i) != 0)
                             btn_gift_send.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-
-                                    if(CommonFunc.getInstance().CheckTextMaxLength(SendMsg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_SEND_HONEY, UserPageActivity.this ,"하트 날리기", true) == false)
-                                        return;
-
 
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                        // Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
