@@ -290,6 +290,15 @@ public class CommonFunc {
         }
     }
 
+    public void ShowToast(Context context, String msg, boolean shortView)
+    {
+        if(shortView)
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+    }
+
+
 
     public void ShowGiftPopup(Context context, final SimpleChatData SendList) {
         TextView from, tv_count, msg;
@@ -913,7 +922,7 @@ public class CommonFunc {
 
                         endListener.EndListener();
                     } else {
-                        Toast.makeText(context, "골드가 부족합니다", Toast.LENGTH_LONG).show();
+                        CommonFunc.getInstance().ShowToast(context, "골드가 부족합니다.", false);
                     }
                 }
             });

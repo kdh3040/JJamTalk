@@ -244,10 +244,8 @@ public class MyProfileActivity extends AppCompatActivity {
                             public void onClick(View view) {
 
                                 if(mMyData.getUserHoney() < 50)
-                                    {
-
-                                    Toast.makeText(getApplicationContext(),"코인이 부족합니다.",Toast.LENGTH_SHORT).show();
-                                }else
+                                    CommonFunc.getInstance().ShowToast(getApplicationContext(), "코인이 부족합니다.", true);
+                                else
                                     {
 
                                     String strMemo = et_msg.getText().toString();
@@ -259,7 +257,7 @@ public class MyProfileActivity extends AppCompatActivity {
                                     mMyData.setUserHoney(mMyData.getUserHoney() - 50);
                                     mMyData.setUserNick(strMemo);
                                     et_NickName.setText(strMemo);
-                                        Toast.makeText(getApplicationContext(),"닉네임 변경 완료!",Toast.LENGTH_SHORT).show();
+                                    CommonFunc.getInstance().ShowToast(getApplicationContext(), "닉네임 변경 완료!", true);
                                     msgDialog.dismiss();
 
                                     }
