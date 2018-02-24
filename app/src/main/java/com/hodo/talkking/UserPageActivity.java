@@ -285,7 +285,7 @@ if(mMyData.itemList.get(i) != 0)
                         break;*/
 
                     case R.id.UserPage_btnRegister:
-                        
+
 
                         CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
                             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
