@@ -576,11 +576,11 @@ public class InputProfile extends AppCompatActivity {
                     return;
 
                 if ("".equals(strNickName)) {
-                    Toast.makeText(InputProfile.this, "이름을 입력 해주세요", Toast.LENGTH_SHORT).show();
+                    CommonFunc.getInstance().ShowToast(InputProfile.this, "이름을 입력 해주세요", true);
                 }
                 //if ("null".equals(strImg)) {
                 if (strImg == null) {
-                    Toast.makeText(InputProfile.this, "사진을 입력 해주세요", Toast.LENGTH_SHORT).show();
+                    CommonFunc.getInstance().ShowToast(InputProfile.this, "사진을 입력 해주세요", true);
                 }
                 else
                 {
@@ -706,7 +706,7 @@ public class InputProfile extends AppCompatActivity {
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, "Oops! 로딩에 오류가 있습니다.", Toast.LENGTH_LONG).show();
+            CommonFunc.getInstance().ShowToast(this, "Oops! 로딩에 오류가 있습니다.", false);
             e.printStackTrace();
         }
 

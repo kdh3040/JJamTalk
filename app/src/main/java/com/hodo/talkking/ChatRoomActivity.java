@@ -865,7 +865,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                         mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0],strSendMsg );
                                         mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
                                         mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
-                                        Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+                                        CommonFunc.getInstance().ShowToast(getApplicationContext(), rtValuew ? "성공" : "실패", true);
 
                                         Calendar cal = Calendar.getInstance();
                                         Date date = cal.getTime();
@@ -883,7 +883,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 }
 
                                 dialog.dismiss();
-                                CommonFunc.getInstance().ShowDefaultPopup(ChatRoomActivity.this, "하트 날리기",  nSendHoneyCnt[0] +" 하트를 보냈습니다.");
+                                CommonFunc.getInstance().ShowToast(ChatRoomActivity.this, nSendHoneyCnt[0]  + " 하트를 보냈습니다.", true);
                             }
                         });
                         Button btn_gift_cancel = v.findViewById(R.id.btn_gift_cancel);

@@ -227,7 +227,7 @@ if(mMyData.itemList.get(i) != 0)
             }
  */
         btnRegister = findViewById(R.id.UserPage_btnRegister);
-        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor : R.drawable.favor_dark);
+        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_dark : R.drawable.favor);
         btnRegister.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
         btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
         btnGiftHoney.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
@@ -285,36 +285,29 @@ if(mMyData.itemList.get(i) != 0)
                         break;*/
 
                     case R.id.UserPage_btnRegister:
-                        
-
-                        CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
-                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                            public void YesListener() {
-                                if(mMyData.IsCardList(stTargetData.Idx) == false)
-                                    mMyData.makeCardList(stTargetData);
-                                else
-                                    mMyData.removeCardList(stTargetData);
-
-                                Fragment frg = null;
-                                frg = mFragmentMng.findFragmentByTag("CardListFragment");
-                                if(frg != null)
-                                {
-                                    final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                                    ft.detach(frg);
-                                    ft.attach(frg);
-                                    ft.commitAllowingStateLoss();
-                                }
-
-
-                                btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor : R.drawable.favor_dark);
-                            }
-                        };
 
                         if(mMyData.IsCardList(stTargetData.Idx) == false)
-                            CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, listener, "즐겨찾기", "즐겨찾기에 등록하시면"+ "\n" + "언제든 찾을 수 있죠!", "등록한다", "아니요");
+                        {
+                            mMyData.makeCardList(stTargetData);
+                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기에 등록 하였습니다.", true);
+                        }
                         else
-                            CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, listener, "즐겨찾기", "즐겨찾기를 취소하시겠습니까?", "취소한다", "아니요");
+                        {
+                            mMyData.removeCardList(stTargetData);
+                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기를 취소 하였습니다.", true);
+                        }
 
+                        Fragment frg = null;
+                        frg = mFragmentMng.findFragmentByTag("CardListFragment");
+                        if(frg != null)
+                        {
+                            final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                            ft.detach(frg);
+                            ft.attach(frg);
+                            ft.commitAllowingStateLoss();
+                        }
+
+                        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_dark : R.drawable.favor);
                         //ClickBtnSendHeart();
                         break;
           /*          case R.id.UserPage_btnGiftJewel:
@@ -629,7 +622,8 @@ if(mMyData.itemList.get(i) != 0)
 
 
                                     gold_Dialog.dismiss();
-                                    CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "하트 날리기", nSendHoneyCnt[0]  + "하트를 보냈습니다.");
+                                    CommonFunc.getInstance().ShowToast(UserPageActivity.this, nSendHoneyCnt[0]  + " 하트를 보냈습니다.", true);
+
 
                                 }
                             });
@@ -851,8 +845,7 @@ if(mMyData.itemList.get(i) != 0)
 
 
                                             msgDialog.dismiss();
-
-                                            CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "쪽지", "쪽지를 보냈습니다.");
+                                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "쪽지를 보냈습니다.", true);
                                         }
                                     });
                                 }

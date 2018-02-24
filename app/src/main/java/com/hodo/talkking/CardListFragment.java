@@ -187,8 +187,10 @@ public class CardListFragment extends Fragment {
                                 }
 
                             });
+
                             mMyData.arrCardNameList.remove(position);
                             mMyData.arrCarDataList.remove(i);
+                            CommonFunc.getInstance().ShowToast(mContext, "즐겨찾기를 취소 하였습니다.", true);
 
                             refreshFragMent();
                             dialog.dismiss();
