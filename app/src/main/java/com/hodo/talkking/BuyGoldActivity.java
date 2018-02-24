@@ -104,7 +104,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         mHeartItem = new HeartItem(R.drawable.coin, "120코인 9900원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.coin, "250코인 19000원");
+        mHeartItem = new HeartItem(R.drawable.coin, "250코인 29000원");
         list.add(mHeartItem);
 
         mHeartItem = new HeartItem(R.drawable.coin, "650코인 49000원");
