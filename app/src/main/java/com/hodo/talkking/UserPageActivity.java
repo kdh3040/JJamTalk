@@ -227,7 +227,7 @@ if(mMyData.itemList.get(i) != 0)
             }
  */
         btnRegister = findViewById(R.id.UserPage_btnRegister);
-        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor : R.drawable.favor_dark);
+        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_dark : R.drawable.favor);
         btnRegister.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
         btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
         btnGiftHoney.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
@@ -287,33 +287,30 @@ if(mMyData.itemList.get(i) != 0)
                     case R.id.UserPage_btnRegister:
 
 
-                        CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
-                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                            public void YesListener() {
-                                if(mMyData.IsCardList(stTargetData.Idx) == false)
-                                    mMyData.makeCardList(stTargetData);
-                                else
-                                    mMyData.removeCardList(stTargetData);
-
-                                Fragment frg = null;
-                                frg = mFragmentMng.findFragmentByTag("CardListFragment");
-                                if(frg != null)
-                                {
-                                    final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                                    ft.detach(frg);
-                                    ft.attach(frg);
-                                    ft.commitAllowingStateLoss();
-                                }
-
-
-                                btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor : R.drawable.favor_dark);
-                            }
-                        };
-
                         if(mMyData.IsCardList(stTargetData.Idx) == false)
-                            CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, listener, "즐겨찾기", "즐겨찾기에 등록하시면"+ "\n" + "언제든 찾을 수 있죠!", "등록한다", "아니요");
+                        {
+                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기에 등록 하였습니다.", true);
+                            mMyData.makeCardList(stTargetData);
+                        }
                         else
-                            CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, listener, "즐겨찾기", "즐겨찾기를 취소하시겠습니까?", "취소한다", "아니요");
+                        {
+                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기를 취소 하였습니다.", true);
+                            mMyData.removeCardList(stTargetData);
+                        }
+
+
+                        Fragment frg = null;
+                        frg = mFragmentMng.findFragmentByTag("CardListFragment");
+                        if(frg != null)
+                        {
+                            final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                            ft.detach(frg);
+                            ft.attach(frg);
+                            ft.commitAllowingStateLoss();
+                        }
+
+
+                        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_dark : R.drawable.favor);
 
                         //ClickBtnSendHeart();
                         break;
@@ -452,6 +449,7 @@ if(mMyData.itemList.get(i) != 0)
                             Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_500);
                             final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
                             coin_size.setText(String.valueOf(mMyData.getUserHoney()));
+                            Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 소모)");
                             //Msg.setText("현재 보유 골드는 "+String.valueOf(mMyData.getUserHoney())+"골드 입니다." );
 
                             //tvHeartCnt.setText("보유 골드: " + Integer.toString(mMyData.getUserHoney()));
@@ -575,10 +573,6 @@ if(mMyData.itemList.get(i) != 0)
                                 @Override
                                 public void onClick(View view) {
 
-                                    if(CommonFunc.getInstance().CheckTextMaxLength(SendMsg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_SEND_HONEY, UserPageActivity.this ,"하트 날리기", true) == false)
-                                        return;
-
-
                                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
                                        // Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
 
@@ -629,7 +623,7 @@ if(mMyData.itemList.get(i) != 0)
 
 
                                     gold_Dialog.dismiss();
-                                    CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "하트 날리기", nSendHoneyCnt[0]  + "하트를 보냈습니다.");
+                                    CommonFunc.getInstance().ShowToast(UserPageActivity.this, nSendHoneyCnt[0]  + " 하트를 보냈습니다.", true);
                                     RefreshFanData();
                                     likeAdapter.notifyDataSetChanged();
 
