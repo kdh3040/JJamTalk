@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onServiceDisconnected(ComponentName name) {
                         mMyData.mService = null;
                     }
-
+ 
                     @Override
                     public void onServiceConnected(ComponentName name,
                                                    IBinder service) {
