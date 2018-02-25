@@ -119,7 +119,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
                 TempSendUserData.ImgGroup2 = mMyData.getUserProfileImg(2);
                 TempSendUserData.ImgGroup3 = mMyData.getUserProfileImg(3);
 
-                Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
+                Intent intent = new Intent(getApplicationContext(), MyImageViewPager.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Target", TempSendUserData);
                 bundle.putSerializable("Index", 0);

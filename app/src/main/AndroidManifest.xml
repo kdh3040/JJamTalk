@@ -173,6 +173,11 @@
             android:screenOrientation="portrait"
             ></activity>
 
+        <activity android:name="com.hodo.talkking.MyImageViewPager"
+            android:theme="@style/NoTitleBar"
+            android:screenOrientation="portrait"
+            ></activity>
+
         <activity android:name="com.hodo.talkking.BlockListActivity"
             android:label="차단 목록"       android:screenOrientation="portrait"></activity>
 
