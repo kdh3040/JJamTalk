@@ -277,6 +277,11 @@ public class MyData {
 
         nReportedCnt = 0;
         badgecount = 0;
+
+        mService = null;
+        mServiceConn= null;
+
+
     }
 
     public void Clear()

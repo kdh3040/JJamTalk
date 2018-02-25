@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onServiceDisconnected(ComponentName name) {
                         mMyData.mService = null;
                     }
- 
+
                     @Override
                     public void onServiceConnected(ComponentName name,
                                                    IBinder service) {
@@ -671,9 +671,9 @@ public class MainActivity extends AppCompatActivity {
         mMyData.mRewardedVideoAd.loadAd("ca-app-pub-8954582850495744/9112330627",
                 new AdRequest.Builder().build());
 
-        Prepare prepareJob = new Prepare();
+      /*  Prepare prepareJob = new Prepare();
 
-        prepareJob.execute();
+        prepareJob.execute();*/
 
         boolean bCheckConnt = mMyData.CheckConnectDate();
         if(bCheckConnt == true)
