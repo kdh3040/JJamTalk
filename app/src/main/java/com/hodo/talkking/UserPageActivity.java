@@ -788,7 +788,7 @@ if(mMyData.itemList.get(i) != 0)
                                     bundle.putSerializable("RoomName", ChatName);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
-                                    finish();
+                                    //finish();
                                 }
                                 else if(mMyData.arrChatNameList.contains(ChatName1))
                                 {
@@ -800,7 +800,7 @@ if(mMyData.itemList.get(i) != 0)
                                     bundle.putSerializable("RoomName", ChatName1);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
-                                    finish();
+                                    //finish();
                                 }
 
                                 else {
