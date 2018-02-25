@@ -848,7 +848,7 @@ if(mMyData.itemList.get(i) != 0)
 
                                             msgDialog.dismiss();
 
-                                            CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "쪽지", "쪽지를 보냈습니다.");
+                                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "쪽지를 보냈습니다.", true);
                                         }
                                     });
                                 }
