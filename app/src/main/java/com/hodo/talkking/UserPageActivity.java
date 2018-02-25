@@ -110,6 +110,7 @@ public class UserPageActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
+
         /*refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
         refreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
