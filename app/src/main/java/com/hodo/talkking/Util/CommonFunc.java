@@ -84,6 +84,7 @@ public class CommonFunc {
     public Button MyBoard_Write;
     public static AppStatus mAppStatus = AppStatus.FOREGROUND;
 
+    private boolean bClickSync = false;
 
     public static class MyActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
 
@@ -160,6 +161,7 @@ public class CommonFunc {
 
     public void MoveUserPage(Activity mActivity, UserData tempUserData) {
 
+        CommonFunc.getInstance().setClickStatus(false);
 /*        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
             tempUserData.arrStarList.add(entry.getValue());
         }*/
@@ -184,6 +186,8 @@ public class CommonFunc {
     }
 
     public void getUserData(final Activity mActivity, final SimpleUserData Target) {
+        CommonFunc.getInstance().setClickStatus(true);
+
         final String strTargetIdx = Target.Idx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
@@ -1001,5 +1005,15 @@ public class CommonFunc {
         }
 
         return returnString;
+    }
+
+    public void setClickStatus(boolean Status)
+    {
+        bClickSync = Status;
+    }
+
+    public boolean getClickStatus()
+    {
+        return bClickSync;
     }
 }

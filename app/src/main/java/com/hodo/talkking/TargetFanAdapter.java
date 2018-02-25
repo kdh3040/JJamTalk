@@ -20,6 +20,7 @@ import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.ViewHolder.FanViewHolder;
 
 import java.util.ArrayList;
@@ -58,7 +59,8 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getTargetfanData(position);
+                if(CommonFunc.getInstance().getClickStatus() == false)
+                    getTargetfanData(position);
             }
         });
 
@@ -99,6 +101,8 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
     public void moveFanPage(int position)
     {
+        CommonFunc.getInstance().setClickStatus(false);
+
         Intent intent = new Intent(mContext, UserPageActivity.class);
         Bundle bundle = new Bundle();
 
@@ -110,7 +114,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
 
     public void getTargetfanData(final int position) {
-
+        CommonFunc.getInstance().setClickStatus(true);
         final String strTargetIdx = stTargetData.get(position).Idx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;

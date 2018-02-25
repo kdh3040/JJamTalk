@@ -20,6 +20,7 @@ import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.ViewHolder.FanViewHolder;
 
 import java.util.LinkedHashMap;
@@ -54,7 +55,8 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
             @Override
             public void onClick(View view) {
 
-                getMyfanData(position);
+                if(CommonFunc.getInstance().getClickStatus()==false)
+                    getMyfanData(position);
 
             }
         });
@@ -85,6 +87,8 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
     public void moveFanPage(int position)
     {
+        CommonFunc.getInstance().setClickStatus(false);
+
         String i = mMyData.arrMyFanList.get(position).Idx;
 
         Intent intent = new Intent(mContext, UserPageActivity.class);
@@ -98,6 +102,7 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
 
     public void getMyfanData(final int position) {
+        CommonFunc.getInstance().setClickStatus(true);
         String i = mMyData.arrMyFanList.get(position).Idx;
 
         final String strTargetIdx = mMyData.arrMyFanDataList.get(i).Idx;

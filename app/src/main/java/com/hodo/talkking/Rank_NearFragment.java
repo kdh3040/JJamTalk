@@ -127,7 +127,8 @@ public class Rank_NearFragment extends Fragment {
                                     break;
                             }
 
-                            mCommon.getUserData(getActivity(), stTargetData);
+                            if(mCommon.getClickStatus() == false)
+                                mCommon.getUserData(getActivity(), stTargetData);
                         }
                     }
 

@@ -69,7 +69,6 @@ public class BoardFragment extends Fragment {
     RecyclerView BoardSlotListRecycler;
     Button WriteButton, MyWriteListButton;
 
-    private boolean bClickSync = false;
     public enum BOARD_SCROLL_STATE_TYPE {
         NONE,
         TOP,
@@ -107,7 +106,7 @@ public class BoardFragment extends Fragment {
                         case R.id.board_msg:
                         case R.id.board_write_date:
                         case R.id.board_thumnail:
-                            if(bClickSync == false)
+                            if(CommonFunc.getInstance().getClickStatus() == false)
                                 getBoardWriterData(position);
                             break;
 
@@ -145,7 +144,8 @@ public class BoardFragment extends Fragment {
         // 글쓴이 페이지로 이동하는 함수
         public void moveWriterPage(UserData stTargetData)
         {
-            bClickSync = false;
+            CommonFunc.getInstance().setClickStatus(false);
+
             Intent intent = new Intent(getContext(), UserPageActivity.class);
             Bundle bundle = new Bundle();
 
@@ -163,7 +163,7 @@ public class BoardFragment extends Fragment {
 
         // 글쓴이 데이터 받아오는 함수
         public void getBoardWriterData(final int position) {
-            bClickSync = true;
+            CommonFunc.getInstance().setClickStatus(true);
             final String strTargetIdx = mBoardInstanceData.BoardList.get(position).GetDBData().Idx;
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table = null;
