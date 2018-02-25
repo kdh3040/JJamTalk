@@ -24,6 +24,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hodo.talkking.Data.ChatData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.PublicRoomChatData;
 import com.hodo.talkking.Data.UIData;
@@ -32,6 +33,7 @@ import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.NotiFunc;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -183,120 +185,36 @@ public class PublicChatRoomActivity extends AppCompatActivity {
         ib_gift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.alert_send_gift,null);
-                builder.setView(v);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
 
-                Button btn_HeartCharge = (Button)v.findViewById(R.id.HeartPop_Charge);
-                btn_HeartCharge.setOnClickListener(new View.OnClickListener() {
+                CommonFunc.HeartGiftPopup_Change_End changeListener = new CommonFunc.HeartGiftPopup_Change_End()
+                {
                     @Override
-                    public void onClick(View view) {
+                    public void EndListener() {
                         startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                     }
-                });
-
-                //TextView tvHeartCnt = v.findViewById(R.id.HeartPop_MyHeart);
-                Button btnHeart100 = v.findViewById(R.id.HeartPop_10);
-                Button btnHeart200 = v.findViewById(R.id.HeartPop_30);
-                Button btnHeart300 = v.findViewById(R.id.HeartPop_50);
-                Button btnHeart500 = v.findViewById(R.id.HeartPop_100);
-                Button btnHeart1000 = v.findViewById(R.id.HeartPop_300);
-                Button btnHeart5000 = v.findViewById(R.id.HeartPop_500);
-                final TextView Msg = v.findViewById(R.id.HeartPop_text);
-
-                //tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
-                Msg.setText("100개의 꿀을 보내시겠습니까?");
-
-                final int[] nSendHoneyCnt = new int[1];
-                nSendHoneyCnt[0] = 100;
-
-                btnHeart100.setOnClickListener(new View.OnClickListener() {
+                };
+                CommonFunc.HeartGiftPopup_Send_End sendListener = new CommonFunc.HeartGiftPopup_Send_End()
+                {
                     @Override
-                    public void onClick(View view) {
-                        nSendHoneyCnt[0] = 100;
-                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
+                    public void EndListener(int heartCount, String msg) {
+
+                        if (msg.equals(""))
+                            msg = "꿀 보내드려요";
+
+                        mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
+                        mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
+                        mNotiFunc.SendHoneyToFCM(stTargetData, heartCount, msg);
+                        mMyData.setSendHoneyCnt(heartCount);
+                        // Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
+
+                        String message = mMyData.getUserNick() + "님이 " + heartCount + "골드를 보내셨습니다!!";
+
+                        long nowTime = CommonFunc.getInstance().GetCurrentTime();
+                        PublicRoomChatData chat_Data = new PublicRoomChatData(mMyData.getUserNick(), stTargetData.NickName, message, nowTime, null);
+                        mRef.push().setValue(chat_Data);
                     }
-                });
-
-                btnHeart200.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        nSendHoneyCnt[0] = 200;
-                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                    }
-                });
-
-                btnHeart300.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        nSendHoneyCnt[0] = 300;
-                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                    }
-                });
-
-                btnHeart500.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        nSendHoneyCnt[0] = 500;
-                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                    }
-                });
-
-                btnHeart1000.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        nSendHoneyCnt[0] = 1000;
-                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                    }
-                });
-
-                btnHeart5000.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        nSendHoneyCnt[0] = 5000;
-                        Msg.setText(nSendHoneyCnt[0] + "개의 꿀을 보내시겠습니까?");
-                    }
-                });
-
-                final EditText SendMsg = v.findViewById(R.id.HeartPop_Msg);
-
-                Button btn_gift_send = v.findViewById(R.id.btn_gift_send);
-                btn_gift_send.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        String strSendMsg = SendMsg.getText().toString();
-                        if (strSendMsg.equals(""))
-                            strSendMsg = "꿀 보내드려요";
-
-                        boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
-                        rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
-
-                        if (rtValuew == true) {
-                            mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0], strSendMsg);
-                            mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                           // Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
-
-                            String message = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + "골드를 보내셨습니다!!";
-
-                            long nowTime = CommonFunc.getInstance().GetCurrentTime();
-                            PublicRoomChatData chat_Data = new PublicRoomChatData(mMyData.getUserNick(), stTargetData.NickName, message, nowTime, null);
-                            mRef.push().setValue(chat_Data);
-
-                        }
-                        dialog.dismiss();
-
-                    }
-                });
-                Button btn_gift_cancel = v.findViewById(R.id.btn_gift_cancel);
-                btn_gift_cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
+                };
+                CommonFunc.getInstance().HeartGiftPopup(PublicChatRoomActivity.this, stTargetData.Idx, changeListener, sendListener);
             }
         });
 

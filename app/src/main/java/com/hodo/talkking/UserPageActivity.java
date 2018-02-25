@@ -341,313 +341,62 @@ if(mMyData.itemList.get(i) != 0)
 
                     case R.id.UserPage_btnGiftHoney:
 
-
-                        int nSize = mMyData.arrBlockedDataList.size();
-
-                        int nBlockSize = mMyData.arrBlockDataList.size();
-
-                        boolean bBlocked = false;
-                        boolean bBlock = false;
-
-                        for (int i = 0; i < nSize; i++) {
-                            if (mMyData.arrBlockedDataList.get(i).Idx.equals(stTargetData.Idx)) {
-                                bBlocked = true;
-                                break;
+                        CommonFunc.HeartGiftPopup_Change_End changeListener = new CommonFunc.HeartGiftPopup_Change_End()
+                        {
+                            @Override
+                            public void EndListener() {
+                                startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                             }
-                        }
+                        };
+                        CommonFunc.HeartGiftPopup_Send_End sendListener = new CommonFunc.HeartGiftPopup_Send_End()
+                        {
+                            @Override
+                            public void EndListener(int heartCount, String msg) {
+                                mMyData.makeSendList(stTargetData, msg, heartCount);
+                                mMyData.makeCardList(stTargetData);
+                                mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
+                                mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
+                                mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
+                                mNotiFunc.SendHoneyToFCM(stTargetData, heartCount, msg);
+                                mMyData.setSendHoneyCnt(heartCount);
+                                mMyData.makeFanList(stTargetData, heartCount);
 
-                        for (int i = 0; i < nBlockSize; i++) {
-                            if (mMyData.arrBlockDataList.get(i).Idx.equals(stTargetData.Idx)) {
-                                bBlock = true;
-                                break;
+                                Calendar cal = Calendar.getInstance();
+                                Date date = cal.getTime();
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                                String formatStr = sdf.format(date);
+
+                                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, msg, formatStr, "", 0, heartCount);
+
+                                final String ChatName = mMyData.getUserIdx()+"_"+stTargetData.Idx;
+                                String ChatName1 = stTargetData.Idx + "_"+ mMyData.getUserIdx();
+                                DatabaseReference mRef;
+
+                                if(mMyData.arrChatNameList.contains(ChatName) ) {
+                                    mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
+                                }
+                                else     if(mMyData.arrChatNameList.contains(ChatName1) ) {
+                                    mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName1);
+                                }
+                                else
+                                    mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
+
+
+                                mRef.push().setValue(chat_Data);
+                                RefreshFanData();
+                                likeAdapter.notifyDataSetChanged();
                             }
-                        }
+                        };
+                        CommonFunc.getInstance().HeartGiftPopup(UserPageActivity.this, stTargetData.Idx, changeListener, sendListener);
 
-                        if(bBlocked == true)
-                        {
-                            // 블락됬습니다 표시
-                            final int[] nSendHoneyCnt = new int[1];
-                            nSendHoneyCnt[0] = 0;
-                            View giftView = inflater.inflate(R.layout.alert_send_msg, null);
-                            builder.setView(giftView);
-                            final AlertDialog dialog = builder.create();
-                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                            dialog.show();
-
-                            final TextView Msg = giftView.findViewById(R.id.textView);
-                            Msg.setText("날리기 실패");
-
-                            final EditText Edit = giftView.findViewById(R.id.et_nick);
-                            Edit.setVisibility(View.GONE);
-
-                            final TextView Body = giftView.findViewById(R.id.tv_change_nick);
-                            Body.setText("당신은 차단 되었습니다");
-
-                            final Button OK = giftView.findViewById(R.id.btn_send);
-                            OK.setText("확인");
-                            OK.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                            final Button No = giftView.findViewById(R.id.btn_cancel);
-                            No.setVisibility(View.GONE);
-                        }
-
-                        else if(bBlock == true)
-                        {
-                            // 블락됬습니다 표시
-                            final int[] nSendHoneyCnt = new int[1];
-                            nSendHoneyCnt[0] = 0;
-                            View giftView = inflater.inflate(R.layout.alert_send_msg, null);
-                            builder.setView(giftView);
-                            final AlertDialog dialog = builder.create();
-                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                            dialog.show();
-
-                            final TextView Msg = giftView.findViewById(R.id.textView);
-                            Msg.setText("날리기 실패");
-
-                            final EditText Edit = giftView.findViewById(R.id.et_nick);
-                            Edit.setVisibility(View.GONE);
-
-                            final TextView Body = giftView.findViewById(R.id.tv_change_nick);
-                            Body.setText("당신이 차단한 상대입니다");
-
-                            final Button OK = giftView.findViewById(R.id.btn_send);
-                            OK.setText("확인");
-                            OK.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                            final Button No = giftView.findViewById(R.id.btn_cancel);
-                            No.setVisibility(View.GONE);
-                        }
-
-                        else
-                        {
-                            final int[] nSendHoneyCnt = new int[1];
-                            nSendHoneyCnt[0] = 10;
-                            final View giftView = inflater.inflate(R.layout.alert_send_gift, null);
-                            builder.setView(giftView);
-                            final AlertDialog gold_Dialog = builder.create();
-                            gold_Dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                            gold_Dialog.show();
-                            final TextView coin_size = giftView.findViewById(R.id.tv_coin);
-                            //TextView tvHeartCnt = giftView.findViewById(R.id.HeartPop_MyHeart);
-                            Button btnHeartCharge = giftView.findViewById(R.id.HeartPop_Charge);
-                            Button btnHeart100 = giftView.findViewById(R.id.HeartPop_10);
-                            Button btnHeart200 = giftView.findViewById(R.id.HeartPop_30);
-                            Button btnHeart300 = giftView.findViewById(R.id.HeartPop_50);
-                            Button btnHeart500 = giftView.findViewById(R.id.HeartPop_100);
-                            Button btnHeart1000 = giftView.findViewById(R.id.HeartPop_300);
-                            Button btnHeart5000 = giftView.findViewById(R.id.HeartPop_500);
-                            final TextView Msg = giftView.findViewById(R.id.HeartPop_text);
-                            coin_size.setText(String.valueOf(mMyData.getUserHoney()));
-                            Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 소모)");
-                            //Msg.setText("현재 보유 골드는 "+String.valueOf(mMyData.getUserHoney())+"골드 입니다." );
-
-                            //tvHeartCnt.setText("보유 골드: " + Integer.toString(mMyData.getUserHoney()));
-                            //Msg.setText("100개의 꿀을 보내시겠습니까?");
-
-                            final Button btn_gift_send = giftView.findViewById(R.id.btn_gift_send);
-
-                            btnHeartCharge.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
-                                }
-                            });
-
-                            btnHeart100.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    nSendHoneyCnt[0] = 10;
-                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                        btn_gift_send.setEnabled(false);
-                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
-                                    }
-                                    else {
-                                        btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 소모)");
-                                    }
-
-                                }
-                            });
-
-                            btnHeart200.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    nSendHoneyCnt[0] = 30;
-                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                        btn_gift_send.setEnabled(false);
-                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
-                                    }
-                                    else {
-                                        btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리겠습니까?("+nSendHoneyCnt[0]+"코인 소모)");
-                                    }
-
-                                }
-                            });
-
-                            btnHeart300.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    nSendHoneyCnt[0] = 50;
-                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                        btn_gift_send.setEnabled(false);
-                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
-                                    }
-                                    else {
-                                        btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 소모)");
-                                    }
-
-                                }
-                            });
-
-                            btnHeart500.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    nSendHoneyCnt[0] = 100;
-                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                        btn_gift_send.setEnabled(false);
-                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
-                                    }
-                                    else {
-                                        btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 소모)");
-                                    }
-
-                                }
-                            });
-
-                            btnHeart1000.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    nSendHoneyCnt[0] = 300;
-                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                        btn_gift_send.setEnabled(false);
-                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
-                                    }
-                                    else {
-                                        btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까? ("+nSendHoneyCnt[0]+"코인 소모)");
-                                    }
-                                }
-                            });
-
-                            btnHeart5000.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    nSendHoneyCnt[0] = 500;
-                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                        btn_gift_send.setEnabled(false);
-                                        Msg.setText("코인이 부족합니다. ("+nSendHoneyCnt[0]+" 코인 필요)" );
-                                    }
-                                    else {
-                                        btn_gift_send.setEnabled(true);
-                                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+nSendHoneyCnt[0]+"코인 소모)");
-                                    }
-
-                                }
-                            });
-
-
-                            final EditText SendMsg = giftView.findViewById(R.id.HeartPop_Msg);
-
-
-                            btn_gift_send.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-
-                                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                       // Toast.makeText(getApplicationContext(), "골드가 없습니다. 표시 기능 추가 예정", Toast.LENGTH_SHORT).show();
-
-                                    } else {
-                                        String strSendMsg = SendMsg.getText().toString();
-
-                                        boolean rtValuew = mMyData.makeSendList(stTargetData, strSendMsg.toString(),nSendHoneyCnt[0]);
-                                        rtValuew = mMyData.makeCardList(stTargetData);
-                                        rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
-                                        rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
-
-
-
-                                        mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
-                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0], strSendMsg);
-                                        mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                                        mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
-                                        // mMyData.makeStarList(stTargetData, nSendHoneyCnt[0]);
-                                      //  Toast.makeText(getApplicationContext(), rtValuew + "", Toast.LENGTH_SHORT).show();
-
-                                        Calendar cal = Calendar.getInstance();
-                                        Date date = cal.getTime();
-                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                                        String formatStr = sdf.format(date);
-
-
-                                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, strSendMsg, formatStr, "", 0, nSendHoneyCnt[0]);
-
-
-                                        final String ChatName = mMyData.getUserIdx()+"_"+stTargetData.Idx;
-                                        String ChatName1 = stTargetData.Idx + "_"+ mMyData.getUserIdx();
-                                        DatabaseReference mRef;
-
-                                        if(mMyData.arrChatNameList.contains(ChatName) ) {
-                                            mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
-                                        }
-                                        else     if(mMyData.arrChatNameList.contains(ChatName1) ) {
-                                         mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName1);
-                                        }
-                                        else
-                                            mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
-
-
-                                        mRef.push().setValue(chat_Data);
-
-
-                                    }
-
-
-                                    gold_Dialog.dismiss();
-                                    CommonFunc.getInstance().ShowToast(UserPageActivity.this, nSendHoneyCnt[0]  + " 하트를 보냈습니다.", true);
-                                    RefreshFanData();
-                                    likeAdapter.notifyDataSetChanged();
-
-                                }
-                            });
-                            Button btn_gift_cancel = giftView.findViewById(R.id.btn_gift_cancel);
-                            btn_gift_cancel.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-
-                                    gold_Dialog.dismiss();
-
-                                }
-                            });
-
-                        }
 
                         //ClickBtnSendHeart();
                         break;
 
                     case R.id.UserPage_btnMessage:
 
-                        nSize = mMyData.arrBlockedDataList.size();
-                        nBlockSize= mMyData.arrBlockDataList.size();
+                        int nSize = mMyData.arrBlockedDataList.size();
+                        int nBlockSize= mMyData.arrBlockDataList.size();
                         boolean bMsgBlock = false;
                         boolean bMsgBlocked = false;
 

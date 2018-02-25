@@ -22,6 +22,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.BuyGoldActivity;
+import com.hodo.talkking.Data.ChatData;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
@@ -49,6 +51,7 @@ import com.hodo.talkking.UserPageActivity;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -1015,5 +1018,121 @@ public class CommonFunc {
     public boolean getClickStatus()
     {
         return bClickSync;
+    }
+
+    public interface HeartGiftPopup_Send_End {
+        void EndListener(int heartCount, String msg);
+    }
+
+    public interface HeartGiftPopup_Change_End {
+        void EndListener();
+    }
+
+    public void HeartGiftPopup(final Context context, String targetIdx, final HeartGiftPopup_Change_End heartChagneFunc, final HeartGiftPopup_Send_End sendFunc) {
+        boolean bBlocked = mMyData.arrBlockedDataList.indexOf(targetIdx) > 0; // 내가 차단 당함
+        boolean bBlock = mMyData.arrBlockDataList.indexOf(targetIdx) > 0; // 내가 차단함
+
+        if (bBlocked == true)
+            ShowDefaultPopup(context, "날리기 실패",  "당신은 차단 되었습니다");
+        else if (bBlock == true)
+            ShowDefaultPopup(context, "날리기 실패",  "당신이 차단한 상대입니다");
+        else {
+            final int[] nSendHoneyCnt = new int[1];
+            final View v = LayoutInflater.from(context).inflate(R.layout.alert_send_gift, null, false);
+
+            final AlertDialog dialog = new AlertDialog.Builder(context).setView(v).create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.show();
+
+            final TextView Msg = v.findViewById(R.id.HeartPop_text);
+            final TextView coin_size = v.findViewById(R.id.tv_coin);
+            coin_size.setText(String.valueOf(mMyData.getUserHoney()));
+
+            final Button btn_gift_send = v.findViewById(R.id.btn_gift_send);
+            final EditText SendMsg = v.findViewById(R.id.HeartPop_Msg);
+
+            Button btnHeartCharge = v.findViewById(R.id.HeartPop_Charge);
+            btnHeartCharge.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view) {
+                    heartChagneFunc.EndListener();
+
+                    dialog.dismiss();
+                }
+            });
+
+            View.OnClickListener listener = new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    switch (view.getId()) {
+                        case R.id.HeartPop_10:
+                            nSendHoneyCnt[0] = 10;
+                            break;
+                        case R.id.HeartPop_30:
+                            nSendHoneyCnt[0] = 30;
+                            break;
+                        case R.id.HeartPop_50:
+                            nSendHoneyCnt[0] = 50;
+                            break;
+                        case R.id.HeartPop_100:
+                            nSendHoneyCnt[0] = 100;
+                            break;
+                        case R.id.HeartPop_300:
+                            nSendHoneyCnt[0] = 300;
+                            break;
+                        case R.id.HeartPop_500:
+                            nSendHoneyCnt[0] = 500;
+                            break;
+                    }
+
+                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
+                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
+                        btn_gift_send.setEnabled(false);
+                        Msg.setText("코인이 부족합니다. (" + nSendHoneyCnt[0] + " 코인 필요)");
+                    } else {
+                        btn_gift_send.setEnabled(true);
+                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?(" + nSendHoneyCnt[0] + "코인 소모)");
+                    }
+                }
+            };
+
+            Button btnHeart10 = v.findViewById(R.id.HeartPop_10);
+            btnHeart10.setOnClickListener(listener);
+            btnHeart10.callOnClick();
+            Button btnHeart30 = v.findViewById(R.id.HeartPop_30);
+            btnHeart30.setOnClickListener(listener);
+            Button btnHeart50 = v.findViewById(R.id.HeartPop_50);
+            btnHeart50.setOnClickListener(listener);
+            Button btnHeart100 = v.findViewById(R.id.HeartPop_100);
+            btnHeart100.setOnClickListener(listener);
+            Button btnHeart300 = v.findViewById(R.id.HeartPop_300);
+            btnHeart300.setOnClickListener(listener);
+            Button btnHeart500 = v.findViewById(R.id.HeartPop_500);
+            btnHeart500.setOnClickListener(listener);
+
+
+            btn_gift_send.setOnClickListener(new View.OnClickListener()
+            {
+                 @Override
+                 public void onClick(View view) {
+                     String strSendMsg = SendMsg.getText().toString();
+
+                     sendFunc.EndListener(nSendHoneyCnt[0], strSendMsg);
+
+                     dialog.dismiss();
+                     CommonFunc.getInstance().ShowToast(context, nSendHoneyCnt[0] + " 하트를 보냈습니다.", true);
+
+                 }
+             });
+
+            Button btn_gift_cancel = v.findViewById(R.id.btn_gift_cancel);
+            btn_gift_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+        }
     }
 }
