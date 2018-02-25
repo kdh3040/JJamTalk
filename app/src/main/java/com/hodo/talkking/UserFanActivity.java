@@ -28,6 +28,7 @@ import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.Util.CommonFunc;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -108,7 +109,8 @@ public class UserFanActivity extends AppCompatActivity {
         UserFanRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);
-
+        TextView txt_Title = findViewById(R.id.txt_title);
+        txt_Title.setText(stTargetData.NickName + "의 팬");
 
     }
 
@@ -128,7 +130,8 @@ public class UserFanActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    getMyfanData(position);
+                    if(CommonFunc.getInstance().getClickStatus()==false)
+                        getMyfanData(position);
 
                 }
             });
@@ -172,6 +175,7 @@ public class UserFanActivity extends AppCompatActivity {
         }
 
         public void moveFanPage(int position) {
+            CommonFunc.getInstance().setClickStatus(false);
             String i = stTargetData.arrFanList.get(position).Idx;
 
             Intent intent = new Intent(mActivity, UserPageActivity.class);
@@ -185,6 +189,7 @@ public class UserFanActivity extends AppCompatActivity {
 
 
         public void getMyfanData(final int position) {
+            CommonFunc.getInstance().setClickStatus(true);
             String i = stTargetData.arrFanList.get(position).Idx;
 
             final String strTargetIdx = stTargetData.FanList.get(i).Idx;

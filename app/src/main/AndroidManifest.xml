@@ -107,8 +107,7 @@
         </activity>
 
         <activity android:name="com.hodo.talkking.UserFanActivity"
-            android:label="팬"
-            android:theme="@style/MyTheme"
+            android:theme="@style/NoTitleBar"
             android:screenOrientation="portrait"
             >
 
@@ -169,6 +168,11 @@
             android:screenOrientation="portrait"
             ></activity>
         <activity android:name="com.hodo.talkking.ImageViewPager"
+            android:theme="@style/NoTitleBar"
+            android:screenOrientation="portrait"
+            ></activity>
+
+        <activity android:name="com.hodo.talkking.MyImageViewPager"
             android:theme="@style/NoTitleBar"
             android:screenOrientation="portrait"
             ></activity>

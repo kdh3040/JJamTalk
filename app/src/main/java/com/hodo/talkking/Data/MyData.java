@@ -234,6 +234,7 @@ public class MyData {
 
     public int badgecount;
 
+    public int NickChangeCnt;
 
     private MyData() {
         strUid = null;
@@ -277,7 +278,11 @@ public class MyData {
 
         nReportedCnt = 0;
         badgecount = 0;
-        mServiceConn = null;
+
+        mService = null;
+        mServiceConn= null;
+
+        NickChangeCnt = 0;
     }
 
     public void Clear()
@@ -404,6 +409,8 @@ public class MyData {
         }
 
         itemIdx = null;
+
+        NickChangeCnt = 0;
     }
 
 
@@ -412,7 +419,7 @@ public class MyData {
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
                           String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
-                          int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime) {
+                          int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime, int _UserNickChangeCnt) {
 
         strUid = _UserUid;
         strIdx = _UserIdx;
@@ -527,6 +534,7 @@ public class MyData {
         nStartAge = (Integer.parseInt(getUserAge()) / 10) * 10;
         nEndAge = nStartAge + 19;
 
+        NickChangeCnt = _UserNickChangeCnt;
     }
 
     public void refreshItemIdex()

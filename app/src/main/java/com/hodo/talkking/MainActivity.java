@@ -671,9 +671,9 @@ public class MainActivity extends AppCompatActivity {
         mMyData.mRewardedVideoAd.loadAd("ca-app-pub-8954582850495744/9112330627",
                 new AdRequest.Builder().build());
 
-        //Prepare prepareJob = new Prepare();
+      /*  Prepare prepareJob = new Prepare();
 
-     //   prepareJob.execute();
+        prepareJob.execute();*/
 
         boolean bCheckConnt = mMyData.CheckConnectDate();
         if(bCheckConnt == true)
@@ -918,7 +918,7 @@ public class MainActivity extends AppCompatActivity {
                 CommonFunc.getInstance().SetChatAlarmVisible(false);
                 iv_myPage.setVisibility(View.GONE);
                 logo.setVisibility(View.GONE);
-                //txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("채팅 목록");
                 mMyData.SetCurFrag(2);
                 Fragment frg = null;

@@ -125,6 +125,7 @@ public class ChatListFragment extends Fragment {
         }
         CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
         CommonFunc.getInstance().SetMainActivityTopRightBtnForFilter(false);
+        CommonFunc.getInstance().SetMainActivityTopRightBtnForItemBox(false);
         return fragView;
     }
 /*

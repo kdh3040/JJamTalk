@@ -137,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private LocationFunc mLocalFunc = LocationFunc.getInstance();
     private CommonFunc mCommon = CommonFunc.getInstance();
+    private LocationFunc mLocFunc = LocationFunc.getInstance();
 
     //private BoardData mBoardData = BoardData.getInstance();
 
@@ -803,7 +804,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvCount, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.RecvMsgReject, stRecvData.PublicRoomStatus, stRecvData.PublicRoomName, stRecvData.PublicRoomLimit, stRecvData.PublicRoomTime,
                                     stRecvData.ItemCount, stRecvData.Item_1, stRecvData.Item_2, stRecvData.Item_3, stRecvData.Item_4, stRecvData.Item_5, stRecvData.Item_6, stRecvData.Item_7, stRecvData.Item_8, stRecvData.BestItem,
-                                    stRecvData.Point, stRecvData.Grade, stRecvData.ConnectDate, stRecvData.LastBoardWriteTime, stRecvData.LastAdsTime);
+                                    stRecvData.Point, stRecvData.Grade, stRecvData.ConnectDate, stRecvData.LastBoardWriteTime, stRecvData.LastAdsTime, stRecvData.NickChangeCnt);
                             bMySet = true;
 
 
@@ -1191,7 +1192,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Query query=ref
                     .orderByChild("Lon")
                     .startAt(lStartLon).endAt(lEndLon).limitToFirst(FIRST_LOAD_MAIN_COUNT);
-            ;
 
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -1206,18 +1206,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         if (stRecvData.Img == null)
                                             stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                        mMyData.arrUserAll_Near.add(stRecvData);
+                                        double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon,"kilometer");
+                                        if(Dist <= 10)
+                                        {
+                                            mMyData.arrUserAll_Near.add(stRecvData);
 
-                                        if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
-                                            mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
-                                        } else {
-                                            mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
+                                            if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
+                                                mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                            } else {
+                                                mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
+                                            }
+
+                                            mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                            i++;
                                         }
 
-                                        mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                        i++;
                                     }
                                 }
                             }

@@ -207,7 +207,11 @@ public class MyProfileActivity extends AppCompatActivity {
                         title.setText("닉네임 변경");
 
                         TextView body = (TextView)view1.findViewById(R.id.tv_change_nick);
-                        body.setText("닉네임 변경 시 50코인이 소모됩니다");
+                        if(mMyData.NickChangeCnt != 0)
+                            body.setText("닉네임 변경 시 50코인이 소모됩니다");
+
+                        else
+                            body.setText("닉네임 최초 변경은 무료입니다 \n 이후에는 50코인이 소모됩니다");
 
                         builder.setView(view1);
 
@@ -254,10 +258,17 @@ public class MyProfileActivity extends AppCompatActivity {
                                     if(CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, MyProfileActivity.this ,"닉네임", true) == false)
                                         return;
 
-                                    mMyData.setUserHoney(mMyData.getUserHoney() - 50);
+
+                                    if(mMyData.NickChangeCnt != 0)
+                                    {
+                                        mMyData.setUserHoney(mMyData.getUserHoney() - 50);
+                                    }
+
+                                    mMyData.NickChangeCnt++;
                                     mMyData.setUserNick(strMemo);
                                     et_NickName.setText(strMemo);
                                     CommonFunc.getInstance().ShowToast(getApplicationContext(), "닉네임 변경 완료!", true);
+
                                     msgDialog.dismiss();
 
                                     }

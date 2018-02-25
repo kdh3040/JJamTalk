@@ -66,6 +66,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
@@ -88,8 +89,7 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         mActivity = this;
 
-        if(mMyData.mServiceConn == null)
-        {
+        if(mMyData.mServiceConn == null) {
             mMyData.mServiceConn = new ServiceConnection() {
                 @Override
                 public void onServiceDisconnected(ComponentName name) {
@@ -102,7 +102,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                     mMyData.mService = IInAppBillingService.Stub.asInterface(service);
 
                     try {
-                        mMyData.skuDetails = mMyData.mService.getSkuDetails(3,getPackageName(), "inapp", mMyData.querySkus);
+                        mMyData.skuDetails = mMyData.mService.getSkuDetails(3, getPackageName(), "inapp", mMyData.querySkus);
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -132,12 +132,18 @@ public class BuyGoldActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             if (mMyData.sku.equals("gold_10")) mMyData.strGold[0] = mMyData.price;
-                            else if (mMyData.sku.equals("gold_20")) mMyData.strGold[1]= mMyData.price;
-                            else if (mMyData.sku.equals("gold_50")) mMyData.strGold[2] = mMyData.price;
-                            else if (mMyData.sku.equals("gold_100")) mMyData.strGold[3] = mMyData.price;
-                            else if (mMyData.sku.equals("gold_200")) mMyData.strGold[4] = mMyData.price;
-                            else if (mMyData.sku.equals("gold_500")) mMyData.strGold[5] = mMyData.price;
-                            else if (mMyData.sku.equals("gold_1000")) mMyData.strGold[6] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_20"))
+                                mMyData.strGold[1] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_50"))
+                                mMyData.strGold[2] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_100"))
+                                mMyData.strGold[3] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_200"))
+                                mMyData.strGold[4] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_500"))
+                                mMyData.strGold[5] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_1000"))
+                                mMyData.strGold[6] = mMyData.price;
                         }
                     }
 
@@ -147,9 +153,8 @@ public class BuyGoldActivity extends AppCompatActivity {
             Intent serviceIntent =
                     new Intent("com.android.vending.billing.InAppBillingService.BIND");
             serviceIntent.setPackage("com.android.vending");
-            bindService(serviceIntent, mMyData.mServiceConn , Context.BIND_AUTO_CREATE);
+            bindService(serviceIntent, mMyData.mServiceConn, Context.BIND_AUTO_CREATE);
         }
-
 
         loadRewardedVideoAd(getApplicationContext());
 
@@ -244,6 +249,7 @@ public class BuyGoldActivity extends AppCompatActivity {
 */
 
     }
+
 
 
     public void refreshHearCnt()

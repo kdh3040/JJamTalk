@@ -75,7 +75,8 @@ public class Rank_GoldReceiveFragment extends Fragment {
                                     break;
                             }
 
-                            mCommon.getUserData(getActivity(), stTargetData);
+                            if(mCommon.getClickStatus() == false)
+                                mCommon.getUserData(getActivity(), stTargetData);
 
                  /*           Intent intent = new Intent(view.getContext(), UserPageActivity.class);
                             Bundle bundle = new Bundle();
