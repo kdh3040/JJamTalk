@@ -201,6 +201,8 @@ public class FirebaseData {
         user.child("BestItem").setValue(mMyData.bestItem);
         user.child("Honey").setValue(mMyData.getUserHoney());
 
+        user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
+
         // 심플 디비 저장
         SaveSimpleData();
     }
