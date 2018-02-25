@@ -277,6 +277,7 @@ public class MyData {
 
         nReportedCnt = 0;
         badgecount = 0;
+        mServiceConn = null;
     }
 
     public void Clear()

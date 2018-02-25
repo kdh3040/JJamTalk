@@ -1,10 +1,13 @@
 package com.hodo.talkking;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.hodo.talkking.Data.MyData;
@@ -55,11 +59,12 @@ public class BuyGoldActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-      /*  if (mMyData.mService != null) {
+        if (mMyData.mService != null) {
             unbindService(mMyData.mServiceConn);
-        }*/
+            mMyData.mServiceConn = null;
+            mMyData.mService = null;
+        }
     }
-
 
     @Override
     public void onResume() {
@@ -82,6 +87,70 @@ public class BuyGoldActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cash_charge);
 
         mActivity = this;
+
+        if(mMyData.mServiceConn == null)
+        {
+            mMyData.mServiceConn = new ServiceConnection() {
+                @Override
+                public void onServiceDisconnected(ComponentName name) {
+                    mMyData.mService = null;
+                }
+
+                @Override
+                public void onServiceConnected(ComponentName name,
+                                               IBinder service) {
+                    mMyData.mService = IInAppBillingService.Stub.asInterface(service);
+
+                    try {
+                        mMyData.skuDetails = mMyData.mService.getSkuDetails(3,getPackageName(), "inapp", mMyData.querySkus);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+
+                    int response = mMyData.skuDetails.getInt("RESPONSE_CODE");
+                    if (response == 0) {
+                        ArrayList<String> responseList
+                                = mMyData.skuDetails.getStringArrayList("DETAILS_LIST");
+
+                        for (String thisResponse : responseList) {
+                            JSONObject object = null;
+                            try {
+                                object = new JSONObject(thisResponse);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                mMyData.sku = object.getString("productId");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                mMyData.price = object.getString("price");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            if (mMyData.sku.equals("gold_10")) mMyData.strGold[0] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_20")) mMyData.strGold[1]= mMyData.price;
+                            else if (mMyData.sku.equals("gold_50")) mMyData.strGold[2] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_100")) mMyData.strGold[3] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_200")) mMyData.strGold[4] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_500")) mMyData.strGold[5] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_1000")) mMyData.strGold[6] = mMyData.price;
+                        }
+                    }
+
+                }
+            };
+
+            Intent serviceIntent =
+                    new Intent("com.android.vending.billing.InAppBillingService.BIND");
+            serviceIntent.setPackage("com.android.vending");
+            bindService(serviceIntent, mMyData.mServiceConn , Context.BIND_AUTO_CREATE);
+        }
+
+
         loadRewardedVideoAd(getApplicationContext());
 
         txt_heartStatus = (TextView)findViewById(R.id.Heart_MyHeart);
@@ -175,7 +244,6 @@ public class BuyGoldActivity extends AppCompatActivity {
 */
 
     }
-
 
 
     public void refreshHearCnt()
