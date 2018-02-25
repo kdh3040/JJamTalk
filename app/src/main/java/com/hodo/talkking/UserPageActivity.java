@@ -105,7 +105,7 @@ public class UserPageActivity extends AppCompatActivity {
     private UserData TempSendUserData = new UserData();
 
     private SwipeRefreshLayout refreshlayout;
-
+    private  TargetLikeAdapter likeAdapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -630,6 +630,8 @@ if(mMyData.itemList.get(i) != 0)
 
                                     gold_Dialog.dismiss();
                                     CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "하트 날리기", nSendHoneyCnt[0]  + "하트를 보냈습니다.");
+                                    RefreshFanData();
+                                    likeAdapter.notifyDataSetChanged();
 
                                 }
                             });
@@ -895,12 +897,14 @@ if(mMyData.itemList.get(i) != 0)
         //LinearLayout layoutFanLiked = (LinearLayout) findViewById(R.id.ll_fan_liked);
         listView_like = (RecyclerView) findViewById(R.id.lv_like);
 
+
+
         if(stTargetData.arrFanList.size() != 0)
         {
             //tv_like = findViewById(R.id.tv_like);
             //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
 
-            TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData.arrFanList);
+            likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData.arrFanList);
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
             bg_fan.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -939,7 +943,7 @@ if(mMyData.itemList.get(i) != 0)
                         Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("Target", TempSendUserData);
-                        intent.putExtras(bundle);
+                        intent.putExtras(bundle);ㅎ
                         startActivity(intent);
                     }
                     return false;
@@ -1136,6 +1140,40 @@ if(mMyData.itemList.get(i) != 0)
         }
     }*/
 
+    private void RefreshFanData()
+    {
+        ic_fan.setVisibility(View.VISIBLE);
+        listView_like.setVisibility(View.VISIBLE);
+        bg_fan.setVisibility(View.VISIBLE);
+
+        likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData.arrFanList);
+        listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        bg_fan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", stTargetData);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        listView_like.setAdapter(likeAdapter);
+        listView_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
+                //Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Target", stTargetData);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+            }
+        });
+    }
     private void RefreshData(final SwipeRefreshLayout refreshlayout) {
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("User").child(stTargetData.Idx);
