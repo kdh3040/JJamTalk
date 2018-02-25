@@ -36,6 +36,7 @@ import com.hodo.talkking.Rank_NearAdapter;
 import com.hodo.talkking.Rank_NewMemberAdapter;
 import com.hodo.talkking.Util.AwsFunc;
 import com.hodo.talkking.Util.CommonFunc;
+import com.hodo.talkking.Util.LocationFunc;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -757,18 +758,24 @@ public class FirebaseData {
 
                             if(bExist == false)
                             {
-                                mMyData.arrUserAll_Near.add(cTempData);
-                                if(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1).Gender.equals("여자"))
+                                double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), cTempData.Lat, cTempData.Lon,"kilometer");
+
+                                if(Dist <= 10)
                                 {
-                                    mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
-                                }
-                                else {
-                                    mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
+                                    mMyData.arrUserAll_Near.add(cTempData);
+                                    if(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1).Gender.equals("여자"))
+                                    {
+                                        mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
+                                    }
+                                    else {
+                                        mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
+                                    }
+
+                                    mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge );
+                                    mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
+                                    mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
                                 }
 
-                                mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge );
-                                mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
-                                mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
                             }
                             i++;
                         }
