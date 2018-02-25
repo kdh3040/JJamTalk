@@ -764,51 +764,34 @@ public class ChatRoomActivity extends AppCompatActivity {
                 if(CommonFunc.getInstance().CheckTextMaxLength(txt_msg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_CHAT, mActivity ,"채팅", true) == false)
                     return;
 
-                int nSize = mMyData.arrBlockedDataList.size();
+                if(CommonFunc.getInstance().ShowBlockUser(mActivity, stTargetData.Idx) == false)
+                {
+                    String message = txt_msg.getText().toString();
+                    int nLength = message.length();
+                    long nowTime = CommonFunc.getInstance().GetCurrentTime();
+                    if (txt_msg.getText().toString().replace(" ", "").equals("")) {
+                        return;
+                    }else{
+                        Calendar cal = Calendar.getInstance();
+                        Date date = cal.getTime();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                        String formatStr = sdf.format(date);
 
-                boolean bBlocked = false;
+                        //mNotiFunc.SendMsgToFCM(stTargetData);
 
-                for (int i = 0; i < nSize; i++) {
-                    if (mMyData.arrBlockedDataList.get(i).Idx.equals(stTargetData.Idx)) {
-                        bBlocked = true;
-                        break;
+                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0, 0);
+
+                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr, 0);
+
+                        mRef.push().setValue(chat_Data);
+                        txt_msg.setText("");
+
+                        mNotiFunc.SendChatToFCM(stTargetData, message);
                     }
                 }
-
-                if(bBlocked == true)
+                else
                 {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                    final int[] nSendHoneyCnt = new int[1];
-                    nSendHoneyCnt[0] = 0;
-                    View giftView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.alert_send_msg, null);
-                    builder.setView(giftView);
-                    final AlertDialog dialog = builder.create();
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                    dialog.show();
-
-                    final TextView Msg = giftView.findViewById(R.id.textView);
-                    Msg.setText("메세지 전송 실패");
-
-                    final EditText Edit = giftView.findViewById(R.id.et_nick);
-                    Edit.setVisibility(View.GONE);
-
-                    final TextView Body = giftView.findViewById(R.id.tv_change_nick);
-                    Body.setText("당신은 차단 되었습니다");
-
-                    final Button OK = giftView.findViewById(R.id.btn_send);
-                    OK.setText("확인");
-                    OK.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                            onBackPressed();
-                        }
-                    });
-
-                    final Button No = giftView.findViewById(R.id.btn_cancel);
-                    No.setVisibility(View.GONE);
-
+                    onBackPressed();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table;
                     table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(tempChatData.ChatRoomName);
@@ -833,36 +816,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                         mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(tempPosition));
                         mMyData.arrChatNameList.remove(tempPosition);
                     }
-
-
-
-                }
-
-                else
-                {
-                    String message = txt_msg.getText().toString();
-                    int nLength = message.length();
-                    long nowTime = CommonFunc.getInstance().GetCurrentTime();
-                    if (txt_msg.getText().toString().replace(" ", "").equals("")) {
-                        return;
-                    }else{
-                        Calendar cal = Calendar.getInstance();
-                        Date date = cal.getTime();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                        String formatStr = sdf.format(date);
-
-                        //mNotiFunc.SendMsgToFCM(stTargetData);
-
-                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0, 0);
-
-                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr, 0);
-
-                        mRef.push().setValue(chat_Data);
-                        txt_msg.setText("");
-
-                        mNotiFunc.SendChatToFCM(stTargetData, message);
-                    }
-
                 }
             }
         });

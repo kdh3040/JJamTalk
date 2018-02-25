@@ -437,89 +437,7 @@ if(mMyData.itemList.get(i) != 0)
 
                         else
                         {
-                            for (int i = 0; i < nSize; i++) {
-                                if (mMyData.arrBlockedDataList.get(i).Idx.equals(stTargetData.Idx)) {
-
-                                    bMsgBlocked = true;
-                                    break;
-                                }
-                            }
-
-                            for (int i = 0; i < nBlockSize; i++) {
-                                if (mMyData.arrBlockDataList.get(i).Idx.equals(stTargetData.Idx)) {
-
-                                    bMsgBlock = true;
-                                    break;
-                                }
-                            }
-
-                            if(bMsgBlocked == true)
-                            {
-                                // 블락됬습니다 표시
-                                final int[] nSendHoneyCnt = new int[1];
-                                nSendHoneyCnt[0] = 0;
-                                View giftView = inflater.inflate(R.layout.alert_send_msg, null);
-                                builder.setView(giftView);
-                                final AlertDialog dialog = builder.create();
-                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                                dialog.show();
-
-                                final TextView Msg = giftView.findViewById(R.id.textView);
-                                Msg.setText("날리기 실패");
-
-                                final EditText Edit = giftView.findViewById(R.id.et_nick);
-                                Edit.setVisibility(View.GONE);
-
-                                final TextView Body = giftView.findViewById(R.id.tv_change_nick);
-                                Body.setText("당신은 차단 되었습니다");
-
-                                final Button OK = giftView.findViewById(R.id.btn_send);
-                                OK.setText("확인");
-                                OK.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        dialog.dismiss();
-                                    }
-                                });
-
-                                final Button No = giftView.findViewById(R.id.btn_cancel);
-                                No.setVisibility(View.GONE);
-                            }
-
-                            else   if(bMsgBlock == true)
-                            {
-                                // 블락됬습니다 표시
-                                final int[] nSendHoneyCnt = new int[1];
-                                nSendHoneyCnt[0] = 0;
-                                View giftView = inflater.inflate(R.layout.alert_send_msg, null);
-                                builder.setView(giftView);
-                                final AlertDialog dialog = builder.create();
-                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                                dialog.show();
-
-                                final TextView Msg = giftView.findViewById(R.id.textView);
-                                Msg.setText("날리기 실패");
-
-                                final EditText Edit = giftView.findViewById(R.id.et_nick);
-                                Edit.setVisibility(View.GONE);
-
-                                final TextView Body = giftView.findViewById(R.id.tv_change_nick);
-                                Body.setText("당신이 차단한 상대입니다");
-
-                                final Button OK = giftView.findViewById(R.id.btn_send);
-                                OK.setText("확인");
-                                OK.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        dialog.dismiss();
-                                    }
-                                });
-
-                                final Button No = giftView.findViewById(R.id.btn_cancel);
-                                No.setVisibility(View.GONE);
-                            }
-
-                            else
+                            if(CommonFunc.getInstance().ShowBlockUser(UserPageActivity.this, stTargetData.Idx) == false)
                             {
                                 final String ChatName = mMyData.getUserIdx()+"_"+stTargetData.Idx;
                                 String ChatName1 = stTargetData.Idx + "_"+ mMyData.getUserIdx();
@@ -575,11 +493,10 @@ if(mMyData.itemList.get(i) != 0)
                                             String strMemo = et_msg.getText().toString();
                                             strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
 
-                                            if(CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this ,"쪽지 쓰기", true) == false)
+                                            if (CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this, "쪽지 쓰기", true) == false)
                                                 return;
 
-                                            if(strMemo == null || strMemo.equals(""))
-                                            {
+                                            if (strMemo == null || strMemo.equals("")) {
                                                 return;
                                             }
 
@@ -591,7 +508,7 @@ if(mMyData.itemList.get(i) != 0)
                                             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
                                             String formatStr = sdf.format(date);
 
-                                            ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, strMemo, formatStr, "", 0, 0);
+                                            ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), stTargetData.NickName, strMemo, formatStr, "", 0, 0);
                                             DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
                                             mRef.push().setValue(chat_Data);
 
@@ -602,8 +519,6 @@ if(mMyData.itemList.get(i) != 0)
                                         }
                                     });
                                 }
-
-
                             }
                         }
                         break;

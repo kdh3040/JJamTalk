@@ -1036,11 +1036,8 @@ public class CommonFunc {
         boolean bBlocked = mMyData.arrBlockedDataList.indexOf(targetIdx) > 0; // 내가 차단 당함
         boolean bBlock = mMyData.arrBlockDataList.indexOf(targetIdx) > 0; // 내가 차단함
 
-        if (bBlocked == true)
-            ShowDefaultPopup(context, "날리기 실패",  "당신은 차단 되었습니다");
-        else if (bBlock == true)
-            ShowDefaultPopup(context, "날리기 실패",  "당신이 차단한 상대입니다");
-        else {
+        if(ShowBlockUser(context, targetIdx) == false)
+        {
             final int[] nSendHoneyCnt = new int[1];
             final View v = LayoutInflater.from(context).inflate(R.layout.alert_send_gift, null, false);
 
@@ -1138,5 +1135,35 @@ public class CommonFunc {
                 }
             });
         }
+    }
+
+    public boolean ShowBlockUser(Context context, String targetIdx)
+    {
+        boolean bBlocked = false;// 내가 차단 당함
+        for(int index = 0 ; index < mMyData.arrBlockedDataList.size() ; ++index)
+        {
+            if(mMyData.arrBlockedDataList.get(index).Idx.equals(targetIdx))
+                bBlocked = true;
+        }
+
+        boolean bBlock = false;// 내가 차단함
+        for(int index = 0 ; index < mMyData.arrBlockDataList.size() ; ++index)
+        {
+            if(mMyData.arrBlockDataList.get(index).Idx.equals(targetIdx))
+                bBlock = true;
+        }
+
+        if (bBlocked == true)
+        {
+            ShowDefaultPopup(context, "차단",  "당신은 차단 되었습니다");
+            return true;
+        }
+        else if (bBlock == true)
+        {
+            ShowDefaultPopup(context, "차단",  "당신이 차단한 상대입니다");
+            return true;
+        }
+
+        return false;
     }
 }
