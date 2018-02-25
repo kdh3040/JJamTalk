@@ -670,6 +670,10 @@ public class CommonFunc {
         if (Filter != null)
             Filter.setVisibility(homeMode ? View.VISIBLE : View.GONE);
     }
+    public void SetMainActivityTopRightBtnForItemBox(boolean homeMode) {
+        if (Filter != null)
+            Item_Box.setVisibility(homeMode ? View.VISIBLE : View.GONE);
+    }
 
 
 

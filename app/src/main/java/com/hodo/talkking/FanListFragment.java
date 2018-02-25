@@ -124,6 +124,7 @@ public class FanListFragment extends Fragment {
         }
         CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
         CommonFunc.getInstance().SetMainActivityTopRightBtnForFilter(false);
+        CommonFunc.getInstance().SetMainActivityTopRightBtnForItemBox(false);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
     }

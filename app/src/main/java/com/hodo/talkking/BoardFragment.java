@@ -266,6 +266,7 @@ public class BoardFragment extends Fragment {
         }
         CommonFunc.getInstance().SetMainActivityTopRightBtn(true);
         CommonFunc.getInstance().SetMainActivityTopRightBtnForFilter(false);
+        CommonFunc.getInstance().SetMainActivityTopRightBtnForItemBox(false);
         return mFragmentView;
     }
 
