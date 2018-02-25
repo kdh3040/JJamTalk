@@ -143,8 +143,8 @@ public class FanListFragment extends Fragment {
             holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    getMyfanData(position);
+                    if(CommonFunc.getInstance().getClickStatus() == false)
+                        getMyfanData(position);
 
                 }
             });
@@ -185,6 +185,9 @@ public class FanListFragment extends Fragment {
         }
 
         public void moveFanPage(int position) {
+
+            CommonFunc.getInstance().setClickStatus(false);
+
             String i = mMyData.arrMyFanList.get(position).Idx;
 
             Intent intent = new Intent(mContext, UserPageActivity.class);
@@ -198,6 +201,7 @@ public class FanListFragment extends Fragment {
 
 
         public void getMyfanData(final int position) {
+            CommonFunc.getInstance().setClickStatus(true);
             String i = mMyData.arrMyFanList.get(position).Idx;
 
             final String strTargetIdx = mMyData.arrMyFanDataList.get(i).Idx;
