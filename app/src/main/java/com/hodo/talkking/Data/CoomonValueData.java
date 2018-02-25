@@ -6,7 +6,7 @@ package com.hodo.talkking.Data;
 
 public class CoomonValueData  {
     public static final int FIRST_LOAD_MAIN_COUNT = 30;
-    public static final int LOAD_MAIN_COUNT = 12;
+    public static final int LOAD_MAIN_COUNT = 8;
 
     public static final int FIRST_LOAD_BOARD_COUNT = 15;
     public static final int LOAD_BOARD_COUNT = 10;
