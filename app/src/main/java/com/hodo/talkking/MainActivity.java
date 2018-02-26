@@ -960,6 +960,7 @@ public class MainActivity extends AppCompatActivity {
                 CommonFunc.getInstance().SetFanAlarmVisible(false);
                 iv_myPage.setVisibility(View.GONE);
                 logo.setVisibility(View.GONE);
+
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("나의 팬");
                 mMyData.SetCurFrag(3);

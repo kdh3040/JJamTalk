@@ -33,7 +33,7 @@
         android:background="@android:color/transparent"
         android:gravity="center_vertical"
         android:padding="3dp"
-        android:text="내 아이템"
+        android:text="뽑기"
         android:textColor="@android:color/black"
         android:textSize="20dp"
         app:layout_constraintLeft_toRightOf="@+id/back"
