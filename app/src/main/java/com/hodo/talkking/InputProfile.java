@@ -159,20 +159,25 @@ public class InputProfile extends AppCompatActivity {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                        mMyData.arrUserAll_Recv.add(cTempData);
-
-                                        if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                        double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), cTempData.Lat, cTempData.Lon,"kilometer");
+                                        if(Dist <= 10)
                                         {
-                                            mMyData.arrUserWoman_Recv.add(cTempData);
-                                        }
-                                        else {
-                                            mMyData.arrUserMan_Recv.add(cTempData);
+                                            mMyData.arrUserAll_Recv.add(cTempData);
+
+                                            if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                            {
+                                                mMyData.arrUserWoman_Recv.add(cTempData);
+                                            }
+                                            else {
+                                                mMyData.arrUserMan_Recv.add(cTempData);
+                                            }
+
+                                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                            i++;
                                         }
 
-                                        mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                        mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                        mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                        i++;
                                     }
                                 }
                             }

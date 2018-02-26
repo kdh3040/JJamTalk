@@ -76,7 +76,8 @@ public class Rank_NewMemberFragment extends Fragment {
                                     break;
                             }
 
-                           mCommon.getUserData(getActivity(), stTargetData);
+                            if(mCommon.getClickStatus() == false)
+                                mCommon.getUserData(getActivity(), stTargetData);
 
                         }
                     }

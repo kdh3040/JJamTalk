@@ -714,182 +714,41 @@ public class ChatRoomActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         dialog_gal_gift.dismiss();
-                        View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.alert_send_gift,null);
-                        builder.setView(v);
-                        final AlertDialog dialog = builder.create();
-                        dialog.show();
 
-                        Button btn_HeartCharge = (Button)v.findViewById(R.id.HeartPop_Charge);
-                        btn_HeartCharge.setOnClickListener(new View.OnClickListener() {
+                        CommonFunc.HeartGiftPopup_Change_End changeListener = new CommonFunc.HeartGiftPopup_Change_End()
+                        {
                             @Override
-                            public void onClick(View view) {
+                            public void EndListener() {
                                 startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
                             }
-                        });
-
-
-                        //TextView tvHeartCnt = v.findViewById(R.id.HeartPop_MyHeart);
-                        final int[] nSendHoneyCnt = new int[1];
-                        nSendHoneyCnt[0] = 10;
-
-                        Button btnHeart100 = v.findViewById(R.id.HeartPop_10);
-                        Button btnHeart200 = v.findViewById(R.id.HeartPop_30);
-                        Button btnHeart300 = v.findViewById(R.id.HeartPop_50);
-                        Button btnHeart500 = v.findViewById(R.id.HeartPop_100);
-                        Button btnHeart1000 = v.findViewById(R.id.HeartPop_300);
-                        Button btnHeart5000 = v.findViewById(R.id.HeartPop_500);
-                        final TextView Msg = v.findViewById(R.id.HeartPop_text);
-                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 소모)");
-                        //tvHeartCnt.setText("꿀 : " + Integer.toString(mMyData.getUserHoney()) + " 개");
-                        //Msg.setText("현재 보유 코인은 "+String.valueOf(mMyData.getUserHoney())+"코인 입니다." );
-                        final Button btn_gift_send = v.findViewById(R.id.btn_gift_send);
-
-                        btnHeart100.setOnClickListener(new View.OnClickListener() {
+                        };
+                        CommonFunc.HeartGiftPopup_Send_End sendListener = new CommonFunc.HeartGiftPopup_Send_End()
+                        {
                             @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 10;
-                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                    btn_gift_send.setEnabled(false);
-                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
-                                }
-                                else {
-                                    btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
-                                }
+                            public void EndListener(int heartCount, String msg) {
+
+                                mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
+                                mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
+                                mMyData.makeCardList(stTargetData);
+                                mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
+                                mNotiFunc.SendHoneyToFCM(stTargetData, heartCount, msg );
+                                mMyData.setSendHoneyCnt(heartCount);
+                                mMyData.makeFanList(stTargetData, heartCount);
+
+                                Calendar cal = Calendar.getInstance();
+                                Date date = cal.getTime();
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                                String formatStr = sdf.format(date);
+
+                                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, msg, formatStr, "", 0, heartCount);
+
+                                if(msg.equals(""))
+                                    msg = mMyData.getUserNick() + "님이 " + heartCount + " 하트를 보냈습니다";
+                                mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, msg, formatStr, heartCount);
+                                mRef.push().setValue(chat_Data);
                             }
-                        });
-
-                        btnHeart200.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 30;
-                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                    btn_gift_send.setEnabled(false);
-                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
-                                }
-                                else {
-                                    btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
-                                }
-                            }
-                        });
-
-                        btnHeart300.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 50;
-                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                    btn_gift_send.setEnabled(false);
-                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
-                                }
-                                else {
-                                    btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
-                                }
-                            }
-                        });
-
-                        btnHeart500.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 100;
-                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                    btn_gift_send.setEnabled(false);
-                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
-                                }
-                                else {
-                                    btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
-                                }
-                            }
-                        });
-
-                        btnHeart1000.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 300;
-                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                    btn_gift_send.setEnabled(false);
-                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다");
-                                }
-                                else {
-                                    btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
-                                }
-                            }
-                        });
-
-                        btnHeart5000.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                nSendHoneyCnt[0] = 500;
-                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                    int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                                    btn_gift_send.setEnabled(false);
-                                    Msg.setText(String.valueOf(nPrice)+"코인이 부족합니다" );
-                                }
-                                else {
-                                    btn_gift_send.setEnabled(true);
-                                    Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?("+ nSendHoneyCnt[0]+"코인 필요)");
-                                }
-                            }
-                        });
-
-                        final EditText SendMsg = v.findViewById(R.id.HeartPop_Msg);
-
-                        btn_gift_send.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                                if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                                    btn_gift_send.setEnabled(false);
-                                }
-                                else
-                                {
-                                    btn_gift_send.setEnabled(true);
-                                    String strSendMsg = SendMsg.getText().toString();
-                                    boolean rtValuew = mMyData.makeSendHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
-                                    rtValuew = mMyData.makeRecvHoneyList(stTargetData, nSendHoneyCnt[0], strSendMsg);
-                                    rtValuew = mMyData.makeCardList(stTargetData);
-
-                                        //mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0]);
-                                        mMyData.setUserHoney(mMyData.getUserHoney() - nSendHoneyCnt[0]);
-                                        mNotiFunc.SendHoneyToFCM(stTargetData, nSendHoneyCnt[0],strSendMsg );
-                                        mMyData.setSendHoneyCnt(nSendHoneyCnt[0]);
-                                        mMyData.makeFanList(stTargetData, nSendHoneyCnt[0]);
-                                        CommonFunc.getInstance().ShowToast(getApplicationContext(), rtValuew ? "성공" : "실패", true);
-
-                                        Calendar cal = Calendar.getInstance();
-                                        Date date = cal.getTime();
-                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                                        String formatStr = sdf.format(date);
-
-                                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, strSendMsg, formatStr, "", 0, nSendHoneyCnt[0]);
-
-                                        if(strSendMsg.equals(""))
-                                            strSendMsg = mMyData.getUserNick() + "님이 " + nSendHoneyCnt[0] + " 하트를 보냈습니다";
-                                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, strSendMsg, formatStr, nSendHoneyCnt[0]);
-                                        mRef.push().setValue(chat_Data);
-                                        dialog.dismiss();
-
-                                }
-
-                                dialog.dismiss();
-                                CommonFunc.getInstance().ShowToast(ChatRoomActivity.this, nSendHoneyCnt[0]  + " 하트를 보냈습니다.", true);
-                            }
-                        });
-                        Button btn_gift_cancel = v.findViewById(R.id.btn_gift_cancel);
-                        btn_gift_cancel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                dialog.dismiss();
-                            }
-                        });
+                        };
+                        CommonFunc.getInstance().HeartGiftPopup(ChatRoomActivity.this, stTargetData.Idx, changeListener, sendListener);
                     }
                 });
 
@@ -905,51 +764,34 @@ public class ChatRoomActivity extends AppCompatActivity {
                 if(CommonFunc.getInstance().CheckTextMaxLength(txt_msg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_CHAT, mActivity ,"채팅", true) == false)
                     return;
 
-                int nSize = mMyData.arrBlockedDataList.size();
+                if(CommonFunc.getInstance().ShowBlockUser(mActivity, stTargetData.Idx) == false)
+                {
+                    String message = txt_msg.getText().toString();
+                    int nLength = message.length();
+                    long nowTime = CommonFunc.getInstance().GetCurrentTime();
+                    if (txt_msg.getText().toString().replace(" ", "").equals("")) {
+                        return;
+                    }else{
+                        Calendar cal = Calendar.getInstance();
+                        Date date = cal.getTime();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+                        String formatStr = sdf.format(date);
 
-                boolean bBlocked = false;
+                        //mNotiFunc.SendMsgToFCM(stTargetData);
 
-                for (int i = 0; i < nSize; i++) {
-                    if (mMyData.arrBlockedDataList.get(i).Idx.equals(stTargetData.Idx)) {
-                        bBlocked = true;
-                        break;
+                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0, 0);
+
+                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr, 0);
+
+                        mRef.push().setValue(chat_Data);
+                        txt_msg.setText("");
+
+                        mNotiFunc.SendChatToFCM(stTargetData, message);
                     }
                 }
-
-                if(bBlocked == true)
+                else
                 {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                    final int[] nSendHoneyCnt = new int[1];
-                    nSendHoneyCnt[0] = 0;
-                    View giftView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.alert_send_msg, null);
-                    builder.setView(giftView);
-                    final AlertDialog dialog = builder.create();
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                    dialog.show();
-
-                    final TextView Msg = giftView.findViewById(R.id.textView);
-                    Msg.setText("메세지 전송 실패");
-
-                    final EditText Edit = giftView.findViewById(R.id.et_nick);
-                    Edit.setVisibility(View.GONE);
-
-                    final TextView Body = giftView.findViewById(R.id.tv_change_nick);
-                    Body.setText("당신은 차단 되었습니다");
-
-                    final Button OK = giftView.findViewById(R.id.btn_send);
-                    OK.setText("확인");
-                    OK.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                            onBackPressed();
-                        }
-                    });
-
-                    final Button No = giftView.findViewById(R.id.btn_cancel);
-                    No.setVisibility(View.GONE);
-
+                    onBackPressed();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table;
                     table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(tempChatData.ChatRoomName);
@@ -974,36 +816,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                         mMyData.arrChatDataList.remove(mMyData.arrChatNameList.get(tempPosition));
                         mMyData.arrChatNameList.remove(tempPosition);
                     }
-
-
-
-                }
-
-                else
-                {
-                    String message = txt_msg.getText().toString();
-                    int nLength = message.length();
-                    long nowTime = CommonFunc.getInstance().GetCurrentTime();
-                    if (txt_msg.getText().toString().replace(" ", "").equals("")) {
-                        return;
-                    }else{
-                        Calendar cal = Calendar.getInstance();
-                        Date date = cal.getTime();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                        String formatStr = sdf.format(date);
-
-                        //mNotiFunc.SendMsgToFCM(stTargetData);
-
-                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0, 0);
-
-                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr, 0);
-
-                        mRef.push().setValue(chat_Data);
-                        txt_msg.setText("");
-
-                        mNotiFunc.SendChatToFCM(stTargetData, message);
-                    }
-
                 }
             }
         });

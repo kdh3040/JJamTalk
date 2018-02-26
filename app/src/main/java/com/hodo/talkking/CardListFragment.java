@@ -84,6 +84,7 @@ public class CardListFragment extends Fragment {
         }
         CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
         CommonFunc.getInstance().SetMainActivityTopRightBtnForFilter(false);
+        CommonFunc.getInstance().SetMainActivityTopRightBtnForItemBox(false);
         CommonFunc.getInstance().SetCardAlarmVisible(false);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
@@ -223,7 +224,8 @@ public class CardListFragment extends Fragment {
                     updateMap.put("Count",  mMyData.arrCardNameList.get(position).Count);
                     table.child("CardList").child(mMyData.arrCardNameList.get(position).Idx).updateChildren(updateMap);*/
 
-                    getMyCardData(position);
+                    if(CommonFunc.getInstance().getClickStatus() == false)
+                        getMyCardData(position);
 
                     //stTargetData = arrTargetData.get(position);
 
@@ -239,6 +241,7 @@ public class CardListFragment extends Fragment {
 
         public void moveCardPage(int position)
         {
+            CommonFunc.getInstance().setClickStatus(false);
             final String i = mMyData.arrCardNameList.get(position);
             stTargetData = mMyData.mapMyCardData.get(mMyData.arrCarDataList.get(i).Idx);
             Intent intent = new Intent(mContext, UserPageActivity.class);
@@ -257,6 +260,7 @@ public class CardListFragment extends Fragment {
 
 
         public void getMyCardData(final int position) {
+            CommonFunc.getInstance().setClickStatus(true);
             final String i = mMyData.arrCardNameList.get(position);
             final String strTargetIdx = mMyData.arrCarDataList.get(i).Idx;
             FirebaseDatabase database = FirebaseDatabase.getInstance();

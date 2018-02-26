@@ -1,7 +1,13 @@
 package com.hodo.talkking;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +36,10 @@ import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.RecyclerItemClickListener;
 import com.hodo.talkking.ViewHolder.BoardViewHolder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
@@ -95,7 +106,8 @@ public class BoardFragment extends Fragment {
                         case R.id.board_msg:
                         case R.id.board_write_date:
                         case R.id.board_thumnail:
-                            getBoardWriterData(position);
+                            if(CommonFunc.getInstance().getClickStatus() == false)
+                                getBoardWriterData(position);
                             break;
 
                         case R.id.board_report:
@@ -132,6 +144,8 @@ public class BoardFragment extends Fragment {
         // 글쓴이 페이지로 이동하는 함수
         public void moveWriterPage(UserData stTargetData)
         {
+            CommonFunc.getInstance().setClickStatus(false);
+
             Intent intent = new Intent(getContext(), UserPageActivity.class);
             Bundle bundle = new Bundle();
 
@@ -144,10 +158,12 @@ public class BoardFragment extends Fragment {
             intent.putExtras(bundle);
 
             startActivity(intent);
+
         }
 
         // 글쓴이 데이터 받아오는 함수
         public void getBoardWriterData(final int position) {
+            CommonFunc.getInstance().setClickStatus(true);
             final String strTargetIdx = mBoardInstanceData.BoardList.get(position).GetDBData().Idx;
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table = null;
@@ -250,6 +266,7 @@ public class BoardFragment extends Fragment {
         }
         CommonFunc.getInstance().SetMainActivityTopRightBtn(true);
         CommonFunc.getInstance().SetMainActivityTopRightBtnForFilter(false);
+        CommonFunc.getInstance().SetMainActivityTopRightBtnForItemBox(false);
         return mFragmentView;
     }
 
@@ -279,4 +296,6 @@ public class BoardFragment extends Fragment {
 
         return returnFunc;
     }
+
+
 }
