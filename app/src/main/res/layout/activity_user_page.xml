@@ -201,7 +201,7 @@
 
             android:padding="16dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/chat_icon_dark"
+            android:src="@drawable/chat_dark"
             android:theme="@style/PrimaryButton"
             app:layout_constraintEnd_toStartOf="@+id/UserPage_btnGiftHoney"
             app:layout_constraintHorizontal_bias="0.5"
