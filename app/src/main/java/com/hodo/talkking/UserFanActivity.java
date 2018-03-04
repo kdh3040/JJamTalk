@@ -110,7 +110,7 @@ public class UserFanActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);
         TextView txt_Title = findViewById(R.id.txt_title);
-        txt_Title.setText(stTargetData.NickName + "의 팬");
+        txt_Title.setText(stTargetData.NickName + "님의 팬");
 
     }
 

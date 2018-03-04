@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
 
-        android:background="@color/greenLight"
+        android:background="@color/baseColor"
         android:gravity="center"
         android:text="쪽지를 보내보세요!"
         android:textColor="@android:color/white"

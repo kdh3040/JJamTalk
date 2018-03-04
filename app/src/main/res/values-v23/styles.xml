@@ -2,8 +2,8 @@
 <resources>
 
     <style name="NoTitleBar" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">#3d2d59</item>
+        <item name="colorPrimary">@color/baseColor</item>
+        <item name="colorPrimaryDark">@color/baseColorDark</item>
         <item name="color"></item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--<item name="android:buttonStyle">@style/button</item>-->

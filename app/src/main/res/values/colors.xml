@@ -16,6 +16,7 @@
     <color name ="salmon">#884ea0</color>
     <color name ="baseColor">#6441a4</color>
     <color name ="baseColorDark">#3d2d59</color>
+    <color name ="baseColorAlpha">#226441a4</color>
     <color name ="GreenDark">#4a235a</color>
     <color name ="GreenAlpha">#554a235a</color>
     <color name ="goldColorLight">#fff769</color>

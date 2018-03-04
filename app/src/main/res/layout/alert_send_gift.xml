@@ -26,7 +26,7 @@
 
         android:layout_height="50dp"
 
-        android:background="@color/greenLight"
+        android:background="@color/baseColor"
         android:gravity="center"
         android:text="하트를 날려서 팬이 되어보세요!"
         android:textColor="@android:color/white"
@@ -53,14 +53,14 @@
         android:gravity="center_vertical"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin"
-        app:layout_constraintLeft_toRightOf="@+id/textView5" />
+        app:layout_constraintLeft_toRightOf="@+id/iv_coin" />
 
     <ImageView
         android:id="@+id/iv_coin"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="10dp"
-        app:layout_constraintLeft_toRightOf="@+id/tv_coin"
+        app:layout_constraintLeft_toRightOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:srcCompat="@drawable/coin" />
 

@@ -13,14 +13,14 @@
         android:layout_height="0dp"
         android:layout_weight="1"
 
+        android:background="@color/baseColor"
+
+
         android:elevation="5dp"
 
-
         android:translationZ="5dp"
-
-        android:background="@color/Green"
-        app:tabIndicatorColor="@android:color/black"
-        app:tabSelectedTextColor="@android:color/black"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabSelectedTextColor="@android:color/white"
         app:tabTextColor="@color/gray" />
     <!--app:tabBackground="@color/tabBackground"-->
 
