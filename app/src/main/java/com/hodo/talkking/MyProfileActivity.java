@@ -333,7 +333,17 @@ public class MyProfileActivity extends AppCompatActivity {
 
         if(mMyData.strProfileImg[index].equals("1"))
         {
-            LoadImage(index);
+            int tempIdx = 0;
+            for (int i = 0; i<4;i++)
+            {
+                if(mMyData.strProfileImg[i].equals("1"))
+                {
+                    tempIdx = i;
+                    LoadImage(tempIdx);
+                    break;
+                }
+            }
+
 
            // nImgNumber = index;
 
