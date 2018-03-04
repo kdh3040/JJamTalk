@@ -254,6 +254,11 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
+        if(mMyData.getUserIdx() == null)
+        {
+            int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+        }
+
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             if ( mMyData.badgecount >= 1)
@@ -288,6 +293,11 @@ public class MainActivity extends AppCompatActivity {
         mContext = getApplicationContext();
         mFragmentMng = getSupportFragmentManager();
         MobileAds.initialize(getApplicationContext(),"ca-app-pub-8954582850495744~7252454040");
+
+        if(mMyData.getUserIdx() == null)
+        {
+            int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+        }
 
         mMyData.mContext = getApplicationContext();
         mMyData.mActivity = mActivity;
