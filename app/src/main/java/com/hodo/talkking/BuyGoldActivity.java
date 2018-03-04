@@ -170,21 +170,21 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         mHeartItem = new HeartItem(R.drawable.coin, "10코인 1000원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.coin, "32코인 3000원");
+        mHeartItem = new HeartItem(R.drawable.coin, "30코인 + 보너스 2코인 3000원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.coin, "55코인 4900원");
-        list.add(mHeartItem);
-
-        mHeartItem = new HeartItem(R.drawable.coin, "120코인 9900원");
+        mHeartItem = new HeartItem(R.drawable.coin, "50코인 + 보너스 5코인 4900원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.coin, "250코인 29000원");
+        mHeartItem = new HeartItem(R.drawable.coin, "100코인 + 보너스 20코인 9900원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.coin, "650코인 49000원");
+        mHeartItem = new HeartItem(R.drawable.coin, "300코인 + 보너스 50코인 29000원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.coin, "1400코인 99000원");
+        mHeartItem = new HeartItem(R.drawable.coin, "500코인 + 보너스 150코인 49000원");
+        list.add(mHeartItem);
+
+        mHeartItem = new HeartItem(R.drawable.coin, "1000코인 + 보너스 200코인 99000원");
         list.add(mHeartItem);
 
 
@@ -428,7 +428,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
         else if(ID.equals(mMyData.skuGold[4]))
         {
-            nPrice = 250;
+            nPrice = 350;
         }
         else if(ID.equals(mMyData.skuGold[5]))
         {
@@ -436,7 +436,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
         else if(ID.equals(mMyData.skuGold[6]))
         {
-            nPrice = 1400;
+            nPrice = 1200;
         }
 
 
