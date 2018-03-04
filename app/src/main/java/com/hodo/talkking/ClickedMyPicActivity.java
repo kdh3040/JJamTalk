@@ -147,9 +147,6 @@ public class ClickedMyPicActivity extends AppCompatActivity {
             imgBestItem.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
         }
 
-
-
-
         imgGrade = (ImageView)findViewById(R.id.iv_rank);
         imgGrade.setImageResource(mUIdata.getGrades()[mMyData.Grade]);
 
@@ -167,16 +164,24 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         bg_fan= findViewById(R.id.bg_fan);
         bg_fan.setVisibility(View.VISIBLE);
 
+
         if(mMyData.arrMyFanList.size() != 0) {
             //tv_like = findViewById(R.id.tv_like);
             //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
             listView_like = (RecyclerView) findViewById(R.id.lv_like);
-            TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), mMyData.arrMyFanList);
+            UserData tempData = new UserData();
+            tempData.arrFanList = mMyData.arrMyFanList;
+            tempData.arrFanData = mMyData.arrMyFanDataList;
+            TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), tempData);
             listView_like.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             listView_like.setAdapter(likeAdapter);
-
-
         }
+        else
+        {
+            bg_fan.setVisibility(View.GONE);
+        }
+
+
         //LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
         //ImageView divide_Fan = (ImageView)findViewById(R.id.divide_fan);
         //divide_Fan.setVisibility(View.GONE);

@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.BoardData;
 import com.hodo.talkking.Data.BoardMsgClientData;
@@ -186,8 +187,51 @@ public class BoardFragment extends Fragment {
                             _BoardWriterData.arrFanList.add(entry.getValue());
                         }
 
-                        moveWriterPage(_BoardWriterData);
+                        if(_BoardWriterData.arrFanList.size() == 0)
+                        {
+                            moveWriterPage(_BoardWriterData);
+                        }
+                        else
+                        {
+                            for(int i = 0 ;i < _BoardWriterData.arrFanList.size(); i++)
+                            {
+                                Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(_BoardWriterData.arrFanList.get(i).Idx);
+                                final FanData finalTempFanData = _BoardWriterData.arrFanList.get(i);
+                                final int finalI = i;
+                                data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                        if(DBData != null)
+                                        {
+                                            _BoardWriterData.arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                            if( finalI == _BoardWriterData.arrFanList.size() -1)
+                                            {
+                                                moveWriterPage(_BoardWriterData);
+                                            }
+                                        }
+                                        else {
+                                            CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
+                                            CommonFunc.getInstance().setClickStatus(false);
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        }
                     }
+                    else
+                    {
+                        CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
+                        CommonFunc.getInstance().setClickStatus(false);
+                    }
+
                 }
 
                 @Override

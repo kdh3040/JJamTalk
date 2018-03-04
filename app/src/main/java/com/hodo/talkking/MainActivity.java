@@ -1221,13 +1221,30 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     FanData DBData = dataSnapshot.getValue(FanData.class);
-                    mMyData.arrMyFanDataList.put(mMyData.arrMyFanList.get(finalI).Idx, DBData);
 
-                    if(mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
-                    {
-                        if(fanFragment == null)
-                            fanFragment = new FanListFragment();
-                    }
+                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(DBData.Idx);
+                    final FanData finalTempFanData = DBData;
+                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                            mMyData.arrMyFanDataList.put(mMyData.arrMyFanList.get(finalI).Idx, DBData);
+
+                            if(mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
+                            {
+                                if(fanFragment == null)
+                                    fanFragment = new FanListFragment();
+                            }
+                            
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
                 }
 
                 @Override

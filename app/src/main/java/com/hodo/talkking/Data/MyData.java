@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.hodo.talkking.ChatRoomActivity;
 import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.R;
+import com.hodo.talkking.UserPageActivity;
 import com.hodo.talkking.Util.CommonFunc;
 
 import java.text.SimpleDateFormat;
@@ -105,8 +107,8 @@ public class MyData {
 
     public int nFanCount;
     public ArrayList<FanData> arrMyFanList = new ArrayList<>();
-    public ArrayList<FanData> arrMyFanNameList = new ArrayList<>();
-    public  Map<String, FanData> arrMyFanDataList = new LinkedHashMap<String, FanData>();
+    public  Map<String, FanData> arrMyFanRecvList = new LinkedHashMap<String, FanData>();
+    public  Map<String, SimpleUserData> arrMyFanDataList = new LinkedHashMap<String, SimpleUserData>();
     public  Map<String, UserData> mapMyFanData = new LinkedHashMap<String, UserData>();
 
     public ArrayList<StarData> arrMyStarList = new ArrayList<>();
@@ -323,7 +325,6 @@ public class MyData {
         mapChatTargetData.clear();
 
         arrMyFanList.clear();
-        arrMyFanNameList.clear();
         arrMyFanDataList.clear();
         mapMyFanData.clear();
 
@@ -899,7 +900,7 @@ public class MyData {
     public void getFanList() {
         String MyID = strIdx;
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
         table = database.getReference("User");
         user = table.child(strIdx).child("FanList");
@@ -913,22 +914,43 @@ public class MyData {
                 int saa = 0;
                 FanData tempFanData = new FanData();
                 tempFanData = dataSnapshot.getValue(FanData.class);
-                arrMyFanList.add(tempFanData);
-                if (!arrMyFanNameList.contains(tempFanData.Idx)) {
-                    arrMyFanNameList.add(tempFanData);
-                    arrMyFanDataList.put(tempFanData.Idx, tempFanData);
-                    CommonFunc.getInstance().SetFanAlarmVisible(true);
-                    if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
-                        if(GetCurFrag() == 3)
-                        {
-                            Fragment frg = null;
-                            frg = mFragmentMng.findFragmentByTag("FanListFragment");
-                            final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                            ft.detach(frg);
-                            ft.attach(frg);
-                            ft.commit();
+               // arrMyFanList.add(tempFanData);
+                if (!arrMyFanList.contains(tempFanData.Idx)) {
+                    arrMyFanList.add(tempFanData);
+                    arrMyFanRecvList.put(tempFanData.Idx, tempFanData);
+
+                    Query data = database.getReference().child("SimpleData").child(tempFanData.Idx);
+                    final FanData finalTempFanData = tempFanData;
+                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                            arrMyFanDataList.put(finalTempFanData.Idx, DBData);
+
+                            CommonFunc.getInstance().SetFanAlarmVisible(true);
+                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                                if(GetCurFrag() == 3)
+                                {
+                                    Fragment frg = null;
+                                    frg = mFragmentMng.findFragmentByTag("FanListFragment");
+                                    final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                                    ft.detach(frg);
+                                    ft.attach(frg);
+                                    ft.commit();
+                                }
+                            }
+
                         }
-                    }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+
 
                 }
             }
@@ -939,9 +961,9 @@ public class MyData {
 
                 boolean bEqual = false;
                 int Idx = 0;
-                for(int i=0; i<arrMyFanNameList.size(); i++)
+                for(int i=0; i<arrMyFanList.size(); i++)
                 {
-                    if(arrMyFanNameList.get(i).Idx.equals(SendList.Idx))
+                    if(arrMyFanList.get(i).Idx.equals(SendList.Idx))
                     {
                         bEqual = true;
                         Idx = i;
@@ -950,15 +972,77 @@ public class MyData {
                 }
                 if(bEqual == false)
                 {
-                    arrMyFanNameList.add(SendList);
-                    arrMyFanDataList.put(SendList.Idx, SendList);
+                    arrMyFanList.add(SendList);
+                    arrMyFanRecvList.put(SendList.Idx, SendList);
+
+                    Query data = database.getReference().child("SimpleData").child(SendList.Idx);
+                    final FanData finalTempFanData = SendList;
+                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                            arrMyFanDataList.put(finalTempFanData.Idx, DBData);
+
+              /*              CommonFunc.getInstance().SetFanAlarmVisible(true);
+                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                                if(GetCurFrag() == 3)
+                                {
+                                    Fragment frg = null;
+                                    frg = mFragmentMng.findFragmentByTag("FanListFragment");
+                                    final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                                    ft.detach(frg);
+                                    ft.attach(frg);
+                                    ft.commit();
+                                }
+                            }*/
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
                 }
 
                 else
                 {
                     /*int nRecv = arrMyFanDataList.get(SendList.Idx).RecvGold;
                     SendList.RecvGold += nRecv;*/
-                    arrMyFanDataList.put(SendList.Idx, SendList);
+                /*    arrMyFanDataList.put(SendList.Idx, SendList);*/
+
+                    Query data = database.getReference().child("SimpleData").child(SendList.Idx);
+                    final FanData finalTempFanData = SendList;
+                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                            arrMyFanDataList.put(finalTempFanData.Idx, DBData);
+
+              /*              CommonFunc.getInstance().SetFanAlarmVisible(true);
+                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                                if(GetCurFrag() == 3)
+                                {
+                                    Fragment frg = null;
+                                    frg = mFragmentMng.findFragmentByTag("FanListFragment");
+                                    final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                                    ft.detach(frg);
+                                    ft.attach(frg);
+                                    ft.commit();
+                                }
+                            }*/
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
                 }
 
                 CommonFunc.getInstance().SetFanAlarmVisible(true);
@@ -1672,14 +1756,34 @@ public class MyData {
         {
             FanData tempFan = new FanData();
             tempFan.Idx = getUserIdx();
-            tempFan.NickName = getUserNick();
+     /*       tempFan.NickName = getUserNick();
             tempFan.BestItem = GetBestItem();
             tempFan.Grade = getGrade();
-            tempFan.Img = getUserImg();
+            tempFan.Img = getUserImg();*/
             tempFan.RecvGold = SendCount;
             nTotalSendCnt = SendCount;
             stTargetData.FanList.put(getUserIdx(), tempFan);
             stTargetData.arrFanList.add(tempFan);
+
+            SimpleUserData tempData = new SimpleUserData();
+            tempData.Idx = getUserIdx();
+            tempData.Token = getUserToken();
+            tempData.Img = getUserImg();
+            tempData.NickName = getUserNick();
+            tempData.Gender = getUserGender();
+            tempData.Age = getUserAge();
+            tempData.Memo =getUserMemo();
+            tempData.RecvGold = getRecvHoney();
+            tempData.SendGold =getSendHoney();
+            tempData.Lat = getUserLat();
+            tempData.Lon = getUserLon();
+            tempData.Date = strDate;
+            tempData.FanCount = getFanCount();
+            tempData.Point = getPoint();
+            tempData.BestItem = bestItem;
+            tempData.Grade = getGrade();
+            stTargetData.arrFanData.put(getUserIdx(), tempData);
+
 
             FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
             DatabaseReference data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("FanCount");
@@ -1747,12 +1851,6 @@ public class MyData {
 
                 }
             });
-
-
-
-
-
-
         }
         else
         {
@@ -1780,14 +1878,34 @@ public class MyData {
             {
                 FanData tempFan = new FanData();
                 tempFan.Idx = getUserIdx();
-                tempFan.NickName = getUserNick();
+ /*               tempFan.NickName = getUserNick();
                 tempFan.BestItem = GetBestItem();
                 tempFan.Grade = getGrade();
-                tempFan.Img = getUserImg();
+                tempFan.Img = getUserImg();*/
                 tempFan.RecvGold = SendCount;
                 nTotalSendCnt = SendCount;
                 stTargetData.FanList.put(getUserIdx(), tempFan);
                 stTargetData.arrFanList.add(tempFan);
+
+                SimpleUserData tempData = new SimpleUserData();
+                tempData.Idx = getUserIdx();
+                tempData.Token = getUserToken();
+                tempData.Img = getUserImg();
+                tempData.NickName = getUserNick();
+                tempData.Gender = getUserGender();
+                tempData.Age = getUserAge();
+                tempData.Memo =getUserMemo();
+                tempData.RecvGold = getRecvHoney();
+                tempData.SendGold =getSendHoney();
+                tempData.Lat = getUserLat();
+                tempData.Lon = getUserLon();
+                tempData.Date = strDate;
+                tempData.FanCount = getFanCount();
+                tempData.Point = getPoint();
+                tempData.BestItem = bestItem;
+                tempData.Grade = getGrade();
+                stTargetData.arrFanData.put(getUserIdx(), tempData);
+
 
                 FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
                 DatabaseReference data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("FanCount");

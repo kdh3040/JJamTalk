@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
@@ -127,7 +128,51 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
                         mMyData.mapMyFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
                     }
 
-                    moveFanPage(position);
+                    if(mMyData.mapMyFanData.get(strTargetIdx).arrFanList.size() == 0)
+                    {
+                        moveFanPage(position);
+                    }
+                    else
+                    {
+                        for(int i = 0 ;i < mMyData.mapMyFanData.get(strTargetIdx).arrFanList.size(); i++)
+                        {
+                            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapMyFanData.get(strTargetIdx).arrFanList.get(i).Idx);
+                            final FanData finalTempFanData = mMyData.mapMyFanData.get(strTargetIdx).arrFanList.get(i);
+                            final int finalI = i;
+                            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                    if(DBData != null)
+                                    {
+                                        mMyData.mapMyFanData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                        if( finalI == mMyData.mapMyFanData.get(strTargetIdx).arrFanList.size() -1)
+                                        {
+                                            moveFanPage(position);
+                                        }
+                                    }
+                                    else{
+                                        CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
+                                        CommonFunc.getInstance().setClickStatus(false);
+                                    }
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
+                }
+
+                else
+                {
+                    CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
+                    CommonFunc.getInstance().setClickStatus(false);
                 }
 
 

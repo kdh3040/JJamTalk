@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.SimpleUserData;
@@ -64,7 +65,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
             }
         });
 
-       Glide.with(mContext)
+       /*Glide.with(mContext)
                 .load(stTargetData.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
@@ -89,7 +90,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
             holder.imageBest.setImageResource(mUIData.getJewels()[stTargetData.get(position).BestItem]);
         }
 
-        holder.imageGrade.setImageResource(mUIData.getGrades()[stTargetData.get(position).Grade]);
+        holder.imageGrade.setImageResource(mUIData.getGrades()[stTargetData.get(position).Grade]);*/
 
     }
 
@@ -137,8 +138,49 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
                             for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
                                 tempFanData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
 
-                            moveFanPage(position);
+
+                            if(tempFanData.mapFanData.get(strTargetIdx).arrFanList.size() == 0)
+                            {
+                                moveFanPage(position);
+                            }
+                            else
+                            {
+                                for(int i = 0 ;i < tempFanData.mapFanData.get(strTargetIdx).arrFanList.size(); i++)
+                                {
+                                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(tempFanData.mapFanData.get(strTargetIdx).arrFanList.get(i).Idx);
+                                    final FanData finalTempFanData = tempFanData.mapFanData.get(strTargetIdx).arrFanList.get(i);
+                                    final int finalI = i;
+                                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                            if(DBData != null)
+                                            {
+                                                tempFanData.mapFanData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                                if( finalI == tempFanData.mapFanData.get(strTargetIdx).arrFanList.size() -1)
+                                                {
+                                                    moveFanPage(position);
+                                                }
+                                            }
+                                            else{
+                                                CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
+                                                CommonFunc.getInstance().setClickStatus(false);
+                                            }
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+                            }
                         }
+                        else
+                            CommonFunc.getInstance().setClickStatus(false);
                     }
 
                     @Override
