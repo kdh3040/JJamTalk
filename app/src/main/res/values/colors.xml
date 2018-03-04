@@ -42,7 +42,7 @@
         <color name="colorPrimaryDark">#1a237e</color>
         <color name="colorPrimaryLight">#dbffff</color>
     <color name = "colorAccentDark">#80deea</color>
-        <color name="colorAccent">#77fa8072</color>
+        <color name="colorAccent">#77ffd700</color>
 
     <color name = "colorDark">#4e342e</color>
     <color name = "bg_grid">#ffffff</color>

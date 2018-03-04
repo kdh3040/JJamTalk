@@ -71,7 +71,7 @@ public class MyPageActivity extends AppCompatActivity {
         mActivity = this;
 
         mMyData.SetCurFrag(0);
-        profileButton1 = findViewById(R.id.imageButton);
+        profileButton1 = findViewById(R.id.cover_profile);
         profileButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +79,7 @@ public class MyPageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        settingButton = findViewById(R.id.imageButton2);
+        settingButton = findViewById(R.id.cover_setting);
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

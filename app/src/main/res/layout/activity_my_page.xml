@@ -20,7 +20,8 @@
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile" />
 
     <TextView
         android:id="@+id/nickname"
@@ -53,36 +54,78 @@
         app:layout_constraintLeft_toRightOf="@+id/rank"
         app:srcCompat="@mipmap/randombox" />
 
+
+    <ImageView
+        android:id="@+id/iv_profile"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:elevation="10dp"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_profile"
+        app:layout_constraintLeft_toLeftOf="@+id/cover_profile"
+        app:layout_constraintRight_toRightOf="@+id/cover_profile"
+        app:layout_constraintTop_toTopOf="@+id/cover_profile"
+        app:srcCompat="@drawable/profile" />
+
+    <TextView
+        android:id="@+id/tv_profile"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:text="프로필 수정"
+
+        app:layout_constraintBottom_toBottomOf="@+id/cover_profile"
+        app:layout_constraintLeft_toLeftOf="@+id/cover_profile"
+        app:layout_constraintRight_toRightOf="@+id/cover_profile"
+        app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
+
     <Button
-        android:id="@+id/imageButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="5dp"
-        android:drawableTop="@drawable/profile"
-        android:paddingTop="40dp"
-        android:text="프로필"
-        android:theme="@style/PrimaryButtonReten"
-        app:layout_constraintBottom_toTopOf="@+id/coin"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        android:id="@+id/cover_profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:theme="@style/rentangleButton"
+        app:layout_constraintBottom_toTopOf="@+id/iv_coin"
+        app:layout_constraintEnd_toStartOf="@+id/cover_setting"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nickname" />
 
+    <ImageView
+        android:id="@+id/iv_setting"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:elevation="10dp"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_setting"
+        app:layout_constraintLeft_toLeftOf="@+id/cover_setting"
+        app:layout_constraintRight_toRightOf="@+id/cover_setting"
+        app:layout_constraintTop_toTopOf="@+id/cover_profile"
+        app:srcCompat="@drawable/setting" />
+
+    <TextView
+        android:id="@+id/tv_setting"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="세팅"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cover_setting"
+        app:layout_constraintLeft_toLeftOf="@+id/cover_setting"
+        app:layout_constraintRight_toRightOf="@+id/cover_setting"
+        app:layout_constraintTop_toBottomOf="@+id/iv_setting" />
+
 
     <Button
-        android:id="@+id/imageButton2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="5dp"
-        android:drawableTop="@drawable/setting"
-        android:paddingTop="40dp"
-        android:text="설정"
-        android:theme="@style/PrimaryButtonReten"
-        app:layout_constraintBottom_toTopOf="@+id/coin"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/cover_setting"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:theme="@style/rentangleButton"
+        app:layout_constraintBottom_toBottomOf="@+id/cover_profile"
+        app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toBottomOf="@+id/nickname" />
+        app:layout_constraintStart_toEndOf="@+id/cover_profile"
+        app:layout_constraintTop_toTopOf="@+id/cover_profile" />
 
     <ImageView
         android:id="@+id/iv_coin"
