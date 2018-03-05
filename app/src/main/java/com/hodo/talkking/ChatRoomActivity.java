@@ -297,7 +297,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         //stTargetData.Img= mMyData.arrChatTargetData.get(tempChatIdx).Img;
 
         mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(tempChatData.ChatRoomName);
-        setTitle(stTargetData.NickName);
+        setTitle(stTargetData.NickName+"님과의 채팅방");
 
         boolean btnSendEnable = true;
         txt_msg = (EditText)findViewById(R.id.et_nick);
