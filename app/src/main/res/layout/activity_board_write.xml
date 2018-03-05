@@ -20,7 +20,7 @@
         android:layout_height="0dp"
         android:layout_margin="10dp"
         android:layout_weight="2"
-        android:text="게시글에 음란, 광고, 사기, 범죄, 불법적인 내용 등이 포함될 경우 계정이 영구정지 될 수 있습니다."
+        android:text="게시글에 음란, 광고, 사기, 범죄 ,불법적인 내용 등이 포함될 경우 계정이 영구정지 될 수 있습니다."
         android:textColor="@android:color/holo_red_dark" />
 
     <Button
@@ -30,6 +30,8 @@
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:layout_weight="1"
-        android:background="@drawable/base_btn_bg"
-        android:text="10골드를 소비하여 글 등록" />
+        android:textColor="@android:color/white"
+        android:background="@drawable/purple_btn_bg"
+        android:text="10골드를 소비하여 글 등록"
+        />
 </LinearLayout>
