@@ -168,23 +168,23 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         HeartItem mHeartItem;
 
-        mHeartItem = new HeartItem(R.drawable.coin, "10코인 1000원");
+        mHeartItem = new HeartItem(R.drawable.buy_10, "900원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.coin, "30코인 + 보너스 2코인 3000원");
+        mHeartItem = new HeartItem(R.drawable.buy_30, "2900원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.coin, "50코인 + 보너스 5코인 4900원");
-        list.add(mHeartItem);
-
-        mHeartItem = new HeartItem(R.drawable.coin, "100코인 + 보너스 20코인 9900원");
+        mHeartItem = new HeartItem(R.drawable.buy_50, "4900원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.coin, "300코인 + 보너스 50코인 29000원");
+        mHeartItem = new HeartItem(R.drawable.buy_100, "9900원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.coin, "500코인 + 보너스 150코인 49000원");
+        mHeartItem = new HeartItem(R.drawable.buy_300, "29000원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.coin, "1000코인 + 보너스 200코인 99000원");
+        mHeartItem = new HeartItem(R.drawable.buy_500, "49000원");
+        list.add(mHeartItem);
+
+        mHeartItem = new HeartItem(R.drawable.buy_1000, "99000원");
         list.add(mHeartItem);
 
 
@@ -308,11 +308,11 @@ public class BuyGoldActivity extends AppCompatActivity {
 
             ImageView img = (ImageView)view.findViewById(R.id.Charge_Img);
             img.setImageResource(arrData.get(i).Img_Heart);
+            final Button btn = (Button)view.findViewById(R.id.charge_Txt);
 
-            final TextView txt = (TextView) view.findViewById(R.id.Charge_Txt);
-            txt.setText(arrData.get(i).txt_Heart);
+            btn.setText(arrData.get(i).txt_Heart);
 
-            txt.setOnClickListener(new TextView.OnClickListener()
+            btn.setOnClickListener(new TextView.OnClickListener()
             {
                 @Override
                 public void onClick(View view) {

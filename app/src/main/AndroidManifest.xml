@@ -131,8 +131,8 @@
 
         <activity android:name="com.hodo.talkking.BuyGoldActivity"
             android:screenOrientation="portrait"
-            android:theme ="@style/NoTitleBar"
-            android:label="코인 충전"
+            android:theme="@style/MyTheme"
+            android:label="코인 충전하기"
             />
         <activity android:name="com.hodo.talkking.ImageActivity"
             android:theme ="@style/NoTitleBar"
