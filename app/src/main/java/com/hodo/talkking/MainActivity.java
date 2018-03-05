@@ -50,11 +50,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.hodo.talkking.Data.FanData;
@@ -70,10 +73,16 @@ import com.hodo.talkking.Util.CommonFunc;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.kakao.usermgmt.StringSet.id;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -128,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
     private int nEnableFontColor = Color.BLACK;
     // 안눌러졌을때의 폰트 색상
     private int nDisableFontColor = Color.GRAY;
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public class Prepare extends AsyncTask<Void, Void, Void> {
 
@@ -308,10 +319,21 @@ public class MainActivity extends AppCompatActivity {
         mFragmentMng = getSupportFragmentManager();
         MobileAds.initialize(getApplicationContext(),"ca-app-pub-8954582850495744~7252454040");
 
+
         if(mMyData.getUserIdx() == null)
         {
             int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
         }
+
+/*        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        Bundle Analyticsbundle = new Bundle();
+        Analyticsbundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id");
+        Analyticsbundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Name");
+        Analyticsbundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, Analyticsbundle);*/
+
+      //  AddDummy(1000);
 
         mMyData.mContext = getApplicationContext();
         mMyData.mActivity = mActivity;
@@ -651,7 +673,7 @@ public class MainActivity extends AppCompatActivity {
                 RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-                       if(rbtn_three.isChecked())
+                        if(rbtn_three.isChecked())
                             mSetting.setnViewSetting(1);
                         else if(rbtn_four.isChecked())
                             mSetting.setnViewSetting(2);
@@ -748,7 +770,7 @@ public class MainActivity extends AppCompatActivity {
             bCheckConnt = false;
         }
 
-       // Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
         /*ib_pcr_open = (ImageButton)findViewById(R.id.ib_pcr_open);
         ib_pcr_open.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -886,7 +908,7 @@ public class MainActivity extends AppCompatActivity {
         LoadChatData();
 
         ib_board = findViewById(R.id.ib_board);
-       // ib_board.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
+        // ib_board.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
         ib_board.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -963,12 +985,12 @@ public class MainActivity extends AppCompatActivity {
                 else
                     mFragmentMng.beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
 
-               // mCommon.mFragmentManager.beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+                // mCommon.mFragmentManager.beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
 
                 /*FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().addToBackStack("ChatListFragment").replace(R.id.frag_container,cardListFragment).commit();
                 transaction.add(R.id.frag_container,chatListFragment, "ChatListFragment");
                 transaction.commit();*/
-               // getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
+                // getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,255,100,100);
                 SetButtonColor(2);
@@ -1183,7 +1205,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
                     mMyData.arrCarDataList.put(mMyData.arrCardNameList.get(finalI), DBData);
 
                     if(mMyData.arrCarDataList.size() == mMyData.arrCardNameList.size())
@@ -1270,7 +1292,7 @@ public class MainActivity extends AppCompatActivity {
                                 if(fanFragment == null)
                                     fanFragment = new FanListFragment();
                             }
-                            
+
                         }
 
                         @Override
@@ -1463,5 +1485,184 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    String RandImg[] = new String [100];
+
+    private void AddDummy(int Count)
+    {
+
+        RandImg[0] = "http://t1.daumcdn.net/liveboard/samanco/201508/1440308700523.jpg";
+        RandImg[1] = "http://sccdn.chosun.com/news/html/2014/02/24/20140225010024585001677110.jpg";
+        RandImg[2] = "http://ojsfile.ohmynews.com/STD_IMG_FILE/2015/1030/IE001887744_STD.jpg";
+        RandImg[3] = "https://image.mycelebs.com/celeb/sq/338_sq_01.jpg";
+        RandImg[4] = "https://www.fashionseoul.com/wp-content/uploads/2017/09/201709018_PARK-2.jpg";
+        RandImg[5] = "http://topclass.chosun.com/news_img/1801/1801_008_1.jpg";
+        RandImg[6] = "http://www.munhwanews.com/news/photo/201710/84896_140798_3411.png";
+        RandImg[7] = "http://img.insight.co.kr/static/2017/10/10/700/dohwc3nz5310m669r6h0.jpg";
+
+        RandImg[8] = "http://pds.joins.com/news/component/htmlphoto_mmdata/201702/28/1bbf3439-8fd7-4e9b-9350-49611fc80773.jpg";
+        RandImg[9] = "http://img.etoday.co.kr/pto_db/2017/09/20170923031414_1130037_600_818.jpg";
+        RandImg[10] = "http://pds.joins.com/news/component/htmlphoto_mmdata/201704/19/32965f70-b593-4ff7-8457-b17a7942f1b5.jpg";
+        RandImg[11] = "http://mn.kbs.co.kr/data/news/2017/06/30/3507703_6DL.jpg";
+        RandImg[12] = "http://thumb.mt.co.kr/06/2017/12/2017120809455886841_2.jpg";
+        RandImg[13] = "http://img.insight.co.kr/static/2016/12/09/700/56T850II6R5Z9XMSV8OU.jpg";
+        RandImg[14] = "http://pds.joins.com/news/component/htmlphoto_mmdata/201107/04/htm_2011070423063950005010-001.JPG";
+        RandImg[15] = "http://www.breaknews.com/imgdata/breaknews_com/201310/2013102320493836.jpg";
+
+
+        RandImg[16] = "http://www.xportsnews.com/contents/images/upload/article/2018/0207/1517989405454336.jpg";
+        RandImg[17] = "http://img.tenasia.hankyung.com/webwp_kr/wp-content/uploads/2017/02/2017020915275410864-540x768.jpg";
+        RandImg[18] = "http://news20.busan.com/content/image/2017/12/31/20171231000035_0.jpg";
+        RandImg[19] = "http://t1.daumcdn.net/movie/gaia/e5a448f6b23d007098671cad031034b1362e5ce5";
+        RandImg[20] = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEBAQEBIVEBAPFQ8PFRAPDw8PDw8QFRIWFhUSFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQFy0dHx0tLS0tLS0tLS8tLS0tLS0tLSstLS0tKy0tLS0tLS0tLS0tLS0rLS0tLS0tLS0tLS0rLf/AABEIALcBEwMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAADAQIEBQYAB//EADwQAAIBAgMFBgQFAwQCAwEAAAECAAMRBCExBRJBUWEGEyJxgZEyobHwB0JSwdEUYuEjQ3KCJPE0kqIz/8QAGgEAAgMBAQAAAAAAAAAAAAAAAAECAwQFBv/EACkRAAICAQQCAgIBBQEAAAAAAAABAhEDBBIhMUFRIjMycWETI0KBkQX/2gAMAwEAAhEDEQA/AIyrCBZETGDlD08UJrOU0yQqx6pBrXWFWqvOBEcFjws5WHOEECI0LFCx4WOAgAwLHBY4COCwEM3Yu7H2i2gAzdi7sfaUvaDbgw43Es1ZhcA/Cg/U38RN0OMXJ0idjsZTorvVGtyGrMeQHGZzFdqnN+6phRwLm7H0GQ+coalV6jF3Znc8Tw/YDpHd2eJA9b/WUubOjj0sYr5cssE7RYi+bjyAX6WvJOJ7Q1Mjvbo/t5ynUC/xfUzQ9wi4JqhsWJ3QbDw/Y+sNzLf6UPSI2G7TPfxMGHIi3zl5gNtUqlgTutyJyJ6GYikrflAI5EH58pKRBfMd2x63Uw3tEXpoTXVHoG7O3Zmtl7UakQlTxU+BzO5/jp7TUKQQCMwcwRoRLYyUjnZsMsTpg92JuwtohEmVAd2Juw1o20ABFY0rDERpEBgSsYVhyIwiAACkYUkgiMIgOyMywZWSWEEwiJEfdnQtp0Q7BjDryjlwwh9yGWnlGKyJ/TRf6eTFSO7uMW4hLh2hFpsJM3IqpAVkYFusItVofcjtyAWAFcwgxEIqTmo9IhcDRiByjhXE7uByjRQEA4BbR2klGk1Q8BkP1NwE85es1V2qMbliWLdeQlh2tx3eVu5U+ClcE82/Mf295X4YXGWnTIWlE3bOnpsW2N+WGUZDUDkIuX6R6kXi2HFh5Le3uJ3djhc+RB+n7yJpJGzsNUqOqi2Ztciw+Utu0NVRTp4db71PeBJ3Rc36HOSuyWF3Q9VhkoJBN9faUG0Dv1mJOpJv4vpDyLwR8Olsz4T+oaHo3Lzk1jlZvc6ev8wYPBxroefrx8oEV91gj/C3wtbI9D16RMkuCQrEXUi/QjK3SXfZnaNmNBjkc6ZPzT9/eZ9rWtfTjxT/ABBLXIIbR0Ibe6jQ/wAwT2uyGXGskdrPSZ0q8FtXfpq+7rrbgeIksYsW0M1Lk4ri06ZItEMj/wBaOIPtHHFp9iMVMIYhEjttBL2vHHFJ+oe8B0x5EaRGDFJzHvHFxzgFDSIxo8sOcaWHOAwTCDYQrMOcGWHOIYK0WcWHOdEMeYanpGmFXSSIjVOcexi0xHEQEcpiqc462UdTWIBGMchnEQgWAgd84QtlORY5lgA1GkbamLFKlUqfpUkdTw+clhZme3NfdoKg1qN/+Vz+u7IydKyeKO6aRhyCxJP5iWY8bfzCNWzCi7H9KmwHmYGo+6v9x+7zX9ithLYVaguzZi/CZro7SV8IqcJhK7Zin7i/1k+jsiqTdqVuthPSsLhVsLKPaWFLCjkPaK2W7EY6jhHGHK7pUm+W7r5iY3FKA3iFuljYEcuPvPaKlEcpnO0PZlKwJGTjiIWJwPNe+sLN4kPO2X3zkTFKN0rfeQ6N+ZTwv/MkbX2ZVoOcvQ6Hy++Mrf6jh8PTl/iSIPjsJhcUbEN//ROPBh184ao4IDDj9kekqq7WYMOHLQjiJIw1axI4NmD14H9omCZsOxWMvv0D/wA18tCJrEA5fKebbIxXdV0cZAHP/icjPRsybiX4nao5msx7Z37HvSBGg9oNaS6ECFzgzcmWmMR8Kh/KIAYNNN2SzeBud6A7YCpgEI0kc7OU8wR1lgSYDeO9pAabI52cvM+5gf6I3tvsBwzMsCx5SOXJbTSBJNkU4Fv1n1gP6eop3Q4sdLrLJnPKRqlS7AW0ziGmyG2Eq/rX/wCs6Tt88p0B7mFKQoXKITCDSBASmsVhHIYpMBC8J1OOvlHIYCGk5x94hOcIdIANpmOZoqRSICEvlMJ24r71emn6Fvb/AJH/ABN6RPOe2A/8x+oS3TwiV5OjTpPsKKku/WRebKvpqZ7HsbChUUW0Ank/ZikzYtSq75QM+7e2en7z0qh2gNPKrQZOoBI97TO+zsQdKzWUFktRKLAbZSoLqZZDF2F4iwnxpSVL9o6KfGdOhM6j2qoMcgx9B/MYEftRsNa9I2HjXMHrynkG18Jukqy2YZcbz3aljqdUWUkHkwsZh+3Wwd5WqouYzPpEnTFKNo8oqNkQYOlU8I5g2hMZSPL5gR+KoogVU3r7gLFtC987dOEsZnJdCrex+856ZsHEd5RQ8QN0+YynlWEPD0m77G4gkMvkelzHj4kU6uO7Hfo1ZiLGve0RAbTQckJAjUxajECMW8YDn0gkGXnOqubaaxoJtpAY8wCcYtaqQNNY1Wy0gMUwFvEY+rWsNIJHyzBuYDHzozvRynRDNns3sopAauTc/kXK3mZZVOy9AiwBB53Mg4fbzPUVVzzF7aATRLip5zNqssJfKVv98I6j00MfEkYXaexnoHPNDow/eVts56TtGkKlJ1Odwbec81OTEciROrodU88Xu7Rgz4lB8dMewj1WD3oUNlN5nEVc45hFpmOJziEcoiC8JeNUwA5jPPe2yEYkN+pVt6Egz0RpjPxETw4drfmdb9LA/wAyE1wX6aVZEUPZUuteo9Nd4ohyGV7kfxNU22cStIVqlKluMwWxapvZgm5IBtpK38MkDVMRfgtP95uG2dkVFtw/lYBl15GZnV8nbgm48Oir2ViVqAVEUpnYqR8wcrjrNN3Z3JGw+BAFsuWShbC+gA4TQLhxuDKRonVGQxCU0BZ1ub2AC7zseAA4mVtLtQoqd0uFffBI3e9pipkbfD/marH4C5DLquY85Bo7LHed53aioci+d+V7aXjVLsbTfTH7G7QpVIUBkb9FRN1hLnHYffpsDxBj8Ds9FGgJ52zh8QbAyLJcHi2L2KWrVVA3t3hM/talu7nVTeekrSAfFA/ncjwnO24oy65mef8AaBy+IqgqU7m9LcK7pUqbEW4WMlFtspnFJFfSFgD6TVdkatqwHP8Ak2me7vwHoQfpLzskt6y9CPWWx/JGbL9bPQnnCDKkmOsZoOMJU4RTBWJPlFN4wEq8JxgxvE3isTAYyoMxFMGpYm9opJ5QGDIu3lOMGrsSTbLSKWPKAzp0iviiCRuzoiW1mz2fRSiAAbdWFryzp4sXtcHjkZm6G0qhALoHU52tC0tooLlabX/SAcuk89qMONq4rlnfz4opW+zS1tpKlNieAMw9rknnczRUFbEIQ67gOg4jzlHisI1Jireh4ETd/wCZiWOL9s5WsxyjT8AdzOEZYO+cIzTpmEeiTt3OcjTg2cBDyIiLHFpymAhGEzP4gUv/ABFbilRSPVWH7zTkzM/iFUthAP1VE+QJ/aRl0W4fzRQfhxi+7xJB0rDc/wCwuw+h956whBnhuEdqSiqvxU2SoP8Aq2k9k2dig9NHU3VwGB6EXEzSO5jlXBZUc3C85oWp+DymVOJNMht3eF8yMyB5SQ3aYZAIz21CgX9bmRTos7JlQ5mNCCDqYnvbOqlBbRhY3iK8RNEpalpGxuIyMQteVW3MRuU2PQwYWecbWxV6+Lql6g7hL0wgBQ1mayb9/wAt7nnkJRYdCQScy2ZJNySxuSevGWe1u8VKdGpSCNXf+qZmQisafiWkN4/lILN7SNTGvnb0EsiuDK3bB2yPX7/aX/YmneqDyz9gf5EoRmBNR2NSwc8cvO32JOP5FWf62a5dY6BpKdYr3Amg44tPjFYQdNTaJVYgQAWnpEq6GMTeAjarmxygOh66CMqHIxqMbDKDq1SBpAdC09BOMFTqGwuJzVukB0RmOZ8zOgmqXJIBsZ0RM9ATCLwtaSEwY1sJlMJtoqbPl9Jf4XaykZGc/ZXZ3VlU+mWtDDkTsfg1qIQwz4HiDG0MeCIY1rjKSXHQSipKmYYizEciRHsBJG1cPu1SeDeL+ZGZZti7Vnn8kdk3H0OQRQuc5VnARkBzLHKsa0cpgIbuzK/iHTJo0+QJPrbL95qt6Z/tst6HraRl0W4PsRhqq2pNNn2A2oWod03+0SFJ4pqB6Xt7TIYj4HHUj5SBs/aT0KlOohNlNyt8mGhEoas7F0z2HH7dpUR/qZnloLc7zsJ2qwmTaXsCLgW8uch0ay4mglSmQQwDC4v6HkZCGDYMd6grDT4cvlM0nJPg6mmjglH5umbShtShUANJwwPC4DA8iI4mUGzdm0x4u5VG1FlAsZbb1hJJ+ynKoqVRdoOWtMx2gVsS64Olc1KuRC2LBOJAJHAGTNobUt4Kfif5L1Mw+3MTUoVd6m9qtRWDuPjCnI2PC+kkuXRTJ0uCs2pUBxNUhiypkCQQQFUKFseVrfOD0Tqf/ZMApyH97D2H2JKqcB1t7CXIzjFTl5D79Jt+yHZqvWBq0yFRRYXy3zymSwtK5B8z7f8Aubvs/szF4unT7tytClbI3TD9VKjNzxvJRXIS6/ZJp3UlTqpIIuDYjIx1Q5TQ0/w9XJjiGV9f9NFVN46ndJMq9p9nMRR1HeUx/uIDpzZdR9JapJnNy6dx5RDGkHW0i7vWCqqbgSRmCmCq6RSDAVN64EACjQQOI0HmI8kwFZjcC2sCSCGDfQxWc8oCvXsLWzOUBoWkchOjVcAWtOiAkKt4hpkG6Hd6cDHU2hC0HFPsIylF2i12TV3gL68ZdpUsJm9n1LNbnL1TcTFKO10dvFk3wTIu2RdVbkbe8qy0uMYl0YevtKYiaML4o5uujWS/Y9WnBs4iLECZy0xBSYog2WPUQEIRKbtcl6F+TL9Zc2lN2u/+P/2WKXRbh+xfs8/xrWUf3MxlRUGUs8e12HQG3rIFRcj6TOdhlz2S7SHCPuvdqDm5AzKH9S/uPs+oYHbVGqAyVFYHkR9ieHCORLkDiconGxxm0e7Yja1JB8Q8r5+0pcXtd6nhTwrz4n+JV9mdhd3RLH4iL+cIpCsqnItcgHjbWOWFxVjWVt0TUIRCx4Akn9zMFiqxqOznNnOXTkPaabtBi7Ut2+b+H04zLoM/L7/mRxx8jlLwPWmN8AaLaFUE39fczqI8RPIj6COQ5ffOWEC87M4DvsQtNsqdlDEcj/OU98wFBEppTQAKoAAGk84/DzYw7harjxMb34m2Sj956fR0A4iSkqihXbHziJxiyoZlO0XZ25NWgMzm1MZA9V69Jjqwsc8iMiDkQRwnrTnKZbtJ2b769al4ampX8tT+DLoT9mLPp7+UTHGBfUR9SmwJByIyIORB5SOS29blLTFQcwNXUGOJMDUc3At1gCCGR6uq+sIznlI9erbdy4wGgs6CNWdEMkouceVzg6ZhN7OMQejkwM0GHbKZ3el3g3yEzZl8jpaKVwa9MmOMjM9WUqSORmgJlVtJLMDziwupV7Ja2Fw3eiLTMcGipOAmk5A4mOUxrCKogBwMz/bd7Yb/ALLL60yvb+raii31a/sJGXTLcC/uIw9fPdPSRzobw9X8o6SKdG9ZnR12BtLPs7gjWxVKmOJufIStvPTPwo2MhV8WTvMCaYX9NufnLccdzISdI2K4MKm4PWZTtbR3amGtqCx+U3j0uXnMf+IGHIWhWUE92xVrciJflXwZHG/lyZHtEw3lXPwrcgm+Z5fKVdL4rfesfjaxZix1Ofl0gcI3iPQGZi3yHpaee8ZIorvMqjXT1kVNB5D+ZbdlsP3mMw6a7zA+QGZPpaNK3QHuWxKASlQpLoqj2A1/eXo1+9JV7NHjPIAAffrLa3GTy90QiPiRu9OLSiiYlTlGsIoMa5z9pJCM/wBodgiqDUp5VQNOFTp5zBsLMb5HTynrQMxXbbZJRxiEHgc2cfpfg3kfr5y6MvDMWoxf5L/ZmzA1dQY8kwFdzpbMyZkQUmBqi4i755QNauANNcoDo5GyiRqVBadEMmUmj+Mh0mj1fOMROIylls98hKYvLDZtTKUZ10zboXy0XgMiY+nvKeYzh1bKNYyi6dnQlFSi0/JTrOUx9YbrEQaPNqdqzgyi4tp+AjNFVo1miiBETemI7dVt6oi8rD1m1cgAnlMF2rP+soOtt/3/AMSGT8TTpY3OzPV9T7SKoyY+cPiPmc4FskMoR0mRxLvs52grYKpv0TdTbept8DjryPWUohpJOiNHumwO0tLF0DUQbtT4WpHMqf3HWUXb3bXd0Vw6Zu4u7cAo/KOpNvYyg/DrHdyd5gDTbJv7bcYHtDQ/qcQ9SkS1I3s1rgKBfdHPnb+6aXNuH8kEuTNPUv8AKGwY8LnzjtpYU0lpg6uN/wBLZffSLhvhP/EmZy1CsdPT95sfwtwwbE1Kx/2kCD/k/H2B95iWbIffC89H/Cql/o1X5VWPoEUAfMy3ErkQm6R6pgPCt+JzkwPKunV0HKSlqRzhzZGLJoM68jCrF7yV7SdhyYwRm/FBhQrCKmcjbUw61aT0jo4tfkeB97Q5qDSR6r2gk7B1VHmWJolHZG+JCQfSRXPiE0fa/AVA/fKt0IAYjgw4n5TK75LaZCXHLlDa6DsZHrDQ8jCGp0kerXG8F9YCQW06M70TogAJUj6dSRt7KOpmKydEw1pP2ZVzlNxkvB1LMJXl5iX6Z7ci/k1dJo9pCw1WSi0ynVIe0EyDekhIJZVjcEc5UF90kHhNOGXFHN1uKpb15DER97SMK2dpbYHBX8T+0slJR7MuPDLI6RCSizEXHhGZvx6Tz/b1Qti65YaHdtwVRw9p6zibBTaeUbVP+riidbmZ5ZGzq48EcapGcxBuzHrA1DkwkgfC3O8iVNPOCYMGYW8C50jyYxG72ThGNBKa5GtbPkvGajBYVaahQPAo3AOR1J9SflM52GxZqndNrU1Cjn1myqJukX0P1m3Gk1ZVLs837an/AMhEP5KSLble5kCkfCT/AG/T7EL2qqb+Nq9Co9AIxB4SP7fqf8TLN/JlseiPidB6fQT1f8O6HdYCnfJq5atb+0my/IX9Z5NjDkOpM9p2MyrQwpHwdzRt5d2JbgXJXlfBpO8CjeOugEIlQ6cdT06SlGM3qovoAT0ElptBQbKd48SBfOaaKky3RodRK1cRpJNKpnKpRJpk0GLvQZMUGVUTHWjK50i70a+ZF9BnGuwHpTBUhhdTkQdCJ5XjVVa1ZU+FXcDyBnp7194WX4efP/Ew3bPZfduuIQeGoSGHJ+frnGkZ88bjx4KItIxPiPlOar0gDXG9bpnAyJB8osD3o5zogoqmdlyMJSxM6dKccnKNs36nFHHNxQVMRJC1sxFnSx8ozx4kmXuCr5CWK1J06YjroZUaQMYl7Ea6RJ0ak4u0KcFODTJ2zsGq+I5t9JYmpOnQ3Nu2SWOMFUURcRWyM847VUt2q5GjgH1EWdGxGVY6yNUM6dJIqYFzHBshEnSRA1fZzEjDmhWF7VDuMP3npuIqg0w/AWadOmvC+GU9/wDTyTatQHE12GhdreV4gewbyH38p06Zn2Xroj4o+FehA9d2er9icV3uzaB40g1E+SMQPlaJOl2D8ivL0SxUIJ5nw+l5aYN7Dy+s6dNZnROovDmpOnRE0WWGq7yAx6vOnSprkmKzQVcXFjzE6dBAxVF7AZCV3abD95h3Tio3x5rnFnQ80RlzE8zLyPTa9zzM6dKzEcbcp06dEB//2Q==";
+        RandImg[21] = "http://static.hubzum.zumst.com/hubzum/2017/07/20/13/cfabf934227d4075971e039ba956eb3d.jpg";
+        RandImg[22] = "http://cdnweb01.wikitree.co.kr/webdata/editor/201504/06/img_20150406162556_2f7b3842.jpg";
+        RandImg[23] = "http://pds.joins.com/news/component/htmlphoto_mmdata/201702/27/e2368163-f9ce-4a72-b888-d94b3bd323d9.jpg";
+
+        RandImg[24] = "http://cfile21.uf.tistory.com/image/999C293359F1A9BE072954";
+        RandImg[25] = "http://fimg2.pann.com/new/download.jsp?FileID=23967595";
+        RandImg[26] = "http://mblogthumb4.phinf.naver.net/20160221_275/cindy________1455992120406YLDrt_JPEG/61.jpg?type=w2";
+        RandImg[27] = "http://fimg2.pann.com/new/download.jsp?FileID=23159739";
+        RandImg[28] = "http://cfile221.uf.daum.net/image/1247444050A990B4274981";
+        RandImg[29] = "http://fimg2.pann.com/new/download.jsp?FileID=24086349";
+        RandImg[30] = "http://image.kdramastars.com/data/images/full/222735/jung-woo-sung.jpg";
+        RandImg[31] = "http://www.discovery-expedition.co.kr/shop6/shop/data/editor/1339463187.png";
+
+
+        for(int i = 0; i < Count; i++)
+        {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+
+
+            Random random = new Random();
+
+            // DatabaseReference user = table.child( userIdx);
+            String Index = Integer.toString(171 + i);
+            DatabaseReference user = table.child(Index);
+            user.child("Idx").setValue(Index);
+
+            mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+            user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+
+            int nImgIdx = random.nextInt(32);
+            user.child("Img").setValue(RandImg[nImgIdx]);
+
+
+            user.child("ImgGroup0").setValue(RandImg[nImgIdx]);
+
+            for(int j=1; j< 4 ; j++)
+                user.child("ImgGroup"+Integer.toString(j)).setValue(mMyData.getUserProfileImg(j));
+
+            String strRandName = randomHangulName();
+
+            user.child("NickName").setValue(strRandName );
+
+
+            Boolean bRand = random.nextBoolean();
+            if(bRand == false)
+                user.child("Gender").setValue("남자");
+            else
+                user.child("Gender").setValue("여자");
+
+            String strAge = Integer.toString(random.nextInt(50)+20);
+            user.child("Age").setValue(strAge);
+
+            user.child("Lon").setValue(mMyData.getUserLon());
+            user.child("Lat").setValue(mMyData.getUserLat());
+
+            user.child("SendCount").setValue(mMyData.getSendHoney());
+            user.child("RecvCount").setValue(mMyData.getRecvHoney());
+
+            user.child("ImgCount").setValue(mMyData.getUserImgCnt());
+
+            long time = CommonFunc.getInstance().GetCurrentTime();
+            SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
+            user.child("Date").setValue(ctime.format(new Date(time)));
+
+            user.child("Memo").setValue(mMyData.getUserMemo());
+
+            user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
+
+
+            user.child("FanCount").setValue(-1 * random.nextInt(10));
+
+            user.child("Point").setValue(random.nextInt(10000));
+
+            user.child("Grade").setValue(random.nextInt(5));
+            user.child("BestItem").setValue(random.nextInt(7));
+            user.child("Honey").setValue(random.nextInt(10000));
+
+            user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
+
+
+
+            table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
+
+            // DatabaseReference user = table.child( userIdx);
+            user = table.child(Index);
+            user.child("Idx").setValue(Index);
+
+
+            mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+            user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+            user.child("Img").setValue(RandImg[nImgIdx]);
+
+            user.child("NickName").setValue(strRandName);
+
+            if(bRand == false)
+                user.child("Gender").setValue("남자");
+            else
+                user.child("Gender").setValue("여자");
+
+            user.child("Age").setValue(strAge);
+
+            user.child("Memo").setValue(mMyData.getUserMemo());
+
+            user.child("RecvGold").setValue(mMyData.getRecvHoney());
+            user.child("SendGold").setValue(mMyData.getSendHoney());
+
+            user.child("Lon").setValue(mMyData.getUserLon());
+            user.child("Lat").setValue(mMyData.getUserLat());
+
+
+            user.child("Date").setValue(ctime.format(new Date(time)));
+            user.child("FanCount").setValue(-1 * random.nextInt(10));
+
+            user.child("Point").setValue(random.nextInt(10000));
+
+            user.child("Grade").setValue(random.nextInt(5));
+            user.child("BestItem").setValue(random.nextInt(7));
+            user.child("Honey").setValue(random.nextInt(10000));
+
+
+        }
+
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        DatabaseReference data = fierBaseDataInstance.getReference("UserCount");
+        data.setValue(170+Count);
+    }
+
+    public static String randomHangulName() {
+        List<String> 성 = Arrays.asList("김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안",
+                "송", "류", "전", "홍", "고", "문", "양", "손", "배", "조", "백", "허", "유", "남", "심", "노", "정", "하", "곽", "성", "차", "주",
+                "우", "구", "신", "임", "나", "전", "민", "유", "진", "지", "엄", "채", "원", "천", "방", "공", "강", "현", "함", "변", "염", "양",
+                "변", "여", "추", "노", "도", "소", "신", "석", "선", "설", "마", "길", "주", "연", "방", "위", "표", "명", "기", "반", "왕", "금",
+                "옥", "육", "인", "맹", "제", "모", "장", "남", "탁", "국", "여", "진", "어", "은", "편", "구", "용");
+        List<String> 이름 = Arrays.asList("가", "강", "건", "경", "고", "관", "광", "구", "규", "근", "기", "길", "나", "남", "노", "누", "다",
+                "단", "달", "담", "대", "덕", "도", "동", "두", "라", "래", "로", "루", "리", "마", "만", "명", "무", "문", "미", "민", "바", "박",
+                "백", "범", "별", "병", "보", "빛", "사", "산", "상", "새", "서", "석", "선", "설", "섭", "성", "세", "소", "솔", "수", "숙", "순",
+                "숭", "슬", "승", "시", "신", "아", "안", "애", "엄", "여", "연", "영", "예", "오", "옥", "완", "요", "용", "우", "원", "월", "위",
+                "유", "윤", "율", "으", "은", "의", "이", "익", "인", "일", "잎", "자", "잔", "장", "재", "전", "정", "제", "조", "종", "주", "준",
+                "중", "지", "진", "찬", "창", "채", "천", "철", "초", "춘", "충", "치", "탐", "태", "택", "판", "하", "한", "해", "혁", "현", "형",
+                "혜", "호", "홍", "화", "환", "회", "효", "훈", "휘", "희", "운", "모", "배", "부", "림", "봉", "혼", "황", "량", "린", "을", "비",
+                "솜", "공", "면", "탁", "온", "디", "항", "후", "려", "균", "묵", "송", "욱", "휴", "언", "령", "섬", "들", "견", "추", "걸", "삼",
+                "열", "웅", "분", "변", "양", "출", "타", "흥", "겸", "곤", "번", "식", "란", "더", "손", "술", "훔", "반", "빈", "실", "직", "흠",
+                "흔", "악", "람", "뜸", "권", "복", "심", "헌", "엽", "학", "개", "롱", "평", "늘", "늬", "랑", "얀", "향", "울", "련");
+        Collections.shuffle(성);
+        Collections.shuffle(이름);
+        return 성.get(0) + 이름.get(0) + 이름.get(1);
+    }
+
 
 }

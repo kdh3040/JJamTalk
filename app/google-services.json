@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1005874638846-4tpe9ilv35gepjpldhrdpn6d2t4pi668.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hodo.talkking",
+            "certificate_hash": "ac7afbc6d2a5d624f832f1c6de503d289e2b75c9"
+          }
+        },
+        {
           "client_id": "1005874638846-tt3c8hpvai5gc40gqnv7h9aac9b8c9r8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
