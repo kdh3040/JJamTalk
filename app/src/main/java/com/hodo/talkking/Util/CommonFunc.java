@@ -179,6 +179,21 @@ public class CommonFunc {
             //tempUserData.FanList.put(entry.getValue().Idx, entry.getValue());
         }
 
+        if(tempUserData.arrFanList.size() == 0)
+        {
+            Intent intent = new Intent(mActivity, UserPageActivity.class);
+            Bundle bundle = new Bundle();
+
+            bundle.putSerializable("Target", tempUserData);
+            intent.putExtra("FanList", tempUserData.arrFanList);
+            intent.putExtra("FanCount", tempUserData.FanCount);
+
+            intent.putExtra("StarList", tempUserData.arrStarList);
+            intent.putExtras(bundle);
+
+            mActivity.startActivity(intent);
+        }
+
         for(int i = 0 ;i < tempUserData.arrFanList.size(); i++)
         {
             Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(tempUserData.arrFanList.get(i).Idx);

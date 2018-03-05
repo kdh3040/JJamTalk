@@ -59,6 +59,8 @@ public class UserPageActivity extends AppCompatActivity {
     private UserData stTargetData;
     private ImageView bg_fan;
     private ImageView ic_fan;
+    private ImageView Divider_memo, Divider_fan;
+
     private MyData mMyData = MyData.getInstance();
     private NotiFunc mNotiFunc = NotiFunc.getInstance();
     private FirebaseData mFireBase = FirebaseData.getInstance();
@@ -130,6 +132,9 @@ public class UserPageActivity extends AppCompatActivity {
 
         myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIdata.getJewels());
         mActivity = this;
+
+        Divider_memo = (ImageView)findViewById(R.id.divider_memo);
+        Divider_fan = (ImageView)findViewById(R.id.divider_fan);
 
 
 
@@ -621,8 +626,11 @@ if(mMyData.itemList.get(i) != 0)
 */
         }
         else {
-            listView_like.setVisibility(View.GONE);
+            Divider_memo.setVisibility(View.GONE);
+            Divider_fan.setVisibility(View.GONE);
 
+            listView_like.setVisibility(View.GONE);
+            bg_fan.setVisibility(View.GONE);
             ic_fan.setVisibility(View.GONE);
         }
 

@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -85,6 +86,12 @@ public class MainActivity extends AppCompatActivity {
     ImageView iv_myPage;
     TextView txt_title;
 
+    TextView txt_home;
+    TextView txt_cardList;
+    TextView txt_chatList;
+    TextView txt_fan;
+    TextView txt_board;
+
     //ImageButton ib_pcr_open;
     ImageButton ib_buy_jewel;
 
@@ -117,6 +124,10 @@ public class MainActivity extends AppCompatActivity {
 
     public int nStartFragment = 0;
 
+    // 눌렀을때의 폰트 색상
+    private int nEnableFontColor = Color.BLACK;
+    // 안눌러졌을때의 폰트 색상
+    private int nDisableFontColor = Color.GRAY;
 
     public class Prepare extends AsyncTask<Void, Void, Void> {
 
@@ -824,7 +835,14 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
 
+        txt_home = findViewById(R.id.tv_home);
+        txt_cardList  = findViewById(R.id.tv_favor);
+        txt_chatList= findViewById(R.id.tv_chat);
+        txt_fan= findViewById(R.id.tv_fan);
+        txt_board = findViewById(R.id.tv_board);
+
         ib_home = findViewById(R.id.ib_home);
+
         //ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
         ib_home.setOnClickListener(new View.OnClickListener() {
@@ -841,7 +859,8 @@ public class MainActivity extends AppCompatActivity {
                 //ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
                 setImageAlpha(255,100,100,100,100);
-                ib_home.setImageResource(R.drawable.icon_home_dark);
+                SetButtonColor(0);
+                SetFontColor(0);
 
                 view.setSelected(!view.isSelected());
                 if(view.isSelected()){
@@ -886,7 +905,8 @@ public class MainActivity extends AppCompatActivity {
 
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,100,255);
-                ib_board.setImageResource(R.drawable.board_dark);
+                SetButtonColor(4);
+                SetFontColor(4);
 
 
             }
@@ -909,7 +929,8 @@ public class MainActivity extends AppCompatActivity {
                 view.setSelected(!view.isSelected());
 
                 setImageAlpha(100,255,100,100,100);
-                ib_cardList.setImageResource(R.drawable.favor_dark);
+                SetButtonColor(1);
+                SetFontColor(1);
 
                 if(view.isSelected()){
                     int a = 0;
@@ -950,7 +971,8 @@ public class MainActivity extends AppCompatActivity {
                // getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,255,100,100);
-                ib_chatList.setImageResource(R.drawable.chat_pink);
+                SetButtonColor(2);
+                SetFontColor(2);
                 /*
 
                 ib_fan.setImageResource(R.drawable.btn_fan_normal);
@@ -979,7 +1001,9 @@ public class MainActivity extends AppCompatActivity {
                 mMyData.SetCurFrag(3);
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,255,100);
-                ib_fan.setImageResource(R.drawable.myfan_dark);
+
+                SetButtonColor(3);
+                SetFontColor(3);
 /*
                 ib_fan.setImageResource(R.drawable.btn_fan_selected);
                 ib_board.setImageResource(R.drawable.btn_board_normal);
@@ -1036,17 +1060,25 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         viewPager.fixScrollSpeed();
         springIndicator.setViewPager(viewPager);*/
+
+        SetButtonColor(nStartFragment);
+        SetFontColor(nStartFragment);
+
         switch (nStartFragment)
         {
+
             case 0:
                 if(homeFragment == null)
                     homeFragment = new HomeFragment();
                 else
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment, "HomeFragment").commit();
 
+
+
                 setImageAlpha(255,100,100,100,100);
                 iv_myPage.setVisibility(View.VISIBLE);
                 txt_title.setVisibility(TextView.GONE);
+
                 break;
             case 1:
                 if(cardListFragment == null)
@@ -1375,5 +1407,61 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void SetButtonColor(int idx)
+    {
+
+        ib_home.setImageResource(R.drawable.icon_home);
+        ib_cardList.setImageResource(R.drawable.favor);
+        ib_chatList.setImageResource(R.drawable.chat);
+        ib_fan.setImageResource(R.drawable.myfan);
+        ib_board.setImageResource(R.drawable.board);
+
+        switch (idx)
+        {
+            case 0:
+                ib_home.setImageResource(R.drawable.icon_home_dark);
+                break;
+            case 1:
+                ib_cardList.setImageResource(R.drawable.favor_dark);
+                break;
+            case 2:
+                ib_chatList.setImageResource(R.drawable.chat_pink);
+                break;
+            case 3:
+                ib_fan.setImageResource(R.drawable.myfan_dark);
+                break;
+            case 4:
+                ib_board.setImageResource(R.drawable.board_dark);
+                break;
+        }
+    }
+
+    private void SetFontColor(int idx)
+    {
+        txt_home.setTextColor(nDisableFontColor);
+        txt_cardList.setTextColor(nDisableFontColor);
+        txt_chatList.setTextColor(nDisableFontColor);
+        txt_fan.setTextColor(nDisableFontColor);
+        txt_board.setTextColor(nDisableFontColor);
+
+        switch (idx)
+        {
+            case 0:
+                txt_home.setTextColor(nEnableFontColor);
+                break;
+            case 1:
+                txt_cardList.setTextColor(nEnableFontColor);
+                break;
+            case 2:
+                txt_chatList.setTextColor(nEnableFontColor);
+                break;
+            case 3:
+                txt_fan.setTextColor(nEnableFontColor);
+                break;
+            case 4:
+                txt_board.setTextColor(nEnableFontColor);
+                break;
+        }
+    }
 
 }
