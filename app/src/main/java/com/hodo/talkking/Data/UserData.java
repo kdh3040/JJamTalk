@@ -72,8 +72,8 @@ public class UserData implements Serializable,Parcelable {
     public long FanCount;
 
     public  ArrayList<FanData> arrFanList = new ArrayList<>();
-    public  ArrayList<FanData> arrFanData = new ArrayList<>();
     public  Map<String, FanData> FanList = new LinkedHashMap<String, FanData>();
+    public  Map<String, SimpleUserData> arrFanData = new LinkedHashMap<String, SimpleUserData>();
     public  Map<String, UserData> mapFanData = new LinkedHashMap<String, UserData>();
 
     //public  ArrayList<StarData>StarList = new ArrayList<>();
@@ -151,7 +151,7 @@ public class UserData implements Serializable,Parcelable {
         FanCount = in.readLong();
 
         arrFanList = (ArrayList<FanData>) in.readSerializable();
-        arrFanData = (ArrayList<FanData>) in.readSerializable();
+        arrFanData = (HashMap<String, SimpleUserData>) in.readSerializable();
         FanList = (HashMap<String, FanData>) in.readSerializable();
         mapFanData = (HashMap<String, UserData>) in.readSerializable();
 
@@ -239,7 +239,7 @@ public class UserData implements Serializable,Parcelable {
 
 
         parcel.writeSerializable(arrFanList);
-        parcel.writeSerializable(arrFanData);
+        parcel.writeSerializable((Serializable) arrFanData);
         parcel.writeSerializable((Serializable) FanList);
         parcel.writeSerializable((Serializable) mapFanData);
 

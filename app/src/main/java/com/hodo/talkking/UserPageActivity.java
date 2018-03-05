@@ -563,7 +563,7 @@ if(mMyData.itemList.get(i) != 0)
             //tv_like = findViewById(R.id.tv_like);
             //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
 
-            likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData.arrFanList);
+            likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData);
             listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
             bg_fan.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -805,7 +805,7 @@ if(mMyData.itemList.get(i) != 0)
         listView_like.setVisibility(View.VISIBLE);
         bg_fan.setVisibility(View.VISIBLE);
 
-        likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData.arrFanList);
+        likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData);
         listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         bg_fan.setOnClickListener(new View.OnClickListener() {
             @Override

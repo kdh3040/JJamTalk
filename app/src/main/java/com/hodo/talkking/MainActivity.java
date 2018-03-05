@@ -254,6 +254,11 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
+        if(mMyData.getUserIdx() == null)
+        {
+            int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+        }
+
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             if ( mMyData.badgecount >= 1)
@@ -288,6 +293,11 @@ public class MainActivity extends AppCompatActivity {
         mContext = getApplicationContext();
         mFragmentMng = getSupportFragmentManager();
         MobileAds.initialize(getApplicationContext(),"ca-app-pub-8954582850495744~7252454040");
+
+        if(mMyData.getUserIdx() == null)
+        {
+            int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+        }
 
         mMyData.mContext = getApplicationContext();
         mMyData.mActivity = mActivity;
@@ -1211,13 +1221,30 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     FanData DBData = dataSnapshot.getValue(FanData.class);
-                    mMyData.arrMyFanDataList.put(mMyData.arrMyFanList.get(finalI).Idx, DBData);
 
-                    if(mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
-                    {
-                        if(fanFragment == null)
-                            fanFragment = new FanListFragment();
-                    }
+                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(DBData.Idx);
+                    final FanData finalTempFanData = DBData;
+                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                            mMyData.arrMyFanDataList.put(mMyData.arrMyFanList.get(finalI).Idx, DBData);
+
+                            if(mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
+                            {
+                                if(fanFragment == null)
+                                    fanFragment = new FanListFragment();
+                            }
+                            
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
                 }
 
                 @Override

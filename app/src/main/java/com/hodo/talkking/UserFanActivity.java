@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
@@ -140,30 +141,30 @@ public class UserFanActivity extends AppCompatActivity {
             String i = stTargetData.arrFanList.get(position).Idx;
 
             Glide.with(mActivity)
-                    .load(stTargetData.FanList.get(i).Img)
+                    .load(stTargetData.arrFanData.get(i).Img)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .bitmapTransform(new CropCircleTransformation(mActivity))
                     .thumbnail(0.1f)
                     .into(holder.img);
 
-            holder.textNick.setText(stTargetData.FanList.get(i).NickName);
+            holder.textNick.setText(stTargetData.arrFanData.get(i).NickName);
             holder.textRank.setText((position + 1) + "위");
 
             holder.imgItem.setVisibility(View.VISIBLE);
 
-            if(stTargetData.FanList.get(i).BestItem == 0)
+            if(stTargetData.arrFanData.get(i).BestItem == 0)
             {
                 holder.imgItem.setImageResource(R.mipmap.randombox);
             }
                 //holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
 
             else {
-                holder.imgItem.setImageResource(mUIData.getJewels()[stTargetData.FanList.get(i).BestItem]);
+                holder.imgItem.setImageResource(mUIData.getJewels()[stTargetData.arrFanData.get(i).BestItem]);
             }
 
-            holder.imgGrade.setImageResource(mUIData.getGrades()[stTargetData.FanList.get(i).Grade]);
+            holder.imgGrade.setImageResource(mUIData.getGrades()[stTargetData.arrFanData.get(i).Grade]);
 
-            int RecvCnt = stTargetData.FanList.get(i).RecvGold;
+            int RecvCnt = stTargetData.arrFanList.get(position).RecvGold;
             holder.textCount.setText(Integer.toString(RecvCnt));
 
         }
@@ -209,9 +210,52 @@ public class UserFanActivity extends AppCompatActivity {
                             stTargetData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
                         }
 
-                        moveFanPage(position);
+                        if(stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() == 0)
+                        {
+                            moveFanPage(position);
+                        }
+                        else
+                        {
+                            for(int i = 0 ;i < stTargetData.mapFanData.get(strTargetIdx).arrFanList.size(); i++)
+                            {
+                                Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i).Idx);
+                                final FanData finalTempFanData = stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i);
+                                final int finalI = i;
+                                data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                        if(DBData != null)
+                                        {
+                                            stTargetData.mapFanData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                            if( finalI == stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() -1)
+                                            {
+                                                moveFanPage(position);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            CommonFunc.getInstance().ShowToast(getApplicationContext(), "사용자가 없습니다.", false);
+                                            CommonFunc.getInstance().setClickStatus(false);
+                                        }
+
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        }
+
+
                     }
 
+                    else
+                        CommonFunc.getInstance().setClickStatus(false);
 
                 }
 
