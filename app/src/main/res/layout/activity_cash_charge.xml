@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/Heart_MyHeart"
@@ -18,34 +21,19 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_weight="3">
+        android:layout_weight="8">
+
 
     </ListView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_Free_1"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_gravity="center"
         android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_Free_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/purple_btn_bg"
-            android:text="무료충전"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/btn_Free_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="무료충전"
-            android:visibility="gone" />
-    </LinearLayout>
+        android:background="@drawable/purple_btn_bg"
+        android:text="무료충전"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
