@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,7 +50,7 @@ public class MyJewelBoxActivity extends Activity {
     private ImageView Img_item[] = new ImageView[7];
     private TextView txt_item[] = new TextView[7];
 
-    private Button open_1, open_10;
+    private ImageButton open_1, open_10;
     Context mActivity;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,7 +98,7 @@ public class MyJewelBoxActivity extends Activity {
             }
         });
 
-        open_1 = (Button)findViewById(R.id.btn_openBox);
+        open_1 = (ImageButton) findViewById(R.id.btn_openBox);
         open_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,7 +107,7 @@ public class MyJewelBoxActivity extends Activity {
             }
         });
 
-        open_10 = (Button)findViewById(R.id.btn_sellJewely);
+        open_10 = (ImageButton)findViewById(R.id.btn_sellJewely);
         open_10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

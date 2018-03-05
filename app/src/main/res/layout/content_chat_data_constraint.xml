@@ -18,7 +18,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/red_btn_bg" />
+        app:srcCompat="@drawable/purple_stroke_btn_bg" />
 
     <TextView
         android:id="@+id/gift_date"
@@ -164,10 +164,11 @@
         android:id="@+id/from"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:text="From"
-        android:textSize="14sp"
         android:layout_marginLeft="10dp"
+        android:text="From"
+        android:textColor="@color/gray"
 
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/from_nickname"
         app:layout_constraintLeft_toLeftOf="@id/bg_gift" />
 
@@ -190,6 +191,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="To"
+        android:textColor="@color/gray"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/to_nickname"
         app:layout_constraintLeft_toLeftOf="@+id/from" />
@@ -211,7 +213,9 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@color/baseColorAlpha"
         android:gravity="center_vertical"
+        android:padding="3dp"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="@id/bg_gift"
         app:layout_constraintRight_toRightOf="@id/bg_gift"
