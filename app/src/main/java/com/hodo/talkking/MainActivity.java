@@ -76,15 +76,18 @@ import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 
 public class MainActivity extends AppCompatActivity {
 
+    ImageView ib_home;
     ImageView ib_cardList;
     ImageView ib_chatList;
+    ImageView ib_fan;
     ImageView ib_board;
+
     ImageView iv_myPage;
     TextView txt_title;
-    ImageView ib_fan;
+
     //ImageButton ib_pcr_open;
     ImageButton ib_buy_jewel;
-    ImageView ib_home;
+
     ImageView iv_refresh;
 
     ImageView logo;

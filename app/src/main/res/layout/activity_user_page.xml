@@ -126,7 +126,7 @@
             android:layout_marginTop="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/bg_fan"
-            app:srcCompat="@drawable/ic_fan" />
+            app:srcCompat="@drawable/myfan_dark" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/lv_like"

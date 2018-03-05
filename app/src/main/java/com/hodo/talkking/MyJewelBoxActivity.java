@@ -51,13 +51,21 @@ public class MyJewelBoxActivity extends Activity {
     private TextView txt_item[] = new TextView[7];
 
     private ImageButton open_1, open_10;
+    private Button buy_Coin;
+
     Context mActivity;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_jewel_box);
         mActivity = this;
-
+        buy_Coin = findViewById(R.id.buy_coin);
+        buy_Coin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+            }
+        });
         Img_Back = (ImageView)findViewById(R.id.bg_topbar);
 
         Btn_item[0] = (ImageView)findViewById(R.id.btn_item0);
