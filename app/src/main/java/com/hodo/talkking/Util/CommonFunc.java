@@ -956,14 +956,15 @@ public class CommonFunc {
 
         TextView tv_title = v.findViewById(R.id.title);
         if (bonus > 0)
-            tv_title.setText("상자 " + count + "개 + 보너스 " + bonus + "개 열기");
+            tv_title.setText("랜덤 박스 " + count + "개 + 보너스 " + bonus + "개");
         else
-            tv_title.setText("상자 " + count + "개를 열까요?");
+            tv_title.setText("랜덤 박스 " + count + "개");
 
         TextView tv_msg = v.findViewById(R.id.msg);
 
 
-        if (mMyData.getUserHoney() > CoomonValueData.OPEN_BOX_COST * count) {
+      //  if (mMyData.getUserHoney() > CoomonValueData.OPEN_BOX_COST * count)
+        {
             tv_msg.setText((CoomonValueData.OPEN_BOX_COST * count) + "골드가 필요합니다");
             Button btn_yes = v.findViewById(R.id.btn_yes);
             btn_yes.setOnClickListener(new View.OnClickListener() {
@@ -983,7 +984,7 @@ public class CommonFunc {
                 }
             });
 
-            btn_yes.setText("네");
+            btn_yes.setText("랜덤 박스 열기");
             Button btn_no = v.findViewById(R.id.btn_no);
             btn_no.setOnClickListener(new View.OnClickListener() {
 
@@ -995,8 +996,10 @@ public class CommonFunc {
 
             });
 
-            btn_no.setText("아니오");
-        } else {
+            btn_no.setText("취소");
+        }
+ /*       else
+            {
             int nGold = (CoomonValueData.OPEN_BOX_COST * count) - mMyData.getUserHoney();
             tv_msg.setText(nGold + "골드가 부족합니다");
             Button btn_yes = v.findViewById(R.id.btn_yes);
@@ -1019,7 +1022,7 @@ public class CommonFunc {
                 }
             });
             btn_no.setText("닫기");
-        }
+        }*/
     }
 
     public boolean CheckTextMaxLength(String text, int maxLength, Context context, String Title, boolean emptyCheck)

@@ -596,15 +596,15 @@ public class MyData {
     public void SetMyGrade() {
         if(getPoint() <= 100)
             setGrade(0);
-        else if(getPoint() <= 300)
+        else if(getPoint() <= 200)
             setGrade(1);
-        else if(getPoint() <= 500)
+        else if(getPoint() <= 300)
             setGrade(2);
-        else if(getPoint() <= 1000)
+        else if(getPoint() <= 500)
             setGrade(3);
-        else if(getPoint() <= 2000)
+        else if(getPoint() <= 1000)
             setGrade(4);
-        else if(getPoint() <= 5000)
+        else if(getPoint() <= 2000)
             setGrade(5);
     }
 

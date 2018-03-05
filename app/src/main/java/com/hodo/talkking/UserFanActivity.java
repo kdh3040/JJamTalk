@@ -194,76 +194,74 @@ public class UserFanActivity extends AppCompatActivity {
             String i = stTargetData.arrFanList.get(position).Idx;
 
             final String strTargetIdx = stTargetData.FanList.get(i).Idx;
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference table = null;
-            table = database.getReference("User");
+            if(strTargetIdx.equals(mMyData.getUserIdx()))
+            {
+                CommonFunc.getInstance().setClickStatus(false);
+                CommonFunc.getInstance().ShowToast(getApplicationContext(), "본인 입니다", false);
+            }
 
-            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int saa = 0;
-                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    if (tempUserData != null) {
-                        stTargetData.mapFanData.put(strTargetIdx, tempUserData);
+            else {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference table = null;
+                table = database.getReference("User");
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
-                            stTargetData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
-                        }
+                table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int saa = 0;
+                        UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                        if (tempUserData != null) {
+                            stTargetData.mapFanData.put(strTargetIdx, tempUserData);
 
-                        if(stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() == 0)
-                        {
-                            moveFanPage(position);
-                        }
-                        else
-                        {
-                            for(int i = 0 ;i < stTargetData.mapFanData.get(strTargetIdx).arrFanList.size(); i++)
-                            {
-                                Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i).Idx);
-                                final FanData finalTempFanData = stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i);
-                                final int finalI = i;
-                                data.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
-                                        if(DBData != null)
-                                        {
-                                            stTargetData.mapFanData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
-
-                                            if( finalI == stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() -1)
-                                            {
-                                                moveFanPage(position);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            CommonFunc.getInstance().ShowToast(getApplicationContext(), "사용자가 없습니다.", false);
-                                            CommonFunc.getInstance().setClickStatus(false);
-                                        }
-
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
+                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                                stTargetData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
                             }
-                        }
 
+                            if (stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() == 0) {
+                                moveFanPage(position);
+                            } else {
+                                for (int i = 0; i < stTargetData.mapFanData.get(strTargetIdx).arrFanList.size(); i++) {
+                                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i).Idx);
+                                    final FanData finalTempFanData = stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i);
+                                    final int finalI = i;
+                                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                            if (DBData != null) {
+                                                stTargetData.mapFanData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                                if (finalI == stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() - 1) {
+                                                    moveFanPage(position);
+                                                }
+                                            } else {
+                                                CommonFunc.getInstance().ShowToast(getApplicationContext(), "사용자가 없습니다.", false);
+                                                CommonFunc.getInstance().setClickStatus(false);
+                                            }
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+                            }
+
+
+                        } else
+                            CommonFunc.getInstance().setClickStatus(false);
 
                     }
 
-                    else
-                        CommonFunc.getInstance().setClickStatus(false);
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
 
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-
-            });
+                });
+            }
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder{
