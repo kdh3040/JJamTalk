@@ -77,7 +77,7 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit_profile,menu);
-        
+
 
         return true;
     }
