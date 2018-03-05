@@ -947,7 +947,7 @@ public class MainActivity extends AppCompatActivity {
                // getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,255,100,100);
-                ib_chatList.setImageResource(R.drawable.chat_dark);
+                ib_chatList.setImageResource(R.drawable.chat_pink);
                 /*
 
                 ib_fan.setImageResource(R.drawable.btn_fan_normal);

@@ -120,8 +120,8 @@
         <item name="android:shape">rectangle</item>
     </style>
     <style name="PrimaryButtonReten" parent="Theme.AppCompat">
-        <item name="colorButtonNormal">@color/GreenAlpha</item>
-        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/baseColor</item>
+        <item name="colorControlHighlight">@color/gray</item>
         <item name="android:shape">rectangle</item>
 
     </style>
