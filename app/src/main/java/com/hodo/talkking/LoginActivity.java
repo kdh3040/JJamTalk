@@ -1137,9 +1137,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 }
                             }
 
+                            mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
                             bSetRich = true;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+
 
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();

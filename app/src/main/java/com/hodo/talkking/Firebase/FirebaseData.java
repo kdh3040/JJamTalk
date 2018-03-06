@@ -731,7 +731,7 @@ public class FirebaseData {
 
 
     Rank_FanRichAdapter UpdateFanAdapter = null;
-    public void GetFanData(Rank_FanRichAdapter updateAdapter, int lastVisibleCount, Boolean top)
+    public void GetFanData(Rank_FanRichAdapter updateAdapter, long lastVisibleCount, Boolean top)
     {
         UpdateFanAdapter = updateAdapter;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
@@ -740,7 +740,7 @@ public class FirebaseData {
         if(top)
             data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount"). startAt(0).endAt(LOAD_MAIN_COUNT );
         else
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").limitToFirst(lastVisibleCount + LOAD_MAIN_COUNT);// . startAt(lastVisibleCount + LOAD_MAIN_COUNT).endAt(lastVisibleCount + LOAD_MAIN_COUNT + LOAD_MAIN_COUNT); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
+            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").startAt(mMyData.FanCountRef).limitToFirst(LOAD_MAIN_COUNT);
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -782,6 +782,7 @@ public class FirebaseData {
 
                 }
 
+                mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
                 UpdateFanAdapter.notifyDataSetChanged();
             }
 

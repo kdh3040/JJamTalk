@@ -21,6 +21,8 @@ import com.hodo.talkking.ViewHolder.GridUserViewHolder;
 
 import java.util.ArrayList;
 
+import static com.hodo.talkking.Data.CoomonValueData.UNIQ_FANCOUNT;
+
 /**
  * Created by mjk on 2017. 8. 10..
  */
@@ -42,6 +44,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
     public Rank_FanRichAdapter(Context context) {
         mContext = context;
     }
+
 
     @Override
     public GridUserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -135,7 +138,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
               //  Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
                 holder.iv_honey_rank.setImageResource(R.drawable.myfan_dark);
 
-                holder.textView.setText(-1 * mMyData.arrUserMan_Send_Age.get(i).FanCount+"명");
+                holder.textView.setText(-1 * (mMyData.arrUserMan_Send_Age.get(i).FanCount / UNIQ_FANCOUNT) +"명");
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_Send_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -148,7 +151,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
               //  Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
                 holder.iv_honey_rank.setImageResource(R.drawable.myfan_dark);
 
-                holder.textView.setText(-1 * mMyData.arrUserWoman_Send_Age.get(i).FanCount+"명");
+                holder.textView.setText(-1 * (mMyData.arrUserWoman_Send_Age.get(i).FanCount / UNIQ_FANCOUNT) +"명");
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Send_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -160,7 +163,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                 //Log.d("Guide !!!! ", "Case 3");
               //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
 
-                holder.textView.setText(-1 * mMyData.arrUserAll_Send_Age.get(i).FanCount+"명");
+                holder.textView.setText(-1 * (mMyData.arrUserAll_Send_Age.get(i).FanCount / UNIQ_FANCOUNT) +"명");
                 holder.iv_honey_rank.setImageResource(R.drawable.myfan_dark);
 
 
