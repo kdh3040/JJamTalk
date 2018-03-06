@@ -60,6 +60,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SettingData;
@@ -410,11 +411,10 @@ public class MainActivity extends AppCompatActivity {
         CommonFunc.getInstance().Board_Write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastBoardWriteTime()), 15) == false)
+                if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastBoardWriteTime()), CoomonValueData.BOARD_WRITE_TIME_MIN) == false)
                 {
-                    // TODO 환웅
-                    CommonFunc.getInstance().ShowDefaultPopup(MainActivity.this, "게시판 작성", "연속으로 게시판을 작성 할 수 없습니다.");
-                    return;
+                    String Desc = CommonFunc.getInstance().GetRemainTimeByFuture(new Date(mMyData.GetLastBoardWriteTime() + (CoomonValueData.BOARD_WRITE_TIME_MIN * CoomonValueData.MIN_MILLI_SECONDS)), true);
+                    CommonFunc.getInstance().ShowDefaultPopup(MainActivity.this, "게시판 작성", "남은시간 " + Desc);
                 }
                 else
                     startActivity(new Intent(getApplicationContext(),BoardWriteActivity.class));
@@ -1436,7 +1436,7 @@ public class MainActivity extends AppCompatActivity {
         ib_home.setImageResource(R.drawable.icon_home);
         ib_cardList.setImageResource(R.drawable.favor);
         ib_chatList.setImageResource(R.drawable.chat);
-        ib_fan.setImageResource(R.drawable.myfan);
+        ib_fan.setImageResource(R.drawable.ic_fan);
         ib_board.setImageResource(R.drawable.board);
 
         switch (idx)

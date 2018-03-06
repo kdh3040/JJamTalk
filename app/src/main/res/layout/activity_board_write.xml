@@ -32,6 +32,6 @@
         android:layout_weight="1"
         android:textColor="@android:color/white"
         android:background="@drawable/purple_btn_bg"
-        android:text="10골드를 소비하여 글 등록"
+        android:text="글 등록하기"
         />
 </LinearLayout>

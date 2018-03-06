@@ -651,7 +651,36 @@ public class CommonFunc {
             else
                 return false;
         }
+    }
 
+    // 미래의 시간이 얼마나 남았는지 보여주는 함수
+    public String GetRemainTimeByFuture(Date futureTime, boolean secView)
+    {
+        String Desc = "";
+        long diffTime = futureTime.getTime() - GetCurrentTime();
+        if (futureTime.equals(new Date(0)) || diffTime <= 0)
+            return Desc;
+
+        int hour = (int)(diffTime / CoomonValueData.HOUR_MILLI_SECONDS);
+        int min = (int)(diffTime / CoomonValueData.MIN_MILLI_SECONDS) % 60;
+        int sec = (int)(diffTime / CoomonValueData.SEC_MILLI_SECONDS) % 60;
+
+        if(hour > 0)
+        {
+            if(secView)
+                Desc = Desc + " " + String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
+            else
+                Desc = Desc + " " + String.format("%02d", hour) + ":" + String.format("%02d", min);
+        }
+        else
+        {
+            if(secView)
+                Desc = Desc + " " + String.format("%02d", min) + ":" + String.format("%02d", sec);
+            else
+                Desc = Desc + " " + String.format("%02d", min);
+        }
+
+        return Desc;
     }
 
     public void PlayVibration(Context context) {
