@@ -21,6 +21,8 @@ import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Util.CommonFunc;
 
+import java.util.ArrayList;
+
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
@@ -41,15 +43,27 @@ public class CustomPagerAdapter extends PagerAdapter{
     //int[] mResources = {R.drawable.bg1,R.drawable.bg2,R.drawable.bg3,R.drawable.bg4};
     private PhotoViewAttacher mAttacher;
 
-
     private CommonFunc mCommon = CommonFunc.getInstance();
 
+    private ArrayList<String> tempImg = new ArrayList<>();
+    private int nStartIdx ;
     public CustomPagerAdapter(Context context, UserData TargetData, int index) {
         mContext = context;
         mLayoutInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         stTargetData = TargetData;
 
-        switch (index)
+        if(!stTargetData.ImgGroup0.equals("1"))
+            tempImg.add(stTargetData.ImgGroup0);
+        if(!stTargetData.ImgGroup1.equals("1"))
+            tempImg.add(stTargetData.ImgGroup1);
+        if(!stTargetData.ImgGroup2.equals("1"))
+            tempImg.add(stTargetData.ImgGroup2);
+        if(!stTargetData.ImgGroup3.equals("1"))
+            tempImg.add(stTargetData.ImgGroup3);
+
+        nStartIdx = index;
+/*
+       switch (index)
         {
             case 0:
                 strImgGroup[0] = stTargetData.ImgGroup0;
@@ -75,7 +89,7 @@ public class CustomPagerAdapter extends PagerAdapter{
                 strImgGroup[2] = stTargetData.ImgGroup1;
                 strImgGroup[3] = stTargetData.ImgGroup2;
                 break;
-        }
+        }*/
 
 
     }
@@ -88,7 +102,7 @@ public class CustomPagerAdapter extends PagerAdapter{
 
     @Override
     public int getCount() {
-       return stTargetData.ImgCount + 1;
+       return tempImg.size() + 1;
     }
 
     @Override
@@ -150,7 +164,7 @@ public class CustomPagerAdapter extends PagerAdapter{
             imageView.setVisibility(View.VISIBLE);
             mAdView.setVisibility(View.GONE);
 
-            Glide.with(mContext).load(strImgGroup[position])
+            Glide.with(mContext).load(tempImg.get(0))
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {
@@ -175,7 +189,7 @@ public class CustomPagerAdapter extends PagerAdapter{
             imageView.setVisibility(View.VISIBLE);
             mAdView.setVisibility(View.GONE);
 
-            Glide.with(mContext).load(strImgGroup[position-1])
+            Glide.with(mContext).load(tempImg.get(position-1))
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {

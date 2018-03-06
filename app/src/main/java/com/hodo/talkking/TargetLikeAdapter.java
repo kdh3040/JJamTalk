@@ -22,6 +22,7 @@ import com.hodo.talkking.Data.UserData;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -35,9 +36,9 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<TargetLikeViewHolder
     UIData mUIData = UIData.getInstance();
 
     private UserData tempLikeData = new UserData();
-    private ArrayList<FanData> stTargetData;
+    private UserData stTargetData = new UserData();
 
-    public TargetLikeAdapter(Context context, ArrayList<FanData> TargetData) {
+    public TargetLikeAdapter(Context context,  UserData TargetData) {
         mContext = context;
         stTargetData = TargetData;
     }
@@ -51,9 +52,9 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<TargetLikeViewHolder
     @Override
     public void onBindViewHolder(TargetLikeViewHolder holder, final int position) {
 
-
+        String i = stTargetData.arrFanList.get(position).Idx;
         Glide.with(mContext)
-                .load(stTargetData.get(position).Img)
+                .load(stTargetData.arrFanData.get(i).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .thumbnail(0.1f)
@@ -69,7 +70,7 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<TargetLikeViewHolder
 
     @Override
     public int getItemCount() {
-        return stTargetData.size();
+        return stTargetData.arrFanList.size();
     }
 
     public void moveLikePage(int position)
@@ -77,14 +78,14 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<TargetLikeViewHolder
         Intent intent = new Intent(mContext, UserPageActivity.class);
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable("Target", tempLikeData.mapStarData.get(stTargetData.get(position).Idx));
+        bundle.putSerializable("Target", tempLikeData.mapStarData.get(stTargetData.arrFanList.get(position).Idx));
         intent.putExtras(bundle);
 
         mContext.startActivity(intent);
     }
 
     public void getTargetLikeData(final int position) {
-        final String strTargetIdx = stTargetData.get(position).Idx;
+        final String strTargetIdx = stTargetData.arrFanList.get(position).Idx;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;

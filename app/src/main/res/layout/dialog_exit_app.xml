@@ -3,39 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
-    android:orientation="vertical"
-    android:background="@drawable/dialog_bg">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/rounded_top_dialog"
+        android:background="@color/baseColor"
 
 
         android:gravity="center"
         android:text="종료 확인"
-        android:textColor="@color/black"
+        android:textColor="@android:color/white"
         android:textSize="24sp" />
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:background="@android:color/white"
+        android:visibility="gone"
         ads:adSize="MEDIUM_RECTANGLE"
-        android:background="@drawable/rounded_top_dialog"
-        ads:adUnitId="ca-app-pub-8954582850495744/1996257938"
-        android:visibility="gone">
-    </com.google.android.gms.ads.AdView>
-
-    <View
-        android:id="@+id/Divide_Btn"
-        style="@style/AlertDivider"
-
-        android:background="@color/goldColor" />
+        ads:adUnitId="ca-app-pub-8954582850495744/1996257938"></com.google.android.gms.ads.AdView>
 
     <TextView
         android:id="@+id/msg"
@@ -51,7 +42,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="85dp"
-        android:background="@drawable/rounded_bottom_white"
+        android:background="@android:color/white"
         android:orientation="horizontal"
 
         >
@@ -63,9 +54,9 @@
 
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:background="@drawable/base_btn_bg"
+            android:background="@drawable/purple_btn_bg"
             android:text="종료"
-            android:textColor="@color/black"
+            android:textColor="@android:color/white"
             android:textSize="18sp" />
 
         <Button
@@ -74,9 +65,9 @@
             android:layout_height="40dp"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:background="@drawable/base_btn_bg"
+            android:background="@drawable/purple_stroke_btn_bg"
             android:text="계속"
-            android:textColor="@color/black"
+            android:textColor="@color/baseColor"
             android:textSize="18sp" />
 
     </LinearLayout>

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +17,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -46,7 +44,8 @@ public class MyPageActivity extends AppCompatActivity {
     ImageView img_MyGrade;
     ImageButton iv_gold;
     ImageView iv_MyGift;
-
+    Button profileButton1;
+    Button settingButton;
 
     TextView txt_MyProfile;
     TextView txt_MyHeartCnt;
@@ -72,7 +71,22 @@ public class MyPageActivity extends AppCompatActivity {
         mActivity = this;
 
         mMyData.SetCurFrag(0);
+        profileButton1 = findViewById(R.id.cover_profile);
+        profileButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));
+                finish();
+            }
+        });
+        settingButton = findViewById(R.id.cover_setting);
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),SettingActivity.class));
 
+            }
+        });
         /*ll_jewel_box= (LinearLayout) findViewById(R.id.ll_jewel_box);
         ll_jewel_box.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,23 +152,7 @@ public class MyPageActivity extends AppCompatActivity {
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
         //txt_MyHeartCnt.setText("보유 골드: " + nGold);
 
-        btn_Setting = findViewById(R.id.edit_setting);
-        //btn_Setting.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 
-        btn_Setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),SettingActivity.class));
-            }
-        });
-
-        txt_Setting = findViewById(R.id.textView23);
-        txt_Setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),SettingActivity.class));
-            }
-        });
 
         btn_Heart = (Button)findViewById(R.id.coin_charge);
         btn_Heart.setOnClickListener(new View.OnClickListener() {
@@ -181,17 +179,9 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
-        btn_my_profile = findViewById(R.id.edit_profile);
-        //btn_my_profile.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
-        btn_my_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));
-                finish();
-            }
-        });
 
-        txt_profile = findViewById(R.id.textView6);
+
+        /*txt_profile = findViewById(R.id.textView6);
         txt_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,7 +189,7 @@ public class MyPageActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+*/
         adapter = new MyPageJewelAdapter(getApplicationContext());
     }
 

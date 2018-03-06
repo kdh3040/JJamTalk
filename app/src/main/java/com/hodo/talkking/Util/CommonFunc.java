@@ -11,6 +11,8 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 
 import com.bumptech.glide.Glide;
@@ -31,6 +33,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.BuyGoldActivity;
 import com.hodo.talkking.Data.ChatData;
@@ -56,6 +59,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
  * Created by woong on 2018-01-05.
@@ -162,7 +167,7 @@ public class CommonFunc {
         //mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
     }
 
-    public void MoveUserPage(Activity mActivity, UserData tempUserData) {
+    public void MoveUserPage(final Activity mActivity, final UserData tempUserData) {
 
         CommonFunc.getInstance().setClickStatus(false);
 /*        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
@@ -174,17 +179,57 @@ public class CommonFunc {
             //tempUserData.FanList.put(entry.getValue().Idx, entry.getValue());
         }
 
-        Intent intent = new Intent(mActivity, UserPageActivity.class);
-        Bundle bundle = new Bundle();
+        if(tempUserData.arrFanList.size() == 0)
+        {
+            Intent intent = new Intent(mActivity, UserPageActivity.class);
+            Bundle bundle = new Bundle();
 
-        bundle.putSerializable("Target", tempUserData);
-        intent.putExtra("FanList", tempUserData.arrFanList);
-        intent.putExtra("FanCount", tempUserData.FanCount);
+            bundle.putSerializable("Target", tempUserData);
+            intent.putExtra("FanList", tempUserData.arrFanList);
+            intent.putExtra("FanCount", tempUserData.FanCount);
 
-        intent.putExtra("StarList", tempUserData.arrStarList);
-        intent.putExtras(bundle);
+            intent.putExtra("StarList", tempUserData.arrStarList);
+            intent.putExtras(bundle);
 
-        mActivity.startActivity(intent);
+            mActivity.startActivity(intent);
+        }
+
+        for(int i = 0 ;i < tempUserData.arrFanList.size(); i++)
+        {
+            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(tempUserData.arrFanList.get(i).Idx);
+            final FanData finalTempFanData = tempUserData.arrFanList.get(i);
+            final int finalI = i;
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                    tempUserData.arrFanData.put(finalTempFanData.Idx, DBData);
+
+                    if( finalI == tempUserData.arrFanList.size() -1)
+                    {
+                        Intent intent = new Intent(mActivity, UserPageActivity.class);
+                        Bundle bundle = new Bundle();
+
+                        bundle.putSerializable("Target", tempUserData);
+                        intent.putExtra("FanList", tempUserData.arrFanList);
+                        intent.putExtra("FanCount", tempUserData.FanCount);
+
+                        intent.putExtra("StarList", tempUserData.arrStarList);
+                        intent.putExtras(bundle);
+
+                        mActivity.startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+
+
         //mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
     }
 
@@ -911,14 +956,15 @@ public class CommonFunc {
 
         TextView tv_title = v.findViewById(R.id.title);
         if (bonus > 0)
-            tv_title.setText("상자 " + count + "개 + 보너스 " + bonus + "개 열기");
+            tv_title.setText("랜덤 박스 " + count + "개 + 보너스 " + bonus + "개");
         else
-            tv_title.setText("상자 " + count + "개를 열까요?");
+            tv_title.setText("랜덤 박스 " + count + "개");
 
         TextView tv_msg = v.findViewById(R.id.msg);
 
 
-        if (mMyData.getUserHoney() > CoomonValueData.OPEN_BOX_COST * count) {
+      //  if (mMyData.getUserHoney() > CoomonValueData.OPEN_BOX_COST * count)
+        {
             tv_msg.setText((CoomonValueData.OPEN_BOX_COST * count) + "골드가 필요합니다");
             Button btn_yes = v.findViewById(R.id.btn_yes);
             btn_yes.setOnClickListener(new View.OnClickListener() {
@@ -938,7 +984,7 @@ public class CommonFunc {
                 }
             });
 
-            btn_yes.setText("네");
+            btn_yes.setText("랜덤 박스 열기");
             Button btn_no = v.findViewById(R.id.btn_no);
             btn_no.setOnClickListener(new View.OnClickListener() {
 
@@ -950,8 +996,10 @@ public class CommonFunc {
 
             });
 
-            btn_no.setText("아니오");
-        } else {
+            btn_no.setText("취소");
+        }
+ /*       else
+            {
             int nGold = (CoomonValueData.OPEN_BOX_COST * count) - mMyData.getUserHoney();
             tv_msg.setText(nGold + "골드가 부족합니다");
             Button btn_yes = v.findViewById(R.id.btn_yes);
@@ -974,7 +1022,7 @@ public class CommonFunc {
                 }
             });
             btn_no.setText("닫기");
-        }
+        }*/
     }
 
     public boolean CheckTextMaxLength(String text, int maxLength, Context context, String Title, boolean emptyCheck)

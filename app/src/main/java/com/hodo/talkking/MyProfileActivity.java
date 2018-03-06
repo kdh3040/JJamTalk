@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hodo.talkking.Data.CoomonValueData;
@@ -67,12 +69,19 @@ public class MyProfileActivity extends AppCompatActivity {
     StorageReference storageRef = storage.getReferenceFromUrl("gs://talkking-2aa18.appspot.com/");
     Activity activity = this;
 
-    private String strThumbNail, strImg;
-
-    private boolean bChangeImg = false;
-
-
     DatabaseReference ref;
+
+    private String tempNickName;
+    private String tempAge;
+    private String tempGender;
+    private String tempMemo;
+    private String tempImgSum;
+    private Uri tempImg[] = new Uri[4];
+    private int tempImgCnt;
+
+    private int tempImgChange[] = new int[4];
+    private int tempImgChangeCnt;
+
 
 
     @Override
@@ -86,6 +95,19 @@ public class MyProfileActivity extends AppCompatActivity {
         int nUserAge = Integer.parseInt(strUserAge);
 
 
+        tempNickName = mMyData.getUserNick();
+        tempAge = mMyData.getUserAge();
+        tempGender = mMyData.getUserGender();
+        tempMemo = mMyData.getUserMemo();
+        tempImgSum = mMyData.getUserImg();
+
+        for(int i=0; i<4; i++) {
+            tempImg[i] = Uri.parse(mMyData.getUserProfileImg(i));
+            tempImgChange[i] = 0;
+        }
+
+        tempImgChangeCnt = 0;
+
         nUserAge -= 20;
         Spinner_Age.setSelection(nUserAge);
         Spinner_Age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -95,7 +117,8 @@ public class MyProfileActivity extends AppCompatActivity {
                 nAge1 = position;
                 nAge1 += 20;
                 String strAge = Integer.toString(nAge1);
-                mMyData.setUserAge(strAge);
+                tempAge = strAge;
+               // mMyData.setUserAge(strAge);
             }
 
             @Override
@@ -114,7 +137,8 @@ public class MyProfileActivity extends AppCompatActivity {
                 if(female.isChecked()) {
                     male.setChecked(true);
                     female.setChecked(false);
-                    mMyData.setUserGender("남자");
+                    tempGender = "남자";
+                   // mMyData.setUserGender("남자");
                 }
             }
         });
@@ -125,7 +149,8 @@ public class MyProfileActivity extends AppCompatActivity {
                 if(male.isChecked()) {
                     female.setChecked(true);
                     male.setChecked(false);
-                    mMyData.setUserGender("여자");
+                    tempGender = "여자";
+                    //mMyData.setUserGender("여자");
                 }
             }
         });
@@ -163,10 +188,10 @@ public class MyProfileActivity extends AppCompatActivity {
                     case R.id.MyProfile_SumImg:
                       //  startActivity(new Intent(getApplicationContext(), ImageViewPager.class));
 
-                        stTargetData.ImgGroup0 =  mMyData.strProfileImg[0];
-                        stTargetData.ImgGroup1 = mMyData.strProfileImg[1];
-                        stTargetData.ImgGroup2 = mMyData.strProfileImg[2];
-                        stTargetData.ImgGroup3 = mMyData.strProfileImg[3];
+                        stTargetData.ImgGroup0 =  tempImg[0].toString();
+                        stTargetData.ImgGroup1 = tempImg[1].toString();
+                        stTargetData.ImgGroup2 = tempImg[2].toString();
+                        stTargetData.ImgGroup3 = tempImg[3].toString();
 
                         stTargetData.ImgCount = mMyData.getUserImgCnt();
 
@@ -319,7 +344,7 @@ public class MyProfileActivity extends AppCompatActivity {
             else
             {
                 Glide.with(getApplicationContext())
-                        .load(mMyData.strProfileImg[i])
+                        .load(tempImg[i])
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         //.bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
@@ -331,28 +356,39 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private void popUp(final int index) {
 
-        if(mMyData.strProfileImg[index].equals("1"))
+        if(tempImg[index].equals(Uri.parse("1")))
         {
+            int tempIdx = 0;
             LoadImage(index);
-
-           // nImgNumber = index;
-
+       /*     for (int i = 0; i<4;i++)
+            {
+                if(tempImg[i].equals(Uri.parse("1")))
+                {
+                    tempIdx = i;
+                    LoadImage(tempIdx);
+                    break;
+                }
+            }*/
         }
         else
         {
             final ViewClickDialog dialog = new ViewClickDialog(activity, index);
             dialog.show();
 
+            if(index == 0)
+            {
+                dialog.tv_delete.setVisibility(View.GONE);
+            }
             dialog.tv_see.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // 사진 보기
-                    stTargetData.ImgGroup0 = mMyData.strProfileImg[0];
-                    stTargetData.ImgGroup1 = mMyData.strProfileImg[1];
-                    stTargetData.ImgGroup2 = mMyData.strProfileImg[2];
-                    stTargetData.ImgGroup3 = mMyData.strProfileImg[3];
+                    stTargetData.ImgGroup0 = tempImg[index].toString();
+                    stTargetData.ImgGroup1 = "1";
+                    stTargetData.ImgGroup2 = "1";
+                    stTargetData.ImgGroup3 = "1";
 
-                    stTargetData.ImgCount = mMyData.getUserImgCnt();
+                    stTargetData.ImgCount = 1;//mMyData.getUserImgCnt();
 
                     Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
                     Bundle bundle = new Bundle();
@@ -365,15 +401,6 @@ public class MyProfileActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
-
-        /*dialog.tv_camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 카메라로 찍기
-
-            }
-        });
-        });*/
 
             dialog.tv_album.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -388,7 +415,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     // 사진 삭제
                     DeleteData(index);
-                    DeleteFireBaseData(index);
+                    //DeleteFireBaseData(index);
                     dialog.dismiss();
                 }
             });
@@ -399,7 +426,6 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private void LoadImage(int i) {
 
-
         nImgNumber = i;
 
         TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(MyProfileActivity.this)
@@ -407,9 +433,11 @@ public class MyProfileActivity extends AppCompatActivity {
                     @Override
                     public void onImageSelected(Uri uri) {
                         // uri 활용
+                        tempImg[nImgNumber] = uri;
+
                         if(nImgNumber == 0)
                         {
-                            mMyData.setUserImg(uri.toString());
+                            mMyData.setUserImg(tempImg[nImgNumber].toString());
                             Glide.with(getApplicationContext())
                                     .load(mMyData.getUserImg())
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -417,94 +445,42 @@ public class MyProfileActivity extends AppCompatActivity {
                                     .into(Img_Sum);
                         }
 
-                        mMyData.setUserProfileImg(nImgNumber, uri.toString());
+                       // mMyData.setUserProfileImg(nImgNumber, uri.toString());
+
                         Glide.with(getApplicationContext())
-                                .load(mMyData.getUserProfileImg(nImgNumber))
+                                .load(tempImg[nImgNumber].toString())
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 //.bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                                 .thumbnail(0.1f)
                                 .into(Img_Profiles[nImgNumber]);
 
-                        if(nImgNumber <= mMyData.getUserImgCnt() - 1)
+                        if(tempImgChange[nImgNumber] == 0) {
+                            tempImgChangeCnt++;
+                        }
+
+                        tempImgChange[nImgNumber] = 1;
+
+
+               /*         if(nImgNumber <= mMyData.getUserImgCnt() - 1)
                         {
                             // Toast.makeText(this, "사진 되었습니다.", Toast.LENGTH_LONG).show();
                         }
                         else
-                            mMyData.setUserImgCnt(mMyData.getUserImgCnt()+1);
+                            tempImgCnt +=1;*/
+                            //mMyData.setUserImgCnt(mMyData.getUserImgCnt()+1);
 
-                        mMyData.urSaveUri = uri;
+           /*             mMyData.urSaveUri = uri;
                         mMyData.nSaveUri = nImgNumber;
 
                         if(mMyData.nSaveUri == 0)
                             UploadThumbNailImage_Firebase(mMyData.urSaveUri);
 
-                        UploadImage_Firebase(mMyData.urSaveUri);
+                        UploadImage_Firebase(mMyData.urSaveUri);*/
                     }
                 })
                 .create();
 
         bottomSheetDialogFragment.show(getSupportFragmentManager());
-
-/*        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/"+mMyData.getUserIdx() + "*//*");
-        startActivityForResult(Intent.createChooser(intent, "Select"), 1);*/
-
-      /*  Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(gallery,1000);*/
-
-    }
-
-
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-          //  if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
-            if (resultCode == RESULT_OK && requestCode == 1000 ){
-                Uri uri = data.getData();
-
-                if(nImgNumber == 0)
-                {
-                    mMyData.setUserImg(uri.toString());
-                    Glide.with(getApplicationContext())
-                            .load(mMyData.getUserImg())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .thumbnail(0.1f)
-                            .into(Img_Sum);
-                }
-
-                mMyData.setUserProfileImg(nImgNumber, uri.toString());
-                Glide.with(getApplicationContext())
-                        .load(mMyData.getUserProfileImg(nImgNumber))
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                       // .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
-                        .thumbnail(0.1f)
-                        .into(Img_Profiles[nImgNumber]);
-
-                if(nImgNumber <= mMyData.getUserImgCnt() - 1)
-                {
-                   // Toast.makeText(this, "사진 되었습니다.", Toast.LENGTH_LONG).show();
-                }
-                else
-                    mMyData.setUserImgCnt(mMyData.getUserImgCnt()+1);
-
-                mMyData.urSaveUri = uri;
-                mMyData.nSaveUri = nImgNumber;
-
-                if(mMyData.nSaveUri == 0)
-                    UploadThumbNailImage_Firebase(mMyData.urSaveUri);
-
-                UploadImage_Firebase(mMyData.urSaveUri);
-
-            } else {
-              //  Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
-            }
-
-        } catch (Exception e) {
-          //  Toast.makeText(this, "Oops! 로딩에 오류가 있습니다.", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
-
     }
 
     public static int calculateInSampleSize(
@@ -584,17 +560,16 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                strThumbNail = downloadUrl.toString();
-                bChangeImg = true;
+
                 TrThumbNail(downloadUrl);
             }
         });
     }
 
 
-    private void UploadImage_Firebase(Uri file) {
+    private void UploadImage_Firebase(final int Idx, Uri file) {
 
-        StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  mMyData.nSaveUri );//file.getLastPathSegment());
+        StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  Idx );//file.getLastPathSegment());
         Bitmap bitmap = null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
@@ -622,9 +597,23 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Tr(downloadUrl);
+                Tr(Idx, downloadUrl);
 
+                tempImgChangeCnt --;
+                if(tempImgChangeCnt == 0)
+                {
+                    SaveData();
+                }
                 //strImg = downloadUrl.toString();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                   System.out.println("Upload is " + progress + "% done");
+
+                CommonFunc.getInstance().ShowToast(getApplicationContext(), "업로드 중 GIF 이미지 출력 부분", true);
+
             }
         });
     }
@@ -632,14 +621,12 @@ public class MyProfileActivity extends AppCompatActivity {
     public void TrThumbNail(Uri uri)
     {
         mMyData.setUserImg(uri.toString());
-        mFireBaseData.SaveData(mMyData.getUserIdx());
       //  Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
     }
 
-    public void Tr(Uri uri)
+    public void Tr(int Idx, Uri uri)
     {
-        mMyData.setUserProfileImg( mMyData.nSaveUri, uri.toString());
-        mFireBaseData.SaveData(mMyData.getUserIdx());
+        mMyData.setUserProfileImg( Idx, uri.toString());
        // Toast.makeText(this," 사진이 저장되었습니다",Toast.LENGTH_LONG).show();
     }
     @Override
@@ -653,34 +640,48 @@ public class MyProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_save){
             //프로필 저장 구현
-            //Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
 
-          /*  if(bChangeImg)
-                UploadImage_Firebase(mMyData.urSaveUri);*/
-         /*   if(bChangeImg == true)
-                mMyData.setUserImg(strThumbNail);
+            if(!mMyData.getUserNick().equals(tempNickName))
+                mMyData.setUserNick(tempNickName);
 
-            mMyData.setUserProfileImg( mMyData.nSaveUri, strImg);*/
+            if(!mMyData.getUserAge().equals(tempAge))
+                mMyData.setUserAge(tempAge);
 
-            mMyData.setProfileData(et_Memo.getText());
-            mFireBaseData.SaveData(mMyData.getUserIdx());
-            bChangeImg = false;
+            if(!mMyData.getUserGender().equals(tempGender))
+                mMyData.setUserGender(tempGender);
 
-            Intent intent = new Intent(this, MyPageActivity.class);
-            startActivity(intent);
-            finish();
+            if(!mMyData.getUserMemo().equals(et_Memo.getText().toString()))
+                mMyData.setMemo(et_Memo.getText());
+
+            boolean bChangeImg = false;
+            for(int i=0; i<4; i++)
+            {
+                if(tempImgChange[i] == 1)
+                {
+                    if(i == 0)
+                        UploadThumbNailImage_Firebase(tempImg[i]);
+
+                    UploadImage_Firebase(i, tempImg[i]);
+
+                    bChangeImg = true;
+                }
+
+                if(!tempImg[i].equals(Uri.parse("1")))
+                {
+                    tempImgCnt++;
+                }
+
+                mMyData.setUserProfileImg( i, tempImg[i].toString());
+            }
+
+            mMyData.setUserImgCnt(tempImgCnt);
+
+            if(bChangeImg == false)
+                SaveData();
+
         }
         if(item.getItemId() == android.R.id.home)
         {
-          //  Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
-
-         /*   if(bChangeImg)
-                UploadImage_Firebase(mMyData.urSaveUri);*/
-
-            mMyData.setProfileData(et_Memo.getText());
-            mFireBaseData.SaveData(mMyData.getUserIdx());
-            bChangeImg = false;
-
             Intent intent = new Intent(this, MyPageActivity.class);
             startActivity(intent);
             finish();
@@ -709,8 +710,9 @@ public class MyProfileActivity extends AppCompatActivity {
 
     public  void DeleteData(final int Index)
     {
-        mMyData.delUserProfileImg(Index, "1");
-        mMyData.setUserImgCnt(mMyData.getUserImgCnt()-1);
+        tempImg[Index] = Uri.parse("1");
+        //mMyData.delUserProfileImg(Index, "1");
+        //mMyData.setUserImgCnt(mMyData.getUserImgCnt()-1);
 
         Glide.with(getApplicationContext())
                 .load(mMyData.getUserImg())
@@ -721,7 +723,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
         for (int i = 0; i < 4; i++) {
 
-            if(mMyData.strProfileImg[i].equals("1"))
+            if(tempImg[i].toString().equals("1"))
             {
                 Glide.with(getApplicationContext())
                         .load(R.drawable.picture)
@@ -733,7 +735,7 @@ public class MyProfileActivity extends AppCompatActivity {
             else
             {
                 Glide.with(getApplicationContext())
-                        .load(mMyData.strProfileImg[i])
+                        .load(tempImg[i])
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         //.bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
@@ -748,18 +750,19 @@ public class MyProfileActivity extends AppCompatActivity {
         mFireBaseData.SaveData(mMyData.getUserIdx());
     }
 
+    public  void SaveData()
+    {
+        mFireBaseData.SaveData(mMyData.getUserIdx());
+
+        Intent intent = new Intent(this, MyPageActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-       // Toast.makeText(this,"프로필이 저장되었습니다",Toast.LENGTH_LONG).show();
 
-         /*   if(bChangeImg)
-                UploadImage_Firebase(mMyData.urSaveUri);*/
-
-      /* mMyData.setProfileData(et_Memo.getText());
-        mFireBaseData.SaveData(mMyData.getUserIdx());
-        bChangeImg = false;
-*/
         Intent intent = new Intent(this, MyPageActivity.class);
         startActivity(intent);
         finish();

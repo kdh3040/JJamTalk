@@ -58,6 +58,9 @@ public class ClickedMyPicActivity extends AppCompatActivity {
     private ImageView bg_fan;
     private SwipeRefreshLayout refreshlayout;
 
+
+    private ImageView Divider_memo, Divider_fan;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,10 +105,8 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         txtDistance = (TextView) findViewById(R.id.UserPage_txtDistance);
         txtDistance.setVisibility(View.GONE);
 
-/*        tv_like = (TextView) findViewById(R.id.tv_like);
-        tv_like.setText(mMyData.getUserNick()+"님을 좋아하는 사람들");*/
-
-        //imgFan = (ImageView) findViewById()
+        Divider_memo = (ImageView)findViewById(R.id.divider_memo);
+        Divider_fan = (ImageView)findViewById(R.id.divider_fan);
 
         imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
@@ -147,9 +148,6 @@ public class ClickedMyPicActivity extends AppCompatActivity {
             imgBestItem.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
         }
 
-
-
-
         imgGrade = (ImageView)findViewById(R.id.iv_rank);
         imgGrade.setImageResource(mUIdata.getGrades()[mMyData.Grade]);
 
@@ -167,16 +165,32 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         bg_fan= findViewById(R.id.bg_fan);
         bg_fan.setVisibility(View.VISIBLE);
 
+        listView_like = (RecyclerView) findViewById(R.id.lv_like);
+
         if(mMyData.arrMyFanList.size() != 0) {
             //tv_like = findViewById(R.id.tv_like);
             //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
-            listView_like = (RecyclerView) findViewById(R.id.lv_like);
-            TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), mMyData.arrMyFanList);
+
+            UserData tempData = new UserData();
+            tempData.arrFanList = mMyData.arrMyFanList;
+            tempData.arrFanData = mMyData.arrMyFanDataList;
+            TargetLikeAdapter likeAdapter = new TargetLikeAdapter(getApplicationContext(), tempData);
             listView_like.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             listView_like.setAdapter(likeAdapter);
+        }
+        else
+        {
+            listView_like.setVisibility(View.GONE);
 
+            bg_fan.setVisibility(View.GONE);
+            imgFan.setVisibility(View.GONE);
+
+            Divider_memo.setVisibility(View.GONE);
+            Divider_fan.setVisibility(View.GONE);
 
         }
+
+
         //LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
         //ImageView divide_Fan = (ImageView)findViewById(R.id.divide_fan);
         //divide_Fan.setVisibility(View.GONE);

@@ -21,6 +21,8 @@ import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Util.CommonFunc;
 
+import java.util.ArrayList;
+
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
@@ -43,13 +45,24 @@ public class MyCustomPagerAdapter extends PagerAdapter{
 
 
     private CommonFunc mCommon = CommonFunc.getInstance();
+    private ArrayList<String> tempImg = new ArrayList<>();
 
     public MyCustomPagerAdapter(Context context, UserData TargetData, int index) {
         mContext = context;
         mLayoutInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         stTargetData = TargetData;
 
-        switch (index)
+        if(!stTargetData.ImgGroup0.equals("1"))
+            tempImg.add(stTargetData.ImgGroup0);
+        if(!stTargetData.ImgGroup1.equals("1"))
+            tempImg.add(stTargetData.ImgGroup1);
+        if(!stTargetData.ImgGroup2.equals("1"))
+            tempImg.add(stTargetData.ImgGroup2);
+        if(!stTargetData.ImgGroup3.equals("1"))
+            tempImg.add(stTargetData.ImgGroup3);
+
+
+       /* switch (index)
         {
             case 0:
                 strImgGroup[0] = stTargetData.ImgGroup0;
@@ -75,7 +88,7 @@ public class MyCustomPagerAdapter extends PagerAdapter{
                 strImgGroup[2] = stTargetData.ImgGroup1;
                 strImgGroup[3] = stTargetData.ImgGroup2;
                 break;
-        }
+        }*/
 
 
     }
@@ -86,9 +99,10 @@ public class MyCustomPagerAdapter extends PagerAdapter{
     }
 
 
+
     @Override
     public int getCount() {
-        return stTargetData.ImgCount;
+        return tempImg.size();
     }
 
     @Override
@@ -104,7 +118,7 @@ public class MyCustomPagerAdapter extends PagerAdapter{
         imageView.setVisibility(View.VISIBLE);
         mAdView.setVisibility(View.GONE);
 
-        Glide.with(mContext).load(strImgGroup[position])
+        Glide.with(mContext).load(tempImg.get(position))
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {

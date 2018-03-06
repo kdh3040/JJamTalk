@@ -18,7 +18,7 @@
 
     <ImageView
         android:id="@+id/bg_txt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:background="#1a000000" />
@@ -44,6 +44,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="false"
+        android:padding="3dp"
         app:srcCompat="@mipmap/icon_hot" />
 
 </RelativeLayout>

@@ -168,23 +168,23 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         HeartItem mHeartItem;
 
-        mHeartItem = new HeartItem(R.drawable.coin, "10코인 1000원");
+        mHeartItem = new HeartItem(R.drawable.buy_10, "900원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.coin, "32코인 3000원");
+        mHeartItem = new HeartItem(R.drawable.buy_30, "2900원");
         list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.coin, "55코인 4900원");
-        list.add(mHeartItem);
-
-        mHeartItem = new HeartItem(R.drawable.coin, "120코인 9900원");
+        mHeartItem = new HeartItem(R.drawable.buy_50, "4900원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.coin, "250코인 29000원");
+        mHeartItem = new HeartItem(R.drawable.buy_100, "9900원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.coin, "650코인 49000원");
+        mHeartItem = new HeartItem(R.drawable.buy_300, "29000원");
         list.add(mHeartItem);
 
-        mHeartItem = new HeartItem(R.drawable.coin, "1400코인 99000원");
+        mHeartItem = new HeartItem(R.drawable.buy_500, "49000원");
+        list.add(mHeartItem);
+
+        mHeartItem = new HeartItem(R.drawable.buy_1000, "99000원");
         list.add(mHeartItem);
 
 
@@ -308,11 +308,11 @@ public class BuyGoldActivity extends AppCompatActivity {
 
             ImageView img = (ImageView)view.findViewById(R.id.Charge_Img);
             img.setImageResource(arrData.get(i).Img_Heart);
+            final Button btn = (Button)view.findViewById(R.id.charge_Txt);
 
-            final TextView txt = (TextView) view.findViewById(R.id.Charge_Txt);
-            txt.setText(arrData.get(i).txt_Heart);
+            btn.setText(arrData.get(i).txt_Heart);
 
-            txt.setOnClickListener(new TextView.OnClickListener()
+            btn.setOnClickListener(new TextView.OnClickListener()
             {
                 @Override
                 public void onClick(View view) {
@@ -428,7 +428,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
         else if(ID.equals(mMyData.skuGold[4]))
         {
-            nPrice = 250;
+            nPrice = 350;
         }
         else if(ID.equals(mMyData.skuGold[5]))
         {
@@ -436,7 +436,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
         else if(ID.equals(mMyData.skuGold[6]))
         {
-            nPrice = 1400;
+            nPrice = 1200;
         }
 
 

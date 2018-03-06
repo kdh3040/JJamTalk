@@ -6,7 +6,7 @@
         android:id="@+id/action_save"
         android:title="저장"
         adroid:showAsAction="always"
-
+        app:itemTextColor="@color/color_white"
         ></item>
 
 

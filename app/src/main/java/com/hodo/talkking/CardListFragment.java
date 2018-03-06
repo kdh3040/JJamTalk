@@ -24,9 +24,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
+import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Util.CommonFunc;
@@ -271,7 +273,7 @@ public class CardListFragment extends Fragment {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     int saa = 0;
-                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    final UserData tempUserData = dataSnapshot.getValue(UserData.class);
                     if(tempUserData != null)
                     {
                         mMyData.mapMyCardData.put(strTargetIdx, tempUserData);
@@ -284,8 +286,49 @@ public class CardListFragment extends Fragment {
                             mMyData.mapMyCardData.get(strTargetIdx).arrFanList.add(entry.getValue());
                         }
 
-                        RefreshUserCardSimpleData(tempUserData, position);
-                        moveCardPage(position);
+                        if(mMyData.mapMyCardData.get(strTargetIdx).arrFanList.size() == 0)
+                        {
+                            RefreshUserCardSimpleData(tempUserData, position);
+                            moveCardPage(position);
+                        }
+                        else
+                        {
+                            for(int i = 0 ;i < mMyData.mapMyCardData.get(strTargetIdx).arrFanList.size(); i++)
+                            {
+                                Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapMyCardData.get(strTargetIdx).arrFanList.get(i).Idx);
+                                final FanData finalTempFanData = mMyData.mapMyCardData.get(strTargetIdx).arrFanList.get(i);
+                                final int finalI = i;
+                                data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                        if(DBData != null)
+                                        {
+                                            mMyData.mapMyCardData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                            if( finalI == mMyData.mapMyCardData.get(strTargetIdx).arrFanList.size() -1)
+                                            {
+                                                RefreshUserCardSimpleData(tempUserData, position);
+                                                moveCardPage(position);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
+                                            CommonFunc.getInstance().setClickStatus(false);
+                                        }
+
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        }
+
                     }
 
 

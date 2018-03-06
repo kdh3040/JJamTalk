@@ -6,14 +6,12 @@
 
     <TextView
         android:id="@+id/txt_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/transparent"
+        android:background="@color/baseColor"
         android:gravity="center_horizontal|center_vertical"
         android:padding="3dp"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20dp"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>

@@ -94,7 +94,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.cancel();
                                 }
-                            }).setMessage("작성한 글을 게시하시겠습니까?");
+                            }).setMessage("작성한 글을 게시하시겠습니까?(작성된 글은 수정할 수 없고 삭제만 할 수 있습니다. 게시판글은 10분에 한번씩만 작성할 수 있습니다.)");
                 }
              /*   else
                 {
