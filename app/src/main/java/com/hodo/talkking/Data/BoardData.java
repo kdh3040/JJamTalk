@@ -33,50 +33,51 @@ public class BoardData {
     public long TopBoardIdx = 0;
     public long BottomBoardIdx = -Long.MAX_VALUE;
 
+    public long loadingCount = 0;
+    public long TempTopBoardIdx = 0;
+    public long TempBottomBoardIdx = -Long.MAX_VALUE;
+
     public void ClearBoardData()
     {
         BoardList.clear();
         MyBoardList.clear();
     }
-    public void AddBoardData(DataSnapshot dataSnapshot, Boolean myData)
-    {
-        BoardMsgDBData DBData = dataSnapshot.getValue(BoardMsgDBData.class);
-        BoardMsgClientData ClientData  = GetBoardMsgClientData(DBData.BoardIdx, myData);
 
-        ArrayList<BoardMsgClientData> tempList;
-        if(myData)
+    public void AddBoardMyData(BoardMsgDBData dbData)
+    {
+        BoardMsgClientData ClientData  = GetBoardMsgClientData(dbData.BoardIdx, true);
+        if(ClientData == null)
         {
-            if(ClientData == null)
-            {
-                ClientData = new BoardMsgClientData(DBData);
-                MyBoardList.add(ClientData);
-                Collections.sort(MyBoardList, new BoardSort());
-            }
-            else
-                ClientData.SetDBdata(DBData);
+            ClientData = new BoardMsgClientData(dbData);
+            MyBoardList.add(ClientData);
+            Collections.sort(MyBoardList, new BoardSort());
+        }
+        else
+            ClientData.SetDBdata(dbData);
+    }
+    public void AddBoardData(BoardMsgDBData dbData)
+    {
+        BoardMsgClientData ClientData  = GetBoardMsgClientData(dbData.BoardIdx, false);
+
+        if(BottomBoardIdx < dbData.BoardIdx)
+            BottomBoardIdx = dbData.BoardIdx;
+
+        if(TopBoardIdx > dbData.BoardIdx)
+            TopBoardIdx = dbData.BoardIdx;
+
+        if(ClientData == null)
+        {
+            ClientData = new BoardMsgClientData(dbData);
+            if(ClientData.IsReportUser(MyData.getInstance().getUserIdx()))
+                return;
+            BoardList.add(ClientData);
+            Collections.sort(BoardList, new BoardSort());
         }
         else
         {
-            if(BottomBoardIdx < DBData.BoardIdx)
-                BottomBoardIdx = DBData.BoardIdx;
-
-            if(TopBoardIdx > DBData.BoardIdx)
-                TopBoardIdx = DBData.BoardIdx;
-
-            if(ClientData == null)
-            {
-                ClientData = new BoardMsgClientData(DBData);
-                if(ClientData.IsReportUser(MyData.getInstance().getUserIdx()))
-                    return;
-                BoardList.add(ClientData);
-                Collections.sort(BoardList, new BoardSort());
-            }
-            else
-            {
-                if(ClientData.IsReportUser(MyData.getInstance().getUserIdx()))
-                    return;
-                ClientData.SetDBdata(DBData);
-            }
+            if(ClientData.IsReportUser(MyData.getInstance().getUserIdx()))
+                return;
+            ClientData.SetDBdata(dbData);
         }
     }
 
@@ -98,6 +99,24 @@ public class BoardData {
         }
         else
             ClientData.SetDBdata(dbData);
+    }
+
+    public void AddBoardSimpleUserData(SimpleUserData simpleUserData)
+    {
+        if(simpleUserData == null)
+            return;
+
+        for(BoardMsgClientData data : BoardList)
+        {
+            if(data.GetDBData().Idx.equals(simpleUserData.Idx))
+                data.SetBoardSimpleUserData(simpleUserData);
+        }
+
+        for(BoardMsgClientData data : MyBoardList)
+        {
+            if(data.GetDBData().Idx.equals(simpleUserData.Idx))
+                data.SetBoardSimpleUserData(simpleUserData);
+        }
     }
 
     public BoardMsgClientData GetBoardMsgClientData(long boardIdx, Boolean myData)

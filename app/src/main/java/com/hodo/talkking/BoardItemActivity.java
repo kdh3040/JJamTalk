@@ -78,13 +78,13 @@ public class BoardItemActivity extends AppCompatActivity {
         //BoardViewCount = (TextView) findViewById(R.id.tv_pagecount);
         MasterProfile = (ImageView)findViewById(R.id.iv_profile);
 
-        MasterName.setText(dbData.NickName);
+       //MasterName.setText(dbData.NickName);
         BoardWriteDate.setText(dbData.Date);
         BoardNote.setText(dbData.Msg);
-        Glide.with(getApplicationContext())
-                .load(dbData.Img)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(MasterProfile);
+        //Glide.with(getApplicationContext())
+        //        .load(dbData.Img)
+        //        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        //        .into(MasterProfile);
     }
 
     private void SetHeaderButtonData() {

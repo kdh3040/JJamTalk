@@ -90,9 +90,7 @@ public class BoardWriteActivity extends AppCompatActivity {
 
 
                             BoardMsgDBData sendData = new BoardMsgDBData();
-                            sendData.NickName = mMydata.getUserNick();
                             sendData.Idx = mMydata.getUserIdx();
-                            sendData.Img = mMydata.getUserImg();
                             sendData.Msg = txt_Memo.getText().toString();
                             mFireBaseData.SaveBoardData_GetBoardIndex((BoardWriteActivity)mActivity);
 
@@ -119,13 +117,8 @@ public class BoardWriteActivity extends AppCompatActivity {
     {
         BoardMsgDBData sendData = new BoardMsgDBData();
 
-        sendData.NickName = mMydata.getUserNick();
         sendData.Idx = mMydata.getUserIdx();
-        sendData.Img = mMydata.getUserImg();
         sendData.Msg = txt_Memo.getText().toString();
-        sendData.Gender = mMydata.getUserGender();
-        sendData.Grade = mMydata.getGrade();
-        sendData.BestItem = mMydata.GetBestItem();
 
         mFireBaseData.SaveBoardData(sendData);
     }

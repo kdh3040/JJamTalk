@@ -2540,7 +2540,7 @@ public class MyData {
         return rtData;
     }
 
-    public int GetBestItem()
+    public int getUserBestItem()
     {
         return bestItem;
     }

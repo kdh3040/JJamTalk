@@ -16,6 +16,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.talkking.Data.BoardMsgClientData;
 import com.hodo.talkking.Data.BoardMsgDBData;
 import com.hodo.talkking.Data.CoomonValueData;
+import com.hodo.talkking.Data.MyData;
+import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.R;
 import com.hodo.talkking.Util.CommonFunc;
@@ -31,6 +33,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class BoardViewHolder extends RecyclerView.ViewHolder {
 
+    private MyData mMyData = MyData.getInstance();
     public TextView BoardMsg, BoardWriter, BoardDate;
     public ImageView BoardThumnail, BoardUserItem, BoardUserGrade;//, BoardUserGender;
     public Button BoardDeleteButton;
@@ -55,19 +58,12 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         if(data == null)
             return;
         final BoardMsgDBData dbData = data.GetDBData();
+        final SimpleUserData simpleUserData = data.GetBoardSimpleUserData();
 
-        Glide.with(context)
-                .load(dbData.Img)
-                .bitmapTransform(new CropCircleTransformation(context))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(BoardThumnail);
+
 
         BoardMsg.setText(dbData.Msg);
-        BoardWriter.setText(dbData.NickName);
-        if(dbData.Gender.equals("여자"))
-            BoardWriter.setTextColor(0xffda1d81);
-        else
-            BoardWriter.setTextColor(0xff005baf);
+
 
         long time = CommonFunc.getInstance().GetCurrentTime();
         Date writeDate = CommonFunc.getInstance().GetStringToDate(dbData.Date, CoomonValueData.DATE_FORMAT);
@@ -84,18 +80,75 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
             BoardDate.setText(ctime.format(new Date(writeDate.getTime())));
         }
 
-        BoardUserItem.setVisibility(View.VISIBLE);
-        if(data.GetDBData().BestItem > 0)
+
+
+        if(simpleUserData != null)
         {
-            BoardUserItem.setImageResource(UIData.getInstance().getJewels()[data.GetDBData().BestItem]);
+            if(simpleUserData.Idx.equals(mMyData.getUserIdx()))
+            {
+                BoardWriter.setText(mMyData.getUserNick());
+                if(mMyData.getUserGender().equals("여자"))
+                    BoardWriter.setTextColor(0xffda1d81);
+                else
+                    BoardWriter.setTextColor(0xff005baf);
+
+                BoardUserItem.setVisibility(View.VISIBLE);
+                if(mMyData.getUserBestItem() > 0)
+                {
+                    BoardUserItem.setImageResource(UIData.getInstance().getJewels()[mMyData.getUserBestItem()]);
+                }
+                else
+                {
+                    BoardUserItem.setImageResource(R.mipmap.randombox);
+                }
+
+                BoardUserGrade.setVisibility(View.VISIBLE);
+                BoardUserGrade.setImageResource(UIData.getInstance().getGrades()[mMyData.getGrade()]);
+
+
+                Glide.with(context)
+                        .load(mMyData.getUserImg())
+                        .bitmapTransform(new CropCircleTransformation(context))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(BoardThumnail);
+            }
+            else
+            {
+                BoardWriter.setText(simpleUserData.NickName);
+                if(simpleUserData.Gender.equals("여자"))
+                    BoardWriter.setTextColor(0xffda1d81);
+                else
+                    BoardWriter.setTextColor(0xff005baf);
+
+                BoardUserItem.setVisibility(View.VISIBLE);
+                if(simpleUserData.BestItem > 0)
+                {
+                    BoardUserItem.setImageResource(UIData.getInstance().getJewels()[simpleUserData.BestItem]);
+                }
+                else
+                {
+                    BoardUserItem.setImageResource(R.mipmap.randombox);
+                }
+
+                BoardUserGrade.setVisibility(View.VISIBLE);
+                BoardUserGrade.setImageResource(UIData.getInstance().getGrades()[simpleUserData.Grade]);
+
+
+                Glide.with(context)
+                        .load(simpleUserData.Img)
+                        .bitmapTransform(new CropCircleTransformation(context))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(BoardThumnail);
+            }
         }
         else
         {
-            BoardUserItem.setImageResource(R.mipmap.randombox);
+            BoardWriter.setText("없는유저");
+            BoardUserItem.setVisibility(View.INVISIBLE);
+            BoardUserGrade.setVisibility(View.INVISIBLE);
         }
 
 
-        BoardUserGrade.setImageResource(UIData.getInstance().getGrades()[data.GetDBData().Grade]);
       /*  if(data.GetDBData().Gender == null)
             BoardUserGender.setVisibility(View.INVISIBLE);
         else

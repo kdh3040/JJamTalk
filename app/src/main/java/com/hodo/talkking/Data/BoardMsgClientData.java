@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 
 public class BoardMsgClientData {
 
+    private SimpleUserData mSimpleUserData;
     private BoardMsgDBData mDBData;
 
     public ArrayList<BoardReportData> ReportList = new ArrayList<>();
@@ -19,6 +20,16 @@ public class BoardMsgClientData {
 
         for(LinkedHashMap.Entry<String, BoardReportData> entry : mDBData.ReportList.entrySet())
             ReportList.add(entry.getValue());
+    }
+
+    public void SetBoardSimpleUserData(SimpleUserData data)
+    {
+        mSimpleUserData = data;
+    }
+
+    public SimpleUserData GetBoardSimpleUserData()
+    {
+        return mSimpleUserData;
     }
 
     public BoardMsgDBData GetDBData()

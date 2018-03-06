@@ -395,20 +395,41 @@ public class FirebaseData {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                BoardData.getInstance().loadingCount = 0;
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    BoardData.getInstance().AddBoardData(postSnapshot, false);
+                    BoardData.getInstance().loadingCount = dataSnapshot.getChildrenCount();
+                    BoardMsgDBData DBData = postSnapshot.getValue(BoardMsgDBData.class);
+                    BoardData.getInstance().AddBoardData(DBData);
+
+                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(DBData.Idx);
+
+                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot == null)
+                                return;
+
+                            SimpleUserData simpleUserData = dataSnapshot.getValue(SimpleUserData.class);
+                            BoardData.getInstance().AddBoardSimpleUserData(simpleUserData);
+
+                            BoardData.getInstance().loadingCount--;
+                            if(BoardData.getInstance().loadingCount <= 0) {
+                                mActivity.finish();
+                                Fragment frg = null;
+                                frg = mFragmentMng.findFragmentByTag("BoardFragment");
+                                final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                                ft.detach(frg);
+                                ft.attach(frg);
+                                ft.commitAllowingStateLoss();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
-
-                mActivity.finish();
-
-                Fragment frg = null;
-                frg = mFragmentMng.findFragmentByTag("BoardFragment");
-                final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                ft.detach(frg);
-                ft.attach(frg);
-                ft.commitAllowingStateLoss();
-
-
                // mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
    /*
                 Intent intent = new Intent(mActivity, MainActivity.class);
@@ -438,7 +459,26 @@ public class FirebaseData {
                 if(dataSnapshot == null)
                     return;
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    BoardData.getInstance().AddBoardData(postSnapshot, false);
+                    BoardMsgDBData DBData = postSnapshot.getValue(BoardMsgDBData.class);
+                    BoardData.getInstance().AddBoardData(DBData);
+
+                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(DBData.Idx);
+
+                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot == null)
+                                return;
+
+                            SimpleUserData simpleUserData = dataSnapshot.getValue(SimpleUserData.class);
+                            BoardData.getInstance().AddBoardSimpleUserData(simpleUserData);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
 
@@ -460,7 +500,26 @@ public class FirebaseData {
                 if(dataSnapshot == null)
                     return;
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    BoardData.getInstance().AddBoardData(postSnapshot, true);
+                        BoardMsgDBData DBData = postSnapshot.getValue(BoardMsgDBData.class);
+                        BoardData.getInstance().AddBoardMyData(DBData);
+
+                        Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(DBData.Idx);
+
+                        data.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot == null)
+                                    return;
+
+                                SimpleUserData simpleUserData = dataSnapshot.getValue(SimpleUserData.class);
+                                BoardData.getInstance().AddBoardSimpleUserData(simpleUserData);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                 }
             }
 
@@ -489,16 +548,41 @@ public class FirebaseData {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot == null)
                     return;
-                long topIndex = BoardData.getInstance().TopBoardIdx;
-                long bottomIndex = BoardData.getInstance().BottomBoardIdx;
+                BoardData.getInstance().TempTopBoardIdx = BoardData.getInstance().TopBoardIdx;
+                BoardData.getInstance().TempBottomBoardIdx = BoardData.getInstance().BottomBoardIdx;
 
+
+                BoardData.getInstance().loadingCount = 0;
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    BoardData.getInstance().AddBoardData(postSnapshot, false);
-                }
-                UpdateBoardAdapter.BoardDataLoding = false;
+                    BoardData.getInstance().loadingCount = dataSnapshot.getChildrenCount();
+                    BoardMsgDBData DBData = postSnapshot.getValue(BoardMsgDBData.class);
+                    BoardData.getInstance().AddBoardData(DBData);
 
-                if(topIndex != BoardData.getInstance().TopBoardIdx || bottomIndex != BoardData.getInstance().BottomBoardIdx)
-                    UpdateBoardAdapter.notifyDataSetChanged();
+                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(DBData.Idx);
+
+                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot == null)
+                                return;
+                            BoardData.getInstance().loadingCount--;
+                            SimpleUserData simpleUserData = dataSnapshot.getValue(SimpleUserData.class);
+                            BoardData.getInstance().AddBoardSimpleUserData(simpleUserData);
+
+                            if(BoardData.getInstance().loadingCount <= 0)
+                            {
+                                UpdateBoardAdapter.BoardDataLoding = false;
+                                if(BoardData.getInstance().TempTopBoardIdx != BoardData.getInstance().TopBoardIdx || BoardData.getInstance().TempBottomBoardIdx != BoardData.getInstance().BottomBoardIdx)
+                                    UpdateBoardAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
             }
 
             @Override
