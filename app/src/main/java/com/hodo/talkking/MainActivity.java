@@ -82,6 +82,7 @@ import java.util.List;
 import java.util.Random;
 
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.hodo.talkking.Data.CoomonValueData.UNIQ_FANCOUNT;
 import static com.kakao.usermgmt.StringSet.id;
 
 public class MainActivity extends AppCompatActivity {
@@ -1585,7 +1586,7 @@ public class MainActivity extends AppCompatActivity {
             user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
 
-            user.child("FanCount").setValue(-1 * random.nextInt(10));
+            user.child("FanCount").setValue(-1 * random.nextInt(10) * UNIQ_FANCOUNT - Integer.parseInt(Index));
 
             user.child("Point").setValue(random.nextInt(10000));
 
@@ -1627,7 +1628,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             user.child("Date").setValue(ctime.format(new Date(time)));
-            user.child("FanCount").setValue(-1 * random.nextInt(10));
+            user.child("FanCount").setValue(-1 * random.nextInt(10) * UNIQ_FANCOUNT - Integer.parseInt(Index));
 
             user.child("Point").setValue(random.nextInt(10000));
 
