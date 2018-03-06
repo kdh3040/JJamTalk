@@ -221,7 +221,7 @@
         app:layout_constraintLeft_toRightOf="@+id/ib_chatlist"
         app:layout_constraintRight_toLeftOf="@+id/ib_board"
         app:layout_constraintTop_toTopOf="@+id/bg_bottom"
-        app:srcCompat="@drawable/myfan"></ImageButton>
+        app:srcCompat="@drawable/ic_fan"></ImageButton>
 
     <ImageView
         android:id="@+id/alarm_fan"

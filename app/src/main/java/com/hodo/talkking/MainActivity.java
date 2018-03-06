@@ -1435,7 +1435,7 @@ public class MainActivity extends AppCompatActivity {
         ib_home.setImageResource(R.drawable.icon_home);
         ib_cardList.setImageResource(R.drawable.favor);
         ib_chatList.setImageResource(R.drawable.chat);
-        ib_fan.setImageResource(R.drawable.myfan);
+        ib_fan.setImageResource(R.drawable.ic_fan);
         ib_board.setImageResource(R.drawable.board);
 
         switch (idx)
