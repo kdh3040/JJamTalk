@@ -1024,14 +1024,13 @@ public class CommonFunc {
     public boolean CheckTextMaxLength(String text, int maxLength, Context context, String Title, boolean emptyCheck)
     {
         String tempStr = text;
-        tempStr = tempStr.replace("\n",""); // 개행 문자 제거
-        tempStr = tempStr.replace(" ",""); // 공란제거
+        boolean stringEmpty = IsStringEmptyCheck(tempStr);
 
         if(tempStr.length() > maxLength)
             ShowDefaultPopup(context, Title, maxLength+"자 이하로 작성 하셔야 합니다.");
         else
         {
-            if(emptyCheck && tempStr.length() <= 0)
+            if(emptyCheck && stringEmpty)
                 ShowDefaultPopup(context, Title, "내용이 없습니다.");
         }
 
@@ -1039,6 +1038,15 @@ public class CommonFunc {
             return true;
 
         return false;
+    }
+
+    public boolean IsStringEmptyCheck(String text)
+    {
+        String tempStr = text;
+        tempStr = tempStr.replace("\n",""); // 개행 문자 제거
+        tempStr = tempStr.replace(" ",""); // 공란제거
+
+        return tempStr.length() <= 0;
     }
 
     public String RemoveEmptyString(String text)
