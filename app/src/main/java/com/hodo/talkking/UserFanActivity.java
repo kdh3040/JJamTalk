@@ -31,6 +31,8 @@ import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Util.CommonFunc;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -58,6 +60,8 @@ public class UserFanActivity extends AppCompatActivity {
 
     Activity mActivity;
     RecyclerView UserFanRecycler;
+
+    private TextView txt_FanCount;
 
     private void SortByRecvHeart()
     {
@@ -113,6 +117,8 @@ public class UserFanActivity extends AppCompatActivity {
         TextView txt_Title = findViewById(R.id.txt_title);
         txt_Title.setText(stTargetData.NickName + "님의 팬");
 
+        txt_FanCount = findViewById(R.id.txt_fanCount);
+        txt_FanCount.setText(Integer.toString(stTargetData.FanList.size()));
     }
 
     private class UserFanListAdapter extends RecyclerView.Adapter<UserFanListAdapter.ViewHolder> {
