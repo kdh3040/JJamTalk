@@ -74,6 +74,12 @@ public class BoardWriteActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             //mMydata.setUserHoney(mMydata.getUserHoney() - 10);
 
+                            if(CommonFunc.getInstance().IsStringEmptyCheck(txt_Memo.getText().toString()))
+                            {
+                                CommonFunc.getInstance().ShowToast(BoardWriteActivity.this ,"게시글의 내용이 없습니다.",false);
+                                return;
+                            }
+
                             if(CommonFunc.getInstance().CheckTextMaxLength(txt_Memo.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_BOARD, BoardWriteActivity.this ,"게시판 글쓰기", true) == false)
                                 return;
 
