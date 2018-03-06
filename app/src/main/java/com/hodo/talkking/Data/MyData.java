@@ -1988,7 +1988,7 @@ public class MyData {
         updateMap.put("RecvGold", nTotalSendCnt);
         updateMap.put("Idx", getUserIdx());
         updateMap.put("NickName", getUserNick());
-        updateMap.put("BestItem", GetBestItem());
+        updateMap.put("BestItem", getUserBestItem());
         updateMap.put("Grade", getGrade());
         updateMap.put("Img", getUserImg());
         table.child(getUserIdx()).updateChildren(updateMap);
