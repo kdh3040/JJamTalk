@@ -3,16 +3,13 @@ package com.hodo.talkking.Util;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 
 import com.bumptech.glide.Glide;
@@ -35,32 +32,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.hodo.talkking.BuyGoldActivity;
-import com.hodo.talkking.Data.ChatData;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
-import com.hodo.talkking.Data.SendData;
 import com.hodo.talkking.Data.SimpleChatData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Firebase.FirebaseData;
-import com.hodo.talkking.LoginActivity;
 import com.hodo.talkking.MainActivity;
 import com.hodo.talkking.R;
 import com.hodo.talkking.UserPageActivity;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
  * Created by woong on 2018-01-05.
@@ -93,6 +81,14 @@ public class CommonFunc {
     public static AppStatus mAppStatus = AppStatus.FOREGROUND;
 
     private boolean bClickSync = false;
+
+    private Button btnHeart10;
+    private Button btnHeart30;
+    private Button btnHeart50;
+    private Button btnHeart100;
+    private Button btnHeart300;
+    private Button btnHeart500;
+
 
     public static class MyActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
 
@@ -1028,14 +1024,13 @@ public class CommonFunc {
     public boolean CheckTextMaxLength(String text, int maxLength, Context context, String Title, boolean emptyCheck)
     {
         String tempStr = text;
-        tempStr = tempStr.replace("\n",""); // 개행 문자 제거
-        tempStr = tempStr.replace(" ",""); // 공란제거
+        boolean stringEmpty = IsStringEmptyCheck(tempStr);
 
         if(tempStr.length() > maxLength)
             ShowDefaultPopup(context, Title, maxLength+"자 이하로 작성 하셔야 합니다.");
         else
         {
-            if(emptyCheck && tempStr.length() <= 0)
+            if(emptyCheck && stringEmpty)
                 ShowDefaultPopup(context, Title, "내용이 없습니다.");
         }
 
@@ -1043,6 +1038,15 @@ public class CommonFunc {
             return true;
 
         return false;
+    }
+
+    public boolean IsStringEmptyCheck(String text)
+    {
+        String tempStr = text;
+        tempStr = tempStr.replace("\n",""); // 개행 문자 제거
+        tempStr = tempStr.replace(" ",""); // 공란제거
+
+        return tempStr.length() <= 0;
     }
 
     public String RemoveEmptyString(String text)
@@ -1111,26 +1115,51 @@ public class CommonFunc {
                 }
             });
 
+            btnHeart10 = v.findViewById(R.id.HeartPop_10);
+            btnHeart30 = v.findViewById(R.id.HeartPop_30);
+            btnHeart50 = v.findViewById(R.id.HeartPop_50);
+            btnHeart100 = v.findViewById(R.id.HeartPop_100);
+            btnHeart300 = v.findViewById(R.id.HeartPop_300);
+            btnHeart500 = v.findViewById(R.id.HeartPop_500);
+
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     switch (view.getId()) {
                         case R.id.HeartPop_10:
+                            SetHeartBtnColor(0);
+                            SetHeartFontColor(0);
+
                             nSendHoneyCnt[0] = 10;
                             break;
                         case R.id.HeartPop_30:
+                            SetHeartBtnColor(1);
+                            SetHeartFontColor(1);
+
                             nSendHoneyCnt[0] = 30;
                             break;
                         case R.id.HeartPop_50:
+                            SetHeartBtnColor(2);
+                            SetHeartFontColor(2);
+
                             nSendHoneyCnt[0] = 50;
                             break;
                         case R.id.HeartPop_100:
+                            SetHeartBtnColor(3);
+                            SetHeartFontColor(3);
+
                             nSendHoneyCnt[0] = 100;
                             break;
                         case R.id.HeartPop_300:
+                            SetHeartBtnColor(4);
+                            SetHeartFontColor(4);
+
                             nSendHoneyCnt[0] = 300;
                             break;
                         case R.id.HeartPop_500:
+                            SetHeartBtnColor(5);
+                            SetHeartFontColor(5);
+
                             nSendHoneyCnt[0] = 500;
                             break;
                     }
@@ -1146,18 +1175,12 @@ public class CommonFunc {
                 }
             };
 
-            Button btnHeart10 = v.findViewById(R.id.HeartPop_10);
             btnHeart10.setOnClickListener(listener);
             btnHeart10.callOnClick();
-            Button btnHeart30 = v.findViewById(R.id.HeartPop_30);
             btnHeart30.setOnClickListener(listener);
-            Button btnHeart50 = v.findViewById(R.id.HeartPop_50);
             btnHeart50.setOnClickListener(listener);
-            Button btnHeart100 = v.findViewById(R.id.HeartPop_100);
             btnHeart100.setOnClickListener(listener);
-            Button btnHeart300 = v.findViewById(R.id.HeartPop_300);
             btnHeart300.setOnClickListener(listener);
-            Button btnHeart500 = v.findViewById(R.id.HeartPop_500);
             btnHeart500.setOnClickListener(listener);
 
 
@@ -1184,6 +1207,69 @@ public class CommonFunc {
             });
         }
     }
+
+    private void SetHeartBtnColor(int idx) {
+        btnHeart10.setBackgroundResource(R.drawable.heart_empty);
+        btnHeart30.setBackgroundResource(R.drawable.heart_empty);
+        btnHeart50.setBackgroundResource(R.drawable.heart_empty);
+        btnHeart100.setBackgroundResource(R.drawable.heart_empty);
+        btnHeart300.setBackgroundResource(R.drawable.heart_empty);
+        btnHeart500.setBackgroundResource(R.drawable.heart_empty);
+
+        switch (idx)
+        {
+            case 0:
+                btnHeart10.setBackgroundResource(R.drawable.heart);
+                break;
+            case 1:
+                btnHeart30.setBackgroundResource(R.drawable.heart);
+                break;
+            case 2:
+                btnHeart50.setBackgroundResource(R.drawable.heart);
+                break;
+            case 3:
+                btnHeart100.setBackgroundResource(R.drawable.heart);
+                break;
+            case 4:
+                btnHeart300.setBackgroundResource(R.drawable.heart);
+                break;
+            case 5:
+                btnHeart500.setBackgroundResource(R.drawable.heart);
+                break;
+        }
+    }
+
+    private void SetHeartFontColor(int idx) {
+        btnHeart10.setTextColor(Color.BLACK);
+        btnHeart30.setTextColor(Color.BLACK);
+        btnHeart50.setTextColor(Color.BLACK);
+        btnHeart100.setTextColor(Color.BLACK);
+        btnHeart300.setTextColor(Color.BLACK);
+        btnHeart500.setTextColor(Color.BLACK);
+
+        switch (idx)
+        {
+            case 0:
+                btnHeart10.setTextColor(Color.WHITE);
+                break;
+            case 1:
+                btnHeart30.setTextColor(Color.WHITE);
+                break;
+            case 2:
+                btnHeart50.setTextColor(Color.WHITE);
+                break;
+            case 3:
+                btnHeart100.setTextColor(Color.WHITE);
+                break;
+            case 4:
+                btnHeart300.setTextColor(Color.WHITE);
+                break;
+            case 5:
+                btnHeart500.setTextColor(Color.WHITE);
+                break;
+        }
+    }
+
 
     public boolean ShowBlockUser(Context context, String targetIdx)
     {
