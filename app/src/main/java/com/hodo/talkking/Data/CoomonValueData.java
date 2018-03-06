@@ -29,6 +29,7 @@ public class CoomonValueData  {
     public static final long DAY_MILLI_SECONDS = 86400000;
     public static final long HOUR_MILLI_SECONDS = 3600000;
     public static final long MIN_MILLI_SECONDS = 60000;
+    public static final long SEC_MILLI_SECONDS = 1000;
 
     public static final int OPEN_BOX_COST = 7;
 
@@ -38,5 +39,7 @@ public class CoomonValueData  {
     public static final int TEXT_MAX_LENGTH_SEND_HONEY = 30;
     public static final int TEXT_MAX_LENGTH_NICKNAME = 8;
     public static final int TEXT_MAX_LENGTH_MEMO = 100;
+
+    public static final int BOARD_WRITE_TIME_MIN = 10;
 
 }

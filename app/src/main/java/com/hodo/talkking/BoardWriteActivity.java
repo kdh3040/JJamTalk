@@ -19,6 +19,10 @@ import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.Util.CommonFunc;
 
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by mjk on 2017. 8. 14..
  */
@@ -43,7 +47,7 @@ public class BoardWriteActivity extends AppCompatActivity {
         txt_Memo = (EditText)findViewById(R.id.Write_txtMemo);
         txt_Memo.setText(CommonFunc.getInstance().LastBoardWrite);
         btn_send = (Button)findViewById(R.id.btn_send);
-        btn_send.setText("글 등록하기");
+
 
         txt_Memo.addTextChangedListener(new TextWatcher() {
             @Override
@@ -65,6 +69,7 @@ public class BoardWriteActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 final AlertDialog.Builder builder= new AlertDialog.Builder(mActivity);
 
                 //if(mMydata.getUserHoney() > 10)
@@ -102,22 +107,6 @@ public class BoardWriteActivity extends AppCompatActivity {
                                 }
                             }).setMessage("작성한 글을 게시하시겠습니까?(작성된 글은 수정할 수 없고 삭제만 할 수 있습니다. 게시판글은 10분에 한번씩만 작성할 수 있습니다.)");
                 }
-             /*   else
-                {
-                    builder.setPositiveButton("골드 사러가기", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            startActivity(new Intent(getApplicationContext(), BuyHeartActivity.class));
-                            finish();
-                        }
-                    }).
-                            setNegativeButton("닫기", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.cancel();
-                                }
-                            }).setMessage(10 - mMydata.getUserHoney() + "골드가 부족합니다");
-                }*/
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
