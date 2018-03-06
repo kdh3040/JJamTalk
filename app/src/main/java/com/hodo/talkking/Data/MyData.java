@@ -1306,7 +1306,7 @@ public class MyData {
     }
 
 
-    public void setProfileData(Editable memo) {
+    public void setMemo(Editable memo) {
         strMemo = memo.toString();
     }
 
