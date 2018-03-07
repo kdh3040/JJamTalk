@@ -930,6 +930,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                             nReportVal +=3;
                         }
 
+                        if(nReportVal == 0)
+                        {
+                            CommonFunc.getInstance().ShowToast(ChatRoomActivity.this,"신고유형을 선택해 주세요.", true);
+                            return;
+                        }
+
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference table;
@@ -956,6 +962,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 Map<String, Object> updateMap = new HashMap<>();
                                 updateMap.put("ReportType", finalNReportVal);
                                 user.push().setValue(updateMap);
+
+                                CommonFunc.getInstance().ShowToast(ChatRoomActivity.this,"신고가 완료 되었습니다.", true);
 
                                 onBackPressed();
                             }
