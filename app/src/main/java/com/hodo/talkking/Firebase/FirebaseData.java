@@ -30,6 +30,7 @@ import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.TempBoard_ReplyData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.MainActivity;
 import com.hodo.talkking.Rank_FanRichAdapter;
 import com.hodo.talkking.Rank_GoldReceiveAdapter;
 import com.hodo.talkking.Rank_NearAdapter;
@@ -571,6 +572,7 @@ public class FirebaseData {
 
                             if(BoardData.getInstance().loadingCount <= 0)
                             {
+                                CommonFunc.getInstance().DimissLoadingPage();
                                 UpdateBoardAdapter.BoardDataLoding = false;
                                 if(BoardData.getInstance().TempTopBoardIdx != BoardData.getInstance().TopBoardIdx || BoardData.getInstance().TempBottomBoardIdx != BoardData.getInstance().BottomBoardIdx)
                                     UpdateBoardAdapter.notifyDataSetChanged();

@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -18,6 +19,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
+import android.support.v7.app.AppCompatDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -88,6 +90,8 @@ public class CommonFunc {
     private Button btnHeart100;
     private Button btnHeart300;
     private Button btnHeart500;
+
+    private AppCompatDialog mProgressDialog = null;
 
 
     public static class MyActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
@@ -1328,5 +1332,42 @@ public class CommonFunc {
         }
 
         return false;
+    }
+
+    public void ShowLoadingPage(Context context, String message) {
+
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            SetShowLoadingPageMsg(message);
+        } else {
+
+            mProgressDialog = new AppCompatDialog(context);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            mProgressDialog.setContentView(R.layout.loading_dialog);
+            mProgressDialog.show();
+
+        }
+
+        TextView tv_progress_message = (TextView) mProgressDialog.findViewById(R.id.tv_progress_message);
+        if(message.isEmpty())
+            message = "로딩중";
+        tv_progress_message.setText(message);
+    }
+
+    public void SetShowLoadingPageMsg(String message) {
+
+        if (mProgressDialog == null || !mProgressDialog.isShowing()) {
+            return;
+        }
+        TextView tv_progress_message = (TextView) mProgressDialog.findViewById(R.id.tv_progress_message);
+        if(message.isEmpty())
+            message = "로딩중";
+        tv_progress_message.setText(message);
+    }
+
+    public void DimissLoadingPage() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 }
