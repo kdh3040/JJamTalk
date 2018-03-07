@@ -638,7 +638,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        
+
         if(item.getItemId() == R.id.action_save){
 
             //프로필 저장 구현
