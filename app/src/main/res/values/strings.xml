@@ -151,6 +151,7 @@
     <string name="myProfileLO">내프로필레이아웃</string>
     <string name="settingdesc">설정아이콘</string>
     <string name="myJewelImage">내보석이미지</string>
+    <string name="recvMessage">수신 거부 설정하기</string>
 
 
 </resources>
