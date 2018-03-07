@@ -178,7 +178,9 @@
             ></activity>
 
         <activity android:name="com.hodo.talkking.BlockListActivity"
-            android:label="차단 목록"       android:screenOrientation="portrait"></activity>
+            android:label="차단 목록"
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait"></activity>
 
         <activity android:name="com.hodo.talkking.MailboxActivity"
             android:theme="@style/MyTheme"

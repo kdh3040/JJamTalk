@@ -129,7 +129,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
 
                 });
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
                 dialog.show();
             }
         });
@@ -152,7 +152,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
 
                 });
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
                 dialog.show();
             }
         });
