@@ -1020,7 +1020,7 @@ public class MainActivity extends AppCompatActivity {
                 logo.setVisibility(View.GONE);
 
                 txt_title.setVisibility(TextView.VISIBLE);
-                txt_title.setText("나의 팬");
+                txt_title.setText("내 팬");
                 mMyData.SetCurFrag(3);
                 view.setSelected(!view.isSelected());
                 setImageAlpha(100,100,100,255,100);
@@ -1134,7 +1134,7 @@ public class MainActivity extends AppCompatActivity {
                 setImageAlpha(100,100,100,255,100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
-                txt_title.setText("나의 팬");
+                txt_title.setText("내 팬");
                 break;
             case 4:
                 if(boardFragment == null)

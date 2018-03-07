@@ -377,7 +377,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
             if(index == 0)
             {
-                dialog.tv_delete.setVisibility(View.GONE);
+                //dialog.tv_delete.setVisibility(View.GONE);
             }
             dialog.tv_see.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -410,7 +410,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
-            dialog.tv_delete.setOnClickListener(new View.OnClickListener() {
+            /*dialog.tv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // 사진 삭제
@@ -418,7 +418,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     //DeleteFireBaseData(index);
                     dialog.dismiss();
                 }
-            });
+            });*/
         }
 
 
@@ -638,7 +638,9 @@ public class MyProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        
         if(item.getItemId() == R.id.action_save){
+
             //프로필 저장 구현
 
             if(!mMyData.getUserNick().equals(tempNickName))
