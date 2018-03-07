@@ -446,7 +446,7 @@ public class MainActivity extends AppCompatActivity {
 
                 builder.setView(v);
                 final AlertDialog filter_dialog = builder.create();
-                filter_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
                 filter_dialog.show();
 
 
