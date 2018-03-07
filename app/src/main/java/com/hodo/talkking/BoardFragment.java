@@ -297,8 +297,6 @@ public class BoardFragment extends Fragment {
                             BoradListAdapter.BoardDataLoding = true;
                             BoardMsgClientData lastBoardData = mBoardInstanceData.BoardList.get(0);
                             FirebaseData.getInstance().GetBoardData(BoradListAdapter,mBoardInstanceData.TopBoardIdx, true);
-
-                            CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
                         }
                     }
                     else if(!recyclerView.canScrollVertically(1)) {
@@ -313,8 +311,6 @@ public class BoardFragment extends Fragment {
                         {
                             BoradListAdapter.BoardDataLoding = true;
                             FirebaseData.getInstance().GetBoardData(BoradListAdapter,mBoardInstanceData.BottomBoardIdx, false);
-
-                            CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
                         }
                     }
                     else

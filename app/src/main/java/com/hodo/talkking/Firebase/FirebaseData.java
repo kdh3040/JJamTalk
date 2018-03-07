@@ -572,7 +572,6 @@ public class FirebaseData {
 
                             if(BoardData.getInstance().loadingCount <= 0)
                             {
-                                CommonFunc.getInstance().DimissLoadingPage();
                                 UpdateBoardAdapter.BoardDataLoding = false;
                                 if(BoardData.getInstance().TempTopBoardIdx != BoardData.getInstance().TopBoardIdx || BoardData.getInstance().TempBottomBoardIdx != BoardData.getInstance().BottomBoardIdx)
                                     UpdateBoardAdapter.notifyDataSetChanged();

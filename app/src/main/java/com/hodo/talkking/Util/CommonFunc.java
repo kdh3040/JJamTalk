@@ -1365,7 +1365,7 @@ public class CommonFunc {
         tv_progress_message.setText(message);
     }
 
-    public void DimissLoadingPage() {
+    public void DismissLoadingPage() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
