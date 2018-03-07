@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
         Analyticsbundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, Analyticsbundle);*/
 
-      //  AddDummy(1000);
+        //AddDummy(100);
 
         mMyData.mContext = getApplicationContext();
         mMyData.mActivity = mActivity;
@@ -1578,8 +1578,7 @@ public class MainActivity extends AppCompatActivity {
             user.child("ImgCount").setValue(mMyData.getUserImgCnt());
 
             long time = CommonFunc.getInstance().GetCurrentTime();
-            SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
-            user.child("Date").setValue(ctime.format(new Date(time)));
+            user.child("Date").setValue(Long.toString(random.nextLong()));
 
             user.child("Memo").setValue(mMyData.getUserMemo());
 
@@ -1627,7 +1626,7 @@ public class MainActivity extends AppCompatActivity {
             user.child("Lat").setValue(mMyData.getUserLat());
 
 
-            user.child("Date").setValue(ctime.format(new Date(time)));
+            user.child("Date").setValue(Long.toString(random.nextLong()));
             user.child("FanCount").setValue(-1 * random.nextInt(10) * UNIQ_FANCOUNT - Integer.parseInt(Index));
 
             user.child("Point").setValue(random.nextInt(10000));

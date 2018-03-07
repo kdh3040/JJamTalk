@@ -104,6 +104,7 @@ import java.util.UUID;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.hodo.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
+import static com.hodo.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 
 /**
@@ -1279,7 +1280,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query=ref.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate)).limitToFirst(FIRST_LOAD_MAIN_COUNT);;
+            Query query=ref.orderByChild("Date").startAt(mMyData.NewDateRef).limitToFirst(LOAD_MAIN_COUNT);
+
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -1310,6 +1312,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
 
                             bSetNew = true;
+                            mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
+
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
 
                                 Log.d(TAG, "Account Log in  Complete");

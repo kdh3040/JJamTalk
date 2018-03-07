@@ -158,7 +158,7 @@ public class FirebaseData {
 
     }
 
-    public void SaveData(String userIdx) {
+    public void SaveFirstMyData(String userIdx) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
@@ -186,9 +186,53 @@ public class FirebaseData {
 
         user.child("ImgCount").setValue(mMyData.getUserImgCnt());
 
-        long time = CommonFunc.getInstance().GetCurrentTime();
-        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
-        user.child("Date").setValue(ctime.format(new Date(time)));
+        user.child("Date").setValue(mMyData.getUserDate());
+
+        user.child("Memo").setValue(mMyData.getUserMemo());
+
+        user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
+
+        user.child("FanCount").setValue(-1 * mMyData.getFanCount());
+
+        user.child("Point").setValue(mMyData.getPoint());
+
+        user.child("Grade").setValue(mMyData.getGrade());
+        user.child("BestItem").setValue(mMyData.bestItem);
+        user.child("Honey").setValue(mMyData.getUserHoney());
+
+        user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
+
+        // 심플 디비 저장
+        SaveSimpleData();
+    }
+
+    public void SaveData(String userIdx) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+
+        // DatabaseReference user = table.child( userIdx);
+        final DatabaseReference user = table.child(mMyData.getUserIdx());
+        user.child("Idx").setValue(mMyData.getUserIdx());
+
+        mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+        user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+        user.child("Img").setValue(mMyData.getUserImg());
+
+        for(int i=0; i< 4 ; i++)
+            user.child("ImgGroup"+Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
+
+        user.child("NickName").setValue(mMyData.getUserNick());
+        user.child("Gender").setValue(mMyData.getUserGender());
+        user.child("Age").setValue(mMyData.getUserAge());
+
+        user.child("Lon").setValue(mMyData.getUserLon());
+        user.child("Lat").setValue(mMyData.getUserLat());
+
+        user.child("SendCount").setValue(mMyData.getSendHoney());
+        user.child("RecvCount").setValue(mMyData.getRecvHoney());
+
+        user.child("ImgCount").setValue(mMyData.getUserImgCnt());
 
         user.child("Memo").setValue(mMyData.getUserMemo());
 
@@ -233,10 +277,6 @@ public class FirebaseData {
         user.child("Lon").setValue(mMyData.getUserLon());
         user.child("Lat").setValue(mMyData.getUserLat());
 
-
-        long time = CommonFunc.getInstance().GetCurrentTime();
-        SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
-        user.child("Date").setValue(ctime.format(new Date(time)));
         user.child("FanCount").setValue(-1 * mMyData.getFanCount());
 
         Random rand = new Random();
@@ -893,8 +933,7 @@ public class FirebaseData {
         if(top)
             data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount"). startAt(0).endAt(LOAD_MAIN_COUNT );
         else
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate))
-                    .limitToFirst(lastVisibleCount + LOAD_MAIN_COUNT);
+            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Date").startAt(mMyData.NewDateRef).limitToFirst(LOAD_MAIN_COUNT);
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -936,6 +975,7 @@ public class FirebaseData {
 
                 }
 
+                mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
                 UpdateNewAdapter.notifyDataSetChanged();
             }
 

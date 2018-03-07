@@ -238,7 +238,11 @@ public class MyData {
     public int badgecount;
 
     public int NickChangeCnt;
+
+    public long HotIndexRef;
     public long FanCountRef;
+    public long NearDistanceRef;
+    public String NewDateRef;
 
     private MyData() {
         strUid = null;
@@ -625,6 +629,14 @@ public class MyData {
 
     public String getUserIdx() {
         return strIdx;
+    }
+
+    public void setUserDate() {
+        strDate = Long.toString(CommonFunc.getInstance().GetCurrentTime());
+    }
+
+    public String getUserDate() {
+        return strDate;
     }
 
     public String getUserUid() {

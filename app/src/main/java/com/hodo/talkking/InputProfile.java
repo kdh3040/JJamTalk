@@ -589,6 +589,7 @@ public class InputProfile extends AppCompatActivity {
                 }
                 else
                 {
+                    mMyData.setUserDate();
                     mMyData.nStartAge = (Integer.parseInt(mMyData.getUserAge()) / 10) * 10;
                     mMyData.nEndAge = mMyData.nStartAge + 19;
                     mMyData.setUserNick(strNickName);
@@ -837,7 +838,7 @@ public class InputProfile extends AppCompatActivity {
     }
     private void GoMainPage() {
 
-        mFireBaseData.SaveData(mMyData.getUserIdx());
+        mFireBaseData.SaveFirstMyData(mMyData.getUserIdx());
         progressBar.setVisibility(ProgressBar.GONE);
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
