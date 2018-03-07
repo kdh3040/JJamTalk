@@ -30,6 +30,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +51,8 @@ import com.hodo.talkking.Util.NotiFunc;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 import static com.hodo.talkking.MainActivity.mFragmentMng;
 
@@ -192,9 +197,21 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });
 
-
+        CommonFunc.getInstance().ShowLoadingPage(UserPageActivity.this, "로딩중");
         Glide.with(getApplicationContext())
                 .load(stTargetData.ImgGroup0)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable glideDrawable, String s, Target<GlideDrawable> target, boolean b, boolean b1) {
+                        CommonFunc.getInstance().DismissLoadingPage();
+                        return false;
+                    }
+                })
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 

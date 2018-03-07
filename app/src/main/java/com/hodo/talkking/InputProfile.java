@@ -125,9 +125,6 @@ public class InputProfile extends AppCompatActivity {
 
     private int nUserSet = 0;
     private static String TAG = "InputActivity Log!!";
-
-    ProgressBar progressBar;
-
     private  String strIdx;
 
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
@@ -135,7 +132,7 @@ public class InputProfile extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+            CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "로딩중");
         }
 
         @Override
@@ -217,7 +214,7 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+            CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "로딩중");
         }
 
         @Override
@@ -291,7 +288,7 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+            CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "로딩중");
         }
 
 
@@ -380,7 +377,7 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+            CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "로딩중");
         }
 
 
@@ -473,8 +470,6 @@ public class InputProfile extends AppCompatActivity {
         mMyData.setUserIdx(strIdx);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
-
-        progressBar = (ProgressBar) findViewById(R.id.InputProfile_Progress) ;
 
   /*      PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -589,6 +584,7 @@ public class InputProfile extends AppCompatActivity {
                 }
                 else
                 {
+                    mMyData.setUserDate();
                     mMyData.nStartAge = (Integer.parseInt(mMyData.getUserAge()) / 10) * 10;
                     mMyData.nEndAge = mMyData.nStartAge + 19;
                     mMyData.setUserNick(strNickName);
@@ -806,7 +802,7 @@ public class InputProfile extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                progressBar.setVisibility(ProgressBar.GONE);
+                CommonFunc.getInstance().DismissLoadingPage();
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 Tr(downloadUrl);
             }
@@ -814,8 +810,7 @@ public class InputProfile extends AppCompatActivity {
             @Override
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                progressBar.setVisibility(ProgressBar.VISIBLE);
-                progressBar.setProgress((int)progress) ;
+                CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "로딩중");
                 System.out.println("Upload is " + progress + "% done");
             }
         });
@@ -838,9 +833,9 @@ public class InputProfile extends AppCompatActivity {
     private void GoMainPage() {
 
         mFireBaseData.SaveData(mMyData.getUserIdx());
-        progressBar.setVisibility(ProgressBar.GONE);
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
+        CommonFunc.getInstance().DismissLoadingPage();
         mCommon.refreshMainActivity(this, MAIN_ACTIVITY_HOME);
         finish();
         /*Intent intent = new Intent(InputProfile.this, MainActivity.class);
