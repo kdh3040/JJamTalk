@@ -249,12 +249,15 @@ public class InputProfile extends AppCompatActivity {
                                         i++;
                                     }
 
-                                    mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
+
                                 }
                             }
 
 
                             bSetRich = true;
+
+                            if(mMyData.arrUserAll_Send.size() > 0)
+                                mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
@@ -307,10 +310,7 @@ public class InputProfile extends AppCompatActivity {
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
             Query query=ref
-                    .orderByChild("Lon")
-                    .startAt(lStartLon).endAt(lEndLon).limitToFirst(FIRST_LOAD_MAIN_COUNT);
-                    ;
-
+                    .orderByChild("Dist").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -338,11 +338,14 @@ public class InputProfile extends AppCompatActivity {
                                         mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
                                         i++;
                                     }
-                                    mMyData.NearDistanceRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).Dist;
+
                                 }
                             }
 
                             bSetNear = true;
+
+                            if(mMyData.arrUserAll_Near.size() > 0)
+                                mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
@@ -392,7 +395,7 @@ public class InputProfile extends AppCompatActivity {
 
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query=ref.orderByChild("Date").startAt(mMyData.NewDateRef).limitToFirst(LOAD_MAIN_COUNT);
+            Query query=ref.orderByChild("Date").limitToFirst(LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -423,10 +426,12 @@ public class InputProfile extends AppCompatActivity {
                                         i++;
                                     }
 
-                                    mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
+
                                 }
                             }
 
+                            if(mMyData.arrUserAll_New.size() > 0)
+                                mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
 
                             bSetNew = true;
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
