@@ -565,7 +565,7 @@ public class InputProfile extends AppCompatActivity {
             public void onClick(View view) {
                 if(bClickSave == true)
                     return;
-                
+
                 String strNickName = mNickName.getText().toString();
                 strNickName = CommonFunc.getInstance().RemoveEmptyString(strNickName);
                 String strImg = mMyData.getUserImg();

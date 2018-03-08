@@ -197,7 +197,7 @@ public class ChatListFragment extends Fragment {
 
             holder.imageItem.setVisibility(View.VISIBLE);
 
-            if(mMyData.arrChatDataList.get(str).BestItem == 0)
+            /*if(mMyData.arrChatDataList.get(str).BestItem == 0)
             {
                 holder.imageItem.setImageResource(R.mipmap.randombox);
             }
@@ -205,7 +205,9 @@ public class ChatListFragment extends Fragment {
             else
             {
                 holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrChatDataList.get(str).BestItem]);
-            }
+            }*/
+
+            holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrChatDataList.get(str).BestItem]);
 
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrChatDataList.get(str).Grade]);
 

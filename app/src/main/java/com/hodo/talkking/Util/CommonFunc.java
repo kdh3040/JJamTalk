@@ -772,52 +772,46 @@ public class CommonFunc {
         int nGrade = 0;
         nGrade = (int) (Math.random() * 2000) + 1;
 
-        if (604 <= nGrade) rtValue = 0;
-
-        else if (160 <= nGrade && nGrade <= 603) rtValue = 1;
-        else if (80 <= nGrade && nGrade <= 160) rtValue = 2;
-        else if (45 <= nGrade && nGrade <= 79) rtValue = 3;
-        else if (15 <= nGrade && nGrade <= 44) rtValue = 4;
-        else if (2 <= nGrade && nGrade <= 14) rtValue = 5;
-        else if (1 == nGrade ) rtValue = 6;
+        if (604 <= nGrade) rtValue =  1;
+        else if (160 <= nGrade && nGrade <= 603) rtValue = 2;
+        else if (80 <= nGrade && nGrade <= 160) rtValue = 3;
+        else if (45 <= nGrade && nGrade <= 79) rtValue = 4;
+        else if (15 <= nGrade && nGrade <= 44) rtValue = 5;
+        else if (2 <= nGrade && nGrade <= 14) rtValue = 6;
+        else if (1 == nGrade ) rtValue = 7;
 
         return rtValue;
     }
 
     public void View_OpenedItem(Context context, View v, int result, ImageView img_Opened, TextView text_Opened) {
+        img_Opened.setImageResource(UIData.getInstance().getJewels()[result]);
+
         switch (result) {
-            case 0: {
-                img_Opened.setImageResource(UIData.getInstance().getJewels()[0]);
+            case 1: {
                 text_Opened.setText(R.string.Item_0_text);
                 break;
             }
-            case 1: {
-                img_Opened.setImageResource(UIData.getInstance().getJewels()[1]);
+            case 2: {
                 text_Opened.setText(R.string.Item_1_text);
                 break;
             }
-            case 2: {
-                img_Opened.setImageResource(UIData.getInstance().getJewels()[2]);
+            case 3: {
                 text_Opened.setText(R.string.Item_2_text);
                 break;
             }
-            case 3: {
-                img_Opened.setImageResource(UIData.getInstance().getJewels()[3]);
+            case 4: {
                 text_Opened.setText(R.string.Item_3_text);
                 break;
             }
-            case 4: {
-                img_Opened.setImageResource(UIData.getInstance().getJewels()[4]);
+            case 5: {
                 text_Opened.setText(R.string.Item_4_text);
                 break;
             }
-            case 5: {
-                img_Opened.setImageResource(UIData.getInstance().getJewels()[5]);
+            case 6: {
                 text_Opened.setText(R.string.Item_5_text);
                 break;
             }
-            case 6: {
-                img_Opened.setImageResource(UIData.getInstance().getJewels()[6]);
+            case 7: {
                 text_Opened.setText(R.string.Item_6_text);
                 break;
             }

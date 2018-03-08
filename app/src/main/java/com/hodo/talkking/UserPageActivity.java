@@ -218,14 +218,16 @@ public class UserPageActivity extends AppCompatActivity {
         imgBestItem = (ImageView)findViewById(R.id.iv_item);
         imgBestItem.setVisibility(View.VISIBLE);
 
-        if(stTargetData.BestItem == 0)
+     /*   if(stTargetData.BestItem == 0)
         {
             imgBestItem.setImageResource(R.mipmap.randombox);
         }
         else
         {
             imgBestItem.setImageResource(mUIdata.getJewels()[stTargetData.BestItem]);
-        }
+        }*/
+
+        imgBestItem.setImageResource(mUIdata.getJewels()[stTargetData.BestItem]);
 
         imgGrade = (ImageView)findViewById(R.id.iv_rank);
         imgGrade.setImageResource(mUIdata.getGrades()[stTargetData.Grade]);
