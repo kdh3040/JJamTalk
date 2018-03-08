@@ -129,6 +129,7 @@ public class InputProfile extends AppCompatActivity {
     private  String strIdx;
 
     private Uri tempImgUri;
+    private boolean bClickSave = false;
 
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
         @Override
@@ -562,9 +563,13 @@ public class InputProfile extends AppCompatActivity {
         CheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(bClickSave == true)
+                    return;
+                
                 String strNickName = mNickName.getText().toString();
                 strNickName = CommonFunc.getInstance().RemoveEmptyString(strNickName);
                 String strImg = mMyData.getUserImg();
+
 
 
                 if(CommonFunc.getInstance().CheckTextMaxLength(strNickName, CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, InputProfile.this ,"닉네임", true) == false)
@@ -579,6 +584,7 @@ public class InputProfile extends AppCompatActivity {
                 }
                 else
                 {
+                    bClickSave = true;
                     CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "환영합니다");
 
                     UploadThumbNailImage_Firebase(tempImgUri);
