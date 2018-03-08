@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Util.CommonFunc;
 
 import github.chenupt.springindicator.SpringIndicator;
@@ -45,7 +46,11 @@ public class HomeFragment extends Fragment {
             fragView = inflater.inflate(R.layout.fragment_home,container,false);
             tabLayout = fragView.findViewById(R.id.tabLayout);
 
-            tabLayout.addTab(tabLayout.newTab().setText("Hot 순"));
+            if (MyData.getInstance().bHotMemberReady == true)
+            {
+                tabLayout.addTab(tabLayout.newTab().setText("Hot 순"));
+            }
+
             tabLayout.addTab(tabLayout.newTab().setText("팬 보유순"));
             tabLayout.addTab(tabLayout.newTab().setText("가까운 순"));
             tabLayout.addTab(tabLayout.newTab().setText("new 순"));
@@ -88,16 +93,33 @@ public class HomeFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            switch(position){
-                case 0:
-                    return new Rank_GoldReceiveFragment();
-                case 1:
-                    return new Rank_FanRichFragment();
-                case 2:
-                    return new Rank_NearFragment();
-                case 3:
-                    return new Rank_NewMemberFragment();
+
+            if (MyData.getInstance().bHotMemberReady == true)
+            {
+                switch(position){
+                    case 0:
+                        return new Rank_GoldReceiveFragment();
+                    case 1:
+                        return new Rank_FanRichFragment();
+                    case 2:
+                        return new Rank_NearFragment();
+                    case 3:
+                        return new Rank_NewMemberFragment();
+                }
             }
+
+            else
+            {
+                switch(position){
+                    case 0:
+                        return new Rank_FanRichFragment();
+                    case 1:
+                        return new Rank_NearFragment();
+                    case 2:
+                        return new Rank_NewMemberFragment();
+                }
+            }
+
             return null;
         }
 

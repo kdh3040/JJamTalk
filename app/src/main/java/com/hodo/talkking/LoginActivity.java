@@ -1062,7 +1062,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
                                         i++;
                                     }
+
+                                    mMyData.bHotMemberReady = true;
                                 }
+
                             }
 
                             bSetRecv = true;
@@ -1231,7 +1234,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
 
                             bSetNear = true;
-
+                            //mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
 
                                 Log.d(TAG, "Account Log in  Complete");

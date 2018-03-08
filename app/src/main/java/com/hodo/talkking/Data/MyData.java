@@ -244,6 +244,8 @@ public class MyData {
     public long NearDistanceRef;
     public String NewDateRef;
 
+    public boolean bHotMemberReady = false;
+
     private MyData() {
         strUid = null;
         strImg = null;

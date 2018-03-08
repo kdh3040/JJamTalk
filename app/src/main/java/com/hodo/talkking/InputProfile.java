@@ -156,9 +156,6 @@ public class InputProfile extends AppCompatActivity {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                        double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), cTempData.Lat, cTempData.Lon,"kilometer");
-                                        if(Dist <= 10)
-                                        {
                                             mMyData.arrUserAll_Recv.add(cTempData);
 
                                             if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
@@ -175,7 +172,8 @@ public class InputProfile extends AppCompatActivity {
                                             i++;
                                         }
 
-                                    }
+                                        mMyData.bHotMemberReady = true;
+
                                 }
                             }
 
