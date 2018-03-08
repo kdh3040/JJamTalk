@@ -634,7 +634,7 @@ public class MyData {
     }
 
     public void setUserDate() {
-        strDate = Long.toString(CommonFunc.getInstance().GetCurrentTime());
+        strDate = Long.toString(-1 * CommonFunc.getInstance().GetCurrentTime());
     }
 
     public String getUserDate() {

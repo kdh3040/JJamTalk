@@ -146,11 +146,11 @@ public class FirebaseData {
         DatabaseReference data = fierBaseDataInstance.getReference("UserIdx").child(Uid);
         data.removeValue();
 
-        data = fierBaseDataInstance.getReference("User").child(Idx);
+  /*      data = fierBaseDataInstance.getReference("User").child(Idx);
         data.removeValue();
 
         data = fierBaseDataInstance.getReference("SimpleData").child(Idx);
-        data.removeValue();
+        data.removeValue();*/
 
 
         data = fierBaseDataInstance.getReference("UserIdx_History");

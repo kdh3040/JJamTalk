@@ -92,6 +92,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import static com.hodo.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.GENDER_MAN;
 import static com.hodo.talkking.Data.CoomonValueData.GENDER_WOMAN;
+import static com.hodo.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.hodo.talkking.MyProfileActivity.calculateInSampleSize;
 
@@ -127,12 +128,12 @@ public class InputProfile extends AppCompatActivity {
     private static String TAG = "InputActivity Log!!";
     private  String strIdx;
 
+    private Uri tempImgUri;
+
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "로딩중");
         }
 
         @Override
@@ -212,7 +213,6 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "로딩중");
         }
 
         @Override
@@ -248,6 +248,7 @@ public class InputProfile extends AppCompatActivity {
                                 }
                             }
 
+                            mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
                             bSetRich = true;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
@@ -286,7 +287,6 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "로딩중");
         }
 
 
@@ -375,7 +375,6 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "로딩중");
         }
 
 
@@ -388,7 +387,8 @@ public class InputProfile extends AppCompatActivity {
 
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query=ref.orderByChild("Date").startAt(Integer.toString(nStartDate)).endAt(Integer.toString(nTodayDate)).limitToFirst(FIRST_LOAD_MAIN_COUNT);
+            Query query=ref.orderByChild("Date").startAt(mMyData.NewDateRef).limitToFirst(LOAD_MAIN_COUNT);
+
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -420,6 +420,7 @@ public class InputProfile extends AppCompatActivity {
                                 }
                             }
 
+                            mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
                             bSetNew = true;
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
@@ -507,17 +508,13 @@ public class InputProfile extends AppCompatActivity {
                                         .thumbnail(0.1f)
                                         .into(mProfileImage);
 
-                                UploadThumbNailImage_Firebase(uri);
-                                UploadImage_Firebase(uri);
+                                tempImgUri = uri;
+
                             }
                         })
                         .create();
 
                 bottomSheetDialogFragment.show(getSupportFragmentManager());
-
-            /*    Toast.makeText(InputProfile.this, "이미지 등록", Toast.LENGTH_SHORT).show();
-                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(gallery,1000);*/
 
             }
         });
@@ -582,6 +579,11 @@ public class InputProfile extends AppCompatActivity {
                 }
                 else
                 {
+                    CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "환영합니다");
+
+                    UploadThumbNailImage_Firebase(tempImgUri);
+                    UploadImage_Firebase(tempImgUri);
+
                     mMyData.setUserDate();
                     mMyData.nStartAge = (Integer.parseInt(mMyData.getUserAge()) / 10) * 10;
                     mMyData.nEndAge = mMyData.nStartAge + 19;
@@ -682,35 +684,6 @@ public class InputProfile extends AppCompatActivity {
     }
 
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if (resultCode == RESULT_OK && requestCode == 1000 ){
-                Uri uri = data.getData();
-
-                mMyData.setUserImg(uri.toString());
-
-                Glide.with(getApplicationContext())
-                        .load(mMyData.getUserImg())
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(0.1f)
-                        .into(mProfileImage);
-
-
-                UploadThumbNailImage_Firebase(uri);
-                UploadImage_Firebase(uri);
-
-            } else {
-                Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_LONG).show();
-            }
-
-        } catch (Exception e) {
-            CommonFunc.getInstance().ShowToast(this, "Oops! 로딩에 오류가 있습니다.", false);
-            e.printStackTrace();
-        }
-
-    }
-
     private void UploadThumbNailImage_Firebase(Uri file) {
 
         StorageReference riversRef = storageRef.child("images/"+ mMyData.getUserIdx() + "/" +  "ThumbNail" );//file.getLastPathSegment());
@@ -718,12 +691,6 @@ public class InputProfile extends AppCompatActivity {
         Bitmap bitmap = null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-       /* String[] filePath = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getContentResolver().query(file, filePath, null, null, null);
-        cursor.moveToFirst();
-        String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
-        cursor.close();*/
-
 
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
@@ -819,6 +786,12 @@ public class InputProfile extends AppCompatActivity {
         mMyData.setUserImg(uri.toString());
         mMyData.setUserImgCnt(1);
         bMyThumb = true;
+
+        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+            GoMainPage();
+            finish();
+        }
+
     }
 
     public void Tr(Uri uri)
@@ -827,10 +800,15 @@ public class InputProfile extends AppCompatActivity {
         mMyData.setUserImgCnt(1);
         bMyImg = true;
 
+        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+            GoMainPage();
+            finish();
+        }
+
     }
     private void GoMainPage() {
 
-        mFireBaseData.SaveData(mMyData.getUserIdx());
+        mFireBaseData.SaveFirstMyData(mMyData.getUserIdx());
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
         CommonFunc.getInstance().DismissLoadingPage();
