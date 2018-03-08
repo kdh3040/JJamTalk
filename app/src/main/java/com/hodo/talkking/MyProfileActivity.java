@@ -652,7 +652,7 @@ public class MyProfileActivity extends AppCompatActivity {
             if(!mMyData.getUserGender().equals(tempGender))
                 mMyData.setUserGender(tempGender);
 
-            if(!mMyData.getUserMemo().equals(et_Memo.getText().toString()))
+            if(!et_Memo.getText().toString().equals(mMyData.getUserMemo()))
                 mMyData.setMemo(et_Memo.getText());
 
             boolean bChangeImg = false;
@@ -684,10 +684,7 @@ public class MyProfileActivity extends AppCompatActivity {
         }
         if(item.getItemId() == android.R.id.home)
         {
-            Intent intent = new Intent(this, MyPageActivity.class);
-            startActivity(intent);
-            finish();
-            //onBackPressed();
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
@@ -756,18 +753,7 @@ public class MyProfileActivity extends AppCompatActivity {
     {
         mFireBaseData.SaveData(mMyData.getUserIdx());
 
-        Intent intent = new Intent(this, MyPageActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        Intent intent = new Intent(this, MyPageActivity.class);
-        startActivity(intent);
-        finish();
+        onBackPressed();
     }
 
 }
