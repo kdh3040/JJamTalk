@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
         Analyticsbundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, Analyticsbundle);*/
 
-     //   AddDummy(100);
+        //AddDummy(100);
 
         mMyData.mContext = getApplicationContext();
         mMyData.mActivity = mActivity;
@@ -1549,7 +1549,7 @@ public class MainActivity extends AppCompatActivity {
             Random random = new Random();
 
             // DatabaseReference user = table.child( userIdx);
-            String Index = Integer.toString(171 + i);
+            String Index = Integer.toString(1000 + i);
             DatabaseReference user = table.child(Index);
             user.child("Idx").setValue(Index);
 
@@ -1650,9 +1650,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        /*FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         DatabaseReference data = fierBaseDataInstance.getReference("UserCount");
-        data.setValue(170+Count);
+        data.setValue(170+Count);*/
     }
 
     public static String randomHangulName() {

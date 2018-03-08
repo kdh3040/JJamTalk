@@ -296,8 +296,9 @@ public class MyData {
         mServiceConn= null;
 
         NickChangeCnt = 0;
-
-
+        NewDateRef = "0";
+        FanCountRef = 0;
+        NearDistanceRef = 0.0d;
     }
 
     public void Clear()
