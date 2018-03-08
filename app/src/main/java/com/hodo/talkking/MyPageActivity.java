@@ -76,7 +76,6 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));
-                finish();
             }
         });
         settingButton = findViewById(R.id.cover_setting);
@@ -84,7 +83,6 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),SettingActivity.class));
-
             }
         });
         /*ll_jewel_box= (LinearLayout) findViewById(R.id.ll_jewel_box);
@@ -116,7 +114,7 @@ public class MyPageActivity extends AppCompatActivity {
             iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
         }*/
 
-        iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
+
 
         iv_MyGift.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,14 +138,12 @@ public class MyPageActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-        DrawMyGrade();
+
 
 
 
         txt_MyGoldCnt = findViewById(R.id.coin);
         txt_MyProfile = (TextView)findViewById(R.id.nickname);
-
-        txt_MyProfile.setText( mMyData.getUserNick());
 
         int nGold = mMyData.getUserHoney();
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
@@ -165,12 +161,6 @@ public class MyPageActivity extends AppCompatActivity {
 
         img_Mypic = (ImageView)findViewById(R.id.profile);
 
-
-        Glide.with(getApplicationContext())
-                .load(mMyData.getUserProfileImg(0))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
-                .into(img_Mypic);
 
         img_Mypic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +182,8 @@ public class MyPageActivity extends AppCompatActivity {
         });
 */
         adapter = new MyPageJewelAdapter(getApplicationContext());
+
+        RefreshMyData();
     }
 
     @Override
@@ -208,6 +200,8 @@ public class MyPageActivity extends AppCompatActivity {
                 sendBroadcast(intent);
             }
         }
+
+        RefreshMyData();
     }
 
     private void DrawMyGrade() {
@@ -225,6 +219,21 @@ public class MyPageActivity extends AppCompatActivity {
             img_MyGrade.setImageResource(R.drawable.rank_vip);
         else if(mMyData.getGrade() <= 5)
             img_MyGrade.setImageResource(R.drawable.rank_vvip);
+    }
+
+    public void RefreshMyData()
+    {
+        txt_MyProfile.setText( mMyData.getUserNick());
+
+        Glide.with(getApplicationContext())
+                .load(mMyData.getUserProfileImg(0))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                .into(img_Mypic);
+
+        DrawMyGrade();
+
+        iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
     }
 
  /*   @Override
