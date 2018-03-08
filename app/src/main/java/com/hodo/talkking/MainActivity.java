@@ -884,7 +884,7 @@ public class MainActivity extends AppCompatActivity {
                 setImageAlpha(255,100,100,100,100);
                 SetButtonColor(0);
                 SetFontColor(0);
-
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.HOME_ACTIVITY);
                 view.setSelected(!view.isSelected());
                 if(view.isSelected()){
 
@@ -930,7 +930,7 @@ public class MainActivity extends AppCompatActivity {
                 setImageAlpha(100,100,100,100,255);
                 SetButtonColor(4);
                 SetFontColor(4);
-
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.BOARD_ACTIVITY);
 
             }
         });
@@ -954,6 +954,7 @@ public class MainActivity extends AppCompatActivity {
                 setImageAlpha(100,255,100,100,100);
                 SetButtonColor(1);
                 SetFontColor(1);
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
 
                 if(view.isSelected()){
                     int a = 0;
@@ -986,6 +987,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                     mFragmentMng.beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
 
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
                 // mCommon.mFragmentManager.beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
 
                 /*FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().addToBackStack("ChatListFragment").replace(R.id.frag_container,cardListFragment).commit();
@@ -1061,6 +1063,8 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fanFragment, "FanListFragment").commit();
                 }
 
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
+
                 //startActivity(intent);
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
@@ -1096,6 +1100,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment, "HomeFragment").commit();
 
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.HOME_ACTIVITY);
 
 
                 setImageAlpha(255,100,100,100,100);
@@ -1109,6 +1114,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment, "CardListFragment").commit();
 
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
                 setImageAlpha(100,255,100,100,100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
@@ -1120,6 +1126,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
 
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
                 setImageAlpha(100,100,255,100,100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
@@ -1131,6 +1138,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment, "FanListFragment").commit();
 
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
                 setImageAlpha(100,100,100,255,100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
@@ -1142,6 +1150,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment, "BoardFragment").commit();
 
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.BOARD_ACTIVITY);
                 setImageAlpha(100,100,100,100,255);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
@@ -1154,6 +1163,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment,"HomeFragment").commit();
 
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.HOME_ACTIVITY);
                 setImageAlpha(255,100,100,100,100);
                 break;
         }
