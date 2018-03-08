@@ -38,7 +38,7 @@ public class Rank_FanRichFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rank, container, false);
         FanAdapter = new Rank_FanRichAdapter(getContext());
-
+        FanAdapter.setHasStableIds(true);
         recyclerView = view.findViewById(R.id.rank_recyclerview);
         recyclerView.setAdapter(FanAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));
