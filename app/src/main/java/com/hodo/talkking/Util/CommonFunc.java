@@ -709,6 +709,43 @@ public class CommonFunc {
         }
     }
 
+    public enum ACTIVITY_TYPE
+    {
+        NONE,
+        BOARD_ACTIVITY,
+        HOME_ACTIVITY,
+    }
+
+    public void SetActivityTopRightBtn(ACTIVITY_TYPE type)
+    {
+        switch (type)
+        {
+            case BOARD_ACTIVITY:
+                SetActivityTopRightBtn(false, false, true, true, false);
+                break;
+            case HOME_ACTIVITY:
+                SetActivityTopRightBtn(true, true, false, false, true);
+                break;
+            default:
+                SetActivityTopRightBtn(false, true, false, false, false);
+                break;
+        }
+    }
+
+    private void SetActivityTopRightBtn(boolean itemBox, boolean honeyBox, boolean boardWrite, boolean myBoardList, boolean filter)
+    {
+        if (Item_Box != null)
+            Item_Box.setVisibility(itemBox ? View.VISIBLE : View.GONE);
+        if (Honey_Box != null)
+            Honey_Box.setVisibility(honeyBox ? View.VISIBLE : View.GONE);
+        if (Board_Write != null)
+            Board_Write.setVisibility(boardWrite ? View.VISIBLE : View.GONE);
+        if (MyBoard_Write != null)
+            MyBoard_Write.setVisibility(myBoardList ? View.VISIBLE : View.GONE);
+        if (Filter != null)
+            Filter.setVisibility(filter ? View.VISIBLE : View.GONE);
+    }
+
     public void SetCardAlarmVisible(boolean enable) {
         if (Card_Alarm != null)
             Card_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
@@ -728,29 +765,6 @@ public class CommonFunc {
         if (Mail_Alarm != null)
             Mail_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
-
-    public void SetMainActivityTopRightBtn(boolean boardMode) {
-        if (Item_Box != null)
-            Item_Box.setVisibility(boardMode ? View.GONE : View.VISIBLE);
-        if (Honey_Box != null)
-            Honey_Box.setVisibility(boardMode ? View.GONE : View.VISIBLE);
-        if (Board_Write != null)
-            Board_Write.setVisibility(boardMode ? View.VISIBLE : View.GONE);
-        if (MyBoard_Write != null)
-            MyBoard_Write.setVisibility(boardMode ? View.VISIBLE : View.GONE);
-    }
-
-    public void SetMainActivityTopRightBtnForFilter(boolean homeMode) {
-        if (Filter != null)
-            Filter.setVisibility(homeMode ? View.VISIBLE : View.GONE);
-    }
-    public void SetMainActivityTopRightBtnForItemBox(boolean homeMode) {
-        if (Filter != null)
-            Item_Box.setVisibility(homeMode ? View.VISIBLE : View.GONE);
-    }
-
-
-
 
 
     public int Select_OpenedItem() {

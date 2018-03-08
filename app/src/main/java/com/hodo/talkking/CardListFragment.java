@@ -84,9 +84,6 @@ public class CardListFragment extends Fragment {
             cardListAdapter.notifyDataSetChanged();
             mContext = getContext();
         }
-        CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
-        CommonFunc.getInstance().SetMainActivityTopRightBtnForFilter(false);
-        CommonFunc.getInstance().SetMainActivityTopRightBtnForItemBox(false);
         CommonFunc.getInstance().SetCardAlarmVisible(false);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
