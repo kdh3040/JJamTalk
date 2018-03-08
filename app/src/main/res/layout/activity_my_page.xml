@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/profile" />
+        app:srcCompat="@drawable/image" />
 
     <TextView
         android:id="@+id/nickname"
@@ -65,7 +65,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/cover_profile"
         app:layout_constraintRight_toRightOf="@+id/cover_profile"
         app:layout_constraintTop_toTopOf="@+id/cover_profile"
-        app:srcCompat="@drawable/profile" />
+        app:srcCompat="@drawable/image" />
 
     <TextView
         android:id="@+id/tv_profile"

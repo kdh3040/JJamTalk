@@ -28,7 +28,7 @@
             android:layout_height="400dp"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/profile" />
+            app:srcCompat="@drawable/image" />
 
         <TextView
             android:id="@+id/UserPage_txtProfile"
