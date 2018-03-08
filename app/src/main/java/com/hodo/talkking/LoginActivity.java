@@ -106,6 +106,8 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import static com.hodo.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.hodo.talkking.Data.CoomonValueData.REF_LAT;
+import static com.hodo.talkking.Data.CoomonValueData.REF_LON;
 
 /**
  * A login screen that offers login via email/password.
@@ -539,6 +541,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         {
             mMyData.setUserLon(location.getLongitude());
             mMyData.setUserLat(location.getLatitude());
+
+            mMyData.setUserDist(mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
         }
 
         if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
@@ -586,7 +590,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     private void GoMainPage() {
 
-      //  progressBar.setVisibility(ProgressBar.GONE);
+        //  progressBar.setVisibility(ProgressBar.GONE);
         FirebaseData.getInstance().GetInitBoardData();
         FirebaseData.getInstance().GetInitMyBoardData();
         FirebaseData.getInstance().SaveData(mMyData.getUserIdx());
@@ -723,7 +727,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-       // mMyData.setUserIdx(mAwsFunc.GetUserIdx(email));
+        // mMyData.setUserIdx(mAwsFunc.GetUserIdx(email));
 
 
 
@@ -802,7 +806,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
                             mMyData.setMyData(stRecvData.Uid, stRecvData.Idx, stRecvData.ImgCount, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3,
-                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Lon, stRecvData.Lat, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvCount, stRecvData.Date,
+                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvCount, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.RecvMsgReject, stRecvData.PublicRoomStatus, stRecvData.PublicRoomName, stRecvData.PublicRoomLimit, stRecvData.PublicRoomTime,
                                     stRecvData.ItemCount, stRecvData.Item_1, stRecvData.Item_2, stRecvData.Item_3, stRecvData.Item_4, stRecvData.Item_5, stRecvData.Item_6, stRecvData.Item_7, stRecvData.Item_8, stRecvData.BestItem,
                                     stRecvData.Point, stRecvData.Grade, stRecvData.ConnectDate, stRecvData.LastBoardWriteTime, stRecvData.LastAdsTime, stRecvData.NickChangeCnt);
@@ -1069,7 +1073,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
 
                             bSetRecv = true;
-                          //  mMyData.HotIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).Point;
+                            //  mMyData.HotIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).Point;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
 
@@ -1139,10 +1143,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
                                         i++;
                                     }
+
+                                    mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
                                 }
                             }
 
-                            mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
+
                             bSetRich = true;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
@@ -1182,23 +1188,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-           // progressBar.setVisibility(ProgressBar.VISIBLE);
+            // progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
         protected Integer doInBackground(Integer... voids) {
 
-            Double lStartLon = mMyData.getUserLon() - 0.1;
-            Double lStartLat = mMyData.getUserLat() - 0.1;
-
-            Double lEndLon = mMyData.getUserLon() + 0.1;
-            Double IEndLat = mMyData.getUserLon() + 0.1;
-
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
             Query query=ref
-                    .orderByChild("Lon")
-                    .startAt(lStartLon).endAt(lEndLon).limitToFirst(FIRST_LOAD_MAIN_COUNT);
+                    .orderByChild("Dist").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -1214,25 +1213,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                             stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon,"kilometer");
-                                        if(Dist <= 10)
-                                        {
-                                            mMyData.arrUserAll_Near.add(stRecvData);
 
-                                            if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
-                                                mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
-                                            } else {
-                                                mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
-                                            }
+                                        mMyData.arrUserAll_Near.add(stRecvData);
 
-                                            mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                            i++;
+                                        if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
                                         }
 
+                                        mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                        i++;
                                     }
+
+                                    mMyData.NearDistanceRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).Dist;
                                 }
                             }
+
 
                             bSetNear = true;
                             //mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
@@ -1272,7 +1271,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-        //    progressBar.setVisibility(ProgressBar.VISIBLE);
+            //    progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
@@ -1312,11 +1311,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
                                         i++;
                                     }
+
+                                    mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
                                 }
                             }
 
                             bSetNew = true;
-                            mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
+
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
 
@@ -1354,7 +1355,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-          //  progressBar.setVisibility(ProgressBar.VISIBLE);
+            //  progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override

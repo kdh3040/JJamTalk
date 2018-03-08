@@ -129,6 +129,8 @@ public class MyData {
     private double lLat;
     private double lLon;
 
+    private double lDist;
+
     public int nHoney;
     public int nSendCount;
     public int nRecvCount;
@@ -241,7 +243,7 @@ public class MyData {
 
     public long HotIndexRef;
     public long FanCountRef;
-    public long NearDistanceRef;
+    public Double NearDistanceRef;
     public String NewDateRef;
 
     public boolean bHotMemberReady = false;
@@ -254,6 +256,7 @@ public class MyData {
         strAge = null;
         lLon = 0f;
         lLat = 0f;
+        lDist = 0f;
         nHoney = 0;
         strDate = null;
 
@@ -293,6 +296,8 @@ public class MyData {
         mServiceConn= null;
 
         NickChangeCnt = 0;
+
+
     }
 
     public void Clear()
@@ -424,7 +429,7 @@ public class MyData {
 
 
     public void setMyData(String _UserUid, String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
-                          String _UserNick, String _UserGender, String _UserAge, Double _UserLon, Double _UserLat,
+                          String _UserNick, String _UserGender, String _UserAge,
                           int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
                           String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
@@ -440,8 +445,6 @@ public class MyData {
         strNick = _UserNick;
         strGender = _UserGender;
         strAge = _UserAge;
-        lLon = _UserLon;
-        lLat = _UserLat;
         nHoney = _UserHoney;
         strDate = _UserDate;
 
@@ -746,6 +749,14 @@ public class MyData {
 
     public Double getUserLat() {
         return lLat;
+    }
+
+    public void setUserDist(Double userDist) {
+        lDist = userDist;
+    }
+
+    public Double getUserDist() {
+        return lDist;
     }
 
     public void setUserHoney(int userHoney) {

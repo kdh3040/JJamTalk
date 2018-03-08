@@ -94,6 +94,8 @@ import static com.hodo.talkking.Data.CoomonValueData.GENDER_MAN;
 import static com.hodo.talkking.Data.CoomonValueData.GENDER_WOMAN;
 import static com.hodo.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.hodo.talkking.Data.CoomonValueData.REF_LAT;
+import static com.hodo.talkking.Data.CoomonValueData.REF_LON;
 import static com.hodo.talkking.MyProfileActivity.calculateInSampleSize;
 
 public class InputProfile extends AppCompatActivity {
@@ -246,10 +248,12 @@ public class InputProfile extends AppCompatActivity {
                                         mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
                                         i++;
                                     }
+
+                                    mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
                                 }
                             }
 
-                            mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
+
                             bSetRich = true;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
@@ -334,7 +338,7 @@ public class InputProfile extends AppCompatActivity {
                                         mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
                                         i++;
                                     }
-
+                                    mMyData.NearDistanceRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).Dist;
                                 }
                             }
 
@@ -418,10 +422,12 @@ public class InputProfile extends AppCompatActivity {
 
                                         i++;
                                     }
+
+                                    mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
                                 }
                             }
 
-                            mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
+
                             bSetNew = true;
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
@@ -681,6 +687,7 @@ public class InputProfile extends AppCompatActivity {
         {
             mMyData.setUserLon(location.getLongitude());
             mMyData.setUserLat(location.getLatitude());
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
         }
 
         if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){

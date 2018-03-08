@@ -181,6 +181,7 @@ public class FirebaseData {
 
         user.child("Lon").setValue(mMyData.getUserLon());
         user.child("Lat").setValue(mMyData.getUserLat());
+        user.child("Dist").setValue(mMyData.getUserDist());
 
         user.child("SendCount").setValue(mMyData.getSendHoney());
         user.child("RecvCount").setValue(mMyData.getRecvHoney());
@@ -229,6 +230,7 @@ public class FirebaseData {
 
         user.child("Lon").setValue(mMyData.getUserLon());
         user.child("Lat").setValue(mMyData.getUserLat());
+        user.child("Dist").setValue(mMyData.getUserDist());
 
         user.child("SendCount").setValue(mMyData.getSendHoney());
         user.child("RecvCount").setValue(mMyData.getRecvHoney());
@@ -277,6 +279,7 @@ public class FirebaseData {
 
         user.child("Lon").setValue(mMyData.getUserLon());
         user.child("Lat").setValue(mMyData.getUserLat());
+        user.child("Dist").setValue(mMyData.getUserDist());
 
         user.child("FanCount").setValue(-1 * mMyData.getFanCount());
 
@@ -471,7 +474,7 @@ public class FirebaseData {
                         }
                     });
                 }
-               // mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
+                // mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
    /*
                 Intent intent = new Intent(mActivity, MainActivity.class);
                 intent.putExtra("StartFragment", 4);
@@ -541,26 +544,26 @@ public class FirebaseData {
                 if(dataSnapshot == null)
                     return;
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                        BoardMsgDBData DBData = postSnapshot.getValue(BoardMsgDBData.class);
-                        BoardData.getInstance().AddBoardMyData(DBData);
+                    BoardMsgDBData DBData = postSnapshot.getValue(BoardMsgDBData.class);
+                    BoardData.getInstance().AddBoardMyData(DBData);
 
-                        Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(DBData.Idx);
+                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(DBData.Idx);
 
-                        data.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot == null)
-                                    return;
+                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot == null)
+                                return;
 
-                                SimpleUserData simpleUserData = dataSnapshot.getValue(SimpleUserData.class);
-                                BoardData.getInstance().AddBoardSimpleUserData(simpleUserData);
-                            }
+                            SimpleUserData simpleUserData = dataSnapshot.getValue(SimpleUserData.class);
+                            BoardData.getInstance().AddBoardSimpleUserData(simpleUserData);
+                        }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                            }
-                        });
+                        }
+                    });
                 }
             }
 
@@ -844,20 +847,8 @@ public class FirebaseData {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
 
-        Double lStartLon = mMyData.getUserLon() - 10;
-        Double lStartLat = mMyData.getUserLat() - 10;
-
-        Double lEndLon = mMyData.getUserLon() + 10;
-        Double IEndLat = mMyData.getUserLon() + 10;
-
         Query data = null;
-        if(top)
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Lon")
-                    .startAt(lStartLon).endAt(lEndLon).limitToFirst(LOAD_MAIN_COUNT);
-        else
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Lon")
-                    .startAt(lStartLon).endAt(lEndLon).limitToFirst(lastVisibleCount + LOAD_MAIN_COUNT);
-
+        data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Dist").startAt(mMyData.NewDateRef).limitToFirst(LOAD_MAIN_COUNT);
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -888,21 +879,18 @@ public class FirebaseData {
                             {
                                 double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), cTempData.Lat, cTempData.Lon,"kilometer");
 
-                                if(Dist <= 10)
+                                mMyData.arrUserAll_Near.add(cTempData);
+                                if(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1).Gender.equals("여자"))
                                 {
-                                    mMyData.arrUserAll_Near.add(cTempData);
-                                    if(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1).Gender.equals("여자"))
-                                    {
-                                        mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
-                                    }
-                                    else {
-                                        mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
-                                    }
-
-                                    mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
-                                    mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
+                                    mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
                                 }
+                                else {
+                                    mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
+                                }
+
+                                mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
+                                mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
 
                             }
                             i++;

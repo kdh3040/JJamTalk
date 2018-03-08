@@ -31,6 +31,7 @@ public class SimpleUserData implements Serializable,Parcelable {
     // 가까운순
     public double Lat;
     public double Lon;
+    public double Dist;
     // 뉴페이스
     public String Date;
     //팬보유순
@@ -58,7 +59,7 @@ public class SimpleUserData implements Serializable,Parcelable {
         // 가까운순
         Lat = 0.0d;
         Lon = 0.0d;
-
+        Dist = 0.0d;
         // 뉴페이스
         Date = null;
 
@@ -84,6 +85,7 @@ public class SimpleUserData implements Serializable,Parcelable {
         SendGold = in.readInt();
         Lat = in.readDouble();
         Lon = in.readDouble();
+        Dist = in.readDouble();
         Date = in.readString();
         FanCount = in.readInt();
         Point = in.readInt();
@@ -123,6 +125,7 @@ public class SimpleUserData implements Serializable,Parcelable {
 
         parcel.writeDouble(Lat);
         parcel.writeDouble(Lon);
+        parcel.writeDouble(Dist);
         parcel.writeString(Date);
 
         parcel.writeLong(FanCount);

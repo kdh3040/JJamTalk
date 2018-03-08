@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
         Analyticsbundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, Analyticsbundle);*/
 
-        //AddDummy(100);
+     //   AddDummy(100);
 
         mMyData.mContext = getApplicationContext();
         mMyData.mActivity = mActivity;
@@ -1572,6 +1572,8 @@ public class MainActivity extends AppCompatActivity {
             user.child("Lon").setValue(mMyData.getUserLon());
             user.child("Lat").setValue(mMyData.getUserLat());
 
+            user.child("Dist").setValue(random.nextInt(200000));
+
             user.child("SendCount").setValue(mMyData.getSendHoney());
             user.child("RecvCount").setValue(mMyData.getRecvHoney());
 
@@ -1624,7 +1626,7 @@ public class MainActivity extends AppCompatActivity {
 
             user.child("Lon").setValue(mMyData.getUserLon());
             user.child("Lat").setValue(mMyData.getUserLat());
-
+            user.child("Dist").setValue(random.nextInt(200000));
 
             user.child("Date").setValue(Long.toString(random.nextLong()));
             user.child("FanCount").setValue(-1 * random.nextInt(10) * UNIQ_FANCOUNT - Integer.parseInt(Index));

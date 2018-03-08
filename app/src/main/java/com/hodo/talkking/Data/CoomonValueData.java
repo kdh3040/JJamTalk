@@ -43,4 +43,6 @@ public class CoomonValueData  {
 
     public static final int BOARD_WRITE_TIME_MIN = 10;
 
+    public static final Double REF_LAT = 38.910042;
+    public static final Double REF_LON = 125.848755;
 }

@@ -29,6 +29,7 @@ public class UserData implements Serializable,Parcelable {
 
     public double Lat;
     public double Lon;
+    public double Dist;
 
     public int Honey;
     public int Heart;
@@ -112,6 +113,7 @@ public class UserData implements Serializable,Parcelable {
         Age = in.readString();
         Lat = in.readDouble();
         Lon = in.readDouble();
+        Dist = in.readDouble();
         Honey = in.readInt();
         Heart = in.readInt();
         Rank = in.readInt();
@@ -202,6 +204,7 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeString(Age);
         parcel.writeDouble(Lat);
         parcel.writeDouble(Lon);
+        parcel.writeDouble(Dist);
         parcel.writeInt(Honey);
         parcel.writeInt(Heart);
         parcel.writeInt(Rank);
