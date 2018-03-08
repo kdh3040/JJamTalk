@@ -48,12 +48,12 @@ public class HomeFragment extends Fragment {
 
             if (MyData.getInstance().bHotMemberReady == true)
             {
-                tabLayout.addTab(tabLayout.newTab().setText("Hot 순"));
+                tabLayout.addTab(tabLayout.newTab().setText("Hot"));
             }
 
-            tabLayout.addTab(tabLayout.newTab().setText("팬 보유순"));
-            tabLayout.addTab(tabLayout.newTab().setText("가까운 순"));
-            tabLayout.addTab(tabLayout.newTab().setText("new 순"));
+            tabLayout.addTab(tabLayout.newTab().setText("Fan"));
+            tabLayout.addTab(tabLayout.newTab().setText("Near"));
+            tabLayout.addTab(tabLayout.newTab().setText("New"));
 
             viewPager = (ViewPager)fragView.findViewById(vp);
 
