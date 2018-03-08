@@ -146,11 +146,9 @@
         <activity android:name="com.hodo.talkking.UserPageActivity"
             android:theme="@style/NoTitleBar"       android:screenOrientation="portrait"></activity>
 
-        <activity android:name="com.hodo.talkking.PublicChatRoomActivity"
-            android:screenOrientation="portrait"
-            ></activity>
+
         <activity android:name="com.hodo.talkking.ChatRoomActivity"
-            android:theme="@style/MyTheme"
+
             android:screenOrientation="portrait"
             ></activity>
         <activity android:name="com.hodo.talkking.BoardItemActivity"

@@ -14,6 +14,7 @@
         android:buttonTint="@color/boardLikeColor"
 
         android:text="음란물, 성매매 등"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,6 +25,7 @@
         android:layout_marginTop="16dp"
         android:buttonTint="@color/boardLikeColor"
         android:text="불법광고, 사기 등"
+        android:textColor="@color/black"
         app:layout_constraintLeft_toLeftOf="@+id/checkBox2"
         app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
 
@@ -34,6 +36,7 @@
         android:layout_marginTop="16dp"
         android:buttonTint="@color/boardLikeColor"
         android:text="각종 범죄 관련 기타"
+        android:textColor="@color/black"
         app:layout_constraintLeft_toLeftOf="@+id/checkBox2"
         app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
 
