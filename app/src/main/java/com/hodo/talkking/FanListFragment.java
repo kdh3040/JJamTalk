@@ -119,9 +119,6 @@ public class FanListFragment extends Fragment {
             fanListAdapter.notifyDataSetChanged();
             mContext = getContext();
         }
-        CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
-        CommonFunc.getInstance().SetMainActivityTopRightBtnForFilter(false);
-        CommonFunc.getInstance().SetMainActivityTopRightBtnForItemBox(false);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
     }
@@ -158,15 +155,15 @@ public class FanListFragment extends Fragment {
 
             holder.imageItem.setVisibility(View.VISIBLE);
 
-            if(mMyData.arrMyFanDataList.get(i).BestItem == 0)
+    /*        if(mMyData.arrMyFanDataList.get(i).BestItem == 0)
             {
                 holder.imageItem.setImageResource(R.mipmap.randombox);
             }
             else
             {
                 holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrMyFanDataList.get(i).BestItem]);
-            }
-
+            }*/
+            holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrMyFanDataList.get(i).BestItem]);
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrMyFanDataList.get(i).Grade]);
 
             holder.textNick.setText(mMyData.arrMyFanDataList.get(i).NickName);

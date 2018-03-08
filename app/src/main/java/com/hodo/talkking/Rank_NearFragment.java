@@ -90,7 +90,7 @@ public class Rank_NearFragment extends Fragment {
 
 
         NearAdopter = new Rank_NearAdapter(getContext());
-
+        NearAdopter.setHasStableIds(true);
 
         recyclerView.setAdapter(NearAdopter);
         recyclerView.setLayoutManager(layoutManager);

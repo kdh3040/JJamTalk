@@ -84,9 +84,6 @@ public class CardListFragment extends Fragment {
             cardListAdapter.notifyDataSetChanged();
             mContext = getContext();
         }
-        CommonFunc.getInstance().SetMainActivityTopRightBtn(false);
-        CommonFunc.getInstance().SetMainActivityTopRightBtnForFilter(false);
-        CommonFunc.getInstance().SetMainActivityTopRightBtnForItemBox(false);
         CommonFunc.getInstance().SetCardAlarmVisible(false);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return fragView;
@@ -133,16 +130,17 @@ public class CardListFragment extends Fragment {
 
             holder.imageItem.setVisibility(View.VISIBLE);
 
-            if(mMyData.arrCarDataList.get(i).BestItem == 0)
+            /*if(mMyData.arrCarDataList.get(i).BestItem == 0)
             {
                 holder.imageItem.setImageResource(R.mipmap.randombox);
             }
                 //holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
 
             else {
-                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
-            }
 
+            }*/
+
+            holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrCarDataList.get(i).Grade]);
 
 

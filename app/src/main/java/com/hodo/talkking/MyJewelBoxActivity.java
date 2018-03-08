@@ -160,11 +160,11 @@ public class MyJewelBoxActivity extends Activity {
     private void SetMyItemStatus() {
         for(int i = 0; i< 7; i++)
         {
-            Img_item[i].setImageResource(mUIData.getJewels()[i]);
-            if(mMyData.itemList.get(i) != 0)
+            Img_item[i].setImageResource(mUIData.getJewels()[i + 1]);
+            if(mMyData.itemList.get(i + 1) != 0)
             {
                 Img_item[i].setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.MULTIPLY);
-                txt_item[i].setText(mMyData.itemList.get(i).toString() + "개");
+                txt_item[i].setText(mMyData.itemList.get(i + 1).toString() + "개");
             }
             else
             {

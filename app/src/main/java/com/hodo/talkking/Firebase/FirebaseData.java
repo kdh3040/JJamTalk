@@ -146,11 +146,11 @@ public class FirebaseData {
         DatabaseReference data = fierBaseDataInstance.getReference("UserIdx").child(Uid);
         data.removeValue();
 
-        data = fierBaseDataInstance.getReference("User").child(Idx);
+  /*      data = fierBaseDataInstance.getReference("User").child(Idx);
         data.removeValue();
 
         data = fierBaseDataInstance.getReference("SimpleData").child(Idx);
-        data.removeValue();
+        data.removeValue();*/
 
 
         data = fierBaseDataInstance.getReference("UserIdx_History");
@@ -720,7 +720,8 @@ public class FirebaseData {
         if(top)
             data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point"). startAt(0).endAt(LOAD_MAIN_COUNT );
         else
-            data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").limitToFirst(lastVisibleCount + LOAD_MAIN_COUNT);// . startAt(lastVisibleCount + LOAD_MAIN_COUNT).endAt(lastVisibleCount + LOAD_MAIN_COUNT + LOAD_MAIN_COUNT); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
+            //data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").startAt(mMyData.HotIndexRef).limitToFirst(LOAD_MAIN_COUNT);
+            data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").limitToFirst(LOAD_MAIN_COUNT);
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -760,6 +761,7 @@ public class FirebaseData {
                     }
                 }
 
+                //mMyData.HotIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).Point;
                 UpdateHotAdapter.notifyDataSetChanged();
             }
 

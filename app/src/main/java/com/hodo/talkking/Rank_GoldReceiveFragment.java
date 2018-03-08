@@ -38,6 +38,7 @@ public class Rank_GoldReceiveFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rank_honey_receive,container,false);
         HotAdapter = new Rank_GoldReceiveAdapter(getContext());
+        HotAdapter.setHasStableIds(true);
         recyclerView = view.findViewById(R.id.rank_honey_receive);
         recyclerView.setAdapter(HotAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));

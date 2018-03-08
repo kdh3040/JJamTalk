@@ -42,6 +42,7 @@ public class Rank_NewMemberFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_newmember, container, false);
 
         NewAdapter = new Rank_NewMemberAdapter(getContext());
+        NewAdapter.setHasStableIds(true);
         recyclerView = view.findViewById(R.id.newmember_recyclerview);
         recyclerView.setAdapter(NewAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));

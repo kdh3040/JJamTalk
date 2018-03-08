@@ -158,7 +158,7 @@ public class UserFanActivity extends AppCompatActivity {
 
             holder.imgItem.setVisibility(View.VISIBLE);
 
-            if(stTargetData.arrFanData.get(i).BestItem == 0)
+       /*     if(stTargetData.arrFanData.get(i).BestItem == 0)
             {
                 holder.imgItem.setImageResource(R.mipmap.randombox);
             }
@@ -166,8 +166,8 @@ public class UserFanActivity extends AppCompatActivity {
 
             else {
                 holder.imgItem.setImageResource(mUIData.getJewels()[stTargetData.arrFanData.get(i).BestItem]);
-            }
-
+            }*/
+            holder.imgItem.setImageResource(mUIData.getJewels()[stTargetData.arrFanData.get(i).BestItem]);
             holder.imgGrade.setImageResource(mUIData.getGrades()[stTargetData.arrFanData.get(i).Grade]);
 
             int RecvCnt = stTargetData.arrFanList.get(position).RecvGold;

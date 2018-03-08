@@ -139,15 +139,15 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         imgBestItem = (ImageView)findViewById(R.id.iv_item);
         imgBestItem.setVisibility(View.VISIBLE);
 
-        if(mMyData.bestItem == 0)
+  /*      if(mMyData.bestItem == 0)
         {
             imgBestItem.setImageResource(R.mipmap.randombox);
         }
         else
         {
             imgBestItem.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
-        }
-
+        }*/
+        imgBestItem.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
         imgGrade = (ImageView)findViewById(R.id.iv_rank);
         imgGrade.setImageResource(mUIdata.getGrades()[mMyData.Grade]);
 

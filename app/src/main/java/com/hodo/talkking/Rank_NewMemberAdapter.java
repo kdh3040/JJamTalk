@@ -156,6 +156,19 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
     }
 
     @Override
+    public long getItemId(int position){
+        long rtValue = 0;
+        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3 ) {
+            rtValue = Long.valueOf(mMyData.arrUserAll_New_Age.get(position).Idx);
+        } else if (mSetting.getnSearchSetting() == 1) {
+            rtValue  = Long.valueOf(mMyData.arrUserMan_New_Age.get(position).Idx);
+        } else if (mSetting.getnSearchSetting() == 2) {
+            rtValue = Long.valueOf(mMyData.arrUserWoman_New_Age.get(position).Idx);
+        }
+        return rtValue;
+    }
+
+    @Override
     public int getItemCount() {
         int rtValue = 0;
     /*    if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3 ) {

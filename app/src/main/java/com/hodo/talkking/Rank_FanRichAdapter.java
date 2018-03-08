@@ -180,6 +180,20 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
     }
 
     @Override
+    public long getItemId(int position){
+        long rtValue = 0;
+        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3 ) {
+            rtValue = Long.valueOf(mMyData.arrUserAll_Send_Age.get(position).Idx);
+        } else if (mSetting.getnSearchSetting() == 1) {
+            rtValue  = Long.valueOf(mMyData.arrUserMan_Send_Age.get(position).Idx);
+        } else if (mSetting.getnSearchSetting() == 2) {
+            rtValue = Long.valueOf(mMyData.arrUserWoman_Send_Age.get(position).Idx);
+        }
+        return rtValue;
+    }
+
+
+    @Override
     public int getItemCount() {
         int rtValue = 0;
    /*    if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
