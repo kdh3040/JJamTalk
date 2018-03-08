@@ -133,7 +133,7 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
         }
         else
         {
-            holder.iv.setImageResource(R.drawable.ic_fan);
+            holder.iv.setImageResource(R.drawable.fan_pressed);
             holder.tv.setText("뽑아보세요");
         }
 

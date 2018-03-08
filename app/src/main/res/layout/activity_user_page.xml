@@ -126,7 +126,7 @@
             android:layout_marginTop="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/bg_fan"
-            app:srcCompat="@drawable/myfan_dark" />
+            app:srcCompat="@drawable/fan_pressed" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/lv_like"
@@ -182,7 +182,7 @@
             android:layout_marginTop="16dp"
             android:elevation="5dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/favor_dark"
+            android:src="@drawable/favor_pressed"
             android:theme="@style/PrimaryButton"
             app:layout_constraintEnd_toStartOf="@+id/UserPage_btnMessage"
             app:layout_constraintHorizontal_bias="0.5"
@@ -199,7 +199,7 @@
             android:elevation="5dp"
 
             android:scaleType="fitCenter"
-            android:src="@drawable/chat_pink"
+            android:src="@drawable/chat_pressed"
             android:theme="@style/PrimaryButton"
             app:layout_constraintEnd_toStartOf="@+id/UserPage_btnGiftHoney"
             app:layout_constraintHorizontal_bias="0.5"

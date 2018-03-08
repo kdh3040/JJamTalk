@@ -1443,28 +1443,28 @@ public class MainActivity extends AppCompatActivity {
     private void SetButtonColor(int idx)
     {
 
-        ib_home.setImageResource(R.drawable.icon_home);
+        ib_home.setImageResource(R.drawable.home);
         ib_cardList.setImageResource(R.drawable.favor);
         ib_chatList.setImageResource(R.drawable.chat);
-        ib_fan.setImageResource(R.drawable.ic_fan);
+        ib_fan.setImageResource(R.drawable.fan);
         ib_board.setImageResource(R.drawable.board);
 
         switch (idx)
         {
             case 0:
-                ib_home.setImageResource(R.drawable.icon_home_dark);
+                ib_home.setImageResource(R.drawable.home_pressed);
                 break;
             case 1:
-                ib_cardList.setImageResource(R.drawable.favor_dark);
+                ib_cardList.setImageResource(R.drawable.favor_pressed);
                 break;
             case 2:
-                ib_chatList.setImageResource(R.drawable.chat_pink);
+                ib_chatList.setImageResource(R.drawable.chat_pressed);
                 break;
             case 3:
-                ib_fan.setImageResource(R.drawable.myfan_dark);
+                ib_fan.setImageResource(R.drawable.fan_pressed);
                 break;
             case 4:
-                ib_board.setImageResource(R.drawable.board_dark);
+                ib_board.setImageResource(R.drawable.board_pressed);
                 break;
         }
     }

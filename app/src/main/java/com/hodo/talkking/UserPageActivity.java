@@ -252,7 +252,7 @@ if(mMyData.itemList.get(i) != 0)
             }
  */
         btnRegister = findViewById(R.id.UserPage_btnRegister);
-        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_dark : R.drawable.favor);
+        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_pressed : R.drawable.favor);
         btnRegister.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
         btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
         btnGiftHoney.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
@@ -335,7 +335,7 @@ if(mMyData.itemList.get(i) != 0)
                         }
 
 
-                        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_dark : R.drawable.favor);
+                        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_pressed : R.drawable.favor);
 
                         //ClickBtnSendHeart();
                         break;
