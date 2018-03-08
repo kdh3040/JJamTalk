@@ -28,7 +28,7 @@ public class UIData {
     private int height;
     private String Items[] = {"클럽", "다이아몬드", "하트", "스페이드", "잭", "퀸", "킹", "전용기"};
     private String ItemsReference[] = {"페레가모 구두", "구찌 드레스", "헤르메스 가방", "롤렉스 시계", "다이아몬드", "페라리", "럭셔리 요트", "전용기"};
-    private int jewels[] = {R.drawable.club_s,R.drawable.dia_s,R.drawable.heart,R.drawable.spade_s,R.drawable.jackface,R.drawable.queenface,R.drawable.kingface,R.drawable.jet_hng};
+    private int jewels[] = { R.drawable.randombox, R.drawable.club_s,R.drawable.dia_s,R.drawable.heart,R.drawable.spade_s,R.drawable.jackface,R.drawable.queenface,R.drawable.kingface,R.drawable.jet_hng};
     private int grades[] = {R.drawable.rank_bronze,R.drawable.rank_silver,R.drawable.rank_gold,R.drawable.rank_diamond,R.drawable.rank_vip,R.drawable.rank_vvip};
     private int sellJewelValue[] = {4,4,4,4,4,4,4,4};
     private int genderIcon[] = {R.drawable.rank_bronze, R.drawable.rank_silver};

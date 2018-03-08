@@ -479,47 +479,47 @@ public class MyData {
         nItemCount = _UserItemCount;
         item_1 = _UserItem1;
         if(item_1 != 0) {
-            itemList.put(0, item_1);
+            itemList.put(1, item_1);
         }
         item_2 = _UserItem2;
         if(item_2 != 0) {
-            itemList.put(1, item_2);
+            itemList.put(2, item_2);
         }
 
         item_3 = _UserItem3;
         if(item_3 != 0)
         {
-            itemList.put(2, item_3);
+            itemList.put(3, item_3);
         }
 
         item_4 = _UserItem4;
         if(item_4 != 0)
         {
-            itemList.put(3, item_4);
+            itemList.put(4, item_4);
         }
 
         item_5 = _UserItem5;
         if(item_5 != 0)
         {
-            itemList.put(4, item_5);
+            itemList.put(5, item_5);
         }
 
         item_6 = _UserItem6;
         if(item_6 != 0)
         {
-            itemList.put(5, item_6);
+            itemList.put(6, item_6);
         }
 
         item_7 = _UserItem7;
         if(item_7 != 0)
         {
-            itemList.put(6, item_7);
+            itemList.put(7, item_7);
         }
 
         item_8 = _UserItem8;
         if(item_8 != 0)
         {
-            itemList.put(7, item_8);
+            itemList.put(8, item_8);
         }
 
         bestItem = _UserBestItem;
@@ -2297,77 +2297,77 @@ public class MyData {
             }
             case 1:
             {
+                if(item_1 == 0) {
+                    nItemCount++;
+                }
+
+                item_1++;
+                itemList.put(1, item_1);
+
+                break;
+            }
+            case 2:
+            {
                 if(item_2 == 0){
                     nItemCount++;
                 }
 
                 item_2++;
-                itemList.put(1, item_2);
+                itemList.put(2, item_2);
 
                 break;
             }
-            case 2:
+            case 3:
             {
                 if(item_3 == 0){
                     nItemCount++;
                 }
 
                 item_3++;
-                itemList.put(2, item_3);
+                itemList.put(3, item_3);
 
                 break;
             }
-            case 3:
+            case 4:
             {
                 if(item_4 == 0){
                     nItemCount++;
                 }
 
                 item_4++;
-                itemList.put(3, item_4);
+                itemList.put(4, item_4);
 
                 break;
             }
-            case 4:
+            case 5:
             {
                 if(item_5 == 0){
                     nItemCount++;
                 }
 
                 item_5++;
-                itemList.put(4, item_5);
-
+                itemList.put(5, item_5);
                 break;
             }
-            case 5:
+            case 6:
             {
                 if(item_6 == 0){
                     nItemCount++;
                 }
 
                 item_6++;
-                itemList.put(5, item_6);
+                itemList.put(6, item_6);
+
                 break;
             }
-            case 6:
+            case 7:
             {
                 if(item_7 == 0){
                     nItemCount++;
                 }
 
                 item_7++;
-                itemList.put(6, item_7);
-
-                break;
-            }
-            case 7:
-            {
-                if(item_8 == 0){
-                    nItemCount++;
-                }
-
-                item_8++;
-                itemList.put(7, item_8);
+                itemList.put(7, item_7);
                 break;
             }
         }
@@ -2411,35 +2411,35 @@ public class MyData {
 
         switch (idx)
         {
-            case 0:
+            case 1:
                 item_1 = count;
                 user.child("Item_1").setValue(item_1);
                 break;
-            case 1:
+            case 2:
                 item_2 = count;
                 user.child("Item_2").setValue(item_2);
                 break;
-            case 2:
+            case 3:
                 item_3 = count;
                 user.child("Item_3").setValue(item_3);
                 break;
-            case 3:
+            case 4:
                 item_4 = count;
                 user.child("Item_4").setValue(item_4);
                 break;
-            case 4:
+            case 5:
                 item_5 = count;
                 user.child("Item_5").setValue(item_5);
                 break;
-            case 5:
+            case 6:
                 item_6 = count;
                 user.child("Item_6").setValue(item_6);
                 break;
-            case 6:
+            case 7:
                 item_7 = count;
                 user.child("Item_7").setValue(item_7);
                 break;
-            case 7:
+            case 8:
                 item_8 = count;
                 user.child("Item_8").setValue(item_8);
                 break;
