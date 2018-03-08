@@ -2,7 +2,6 @@ package com.hodo.talkking;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.hodo.talkking.Data.SettingData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Util.AppStatus;
-import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.LocationFunc;
 import com.hodo.talkking.ViewHolder.GridUserViewHolder;
 
@@ -64,7 +62,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
 
 
         //holder.iv_honey_rank.setLayoutParams(new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2)));
-        holder.iv_profile.setImageResource(R.drawable.profile);
+        holder.iv_profile.setImageResource(R.drawable.image);
 
         RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);

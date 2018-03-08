@@ -27,7 +27,7 @@
         android:layout_height="60dp"
         app:layout_constraintLeft_toRightOf="@+id/from"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/profile" />
+        app:srcCompat="@drawable/image" />
 
 
     <Button
