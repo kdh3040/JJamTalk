@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:background="@color/colorPrimary"
-        app:srcCompat="@drawable/ic_mypage" />
+        app:srcCompat="@drawable/mypage" />
 
     <TextView
         android:id="@+id/title"

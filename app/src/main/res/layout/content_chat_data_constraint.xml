@@ -87,7 +87,7 @@
 
         app:layout_constraintLeft_toLeftOf="@id/ChatRoom_name1"
         app:layout_constraintTop_toBottomOf="@id/ChatRoom_name1"
-        app:srcCompat="@drawable/bee" />
+        app:srcCompat="@drawable/image" />
 
     <TextView
         android:id="@+id/img_date1"

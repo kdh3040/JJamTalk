@@ -39,7 +39,7 @@
         android:layout_height="15dp"
         android:layout_marginLeft="3dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/bee"
+        android:src="@drawable/rank_bronze"
         app:layout_constraintLeft_toRightOf="@+id/board_writer"
         app:layout_constraintTop_toTopOf="@+id/board_writer" />
 
@@ -49,7 +49,7 @@
         android:layout_height="15dp"
         android:scaleType="fitCenter"
 
-        android:src="@drawable/bee"
+        android:src="@drawable/round_btn_bg"
         app:layout_constraintLeft_toRightOf="@+id/user_grade"
         app:layout_constraintTop_toTopOf="@+id/user_grade" />
 
@@ -82,7 +82,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/bee"
+        app:srcCompat="@drawable/red_btn_bg_stroke"
         android:visibility="invisible"
         android:text="삭제"
         app:layout_constraintTop_toBottomOf="@+id/board_write_date"

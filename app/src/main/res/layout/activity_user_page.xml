@@ -238,7 +238,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/UserPage_btnGiftHoney"
             app:layout_constraintTop_toBottomOf="@+id/divider_fan"
-            app:srcCompat="@drawable/share" />
+            app:srcCompat="@drawable/share_icon" />
 
         <ImageView
             android:id="@+id/iv_bot"

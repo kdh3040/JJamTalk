@@ -89,13 +89,6 @@
             android:screenOrientation="portrait"
             android:label="설정">
         </activity>
-        <activity android:name="com.hodo.talkking.PublicChatRoomHostActivity"
-            android:label="공개채팅방"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait"
-            >
-
-        </activity>
         <activity android:name="com.hodo.talkking.FanClubActivity"
             android:label="팬"
             android:theme="@style/MyTheme"
@@ -115,26 +108,12 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="com.hodo.talkking.PublicChatOptionMenuBanActivity"
-            android:label="차단 리스트"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="com.hodo.talkking.PublicChatOptionMenuUserListActivity"
-            android:label="현재 참가자"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait">
-        </activity>
-
         <activity android:name="com.hodo.talkking.BuyGoldActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyTheme"
             android:label="코인 충전하기"
             />
-        <activity android:name="com.hodo.talkking.ImageActivity"
-            android:theme ="@style/NoTitleBar"
-            android:screenOrientation="portrait"/>
+
         <activity android:name="com.hodo.talkking.Kakao.KakaoSignupActivity"       android:screenOrientation="portrait"/>
         <activity android:name="com.hodo.talkking.ClickedMyPicActivity"
             android:theme ="@style/NoTitleBar"

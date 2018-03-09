@@ -12,14 +12,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bee" />
+        app:srcCompat="@drawable/club_s" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        app:srcCompat="@drawable/bg_halftransparent" />
+        app:srcCompat="@drawable/image" />
 
     <TextView
         android:id="@+id/tv_count"

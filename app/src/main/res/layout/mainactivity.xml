@@ -154,7 +154,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/ib_cardlist"
         app:layout_constraintTop_toTopOf="@+id/bg_bottom"
-        app:srcCompat="@drawable/icon_home"></ImageButton>
+        app:srcCompat="@drawable/home"></ImageButton>
 
 
     <ImageButton

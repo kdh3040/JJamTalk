@@ -355,7 +355,7 @@
 
         android:scaleType="fitCenter"
 
-        android:src="@drawable/open1"
+        android:src="@drawable/purple_stroke_btn_bg"
         android:theme="@style/PrimaryButtonReten"
         app:layout_constraintBottom_toBottomOf="@+id/bg_mid"
         app:layout_constraintEnd_toStartOf="@+id/btn_sellJewely"
@@ -371,7 +371,7 @@
         android:elevation="5dp"
         android:scaleType="fitCenter"
 
-        android:src="@drawable/open10"
+        android:src="@drawable/purple_stroke_btn_bg"
         android:theme="@style/PrimaryButtonReten"
 
         app:layout_constraintBottom_toBottomOf="@+id/btn_openBox"
