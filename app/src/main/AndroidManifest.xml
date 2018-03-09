@@ -39,14 +39,10 @@
             android:screenOrientation="portrait"
 
            />
-      <!--  <activity android:name="com.hodo.talkking.StartLogo">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
 
 
-        </activity>-->
+
+
         <activity
             android:name="com.hodo.talkking.LoginActivity"
             android:theme ="@style/NoTitleBar"
@@ -66,19 +62,23 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+
         <service
             android:name="com.hodo.talkking.Firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+
         <activity android:name="com.hodo.talkking.SignUpActivity"
             android:screenOrientation="portrait"/>
+
         <activity android:name="com.hodo.talkking.MyProfileActivity"
 
             android:label="프로필"
             android:screenOrientation="portrait"
             />
+
         <activity android:name="com.hodo.talkking.MyPageActivity"
 
             android:label="내 페이지"
@@ -120,6 +120,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.hodo.talkking.InputProfile"       android:screenOrientation="portrait"></activity>
+
         <activity android:name="com.hodo.talkking.UserPageActivity"
             android:theme="@style/NoTitleBar"       android:screenOrientation="portrait"></activity>
 
@@ -128,20 +129,24 @@
 
             android:screenOrientation="portrait"
             ></activity>
+
         <activity android:name="com.hodo.talkking.BoardItemActivity"
             android:label="허허참"
             android:screenOrientation="portrait"
             ></activity>
+
         <activity android:name="com.hodo.talkking.BoardWriteActivity"
 
             android:label="글쓰기"
             android:screenOrientation="portrait"
             ></activity>
+
         <activity android:name="com.hodo.talkking.BoardMyListActivity"
 
             android:label="내가 쓴 글"
             android:screenOrientation="portrait"
             ></activity>
+
         <activity android:name="com.hodo.talkking.ImageViewPager"
             android:theme="@style/NoTitleBar"
             android:screenOrientation="portrait"
@@ -175,8 +180,10 @@
 
         <activity android:name="com.hodo.talkking.HoneyGetHistoryActivity"
             android:label= "받은 꿀"      android:screenOrientation="portrait"></activity>
+
         <activity android:name="com.hodo.talkking.HoneySentHistoryActivity"
             android:label= "선물한 꿀"      android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hodo.talkking.MyJewelBoxActivity"
             android:theme="@style/NoTitleBar"

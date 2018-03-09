@@ -4,9 +4,12 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/baseColor</item>
         <item name="colorPrimaryDark">@color/baseColorDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name = "titleTextColor">@android:color/white</item>
+        <item name="colorAccent">@color/baseColorLight</item>
+        <item name ="titleTextColor">#ffffff</item>
         <item name ="android:textColorPrimary">#ffffff</item>
+        <item name ="android:textColor">@color/baseColor</item>
+        <item name = "android:editTextColor">@color/black</item>
+
     </style>
 
 

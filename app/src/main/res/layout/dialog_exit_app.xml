@@ -35,7 +35,7 @@
 
         android:gravity="center"
         android:text="톡킹을 종료하시겠습니까?"
-
+        android:background="@color/white"
         android:textColor="@color/black"
         android:textSize="18sp" />
 

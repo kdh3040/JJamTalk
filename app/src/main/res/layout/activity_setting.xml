@@ -84,11 +84,9 @@
         android:elevation="10dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/blocklist"
-
         app:layout_constraintLeft_toLeftOf="@+id/blocklist"
-
         app:layout_constraintTop_toTopOf="@+id/blocklist"
-        app:srcCompat="@drawable/ic_blocklist" />
+        app:srcCompat="@drawable/block" />
 
     <Button
         android:id="@+id/blocklist"

@@ -38,6 +38,7 @@
 
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:text="상희, 28"
             android:textColor="@color/black"
             android:textSize="26sp"
@@ -49,7 +50,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
 
-            android:padding="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/UserPage_txtProfile"
             app:layout_constraintLeft_toRightOf="@+id/UserPage_txtProfile"
             app:layout_constraintTop_toTopOf="@+id/UserPage_txtProfile"
             app:srcCompat="@drawable/rank_bronze" />
@@ -59,6 +60,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/UserPage_txtProfile"
             app:layout_constraintLeft_toRightOf="@+id/iv_rank"
             app:layout_constraintTop_toTopOf="@+id/UserPage_txtProfile"
             app:srcCompat="@drawable/rank_gold" />
@@ -69,25 +71,27 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
 
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorPrimaryTrans"
+            app:layout_constraintBottom_toBottomOf="@+id/UserPage_ImgProfile"
+            app:layout_constraintRight_toLeftOf="@+id/UserPage_txtDistance"
             app:srcCompat="@drawable/location_white" />
 
         <TextView
             android:id="@+id/UserPage_txtDistance"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
 
 
+            android:background="@color/colorPrimaryTrans"
             android:gravity="center_vertical"
             android:text="15km 거리에 있음"
-            android:textColor="@color/boardTextColor"
-            app:layout_constraintBottom_toBottomOf="@+id/icon_distance"
-            app:layout_constraintLeft_toRightOf="@+id/icon_distance" />
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/UserPage_ImgProfile"
+            app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
             android:id="@+id/UserPage_txtMemo"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
