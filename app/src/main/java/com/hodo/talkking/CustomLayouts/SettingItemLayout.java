@@ -73,7 +73,7 @@ public class SettingItemLayout extends LinearLayout{
         int bg_resId = typedArray.getResourceId(R.styleable.LoginButton_bg, R.color.tp_half);
         bg.setBackgroundResource(bg_resId);
 
-        int symbol_resId = typedArray.getResourceId(R.styleable.LoginButton_bg, R.drawable.icon_fan);
+        int symbol_resId = typedArray.getResourceId(R.styleable.LoginButton_bg, R.drawable.fan);
         bg.setBackgroundResource(symbol_resId);
 
         int textColor = typedArray.getColor(R.styleable.LoginButton_textColor,0);

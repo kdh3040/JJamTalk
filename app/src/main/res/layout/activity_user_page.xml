@@ -71,7 +71,7 @@
 
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/location" />
+            app:srcCompat="@drawable/location_white" />
 
         <TextView
             android:id="@+id/UserPage_txtDistance"
