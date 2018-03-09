@@ -5,10 +5,8 @@
         <item name="colorPrimary">@color/baseColor</item>
         <item name="colorPrimaryDark">@color/baseColorDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-
-
-
+        <item name = "titleTextColor">@android:color/white</item>
+        <item name ="android:textColorPrimary">#ffffff</item>
     </style>
 
 
@@ -18,11 +16,12 @@
     <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name = "android:textColor">@color/baseColor</item>
     </style>
+    <!--
     <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textColor">@android:color/white</item>
-    </style>
+    </style>-->
 
     <style name = "Divider">
         <item name = "android:layout_width">match_parent</item>
@@ -52,7 +51,7 @@
         <item name="android:clickable">true</item>
     </style>
 
-    <style name="background" parent="@android:style/TextAppearance.Widget.TextView">
+    <!--<style name="background" parent="@android:style/TextAppearance.Widget.TextView">
     <item name="android:gravity">center_vertical|center_horizontal</item>
     <item name="android:textColor">#FFFFFFFF</item>
     <item name="android:shadowColor">#FF000000</item>
@@ -67,6 +66,7 @@
     <item name="android:clickable">true</item>
 
     </style>
+    -->
 
     <style name="backgr" parent="@style/Widget.AppCompat.Button">
         <!--<item name="android:imageButtonStyle">@style/ImgBtn</item>
@@ -94,7 +94,7 @@
 
 
     <style name = "MyTitleTextStyle" parent="Theme.AppCompat.Light">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
 
 
     </style>

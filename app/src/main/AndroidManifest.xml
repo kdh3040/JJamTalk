@@ -75,23 +75,23 @@
         <activity android:name="com.hodo.talkking.SignUpActivity"
             android:screenOrientation="portrait"/>
         <activity android:name="com.hodo.talkking.MyProfileActivity"
-            android:theme="@style/MyTheme"
+
             android:label="프로필"
             android:screenOrientation="portrait"
             />
         <activity android:name="com.hodo.talkking.MyPageActivity"
-            android:theme="@style/MyTheme"
+
             android:label="내 페이지"
             android:screenOrientation="portrait"/>
 
         <activity android:name="com.hodo.talkking.SettingActivity"
-            android:theme="@style/MyTheme"
+
             android:screenOrientation="portrait"
             android:label="설정">
         </activity>
         <activity android:name="com.hodo.talkking.FanClubActivity"
             android:label="팬"
-            android:theme="@style/MyTheme"
+
             android:screenOrientation="portrait"
             >
 
@@ -110,7 +110,7 @@
 
         <activity android:name="com.hodo.talkking.BuyGoldActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyTheme"
+
             android:label="코인 충전하기"
             />
 
@@ -133,12 +133,12 @@
             android:screenOrientation="portrait"
             ></activity>
         <activity android:name="com.hodo.talkking.BoardWriteActivity"
-            android:theme="@style/MyTheme"
+
             android:label="글쓰기"
             android:screenOrientation="portrait"
             ></activity>
         <activity android:name="com.hodo.talkking.BoardMyListActivity"
-            android:theme="@style/MyTheme"
+
             android:label="내가 쓴 글"
             android:screenOrientation="portrait"
             ></activity>
@@ -154,11 +154,11 @@
 
         <activity android:name="com.hodo.talkking.BlockListActivity"
             android:label="차단 목록"
-            android:theme="@style/MyTheme"
+
             android:screenOrientation="portrait"></activity>
 
         <activity android:name="com.hodo.talkking.MailboxActivity"
-            android:theme="@style/MyTheme"
+
             android:label="우체통"       android:screenOrientation="portrait"></activity>
 
         <meta-data

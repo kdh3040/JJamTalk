@@ -99,7 +99,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/bg_topbar"
         app:layout_constraintRight_toLeftOf="@+id/iv_myboardwrite"
         app:layout_constraintTop_toTopOf="@+id/bg_topbar"
-        app:srcCompat="@drawable/pencil"></ImageView>
+        app:srcCompat="@drawable/write"></ImageView>
 
     <Button
         android:id="@+id/iv_myboardwrite"
@@ -300,7 +300,7 @@
         android:layout_height="16dp"
         android:elevation="5dp"
         android:gravity="center_horizontal"
-        android:text="나의 팬"
+        android:text="내 팬"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/tv_chat"

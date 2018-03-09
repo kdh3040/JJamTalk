@@ -12,7 +12,7 @@
 
     </style>
 
-    <style name= "MyTheme" parent="@style/Theme.AppCompat.DayNight">
+    <!--<style name= "MyTheme" parent="@style/Theme.AppCompat.DayNight">
         <item name="colorPrimary">@color/baseColor</item>
         <item name="colorPrimaryDark">@color/baseColorDark</item>
         <item name="colorAccent">@color/bambamcolor</item>
@@ -40,6 +40,6 @@
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
 
         <item name = "android:background">@color/bambamcolor</item>
-    </style>
+    </style>-->
     <style name="Common" parent="Theme.AppCompat.DayNight"></style>
 </resources>
