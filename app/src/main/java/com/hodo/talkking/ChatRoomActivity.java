@@ -834,12 +834,23 @@ public class ChatRoomActivity extends AppCompatActivity {
         switch (item.getItemId()){
 
 
+
             case R.id.btn_block:
                 AlertDialog.Builder builder= new AlertDialog.Builder(this);
-                builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                final View BlockView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_block, null, false);
+                final AlertDialog dialog1 = builder.setView(BlockView).create();
+                dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog1.show();
+                TextView textTitle = (TextView) BlockView.findViewById(R.id.textView4);
 
+                textTitle.setText(stTargetData.NickName +  "님 차단하기");
+
+                Button btn_ok = (Button) BlockView.findViewById(R.id.btn_ok);
+                Button btn_no = (Button) BlockView.findViewById(R.id.btn_no);
+
+                btn_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference table;
                         table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
@@ -858,23 +869,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 mMyData.arrChatNameList.remove(findIndex);
 
                                 onBackPressed();
-
-                                //mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_CHAT);
-
-                              /*  Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.putExtra("StartFragment", 2);
-                                getApplicationContext().startActivity(intent);
-                                finish();*/
-                                //mCommon.refreshFragMent(MainActivity.mFragmentMng, frg);
-
-
-                          /*      final FragmentTransaction ft = frgMng.beginTransaction();
-                                ft.detach(frg);
-                                ft.attach(frg);
-                                ft.commit();*/
-
-                              //  finish();
                             }
 
                             @Override
@@ -883,30 +877,25 @@ public class ChatRoomActivity extends AppCompatActivity {
                             }
                         });
 
-
-
-                        //Intent intent = new Intent(getApplicationContext(),ChatListActivity.class);
-                        //startActivity(intent);
-
                     }
-                }).
-                        setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                            }
-                        }).setMessage("이 사람을 차단하시겠습니까? \n(차단과 함께 대화방이 삭제됩니다. 앞으로 이 사람으로부터 쪽지 및 선물을 받지 않습니다. \n차단은 설정에서 다시 해제하실 수 있습니다.)")
-                        .setTitle("차단하기");
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                });
+
+                btn_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog1.dismiss();
+                    }
+
+                });
+
                 break;
 
             case R.id.btn_report:
                 final View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.report_popup, null, false);
                 builder = new AlertDialog.Builder(mActivity);
-                final AlertDialog dialog1 = builder.setView(v).create();
-                dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                dialog1.show();
+                final AlertDialog dialog = builder.setView(v).create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
                 final CheckBox cBox1 = (CheckBox) v.findViewById(R.id.checkBox2);
                 final CheckBox cBox2 = (CheckBox) v.findViewById(R.id.checkBox3);
                 final CheckBox cBox3 = (CheckBox) v.findViewById(R.id.checkBox4);
@@ -974,18 +963,18 @@ public class ChatRoomActivity extends AppCompatActivity {
                             }
                         });
 
-                        dialog1.cancel();
+                        dialog.cancel();
                     }
                 });
 
-                Button btn_no = v.findViewById(R.id.cancel);
+                btn_no = v.findViewById(R.id.cancel);
                 btn_no.setText("취소");
                 btn_no.setOnClickListener(new View.OnClickListener() {
 
                     @Override
 
                     public void onClick(View view) {
-                        dialog1.dismiss();
+                        dialog.dismiss();
                     }
 
                 });

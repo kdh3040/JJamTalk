@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/textView4"
@@ -22,27 +23,28 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="이 사람을 차단하시겠습니까? (차단과 함께 대화방이 삭제됩니다. 앞으로 이 사람으로부터 쪽지 및 선물을 받지 않습니다. 차단은 설정에서 다시 해제하실 수 있습니다.)"
+        android:text="이 사람을 차단하시겠습니까? \n ( 차단과 함께 대화방이 삭제됩니다. 앞으로 이 사람으로부터 쪽지 및 선물을 받지 않습니다. \n  차단은 설정에서 다시 해제하실 수 있습니다. )"
         android:textColor="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_margin="16dp"
         android:background="@drawable/purple_btn_bg"
         android:text="확인"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toStartOf="@+id/button11"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_no"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/btn_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/purple_stroke_btn_bg"
@@ -50,6 +52,6 @@
         android:textColor="@color/baseColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button4"
-        app:layout_constraintTop_toTopOf="@+id/button4" />
+        app:layout_constraintStart_toEndOf="@+id/btn_ok"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_ok"/>
 </android.support.constraint.ConstraintLayout>
