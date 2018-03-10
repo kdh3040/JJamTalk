@@ -71,7 +71,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
 
-            android:background="@color/colorPrimaryTrans"
+            android:background="#1a000000"
             app:layout_constraintBottom_toBottomOf="@+id/UserPage_ImgProfile"
             app:layout_constraintRight_toLeftOf="@+id/UserPage_txtDistance"
             app:srcCompat="@drawable/location_white" />
@@ -82,8 +82,9 @@
             android:layout_height="20dp"
 
 
-            android:background="@color/colorPrimaryTrans"
+            android:background="#1a000000"
             android:gravity="center_vertical"
+            android:paddingRight="8dp"
             android:text="15km 거리에 있음"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/UserPage_ImgProfile"
