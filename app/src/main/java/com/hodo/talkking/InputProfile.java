@@ -534,7 +534,6 @@ public class InputProfile extends AppCompatActivity {
         mNickName = (EditText) findViewById(R.id.InputProfile_NickName);
 
         AgeSpinner = (Spinner) findViewById(R.id.InputProfile_Age_1);
-        AgeSpinner.setPrompt("선택");
         AgeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -551,7 +550,6 @@ public class InputProfile extends AppCompatActivity {
         });
 
         GenderSpinner = (Spinner) findViewById(R.id.InputProfile_Gender_1);
-        GenderSpinner.setPrompt("선택");
         GenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
