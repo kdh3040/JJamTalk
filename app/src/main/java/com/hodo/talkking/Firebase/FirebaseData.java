@@ -194,7 +194,7 @@ public class FirebaseData {
 
         user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
-        user.child("FanCount").setValue(-1 * mMyData.getFanCount());
+        user.child("FanCount").setValue(-1 * (mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
 
         user.child("Point").setValue(mMyData.getPoint());
 
@@ -241,7 +241,7 @@ public class FirebaseData {
 
         user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
-        user.child("FanCount").setValue(-1 * mMyData.getFanCount());
+        user.child("FanCount").setValue(-1 * (mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
 
         user.child("Point").setValue(mMyData.getPoint());
 
@@ -281,7 +281,7 @@ public class FirebaseData {
         user.child("Lat").setValue(mMyData.getUserLat());
         user.child("Dist").setValue(mMyData.getUserDist());
 
-        user.child("FanCount").setValue(-1 * mMyData.getFanCount());
+        user.child("FanCount").setValue(-1 * (mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
 
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
@@ -828,7 +828,9 @@ public class FirebaseData {
 
                 }
 
-                mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
+                if(mMyData.arrUserAll_Send.size() > 0)
+                    mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
+
                 UpdateFanAdapter.notifyDataSetChanged();
             }
 
@@ -848,7 +850,7 @@ public class FirebaseData {
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
 
         Query data = null;
-        data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Dist").startAt(mMyData.NewDateRef).limitToFirst(LOAD_MAIN_COUNT);
+        data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Dist").startAt(mMyData.NearDistanceRef).limitToFirst(LOAD_MAIN_COUNT);
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -898,6 +900,9 @@ public class FirebaseData {
                     }
 
                 }
+
+                if(mMyData.arrUserAll_Near.size() > 0)
+                    mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
 
                 UpdateNearAdapter.notifyDataSetChanged();
             }
@@ -966,7 +971,9 @@ public class FirebaseData {
 
                 }
 
-                mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
+                if(mMyData.arrUserAll_New.size() > 0)
+                    mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
+
                 UpdateNewAdapter.notifyDataSetChanged();
             }
 

@@ -70,6 +70,7 @@ import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.Util.AppStatus;
 import com.hodo.talkking.Util.CommonFunc;
+import com.hodo.talkking.Util.LocationFunc;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,6 +84,8 @@ import java.util.List;
 import java.util.Random;
 
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.hodo.talkking.Data.CoomonValueData.REF_LAT;
+import static com.hodo.talkking.Data.CoomonValueData.REF_LON;
 import static com.hodo.talkking.Data.CoomonValueData.UNIQ_FANCOUNT;
 import static com.kakao.usermgmt.StringSet.id;
 
@@ -1579,10 +1582,18 @@ public class MainActivity extends AppCompatActivity {
             String strAge = Integer.toString(random.nextInt(50)+20);
             user.child("Age").setValue(strAge);
 
-            user.child("Lon").setValue(mMyData.getUserLon());
-            user.child("Lat").setValue(mMyData.getUserLat());
+            double lon = random.nextDouble() * 1000;
+            lon = Double.parseDouble(String.format("%.8f", lon));
 
-            user.child("Dist").setValue(random.nextInt(200000));
+            double lat = random.nextDouble() * 100;
+            lat = Double.parseDouble(String.format("%.8f", lat));
+
+            user.child("Lon").setValue(lon);
+            user.child("Lat").setValue(lat);
+
+
+
+            user.child("Dist").setValue(LocationFunc.getInstance().getDistance(lat, lon, REF_LAT, REF_LON,"meter"));
 
             user.child("SendCount").setValue(mMyData.getSendHoney());
             user.child("RecvCount").setValue(mMyData.getRecvHoney());
@@ -1597,7 +1608,10 @@ public class MainActivity extends AppCompatActivity {
             user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
 
-            user.child("FanCount").setValue(-1 * random.nextInt(10) * UNIQ_FANCOUNT - Integer.parseInt(Index));
+            //user.child("FanCount").setValue(-1 * random.nextInt(10) * UNIQ_FANCOUNT - Integer.parseInt(Index));
+
+            user.child("FanCount").setValue(-1 * Long.valueOf(Index));
+
 
             user.child("Point").setValue(random.nextInt(10000));
 
@@ -1634,12 +1648,12 @@ public class MainActivity extends AppCompatActivity {
             user.child("RecvGold").setValue(mMyData.getRecvHoney());
             user.child("SendGold").setValue(mMyData.getSendHoney());
 
-            user.child("Lon").setValue(mMyData.getUserLon());
-            user.child("Lat").setValue(mMyData.getUserLat());
-            user.child("Dist").setValue(random.nextInt(200000));
+            user.child("Lon").setValue(lon);
+            user.child("Lat").setValue(lat);
+            user.child("Dist").setValue(LocationFunc.getInstance().getDistance(lat, lon, REF_LAT, REF_LON,"meter"));
 
             user.child("Date").setValue(Long.toString(random.nextLong()));
-            user.child("FanCount").setValue(-1 * random.nextInt(10) * UNIQ_FANCOUNT - Integer.parseInt(Index));
+            user.child("FanCount").setValue(-1 * Long.valueOf(Index));
 
             user.child("Point").setValue(random.nextInt(10000));
 

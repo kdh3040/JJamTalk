@@ -1820,13 +1820,13 @@ public class MyData {
                 public Transaction.Result doTransaction(MutableData mutableData) {
                     Long index = mutableData.getValue(Long.class);
                     if (index == null) {
-                        mutableData.setValue(-1);
                         return Transaction.success(mutableData);
                     }
 
-                    index--;
-
+                    index -= UNIQ_FANCOUNT;
                     mutableData.setValue(index);
+
+                   // mutableData.setValue(index);
                     return Transaction.success(mutableData);
                 }
 
@@ -1838,7 +1838,7 @@ public class MyData {
                     for(int i = 0; i < arrUserAll_Send_Age.size(); i++)
                     {
                         if(arrUserAll_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                            arrUserAll_Send_Age.get(i).FanCount = stTargetData.FanCount * UNIQ_FANCOUNT - Integer.parseInt(stTargetData.Idx);
+                            arrUserAll_Send_Age.get(i).FanCount = stTargetData.FanCount;
                             break;
                         }
                     }
@@ -1848,7 +1848,7 @@ public class MyData {
                         for(int i = 0; i < arrUserWoman_Send_Age.size(); i++)
                         {
                             if(arrUserWoman_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount * UNIQ_FANCOUNT - Integer.parseInt(stTargetData.Idx);
+                                arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount;
                                 break;
                             }
                         }
@@ -1858,7 +1858,7 @@ public class MyData {
                         for(int i = 0; i < arrUserMan_Send_Age.size(); i++)
                         {
                             if(arrUserMan_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount * UNIQ_FANCOUNT - Integer.parseInt(stTargetData.Idx);
+                                arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount;
                                 break;
                             }
                         }
@@ -1869,12 +1869,12 @@ public class MyData {
                     table = database.getReference("User/" + stTargetData.Idx);
 
                     Map<String, Object> updateFanCountMap = new HashMap<>();
-                    updateFanCountMap.put("FanCount", stTargetData.FanCount * UNIQ_FANCOUNT - Integer.parseInt(stTargetData.Idx));
+                    updateFanCountMap.put("FanCount", stTargetData.FanCount);
                     table.updateChildren(updateFanCountMap);
 
                     table = database.getReference("SimpleData/" + stTargetData.Idx);
 
-                    updateFanCountMap.put("FanCount", stTargetData.FanCount * UNIQ_FANCOUNT - Integer.parseInt(stTargetData.Idx));
+                    updateFanCountMap.put("FanCount", stTargetData.FanCount);
                     table.updateChildren(updateFanCountMap);
 
                 }
@@ -1928,7 +1928,7 @@ public class MyData {
                 tempData.Lat = getUserLat();
                 tempData.Lon = getUserLon();
                 tempData.Date = strDate;
-                tempData.FanCount = getFanCount() * UNIQ_FANCOUNT + Integer.parseInt(stTargetData.Idx);
+                tempData.FanCount = -1 * getFanCount() * UNIQ_FANCOUNT + Integer.parseInt(getUserIdx());
                 tempData.Point = getPoint();
                 tempData.BestItem = bestItem;
                 tempData.Grade = getGrade();
@@ -1941,12 +1941,11 @@ public class MyData {
                     @Override
                     public Transaction.Result doTransaction(MutableData mutableData) {
                         Long index = mutableData.getValue(Long.class);
-                    if (index == null) {
-                        mutableData.setValue(-1);
-                        return Transaction.success(mutableData);
-                    }
-                        index--;
+                        if (index == null) {
+                            return Transaction.success(mutableData);
+                        }
 
+                        index -= UNIQ_FANCOUNT;
                         mutableData.setValue(index);
                         return Transaction.success(mutableData);
                     }
@@ -1960,7 +1959,7 @@ public class MyData {
                         for(int i = 0; i < arrUserAll_Send_Age.size(); i++)
                         {
                             if(arrUserAll_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserAll_Send_Age.get(i).FanCount = stTargetData.FanCount * UNIQ_FANCOUNT - Integer.parseInt(stTargetData.Idx);
+                                arrUserAll_Send_Age.get(i).FanCount = stTargetData.FanCount;
                                 break;
                             }
                         }
@@ -1970,7 +1969,7 @@ public class MyData {
                             for(int i = 0; i < arrUserWoman_Send_Age.size(); i++)
                             {
                                 if(arrUserWoman_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                    arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount * UNIQ_FANCOUNT - Integer.parseInt(stTargetData.Idx);
+                                    arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount;
                                     break;
                                 }
                             }
@@ -1980,7 +1979,7 @@ public class MyData {
                             for(int i = 0; i < arrUserMan_Send_Age.size(); i++)
                             {
                                 if(arrUserMan_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                    arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount * UNIQ_FANCOUNT - Integer.parseInt(stTargetData.Idx);
+                                    arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount;
                                     break;
                                 }
                             }
@@ -1991,12 +1990,12 @@ public class MyData {
                         table = database.getReference("User/" + stTargetData.Idx);
 
                         Map<String, Object> updateFanCountMap = new HashMap<>();
-                        updateFanCountMap.put("FanCount", stTargetData.FanCount  * UNIQ_FANCOUNT - Integer.parseInt(stTargetData.Idx));
+                        updateFanCountMap.put("FanCount", stTargetData.FanCount );
                         table.updateChildren(updateFanCountMap);
 
                         table = database.getReference("SimpleData/" + stTargetData.Idx);
 
-                        updateFanCountMap.put("FanCount", stTargetData.FanCount  * UNIQ_FANCOUNT - Integer.parseInt(stTargetData.Idx));
+                        updateFanCountMap.put("FanCount", stTargetData.FanCount);
                         table.updateChildren(updateFanCountMap);
 
                     }
