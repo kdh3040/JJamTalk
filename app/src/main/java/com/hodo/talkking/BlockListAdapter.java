@@ -12,6 +12,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.ViewHolder.BlockListViewHolder;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by mjk on 2017. 8. 22..
  */
@@ -44,6 +46,7 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListViewHolder> 
                 .load(mMyData.arrBlockDataList.get(position).Img)
                 .thumbnail(0.1f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(mContext))
                 .into(holder.Img_Profile);
 
         holder.txt_Name.setText(mMyData.arrBlockDataList.get(position).NickName);
