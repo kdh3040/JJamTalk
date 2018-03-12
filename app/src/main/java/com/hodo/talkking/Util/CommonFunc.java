@@ -951,7 +951,7 @@ public class CommonFunc {
                 txt_Title.setText("아이템 판매");
                 final TextView txt_Body;
                 txt_Body = (TextView)v.findViewById(R.id.msg);
-                txt_Body.setText(UIData.getInstance().getItems()[Index] + " 아이템을 4골드에 판매합니다");
+                txt_Body.setText(UIData.getInstance().getItems()[Index] + " 아이템을 4코인에 판매합니다");
 
                 final Button btn_exit;
                 final Button btn_no;

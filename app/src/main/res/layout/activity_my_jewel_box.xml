@@ -71,23 +71,19 @@
         android:id="@+id/bg_mid"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
-        android:background="@android:color/white"
+        android:background="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bg_topbar"
-        app:srcCompat="@android:color/white" />
+        app:layout_constraintTop_toBottomOf="@+id/bg_topbar" />
 
     <ImageView
         android:id="@+id/btn_item0"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="1dp"
 
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btn_item1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -97,7 +93,8 @@
         android:id="@+id/btn_item1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="1dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btn_item2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -107,8 +104,9 @@
         android:id="@+id/btn_item2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
 
+        android:layout_marginBottom="1dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btn_item3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -118,7 +116,8 @@
         android:id="@+id/btn_item3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="1dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btn_item4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -128,7 +127,8 @@
         android:id="@+id/btn_item4"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="1dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btn_item5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -138,7 +138,8 @@
         android:id="@+id/btn_item5"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="1dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btn_item6"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -148,17 +149,88 @@
         android:id="@+id/btn_item6"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="1dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/bg_bottom"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_item5" />
 
+    <TextView
+        android:id="@+id/tv_club"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="클럽"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_item0" />
+
+    <TextView
+        android:id="@+id/tv_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다이아몬드"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_item1" />
+
+    <TextView
+        android:id="@+id/tv_heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="하트"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_item2" />
+
+    <TextView
+        android:id="@+id/tv_spade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="스페이드"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_item3" />
+
+    <TextView
+        android:id="@+id/tv_jack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="잭"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_item4" />
+
+    <TextView
+        android:id="@+id/tv_queen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="퀸"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_item5" />
+
+    <TextView
+        android:id="@+id/tv_king"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="킹"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_item6"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_item6" />
+
     <ImageView
         android:id="@+id/bg_bottom"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -346,10 +418,11 @@
         android:layout_height="0dp"
 
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+
         android:elevation="5dp"
 
         android:scaleType="fitCenter"
-
         android:src="@drawable/purple_stroke_btn_bg"
         android:theme="@style/PrimaryButtonReten"
         app:layout_constraintBottom_toBottomOf="@+id/bg_mid"
@@ -373,7 +446,7 @@
         app:layout_constraintEnd_toStartOf="@+id/buy_coin"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_openBox"
-        app:layout_constraintTop_toTopOf="@+id/bg_bottom" />
+        app:layout_constraintTop_toTopOf="@+id/btn_openBox" />
 
     <Button
         android:id="@+id/buy_coin"

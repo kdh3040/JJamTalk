@@ -168,7 +168,7 @@ public class MyJewelBoxActivity extends Activity {
             }
             else
             {
-                Img_item[i].setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.MULTIPLY);
+                Img_item[i].setColorFilter(Color.parseColor("#a4a3a4"), PorterDuff.Mode.SRC_ATOP);
                 txt_item[i].setText("미 보유");
 
             }
