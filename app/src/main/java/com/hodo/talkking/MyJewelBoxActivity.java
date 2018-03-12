@@ -209,5 +209,13 @@ public class MyJewelBoxActivity extends Activity {
     }
 
 
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        refreshHearCnt();
+    }
+
+
 }
 
