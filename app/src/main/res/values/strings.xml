@@ -32,13 +32,13 @@
     </string-array>
 
 
-    <string name="Item_0_text">클로버 소개 글</string>
-    <string name="Item_1_text">다이아 소개 글</string>
-    <string name="Item_2_text">하트 소개 글</string>
-    <string name="Item_3_text">스페이드 소개 글</string>
-    <string name="Item_4_text">잭 소개 글</string>
-    <string name="Item_5_text">퀸 소개 글</string>
-    <string name="Item_6_text">킹 소개 글</string>
+    <string name="Item_0_text">\'클럽\'</string>
+    <string name="Item_1_text">\'다이아몬드\'</string>
+    <string name="Item_2_text">\'하트\'</string>
+    <string name="Item_3_text">\'스페이드\'</string>
+    <string name="Item_4_text">\'잭\'</string>
+    <string name="Item_5_text">\'퀸\'</string>
+    <string name="Item_6_text">\'킹\'</string>
 
     <string-array name="OpenItem_text">
         <item>클로버 소개 글</item>
