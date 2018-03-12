@@ -1004,7 +1004,7 @@ public class CommonFunc {
 
       //  if (mMyData.getUserHoney() > CoomonValueData.OPEN_BOX_COST * count)
         {
-            tv_msg.setText((CoomonValueData.OPEN_BOX_COST * count) + "골드가 필요합니다");
+            tv_msg.setText((CoomonValueData.OPEN_BOX_COST * count) + "코인이 필요합니다");
             Button btn_yes = v.findViewById(R.id.btn_yes);
             btn_yes.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1018,7 +1018,7 @@ public class CommonFunc {
 
                         endListener.EndListener();
                     } else {
-                        CommonFunc.getInstance().ShowToast(context, "골드가 부족합니다.", false);
+                        CommonFunc.getInstance().ShowToast(context, "코인이 부족합니다.", false);
                     }
                 }
             });
