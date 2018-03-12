@@ -126,7 +126,7 @@ public class MyJewelBoxActivity extends Activity {
 
         for(int i = 0 ;i < 7; i++)
         {
-            final int finalI = i;
+            final int finalI = i + 1;
             Btn_item[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

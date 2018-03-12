@@ -161,10 +161,12 @@ public class CommonFunc {
     public void refreshMainActivity(Activity mActivity, int StartFragMent) {
         Intent intent = new Intent(mActivity, MainActivity.class);
         intent.putExtra("StartFragment", StartFragMent);
+        intent.putExtra("Noti", 0);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
         mActivity.startActivity(intent);
         mActivity.finish();
-        //mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+
     }
 
     public void MoveUserPage(final Activity mActivity, final UserData tempUserData) {

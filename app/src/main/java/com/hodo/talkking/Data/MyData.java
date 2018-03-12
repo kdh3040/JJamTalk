@@ -2473,18 +2473,28 @@ public class MyData {
         if(itemList.size() == 0)
             return  rtValue;
 
+        boolean bCheckEmpty = true;
         Map<Integer, Integer> tempItemList = new HashMap<Integer, Integer>();
 
         for (int i=0 ;i < itemList.size(); i++)
         {
-            if(itemList.get(i) != 0)
+            if(itemList.get(i) != 0) {
                 tempItemList.put(i, itemList.get(i));
+
+                if(bCheckEmpty == true)
+                    bCheckEmpty = false;
+            }
         }
 
-        TreeMap<Integer,Integer> tm = new TreeMap<Integer,Integer>(tempItemList);
-        Iterator<Integer> iteratorKey = tm.descendingKeySet().iterator(); //키값 내림차순 정렬
-        rtValue = iteratorKey.next();
+        if(bCheckEmpty  == false)
+        {
+            TreeMap<Integer,Integer> tm = new TreeMap<Integer,Integer>(tempItemList);
+            Iterator<Integer> iteratorKey = tm.descendingKeySet().iterator(); //키값 내림차순 정렬
+            rtValue = iteratorKey.next();
+        }
+
         bestItem = rtValue;
+
         //System.out.println(key+","+tm.get(key));
         return rtValue;
     }

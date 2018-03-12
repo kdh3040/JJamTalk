@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.hodo.talkking.ChatRoomActivity;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.LoginActivity;
+import com.hodo.talkking.MainActivity;
 import com.hodo.talkking.R;
 import com.hodo.talkking.Util.CommonFunc;
 
@@ -70,6 +72,38 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
             List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
+
+
+            Intent LoginNotifyIntent =
+                    new Intent(this, MainActivity.class);
+            LoginNotifyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+            LoginNotifyIntent.putExtra("StartFragment", 0);
+            LoginNotifyIntent.putExtra("Noti", 1);
+
+
+            PendingIntent LoginNotifyPendingIntent =
+                    PendingIntent.getActivity(
+                            this,
+                            0,
+                            LoginNotifyIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+
+            Intent notifyIntent =
+                    new Intent(this, LoginActivity.class);
+            notifyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent notifyPendingIntent =
+                    PendingIntent.getActivity(
+                            this,
+                            0,
+                            notifyIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
 
             if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
 
@@ -122,12 +156,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             }
 
-            else {
+            else  if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.BACKGROUND) {
                 builder.setContentTitle(title)
                         .setContentText(body)
                         .setSmallIcon(R.drawable.picture)
                         .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
                         .setAutoCancel(true)
+                        .setContentIntent(LoginNotifyPendingIntent)
                         .setWhen(System.currentTimeMillis());
 
                 if (mMyData.nAlarmSetting_Vibration) {
@@ -141,7 +176,27 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 nm.notify(1234, builder.build());
             }
 
-           mMyData.badgecount++ ;
+            else {
+                builder.setContentTitle(title)
+                        .setContentText(body)
+                        .setSmallIcon(R.drawable.picture)
+                        .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
+                        .setAutoCancel(true)
+                        .setContentIntent(notifyPendingIntent)
+                        .setWhen(System.currentTimeMillis());
+
+                if (mMyData.nAlarmSetting_Vibration) {
+                    builder.setVibrate(new long[] {1000});
+                }
+                if (mMyData.nAlarmSetting_Sound)
+                {
+                    builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
+                }
+                NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                nm.notify(1234, builder.build());
+            }
+
+            mMyData.badgecount++ ;
             Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
             intent.putExtra("badge_count_package_name", "com.hodo.talkking");
             intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
@@ -154,25 +209,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     {
         final DatabaseReference ref;
 
-            ref = FirebaseDatabase.getInstance().getReference().child("User").child(idx);
-            ref.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            int i = 0;
-                            UserData stRecvData = new UserData ();
-                            stRecvData = dataSnapshot.getValue(UserData.class);
-                            if(stRecvData != null) {
+        ref = FirebaseDatabase.getInstance().getReference().child("User").child(idx);
+        ref.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        UserData stRecvData = new UserData ();
+                        stRecvData = dataSnapshot.getValue(UserData.class);
+                        if(stRecvData != null) {
 
-                                Map<String, Object> updateMap = new HashMap<>();
+                            Map<String, Object> updateMap = new HashMap<>();
 
 
-                                if(strSenderHoney != null) {
-                                    nRecvHoneyCnt = stRecvData.RecvCount;
-                                    nRecvHoneyCnt -= Integer.valueOf(strSenderHoney);
-                                    updateMap.put("RecvCount", nRecvHoneyCnt);
-                                    mMyData.setRecvHoneyCnt(Integer.valueOf(strSenderHoney));
-                                    mMyData.setUserHoney(mMyData.getUserHoney() + Integer.valueOf(strSenderHoney));
+                            if(strSenderHoney != null) {
+                                nRecvHoneyCnt = stRecvData.RecvCount;
+                                nRecvHoneyCnt -= Integer.valueOf(strSenderHoney);
+                                updateMap.put("RecvCount", nRecvHoneyCnt);
+                                mMyData.setRecvHoneyCnt(Integer.valueOf(strSenderHoney));
+                                mMyData.setUserHoney(mMyData.getUserHoney() + Integer.valueOf(strSenderHoney));
 
                                   /*  FanData tempData = new FanData();
                                     tempData.Img = strSenderImg;
@@ -180,18 +235,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                     tempData.Nick = strSenderName;
                                     mMyData.makeFanList(tempData, Integer.parseInt(strSenderHoney));*/
 
-                                }
-
-                                ref.updateChildren(updateMap);
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //handle databaseError
-                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                            ref.updateChildren(updateMap);
                         }
-                    });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                    }
+                });
     }
 
 }
