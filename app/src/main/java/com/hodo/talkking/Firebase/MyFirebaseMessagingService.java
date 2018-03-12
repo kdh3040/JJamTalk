@@ -105,7 +105,28 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             PendingIntent.FLAG_UPDATE_CURRENT
                     );
 
-            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.OFF) {
+
+                builder.setContentTitle(title)
+                        .setContentText(body)
+                        .setSmallIcon(R.drawable.picture)
+                        .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
+                        .setAutoCancel(true)
+                        .setContentIntent(notifyPendingIntent)
+                        .setWhen(System.currentTimeMillis());
+
+                if (mMyData.nAlarmSetting_Vibration) {
+                    builder.setVibrate(new long[] {1000});
+                }
+                if (mMyData.nAlarmSetting_Sound)
+                {
+                    builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
+                }
+                NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                nm.notify(1234, builder.build());
+            }
+
+           else if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
 
                 if(mMyData.GetCurFrag() == 2 || mMyData.GetCurFrag() == 5)
                 {
@@ -163,26 +184,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
                         .setAutoCancel(true)
                         .setContentIntent(LoginNotifyPendingIntent)
-                        .setWhen(System.currentTimeMillis());
-
-                if (mMyData.nAlarmSetting_Vibration) {
-                    builder.setVibrate(new long[] {1000});
-                }
-                if (mMyData.nAlarmSetting_Sound)
-                {
-                    builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
-                }
-                NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                nm.notify(1234, builder.build());
-            }
-
-            else {
-                builder.setContentTitle(title)
-                        .setContentText(body)
-                        .setSmallIcon(R.drawable.picture)
-                        .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
-                        .setAutoCancel(true)
-                        .setContentIntent(notifyPendingIntent)
                         .setWhen(System.currentTimeMillis());
 
                 if (mMyData.nAlarmSetting_Vibration) {
