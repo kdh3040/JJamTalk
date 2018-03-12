@@ -1,5 +1,7 @@
 package com.hodo.talkking.Data;
 
+import com.hodo.talkking.Util.CommonFunc;
+
 /**
  * Created by HwanWoong on 2018-01-14.
  */
@@ -45,4 +47,6 @@ public class CoomonValueData  {
 
     public static final Double REF_LAT = 38.910042;
     public static final Double REF_LON = 125.848755;
+
+    public static boolean OFFAPP = true;
 }

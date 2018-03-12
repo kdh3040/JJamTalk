@@ -80,7 +80,7 @@ public class CommonFunc {
     public ImageView Card_Alarm, Chat_Alarm, Mail_Alarm, Fan_Alarm;
     public ImageView Item_Box, Honey_Box, Board_Write, Filter;
     public Button MyBoard_Write;
-    public static AppStatus mAppStatus = AppStatus.OFF;
+    public static AppStatus mAppStatus = AppStatus.FOREGROUND;
 
     private boolean bClickSync = false;
 
@@ -153,10 +153,9 @@ public class CommonFunc {
     }
 
     public enum AppStatus {
-        OFF,
         BACKGROUND,                // app is background
         RETURNED_TO_FOREGROUND,    // app returned to foreground(or first launch)
-        FOREGROUND;                // app is foreground
+        FOREGROUND;            // app is foreground
     }
 
     public void refreshMainActivity(Activity mActivity, int StartFragMent) {

@@ -34,6 +34,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.hodo.talkking.Data.CoomonValueData.OFFAPP;
+
 
 /**
  * Created by boram on 2017-07-19.
@@ -105,7 +107,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             PendingIntent.FLAG_UPDATE_CURRENT
                     );
 
-            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.OFF) {
+            if(OFFAPP == true) {
 
                 builder.setContentTitle(title)
                         .setContentText(body)

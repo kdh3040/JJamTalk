@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +21,7 @@ import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.ViewHolder.BoardViewHolder;
 
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_BOARD;
+import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
  * Created by mjk on 2017. 8. 14..
@@ -88,7 +91,13 @@ public class BoardMyListActivity extends AppCompatActivity {
                                     FirebaseData.getInstance().GetInitBoardData();
                                     FirebaseData.getInstance().GetInitMyBoardData();
 
-                                    //mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
+                                    Fragment frg = null;
+                                    frg = mFragmentMng.findFragmentByTag("BoardFragment");
+                                    final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                                    ft.detach(frg);
+                                    ft.attach(frg);
+                                    ft.commitAllowingStateLoss();
+
                                     onBackPressed();
                                 }
                             };

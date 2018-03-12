@@ -70,43 +70,27 @@ public class BoardWriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final AlertDialog.Builder builder= new AlertDialog.Builder(mActivity);
-
-                //if(mMydata.getUserHoney() > 10)
-                {
-                    builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //mMydata.setUserHoney(mMydata.getUserHoney() - 10);
-
-                            if(CommonFunc.getInstance().IsStringEmptyCheck(txt_Memo.getText().toString()))
-                            {
-                                CommonFunc.getInstance().ShowToast(BoardWriteActivity.this ,"게시글의 내용이 없습니다.",false);
-                                return;
-                            }
-
-                            if(CommonFunc.getInstance().CheckTextMaxLength(txt_Memo.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_BOARD, BoardWriteActivity.this ,"게시판 글쓰기", true) == false)
-                                return;
-
-
-                            BoardMsgDBData sendData = new BoardMsgDBData();
-                            sendData.Idx = mMydata.getUserIdx();
-                            sendData.Msg = txt_Memo.getText().toString();
-                            mFireBaseData.SaveBoardData_GetBoardIndex((BoardWriteActivity)mActivity);
-
-                            CommonFunc.getInstance().LastBoardWrite = null;
-
+                CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                    public void YesListener() {
+                        if(CommonFunc.getInstance().IsStringEmptyCheck(txt_Memo.getText().toString()))
+                        {
+                            CommonFunc.getInstance().ShowToast(BoardWriteActivity.this ,"게시글의 내용이 없습니다.",false);
+                            return;
                         }
-                    }).
-                            setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.cancel();
-                                }
-                            }).setMessage("작성한 글을 게시하시겠습니까?(작성된 글은 수정할 수 없고 삭제만 할 수 있습니다. 게시판글은 10분에 한번씩만 작성할 수 있습니다.)");
-                }
-                AlertDialog dialog = builder.create();
-                dialog.show();
+
+                        if(CommonFunc.getInstance().CheckTextMaxLength(txt_Memo.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_BOARD, BoardWriteActivity.this ,"게시판 글쓰기", true) == false)
+                            return;
+
+
+                        BoardMsgDBData sendData = new BoardMsgDBData();
+                        sendData.Idx = mMydata.getUserIdx();
+                        sendData.Msg = txt_Memo.getText().toString();
+                        mFireBaseData.SaveBoardData_GetBoardIndex((BoardWriteActivity)mActivity);
+
+                        CommonFunc.getInstance().LastBoardWrite = null;
+                    }
+                };
+                CommonFunc.getInstance().ShowDefaultPopup(BoardWriteActivity.this, listener, "게시판 글쓰기","작성한 글을 게시하시겠습니까?\n 10분에 한번 씩 작성할 수 있습니다.", "네", "취소" );
 
             }
         });

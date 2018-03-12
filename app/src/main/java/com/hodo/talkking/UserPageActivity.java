@@ -397,17 +397,28 @@ if(mMyData.itemList.get(i) != 0)
                                 String ChatName1 = stTargetData.Idx + "_"+ mMyData.getUserIdx();
                                 DatabaseReference mRef;
 
+                                if(msg.equals(""))
+                                    msg = mMyData.getUserNick() + "님이 " + heartCount + " 하트를 보냈습니다";
+
                                 if(mMyData.arrChatNameList.contains(ChatName) ) {
                                     mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
+
+                                    mMyData.makeLastMSG(stTargetData, ChatName, msg, formatStr, heartCount);
+
                                 }
                                 else     if(mMyData.arrChatNameList.contains(ChatName1) ) {
                                     mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName1);
+                                    mMyData.makeLastMSG(stTargetData, ChatName1, msg, formatStr, heartCount);
+
                                 }
                                 else
                                     mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
 
 
+
                                 mRef.push().setValue(chat_Data);
+
+
                                 RefreshFanData();
                                 likeAdapter.notifyDataSetChanged();
                             }
