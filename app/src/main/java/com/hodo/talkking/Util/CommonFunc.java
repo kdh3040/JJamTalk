@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.hardware.input.InputManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 
 import com.bumptech.glide.Glide;
@@ -22,9 +24,11 @@ import com.google.android.gms.ads.InterstitialAd;
 import android.support.v7.app.AppCompatDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -1247,6 +1251,18 @@ public class CommonFunc {
                 @Override
                 public void onClick(View view) {
                     dialog.dismiss();
+                }
+            });
+
+            final InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            ConstraintLayout ll = (ConstraintLayout)v.findViewById(R.id.constraintLayout);
+            ll.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    imm.hideSoftInputFromWindow(SendMsg.getWindowToken(), 0);
                 }
             });
         }

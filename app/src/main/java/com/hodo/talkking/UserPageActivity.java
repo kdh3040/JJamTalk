@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,6 +22,7 @@ import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -456,6 +458,18 @@ if(mMyData.itemList.get(i) != 0)
                             final Button No = giftView.findViewById(R.id.btn_cancel);
                             No.setVisibility(View.GONE);
 
+                            final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                            ConstraintLayout ll = (ConstraintLayout)giftView.findViewById(R.id.constraintLayout);
+                            ll.setOnClickListener(new View.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View v)
+                                {
+                                    imm.hideSoftInputFromWindow(Edit.getWindowToken(), 0);
+                                }
+                            });
+
                             break;
                         }
 
@@ -540,6 +554,18 @@ if(mMyData.itemList.get(i) != 0)
                                             msgDialog.dismiss();
 
                                             CommonFunc.getInstance().ShowToast(UserPageActivity.this, "쪽지를 보냈습니다.", true);
+                                        }
+                                    });
+
+                                    final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                                    ConstraintLayout ll = (ConstraintLayout)view1.findViewById(R.id.constraintLayout);
+                                    ll.setOnClickListener(new View.OnClickListener()
+                                    {
+                                        @Override
+                                        public void onClick(View v)
+                                        {
+                                            imm.hideSoftInputFromWindow(et_msg.getWindowToken(), 0);
                                         }
                                     });
                                 }

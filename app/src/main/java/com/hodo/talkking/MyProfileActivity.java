@@ -1,6 +1,7 @@
 package com.hodo.talkking;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -180,6 +183,18 @@ public class MyProfileActivity extends AppCompatActivity {
         et_NickName = (TextView) findViewById(R.id.MyProfile_NickName);
         et_NickName.setText(mMyData.getUserNick());
 
+        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        ConstraintLayout ll = (ConstraintLayout)findViewById(R.id.constraintLayout);
+        ll.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                imm.hideSoftInputFromWindow(et_Memo.getWindowToken(), 0);
+            }
+        });
+
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -239,6 +254,18 @@ public class MyProfileActivity extends AppCompatActivity {
                             body.setText("닉네임 최초 변경은 무료입니다 \n 이후에는 50코인이 소모됩니다");
 
                         builder.setView(view1);
+
+                        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                        ConstraintLayout ll = (ConstraintLayout)view1.findViewById(R.id.constraintLayout);
+                        ll.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                imm.hideSoftInputFromWindow(et_msg.getWindowToken(), 0);
+                            }
+                        });
 
 
                         final AlertDialog msgDialog = builder.create();

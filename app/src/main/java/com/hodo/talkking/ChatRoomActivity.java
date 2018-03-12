@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -301,6 +303,18 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         boolean btnSendEnable = true;
         txt_msg = (EditText)findViewById(R.id.et_nick);
+
+        /*final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        ConstraintLayout ll = (ConstraintLayout)findViewById(R.id.relativeLayout3);
+        ll.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                imm.hideSoftInputFromWindow(txt_msg.getWindowToken(), 0);
+            }
+        });
+        */
 
 
 /*        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, tempChatData.Msg, tempChatData.Date, "");
