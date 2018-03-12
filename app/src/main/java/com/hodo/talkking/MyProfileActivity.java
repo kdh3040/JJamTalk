@@ -640,54 +640,78 @@ public class MyProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if(item.getItemId() == R.id.action_save){
-
-            //프로필 저장 구현
-
-            if(!mMyData.getUserNick().equals(tempNickName))
-                mMyData.setUserNick(tempNickName);
-
-            if(!mMyData.getUserAge().equals(tempAge))
-                mMyData.setUserAge(tempAge);
-
-            if(!mMyData.getUserGender().equals(tempGender))
-                mMyData.setUserGender(tempGender);
-
-            if(!et_Memo.getText().toString().equals(mMyData.getUserMemo()))
-                mMyData.setMemo(et_Memo.getText());
-
-            boolean bChangeImg = false;
-            for(int i=0; i<4; i++)
-            {
-                if(tempImgChange[i] == 1)
-                {
-                    if(i == 0)
-                        UploadThumbNailImage_Firebase(tempImg[i]);
-
-                    UploadImage_Firebase(i, tempImg[i]);
-
-                    bChangeImg = true;
-                }
-
-                if(!tempImg[i].equals(Uri.parse("1")))
-                {
-                    tempImgCnt++;
-                }
-
-                mMyData.setUserProfileImg( i, tempImg[i].toString());
-            }
-
-            mMyData.setUserImgCnt(tempImgCnt);
-
-            if(bChangeImg == false)
-                SaveData();
-
+            MyDataSave();
         }
         if(item.getItemId() == android.R.id.home)
         {
-            onBackPressed();
+            MyDataSave();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void MyDataSave()
+    {
+        boolean bChangeImg = false;
+        for(int i=0; i<4; i++)
+        {
+            if(tempImgChange[i] == 1)
+            {
+                bChangeImg = true;
+            }
+        }
+
+        if(!mMyData.getUserNick().equals(tempNickName) ||
+                !mMyData.getUserAge().equals(tempAge) ||
+                !mMyData.getUserGender().equals(tempGender) ||
+                !et_Memo.getText().toString().equals(mMyData.getUserMemo()) ||
+                bChangeImg)
+        {
+            CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                public void YesListener() {
+                    if(!mMyData.getUserNick().equals(tempNickName))
+                        mMyData.setUserNick(tempNickName);
+
+                    if(!mMyData.getUserAge().equals(tempAge))
+                        mMyData.setUserAge(tempAge);
+
+                    if(!mMyData.getUserGender().equals(tempGender))
+                        mMyData.setUserGender(tempGender);
+
+                    if(!et_Memo.getText().toString().equals(mMyData.getUserMemo()))
+                        mMyData.setMemo(et_Memo.getText());
+
+                    boolean bChangeImg = false;
+                    for(int i=0; i<4; i++)
+                    {
+                        if(tempImgChange[i] == 1)
+                        {
+                            if(i == 0)
+                                UploadThumbNailImage_Firebase(tempImg[i]);
+
+                            UploadImage_Firebase(i, tempImg[i]);
+
+                            bChangeImg = true;
+                        }
+
+                        if(!tempImg[i].equals(Uri.parse("1")))
+                        {
+                            tempImgCnt++;
+                        }
+
+                        mMyData.setUserProfileImg( i, tempImg[i].toString());
+                    }
+
+                    mMyData.setUserImgCnt(tempImgCnt);
+
+                    if(bChangeImg == false)
+                        SaveData();
+                }
+            };
+            CommonFunc.getInstance().ShowDefaultPopup(MyProfileActivity.this, listener, "프로필","변경된 프로필을 저장 하시겠습니까?", "네", "취소" );
+        }
+        else
+            onBackPressed();
     }
 
 
@@ -752,7 +776,6 @@ public class MyProfileActivity extends AppCompatActivity {
     public  void SaveData()
     {
         mFireBaseData.SaveData(mMyData.getUserIdx());
-
         onBackPressed();
     }
 

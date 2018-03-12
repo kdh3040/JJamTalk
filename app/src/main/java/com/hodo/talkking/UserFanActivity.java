@@ -11,8 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -116,6 +118,14 @@ public class UserFanActivity extends AppCompatActivity {
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);
         TextView txt_Title = findViewById(R.id.txt_title);
         txt_Title.setText(stTargetData.NickName + "님의 팬");
+
+        ImageView backBtn = (ImageView)findViewById(R.id.iv_back);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         txt_FanCount = findViewById(R.id.txt_fanCount);
         txt_FanCount.setText(Integer.toString(stTargetData.FanList.size()));
