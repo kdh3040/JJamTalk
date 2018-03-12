@@ -190,8 +190,8 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
             gift_img = (ImageView)itemView.findViewById(R.id.bg_gift);
-            gift_from = (TextView)itemView.findViewById(R.id.from);
-            gift_from_Nickname = (TextView)itemView.findViewById(R.id.from_nickname);
+            //gift_from = (TextView)itemView.findViewById(R.id.from);
+            //gift_from_Nickname = (TextView)itemView.findViewById(R.id.from_nickname);
             gift_to = (TextView)itemView.findViewById(R.id.to);
             gift_to_Nickname = (TextView)itemView.findViewById(R.id.to_nickname);
             gift_Msg = (TextView) itemView.findViewById(R.id.giftmessage);
@@ -413,8 +413,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                     if(chat_message.Heart == 0)
                     {
                         viewHolder.gift_img.setVisibility(ImageView.GONE);
-                        viewHolder.gift_from.setVisibility(TextView.GONE);
-                        viewHolder.gift_from_Nickname.setVisibility(TextView.GONE);
+                        //viewHolder.gift_from.setVisibility(TextView.GONE);
+                        //viewHolder.gift_from_Nickname.setVisibility(TextView.GONE);
                         viewHolder.gift_to.setVisibility(TextView.GONE);
                         viewHolder.gift_to_Nickname.setVisibility(TextView.GONE);
                         viewHolder.gift_Msg.setVisibility(TextView.GONE);
@@ -479,9 +479,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                         viewHolder.send_img2_check.setVisibility(TextView.GONE);
 
                         viewHolder.gift_img.setVisibility(ImageView.VISIBLE);
-                        viewHolder.gift_from.setVisibility(TextView.VISIBLE);
-                        viewHolder.gift_from_Nickname.setVisibility(TextView.VISIBLE);
-                        viewHolder.gift_from_Nickname.setText(mMyData.getUserNick());
+                        //viewHolder.gift_from.setVisibility(TextView.VISIBLE);
+                        //viewHolder.gift_from_Nickname.setVisibility(TextView.VISIBLE);
+                        //viewHolder.gift_from_Nickname.setText(mMyData.getUserNick());
                         viewHolder.gift_to.setVisibility(TextView.VISIBLE);
                         viewHolder.gift_to_Nickname.setVisibility(TextView.VISIBLE);
                         viewHolder.gift_to_Nickname.setText(stTargetData.NickName);
@@ -557,8 +557,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                     if(chat_message.Heart == 0)
                     {
                         viewHolder.gift_img.setVisibility(ImageView.GONE);
-                        viewHolder.gift_from.setVisibility(TextView.GONE);
-                        viewHolder.gift_from_Nickname.setVisibility(TextView.GONE);
+                        //viewHolder.gift_from.setVisibility(TextView.GONE);
+                        //viewHolder.gift_from_Nickname.setVisibility(TextView.GONE);
                         viewHolder.gift_to.setVisibility(TextView.GONE);
                         viewHolder.gift_to_Nickname.setVisibility(TextView.GONE);
                         viewHolder.gift_Msg.setVisibility(TextView.GONE);
@@ -618,9 +618,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                         viewHolder.message1.setVisibility(View.GONE);
 
                         viewHolder.gift_img.setVisibility(ImageView.VISIBLE);
-                        viewHolder.gift_from.setVisibility(TextView.VISIBLE);
-                        viewHolder.gift_from_Nickname.setVisibility(TextView.VISIBLE);
-                        viewHolder.gift_from_Nickname.setText(stTargetData.NickName);
+                        //viewHolder.gift_from.setVisibility(TextView.VISIBLE);
+                        //viewHolder.gift_from_Nickname.setVisibility(TextView.VISIBLE);
+                        //viewHolder.gift_from_Nickname.setText(stTargetData.NickName);
                         viewHolder.gift_to.setVisibility(TextView.VISIBLE);
                         viewHolder.gift_to_Nickname.setVisibility(TextView.VISIBLE);
                         viewHolder.gift_to_Nickname.setText(mMyData.getUserNick());

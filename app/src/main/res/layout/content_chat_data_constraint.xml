@@ -161,40 +161,15 @@
 
 
     <TextView
-        android:id="@+id/from"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginLeft="10dp"
-        android:text="From"
-        android:textColor="@color/gray"
-
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/from_nickname"
-        app:layout_constraintLeft_toLeftOf="@id/bg_gift" />
-
-    <TextView
-        android:id="@+id/from_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-
-        android:gravity="bottom"
-        android:text="선물주는 닉네임"
-        android:textSize="18sp"
-
-        app:layout_constraintLeft_toRightOf="@+id/from"
-        app:layout_constraintTop_toTopOf="@id/bg_gift" />
-
-    <TextView
         android:id="@+id/to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:text="To"
         android:textColor="@color/gray"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/to_nickname"
-        app:layout_constraintLeft_toLeftOf="@+id/from" />
+        app:layout_constraintLeft_toLeftOf="@+id/bg_gift" />
 
     <TextView
         android:id="@+id/to_nickname"
@@ -202,11 +177,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="bottom"
-        android:textSize="18sp"
         android:text="선물받는닉네임"
-
-        app:layout_constraintLeft_toLeftOf="@+id/from_nickname"
-        app:layout_constraintTop_toBottomOf="@+id/from_nickname" />
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="@id/bg_gift"
+        app:layout_constraintLeft_toRightOf="@+id/to" />
 
     <TextView
         android:id="@+id/giftmessage"

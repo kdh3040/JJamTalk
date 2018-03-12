@@ -9,7 +9,7 @@
         android:id="@+id/bg_topbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@android:color/white"
+        android:background="@color/baseColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,7 +19,8 @@
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_backarrow"
+        android:layout_marginLeft="4dp"
+        android:src="@drawable/backarrow"
         app:layout_constraintBottom_toBottomOf="@+id/bg_topbar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bg_topbar" />
@@ -28,12 +29,13 @@
         android:id="@+id/iv_Activity"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
         android:gravity="center_vertical"
         android:padding="3dp"
         android:text="내 카드"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20dp"
         app:layout_constraintLeft_toRightOf="@+id/back"
         app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -59,7 +61,7 @@
         android:gravity="center_vertical"
         android:padding="3dp"
         android:text="보유 골드"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>

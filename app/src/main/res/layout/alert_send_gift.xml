@@ -167,7 +167,7 @@
         android:layout_margin="16dp"
         android:background="@drawable/et_outline"
         android:gravity="bottom|left"
-        android:hint="동봉할 메세지(50자 이내)"
+        android:hint="같이 보낼 메세지(50자 이내)"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="50"
         android:minLines="3"
