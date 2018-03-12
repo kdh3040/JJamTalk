@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
     public static android.support.v4.app.FragmentManager mFragmentMng;
 
     public int nStartFragment = 0;
+    public int nStartByNoti = 0;
 
     // 눌렀을때의 폰트 색상
     private int nEnableFontColor = Color.BLACK;
@@ -255,12 +256,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            Intent intent = new Intent(mActivity, MainActivity.class);
-            intent.putExtra("StartFragment", 0);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            mActivity.startActivity(intent);
-            mActivity.finish();
-            mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+            mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
         }
 
         @Override
@@ -324,6 +320,13 @@ public class MainActivity extends AppCompatActivity {
         mFragmentMng = getSupportFragmentManager();
         MobileAds.initialize(getApplicationContext(),"ca-app-pub-8954582850495744~7252454040");
 
+        Bundle bundle = getIntent().getExtras();
+        nStartFragment = (int) bundle.getSerializable("StartFragment");
+        nStartByNoti = (int) bundle.getSerializable("Noti");
+        if(nStartByNoti == 1)
+            return;
+
+
 
         if(mMyData.getUserIdx() == null)
         {
@@ -356,8 +359,7 @@ public class MainActivity extends AppCompatActivity {
             sendBroadcast(intent);
         }
 
-        Bundle bundle = getIntent().getExtras();
-        nStartFragment = (int) bundle.getSerializable("StartFragment");
+
 
         logo = findViewById(R.id.iv_logo);
 

@@ -201,9 +201,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         mActivity = this;
 
-
-/*        mDialog = new AlertDialog.Builder(this);
-        new getMarketVersion().execute();*/
+        //mDialog = new AlertDialog.Builder(this);
+        //new getMarketVersion().execute();
 
 
         try {
@@ -312,7 +311,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             .enableAutoManage(this *//* FragmentActivity *//*, this *//* OnConnectionFailedListener *//*)
                             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                             .build();*/
-
                     FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
                     Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
 
@@ -586,7 +584,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         intent.putExtras(bundle);
 
         startActivity(intent);
-        finish();
+       // finish();
     }
     private void GoMainPage() {
 
@@ -595,7 +593,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         FirebaseData.getInstance().GetInitMyBoardData();
         FirebaseData.getInstance().SaveData(mMyData.getUserIdx());
         mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
-        finish();
+        //finish();
         /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);
