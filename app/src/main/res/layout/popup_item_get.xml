@@ -10,8 +10,9 @@
         android:id="@+id/iv_item"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
+        android:padding="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/randombox" />
@@ -20,19 +21,33 @@
         android:id="@+id/tv_content"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
+        android:gravity="bottom|center_horizontal"
+
         android:text="곤봉 또는 몽둥이를 의미. 농민을 상징하며 지혜를 뜻한다. 곤봉에 붙어있던 클로버잎에서 유래."
-        app:layout_constraintBottom_toBottomOf="@+id/iv_item"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_prob"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/iv_item"
         app:layout_constraintTop_toTopOf="@+id/iv_item" />
+
+    <TextView
+        android:id="@+id/tv_prob"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="나올 확률 1/2000"
+        android:textColor="@color/gray"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_item"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_content"
+        app:layout_constraintRight_toRightOf="@+id/tv_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/purple_btn_bg"
         android:text="되팔기"
