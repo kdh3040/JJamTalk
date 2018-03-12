@@ -84,6 +84,7 @@ import java.util.List;
 import java.util.Random;
 
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.hodo.talkking.Data.CoomonValueData.OFFAPP;
 import static com.hodo.talkking.Data.CoomonValueData.REF_LAT;
 import static com.hodo.talkking.Data.CoomonValueData.REF_LON;
 import static com.hodo.talkking.Data.CoomonValueData.UNIQ_FANCOUNT;
@@ -306,6 +307,15 @@ public class MainActivity extends AppCompatActivity {
                 ft.attach(frg);
                 ft.commit();
             }
+ /*           if(mMyData.GetCurFrag() == 3)
+            {
+                Fragment frg = null;
+                frg = mFragmentMng.findFragmentByTag("FanListFragment");
+                final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                ft.detach(frg);
+                ft.attach(frg);
+                ft.commit();
+            }*/
         }
     }
 
@@ -323,6 +333,9 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         nStartFragment = (int) bundle.getSerializable("StartFragment");
         nStartByNoti = (int) bundle.getSerializable("Noti");
+
+
+        OFFAPP = false;
         if(nStartByNoti == 1)
             return;
 

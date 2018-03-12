@@ -1011,7 +1011,6 @@ public class MyData {
                             SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
                             arrMyFanDataList.put(finalTempFanData.Idx, DBData);
 
-              /*              CommonFunc.getInstance().SetFanAlarmVisible(true);
                             if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
                                 if(GetCurFrag() == 3)
                                 {
@@ -1022,7 +1021,7 @@ public class MyData {
                                     ft.attach(frg);
                                     ft.commit();
                                 }
-                            }*/
+                            }
 
                         }
 
@@ -1048,8 +1047,8 @@ public class MyData {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
                             arrMyFanDataList.put(finalTempFanData.Idx, DBData);
+                            arrMyFanRecvList.put(finalTempFanData.Idx, finalTempFanData);
 
-              /*              CommonFunc.getInstance().SetFanAlarmVisible(true);
                             if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
                                 if(GetCurFrag() == 3)
                                 {
@@ -1060,7 +1059,7 @@ public class MyData {
                                     ft.attach(frg);
                                     ft.commit();
                                 }
-                            }*/
+                            }
 
                         }
 
@@ -1074,17 +1073,7 @@ public class MyData {
                 }
 
                 CommonFunc.getInstance().SetFanAlarmVisible(true);
-                if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
-                    if(GetCurFrag() == 3)
-                    {
-                        Fragment frg = null;
-                        frg = mFragmentMng.findFragmentByTag("FanListFragment");
-                        final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                        ft.detach(frg);
-                        ft.attach(frg);
-                        ft.commit();
-                    }
-                }
+
 
             }
 

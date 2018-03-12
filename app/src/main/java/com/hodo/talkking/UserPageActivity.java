@@ -406,8 +406,13 @@ if(mMyData.itemList.get(i) != 0)
                                 else
                                     mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
 
+                                if(msg.equals(""))
+                                    msg = mMyData.getUserNick() + "님이 " + heartCount + " 하트를 보냈습니다";
+                                mMyData.makeLastMSG(stTargetData, ChatName, msg, formatStr, heartCount);
 
                                 mRef.push().setValue(chat_Data);
+
+
                                 RefreshFanData();
                                 likeAdapter.notifyDataSetChanged();
                             }

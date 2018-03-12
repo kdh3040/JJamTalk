@@ -40,6 +40,8 @@ import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.hodo.talkking.MainActivity.mFragmentMng;
+
 /**
  * Created by mjk on 2017. 8. 10..
  */
@@ -61,8 +63,12 @@ public class FanListFragment extends Fragment {
 
     private void refreshFragMent()
     {
-        FragmentTransaction trans = getFragmentManager().beginTransaction();
-        trans.detach(this).attach(this).commit();
+        Fragment frg = null;
+        frg = mFragmentMng.findFragmentByTag("FanListFragment");
+        final FragmentTransaction ft = mFragmentMng.beginTransaction();
+        ft.detach(frg);
+        ft.attach(frg);
+        ft.commit();
     }
 
 
