@@ -111,8 +111,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 builder.setContentTitle(title)
                         .setContentText(body)
-                        .setSmallIcon(R.drawable.picture)
-                        .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
+                        .setSmallIcon(R.mipmap.ic_logo)
+                        .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_logo))
                         .setAutoCancel(true)
                         .setContentIntent(notifyPendingIntent)
                         .setWhen(System.currentTimeMillis());
@@ -134,8 +134,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 {
                     builder.setContentTitle(title)
                             .setContentText(body)
-                            .setSmallIcon(R.drawable.picture)
-                            .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
+                            .setSmallIcon(R.mipmap.ic_logo)
+                            .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_logo))
                             .setAutoCancel(true)
                             .setWhen(System.currentTimeMillis());
 
@@ -154,8 +154,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 {
                     builder.setContentTitle(title)
                             .setContentText(body)
-                            .setSmallIcon(R.drawable.picture)
-                            .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
+                            .setSmallIcon(R.mipmap.ic_logo)
+                            .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_logo))
                             .setAutoCancel(true)
                             .setWhen(System.currentTimeMillis())
                             .setDefaults(Notification.DEFAULT_LIGHTS);
@@ -182,8 +182,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             else  if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.BACKGROUND) {
                 builder.setContentTitle(title)
                         .setContentText(body)
-                        .setSmallIcon(R.drawable.picture)
-                        .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.picture))
+                        .setSmallIcon(R.mipmap.ic_logo)
+                        .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_logo))
                         .setAutoCancel(true)
                         .setContentIntent(LoginNotifyPendingIntent)
                         .setWhen(System.currentTimeMillis());

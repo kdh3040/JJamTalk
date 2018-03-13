@@ -1,193 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hodo.talkking" android:versionCode="1" android:versionName="1.0.2">
+    package="com.hodo.talkking"
+    android:versionCode="1"
+    android:versionName="1.0.2">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="com.android.vending.BILLING"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.REORDER_TASKS"/>
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@layout/app_icon"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="com.hodo.talkking.MainActivity"
-            android:theme="@style/NoTitleBar"
-            android:screenOrientation="portrait"
-            android:parentActivityName="com.hodo.talkking.LoginActivity"
-           />
-
-
-
-
         <activity
-            android:name="com.hodo.talkking.LoginActivity"
-            android:theme ="@style/NoTitleBar"
+            android:name=".MainActivity"
+            android:parentActivityName=".LoginActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/NoTitleBar" />
+        <activity
+            android:name=".LoginActivity"
             android:launchMode="singleTop"
->
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
-        <service
-            android:name="com.hodo.talkking.Firebase.MyFirebaseInstanceIdSerivce">
+        <service android:name=".Firebase.MyFirebaseInstanceIdSerivce">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".Firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name="com.hodo.talkking.Firebase.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
-
-        <activity android:name="com.hodo.talkking.SignUpActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name="com.hodo.talkking.MyProfileActivity"
-
+        <activity
+            android:name=".SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyProfileActivity"
             android:label="프로필"
-            android:screenOrientation="portrait"
-            />
-
-        <activity android:name="com.hodo.talkking.MyPageActivity"
-
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyPageActivity"
             android:label="내 페이지"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name="com.hodo.talkking.SettingActivity"
-
-            android:screenOrientation="portrait"
-            android:label="설정">
-        </activity>
-        <activity android:name="com.hodo.talkking.FanClubActivity"
-            android:label="팬"
-
-            android:screenOrientation="portrait"
-            >
-
-        </activity>
-
-        <activity android:name="com.hodo.talkking.UserFanActivity"
-            android:theme="@style/NoTitleBar"
-            android:screenOrientation="portrait"
-            >
-
-        </activity>
-
-        <activity android:name="com.hodo.talkking.MainSettingActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="com.hodo.talkking.BuyGoldActivity"
-            android:screenOrientation="portrait"
-
-            android:label="코인 충전하기"
-            />
-
-        <activity android:name="com.hodo.talkking.Kakao.KakaoSignupActivity"       android:screenOrientation="portrait"/>
-        <activity android:name="com.hodo.talkking.ClickedMyPicActivity"
-            android:theme ="@style/NoTitleBar"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="com.hodo.talkking.InputProfile"       android:screenOrientation="portrait"></activity>
-
-        <activity android:name="com.hodo.talkking.UserPageActivity"
-            android:theme="@style/NoTitleBar"       android:screenOrientation="portrait"></activity>
-
-
-        <activity android:name="com.hodo.talkking.ChatRoomActivity"
-
-            android:screenOrientation="portrait"
-            ></activity>
-
-        <activity android:name="com.hodo.talkking.BoardItemActivity"
-            android:label="허허참"
-            android:screenOrientation="portrait"
-            ></activity>
-
-        <activity android:name="com.hodo.talkking.BoardWriteActivity"
-
-            android:label="글쓰기"
-            android:screenOrientation="portrait"
-            ></activity>
-
-        <activity android:name="com.hodo.talkking.BoardMyListActivity"
-
-            android:label="내가 쓴 글"
-            android:screenOrientation="portrait"
-            ></activity>
-
-        <activity android:name="com.hodo.talkking.ImageViewPager"
-            android:theme="@style/NoTitleBar"
-            android:screenOrientation="portrait"
-            ></activity>
-
-        <activity android:name="com.hodo.talkking.MyImageViewPager"
-            android:theme="@style/NoTitleBar"
-            android:screenOrientation="portrait"
-            ></activity>
-
-        <activity android:name="com.hodo.talkking.BlockListActivity"
-            android:label="차단 목록"
-
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingActivity"
+            android:label="설정"
             android:screenOrientation="portrait"></activity>
-
-        <activity android:name="com.hodo.talkking.MailboxActivity"
-
-            android:label="우체통"       android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".FanClubActivity"
+            android:label="팬"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".UserFanActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleBar"></activity>
+        <activity
+            android:name=".MainSettingActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".BuyGoldActivity"
+            android:label="코인 충전하기"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Kakao.KakaoSignupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ClickedMyPicActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleBar"></activity>
+        <activity
+            android:name=".InputProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UserPageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleBar" />
+        <activity
+            android:name=".ChatRoomActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BoardItemActivity"
+            android:label="허허참"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BoardWriteActivity"
+            android:label="글쓰기"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BoardMyListActivity"
+            android:label="내가 쓴 글"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ImageViewPager"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleBar" />
+        <activity
+            android:name=".MyImageViewPager"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleBar" />
+        <activity
+            android:name=".BlockListActivity"
+            android:label="차단 목록"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MailboxActivity"
+            android:label="우체통"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent"/>
-
-        <activity android:name="com.hodo.talkking.HoneyGetHistoryActivity"
-            android:label= "받은 꿀"      android:screenOrientation="portrait"></activity>
-
-        <activity android:name="com.hodo.talkking.HoneySentHistoryActivity"
-            android:label= "선물한 꿀"      android:screenOrientation="portrait"></activity>
-
         <activity
-            android:name="com.hodo.talkking.MyJewelBoxActivity"
-            android:theme="@style/NoTitleBar"
-            android:label="내 아이템"      android:screenOrientation="portrait"></activity>
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".HoneyGetHistoryActivity"
+            android:label="받은 꿀"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HoneySentHistoryActivity"
+            android:label="선물한 꿀"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyJewelBoxActivity"
+            android:label="내 아이템"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleBar" />
+        <activity
+            android:name=".privacyActivity"
+            android:label="@string/title_activity_privacy"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
