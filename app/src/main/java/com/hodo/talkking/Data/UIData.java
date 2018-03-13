@@ -26,7 +26,8 @@ public class UIData {
 
     private int width;
     private int height;
-    private String Items[] = {"랜덤박스", "클럽", "다이아몬드", "하트", "스페이드", "잭", "퀸", "킹"};
+    private String ItemProb[] = {"70%", "22%", "4%", "1.7%", "1.4%", "0.6%", "0.05%"};
+    private String Items[] = {"랜덤박스", "진주", "오팔", "자수정", "사파이어", "루비", "에메랄드", "다이아몬드"};
     private String ItemsReference[] = {"페레가모 구두", "구찌 드레스", "헤르메스 가방", "롤렉스 시계", "다이아몬드", "페라리", "럭셔리 요트", "전용기"};
     private int jewels[] = { R.drawable.randombox, R.drawable.club_s,R.drawable.dia_s,R.drawable.heart,R.drawable.spade_s,R.drawable.jackface,R.drawable.queenface,R.drawable.kingface};
     private int grades[] = {R.drawable.rank_bronze,R.drawable.rank_silver,R.drawable.rank_gold,R.drawable.rank_diamond,R.drawable.rank_vip,R.drawable.rank_vvip};
@@ -70,6 +71,10 @@ public class UIData {
 
     public int[] getGrades(){
         return grades;
+    }
+
+    public String[] getProb(){
+        return ItemProb;
     }
 
     public int getWidth() {

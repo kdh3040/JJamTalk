@@ -33,7 +33,7 @@
         android:background="@android:color/transparent"
         android:gravity="center_vertical"
         android:padding="3dp"
-        android:text="내 카드"
+        android:text="내 아이템"
         android:textColor="@android:color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/bg_topbar"
