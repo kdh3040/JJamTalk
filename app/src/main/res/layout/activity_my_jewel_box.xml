@@ -33,11 +33,9 @@
         android:background="@android:color/transparent"
         android:gravity="center_vertical"
         android:padding="3dp"
-<<<<<<< HEAD
+
         android:text="보석상자"
-=======
-        android:text="내 아이템"
->>>>>>> 3c5ae17f7bf3448c23b932562a91e49b7e83076c
+
         android:textColor="@android:color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/bg_topbar"
