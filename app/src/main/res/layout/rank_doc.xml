@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/chat_gift_bg">
+    android:background="@drawable/purple_rank_doc_bg">
 
     <TextView
         android:id="@+id/mycoin"
@@ -38,6 +38,7 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="false"
         android:layout_below="@+id/tv_rank"
+        android:layout_marginLeft="16dp"
         app:srcCompat="@drawable/rank_bronze" />
 
     <ImageView
@@ -45,6 +46,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_below="@+id/bronze"
+        android:layout_marginLeft="16dp"
         app:srcCompat="@drawable/rank_silver" />
 
     <ImageView
@@ -52,6 +54,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_below="@+id/silver"
+        android:layout_marginLeft="16dp"
         app:srcCompat="@drawable/rank_gold" />
 
     <ImageView
@@ -59,6 +62,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_below="@+id/gold"
+        android:layout_marginLeft="16dp"
         app:srcCompat="@drawable/rank_diamond" />
 
     <ImageView
@@ -66,6 +70,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_below="@+id/diamond"
+        android:layout_marginLeft="16dp"
         app:srcCompat="@drawable/rank_vip" />
 
     <ImageView
@@ -73,12 +78,14 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_below="@+id/vip"
+        android:layout_marginLeft="16dp"
         app:srcCompat="@drawable/rank_vvip" />
 
     <TextView
         android:id="@+id/tv_bronze"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_alignRight="@+id/tv_rank"
         android:layout_below="@+id/tv_rank"
         android:layout_toRightOf="@+id/bronze"
         android:gravity="center"
@@ -86,45 +93,50 @@
 
     <TextView
         android:id="@+id/tv_silver"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/silver"
+        android:layout_alignRight="@+id/tv_rank"
         android:layout_toRightOf="@+id/silver"
         android:gravity="center"
         android:text="Silver" />
 
     <TextView
         android:id="@+id/tv_gold"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/gold"
+        android:layout_alignRight="@+id/tv_rank"
         android:layout_toRightOf="@+id/gold"
         android:gravity="center"
         android:text="Gold" />
 
     <TextView
         android:id="@+id/tv_diamond"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/diamond"
+        android:layout_alignRight="@+id/tv_rank"
         android:layout_toRightOf="@+id/diamond"
         android:gravity="center"
         android:text="Diamond" />
 
     <TextView
         android:id="@+id/tv_vip"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/vip"
+        android:layout_alignRight="@+id/tv_rank"
         android:layout_toRightOf="@+id/vip"
         android:gravity="center"
         android:text="VIP" />
 
     <TextView
         android:id="@+id/tv_vvip"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/vvip"
+        android:layout_alignRight="@+id/tv_rank"
         android:layout_toRightOf="@+id/vvip"
         android:gravity="center"
         android:text="VVIP" />
