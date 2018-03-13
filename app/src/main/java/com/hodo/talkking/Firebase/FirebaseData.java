@@ -105,12 +105,6 @@ public class FirebaseData {
 
                 mMyData.setUserIdx(rtStr[0]);
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference table = database.getReference("UserIdx");
-                final DatabaseReference user = table.child(Uid);
-                user.setValue(rtStr[0]);
-
-
             }
         });
 
