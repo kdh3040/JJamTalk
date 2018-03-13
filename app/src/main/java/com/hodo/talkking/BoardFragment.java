@@ -127,7 +127,7 @@ public class BoardFragment extends Fragment {
                                 }
                             };
 
-                            CommonFunc.getInstance().ShowDefaultPopup(getContext(), listener, "신고", "신고하시겠습니까?", "예", "아니요");
+                            CommonFunc.getInstance().ShowDefaultPopup(getContext(), listener, null, "신고", "신고하시겠습니까?", "예", "아니요");
                             break;
                         }
                     }
