@@ -35,6 +35,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -118,6 +119,11 @@ public class InputProfile extends AppCompatActivity {
 
     private Button CheckBtn;
 
+    private CheckBox CbAccess, CbLoc;
+    private Button BtnAccess;
+    private Button BtnLoc;
+    private Button BtnPrivacy;
+
     private FusedLocationProviderClient mFusedLocationClient;
 
     LocationManager locationManager;
@@ -160,23 +166,23 @@ public class InputProfile extends AppCompatActivity {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                            mMyData.arrUserAll_Recv.add(cTempData);
+                                        mMyData.arrUserAll_Recv.add(cTempData);
 
-                                            if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
-                                            {
-                                                mMyData.arrUserWoman_Recv.add(cTempData);
-                                            }
-                                            else {
-                                                mMyData.arrUserMan_Recv.add(cTempData);
-                                            }
-
-                                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                            i++;
+                                        if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                        {
+                                            mMyData.arrUserWoman_Recv.add(cTempData);
+                                        }
+                                        else {
+                                            mMyData.arrUserMan_Recv.add(cTempData);
                                         }
 
-                                        mMyData.bHotMemberReady = true;
+                                        mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        i++;
+                                    }
+
+                                    mMyData.bHotMemberReady = true;
 
                                 }
                             }
@@ -568,6 +574,40 @@ public class InputProfile extends AppCompatActivity {
             }
         });
 
+        BtnAccess= (Button) findViewById(R.id.btn_access);
+        BtnAccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AccessActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+        BtnLoc= (Button) findViewById(R.id.btn_loc);
+        BtnLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), LocActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+        BtnPrivacy= (Button) findViewById(R.id.btn_privacy);
+        BtnPrivacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), privacyActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+        CbAccess = (CheckBox) findViewById(R.id.cb_access);
+        CbLoc= (CheckBox) findViewById(R.id.cb_loc);
+
+
         CheckBtn = (Button) findViewById(R.id.InputProfile_Check);
         CheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -591,6 +631,16 @@ public class InputProfile extends AppCompatActivity {
                 if (strImg == null) {
                     CommonFunc.getInstance().ShowToast(InputProfile.this, "사진을 입력 해주세요", true);
                 }
+
+                if(!CbAccess.isChecked())
+                {
+                    CommonFunc.getInstance().ShowToast(InputProfile.this, "이용약관에 동의해주세요", true);
+                }
+                if(!CbLoc.isChecked())
+                {
+                    CommonFunc.getInstance().ShowToast(InputProfile.this, "위치정보 이용에 동의해주세요", true);
+                }
+
                 else
                 {
                     bClickSave = true;

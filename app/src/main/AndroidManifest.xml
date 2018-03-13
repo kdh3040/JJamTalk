@@ -73,18 +73,18 @@
         <activity
             android:name=".SettingActivity"
             android:label="설정"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".FanClubActivity"
             android:label="팬"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UserFanActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoTitleBar"></activity>
+            android:theme="@style/NoTitleBar" />
         <activity
             android:name=".MainSettingActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".BuyGoldActivity"
             android:label="코인 충전하기"
@@ -95,7 +95,7 @@
         <activity
             android:name=".ClickedMyPicActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoTitleBar"></activity>
+            android:theme="@style/NoTitleBar" />
         <activity
             android:name=".InputProfile"
             android:screenOrientation="portrait" />
@@ -162,6 +162,14 @@
         <activity
             android:name=".privacyActivity"
             android:label="@string/title_activity_privacy"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AccessActivity"
+            android:label="@string/title_activity_access"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LocActivity"
+            android:label="@string/title_activity_loc"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
