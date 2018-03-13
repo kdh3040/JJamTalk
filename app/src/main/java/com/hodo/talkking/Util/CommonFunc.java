@@ -928,7 +928,7 @@ public class CommonFunc {
         TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
         //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
 
-        Text_Prob.setText("나올 확률 " + UIData.getInstance().getProb()[Index]);
+        Text_Prob.setText("확률 " + UIData.getInstance().getProb()[Index]);
         CommonFunc.getInstance().View_OpenedItem(context, v, Index, Img_Opened, Text_Opened);
 
         Button btn_confirm = v.findViewById(R.id.button3);
