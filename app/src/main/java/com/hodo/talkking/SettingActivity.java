@@ -254,7 +254,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), privacyActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AccessActivity.class);
                 startActivity(intent);
             }
         });

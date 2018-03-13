@@ -25,6 +25,7 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -33,8 +34,10 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -110,13 +113,18 @@ public class InputProfile extends AppCompatActivity {
     StorageReference storageRef = storage.getReferenceFromUrl("gs://talkking-2aa18.appspot.com/");
 
     private ImageView mProfileImage;
-    private EditText mNickName;
+    private EditText mNickName, mMemo;
 
     private Spinner AgeSpinner;
     private Spinner GenderSpinner;
     private  int nAge1, nGender;
 
     private Button CheckBtn;
+
+    private CheckBox CbAccess, CbLoc;
+    private Button BtnAccess;
+    private Button BtnLoc;
+    private Button BtnPrivacy;
 
     private FusedLocationProviderClient mFusedLocationClient;
 
@@ -160,23 +168,23 @@ public class InputProfile extends AppCompatActivity {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                            mMyData.arrUserAll_Recv.add(cTempData);
+                                        mMyData.arrUserAll_Recv.add(cTempData);
 
-                                            if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
-                                            {
-                                                mMyData.arrUserWoman_Recv.add(cTempData);
-                                            }
-                                            else {
-                                                mMyData.arrUserMan_Recv.add(cTempData);
-                                            }
-
-                                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                            i++;
+                                        if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                        {
+                                            mMyData.arrUserWoman_Recv.add(cTempData);
+                                        }
+                                        else {
+                                            mMyData.arrUserMan_Recv.add(cTempData);
                                         }
 
-                                        mMyData.bHotMemberReady = true;
+                                        mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                                        i++;
+                                    }
+
+                                    mMyData.bHotMemberReady = true;
 
                                 }
                             }
@@ -474,10 +482,6 @@ public class InputProfile extends AppCompatActivity {
         final Bundle bundle = getIntent().getExtras();
         strIdx = (String) bundle.getSerializable("Idx");
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("UserIdx");
-        final DatabaseReference UserIdx = table.child(mMyData.ANDROID_ID);
-        UserIdx.setValue(strIdx);
         mMyData.setUserIdx(strIdx);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
@@ -532,6 +536,21 @@ public class InputProfile extends AppCompatActivity {
         });
 
         mNickName = (EditText) findViewById(R.id.InputProfile_NickName);
+        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        mMemo = (EditText) findViewById(R.id.InputProfile_Memo);
+        ConstraintLayout ll = (ConstraintLayout)findViewById(R.id.linearLayout);
+        ll.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                imm.hideSoftInputFromWindow(mMemo.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(mNickName.getWindowToken(), 0);
+            }
+        });
+
+
 
         AgeSpinner = (Spinner) findViewById(R.id.InputProfile_Age_1);
         AgeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -568,6 +587,40 @@ public class InputProfile extends AppCompatActivity {
             }
         });
 
+        BtnAccess= (Button) findViewById(R.id.btn_access);
+        BtnAccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AccessActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+        BtnLoc= (Button) findViewById(R.id.btn_loc);
+        BtnLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), LocActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+        BtnPrivacy= (Button) findViewById(R.id.btn_privacy);
+        BtnPrivacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), privacyActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+        CbAccess = (CheckBox) findViewById(R.id.cb_access);
+        CbLoc= (CheckBox) findViewById(R.id.cb_loc);
+
+
         CheckBtn = (Button) findViewById(R.id.InputProfile_Check);
         CheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -577,6 +630,10 @@ public class InputProfile extends AppCompatActivity {
 
                 String strNickName = mNickName.getText().toString();
                 strNickName = CommonFunc.getInstance().RemoveEmptyString(strNickName);
+
+                String strMemo = mMemo.getText().toString();
+
+
                 String strImg = mMyData.getUserImg();
 
 
@@ -591,18 +648,33 @@ public class InputProfile extends AppCompatActivity {
                 if (strImg == null) {
                     CommonFunc.getInstance().ShowToast(InputProfile.this, "사진을 입력 해주세요", true);
                 }
+
+                if(!CbAccess.isChecked())
+                {
+                    CommonFunc.getInstance().ShowToast(InputProfile.this, "이용약관에 동의해주세요", true);
+                }
+                if(!CbLoc.isChecked())
+                {
+                    CommonFunc.getInstance().ShowToast(InputProfile.this, "위치정보 이용에 동의해주세요", true);
+                }
+
                 else
                 {
+
                     bClickSave = true;
                     CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "환영합니다");
 
                     UploadThumbNailImage_Firebase(tempImgUri);
                     UploadImage_Firebase(tempImgUri);
 
+
+
                     mMyData.setUserDate();
                     mMyData.nStartAge = (Integer.parseInt(mMyData.getUserAge()) / 10) * 10;
                     mMyData.nEndAge = mMyData.nStartAge + 19;
                     mMyData.setUserNick(strNickName);
+                    mMyData.setUserMemo(strMemo);
+
                     mMyData.setUserHoney(50);
 
 
@@ -711,47 +783,85 @@ public class InputProfile extends AppCompatActivity {
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
         } catch (Exception e) {
+            FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+
+            FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
+            currentUser.delete()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "잘못된 이미지 입니다", Toast.LENGTH_SHORT);
+                                mMyData.Clear();
+                                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                            }
+                        }
+                    });
         }
 
-        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 60)
+        if(bitmap == null)
         {
-            options.inSampleSize = calculateInSampleSize(options, 100, 100 , 8);
-            try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
-            } catch (Exception e) {
-            }
+
+            FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+
+            FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
+            currentUser.delete()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "잘못된 이미지 입니다", Toast.LENGTH_SHORT);
+                                mMyData.Clear();
+                                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                            }
+                        }
+                    });
         }
 
         else
         {
-            try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
-            } catch (Exception e) {
+            if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 60)
+            {
+                options.inSampleSize = calculateInSampleSize(options, 100, 100 , 8);
+                try {
+                    bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+                } catch (Exception e) {
+                }
             }
+
+            else
+            {
+                try {
+                    bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+                } catch (Exception e) {
+                }
+            }
+
+            bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            //bitmap.createScaledBitmap(bitmap, 50, 50, true);
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = riversRef.putBytes(data);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    TrThumbNail(downloadUrl);
+                }
+            });
         }
 
-        bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        //bitmap.createScaledBitmap(bitmap, 50, 50, true);
-
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-        byte[] data = baos.toByteArray();
-
-        UploadTask uploadTask = riversRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                TrThumbNail(downloadUrl);
-            }
-        });
     }
 
     private void UploadImage_Firebase(Uri file) {
@@ -767,34 +877,71 @@ public class InputProfile extends AppCompatActivity {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
             bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
         } catch (Exception e) {
+            FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+
+            FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
+            currentUser.delete()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "잘못된 이미지 입니다", Toast.LENGTH_SHORT);
+                                mMyData.Clear();
+                                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                            }
+                        }
+                    });
         }
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-        byte[] data = baos.toByteArray();
+        if(bitmap == null)
+        {
 
-        UploadTask uploadTask = riversRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                CommonFunc.getInstance().DismissLoadingPage();
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Tr(downloadUrl);
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "로딩중");
-                System.out.println("Upload is " + progress + "% done");
-            }
-        });
+            FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+
+            FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
+            currentUser.delete()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "잘못된 이미지 입니다", Toast.LENGTH_SHORT);
+                                mMyData.Clear();
+                                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                            }
+                        }
+                    });
+        }
+
+        else
+        {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = riversRef.putBytes(data);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    CommonFunc.getInstance().DismissLoadingPage();
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    Tr(downloadUrl);
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    CommonFunc.getInstance().ShowLoadingPage(InputProfile.this, "로딩중");
+                    System.out.println("Upload is " + progress + "% done");
+                }
+            });
+        }
+
     }
 
     public void TrThumbNail(Uri uri)
@@ -823,6 +970,11 @@ public class InputProfile extends AppCompatActivity {
 
     }
     private void GoMainPage() {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("UserIdx");
+        final DatabaseReference UserIdx = table.child(mMyData.ANDROID_ID);
+        UserIdx.setValue(strIdx);
 
         mFireBaseData.SaveFirstMyData(mMyData.getUserIdx());
         mFireBaseData.GetInitBoardData();
