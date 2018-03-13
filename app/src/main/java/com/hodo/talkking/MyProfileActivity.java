@@ -677,6 +677,17 @@ public class MyProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        MyDataSave();
+    }
+
+    public void onRealBackPressed()
+    {
+        super.onBackPressed();
+    }
+
     private void MyDataSave()
     {
         boolean bChangeImg = false;
@@ -735,10 +746,16 @@ public class MyProfileActivity extends AppCompatActivity {
                         SaveData();
                 }
             };
-            CommonFunc.getInstance().ShowDefaultPopup(MyProfileActivity.this, listener, "프로필","변경된 프로필을 저장 하시겠습니까?", "네", "취소" );
+
+            CommonFunc.ShowDefaultPopup_YesListener Nolistener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                public void YesListener() {
+                    onRealBackPressed();
+                }
+            };
+            CommonFunc.getInstance().ShowDefaultPopup(MyProfileActivity.this, listener, Nolistener, "프로필","변경된 프로필을 저장 하시겠습니까?", "네", "아니요" );
         }
         else
-            onBackPressed();
+            onRealBackPressed();
     }
 
 
@@ -803,7 +820,7 @@ public class MyProfileActivity extends AppCompatActivity {
     public  void SaveData()
     {
         mFireBaseData.SaveData(mMyData.getUserIdx());
-        onBackPressed();
+        onRealBackPressed();
     }
 
 }

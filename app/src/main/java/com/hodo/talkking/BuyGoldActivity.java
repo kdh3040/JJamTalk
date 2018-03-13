@@ -217,7 +217,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                         }
                     };
 
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, "무료 코인 충전", "광고를 보시고 " + mUIData.getAdReward()[mMyData.getGrade()] +"코인을 획득 하시겠습니까?", "예", "아니요");
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, null, "무료 코인 충전", "광고를 보시고 " + mUIData.getAdReward()[mMyData.getGrade()] +"코인을 획득 하시겠습니까?", "예", "아니요");
                 }
             }
         });

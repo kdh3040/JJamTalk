@@ -102,7 +102,7 @@ public class BoardMyListActivity extends AppCompatActivity {
                                 }
                             };
 
-                            CommonFunc.getInstance().ShowDefaultPopup(mActivity, listener, "삭제", "작성한 글을 제거하시겠습니까?", "예", "아니요");
+                            CommonFunc.getInstance().ShowDefaultPopup(mActivity, listener,null,  "삭제", "작성한 글을 제거하시겠습니까?", "예", "아니요");
                         }
                             break;
                         default:

@@ -243,7 +243,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
                 };
 
-                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, listener, "계정삭제", "계정삭제를 하시겠습니까?", "네", "아니요");
+                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, listener, null, "계정삭제", "계정삭제를 하시겠습니까?", "네", "아니요");
             }
         });
 
