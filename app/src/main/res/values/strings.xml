@@ -32,8 +32,8 @@
     </string-array>
 
 
-    <string name="Item_0_text">\'진주\'</string>
-    <string name="Item_1_text">\'오팔\'</string>
+    <string name="Item_0_text">\'오팔\'</string>
+    <string name="Item_1_text">\'진주\'</string>
     <string name="Item_2_text">\'자수정\'</string>
     <string name="Item_3_text">\'사파이어\'</string>
     <string name="Item_4_text">\'루비\'</string>

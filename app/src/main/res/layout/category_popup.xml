@@ -48,9 +48,9 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
 
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:buttonTint="@color/bambamcolor"
+
         android:gravity="center"
         android:text="표시 개수"
         android:textColor="@color/gray"
@@ -127,14 +127,13 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
 
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:buttonTint="@color/bambamcolor"
         android:gravity="center"
         android:text="표시 나이"
         android:textColor="@color/gray"
         android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/rbtn_two"
         app:layout_constraintTop_toBottomOf="@+id/txt_Gender" />
 
     <Spinner
@@ -210,7 +209,6 @@
         android:layout_height="60dp"
         android:background="@drawable/purple_stroke_btn_bg"
         android:text="취소"
-        android:textColor="@android:color/black"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_save"
         app:layout_constraintLeft_toRightOf="@+id/btn_save"
