@@ -50,7 +50,8 @@ public class MyJewelBoxActivity extends Activity {
     private ImageView Img_item[] = new ImageView[7];
     private TextView txt_item[] = new TextView[7];
 
-    private ImageButton open_1, open_10;
+    private Button open_1;
+    private Button open_10;
     private Button buy_Coin;
 
     Context mActivity;
@@ -106,7 +107,7 @@ public class MyJewelBoxActivity extends Activity {
             }
         });
 
-        open_1 = (ImageButton) findViewById(R.id.btn_openBox);
+        open_1 = (Button) findViewById(R.id.btn_openBox);
         open_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +116,7 @@ public class MyJewelBoxActivity extends Activity {
             }
         });
 
-        open_10 = (ImageButton)findViewById(R.id.btn_sellJewely);
+        open_10 = (Button)findViewById(R.id.btn_sellJewely);
         open_10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,7 +169,7 @@ public class MyJewelBoxActivity extends Activity {
             }
             else
             {
-                Img_item[i].setColorFilter(Color.parseColor("#a4a3a4"), PorterDuff.Mode.SRC_ATOP);
+                Img_item[i].setColorFilter(Color.parseColor("#8863c2"), PorterDuff.Mode.SRC_ATOP);
                 txt_item[i].setText("미 보유");
 
             }

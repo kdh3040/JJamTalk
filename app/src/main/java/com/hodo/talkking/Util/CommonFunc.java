@@ -850,7 +850,7 @@ public class CommonFunc {
         final int result = CommonFunc.getInstance().Select_OpenedItem();
         CommonFunc.getInstance().View_OpenedItem(context, v, result, Img_Opened, Text_Opened);
         mMyData.setMyItem(result);
-        Text_Prob.setText("나올 확률 " + UIData.getInstance().getProb()[result]);
+        Text_Prob.setText("확률 " + UIData.getInstance().getProb()[result]);
         Button btn_confirm = v.findViewById(R.id.button3);
         Button btn_sell = v.findViewById(R.id.button2);
         builder.setView(v);
@@ -974,7 +974,7 @@ public class CommonFunc {
                 btn_exit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        CommonFunc.getInstance().ShowToast(context, "아이템이 4골드에 판매되었습니다", false);
+                        CommonFunc.getInstance().ShowToast(context, "아이템 판매 완료!", false);
                         int nCount = mMyData.itemList.get(Index);
                         nCount--;
                         mMyData.itemList.put(Index, nCount);
@@ -1010,9 +1010,9 @@ public class CommonFunc {
 
         TextView tv_title = v.findViewById(R.id.title);
         if (bonus > 0)
-            tv_title.setText("랜덤 박스 " + count + "개 + 보너스 " + bonus + "개");
+            tv_title.setText("보석 " + count + "개 + 보너스 " + bonus + "개를 뽑을까요?");
         else
-            tv_title.setText("랜덤 박스 " + count + "개");
+            tv_title.setText("보석 " + count + "개를 뽑을까요?");
 
         TextView tv_msg = v.findViewById(R.id.msg);
 
@@ -1038,7 +1038,7 @@ public class CommonFunc {
                 }
             });
 
-            btn_yes.setText("랜덤 박스 열기");
+            btn_yes.setText("네");
             Button btn_no = v.findViewById(R.id.btn_no);
             btn_no.setOnClickListener(new View.OnClickListener() {
 

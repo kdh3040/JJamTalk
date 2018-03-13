@@ -19,7 +19,7 @@
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="16dp"
         android:src="@drawable/backarrow"
         app:layout_constraintBottom_toBottomOf="@+id/bg_topbar"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -34,7 +34,7 @@
         android:gravity="center_vertical"
         android:padding="3dp"
 
-        android:text="보석상자"
+        android:text="내 보석"
 
         android:textColor="@android:color/white"
         android:textSize="20dp"
@@ -163,6 +163,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="오팔"
+        android:textColor="@color/baseColorLight"
         app:layout_constraintBottom_toBottomOf="@+id/btn_item0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -173,6 +174,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="진주"
+        android:textColor="@color/baseColorLight"
         app:layout_constraintBottom_toBottomOf="@+id/btn_item1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -183,6 +185,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="자수정"
+        android:textColor="@color/baseColorLight"
         app:layout_constraintBottom_toBottomOf="@+id/btn_item2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -193,6 +196,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="사파이어"
+        android:textColor="@color/baseColorLight"
         app:layout_constraintBottom_toBottomOf="@+id/btn_item3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -203,6 +207,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="루비"
+        android:textColor="@color/baseColorLight"
         app:layout_constraintBottom_toBottomOf="@+id/btn_item4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -213,6 +218,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="에메랄드"
+        android:textColor="@color/baseColorLight"
         app:layout_constraintBottom_toBottomOf="@+id/btn_item5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -223,6 +229,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="다이아몬드"
+        android:textColor="@color/baseColorLight"
         app:layout_constraintBottom_toBottomOf="@+id/btn_item6"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -414,19 +421,31 @@
         app:layout_constraintTop_toTopOf="@+id/iv_coin6" />
 
 
-    <ImageButton
+    <ImageView
+        android:id="@+id/button4"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:elevation="7dp"
+        android:src="@drawable/randombox"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_openBox"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_openBox"
+        app:layout_constraintTop_toTopOf="@+id/btn_openBox" />
+
+    <Button
         android:id="@+id/btn_openBox"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
         android:layout_height="0dp"
 
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
 
-        android:elevation="5dp"
+        android:background="@drawable/purple_btn_bg"
 
-        android:scaleType="fitCenter"
-        android:src="@drawable/purple_stroke_btn_bg"
-        android:theme="@style/PrimaryButtonReten"
+
+        android:paddingLeft="50dp"
+        android:text="x 1"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/bg_mid"
         app:layout_constraintEnd_toStartOf="@+id/btn_sellJewely"
         app:layout_constraintHorizontal_bias="0.5"
@@ -434,16 +453,28 @@
         app:layout_constraintTop_toTopOf="@+id/bg_bottom" />
 
 
-    <ImageButton
-        android:id="@+id/btn_sellJewely"
-        android:layout_width="80dp"
+    <ImageView
+        android:id="@+id/button11"
+        android:layout_width="40dp"
         android:layout_height="0dp"
-        android:elevation="5dp"
-        android:scaleType="fitCenter"
+        android:layout_marginLeft="8dp"
+        android:elevation="7dp"
+        android:src="@drawable/randombox"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_sellJewely"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_sellJewely"
+        app:layout_constraintTop_toTopOf="@+id/btn_sellJewely" />
 
-        android:src="@drawable/purple_stroke_btn_bg"
-        android:theme="@style/PrimaryButtonReten"
+    <Button
+        android:id="@+id/btn_sellJewely"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:background="@drawable/purple_btn_bg"
 
+
+
+        android:paddingLeft="50dp"
+        android:text="x 10"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/btn_openBox"
         app:layout_constraintEnd_toStartOf="@+id/buy_coin"
         app:layout_constraintHorizontal_bias="0.5"
@@ -455,7 +486,8 @@
         android:layout_width="80dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_btn_bg"
-        android:text="코인 구매"
+        android:text="코인 충전"
+        android:textColor="@color/baseColor"
         app:layout_constraintBottom_toBottomOf="@+id/btn_openBox"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
