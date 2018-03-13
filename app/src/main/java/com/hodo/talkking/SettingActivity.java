@@ -36,6 +36,7 @@ public class SettingActivity extends AppCompatActivity {
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
 
 
+    private Button  btn_Law;
     private Button  btn_Help;
     private Button  btn_LogOut;
 
@@ -248,6 +249,15 @@ public class SettingActivity extends AppCompatActivity {
 
 
 
+        btn_Law = (Button) findViewById(R.id.doc_law);
+        btn_Law.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), privacyActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
         /*btn_ViewMode_2 = (RadioButton) findViewById(R.id.rb_2);
