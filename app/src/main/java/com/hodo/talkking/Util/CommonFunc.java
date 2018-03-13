@@ -1023,7 +1023,7 @@ public class CommonFunc {
                 @Override
                 public void onClick(View view) {
                     dialog.cancel();
-                    if (mMyData.getUserHoney() > (CoomonValueData.OPEN_BOX_COST * count)) {
+                    if (mMyData.getUserHoney() >= (CoomonValueData.OPEN_BOX_COST * count)) {
                         mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
                         for (int i = 0; i < count + bonus; i++) {
                             BuyItemPopup(context, endListener);
