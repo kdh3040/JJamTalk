@@ -841,11 +841,14 @@ public class CommonFunc {
         ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
         TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
         //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+        TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
+        //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+
 
         final int result = CommonFunc.getInstance().Select_OpenedItem();
         CommonFunc.getInstance().View_OpenedItem(context, v, result, Img_Opened, Text_Opened);
         mMyData.setMyItem(result);
-
+        Text_Prob.setText("나올 확률 " + UIData.getInstance().getProb()[result]);
         Button btn_confirm = v.findViewById(R.id.button3);
         Button btn_sell = v.findViewById(R.id.button2);
         builder.setView(v);
@@ -887,6 +890,7 @@ public class CommonFunc {
                 btn_exit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        CommonFunc.getInstance().ShowToast(context, "아이템이 4골드에 판매되었습니다", false);
                         int nCount = mMyData.itemList.get(result);
                         nCount--;
                         mMyData.itemList.put(result, nCount);
@@ -896,6 +900,8 @@ public class CommonFunc {
                         mMyData.refreshItemIdex();
                         endListener.EndListener();
                         dialog.dismiss();
+
+
                     }
                 });
 
@@ -919,8 +925,10 @@ public class CommonFunc {
         View v = LayoutInflater.from(context).inflate(R.layout.popup_item_get, null);
         ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
         TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
+        TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
         //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
 
+        Text_Prob.setText("나올 확률 " + UIData.getInstance().getProb()[Index]);
         CommonFunc.getInstance().View_OpenedItem(context, v, Index, Img_Opened, Text_Opened);
 
         Button btn_confirm = v.findViewById(R.id.button3);
@@ -929,7 +937,7 @@ public class CommonFunc {
 
         final AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.show();
+        dialog.show();  
 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -964,6 +972,7 @@ public class CommonFunc {
                 btn_exit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        CommonFunc.getInstance().ShowToast(context, "아이템이 4골드에 판매되었습니다", false);
                         int nCount = mMyData.itemList.get(Index);
                         nCount--;
                         mMyData.itemList.put(Index, nCount);
