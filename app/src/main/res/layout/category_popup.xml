@@ -62,12 +62,12 @@
         android:id="@+id/rbtn_three"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-
         android:layout_marginLeft="16dp"
         android:background="@color/white"
-        android:buttonTint="@color/salmon"
         android:gravity="center"
         android:text="3개씩"
+
+        android:theme="@style/ViewCountRadioButton"
         app:layout_constraintBottom_toBottomOf="@+id/rbtn_two"
         app:layout_constraintLeft_toRightOf="@+id/rbtn_two" />
 
@@ -76,11 +76,11 @@
         android:id="@+id/rbtn_four"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-
         android:background="@color/white"
-        android:buttonTint="@color/salmon"
         android:gravity="center"
         android:text="4개씩"
+
+        android:theme="@style/ViewCountRadioButton"
         app:layout_constraintBottom_toBottomOf="@+id/rbtn_two"
         app:layout_constraintLeft_toRightOf="@+id/rbtn_three" />
 
@@ -88,9 +88,7 @@
         android:id="@+id/txt_Gender"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-
         android:layout_marginTop="16dp"
-        android:buttonTint="@color/bambamcolor"
         android:gravity="center"
         android:text="표시 성별"
         android:textColor="@color/gray"
@@ -105,8 +103,8 @@
 
         android:layout_marginTop="16dp"
 
+        android:theme="@style/ManCheckBox"
         android:background="@color/white"
-        android:buttonTint="@color/menColor"
         android:text="남자"
         app:layout_constraintLeft_toLeftOf="@+id/rbtn_three"
         app:layout_constraintTop_toBottomOf="@+id/rbtn_three" />
@@ -117,7 +115,7 @@
         android:layout_height="60dp"
 
         android:background="@color/white"
-        android:buttonTint="@color/womenColor"
+        android:theme="@style/WomanCheckBox"
         android:text="여자"
         app:layout_constraintLeft_toLeftOf="@+id/rbtn_four"
         app:layout_constraintTop_toTopOf="@+id/rbtn_man" />
@@ -128,7 +126,6 @@
         android:layout_height="60dp"
 
         android:layout_marginTop="16dp"
-        android:buttonTint="@color/bambamcolor"
         android:gravity="center"
         android:text="표시 나이"
         android:textColor="@color/gray"

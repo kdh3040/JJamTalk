@@ -157,4 +157,44 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="ViewCountRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/baseColorLight</item>
+        <item name="colorControlActivated">@color/baseColorLight</item>
+    </style>
+
+    <style name="ManRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/bambamcolor</item>
+        <item name="colorControlActivated">@color/bambamcolor</item>
+    </style>
+
+    <style name="WomanRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/womenColor</item>
+        <item name="colorControlActivated">@color/womenColor</item>
+    </style>
+
+    <style name="ManCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/bambamcolor</item>
+        <item name="colorControlActivated">@color/bambamcolor</item>
+    </style>
+
+    <style name="WomanCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/womenColor</item>
+        <item name="colorControlActivated">@color/womenColor</item>
+    </style>
+
+    <style name="ReportCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/boardLikeColor</item>
+        <item name="colorControlActivated">@color/boardLikeColor</item>
+    </style>
+
+    <style name="RejectCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/baseColorLight</item>
+        <item name="colorControlActivated">@color/baseColorLight</item>
+    </style>
+
+    <style name="AlarmCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/baseColorLight</item>
+        <item name="colorControlActivated">@color/baseColorLight</item>
+    </style>
+
 </resources>
