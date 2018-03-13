@@ -293,14 +293,14 @@ public class CommonFunc {
     }
 
     public void ShowDefaultPopup(Context context, String title, String centerDesc) {
-        ShowDefaultPopup(context, null, title, centerDesc, null, null, false);
+        ShowDefaultPopup(context, null, null, title, centerDesc, null, null, false);
     }
 
-    public void ShowDefaultPopup(Context context, final ShowDefaultPopup_YesListener listenerYes, String title, String centerDesc, String yesDesc, String noDesc) {
-        ShowDefaultPopup(context, listenerYes, title, centerDesc, yesDesc, noDesc, true);
+    public void ShowDefaultPopup(Context context, final ShowDefaultPopup_YesListener listenerYes, final ShowDefaultPopup_YesListener listenerNo, String title, String centerDesc, String yesDesc, String noDesc) {
+        ShowDefaultPopup(context, listenerYes, listenerNo, title, centerDesc, yesDesc, noDesc, true);
     }
 
-    public void ShowDefaultPopup(Context context, final ShowDefaultPopup_YesListener listenerYes, String title, String centerDesc, String yesDesc, String noDesc, Boolean btnView) {
+    public void ShowDefaultPopup(Context context, final ShowDefaultPopup_YesListener listenerYes, final ShowDefaultPopup_YesListener listenerNo, String title, String centerDesc, String yesDesc, String noDesc, Boolean btnView) {
         TextView Title, CenterDesc;
         Button YesButton, NoButton;
 
@@ -336,6 +336,8 @@ public class CommonFunc {
             NoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (listenerNo != null)
+                        listenerNo.YesListener();
                     dialog.dismiss();
                 }
             });
