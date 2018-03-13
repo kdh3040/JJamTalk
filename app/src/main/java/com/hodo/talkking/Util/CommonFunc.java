@@ -937,7 +937,7 @@ public class CommonFunc {
 
         final AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.show();
+        dialog.show();  
 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
