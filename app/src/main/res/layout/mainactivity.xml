@@ -86,7 +86,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/bg_topbar"
         app:layout_constraintRight_toLeftOf="@+id/iv_mypage"
         app:layout_constraintTop_toTopOf="@+id/bg_topbar"
-        app:srcCompat="@drawable/mail"></ImageView>
+        app:srcCompat="@drawable/heart_white"></ImageView>
 
     <ImageView
         android:id="@+id/iv_boardwrite"
@@ -114,11 +114,11 @@
 
     <ImageView
         android:id="@+id/alarm_mail"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
         android:background="@drawable/red_alarm"
         android:visibility="gone"
-        app:layout_constraintRight_toLeftOf="@+id/iv_honeybox"
+        app:layout_constraintRight_toRightOf="@+id/iv_honeybox"
         app:layout_constraintTop_toTopOf="@+id/iv_honeybox" />
 
     <!--<ImageView
