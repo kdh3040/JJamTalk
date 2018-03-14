@@ -44,8 +44,8 @@ public class MyPageActivity extends AppCompatActivity {
     ImageView img_MyGrade;
     ImageButton iv_gold;
     ImageView iv_MyGift;
-    Button profileButton1;
-    Button settingButton;
+    ImageButton profileButton1;
+    ImageButton settingButton;
 
     TextView txt_MyProfile;
     TextView txt_MyHeartCnt;

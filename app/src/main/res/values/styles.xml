@@ -121,8 +121,8 @@
 
     <style name="PrimaryButton" parent="Theme.AppCompat">
         <item name="colorButtonNormal">@color/white</item>
-        <item name="colorControlHighlight">@color/gray</item>
-        <item name="android:shape">oval</item>
+        <item name="colorControlHighlight">@color/gray_light</item>
+        <item name="android:shape">rectangle</item>
     </style>
 
     <style name="rentangleButton" parent="Theme.AppCompat">

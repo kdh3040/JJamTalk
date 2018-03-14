@@ -53,13 +53,23 @@
         app:layout_constraintBottom_toBottomOf="@+id/nickname"
         app:layout_constraintLeft_toRightOf="@+id/rank"
         app:srcCompat="@drawable/randombox" />
+    <ImageButton
+        android:id="@+id/cover_profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
 
+        android:theme="@style/PrimaryButton"
+        app:layout_constraintBottom_toTopOf="@+id/iv_coin"
+        app:layout_constraintEnd_toStartOf="@+id/cover_setting"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nickname" />
 
     <ImageView
         android:id="@+id/iv_profile"
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:elevation="10dp"
+
         android:paddingTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_profile"
         app:layout_constraintLeft_toLeftOf="@+id/cover_profile"
@@ -71,7 +81,7 @@
         android:id="@+id/tv_profile"
         android:layout_width="80dp"
         android:layout_height="30dp"
-        android:elevation="10dp"
+
         android:gravity="center"
         android:text="프로필 수정"
 
@@ -80,22 +90,22 @@
         app:layout_constraintRight_toRightOf="@+id/cover_profile"
         app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
 
-    <Button
-        android:id="@+id/cover_profile"
+    <ImageButton
+        android:id="@+id/cover_setting"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:theme="@style/rentangleButton"
-        app:layout_constraintBottom_toTopOf="@+id/iv_coin"
-        app:layout_constraintEnd_toStartOf="@+id/cover_setting"
+        android:theme="@style/PrimaryButton"
+        app:layout_constraintBottom_toBottomOf="@+id/cover_profile"
+        app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nickname" />
+        app:layout_constraintStart_toEndOf="@+id/cover_profile"
+        app:layout_constraintTop_toTopOf="@+id/cover_profile" />
 
     <ImageView
         android:id="@+id/iv_setting"
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:elevation="10dp"
+
         android:paddingTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_setting"
         app:layout_constraintLeft_toLeftOf="@+id/cover_setting"
@@ -109,23 +119,14 @@
         android:layout_height="30dp"
         android:gravity="center"
         android:text="설정"
-        android:elevation="10dp"
+
         app:layout_constraintBottom_toBottomOf="@+id/cover_setting"
         app:layout_constraintLeft_toLeftOf="@+id/cover_setting"
         app:layout_constraintRight_toRightOf="@+id/cover_setting"
         app:layout_constraintTop_toBottomOf="@+id/iv_setting" />
 
 
-    <Button
-        android:id="@+id/cover_setting"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:theme="@style/rentangleButton"
-        app:layout_constraintBottom_toBottomOf="@+id/cover_profile"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cover_profile"
-        app:layout_constraintTop_toTopOf="@+id/cover_profile" />
+
 
     <ImageView
         android:id="@+id/iv_coin"
@@ -158,9 +159,9 @@
         android:layout_width="118dp"
         android:layout_height="40dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/purple_btn_bg"
+        android:background="@drawable/yellow_btn_bg"
         android:text="코인충전하기"
-        android:textColor="@android:color/white"
+        android:textColor="@color/baseColor"
         app:layout_constraintBottom_toBottomOf="@+id/coin"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/coin" />
