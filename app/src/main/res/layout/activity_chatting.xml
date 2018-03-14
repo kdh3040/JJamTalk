@@ -34,7 +34,7 @@
         android:layout_weight="1"
         app:srcCompat="@android:color/white" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_plus"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -43,9 +43,8 @@
         android:layout_margin="5dp"
         android:background="@drawable/purple_stroke_btn_bg"
         android:gravity="center"
-        android:text="+"
-        android:textColor="@color/baseColorDark"
-        android:textStyle="bold" />
+
+        android:src="@drawable/plus"/>
 
     <Button
         android:id="@+id/btn_send"

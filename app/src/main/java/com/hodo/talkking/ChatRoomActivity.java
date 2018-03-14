@@ -2,7 +2,6 @@ package com.hodo.talkking;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -28,9 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -84,7 +80,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     StorageReference storageRef = storage.getReferenceFromUrl("gs://talkking-2aa18.appspot.com/");
 
     private static final int REQUEST_IMAGE = 1001;
-    Button btn_send,btn_plus;
+    Button btn_send;
+    ImageButton btn_plus;
     EditText txt_msg;
 
     Context context=this;
@@ -322,7 +319,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
 
-        btn_plus = (Button)findViewById(R.id.btn_plus);
+        btn_plus = (ImageButton)findViewById(R.id.btn_plus);
 
         recyclerView = (RecyclerView) findViewById(R.id.chat_list);
 
@@ -856,7 +853,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.board_item,menu);
+        getMenuInflater().inflate(R.menu.chat_room,menu);
         return true;
     }
 
