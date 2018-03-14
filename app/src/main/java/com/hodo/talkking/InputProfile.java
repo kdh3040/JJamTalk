@@ -793,6 +793,12 @@ public class InputProfile extends AppCompatActivity {
             mMyData.setUserLat(tempLat);
             mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
         }
+        else
+        {
+            mMyData.setUserLon(DEF_LON);
+            mMyData.setUserLat(DEF_LAT);
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
+        }
 
         if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
             GoMainPage();
