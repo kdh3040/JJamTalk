@@ -170,6 +170,10 @@
         <activity
             android:name=".LocActivity"
             android:label="@string/title_activity_loc"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HelpActivity"
+            android:label="@string/title_activity_help"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

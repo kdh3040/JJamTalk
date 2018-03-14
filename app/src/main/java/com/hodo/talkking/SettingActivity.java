@@ -208,22 +208,14 @@ public class SettingActivity extends AppCompatActivity {
 
 
         btn_Help = (Button) findViewById(R.id.btn_help);
-        /*btn_LogOut = (TextView )findViewById(R.id.Setting_logout);
-        btn_LogOut.setOnClickListener(new View.OnClickListener() {
+        btn_Help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),HelpActivity.class));
 
-                CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
-                    public void YesListener() {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                    }
-                };
 
-                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, listener, "로그아웃", "로그아웃을 하시겠습니까?", "네", "아니요");
             }
         });
-*/
         delete = (Button) findViewById(R.id.btn_del);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
