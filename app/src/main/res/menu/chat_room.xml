@@ -4,14 +4,15 @@
     <!-- 액션버튼  -->
     <item
         android:id="@+id/btn_report"
-        android:icon="@drawable/report"
+        android:icon="@drawable/report_padding"
         android:title="차단"
         app:showAsAction="always|withText" />
 
     />
     <item
         android:id="@+id/btn_block"
-        android:icon="@drawable/block_white"
+        android:icon="@drawable/hand_white"
         android:title="블락"
+
         app:showAsAction="always|withText"></item>
 </menu>
