@@ -591,6 +591,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
                 TrThumbNail(downloadUrl);
+
             }
         });
     }
@@ -641,7 +642,6 @@ public class MyProfileActivity extends AppCompatActivity {
                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                    System.out.println("Upload is " + progress + "% done");
 
-                CommonFunc.getInstance().ShowToast(getApplicationContext(), "업로드 중 GIF 이미지 출력 부분", true);
 
             }
         });
@@ -709,6 +709,9 @@ public class MyProfileActivity extends AppCompatActivity {
         {
             CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
                 public void YesListener() {
+
+                    CommonFunc.getInstance().ShowLoadingPage(MyProfileActivity.this, "저장 중");
+
                     if(!mMyData.getUserNick().equals(tempNickName))
                         mMyData.setUserNick(tempNickName);
 
@@ -822,6 +825,8 @@ public class MyProfileActivity extends AppCompatActivity {
     public  void SaveData()
     {
         mFireBaseData.SaveData(mMyData.getUserIdx());
+
+        CommonFunc.getInstance().DismissLoadingPage();
         onRealBackPressed();
     }
 

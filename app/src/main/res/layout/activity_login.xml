@@ -122,6 +122,15 @@
         app:layout_constraintTop_toTopOf="parent"></ImageView>
 
 
+    <pl.droidsonroids.gif.GifTextView
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        android:background="@drawable/progressbar" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -134,7 +143,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+        app:layout_constraintTop_toBottomOf="@+id/loading" />
 
 
     <!--    <ProgressBar

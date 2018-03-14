@@ -16,7 +16,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.RemoteException;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -1185,6 +1187,13 @@ public class MainActivity extends AppCompatActivity {
                 setImageAlpha(255,100,100,100,100);
                 break;
         }
+
+
+     /*   int BotFrequency_Sec = 1000;
+        Bot thrBot = new Bot(BotFrequency_Sec * 10);
+        thrBot.start();*/
+
+
     }
 
     private void LoadChatData() {
@@ -1705,5 +1714,78 @@ public class MainActivity extends AppCompatActivity {
         return 성.get(0) + 이름.get(0) + 이름.get(1);
     }
 
+
+    class Bot extends Thread {
+        private int count=0;  // 카운트 변수
+        public Bot() { // 생성자
+            System.out.println(getName() + " Created.");
+        }
+
+        public Bot(int frequency) { // 생성자
+            count = frequency;
+        }
+
+        // 쓰레드 start()시 수행되는 메소드
+        public void run() {
+            while (true) {
+                RunCard();
+                RunSendMsg();
+                RunSendHeart();
+                RunWriteBoard();
+
+                try { sleep(count); } // 0.5초간 sleep
+                catch (InterruptedException e) {}
+            }
+        }
+
+    }
+
+    private void RunWriteBoard() {
+        Handler mHandler = new Handler(Looper.getMainLooper());
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "RunWriteBoard", Toast.LENGTH_SHORT).show();
+            }
+        }, 0);
+
+    }
+
+    private void RunSendHeart() {
+        Handler mHandler = new Handler(Looper.getMainLooper());
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "RunSendHeart", Toast.LENGTH_SHORT).show();
+            }
+        }, 0);
+
+    }
+
+    private void RunSendMsg() {
+        Handler mHandler = new Handler(Looper.getMainLooper());
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "RunSendMsg", Toast.LENGTH_SHORT).show();
+            }
+        }, 0);
+
+    }
+
+    private void RunCard() {
+        Handler mHandler = new Handler(Looper.getMainLooper());
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "RunCard", Toast.LENGTH_SHORT).show();
+            }
+        }, 0);
+
+    }
 
 }
