@@ -84,55 +84,10 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
         holder.bg_tv.setLayoutParams(lpForBgTxt);
 
 
-
-
         int i = position;
 
         switch (mSetting.getnSearchSetting())
         {
-
-           /* case 0:
-            case 3:
-                double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Near.get(i).Lat, mMyData.arrUserAll_Near.get(i).Lon,"kilometer");
-                if(Dist < 1.0)
-                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*"1km 이내");
-                else
-                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*(int)Dist + "km");
-
-                Glide.with(mContext)
-                        .load(mMyData.arrUserAll_Near.get(i).Img)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(0.1f)
-                        .into(holder.iv_profile);
-                break;
-            // 여자 탐색
-            case 1:
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Near.get(i).Lat, mMyData.arrUserMan_Near.get(i).Lon,"kilometer");
-                if(Dist < 1.0)
-                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*"1km 이내");
-                else
-                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*(int)Dist + "km");
-
-                Glide.with(mContext)
-                        .load(mMyData.arrUserMan_Near.get(i).Img)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(0.1f)
-                        .into(holder.iv_profile);
-
-                break;
-            case 2:
-                Log.d("Guide !!!! ", "Case 3");
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Near.get(i).Lat, mMyData.arrUserWoman_Near.get(i).Lon,"kilometer");
-                if(Dist < 1.0)
-                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*"1km 이내");
-                else
-                    holder.textView.setText(*//*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + *//*(int)Dist + "km");
-                Glide.with(mContext)
-                        .load(mMyData.arrUserWoman_Near.get(i).Img)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(0.1f)
-                        .into(holder.iv_profile);
-                break;*/
 
 
             //  남자 탐색
@@ -151,17 +106,14 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
                 break;
             // 여자 탐색
             case 2:
+
                 Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Near_Age.get(i).Lat, mMyData.arrUserWoman_Near_Age.get(i).Lon,"kilometer");
                 if(Dist < 1.0)
                     holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
-                else if(Dist < 100.0)
+                else
                 {
                     holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
                 }
-
-                else
-                    break;
-
 
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Near_Age.get(i).Img)
@@ -178,6 +130,7 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
                     holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
                 else
                     holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
+
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Near_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)

@@ -87,44 +87,11 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
 
         switch (mSetting.getnSearchSetting())
         {
-            /*case 0:
-            case 3:
-                double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_New.get(i).Lat, mMyData.arrUserAll_New.get(i).Lon,"kilometer");
-                Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-                holder.textView.setText(mMyData.arrUserAll_New.get(i).NickName + ", " + mMyData.arrUserAll_New.get(i).Age + "세, " + (int)Dist + "km");
-                Glide.with(mContext)
-                        .load(mMyData.arrUserAll_New.get(i).Img)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(0.1f)
-                        .into(holder.iv_profile);
-                break;
-            case 1:
-                Log.d("Guide !!!! ", "Case 3");
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_New.get(i).Lat, mMyData.arrUserMan_New.get(i).Lon,"kilometer");
-                holder.textView.setText(mMyData.arrUserMan_New.get(i).NickName + ", " + mMyData.arrUserMan_New.get(i).Age + "세, " + (int)Dist + "km");
-                Glide.with(mContext)
-                        .load(mMyData.arrUserMan_New.get(i).Img)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(0.1f)
-                        .into(holder.iv_profile);
-                break;
-
-            // 여자 탐색
-            case 2:
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_New.get(i).Lat, mMyData.arrUserWoman_New.get(i).Lon,"kilometer");
-                Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
-                holder.textView.setText(mMyData.arrUserWoman_New.get(i).NickName + ", " + mMyData.arrUserWoman_New.get(i).Age + "세, " + (int)Dist + "km");
-                Glide.with(mContext)
-                        .load(mMyData.arrUserWoman_New.get(i).Img)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(0.1f)
-                        .into(holder.iv_profile);
-                break;
-*/
 
             //  남자 탐색
             case 1:
                 holder.textView.setText(mMyData.arrUserMan_New_Age.get(i).NickName + ", " + mMyData.arrUserMan_New_Age.get(i).Age);
+
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_New_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -134,6 +101,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
             // 여자 탐색
             case 2:
                 holder.textView.setText(mMyData.arrUserWoman_New_Age.get(i).NickName + ", " + mMyData.arrUserWoman_New_Age.get(i).Age);
+
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_New_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)

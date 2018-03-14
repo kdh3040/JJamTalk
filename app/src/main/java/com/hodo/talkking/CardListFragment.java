@@ -130,17 +130,13 @@ public class CardListFragment extends Fragment {
 
             holder.imageItem.setVisibility(View.VISIBLE);
 
-            /*if(mMyData.arrCarDataList.get(i).BestItem == 0)
+            if(mMyData.arrCarDataList.get(i).BestItem == 0)
             {
-                holder.imageItem.setImageResource(R.mipmap.randombox);
+                holder.imageItem.setVisibility(View.GONE);
             }
-                //holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
+            else
+                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
 
-            else {
-
-            }*/
-
-            holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrCarDataList.get(i).Grade]);
 
 
@@ -167,7 +163,7 @@ public class CardListFragment extends Fragment {
                     tv_msg = v.findViewById(R.id.msg);
 
                     tv_title.setText("삭제");
-                    tv_msg.setText("내 카드에서 삭제하시겠습니까?");
+                    tv_msg.setText("즐겨찾기에서 삭제하시겠습니까?");
 
                     btn_exit = (Button) v.findViewById(R.id.btn_yes);
                     btn_exit.setText("삭제");
@@ -191,7 +187,7 @@ public class CardListFragment extends Fragment {
 
                             mMyData.arrCardNameList.remove(position);
                             mMyData.arrCarDataList.remove(i);
-                            CommonFunc.getInstance().ShowToast(mContext, "즐겨찾기를 취소 하였습니다.", true);
+                            CommonFunc.getInstance().ShowToast(mContext, "즐겨찾기에서 삭제 하였습니다.", true);
 
                             refreshFragMent();
                             dialog.dismiss();

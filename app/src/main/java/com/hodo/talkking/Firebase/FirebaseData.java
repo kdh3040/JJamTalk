@@ -854,43 +854,51 @@ public class FirebaseData {
                     cTempData = postSnapshot.getValue(SimpleUserData.class);
                     if(cTempData != null) {
 
-                        if(!cTempData.Idx.equals(mMyData.getUserIdx()))
+                        if(cTempData.Lat == 0 || cTempData.Lon == 0)
                         {
-
-                            if(cTempData.Img == null)
-                                cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                            boolean bExist = false;
-
-                            for(int j = 0 ; j< mMyData.arrUserAll_Near.size(); j++)
-                            {
-                                if(mMyData.arrUserAll_Near.get(j).Idx.equals(cTempData.Idx))
-                                {
-                                    bExist = true;
-                                    break;
-                                }
-                            }
-
-                            if(bExist == false)
-                            {
-                                double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), cTempData.Lat, cTempData.Lon,"kilometer");
-
-                                mMyData.arrUserAll_Near.add(cTempData);
-                                if(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1).Gender.equals("여자"))
-                                {
-                                    mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
-                                }
-                                else {
-                                    mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
-                                }
-
-                                mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge );
-                                mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
-                                mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
-
-                            }
-                            i++;
+                            // 위치 못받아오는 애들
                         }
+                        else
+                        {
+                            if(!cTempData.Idx.equals(mMyData.getUserIdx()))
+                            {
+
+                                if(cTempData.Img == null)
+                                    cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                boolean bExist = false;
+
+                                for(int j = 0 ; j< mMyData.arrUserAll_Near.size(); j++)
+                                {
+                                    if(mMyData.arrUserAll_Near.get(j).Idx.equals(cTempData.Idx))
+                                    {
+                                        bExist = true;
+                                        break;
+                                    }
+                                }
+
+                                if(bExist == false)
+                                {
+                                    double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), cTempData.Lat, cTempData.Lon,"kilometer");
+
+                                    mMyData.arrUserAll_Near.add(cTempData);
+                                    if(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1).Gender.equals("여자"))
+                                    {
+                                        mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
+                                    }
+                                    else {
+                                        mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
+                                    }
+
+                                    mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge );
+                                    mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
+                                    mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
+
+                                }
+                                i++;
+                            }
+                        }
+
                     }
 
                 }

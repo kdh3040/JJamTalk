@@ -233,7 +233,12 @@ public class MyPageActivity extends AppCompatActivity {
 
         DrawMyGrade();
 
-        iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
+        if(mMyData.bestItem == 0)
+        {
+            iv_MyGift.setVisibility(View.GONE);
+        }
+        else
+            iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
     }
 
  /*   @Override
@@ -254,16 +259,13 @@ public class MyPageActivity extends AppCompatActivity {
         //txt_MyHeartCnt = (TextView)findViewById(R.id.tv_gold);
         //txt_MyHeartCnt.setText(" 보유 골드 : " + nGold + " 골드");
         txt_MyGoldCnt.setText(nGold+"");
-  /*      if(mMyData.bestItem == 0)
+
+       if(mMyData.bestItem == 0)
         {
-            iv_MyGift.setImageResource(R.mipmap.randombox);
+            iv_MyGift.setVisibility(View.GONE);
         }
         else
-        {
             iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
-        }*/
-
-        iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
 
         DrawMyGrade();
     }

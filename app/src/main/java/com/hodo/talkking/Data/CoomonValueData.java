@@ -48,5 +48,9 @@ public class CoomonValueData  {
     public static final Double REF_LAT = 38.910042;
     public static final Double REF_LON = 125.848755;
 
+    public static final Double DEF_LAT = 37.475610;
+    public static final Double DEF_LON = 127.007094;
+
+
     public static boolean OFFAPP = true;
 }
