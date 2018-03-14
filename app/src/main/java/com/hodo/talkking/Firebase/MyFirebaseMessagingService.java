@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -107,6 +108,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             PendingIntent.FLAG_UPDATE_CURRENT
                     );
 
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("PrefSetting", getApplicationContext().MODE_PRIVATE);
+            boolean bSound =  true;
+            boolean bVibe =  true;
+
             if(OFFAPP == true) {
 
                 builder.setContentTitle(title)
@@ -117,13 +122,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setContentIntent(notifyPendingIntent)
                         .setWhen(System.currentTimeMillis());
 
-                if (mMyData.nAlarmSetting_Vibration) {
+
+                if (pref.getBoolean("Sound", bSound)  ) {
                     builder.setVibrate(new long[] {1000});
                 }
-                if (mMyData.nAlarmSetting_Sound)
-                {
+
+                if (pref.getBoolean("Vibe", bVibe)  ) {
                     builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
                 }
+
+
                 NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 nm.notify(1234, builder.build());
             }
@@ -139,13 +147,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .setAutoCancel(true)
                             .setWhen(System.currentTimeMillis());
 
-                    if (mMyData.nAlarmSetting_Vibration) {
+                    if (pref.getBoolean("Sound", bSound)  ) {
                         builder.setVibrate(new long[] {1000});
                     }
-                    if (mMyData.nAlarmSetting_Sound)
-                    {
+
+                    if (pref.getBoolean("Vibe", bVibe)  ) {
                         builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
                     }
+
+
                     NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                     nm.notify(1234, builder.build());
                 }
@@ -166,13 +176,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                 .setVisibility(Notification.VISIBILITY_PUBLIC);
                     }
 
-                    if (mMyData.nAlarmSetting_Vibration) {
+                    if (pref.getBoolean("Sound", bSound)  ) {
                         builder.setVibrate(new long[] {1000});
                     }
-                    if (mMyData.nAlarmSetting_Sound)
-                    {
+
+                    if (pref.getBoolean("Vibe", bVibe)  ) {
                         builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
                     }
+
+
                     NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                     nm.notify(1234, builder.build());
                 }
@@ -188,13 +200,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setContentIntent(LoginNotifyPendingIntent)
                         .setWhen(System.currentTimeMillis());
 
-                if (mMyData.nAlarmSetting_Vibration) {
+                if (pref.getBoolean("Sound", bSound)  ) {
                     builder.setVibrate(new long[] {1000});
                 }
-                if (mMyData.nAlarmSetting_Sound)
-                {
+
+                if (pref.getBoolean("Vibe", bVibe)  ) {
                     builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
                 }
+
+
                 NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 nm.notify(1234, builder.build());
             }

@@ -2,6 +2,7 @@ package com.hodo.talkking;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -118,6 +119,13 @@ public class SettingActivity extends AppCompatActivity {
                     @Override
                     public void onDismiss (DialogInterface var1){
                         mSetting.setAlarmSetting(SoundCheckBox.isChecked(), VibrationCheckBox.isChecked());
+
+
+                        SharedPreferences prefs = getApplicationContext().getSharedPreferences("PrefSetting", getApplicationContext().MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean("Sound",SoundCheckBox.isChecked() );
+                        editor.putBoolean("Vibe",VibrationCheckBox.isChecked() );
+                        editor.commit();
                     }
 
                 });

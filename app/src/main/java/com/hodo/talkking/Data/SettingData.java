@@ -1,5 +1,7 @@
 package com.hodo.talkking.Data;
 
+import android.content.SharedPreferences;
+
 /**
  * Created by boram on 2017-08-10.
  */
@@ -34,6 +36,8 @@ public class SettingData {
         nAlarmSetting_Vibration = vibration;
         mMyData.nAlarmSetting_Sound = sound;
         mMyData.nAlarmSetting_Vibration = vibration;
+
+
     }
 
     public boolean IsAlarmSettingSound()
