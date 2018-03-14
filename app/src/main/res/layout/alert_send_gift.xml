@@ -5,23 +5,16 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:layout_editor_absoluteY="81dp">
+    android:background="@android:color/white"
+    >
 
-    <ImageView
-        android:id="@+id/bg"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/bot_bg"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/baseColor"
+        android:background="@color/baseColorLight"
         android:gravity="center"
         android:text="하트를 날려서 팬이 되어보세요!"
         android:textColor="@android:color/white"
@@ -154,7 +147,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeartPop_500" />
@@ -182,11 +175,13 @@
         android:id="@+id/btn_gift_send"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/purple_btn_bg"
         android:text="날린다"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/btn_gift_cancel"
         app:layout_constraintTop_toBottomOf="@+id/HeartPop_Msg" />
@@ -213,14 +208,7 @@
         app:layout_constraintLeft_toRightOf="@+id/btn_gift_cancel"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <ImageView
-        android:id="@+id/bot_bg"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HeartPop_Charge"
-        app:srcCompat="@android:color/transparent" />
+
 
 
 </android.support.constraint.ConstraintLayout>
