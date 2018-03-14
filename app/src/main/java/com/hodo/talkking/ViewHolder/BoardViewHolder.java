@@ -93,15 +93,14 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
                     BoardWriter.setTextColor(0xff005baf);
 
                 BoardUserItem.setVisibility(View.VISIBLE);
-            /*    if(mMyData.getUserBestItem() > 0)
+
+                if(mMyData.getUserBestItem() == 0)
                 {
-                    BoardUserItem.setImageResource(UIData.getInstance().getJewels()[mMyData.getUserBestItem()]);
+                    BoardUserItem.setVisibility(View.GONE);
                 }
                 else
-                {
-                    BoardUserItem.setImageResource(R.mipmap.randombox);
-                }*/
-                BoardUserItem.setImageResource(UIData.getInstance().getJewels()[mMyData.getUserBestItem()]);
+                    BoardUserItem.setImageResource(UIData.getInstance().getJewels()[mMyData.getUserBestItem()]);
+
                 BoardUserGrade.setVisibility(View.VISIBLE);
                 BoardUserGrade.setImageResource(UIData.getInstance().getGrades()[mMyData.getGrade()]);
 
@@ -121,15 +120,14 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
                     BoardWriter.setTextColor(0xff005baf);
 
                 BoardUserItem.setVisibility(View.VISIBLE);
-              /*  if(simpleUserData.BestItem > 0)
+
+                if(simpleUserData.BestItem == 0)
                 {
-                    BoardUserItem.setImageResource(UIData.getInstance().getJewels()[simpleUserData.BestItem]);
+                    BoardUserItem.setVisibility(View.GONE);
                 }
                 else
-                {
-                    BoardUserItem.setImageResource(R.mipmap.randombox);
-                }*/
-                BoardUserItem.setImageResource(UIData.getInstance().getJewels()[simpleUserData.BestItem]);
+                    BoardUserItem.setImageResource(UIData.getInstance().getJewels()[simpleUserData.BestItem]);
+
                 BoardUserGrade.setVisibility(View.VISIBLE);
                 BoardUserGrade.setImageResource(UIData.getInstance().getGrades()[simpleUserData.Grade]);
 
