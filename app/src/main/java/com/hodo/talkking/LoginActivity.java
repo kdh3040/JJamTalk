@@ -103,6 +103,8 @@ import java.util.UUID;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.hodo.talkking.Data.CoomonValueData.DEF_LAT;
+import static com.hodo.talkking.Data.CoomonValueData.DEF_LON;
 import static com.hodo.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
@@ -535,12 +537,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         Location location = service.getLastKnownLocation(provider);
         bMyLoc = true;
+
+
         if(location != null)
         {
-            mMyData.setUserLon(location.getLongitude());
-            mMyData.setUserLat(location.getLatitude());
+            double tempLon, tempLat;
+            if(location.getLongitude() == 0)
+            {
+                tempLon = DEF_LON;
+            }
+            else
+            {
+                tempLon = location.getLongitude();
+            }
+            if(location.getLatitude() == 0)
+            {
+                tempLat = DEF_LAT;
+            }
+            else
+            {
+                tempLat = location.getLatitude();
+            }
 
-            mMyData.setUserDist(mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
+            mMyData.setUserLon(tempLon);
+            mMyData.setUserLat(tempLat);
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
         }
 
         if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
@@ -1209,27 +1230,33 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 SimpleUserData stRecvData = new SimpleUserData ();
                                 stRecvData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(stRecvData != null) {
-                                    if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
-                                        if (stRecvData.Img == null)
-                                            stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                        double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon,"kilometer");
-
-                                        mMyData.arrUserAll_Near.add(stRecvData);
-
-                                        if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
-                                            mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
-                                        } else {
-                                            mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
-                                        }
-
-                                        mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                        i++;
+                                    if(stRecvData.Lat == 0 || stRecvData.Lon == 0)
+                                    {
+                                        // 위치 못받아오는 애들
                                     }
+                                    else
+                                    {
+                                        if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
+                                            if (stRecvData.Img == null)
+                                                stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
+                                            double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon,"kilometer");
 
+                                            mMyData.arrUserAll_Near.add(stRecvData);
+
+                                            if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
+                                                mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                            } else {
+                                                mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
+                                            }
+
+                                            mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
+                                            i++;
+                                        }
+                                    }
                                 }
                             }
 
