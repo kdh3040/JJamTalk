@@ -57,11 +57,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.hodo.talkking.Data.BoardData;
+import com.hodo.talkking.Data.BoardMsgDBData;
+import com.hodo.talkking.Data.ChatData;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
@@ -80,6 +85,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -417,13 +423,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final boolean[] bThreadRun = {false};
         CommonFunc.getInstance().Honey_Box = (ImageView)findViewById(R.id.iv_honeybox);
         CommonFunc.getInstance().Honey_Box.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CommonFunc.getInstance().SetMailAlarmVisible(false);
                 startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
-
             }
         });
 
@@ -1189,11 +1195,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-     /*   int BotFrequency_Sec = 1000;
-        Bot thrBot = new Bot(BotFrequency_Sec * 10);
-        thrBot.start();*/
 
+        // 111111111
 
+        int BotCount = 10;
+
+        int BotFrequency_Sec = 1000;
+     /*   for(int i = 0; i<BotCount; i++) {
+            Bot thrBot = new Bot(BotFrequency_Sec * 3);
+            thrBot.start();
+        }*/
     }
 
     private void LoadChatData() {
@@ -1728,16 +1739,31 @@ public class MainActivity extends AppCompatActivity {
         // 쓰레드 start()시 수행되는 메소드
         public void run() {
             while (true) {
-                RunCard();
-                RunSendMsg();
-                RunSendHeart();
-                RunWriteBoard();
+
+                Random random = new Random();
+                int temp = random.nextInt(4);
+
+                switch (temp)
+                {
+                    case 0:
+                        RunCard();
+                        break;
+                    case 1:
+                        RunSendMsg();
+                        break;
+                    case 2:
+                        RunSendHeart();
+                        break;
+                    case 3:
+                        RunWriteBoard();
+                        break;
+
+                }
 
                 try { sleep(count); } // 0.5초간 sleep
                 catch (InterruptedException e) {}
             }
         }
-
     }
 
     private void RunWriteBoard() {
@@ -1746,7 +1772,43 @@ public class MainActivity extends AppCompatActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), "RunWriteBoard", Toast.LENGTH_SHORT).show();
+
+                FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
+                DatabaseReference data = fierBaseDataInstance.getReference("BoardIdx");
+                data.runTransaction(new Transaction.Handler() {
+                    @Override
+                    public Transaction.Result doTransaction(MutableData mutableData) {
+                        Long index = mutableData.getValue(Long.class);
+                        if(index == null)
+                            return Transaction.success(mutableData);
+
+                        index--;
+
+                        mutableData.setValue(index);
+                        return Transaction.success(mutableData);
+                    }
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                        // TODO 환웅 성공 했을때 오는 함수 인듯
+                        // TODO 환웅 콜백 함수가 있나?
+                        long index = dataSnapshot.getValue(long.class);
+                        BoardData.getInstance().BoardIdx = index;
+
+                        BoardMsgDBData sendData = new BoardMsgDBData();
+                        Random random = new Random();
+                        int tempIdx = random.nextInt(100);
+
+                        sendData.Idx = Integer.toString(1000 + tempIdx);
+                        sendData.Msg = randomHangulName();
+
+                        mFireBaseData.SaveBoardData(sendData);
+
+                    }
+                });
+
+
             }
         }, 0);
 
@@ -1758,7 +1820,7 @@ public class MainActivity extends AppCompatActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), "RunSendHeart", Toast.LENGTH_SHORT).show();
+
             }
         }, 0);
 
@@ -1782,7 +1844,19 @@ public class MainActivity extends AppCompatActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), "RunCard", Toast.LENGTH_SHORT).show();
+
+                Random random = new Random();
+                int tempIdx = random.nextInt(100);
+                String Idx = Integer.toString(1000 + tempIdx);
+
+                int tempTargetIdx = random.nextInt(100);
+                String TargetIdx = Integer.toString(1000 + tempTargetIdx);
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference table;
+                table = database.getReference("User/" + Idx);
+                table.child("CardList").child(TargetIdx).setValue(TargetIdx);
+
             }
         }, 0);
 
