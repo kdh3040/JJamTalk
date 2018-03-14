@@ -284,16 +284,18 @@ public class BoardFragment extends Fragment {
                 }*/
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
                     if(!recyclerView.canScrollVertically(-1)) {
                         if(mBoardInstanceData.BoardList.size() <= 0)
                             return;
                         if(BoradListAdapter.BoardScrollState == BOARD_SCROLL_STATE_TYPE.TOP)
-                             return;
+                            return;
 
                         BoradListAdapter.BoardScrollState = BOARD_SCROLL_STATE_TYPE.TOP;
 
                         if(BoradListAdapter.BoardDataLoding == false)
                         {
+                            CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
                             BoradListAdapter.BoardDataLoding = true;
                             BoardMsgClientData lastBoardData = mBoardInstanceData.BoardList.get(0);
                             FirebaseData.getInstance().GetBoardData(BoradListAdapter,mBoardInstanceData.TopBoardIdx, true);
@@ -309,6 +311,7 @@ public class BoardFragment extends Fragment {
 
                         if(BoradListAdapter.BoardDataLoding == false)
                         {
+                            CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
                             BoradListAdapter.BoardDataLoding = true;
                             FirebaseData.getInstance().GetBoardData(BoradListAdapter,mBoardInstanceData.BottomBoardIdx, false);
                         }
