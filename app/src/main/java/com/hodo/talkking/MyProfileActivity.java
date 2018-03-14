@@ -203,16 +203,17 @@ public class MyProfileActivity extends AppCompatActivity {
                     case R.id.MyProfile_SumImg:
                       //  startActivity(new Intent(getApplicationContext(), ImageViewPager.class));
 
-                        stTargetData.ImgGroup0 =  tempImg[0].toString();
-                        stTargetData.ImgGroup1 = tempImg[1].toString();
-                        stTargetData.ImgGroup2 = tempImg[2].toString();
-                        stTargetData.ImgGroup3 = tempImg[3].toString();
+                        UserData TempSendUserData = new UserData();
+                        TempSendUserData.ImgCount = mMyData.getUserImgCnt();
 
-                        stTargetData.ImgCount = mMyData.getUserImgCnt();
+                        TempSendUserData.ImgGroup0 = tempImg[0].toString();
+                        TempSendUserData.ImgGroup1 = tempImg[1].toString();
+                        TempSendUserData.ImgGroup2 = tempImg[2].toString();
+                        TempSendUserData.ImgGroup3 = tempImg[3].toString();
 
-                        Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
+                        Intent intent = new Intent(getApplicationContext(), MyImageViewPager.class);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("Target", stTargetData);
+                        bundle.putSerializable("Target", TempSendUserData);
                         bundle.putSerializable("Index", 0);
                         intent.putExtras(bundle);
                         startActivity(intent);
@@ -409,18 +410,19 @@ public class MyProfileActivity extends AppCompatActivity {
             dialog.tv_see.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // 사진 보기
-                    stTargetData.ImgGroup0 = tempImg[index].toString();
-                    stTargetData.ImgGroup1 = "1";
-                    stTargetData.ImgGroup2 = "1";
-                    stTargetData.ImgGroup3 = "1";
 
-                    stTargetData.ImgCount = 1;//mMyData.getUserImgCnt();
+                    UserData TempSendUserData = new UserData();
+                    TempSendUserData.ImgCount = mMyData.getUserImgCnt();
 
-                    Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
+                    TempSendUserData.ImgGroup0 = tempImg[0].toString();
+                    TempSendUserData.ImgGroup1 = tempImg[1].toString();
+                    TempSendUserData.ImgGroup2 = tempImg[2].toString();
+                    TempSendUserData.ImgGroup3 = tempImg[3].toString();
+
+                    Intent intent = new Intent(getApplicationContext(), MyImageViewPager.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("Target", stTargetData);
-                    bundle.putSerializable("Index", index);
+                    bundle.putSerializable("Target", TempSendUserData);
+                    bundle.putSerializable("Index", 0);
                     intent.putExtras(bundle);
                     startActivity(intent);
 
