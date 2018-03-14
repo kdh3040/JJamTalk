@@ -132,7 +132,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MailboxActivity"
-            android:label="우체통"
+            android:label="받은 하트"
             android:screenOrientation="portrait" />
 
         <meta-data

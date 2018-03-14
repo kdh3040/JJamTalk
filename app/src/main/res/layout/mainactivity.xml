@@ -86,7 +86,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/bg_topbar"
         app:layout_constraintRight_toLeftOf="@+id/iv_mypage"
         app:layout_constraintTop_toTopOf="@+id/bg_topbar"
-        app:srcCompat="@drawable/mail"></ImageView>
+        app:srcCompat="@drawable/heart_white"></ImageView>
 
     <ImageView
         android:id="@+id/iv_boardwrite"
