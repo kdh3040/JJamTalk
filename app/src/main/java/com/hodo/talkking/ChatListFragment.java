@@ -321,7 +321,11 @@ public class ChatListFragment extends Fragment {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    getChatTargetData(position);
+                    if(CommonFunc.getInstance().getClickStatus() == false)
+                    {
+                        getChatTargetData(position);
+                    }
+
                     //finish();
                 }
             });
@@ -337,6 +341,9 @@ public class ChatListFragment extends Fragment {
 
         public void moveChatPage(UserData user, int pos)
         {
+
+            CommonFunc.getInstance().setClickStatus(false);
+
             Intent intent = new Intent(getContext(),ChatRoomActivity.class);
             Bundle bundle = new Bundle();
 
@@ -349,6 +356,8 @@ public class ChatListFragment extends Fragment {
 
         public void getChatTargetData(final int position) {
 
+            CommonFunc.getInstance().setClickStatus(true);
+            
             String str = mMyData.arrChatNameList.get(position);
 
             String[] strIdx = mMyData.arrChatDataList.get(str).ChatRoomName.split("_");
@@ -432,6 +441,8 @@ public class ChatListFragment extends Fragment {
 
                     }
 
+                    else
+                        CommonFunc.getInstance().setClickStatus(false);
 
 
                 }

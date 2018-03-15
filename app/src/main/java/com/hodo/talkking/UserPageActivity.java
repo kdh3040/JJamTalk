@@ -384,7 +384,7 @@ if(mMyData.itemList.get(i) != 0)
                                 mMyData.setSendHoneyCnt(heartCount);
                                 mMyData.makeFanList(stTargetData, heartCount);
 
-                                Calendar cal = Calendar.getInstance();
+                              /*  Calendar cal = Calendar.getInstance();
                                 Date date = cal.getTime();
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
                                 String formatStr = sdf.format(date);
@@ -414,7 +414,7 @@ if(mMyData.itemList.get(i) != 0)
 
 
 
-                                mRef.push().setValue(chat_Data);
+                                mRef.push().setValue(chat_Data);*/
 
 
                                 RefreshFanData();
