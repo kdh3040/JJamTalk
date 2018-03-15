@@ -81,7 +81,7 @@
         android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_gift_count"
         app:layout_constraintRight_toLeftOf="@+id/tv_gift_count"
-        app:srcCompat="@drawable/heart" />
+        app:srcCompat="@drawable/heart_red" />
 
     <TextView
         android:id="@+id/tv_gift_count"

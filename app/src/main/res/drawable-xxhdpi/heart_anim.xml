@@ -16,6 +16,10 @@
 
     <item
         android:duration="200"
+        android:drawable="@drawable/heart_white_1"/>
+
+    <item
+        android:duration="200"
         android:drawable="@drawable/heart_white"/>
 
 

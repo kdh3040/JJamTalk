@@ -1303,22 +1303,22 @@ public class CommonFunc {
         switch (idx)
         {
             case 0:
-                btnHeart10.setBackgroundResource(R.drawable.heart);
+                btnHeart10.setBackgroundResource(R.drawable.heart_red);
                 break;
             case 1:
-                btnHeart30.setBackgroundResource(R.drawable.heart);
+                btnHeart30.setBackgroundResource(R.drawable.heart_red);
                 break;
             case 2:
-                btnHeart50.setBackgroundResource(R.drawable.heart);
+                btnHeart50.setBackgroundResource(R.drawable.heart_red);
                 break;
             case 3:
-                btnHeart100.setBackgroundResource(R.drawable.heart);
+                btnHeart100.setBackgroundResource(R.drawable.heart_red);
                 break;
             case 4:
-                btnHeart300.setBackgroundResource(R.drawable.heart);
+                btnHeart300.setBackgroundResource(R.drawable.heart_red);
                 break;
             case 5:
-                btnHeart500.setBackgroundResource(R.drawable.heart);
+                btnHeart500.setBackgroundResource(R.drawable.heart_red);
                 break;
         }
     }
