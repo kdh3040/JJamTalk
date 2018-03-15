@@ -45,6 +45,8 @@ public class BoardWriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_board_write);
         mActivity = this;
 
+        MyData.getInstance().SetCurFrag(0);
+
         txt_Memo = (EditText)findViewById(R.id.Write_txtMemo);
         txt_Memo.setText(CommonFunc.getInstance().LastBoardWrite);
         btn_send = (Button)findViewById(R.id.btn_send);
@@ -112,6 +114,8 @@ public class BoardWriteActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
+        MyData.getInstance().SetCurFrag(0);
+
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);

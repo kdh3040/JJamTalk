@@ -2,6 +2,7 @@ package com.hodo.talkking;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -296,5 +297,27 @@ public class UserFanActivity extends AppCompatActivity {
                 constraintLayout = itemView.findViewById(R.id.layout_fan);
             }
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+            pref.getInt("Badge", mMyData.badgecount );
+
+            if (mMyData.badgecount >= 1) {
+                mMyData.badgecount = 0;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
+            }
+        }
+
+        mMyData.SetCurFrag(0);
     }
 }

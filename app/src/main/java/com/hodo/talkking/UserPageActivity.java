@@ -944,6 +944,8 @@ if(mMyData.itemList.get(i) != 0)
                 sendBroadcast(intent);
             }
         }
+
+        mMyData.SetCurFrag(0);
     }
 
 }

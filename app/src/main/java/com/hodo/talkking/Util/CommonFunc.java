@@ -778,7 +778,11 @@ public class CommonFunc {
 
     public void SetChatAlarmVisible(boolean enable) {
         if (Chat_Alarm != null)
-            Chat_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
+        {
+            if(mMyData.GetCurFrag() != 2)
+                Chat_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
+        }
+
     }
 
     public void SetFanAlarmVisible(boolean enable) {

@@ -3,6 +3,7 @@ package com.hodo.talkking;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -22,6 +23,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.Util.CommonFunc;
 
 /**
  * Created by mjk on 2017. 8. 4..
@@ -301,6 +303,29 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         btnMessage =  findViewById(R.id.UserPage_btnMessage);
         btnMessage.setVisibility(View.GONE);
 
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        mMyData.SetCurFrag(0);
+
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+            pref.getInt("Badge", mMyData.badgecount );
+
+            if (mMyData.badgecount >= 1) {
+                mMyData.badgecount = 0;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
+            }
+        }
     }
 
 

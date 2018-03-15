@@ -104,6 +104,8 @@ public class SettingActivity extends AppCompatActivity {
 
         //imageview 및 textview 초기화
 
+        mMyData.SetCurFrag(0);
+
         alarm = findViewById(R.id.btn_alarm);
         alarm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -453,6 +455,7 @@ public class SettingActivity extends AppCompatActivity {
                 sendBroadcast(intent);
             }
         }
+        mMyData.SetCurFrag(0);
     }
 
 

@@ -60,6 +60,8 @@ public class MyJewelBoxActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_jewel_box);
         mActivity = this;
+        mMyData.SetCurFrag(0);
+
         buy_Coin = findViewById(R.id.buy_coin);
         buy_Coin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,6 +216,7 @@ public class MyJewelBoxActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
+        mMyData.SetCurFrag(0);
         refreshHearCnt();
     }
 
