@@ -778,6 +778,9 @@ public class CommonFunc {
             if(enable == true)
             {
                 AnimationDrawable frameAnimation = (AnimationDrawable) Honey_Box.getBackground();
+                if(frameAnimation.isRunning()) frameAnimation.stop();
+
+                frameAnimation = (AnimationDrawable) Honey_Box.getBackground();
                 frameAnimation.start();
             }
         }
