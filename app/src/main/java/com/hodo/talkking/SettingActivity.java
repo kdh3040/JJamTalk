@@ -72,6 +72,8 @@ public class SettingActivity extends AppCompatActivity {
 
     private CheckBox SoundCheckBox;
     private CheckBox VibrationCheckBox;
+    private CheckBox PopCheckBox;
+
     private CheckBox RecvRejectCheckBox;
 
 
@@ -87,8 +89,8 @@ public class SettingActivity extends AppCompatActivity {
 
         if(item.getItemId() == android.R.id.home)
         {
-            mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
-            mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration());
+            mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration(),  mSetting.IsAlarmSettingPop());
+            mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration(), mSetting.IsAlarmSettingPop());
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -114,11 +116,14 @@ public class SettingActivity extends AppCompatActivity {
                 VibrationCheckBox = (CheckBox) v.findViewById(R.id.vibration);
                 VibrationCheckBox.setChecked(mMyData.nAlarmSetting_Vibration);
 
+                PopCheckBox = (CheckBox) v.findViewById(R.id.popup);
+                PopCheckBox.setChecked(mMyData.nAlarmSetting_Pop);
+
                 final AlertDialog dialog = new AlertDialog.Builder(SettingActivity.this).setView(v).create();
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss (DialogInterface var1){
-                        mSetting.setAlarmSetting(SoundCheckBox.isChecked(), VibrationCheckBox.isChecked());
+                        mSetting.setAlarmSetting(SoundCheckBox.isChecked(), VibrationCheckBox.isChecked(), PopCheckBox.isChecked());
 
 
                         SharedPreferences prefs = getApplicationContext().getSharedPreferences("PrefSetting", getApplicationContext().MODE_PRIVATE);

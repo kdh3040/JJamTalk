@@ -404,7 +404,7 @@ public class FirebaseData {
         });
     }
 
-    public void SaveSettingData(String userIdx, int SearchMode, int ViewMode, boolean RecvMsgReject, boolean alarmSetting_Sound, boolean alarmSetting_Vibration) {
+    public void SaveSettingData(String userIdx, int SearchMode, int ViewMode, boolean RecvMsgReject, boolean alarmSetting_Sound, boolean alarmSetting_Vibration, boolean alarmSetting_Popup) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Setting");
@@ -417,6 +417,7 @@ public class FirebaseData {
         user.child("RecvMsgReject").setValue((RecvMsgReject) ? 1 : 0);
         user.child("AlarmMode_Sound").setValue(alarmSetting_Sound);
         user.child("AlarmMode_Vibration").setValue(alarmSetting_Vibration);
+        user.child("AlarmMode_Popup").setValue(alarmSetting_Popup);
         user.child("StartAge").setValue(mMyData.nStartAge);
         user.child("EndAge").setValue(mMyData.nEndAge);
 

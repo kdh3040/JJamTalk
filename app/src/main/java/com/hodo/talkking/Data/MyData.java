@@ -142,6 +142,8 @@ public class MyData {
     public int nSearchMode = 0;
     public boolean nAlarmSetting_Sound = false;
     public boolean nAlarmSetting_Vibration = false;
+    public boolean nAlarmSetting_Pop = false;
+
     public int nViewMode = 1;
     public boolean nRecvMsgReject = false;
 
@@ -1327,10 +1329,11 @@ public class MyData {
         strMemo = memo.toString();
     }
 
-    public void setSettingData(int SearchMode, int ViewMode, boolean recvMsgReject, boolean alarmSetting_Sound, boolean alarmSetting_Vibration) {
+    public void setSettingData(int SearchMode, int ViewMode, boolean recvMsgReject, boolean alarmSetting_Sound, boolean alarmSetting_Vibration, boolean alarmSetting_Popup ) {
         nSearchMode = SearchMode;
         nAlarmSetting_Sound = alarmSetting_Sound;
         nAlarmSetting_Vibration = alarmSetting_Vibration;
+        nAlarmSetting_Pop = alarmSetting_Popup;
         nViewMode = ViewMode;
         nRecvMsgReject = recvMsgReject;
     }
@@ -1752,6 +1755,7 @@ public class MyData {
                             nRecvMsgReject = stRecvData.RecvMsgReject == 0 ? false : true;
                             nAlarmSetting_Sound = stRecvData.AlarmMode_Sound;
                             nAlarmSetting_Vibration = stRecvData.AlarmMode_Vibration;
+                            nAlarmSetting_Pop = stRecvData.AlarmMode_Popup;
                         }
                     }
 

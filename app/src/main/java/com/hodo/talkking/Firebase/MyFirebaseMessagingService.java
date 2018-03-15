@@ -170,11 +170,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .setWhen(System.currentTimeMillis())
                             .setDefaults(Notification.DEFAULT_LIGHTS);
 
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                        builder.setCategory(Notification.CATEGORY_MESSAGE)
-                                .setPriority(Notification.PRIORITY_HIGH)
-                                .setVisibility(Notification.VISIBILITY_PUBLIC);
+                    if(mMyData.nAlarmSetting_Pop == true)
+                    {
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                            builder.setCategory(Notification.CATEGORY_MESSAGE)
+                                    .setPriority(Notification.PRIORITY_HIGH)
+                                    .setVisibility(Notification.VISIBILITY_PUBLIC);
+                        }
                     }
+
 
                     if (pref.getBoolean("Sound", bSound)  ) {
                         builder.setVibrate(new long[] {1000});
