@@ -1517,12 +1517,8 @@ public class MyData {
         tempTargetSave.nSendHoney = SendHoneyCnt;
         tempTargetSave.strTargetMsg = SendMsg;
 
-        long now = CommonFunc.getInstance().GetCurrentTime();
-        Date date = new Date(now);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String getTime = sdf.format(date);
-
-        tempTargetSave.strSendDate = getTime;
+        long nowTime = CommonFunc.getInstance().GetCurrentTime();
+        tempTargetSave.strSendDate = nowTime;
 
         user.push().setValue(tempTargetSave);
         rtValue = true;
@@ -1551,12 +1547,8 @@ public class MyData {
         tempMySave.nSendHoney = SendHoneyCnt;
         tempMySave.strTargetMsg = SendMsg;
 
-        long now = CommonFunc.getInstance().GetCurrentTime();
-        Date date = new Date(now);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String getTime = sdf.format(date);
-
-        tempMySave.strSendDate = getTime;
+        long nowTime = CommonFunc.getInstance().GetCurrentTime();
+        tempMySave.strSendDate = nowTime;
 
         targetuser.push().setValue(tempMySave);
         rtValue = true;
@@ -1583,12 +1575,8 @@ public class MyData {
         tempMySave.nSendHoney = SendHoneyCnt;
         tempMySave.strTargetMsg = SendMsg;
 
-        long now = CommonFunc.getInstance().GetCurrentTime();
-        Date date = new Date(now);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String getTime = sdf.format(date);
-
-        tempMySave.strSendDate = getTime;
+        long nowTime = CommonFunc.getInstance().GetCurrentTime();
+        tempMySave.strSendDate = nowTime;
 
         targetuser.push().setValue(tempMySave);
         rtValue = true;

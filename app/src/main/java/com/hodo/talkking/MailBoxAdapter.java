@@ -14,11 +14,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.ViewHolder.MailboxViewHolder;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -56,7 +60,9 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
                 .bitmapTransform(new CropCircleTransformation(mActivity))
                 .into(holder.imageView);
 
-        holder.SendDate.setText(mMyData.arrGiftHoneyDataList.get(position).strSendDate);
+        Date sendDate = new Date(mMyData.arrGiftHoneyDataList.get(position).strSendDate);
+        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.MAIL_DATE_FORMAT);
+        holder.SendDate.setText(ctime.format(sendDate));
 
         holder.textView.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney));
 
