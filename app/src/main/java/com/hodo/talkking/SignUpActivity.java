@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         mTextInfo.setText("이메일과 비밀 번호를 6자리 이상 입력해주세요");
 
-      /*  mBtnSignUp.setOnClickListener(new View.OnClickListener() {
+      /*  mBtnSignUp.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -63,13 +63,13 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if(mStrEmail != null && mStrPwd != null) {
                     mAuth.createUserWithEmailAndPassword(mStrEmail,mStrPwd)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            .addOnCompleteListener(new_img OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         mUserIdx= mAwsFunc.CreateUserIdx(mStrEmail);
                                         mMyData.setUserIdx(mUserIdx);
-                                        Intent intent = new Intent(SignUpActivity.this, InputProfile.class);
+                                        Intent intent = new_img Intent(SignUpActivity.this, InputProfile.class);
                                         startActivity(intent);
 
                                     } else {

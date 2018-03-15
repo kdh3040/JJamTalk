@@ -497,7 +497,7 @@ public class InputProfile extends AppCompatActivity {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
 
-  /*      PermissionListener permissionlistener = new PermissionListener() {
+  /*      PermissionListener permissionlistener = new_img PermissionListener() {
             @Override
             public void onPermissionGranted() {
             }
@@ -507,7 +507,7 @@ public class InputProfile extends AppCompatActivity {
             }
         };
 
-        new TedPermission(this)
+        new_img TedPermission(this)
                 .setPermissionListener(permissionlistener)
                 .setRationaleMessage("구글 로그인을 위해 연락처 접근 권한이 필요합니다")
                 .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
@@ -722,7 +722,7 @@ public class InputProfile extends AppCompatActivity {
                     InitData_New();
                     InitData_FanCount();
                     InitData_Near();*/
-                    /*Intent intent = new Intent(InputProfile.this, MainActivity.class);
+                    /*Intent intent = new_img Intent(InputProfile.this, MainActivity.class);
                     startActivity(intent);*/
                 }
             }
@@ -1017,7 +1017,7 @@ public class InputProfile extends AppCompatActivity {
         CommonFunc.getInstance().DismissLoadingPage();
         mCommon.refreshMainActivity(this, MAIN_ACTIVITY_HOME);
         finish();
-        /*Intent intent = new Intent(InputProfile.this, MainActivity.class);
+        /*Intent intent = new_img Intent(InputProfile.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);
         finish();*/

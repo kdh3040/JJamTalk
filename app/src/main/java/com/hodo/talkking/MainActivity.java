@@ -356,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
 
 /*        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        Bundle Analyticsbundle = new Bundle();
+        Bundle Analyticsbundle = new_img Bundle();
         Analyticsbundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id");
         Analyticsbundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Name");
         Analyticsbundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
@@ -400,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
                 .load(mMyData.getUserImg())
                 .thumbnail(0.1f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                .bitmapTransform(new_img CropCircleTransformation(getApplicationContext()))
                 .into(iv_myPage);*/
 
         iv_myPage.setOnClickListener(new View.OnClickListener() {
@@ -464,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                //  startActivity(new Intent(getApplicationContext(),MainSettingActivity.class));
+                //  startActivity(new_img Intent(getApplicationContext(),MainSettingActivity.class));
                 //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
@@ -531,7 +531,7 @@ public class MainActivity extends AppCompatActivity {
                         SortDataAge sortData = new SortDataAge();
                         sortData.execute();
 
-               /*         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+               /*         Intent intent = new_img Intent(getApplicationContext(),MainActivity.class);
                         intent.putExtra("StartFragment", 0);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getApplicationContext().startActivity(intent);*/
@@ -744,7 +744,7 @@ public class MainActivity extends AppCompatActivity {
         mMyData.mRewardedVideoAd.loadAd("ca-app-pub-8954582850495744/9112330627",
                 new AdRequest.Builder().build());
 
-      /*  Prepare prepareJob = new Prepare();
+      /*  Prepare prepareJob = new_img Prepare();
 
         prepareJob.execute();*/
 
@@ -799,13 +799,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
         /*ib_pcr_open = (ImageButton)findViewById(R.id.ib_pcr_open);
-        ib_pcr_open.setOnClickListener(new View.OnClickListener() {
+        ib_pcr_open.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if(mMyData.nPublicRoomStatus == 0)
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                    AlertDialog.Builder builder = new_img AlertDialog.Builder(mActivity);
                     View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_pcr_open,null,false);
                     //v.getBackground().setAlpha(0);
 
@@ -814,15 +814,15 @@ public class MainActivity extends AppCompatActivity {
                     final RadioButton btn_Member_100 =  v.findViewById(R.id.member_100);
                     final RadioButton btn_Member_200 =  v.findViewById(R.id.member_200);
 
-                    final int[] publicRoomMemberCnt = new int[1];
+                    final int[] publicRoomMemberCnt = new_img int[1];
 
                     final RadioButton btn_time_30 =  v.findViewById(R.id.time_30);
                     final RadioButton btn_time_60 =  v.findViewById(R.id.time_60);
                     final RadioButton btn_time_120 =  v.findViewById(R.id.time_120);
 
-                    final int[] publicRoomTime = new int[1];
+                    final int[] publicRoomTime = new_img int[1];
 
-                    RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener(){
+                    RadioButton.OnClickListener optionOnClickListener = new_img RadioButton.OnClickListener(){
 
                         @Override
                         public void onClick(View view) {
@@ -855,17 +855,17 @@ public class MainActivity extends AppCompatActivity {
 
                     builder.setView(v);
                     final AlertDialog dialog = builder.create();
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    dialog.getWindow().setBackgroundDrawable(new_img ColorDrawable(android.graphics.Color.TRANSPARENT));
                     dialog.show();
 
                     Button btn_open_pcr = v.findViewById(R.id.btn_open_pcr);
-                    btn_open_pcr.setOnClickListener(new View.OnClickListener() {
+                    btn_open_pcr.setOnClickListener(new_img View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 
                             boolean rtValuew = mMyData.makePublicRoom(publicRoomMemberCnt[0], publicRoomTime[0]);
 
-                            Intent intent= new Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
+                            Intent intent= new_img Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
                             startActivity(intent);
                             dialog.dismiss();
                         }
@@ -875,7 +875,7 @@ public class MainActivity extends AppCompatActivity {
 
                 else
                 {
-                    Intent intent= new Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
+                    Intent intent= new_img Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
                     intent.putExtra("RoomLimit", mMyData.nPublicRoomLimit);
                     intent.putExtra("RoomTime", mMyData.nPublicRoomTime);
                     startActivity(intent);
@@ -988,7 +988,7 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     int b = 0;
                 }
-                //startActivity(new Intent(getApplicationContext(),CardListActivity.class));
+                //startActivity(new_img Intent(getApplicationContext(),CardListActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
@@ -1032,7 +1032,7 @@ public class MainActivity extends AppCompatActivity {
                 ib_cardList.setImageResource(R.drawable.btn_card_normal);
                 ib_home.setImageResource(R.drawable.btn_home_normal);*/
 
-                //startActivity(new Intent(getApplicationContext(),ChatListActivity.class));
+                //startActivity(new_img Intent(getApplicationContext(),ChatListActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
             }
@@ -1062,8 +1062,8 @@ public class MainActivity extends AppCompatActivity {
                 ib_cardList.setImageResource(R.drawable.btn_card_normal);
                 ib_home.setImageResource(R.drawable.btn_home_normal);*/
 
-                //startActivity(new Intent(getApplicationContext(),FanActivity.class));
-         /*       Intent intent = new Intent(getApplicationContext(), FanActivity.class);
+                //startActivity(new_img Intent(getApplicationContext(),FanActivity.class));
+         /*       Intent intent = new_img Intent(getApplicationContext(), FanActivity.class);
                 intent.putExtra("ViewMode", 0);
                 startActivity(intent);
 */
@@ -1100,16 +1100,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /*PagerModelManager manager = new PagerModelManager();
-        manager.addFragment(new Rank_NearFragment(),"가까운 순");
+        /*PagerModelManager manager = new_img PagerModelManager();
+        manager.addFragment(new_img Rank_NearFragment(),"가까운 순");
 
 
 
-        manager.addFragment(new Rank_GoldReceiveFragment(),"실시간 인기 순");
-        manager.addFragment(new Rank_FanRichFragment(),"팬 보유 순");
-        manager.addFragment(new Rank_NewMemberFragment(),"새로운 순");
+        manager.addFragment(new_img Rank_GoldReceiveFragment(),"실시간 인기 순");
+        manager.addFragment(new_img Rank_FanRichFragment(),"팬 보유 순");
+        manager.addFragment(new_img Rank_NewMemberFragment(),"새로운 순");
 
-        final ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);
+        final ModelPagerAdapter adapter = new_img ModelPagerAdapter(getSupportFragmentManager(),manager);
         viewPager.setAdapter(adapter);
         viewPager.fixScrollSpeed();
         springIndicator.setViewPager(viewPager);*/
@@ -1202,7 +1202,7 @@ public class MainActivity extends AppCompatActivity {
 
         int BotFrequency_Sec = 1000;
      /*   for(int i = 0; i<BotCount; i++) {
-            Bot thrBot = new Bot(BotFrequency_Sec * 3);
+            Bot thrBot = new_img Bot(BotFrequency_Sec * 3);
             thrBot.start();
         }*/
     }
@@ -1276,15 +1276,15 @@ public class MainActivity extends AppCompatActivity {
         if(mMyData.arrMyStarList.size() == 0)
         {
             if(fanFragment == null)
-                //fanFragment = new FanFragment();
-                fanFragment = new FanListFragment();
+                //fanFragment = new_img FanFragment();
+                fanFragment = new_img FanListFragment();
         }
 
         for(int i = 0; i < mMyData.arrMyStarList.size(); i++)
         {
             Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.arrMyStarList.get(i).Idx);
             final int finalI = i;
-            data.addListenerForSingleValueEvent(new ValueEventListener() {
+            data.addListenerForSingleValueEvent(new_img ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -1294,7 +1294,7 @@ public class MainActivity extends AppCompatActivity {
                     if(mMyData.arrMyStarDataList.size() == mMyData.arrMyStarList.size())
                     {
                         if(fanFragment == null)
-                            fanFragment = new FanListFragment();
+                            fanFragment = new_img FanListFragment();
                     }
 
                 }
@@ -1569,11 +1569,11 @@ public class MainActivity extends AppCompatActivity {
         RandImg[23] = "http://pds.joins.com/news/component/htmlphoto_mmdata/201702/27/e2368163-f9ce-4a72-b888-d94b3bd323d9.jpg";
 
         RandImg[24] = "http://cfile21.uf.tistory.com/image/999C293359F1A9BE072954";
-        RandImg[25] = "http://fimg2.pann.com/new/download.jsp?FileID=23967595";
+        RandImg[25] = "http://fimg2.pann.com/new_img/download.jsp?FileID=23967595";
         RandImg[26] = "http://mblogthumb4.phinf.naver.net/20160221_275/cindy________1455992120406YLDrt_JPEG/61.jpg?type=w2";
-        RandImg[27] = "http://fimg2.pann.com/new/download.jsp?FileID=23159739";
+        RandImg[27] = "http://fimg2.pann.com/new_img/download.jsp?FileID=23159739";
         RandImg[28] = "http://cfile221.uf.daum.net/image/1247444050A990B4274981";
-        RandImg[29] = "http://fimg2.pann.com/new/download.jsp?FileID=24086349";
+        RandImg[29] = "http://fimg2.pann.com/new_img/download.jsp?FileID=24086349";
         RandImg[30] = "http://image.kdramastars.com/data/images/full/222735/jung-woo-sung.jpg";
         RandImg[31] = "http://www.discovery-expedition.co.kr/shop6/shop/data/editor/1339463187.png";
 

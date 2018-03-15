@@ -86,10 +86,10 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
         /*ll_jewel_box= (LinearLayout) findViewById(R.id.ll_jewel_box);
-        ll_jewel_box.setOnClickListener(new View.OnClickListener() {
+        ll_jewel_box.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
+                startActivity(new_img Intent(getApplicationContext(),MyJewelBoxActivity.class));
             }
 <<<<<<< HEAD
         });*/
@@ -173,10 +173,10 @@ public class MyPageActivity extends AppCompatActivity {
 
 
         /*txt_profile = findViewById(R.id.textView6);
-        txt_profile.setOnClickListener(new View.OnClickListener() {
+        txt_profile.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MyProfileActivity.class));
+                startActivity(new_img Intent(getApplicationContext(),MyProfileActivity.class));
                 finish();
             }
         });
@@ -276,7 +276,7 @@ public class MyPageActivity extends AppCompatActivity {
         //
       //  mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
 
- /*       Intent intent = new Intent(MyPageActivity.this, MainActivity.class);
+ /*       Intent intent = new_img Intent(MyPageActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);

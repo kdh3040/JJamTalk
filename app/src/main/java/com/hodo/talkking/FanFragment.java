@@ -239,7 +239,7 @@ public class FanFragment extends Fragment {
         indicator = (SpringIndicator) findViewById(R.id.indicator_fan);
 
         viewPager = (ScrollerViewPager) findViewById(R.id.vp_fan);
-        PagerModelManager manager = new PagerModelManager();
+        PagerModelManager manager = new_img PagerModelManager();
 
         Intent intent = getIntent();
 
@@ -253,8 +253,8 @@ public class FanFragment extends Fragment {
 
             StarList = (ArrayList<FanData>) getIntent().getSerializableExtra("StarList");
             StarData = (ArrayList<UserData>) getIntent().getSerializableExtra("StarData");
-            manager.addFragment(new MyFanFragment(),"내 팬");
-            manager.addFragment(new MyLikeFragment(),"내가 좋아하는");
+            manager.addFragment(new_img MyFanFragment(),"내 팬");
+            manager.addFragment(new_img MyLikeFragment(),"내가 좋아하는");
         }
         else
         {
@@ -269,12 +269,12 @@ public class FanFragment extends Fragment {
             stTargetData.arrFanData= FanData;
             stTargetData.arrStarList = StarList;
             stTargetData.arrStarData = StarData;
-            manager.addFragment(new TargetFanFragment(stTargetData),"팬클럽");
-            manager.addFragment(new TargetLikeFragment(stTargetData),"가입한 팬클럽");
+            manager.addFragment(new_img TargetFanFragment(stTargetData),"팬클럽");
+            manager.addFragment(new_img TargetLikeFragment(stTargetData),"가입한 팬클럽");
         }
 
 
-        final ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(),manager);
+        final ModelPagerAdapter adapter = new_img ModelPagerAdapter(getSupportFragmentManager(),manager);
         viewPager.setAdapter(adapter);
         indicator.setViewPager(viewPager);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -303,22 +303,22 @@ public class FanFragment extends Fragment {
                 onBackPressed();
                 break;
             case R.id.open_pcr:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new_img AlertDialog.Builder(this);
                 View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_pcr_open,null);
 
                 final RadioButton btn_Member_50 =  v.findViewById(R.id.member_50);
                 final RadioButton btn_Member_100 =  v.findViewById(R.id.member_100);
                 final RadioButton btn_Member_200 =  v.findViewById(R.id.member_200);
 
-                final int[] publicRoomMemberCnt = new int[1];
+                final int[] publicRoomMemberCnt = new_img int[1];
 
                 final RadioButton btn_time_30 =  v.findViewById(R.id.time_30);
                 final RadioButton btn_time_60 =  v.findViewById(R.id.time_60);
                 final RadioButton btn_time_120 =  v.findViewById(R.id.time_120);
 
-                final int[] publicRoomTime = new int[1];
+                final int[] publicRoomTime = new_img int[1];
 
-                RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener(){
+                RadioButton.OnClickListener optionOnClickListener = new_img RadioButton.OnClickListener(){
 
                     @Override
                     public void onClick(View view) {
@@ -349,13 +349,13 @@ public class FanFragment extends Fragment {
 
 
                 Button btn_open_pcr = v.findViewById(R.id.btn_open_pcr);
-                btn_open_pcr.setOnClickListener(new View.OnClickListener() {
+                btn_open_pcr.setOnClickListener(new_img View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                         boolean rtValuew = mMyData.makePublicRoom();
 
-                        Intent intent= new Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
+                        Intent intent= new_img Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
                         intent.putExtra("RoomLimit", publicRoomMemberCnt[0]);
                         intent.putExtra("RoomTime", publicRoomTime[0]);
                         startActivity(intent);

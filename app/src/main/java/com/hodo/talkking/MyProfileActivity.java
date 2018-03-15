@@ -201,7 +201,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 switch (view.getId()) {
 
                     case R.id.MyProfile_SumImg:
-                      //  startActivity(new Intent(getApplicationContext(), ImageViewPager.class));
+                      //  startActivity(new_img Intent(getApplicationContext(), ImageViewPager.class));
 
                         UserData TempSendUserData = new UserData();
                         TempSendUserData.ImgCount = mMyData.getUserImgCnt();
@@ -284,10 +284,10 @@ public class MyProfileActivity extends AppCompatActivity {
 
 
                            btn_send.setText("코인 구매");
-                           btn_send.setOnClickListener(new View.OnClickListener() {
+                           btn_send.setOnClickListener(new_img View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    startActivity(new Intent(activity, BuyGoldActivity.class));
+                                    startActivity(new_img Intent(activity, BuyGoldActivity.class));
                                     msgDialog.dismiss();
                                 }
                             });
@@ -354,7 +354,7 @@ public class MyProfileActivity extends AppCompatActivity {
         Glide.with(getApplicationContext())
                 .load(mMyData.strProfileImg[0])
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                //   .bitmapTransform(new RoundedCornersTransformation(getApplicationContext()))
+                //   .bitmapTransform(new_img RoundedCornersTransformation(getApplicationContext()))
                 .thumbnail(0.1f)
                 .into(Img_Sum);
 
@@ -365,7 +365,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(R.drawable.picture)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                       // .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                       // .bitmapTransform(new_img CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
             }
@@ -374,7 +374,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(tempImg[i])
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        //.bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                        //.bitmapTransform(new_img CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
             }
@@ -426,7 +426,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
 
-                    //startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
+                    //startActivity(new_img Intent(getApplicationContext(),ImageViewPager.class));
                     dialog.dismiss();
                 }
             });
@@ -439,7 +439,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
-            /*dialog.tv_delete.setOnClickListener(new View.OnClickListener() {
+            /*dialog.tv_delete.setOnClickListener(new_img View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // 사진 삭제
@@ -479,7 +479,7 @@ public class MyProfileActivity extends AppCompatActivity {
                         Glide.with(getApplicationContext())
                                 .load(tempImg[nImgNumber].toString())
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                //.bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                                //.bitmapTransform(new_img CropCircleTransformation(getApplicationContext()))
                                 .thumbnail(0.1f)
                                 .into(Img_Profiles[nImgNumber]);
 
@@ -789,7 +789,7 @@ public class MyProfileActivity extends AppCompatActivity {
         Glide.with(getApplicationContext())
                 .load(mMyData.getUserImg())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                //   .bitmapTransform(new RoundedCornersTransformation(getApplicationContext()))
+                //   .bitmapTransform(new_img RoundedCornersTransformation(getApplicationContext()))
                 .thumbnail(0.1f)
                 .into(Img_Sum);
 
@@ -800,7 +800,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(R.drawable.picture)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                      //  .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                      //  .bitmapTransform(new_img CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
             }
@@ -809,7 +809,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext())
                         .load(tempImg[i])
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        //.bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                        //.bitmapTransform(new_img CropCircleTransformation(getApplicationContext()))
                         .thumbnail(0.1f)
                         .into(Img_Profiles[i]);
             }

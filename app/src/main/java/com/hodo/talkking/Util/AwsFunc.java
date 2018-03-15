@@ -38,7 +38,7 @@ public class AwsFunc {
         try{
             String email = URLEncoder.encode("email","UTF-8")+"="+ URLEncoder.encode(Email,"UTF-8");
             String addr ="http://13.113.143.45/firebaseact.php";
-            URL url = new URL(addr);
+            URL url = new_img URL(addr);
 
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 
@@ -50,13 +50,13 @@ public class AwsFunc {
                 conn.setConnectTimeout(10000);
                 Log.d("hngpic","settimeout");
                 OutputStream outputStream = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                BufferedWriter writer = new_img BufferedWriter(new_img OutputStreamWriter(outputStream));
                 writer.write(email);
                 writer.flush();
                 outputStream.close();
                 writer.close();
                 InputStream inputStream = conn.getInputStream();
-                BufferedReader br  = new BufferedReader(new InputStreamReader(inputStream));
+                BufferedReader br  = new_img BufferedReader(new_img InputStreamReader(inputStream));
                 rtValue = br.readLine();
                 if(rtValue ==null) {
                     Log.d("hngpic","readline is null");
@@ -81,7 +81,7 @@ public class AwsFunc {
         try{
             String email = URLEncoder.encode("email","UTF-8")+"="+ URLEncoder.encode(Email,"UTF-8");
             String addr ="http://13.113.143.45/firebase_login.php";
-            URL url = new URL(addr);
+            URL url = new_img URL(addr);
 
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 
@@ -93,13 +93,13 @@ public class AwsFunc {
                 conn.setConnectTimeout(10000);
                 Log.d("hngpic","settimeout");
                 OutputStream outputStream = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                BufferedWriter writer = new_img BufferedWriter(new_img OutputStreamWriter(outputStream));
                 writer.write(email);
                 writer.flush();
                 outputStream.close();
                 writer.close();
                 InputStream inputStream = conn.getInputStream();
-                BufferedReader br  = new BufferedReader(new InputStreamReader(inputStream));
+                BufferedReader br  = new_img BufferedReader(new_img InputStreamReader(inputStream));
                 rtValue = br.readLine();
                 if(rtValue ==null) {
                     Log.d("hngpic","readline is null");

@@ -246,7 +246,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                 mMyData.setRecvHoneyCnt(Integer.valueOf(strSenderHoney));
                                 mMyData.setUserHoney(mMyData.getUserHoney() + Integer.valueOf(strSenderHoney));
 
-                                  /*  FanData tempData = new FanData();
+                                  /*  FanData tempData = new_img FanData();
                                     tempData.Img = strSenderImg;
                                     tempData.Idx = strSenderIdx;
                                     tempData.Nick = strSenderName;

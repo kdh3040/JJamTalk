@@ -61,7 +61,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
         holder.textView.setLayoutParams(lpForTextView);
 
 
-        //holder.iv_honey_rank.setLayoutParams(new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2)));
+        //holder.iv_honey_rank.setLayoutParams(new_img RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2)));
         holder.iv_profile.setImageResource(R.drawable.image);
 
         RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));

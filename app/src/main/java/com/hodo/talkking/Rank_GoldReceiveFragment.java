@@ -79,8 +79,8 @@ public class Rank_GoldReceiveFragment extends Fragment {
                             if(mCommon.getClickStatus() == false)
                                 mCommon.getUserData(getActivity(), stTargetData);
 
-                 /*           Intent intent = new Intent(view.getContext(), UserPageActivity.class);
-                            Bundle bundle = new Bundle();
+                 /*           Intent intent = new_img Intent(view.getContext(), UserPageActivity.class);
+                            Bundle bundle = new_img Bundle();
 
                             bundle.putSerializable("Target", stTargetData);
                             intent.putExtra("FanList", stTargetData.arrFanList);

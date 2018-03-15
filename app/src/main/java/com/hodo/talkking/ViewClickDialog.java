@@ -46,7 +46,7 @@ public class ViewClickDialog extends Dialog {
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.tv_see:
-                mContext.startActivity(new Intent(mContext,ImageViewPager.class));
+                mContext.startActivity(new_img Intent(mContext,ImageViewPager.class));
                 dismiss();
                 break;
             case R.id.tv_camera:

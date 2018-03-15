@@ -42,7 +42,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
             @Override
             public void onClick(View view) {
                 /*if(mAppStatus.bCheckMultiSend == false)
-                    mContext.startActivity(new Intent(mContext,UserPageActivity.class));*/
+                    mContext.startActivity(new_img Intent(mContext,UserPageActivity.class));*/
             }
         });
 

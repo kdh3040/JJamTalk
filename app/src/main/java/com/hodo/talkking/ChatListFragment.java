@@ -56,8 +56,8 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class ChatListFragment extends Fragment {
     RecyclerView chatListRecyclerView;
     private MyData mMyData = MyData.getInstance();
-    //private ArrayList<String> arrChatNameData = new ArrayList<>();
-    //private ArrayList<SendData> arrChatData = new ArrayList<>();
+    //private ArrayList<String> arrChatNameData = new_img ArrayList<>();
+    //private ArrayList<SendData> arrChatData = new_img ArrayList<>();
     Menu mMenu;
     Context mTempContext;
     Context mContext;
@@ -100,7 +100,7 @@ public class ChatListFragment extends Fragment {
             chatListRecyclerView = (RecyclerView)findViewById(R.id.chat_list_recy);
 
             chatListRecyclerView.setAdapter(mAdapter);
-            chatListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            chatListRecyclerView.setLayoutManager(new_img LinearLayoutManager(this));
             mAdapter.notifyDataSetChanged();
 
         }
@@ -176,7 +176,7 @@ public class ChatListFragment extends Fragment {
         public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.content_chat_list,parent,false);
 
-            //view.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
+            //view.setLayoutParams(new_img RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
             return new ChatListViewHolder(view);
         }
 

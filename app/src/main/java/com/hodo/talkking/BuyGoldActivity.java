@@ -222,7 +222,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             }
         });
 
-        /*ServiceConnection mServiceConn = new ServiceConnection() {
+        /*ServiceConnection mServiceConn = new_img ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
 

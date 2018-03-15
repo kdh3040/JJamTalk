@@ -187,7 +187,7 @@ public class SettingActivity extends AppCompatActivity {
         else
             cbRecvMsg.setChecked(true);
 
-        /*cbRecvMsg.setOnClickListener(new CheckBox.OnClickListener() {
+        /*cbRecvMsg.setOnClickListener(new_img CheckBox.OnClickListener() {
             @Override public void onClick(View v) {
                 if(cbRecvMsg.isChecked() == true)
                     mSetting.setnRecvMsg(1);
@@ -266,7 +266,7 @@ public class SettingActivity extends AppCompatActivity {
         btn_ViewMode_4 = (RadioButton) findViewById(R.id.rb_4);
 
 
-        RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener(){
+        RadioButton.OnClickListener optionOnClickListener = new_img RadioButton.OnClickListener(){
 
             @Override
             public void onClick(View view) {
@@ -296,7 +296,7 @@ public class SettingActivity extends AppCompatActivity {
         //initNotiValue();
         //initViewValue();
 
-        /*sw_SearchMan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*sw_SearchMan.setOnCheckedChangeListener(new_img CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
                 if(bChecked == true) {
@@ -310,7 +310,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        sw_SearchWoman.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        sw_SearchWoman.setOnCheckedChangeListener(new_img CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
                 if(bChecked == true)
@@ -326,7 +326,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });*/
 
-        /*sw_AlarmNoti.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*sw_AlarmNoti.setOnCheckedChangeListener(new_img CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
                 if(bChecked == true)
@@ -353,7 +353,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        sw_AlarmFollow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        sw_AlarmFollow.setOnCheckedChangeListener(new_img CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
                 if(bChecked == true)
@@ -381,7 +381,7 @@ public class SettingActivity extends AppCompatActivity {
 
             }
         });
-        sw_AlarmLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        sw_AlarmLike.setOnCheckedChangeListener(new_img CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
                 if(bChecked == true)

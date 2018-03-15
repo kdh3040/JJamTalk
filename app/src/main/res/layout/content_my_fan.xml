@@ -29,6 +29,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <ImageView
+        android:id="@+id/iv_new"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintLeft_toRightOf="@+id/tv_gift_ranking"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/new_img" />
+
+    <ImageView
+        android:id="@+id/red_alarm"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_fan"
+        app:layout_constraintTop_toTopOf="@+id/iv_fan"
+        android:background="@drawable/red_alarm" />
+
     <TextView
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
