@@ -30,6 +30,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -1439,6 +1440,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (event.getKeyCode()) {
+                case KeyEvent.KEYCODE_MENU:
+                    startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
+                    return true;
+            }
+
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
