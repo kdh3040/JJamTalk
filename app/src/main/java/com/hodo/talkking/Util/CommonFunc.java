@@ -844,6 +844,7 @@ public class CommonFunc {
         TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
         //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
         TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
+        TextView Text_blar = (TextView)v.findViewById(R.id.tv_blar);
         //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
 
 
@@ -851,6 +852,7 @@ public class CommonFunc {
         CommonFunc.getInstance().View_OpenedItem(context, v, result, Img_Opened, Text_Opened);
         mMyData.setMyItem(result);
         Text_Prob.setText("확률 " + UIData.getInstance().getProb()[result]);
+        Text_blar.setText(UIData.getInstance().getItemBlar()[result]);
         Button btn_confirm = v.findViewById(R.id.button3);
         Button btn_sell = v.findViewById(R.id.button2);
         builder.setView(v);
@@ -929,8 +931,10 @@ public class CommonFunc {
         TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
         TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
         //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+        TextView Text_blar = (TextView)v.findViewById(R.id.tv_blar);
 
         Text_Prob.setText("확률 " + UIData.getInstance().getProb()[Index]);
+        Text_blar.setText(UIData.getInstance().getItemBlar()[Index]);
         CommonFunc.getInstance().View_OpenedItem(context, v, Index, Img_Opened, Text_Opened);
 
         Button btn_confirm = v.findViewById(R.id.button3);
