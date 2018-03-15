@@ -29,7 +29,7 @@ public class UIData {
 
     private String Items[] = {"랜덤박스", "오팔", "진주", "자수정", "사파이어", "루비", "에메랄드", "다이아몬드"};
 
-    private String ItemProb[] = {"70%", "70%", "22%", "4%", "1.7%", "1.4%", "0.6%", "0.05%"};
+    private String ItemProb[] = {"50%", "50%", "25%", "13.5%", "7%", "3.5%", "0.95%", "0.05%"};
 
     private String ItemsReference[] = {"페레가모 구두", "구찌 드레스", "헤르메스 가방", "롤렉스 시계", "다이아몬드", "페라리", "럭셔리 요트", "전용기"};
     private int jewels[] = { R.drawable.randombox, R.drawable.opal,R.drawable.pearl,R.drawable.amethyst,R.drawable.sapphire,R.drawable.ruby,R.drawable.emerald,R.drawable.diamond};

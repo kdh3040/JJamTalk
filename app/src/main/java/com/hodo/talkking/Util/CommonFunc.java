@@ -780,12 +780,12 @@ public class CommonFunc {
         int nGrade = 0;
         nGrade = (int) (Math.random() * 2000) + 1;
 
-        if (604 <= nGrade) rtValue =  1;
-        else if (160 <= nGrade && nGrade <= 603) rtValue = 2;
-        else if (80 <= nGrade && nGrade <= 160) rtValue = 3;
-        else if (45 <= nGrade && nGrade <= 79) rtValue = 4;
-        else if (15 <= nGrade && nGrade <= 44) rtValue = 5;
-        else if (2 <= nGrade && nGrade <= 14) rtValue = 6;
+        if (1001 <= nGrade) rtValue =  1;
+        else if (501 <= nGrade && nGrade <= 1000) rtValue = 2;
+        else if (231 <= nGrade && nGrade <= 500) rtValue = 3;
+        else if (91 <= nGrade && nGrade <= 230) rtValue = 4;
+        else if (21 <= nGrade && nGrade <= 90) rtValue = 5;
+        else if (2 <= nGrade && nGrade <= 20) rtValue = 6;
         else if (1 == nGrade ) rtValue = 7;
 
         return rtValue;
