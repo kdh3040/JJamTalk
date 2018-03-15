@@ -203,6 +203,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         mActivity = this;
 
+        mMyData.SetCurFrag(0);
+
         //mDialog = new_img AlertDialog.Builder(this);
         //new_img getMarketVersion().execute();
 

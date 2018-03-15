@@ -93,6 +93,8 @@ public class MyProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
+        mMyData.SetCurFrag(0);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Spinner_Age = (Spinner) findViewById(R.id.MyProfile_Age_1);
         String strUserAge = mMyData.getUserAge();
@@ -768,6 +770,7 @@ public class MyProfileActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
+        mMyData.SetCurFrag(0);
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);

@@ -39,6 +39,9 @@ public class BoardMyListActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
+
+        MyData.getInstance().SetCurFrag(0);
+
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
@@ -60,6 +63,7 @@ public class BoardMyListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mActivity = this;
         setContentView(R.layout.activity_board_mylist);
+        MyData.getInstance().SetCurFrag(0);
 
         MyBoardSlotListRecycler = (RecyclerView)findViewById(R.id.board_Mylist);
         MyBoardSlotListRecycler.setAdapter(new BoardMyListActivity.BoardMyListAdapter());
