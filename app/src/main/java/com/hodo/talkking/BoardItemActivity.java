@@ -79,7 +79,7 @@ public class BoardItemActivity extends AppCompatActivity {
         MasterProfile = (ImageView)findViewById(R.id.iv_profile);
 
        //MasterName.setText(dbData.NickName);
-        BoardWriteDate.setText(dbData.Date);
+        //BoardWriteDate.setText(dbData.Date);
         BoardNote.setText(dbData.Msg);
         //Glide.with(getApplicationContext())
         //        .load(dbData.Img)

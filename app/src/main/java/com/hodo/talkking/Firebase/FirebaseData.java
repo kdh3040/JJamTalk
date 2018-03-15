@@ -681,15 +681,14 @@ public class FirebaseData {
 
         DatabaseReference writeBoardTable = database.getReference("Board").child(Long.toString(BoardData.getInstance().BoardIdx));
 
-        long currentTime = CommonFunc.getInstance().GetCurrentTime();
-        sendData.Date = ctime.format(new Date(currentTime));
+        sendData.Date = CommonFunc.getInstance().GetCurrentTime();
         sendData.BoardIdx = BoardData.getInstance().BoardIdx;
         BoardData.getInstance().AddBoardData(sendData, true);
         writeBoardTable.setValue(sendData);
 
         DatabaseReference myTable = database.getReference("User").child(MyData.getInstance().getUserIdx()).child("LastBoardWriteTime");
-        MyData.getInstance().SetLastBoardWriteTime(currentTime);
-        myTable.setValue(Long.valueOf(currentTime));
+        MyData.getInstance().SetLastBoardWriteTime(CommonFunc.getInstance().GetCurrentTime());
+        myTable.setValue(CommonFunc.getInstance().GetCurrentTime());
 
         return  true;
     }

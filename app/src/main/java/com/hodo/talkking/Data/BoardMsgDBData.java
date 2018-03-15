@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class BoardMsgDBData {
     public String Idx;
-    public String Date;
+    public long Date;
     public String Msg;
     public long BoardIdx;
 

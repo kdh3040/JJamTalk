@@ -66,18 +66,17 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
 
 
         long time = CommonFunc.getInstance().GetCurrentTime();
-        Date writeDate = CommonFunc.getInstance().GetStringToDate(dbData.Date, CoomonValueData.DATE_FORMAT);
         Date todayDate = new Date(time);
 
-        if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
+        if(CommonFunc.getInstance().IsTodayDate(todayDate, new Date(dbData.Date)))
         {
             SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
-            BoardDate.setText(ctime.format(new Date(writeDate.getTime())));
+            BoardDate.setText(ctime.format(dbData.Date));
         }
         else
         {
             SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
-            BoardDate.setText(ctime.format(new Date(writeDate.getTime())));
+            BoardDate.setText(ctime.format(dbData.Date));
         }
 
 
