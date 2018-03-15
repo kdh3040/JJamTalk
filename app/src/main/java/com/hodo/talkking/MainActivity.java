@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -297,6 +298,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+            pref.getInt("Badge", mMyData.badgecount );
+
             if ( mMyData.badgecount >= 1)
             {
                 mMyData.badgecount = 0;
@@ -370,6 +374,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(mMyData.arrReportList.size() >= 10)
             ViewReportPop();
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+        pref.getInt("Badge", mMyData.badgecount );
+
 
         if ( mMyData.badgecount >= 1)
         {

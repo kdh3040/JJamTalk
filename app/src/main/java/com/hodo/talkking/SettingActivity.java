@@ -440,6 +440,10 @@ public class SettingActivity extends AppCompatActivity {
         super.onResume();  // Always call the superclass method first
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+            pref.getInt("Badge", mMyData.badgecount );
+
+
             if (mMyData.badgecount >= 1) {
                 mMyData.badgecount = 0;
                 Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
