@@ -82,7 +82,7 @@ public class CommonFunc {
     private int mPlaySoundIndex = 0;
     public String LastBoardWrite;
 
-    public boolean Honey_Box_Enable = false;
+    public boolean Honey_Box_Enable = false, Honey_Box_Indicator_Enable = false;
     public ImageView Card_Alarm, Chat_Alarm, Mail_Alarm, Fan_Alarm;
     public ImageView Item_Box, Honey_Box, Board_Write, Filter;
     public Button MyBoard_Write;
@@ -755,6 +755,10 @@ public class CommonFunc {
             MyBoard_Write.setVisibility(myBoardList ? View.VISIBLE : View.GONE);
         if (Filter != null)
             Filter.setVisibility(filter ? View.VISIBLE : View.GONE);
+
+        if (Mail_Alarm != null)
+            Mail_Alarm.setVisibility(Honey_Box_Enable && Honey_Box_Indicator_Enable ? View.VISIBLE : View.GONE);
+
     }
 
     public void SetCardAlarmVisible(boolean enable) {
@@ -777,13 +781,14 @@ public class CommonFunc {
     }
 
     public void SetMailAlarmVisible(boolean enable) {
+        Honey_Box_Indicator_Enable = enable;
 
         if (Mail_Alarm != null)
-            Mail_Alarm.setVisibility(Honey_Box_Enable && enable? View.VISIBLE : View.GONE);
+            Mail_Alarm.setVisibility(Honey_Box_Enable && Honey_Box_Indicator_Enable ? View.VISIBLE : View.GONE);
 
         if(Honey_Box != null)
         {
-            if(Honey_Box_Enable && enable == true)
+            if(Honey_Box_Enable && Honey_Box_Indicator_Enable)
             {
                 AnimationDrawable frameAnimation = (AnimationDrawable) Honey_Box.getBackground();
                 if(frameAnimation.isRunning()) frameAnimation.stop();
