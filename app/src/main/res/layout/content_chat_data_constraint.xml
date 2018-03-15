@@ -38,6 +38,7 @@
         android:layout_marginLeft="4dp"
         android:gravity="center"
         android:text="1"
+        android:textColor="@color/baseColorAlpha2"
         app:layout_constraintBottom_toTopOf="@+id/gift_date"
         app:layout_constraintLeft_toRightOf="@id/bg_gift" />
 
@@ -133,6 +134,7 @@
         android:layout_marginRight="4dp"
         android:gravity="center"
         android:text="1"
+        android:textColor="@color/baseColorAlpha2"
         app:layout_constraintBottom_toTopOf="@+id/img_date2"
         app:layout_constraintRight_toLeftOf="@id/img2" />
 
@@ -169,6 +171,7 @@
         android:layout_marginRight="4dp"
         android:gravity="center"
         android:text="1"
+        android:textColor="@color/baseColorAlpha2"
         app:layout_constraintBottom_toTopOf="@+id/txt_date2"
         app:layout_constraintRight_toLeftOf="@id/message2" />
 
@@ -230,7 +233,7 @@
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/heart_count"
         app:layout_constraintStart_toEndOf="@+id/heart_count"
-        app:srcCompat="@drawable/heart"
+        app:srcCompat="@drawable/heart_red"
 
         />
 
