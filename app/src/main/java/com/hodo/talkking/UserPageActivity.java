@@ -549,12 +549,8 @@ if(mMyData.itemList.get(i) != 0)
                                             mNotiFunc.SendMSGToFCM(stTargetData, strMemo);
                                             boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString(), 0);
 
-                                            Calendar cal = Calendar.getInstance();
-                                            Date date = cal.getTime();
-                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                                            String formatStr = sdf.format(date);
-
-                                            ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), stTargetData.NickName, strMemo, formatStr, "", 0, 0);
+                                            long nowTime = CommonFunc.getInstance().GetCurrentTime();
+                                            ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), stTargetData.NickName, strMemo, nowTime, "", 0, 0);
                                             DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
                                             mRef.push().setValue(chat_Data);
 

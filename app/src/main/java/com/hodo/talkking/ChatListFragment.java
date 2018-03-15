@@ -290,18 +290,18 @@ public class ChatListFragment extends Fragment {
             //holder.textView.setText(mMyData.arrSendDataList.get(i).strTargetNick + "님과의 채팅방입니다");
 
             long time = CommonFunc.getInstance().GetCurrentTime();
-            Date writeDate = CommonFunc.getInstance().GetStringToDate(mMyData.arrChatDataList.get(str).Date, CoomonValueData.DATE_FORMAT);
+            Date writeDate = new Date(mMyData.arrChatDataList.get(str).Date);
             Date todayDate = new Date(time);
 
             if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
             {
                 SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
-                holder.date.setText(ctime.format(new Date(writeDate.getTime())));
+                holder.date.setText(ctime.format(writeDate));
             }
             else
             {
                 SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
-                holder.date.setText(ctime.format(new Date(writeDate.getTime())));
+                holder.date.setText(ctime.format(writeDate));
             }
 
 

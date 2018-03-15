@@ -11,7 +11,7 @@ public class ChatData {
     public String fromIdx;
     public String to;
     public String msg;
-    public String time;
+    public long time;
     public String img;
     public String strId;
     public int Check;
@@ -22,7 +22,7 @@ public class ChatData {
     }
 
 
-    public ChatData(String from_Idx, String from_person, String to_person, String message, String nowTime, String image_URL, int check, int heart){
+    public ChatData(String from_Idx, String from_person, String to_person, String message, long nowTime, String image_URL, int check, int heart){
         fromIdx = from_Idx;
         from= from_person;
         to = to_person;
@@ -31,9 +31,6 @@ public class ChatData {
         img = image_URL;
         Check = check;
         Heart = heart;
-    }
-    public String gettime(){
-        return time;
     }
 
     public Object getImg() {
