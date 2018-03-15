@@ -588,6 +588,13 @@ public class FirebaseData {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot == null)
                     return;
+
+                if(dataSnapshot.getChildrenCount() <= 0)
+                {
+                    CommonFunc.getInstance().DismissLoadingPage();
+                    UpdateBoardAdapter.BoardDataLoding = false;
+                    return;
+                }
                 BoardData.getInstance().TempTopBoardIdx = BoardData.getInstance().TopBoardIdx;
                 BoardData.getInstance().TempBottomBoardIdx = BoardData.getInstance().BottomBoardIdx;
 

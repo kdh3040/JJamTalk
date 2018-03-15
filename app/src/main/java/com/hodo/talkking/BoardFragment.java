@@ -298,10 +298,6 @@ public class BoardFragment extends Fragment {
                     if(!recyclerView.canScrollVertically(-1)) {
                         if(mBoardInstanceData.BoardList.size() <= 0)
                             return;
-                        if(BoradListAdapter.BoardScrollState == BOARD_SCROLL_STATE_TYPE.TOP)
-                            return;
-
-                        BoradListAdapter.BoardScrollState = BOARD_SCROLL_STATE_TYPE.TOP;
 
                         if(BoradListAdapter.BoardDataLoding == false)
                         {
@@ -314,10 +310,6 @@ public class BoardFragment extends Fragment {
                     else if(!recyclerView.canScrollVertically(1)) {
                         if(mBoardInstanceData.BoardList.size() <= 0)
                             return;
-                        if(BoradListAdapter.BoardScrollState == BOARD_SCROLL_STATE_TYPE.BOTTOM)
-                            return;
-
-                        BoradListAdapter.BoardScrollState = BOARD_SCROLL_STATE_TYPE.BOTTOM;
 
                         if(BoradListAdapter.BoardDataLoding == false)
                         {
@@ -332,6 +324,18 @@ public class BoardFragment extends Fragment {
                 }
             });
         }
+
+        if(mBoardInstanceData.BoardList.size() <= 0)
+        {
+            if(BoradListAdapter.BoardDataLoding == false)
+            {
+                CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
+                BoradListAdapter.BoardDataLoding = true;
+                FirebaseData.getInstance().GetBoardData(BoradListAdapter,mBoardInstanceData.TopBoardIdx, true);
+            }
+        }
+
+
         return mFragmentView;
     }
 
