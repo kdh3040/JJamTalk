@@ -404,7 +404,7 @@ public class FirebaseData {
         });
     }
 
-    public void SaveSettingData(String userIdx, int SearchMode, int ViewMode, boolean RecvMsgReject, boolean alarmSetting_Sound, boolean alarmSetting_Vibration) {
+    public void SaveSettingData(String userIdx, int SearchMode, int ViewMode, boolean RecvMsgReject, boolean alarmSetting_Sound, boolean alarmSetting_Vibration, boolean alarmSetting_Popup) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Setting");
@@ -417,6 +417,7 @@ public class FirebaseData {
         user.child("RecvMsgReject").setValue((RecvMsgReject) ? 1 : 0);
         user.child("AlarmMode_Sound").setValue(alarmSetting_Sound);
         user.child("AlarmMode_Vibration").setValue(alarmSetting_Vibration);
+        user.child("AlarmMode_Popup").setValue(alarmSetting_Popup);
         user.child("StartAge").setValue(mMyData.nStartAge);
         user.child("EndAge").setValue(mMyData.nEndAge);
 
@@ -761,6 +762,7 @@ public class FirebaseData {
                 }
 
                 //mMyData.HotIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).Point;
+                CommonFunc.getInstance().DismissLoadingPage();
                 UpdateHotAdapter.notifyDataSetChanged();
             }
 
@@ -827,6 +829,7 @@ public class FirebaseData {
                 if(mMyData.arrUserAll_Send.size() > 0)
                     mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
 
+                CommonFunc.getInstance().DismissLoadingPage();
                 UpdateFanAdapter.notifyDataSetChanged();
             }
 
@@ -908,6 +911,7 @@ public class FirebaseData {
                 if(mMyData.arrUserAll_Near.size() > 0)
                     mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
 
+                CommonFunc.getInstance().DismissLoadingPage();
                 UpdateNearAdapter.notifyDataSetChanged();
             }
 
@@ -978,6 +982,7 @@ public class FirebaseData {
                 if(mMyData.arrUserAll_New.size() > 0)
                     mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
 
+                CommonFunc.getInstance().DismissLoadingPage();
                 UpdateNewAdapter.notifyDataSetChanged();
             }
 

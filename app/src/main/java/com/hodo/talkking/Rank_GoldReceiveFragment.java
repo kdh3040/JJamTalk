@@ -109,6 +109,7 @@ public class Rank_GoldReceiveFragment extends Fragment {
 
                 if (lastVisibleItemPosition == nSize) {
                    // Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
+                    CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
                     FirebaseData.getInstance().GetHotData(HotAdapter, nSize, false);
                 }
             }

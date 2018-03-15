@@ -7,6 +7,7 @@ package com.hodo.talkking.Data;
 public class TempSettingData {
     public boolean AlarmMode_Sound = true;
     public boolean AlarmMode_Vibration = true;
+    public boolean AlarmMode_Popup = true;
     public int SearchMode = 0;
     public int ViewMode = 1;
     public int RecvMsgReject = 0;
