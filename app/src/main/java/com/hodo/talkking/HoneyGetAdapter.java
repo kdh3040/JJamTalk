@@ -8,8 +8,12 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.ViewHolder.HoneyGetViewHolder;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by mjk on 2017. 8. 17..
@@ -40,7 +44,9 @@ public class HoneyGetAdapter extends RecyclerView.Adapter<HoneyGetViewHolder>{
 
         holder.tv_honeycount.setText(Integer.toString(mMyData.arrRecvHoneyDataList.get(position).nSendHoney));
         holder.tv_nickname.setText(mMyData.arrRecvHoneyDataList.get(position).strTargetNick);
-        holder.tv_date.setText(mMyData.arrRecvHoneyDataList.get(position).strSendDate);
+        Date sendDate = new Date(mMyData.arrRecvHoneyDataList.get(position).strSendDate);
+        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.MAIL_DATE_FORMAT);
+        holder.tv_date.setText(ctime.format(sendDate));
 
         Glide.with(mContext)
                 .load(mMyData.arrRecvHoneyDataList.get(position).strTargetImg)
