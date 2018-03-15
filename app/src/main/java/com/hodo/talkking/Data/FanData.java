@@ -18,6 +18,7 @@ public class FanData implements Serializable,Parcelable {
     public int Grade;
     public String Img;*/
     public int RecvGold;
+    public int Check;
 
     public static final Creator<FanData> CREATOR = new Creator<FanData>() {
         @Override
@@ -38,6 +39,7 @@ public class FanData implements Serializable,Parcelable {
         Grade = in.readInt();
         Img = in.readString();*/
         RecvGold = in.readInt();
+        Check = in.readInt();
     }
 
     public FanData() {
@@ -57,5 +59,6 @@ public class FanData implements Serializable,Parcelable {
         parcel.writeInt(Grade);
         parcel.writeString(Img);*/
         parcel.writeInt(RecvGold);
+        parcel.writeInt(Check);
     }
 }

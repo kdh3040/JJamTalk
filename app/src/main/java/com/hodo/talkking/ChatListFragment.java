@@ -87,6 +87,14 @@ public class ChatListFragment extends Fragment {
         SortByChatDate();
         mTempContext = Context;
     }
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+
+            mMyData.SetCurFrag(2);
+        }
+    }
 
     /*
         @Override

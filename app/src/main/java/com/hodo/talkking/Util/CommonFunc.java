@@ -1402,7 +1402,7 @@ public class CommonFunc {
         TextView tv_progress_message = (TextView) mProgressDialog.findViewById(R.id.tv_progress_message);
         if(message.isEmpty())
             message = "로딩중";
-        tv_progress_message.setText(message);
+        //tv_progress_message.setText(message);
     }
 
     public void SetShowLoadingPageMsg(String message) {
@@ -1413,7 +1413,7 @@ public class CommonFunc {
         TextView tv_progress_message = (TextView) mProgressDialog.findViewById(R.id.tv_progress_message);
         if(message.isEmpty())
             message = "로딩중";
-        tv_progress_message.setText(message);
+        //tv_progress_message.setText(message);
     }
 
     public void DismissLoadingPage() {

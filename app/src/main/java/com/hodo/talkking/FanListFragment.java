@@ -77,6 +77,17 @@ public class FanListFragment extends Fragment {
         SortByRecvHeart();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+
+            mMyData.SetCurFrag(3);
+        }
+    }
+
+
+
     private void SortByRecvHeart()
     {
        Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(mMyData.arrMyFanRecvList);
@@ -144,12 +155,30 @@ public class FanListFragment extends Fragment {
             holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(CommonFunc.getInstance().getClickStatus() == false)
+                    if(CommonFunc.getInstance().getClickStatus() == false) {
+
+                        SetMyFanCheck(position);
+                        fanListAdapter.notifyDataSetChanged();
                         getMyfanData(position);
+                    }
 
                 }
             });
             //holder.imageView.setImageResource(R.mipmap.hdvd);
+
+
+            holder.imgAlarm.setVisibility(View.GONE);
+            holder.imgNew.setVisibility(View.GONE);
+
+            if(mMyData.arrMyFanList.get(position).Check == 1)
+            {
+                holder.imgNew.setVisibility(View.VISIBLE);
+            }
+            else if(mMyData.arrMyFanList.get(position).Check == 2)
+            {
+                holder.imgAlarm.setVisibility(View.VISIBLE);
+            }
+
 
             String i = mMyData.arrMyFanList.get(position).Idx;
             Glide.with(mContext)
@@ -182,6 +211,17 @@ public class FanListFragment extends Fragment {
         public int getItemCount() {
             return mMyData.arrMyFanDataList.size();
         }
+
+        public void SetMyFanCheck(int position) {
+
+            mMyData.arrMyFanList.get(position).Check = 0;
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference table;
+            table = database.getReference("User/" + mMyData.getUserIdx() );
+            table.child("FanList").child(mMyData.arrMyFanList.get(position).Idx).child("Check").setValue(mMyData.arrMyFanList.get(position).Check);
+        }
+
 
         public void moveFanPage(int position) {
 
@@ -284,7 +324,7 @@ public class FanListFragment extends Fragment {
             public TextView textRank, textNick, textCount;
             public ConstraintLayout constraintLayout;
 
-            public ImageView imageGrade, imageItem;
+            public ImageView imageGrade, imageItem, imgNew, imgAlarm;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -295,6 +335,8 @@ public class FanListFragment extends Fragment {
                 constraintLayout = itemView.findViewById(R.id.layout_fan);
                 imageGrade = itemView.findViewById(R.id.iv_grade);
                 imageItem= itemView.findViewById(R.id.iv_item);
+                imgNew = itemView.findViewById(R.id.iv_new);
+                imgAlarm = itemView.findViewById(R.id.red_alarm);
             }
         }
     }
