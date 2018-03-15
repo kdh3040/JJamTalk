@@ -761,6 +761,7 @@ public class FirebaseData {
                 }
 
                 //mMyData.HotIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).Point;
+                CommonFunc.getInstance().DismissLoadingPage();
                 UpdateHotAdapter.notifyDataSetChanged();
             }
 
@@ -827,6 +828,7 @@ public class FirebaseData {
                 if(mMyData.arrUserAll_Send.size() > 0)
                     mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
 
+                CommonFunc.getInstance().DismissLoadingPage();
                 UpdateFanAdapter.notifyDataSetChanged();
             }
 
@@ -908,6 +910,7 @@ public class FirebaseData {
                 if(mMyData.arrUserAll_Near.size() > 0)
                     mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
 
+                CommonFunc.getInstance().DismissLoadingPage();
                 UpdateNearAdapter.notifyDataSetChanged();
             }
 
@@ -978,6 +981,7 @@ public class FirebaseData {
                 if(mMyData.arrUserAll_New.size() > 0)
                     mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
 
+                CommonFunc.getInstance().DismissLoadingPage();
                 UpdateNewAdapter.notifyDataSetChanged();
             }
 
