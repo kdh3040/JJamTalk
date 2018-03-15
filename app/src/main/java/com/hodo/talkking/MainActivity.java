@@ -434,6 +434,7 @@ public class MainActivity extends AppCompatActivity {
 
         final boolean[] bThreadRun = {false};
         CommonFunc.getInstance().Honey_Box = (ImageView)findViewById(R.id.iv_honeybox);
+        CommonFunc.getInstance().SetMailAlarmVisible(false);
         CommonFunc.getInstance().Honey_Box.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
