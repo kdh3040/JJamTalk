@@ -20,6 +20,7 @@
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:scaleType="centerCrop"
+        android:layout_marginLeft="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logotalking_200" />
@@ -114,10 +115,12 @@
 
     <ImageView
         android:id="@+id/alarm_mail"
-        android:layout_width="5dp"
-        android:layout_height="5dp"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
         android:background="@drawable/red_alarm"
         android:visibility="gone"
+        android:layout_marginTop="11dp"
+        android:layout_marginRight="1dp"
         app:layout_constraintRight_toRightOf="@+id/iv_honeybox"
         app:layout_constraintTop_toTopOf="@+id/iv_honeybox" />
 
@@ -171,8 +174,8 @@
 
     <ImageView
         android:id="@+id/alarm_favor"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/red_alarm"
         android:elevation="6dp"
@@ -197,8 +200,8 @@
 
     <ImageView
         android:id="@+id/alarm_chat"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/red_alarm"
         android:elevation="6dp"
@@ -223,8 +226,8 @@
 
     <ImageView
         android:id="@+id/alarm_fan"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/red_alarm"
         android:elevation="6dp"

@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:text="gift_date"
+        android:textColor="@color/gray"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/bg_gift"
         app:layout_constraintLeft_toRightOf="@+id/bg_gift" />
@@ -34,9 +35,9 @@
         android:id="@+id/gift_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
         android:gravity="center"
         android:text="1"
-        android:textColor="@color/goldColor"
         app:layout_constraintBottom_toTopOf="@+id/gift_date"
         app:layout_constraintLeft_toRightOf="@id/bg_gift" />
 
@@ -66,11 +67,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:background="@color/baseColorAlpha"
+        android:background="@color/baseColorLight"
         android:gravity="left"
         android:maxWidth="250dp"
         android:padding="6dp"
         android:text="메세지내용1"
+        android:textColor="@android:color/black"
         app:layout_constraintLeft_toLeftOf="@id/ChatRoom_name1"
         app:layout_constraintTop_toBottomOf="@id/ChatRoom_name1" />
 
@@ -80,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:text="txt_date1"
+        android:textColor="@color/gray"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/message1"
         app:layout_constraintLeft_toRightOf="@+id/message1" />
@@ -99,6 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="img_date1"
+        android:textColor="@color/gray"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/img1"
         app:layout_constraintLeft_toRightOf="@+id/img1" />
@@ -117,6 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="img_date2"
+        android:textColor="@color/gray"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/img2"
         app:layout_constraintRight_toLeftOf="@+id/img2" />
@@ -125,9 +130,9 @@
         android:id="@+id/img_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="4dp"
         android:gravity="center"
         android:text="1"
-        android:textColor="@color/goldColor"
         app:layout_constraintBottom_toTopOf="@+id/img_date2"
         app:layout_constraintRight_toLeftOf="@id/img2" />
 
@@ -136,12 +141,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="6dp"
-        android:background="@color/baseColorLight"
+        android:background="@android:color/white"
         android:gravity="left|center"
         android:maxWidth="250dp"
         android:padding="6dp"
         android:text="메세지2"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -152,6 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="4dp"
         android:text="txt_date2"
+        android:textColor="@color/gray"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/message2"
         app:layout_constraintRight_toLeftOf="@+id/txt_check" />
@@ -160,9 +166,9 @@
         android:id="@+id/txt_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="4dp"
         android:gravity="center"
         android:text="1"
-        android:textColor="@color/goldColor"
         app:layout_constraintBottom_toTopOf="@+id/txt_date2"
         app:layout_constraintRight_toLeftOf="@id/message2" />
 

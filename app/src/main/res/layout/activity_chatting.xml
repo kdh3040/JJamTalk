@@ -4,7 +4,7 @@
     android:id="@+id/relativeLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@color/baseColorAlpha">
 
 
     <android.support.v7.widget.RecyclerView
@@ -44,7 +44,7 @@
         android:background="@drawable/purple_stroke_btn_bg"
         android:gravity="center"
 
-        android:src="@drawable/plus"/>
+        android:src="@drawable/plus" />
 
     <Button
         android:id="@+id/btn_send"
@@ -73,7 +73,7 @@
         android:maxLines="5"
         android:minHeight="50dp"
         android:minLines="1"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
 
     <!--
