@@ -83,6 +83,16 @@ public class BoardFragment extends Fragment {
         trans.detach(this).attach(this).commit();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+
+            mMyData.SetCurFrag(4);
+        }
+    }
+
+
     public class BoardListAdapter extends RecyclerView.Adapter<BoardViewHolder> {
         public BOARD_SCROLL_STATE_TYPE BoardScrollState = BOARD_SCROLL_STATE_TYPE.NONE;
         public Boolean BoardDataLoding = false;

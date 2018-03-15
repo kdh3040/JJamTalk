@@ -1768,9 +1768,12 @@ public class MyData {
 
         int nTotalSendCnt = 0;
 
+        int Check = 0;
 
         if(stTargetData.FanList.size() == 0)
         {
+            Check = 1;
+
             FanData tempFan = new FanData();
             tempFan.Idx = getUserIdx();
      /*       tempFan.NickName = getUserNick();
@@ -1879,6 +1882,7 @@ public class MyData {
 
                 if(stTargetData.FanList.get(element).Idx.equals(getUserIdx()))
                 {
+
                     bExist = true;
                     break;
                 }
@@ -1887,12 +1891,14 @@ public class MyData {
 
             if(bExist == true)
             {
+                Check = 2;
                 stTargetData.FanList.get(getUserIdx()).RecvGold += SendCount;
                 nTotalSendCnt = stTargetData.FanList.get(getUserIdx()).RecvGold;
             }
 
             else
             {
+                Check = 1;
                 FanData tempFan = new FanData();
                 tempFan.Idx = getUserIdx();
  /*               tempFan.NickName = getUserNick();
@@ -2001,10 +2007,8 @@ public class MyData {
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("RecvGold", nTotalSendCnt);
         updateMap.put("Idx", getUserIdx());
-        updateMap.put("NickName", getUserNick());
-        updateMap.put("BestItem", getUserBestItem());
-        updateMap.put("Grade", getGrade());
-        updateMap.put("Img", getUserImg());
+        updateMap.put("Check", Check);
+
         table.child(getUserIdx()).updateChildren(updateMap);
 
         //getMyfanData(stTargetData.Idx);
