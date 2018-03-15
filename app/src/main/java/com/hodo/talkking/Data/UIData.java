@@ -27,13 +27,17 @@ public class UIData {
     private int width;
     private int height;
 
-    private String Items[] = {"랜덤박스", "오팔", "진주", "자수정", "사파이어", "루비", "에메랄드", "다이아몬드"};
+    private String Items[] = {"랜덤박스", "오팔", "진주", "자수정", "사파이어", "에메랄드", "루비", "다이아몬드"};
 
-    private String ItemProb[] = {"70%", "70%", "22%", "4%", "1.7%", "1.4%", "0.6%", "0.05%"};
-    private String ItemBlar[] = {"귀족을 뜻하는 보석", "귀족을 상징하는 보석", "우아함을 상징하는 보석", "힘을 상징하는 보석", "신성함을 상징하는 보석", "불멸을 상징하는 보석", "정열을 상징하는 보석", "왕을 상징하는 보석"};
+
+    private String ItemProb[] = {"50%", "50%", "25%", "13.5%", "7%", "3.5%", "0.95%", "0.05%"};
+
+
+    private String ItemBlar[] = {"귀족을 뜻하는 보석", "- 힘 -", "- 우아 -", "- 귀족 -", "- 신성 -", "- 불멸 -", "- 정열 -", " - 킹! -"};
+
 
     private String ItemsReference[] = {"페레가모 구두", "구찌 드레스", "헤르메스 가방", "롤렉스 시계", "다이아몬드", "페라리", "럭셔리 요트", "전용기"};
-    private int jewels[] = { R.drawable.randombox, R.drawable.opal,R.drawable.pearl,R.drawable.amethyst,R.drawable.sapphire,R.drawable.ruby,R.drawable.emerald,R.drawable.diamond};
+    private int jewels[] = { R.drawable.randombox, R.drawable.opal,R.drawable.pearl,R.drawable.amethyst,R.drawable.sapphire,R.drawable.emerald,R.drawable.ruby,R.drawable.diamond};
     private int grades[] = {R.drawable.rank_bronze,R.drawable.rank_silver,R.drawable.rank_gold,R.drawable.rank_diamond,R.drawable.rank_vip,R.drawable.rank_vvip};
     private int sellJewelValue[] = {4,4,4,4,4,4,4,4};
     private int genderIcon[] = {R.drawable.rank_bronze, R.drawable.rank_silver};
