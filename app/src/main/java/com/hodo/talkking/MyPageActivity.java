@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -189,7 +190,13 @@ public class MyPageActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
+
+
+
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+            pref.getInt("Badge", mMyData.badgecount );
 
             if (mMyData.badgecount >= 1) {
                 mMyData.badgecount = 0;

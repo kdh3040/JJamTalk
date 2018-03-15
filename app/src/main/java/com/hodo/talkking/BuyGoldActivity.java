@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -71,6 +72,9 @@ public class BuyGoldActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+            pref.getInt("Badge", mMyData.badgecount );
 
             if (mMyData.badgecount >= 1) {
                 mMyData.badgecount = 0;
