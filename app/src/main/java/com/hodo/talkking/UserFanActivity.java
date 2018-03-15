@@ -155,6 +155,18 @@ public class UserFanActivity extends AppCompatActivity {
             });
             //holder.imageView.setImageResource(R.mipmap.hdvd);
 
+            holder.imgAlarm.setVisibility(View.GONE);
+            holder.imgNew.setVisibility(View.GONE);
+
+            if(stTargetData.arrFanList.get(position).Check == 1)
+            {
+                holder.imgNew.setVisibility(View.VISIBLE);
+            }
+            else if(stTargetData.arrFanList.get(position).Check == 2)
+            {
+                holder.imgAlarm.setVisibility(View.VISIBLE);
+            }
+
             String i = stTargetData.arrFanList.get(position).Idx;
 
             Glide.with(mActivity)
@@ -282,7 +294,7 @@ public class UserFanActivity extends AppCompatActivity {
             public ImageView img;
             public TextView textRank, textNick, textCount;
             public ConstraintLayout constraintLayout;
-            public ImageView imgGrade, imgItem;
+            public ImageView imgGrade, imgItem, imgNew, imgAlarm;
 
 
             public ViewHolder(View itemView) {
@@ -290,6 +302,9 @@ public class UserFanActivity extends AppCompatActivity {
                 img = (ImageView)itemView.findViewById(R.id.iv_fan);
                 imgGrade= (ImageView)itemView.findViewById(R.id.iv_grade);
                 imgItem = (ImageView)itemView.findViewById(R.id.iv_item);
+
+                imgNew = (ImageView)itemView.findViewById(R.id.iv_new);
+                imgAlarm = (ImageView)itemView.findViewById(R.id.red_alarm);
 
                 textRank = (TextView)itemView.findViewById(R.id.tv_gift_ranking);
                 textNick = (TextView)itemView.findViewById(R.id.tv_nickname);
