@@ -89,14 +89,14 @@ public class BoardItemActivity extends AppCompatActivity {
 
     private void SetHeaderButtonData() {
         /*LikeButton = (ImageButton) findViewById(R.id.ib_vote_like);
-        LikeButton.setOnClickListener(new View.OnClickListener() {
+        LikeButton.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*if (mLike) {
                     mFireBaseData.RemoveBoardLikeData(mBoardClientData.GetDBData().Key, mMyData.getUserIdx());
                     mBoardClientData.LikeCnt--;
                 } else {
-                    BoardLikeData sendData = new BoardLikeData();
+                    BoardLikeData sendData = new_img BoardLikeData();
 
                     sendData.Idx = mMyData.getUserIdx();
                     sendData.Img = mMyData.getUserImg();
@@ -110,10 +110,10 @@ public class BoardItemActivity extends AppCompatActivity {
 
     private void SetFooterButtonData() {
         /*btn_send = (Button) findViewById(R.id.btn_send);
-        btn_send.setOnClickListener(new View.OnClickListener() {
+        btn_send.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TempBoard_ReplyData tempReply = new TempBoard_ReplyData();
+                TempBoard_ReplyData tempReply = new_img TempBoard_ReplyData();
                 tempReply.Msg = "test";
                 tempReply.Age = mMyData.getUserAge();
                 tempReply.Idx = mMyData.getUserIdx();
@@ -155,7 +155,7 @@ public class BoardItemActivity extends AppCompatActivity {
 
     int nPosition;*/
 
-    //BoardItemActivity.ReplyAdapter Adapter = new BoardItemActivity.ReplyAdapter();
+    //BoardItemActivity.ReplyAdapter Adapter = new_img BoardItemActivity.ReplyAdapter();
 
 
         /*
@@ -175,13 +175,13 @@ public class BoardItemActivity extends AppCompatActivity {
 
         bReply = false;
         et_reply = (EditText)findViewById(R.id.et_reply);
-        et_reply.setOnKeyListener(new EditMessageOnKeyListener());
+        et_reply.setOnKeyListener(new_img EditMessageOnKeyListener());
 
         btn_send = (Button) findViewById(R.id.btn_send);
-        btn_send.setOnClickListener(new View.OnClickListener() {
+        btn_send.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TempBoard_ReplyData tempReply = new TempBoard_ReplyData();
+                TempBoard_ReplyData tempReply = new_img TempBoard_ReplyData();
                 tempReply.Msg = et_reply.getText().toString();
                 tempReply.Age = mMyData.getUserAge();
                 tempReply.Idx = mMyData.getUserIdx();
@@ -212,7 +212,7 @@ public class BoardItemActivity extends AppCompatActivity {
         });
 
         ib_vote_like = (ImageButton) findViewById(R.id.ib_vote_like);
-        ib_vote_like.setOnClickListener(new View.OnClickListener() {
+        ib_vote_like.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"좋아요를 눌렀습니다",Toast.LENGTH_SHORT).show();
@@ -245,10 +245,10 @@ public class BoardItemActivity extends AppCompatActivity {
                 .into(iv_Profile);
 
         imageViewLayout = (LinearLayout)findViewById(R.id.layout_imageview);
-        imageViewLayout.setOnClickListener(new View.OnClickListener() {
+        imageViewLayout.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),ImageViewPager.class));
+                startActivity(new_img Intent(getApplicationContext(),ImageViewPager.class));
             }
         });
 
@@ -258,7 +258,7 @@ public class BoardItemActivity extends AppCompatActivity {
             recyclerView_board_reply.setAdapter(Adapter);
 
         //스크롤 못하게
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this){
+        LinearLayoutManager linearLayoutManager = new_img LinearLayoutManager(this){
                 @Override
                 public boolean canScrollVertically() {
                     return false;
@@ -268,7 +268,7 @@ public class BoardItemActivity extends AppCompatActivity {
         recyclerView_board_reply.setLayoutManager(linearLayoutManager);
 
         recyclerView_board_reply.addOnItemTouchListener(
-                new RecyclerItemClickListener(getApplicationContext(), recyclerView_board_reply, new RecyclerItemClickListener.OnItemClickListener() {
+                new_img RecyclerItemClickListener(getApplicationContext(), recyclerView_board_reply, new_img RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
@@ -302,14 +302,14 @@ public class BoardItemActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.btn_report:
-                AlertDialog.Builder builder= new AlertDialog.Builder(this);
-                builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder= new_img AlertDialog.Builder(this);
+                builder.setPositiveButton("네", new_img DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 }).
-                        setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        setNegativeButton("취소", new_img DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.cancel();
@@ -338,7 +338,7 @@ public class BoardItemActivity extends AppCompatActivity {
                 view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.content_board_reply,parent,false);
             }
 
-            return new BoardReplyViewHolder(view);
+            return new_img BoardReplyViewHolder(view);
         }
 
         @Override
@@ -389,7 +389,7 @@ public class BoardItemActivity extends AppCompatActivity {
         public boolean onKey(View view, int keycode, KeyEvent event) {
 
            if(event.getAction() == KeyEvent.KEYCODE_ENTER){
-                TempBoard_ReplyData tempReply = new TempBoard_ReplyData();
+                TempBoard_ReplyData tempReply = new_img TempBoard_ReplyData();
                 tempReply.Msg = et_reply.getText().toString();
                 tempReply.Age = mMyData.getUserAge();
                 tempReply.Idx = mMyData.getUserIdx();

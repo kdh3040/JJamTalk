@@ -68,7 +68,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
        /*Glide.with(mContext)
                 .load(stTargetData.get(position).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new CropCircleTransformation(mContext))
+                .bitmapTransform(new_img CropCircleTransformation(mContext))
                 .thumbnail(0.1f)
                 .into(holder.imageView);
 

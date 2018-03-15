@@ -121,7 +121,7 @@ public class UserPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_page);
 
         /*refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
-        refreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        refreshlayout.setOnRefreshListener(new_img SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
@@ -233,7 +233,7 @@ public class UserPageActivity extends AppCompatActivity {
                 .load(stTargetData.BestItem)
                 .thumbnail(0.1f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                .bitmapTransform(new_img CropCircleTransformation(getApplicationContext()))
                 .into(imgBestItem);*/
 
 /*
@@ -260,17 +260,17 @@ if(mMyData.itemList.get(i) != 0)
 
 
         /*btnPublicChat = (Button) findViewById(R.id.UserPage_btnPublicChat);
-        btnPublicChat.setOnClickListener(new View.OnClickListener() {
+        btnPublicChat.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if(stTargetData.PublicRoomStatus == 0)
                 {
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                    final AlertDialog.Builder alertDialogBuilder = new_img AlertDialog.Builder(context);
                     alertDialogBuilder.setTitle("공개채팅방이 입장 불가");
                     alertDialogBuilder.setMessage("공개채팅방이 개설되지 않았습니다")
                             .setCancelable(true)
-                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("확인", new_img DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.cancel();
@@ -282,14 +282,14 @@ if(mMyData.itemList.get(i) != 0)
                 else {
 
                     mMyData.setAnotherPublicRoomList(stTargetData);
-                    Intent intent = new Intent(getApplicationContext(), PublicChatRoomActivity.class);
-                    Bundle bundle = new Bundle();
+                    Intent intent = new_img Intent(getApplicationContext(), PublicChatRoomActivity.class);
+                    Bundle bundle = new_img Bundle();
                     bundle.putSerializable("Target", stTargetData);
                     intent.putExtras(bundle);
                     startActivity(intent);
 
 
-                  //  startActivity(new Intent(getApplicationContext(), PublicChatRoomActivity.class));
+                  //  startActivity(new_img Intent(getApplicationContext(), PublicChatRoomActivity.class));
                 }
             }
         });*/
@@ -341,7 +341,7 @@ if(mMyData.itemList.get(i) != 0)
 
                         View v = inflater.inflate(R.layout.dialog_give_jewel,null);
                        AlertDialog dialog1 = builder.setView(v).create();
-                       dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                       dialog1.getWindow().setBackgroundDrawable(new_img ColorDrawable(android.graphics.Color.TRANSPARENT));
                        dialog1.show();
                        Spinner sp_jewel = v.findViewById(R.id.sp_jewel);
                        sp_jewel.setAdapter(myjewelAdapter);
@@ -637,8 +637,8 @@ if(mMyData.itemList.get(i) != 0)
                 @Override
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
-                    //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
-                    //Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                    //  startActivity(new_img Intent(getApplicationContext(),FanClubActivity.class));
+                    //Intent intent = new_img Intent(getApplicationContext(), FanClubActivity.class);
                     Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Target", stTargetData);
@@ -648,7 +648,7 @@ if(mMyData.itemList.get(i) != 0)
                 }
             });
 
-            /*listView_like.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
+            /*listView_like.addOnItemTouchListener(new_img RecyclerView.OnItemTouchListener()
             {
 
                 @Override
@@ -656,8 +656,8 @@ if(mMyData.itemList.get(i) != 0)
                     if(gestureDetector.onTouchEvent(e))
                     {
                         //
-                        Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
-                        Bundle bundle = new Bundle();
+                        Intent intent = new_img Intent(getApplicationContext(), UserFanActivity.class);
+                        Bundle bundle = new_img Bundle();
                         bundle.putSerializable("Target", TempSendUserData);
                         intent.putExtras(bundle);ㅎ
                         startActivity(intent);
@@ -791,7 +791,7 @@ if(mMyData.itemList.get(i) != 0)
         DatabaseReference table = null;
         table = database.getReference("User");
 
-        //user.addChildEventListener(new ChildEventListener() {
+        //user.addChildEventListener(new_img ChildEventListener() {
         for (int i = 0; i < stTargetData.arrFanList.size(); i++) {
             strTargetIdx = stTargetData.arrFanList.get(i).Idx;
 
@@ -828,7 +828,7 @@ if(mMyData.itemList.get(i) != 0)
         DatabaseReference table = null;
         table = database.getReference("User");
 
-        //user.addChildEventListener(new ChildEventListener() {
+        //user.addChildEventListener(new_img ChildEventListener() {
         for (int i = 0; i < stTargetData.arrStarList.size(); i++) {
             strTargetIdx = stTargetData.arrStarList.get(i).Idx;
 
@@ -836,7 +836,7 @@ if(mMyData.itemList.get(i) != 0)
             {
 
                 final int finalI = i;
-                table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                table.child(strTargetIdx).addListenerForSingleValueEvent(new_img ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int saa = 0;
@@ -882,8 +882,8 @@ if(mMyData.itemList.get(i) != 0)
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                //  startActivity(new Intent(getApplicationContext(),FanClubActivity.class));
-                //Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
+                //  startActivity(new_img Intent(getApplicationContext(),FanClubActivity.class));
+                //Intent intent = new_img Intent(getApplicationContext(), FanClubActivity.class);
                 Intent intent = new Intent(getApplicationContext(), UserFanActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Target", stTargetData);

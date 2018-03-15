@@ -39,16 +39,16 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
     @Override
     public GridUserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.content_user,parent,false);
-      /*  view.setOnClickListener(new View.OnClickListener() {
+      /*  view.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(mAppStatus.bCheckMultiSend == false) {
 
-                    Intent intent = new Intent(mContext, UserPageActivity.class);
+                    Intent intent = new_img Intent(mContext, UserPageActivity.class);
                     intent.putExtra("Target", stTargetData);
                     mContext.startActivity(intent);
                 }
-                    //mContext.startActivity(new Intent(mContext,UserPageActivity.class));
+                    //mContext.startActivity(new_img Intent(mContext,UserPageActivity.class));
             }
         });
 */

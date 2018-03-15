@@ -56,7 +56,7 @@ public class Inventory {
      * useful when you have an existing Inventory object which you know to be up to date,
      * and you have just consumed an item successfully, which means that erasing its
      * purchase data from the Inventory you already have is quicker than querying for
-     * a new Inventory.
+     * a new_img Inventory.
      */
     public void erasePurchase(String sku) {
         if (mPurchaseMap.containsKey(sku)) mPurchaseMap.remove(sku);

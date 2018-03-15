@@ -303,7 +303,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         /*final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         ConstraintLayout ll = (ConstraintLayout)findViewById(R.id.relativeLayout3);
-        ll.setOnClickListener(new View.OnClickListener()
+        ll.setOnClickListener(new_img View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -314,7 +314,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         */
 
 
-/*        ChatData chat_Data = new ChatData(mMyData.getUserNick(), tempChatData.Nick, tempChatData.Msg, tempChatData.Date, "");
+/*        ChatData chat_Data = new_img ChatData(mMyData.getUserNick(), tempChatData.Nick, tempChatData.Msg, tempChatData.Date, "");
         mRef.push().setValue(chat_Data);*/
 
 
@@ -721,7 +721,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                         bottomSheetDialogFragment.show(getSupportFragmentManager());
 
-                     /*   Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                     /*   Intent intent = new_img Intent(Intent.ACTION_GET_CONTENT);
                         intent.setType("image*//*");
                         startActivityForResult(Intent.createChooser(intent,"Select Picture"),REQUEST_IMAGE);*/
 
@@ -730,7 +730,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                 /*Button btn_cam = popup.findViewById(R.id.btn_camera);
                 btn_cam.setVisibility(View.GONE);
-                btn_cam.setOnClickListener(new View.OnClickListener() {
+                btn_cam.setOnClickListener(new_img View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -1104,7 +1104,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                 ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
 
-              /*  ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
+              /*  ChatData chat_Data = new_img ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
 
                 mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr, 0);
                 mRef.push().setValue(chat_Data);*/

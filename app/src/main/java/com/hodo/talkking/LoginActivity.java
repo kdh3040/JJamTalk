@@ -203,8 +203,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         mActivity = this;
 
-        //mDialog = new AlertDialog.Builder(this);
-        //new getMarketVersion().execute();
+        //mDialog = new_img AlertDialog.Builder(this);
+        //new_img getMarketVersion().execute();
 
 
         try {
@@ -265,8 +265,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         final long[] tempVal = {0};
         final String[] rtStr = new String[1];
 
-  /*      Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+  /*      Handler handler = new_img Handler();
+        handler.postDelayed(new_img Runnable() {
             public void run() {*/
 
 
@@ -276,7 +276,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
             Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
 
-            data.addListenerForSingleValueEvent(new ValueEventListener() {
+            data.addListenerForSingleValueEvent(new_img ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     rtStr[0] = dataSnapshot.getValue(String.class);
@@ -304,12 +304,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     //progressBar = findViewById(R.id.login_progress);
 
 
-                /*    gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                /*    gso = new_img GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                             .requestIdToken(getString(R.string.default_web_client_id))
                             .requestEmail()
                             .build();
 
-                    mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                    mGoogleApiClient = new_img GoogleApiClient.Builder(getApplicationContext())
                             .enableAutoManage(this *//* FragmentActivity *//*, this *//* OnConnectionFailedListener *//*)
                             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                             .build();*/
@@ -370,7 +370,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 */
 
 /*
-        LoginTask login = new LoginTask();
+        LoginTask login = new_img LoginTask();
         login.execute(0,0,0);
 */
 
@@ -395,7 +395,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mGoogleSignInButton = (SignInButton) findViewById(R.id.Login_Google);
         mTextView_SignUp = (TextView) findViewById(R.id.Login_SignUp);
 
-        *//*LoginTask login = new LoginTask();
+        *//*LoginTask login = new_img LoginTask();
         login.execute(0,0,0);*//*
 
 
@@ -410,27 +410,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivityForResult(signInIntent, RC_SIGN_IN);
 
 
-            mEmailSignInButton.setOnClickListener(new OnClickListener() {
+            mEmailSignInButton.setOnClickListener(new_img OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     attemptLogin(null, null);
                 }
             });
-            mTextView_SignUp.setOnClickListener(new OnClickListener() {
+            mTextView_SignUp.setOnClickListener(new_img OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                    Intent intent = new_img Intent(LoginActivity.this, SignUpActivity.class);
                     startActivity(intent);
                     finish();
                 }
             });
-            mTextView_NeedHelp.setOnClickListener(new OnClickListener() {
+            mTextView_NeedHelp.setOnClickListener(new_img OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Log.d("LoginActivity", "mTextView_NeedHelp Clicked!");
                 }
             });
-            mGoogleSignInButton.setOnClickListener(new OnClickListener() {
+            mGoogleSignInButton.setOnClickListener(new_img OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -577,7 +577,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         /*
-        OnCompleteListener<Location> mCompleteListener = new OnCompleteListener<Location>() {
+        OnCompleteListener<Location> mCompleteListener = new_img OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
                 if (task.isSuccessful() && task.getResult() != null) {
@@ -621,7 +621,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         FirebaseData.getInstance().SaveData(mMyData.getUserIdx());
         mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
         //finish();
-        /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        /*Intent intent = new_img Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);
         finish();*/
@@ -703,7 +703,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         FirebaseAuth.getInstance().signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(this, new_img OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
@@ -852,7 +852,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             //mMyData.arrMyStarList = stRecvData.StarList;
                         /*    for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.StarList.entrySet()) {
-                                StarData tempStarData = new StarData();
+                                StarData tempStarData = new_img StarData();
                                 tempStarData.Idx = entry.getValue().Idx;
                                 tempStarData.SendGold = entry.getValue().SendGold;
                                 mMyData.arrMyStarList.add(tempStarData);
@@ -860,7 +860,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }*/
 
                /*             for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.FanList.entrySet()) {
-                                FanData tempFanData = new FanData();
+                                FanData tempFanData = new_img FanData();
                                 tempFanData.Idx = entry.getValue().Idx;
                                 tempFanData.RecvGold = entry.getValue().RecvGold;
                                 mMyData.arrMyFanList.add(tempFanData);
@@ -1026,7 +1026,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             }*/
 
-            // TODO: register the new account here.
+            // TODO: register the new_img account here.
             return true;
         }
 

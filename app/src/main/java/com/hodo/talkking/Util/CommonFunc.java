@@ -1061,7 +1061,7 @@ public class CommonFunc {
             int nGold = (CoomonValueData.OPEN_BOX_COST * count) - mMyData.getUserHoney();
             tv_msg.setText(nGold + "골드가 부족합니다");
             Button btn_yes = v.findViewById(R.id.btn_yes);
-            btn_yes.setOnClickListener(new View.OnClickListener() {
+            btn_yes.setOnClickListener(new_img View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     buyGoldListener.EndListener();
@@ -1072,7 +1072,7 @@ public class CommonFunc {
 
             btn_yes.setText("골드 충전하기");
             Button btn_no = v.findViewById(R.id.btn_no);
-            btn_no.setOnClickListener(new View.OnClickListener() {
+            btn_no.setOnClickListener(new_img View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {

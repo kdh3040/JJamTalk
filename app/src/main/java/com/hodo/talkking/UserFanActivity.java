@@ -55,8 +55,8 @@ public class UserFanActivity extends AppCompatActivity {
     ViewPager viewPager;
 
     private UserData stTargetData;
-    //public ArrayList<FanData> FanList = new ArrayList<>();
-    //public ArrayList<UserData> FanData = new ArrayList<>();
+    //public ArrayList<FanData> FanList = new_img ArrayList<>();
+    //public ArrayList<UserData> FanData = new_img ArrayList<>();
     private UIData mUIData = UIData.getInstance();
     private MyData mMyData = MyData.getInstance();
 
@@ -135,14 +135,14 @@ public class UserFanActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_my_fan,parent,false);
-          //view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
+          //view.setLayoutParams(new_img LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
 
             return new ViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-          //  holder.linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (mUIData.getHeight() / 7)));
+          //  holder.linearLayout.setLayoutParams(new_img LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (mUIData.getHeight() / 7)));
             holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

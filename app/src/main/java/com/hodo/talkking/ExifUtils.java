@@ -74,7 +74,7 @@ public class ExifUtils {
         try {
             /**
              * if your are targeting only api level >= 5 ExifInterface exif =
-             * new ExifInterface(src); orientation =
+             * new_img ExifInterface(src); orientation =
              * exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
              */
             if (Build.VERSION.SDK_INT >= 5) {

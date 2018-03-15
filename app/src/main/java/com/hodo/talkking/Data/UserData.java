@@ -77,7 +77,7 @@ public class UserData implements Serializable,Parcelable {
     public  Map<String, SimpleUserData> arrFanData = new LinkedHashMap<String, SimpleUserData>();
     public  Map<String, UserData> mapFanData = new LinkedHashMap<String, UserData>();
 
-    //public  ArrayList<StarData>StarList = new ArrayList<>();
+    //public  ArrayList<StarData>StarList = new_img ArrayList<>();
     public  Map<String, SimpleUserData> StarList = new LinkedHashMap<String, SimpleUserData>();
     public  ArrayList<SimpleUserData> arrStarList = new ArrayList<>();
     public  ArrayList<UserData> arrStarData = new ArrayList<>();

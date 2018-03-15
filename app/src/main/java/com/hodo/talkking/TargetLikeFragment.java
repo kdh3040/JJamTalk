@@ -37,8 +37,8 @@ public class TargetLikeFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_like,container,false);
 /*        RecyclerView recyclerView = view.findViewById(R.id.rv_my_like);
-        recyclerView.setAdapter(new TargetLikeAdapter(getContext(), stTargetData));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),1,false));*/
+        recyclerView.setAdapter(new_img TargetLikeAdapter(getContext(), stTargetData));
+        recyclerView.setLayoutManager(new_img LinearLayoutManager(getContext(),1,false));*/
 
 
         return view;

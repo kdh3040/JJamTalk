@@ -45,12 +45,12 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
     @Override
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
 
-        /*holder.iv_profile.setLayoutParams(new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),((mUIData.getWidth()/mSetting.getViewCount()))));
-        //holder.textView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
+        /*holder.iv_profile.setLayoutParams(new_img RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),((mUIData.getWidth()/mSetting.getViewCount()))));
+        //holder.textView.setLayoutParams(new_img RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2)));
 
         //holder.textView.setText("뉴멤버, 25, 20km");
         holder.iv_profile.setImageResource(R.mipmap.ic_launcher);
-        RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));
+        RelativeLayout.LayoutParams lpForIcon = new_img RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         lpForIcon.setMargins(10,2,2,2);
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

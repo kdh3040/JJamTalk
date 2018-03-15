@@ -74,10 +74,7 @@
             android:name=".SettingActivity"
             android:label="설정"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".FanClubActivity"
-            android:label="팬"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".UserFanActivity"
             android:screenOrientation="portrait"

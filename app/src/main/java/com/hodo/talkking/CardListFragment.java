@@ -216,7 +216,7 @@ public class CardListFragment extends Fragment {
                     DatabaseReference table;
                     table = database.getReference("User/" + mMyData.getUserIdx());
 
-                    Map<String, Object> updateMap = new HashMap<>();
+                    Map<String, Object> updateMap = new_img HashMap<>();
                     updateMap.put("Count",  mMyData.arrCardNameList.get(position).Count);
                     table.child("CardList").child(mMyData.arrCardNameList.get(position).Idx).updateChildren(updateMap);*/
 
@@ -355,7 +355,7 @@ public class CardListFragment extends Fragment {
             user.child("Memo").setValue(stTargetData.Memo);
             user.child("NickName").setValue(stTargetData.NickName);
 
-            Random rand = new Random();
+            Random rand = new_img Random();
             rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
 
             user.child("Point").setValue(Integer.valueOf(Integer.toString(rand.nextInt(100))));

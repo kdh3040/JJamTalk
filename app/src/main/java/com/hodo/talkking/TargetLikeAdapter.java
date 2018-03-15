@@ -60,7 +60,7 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<TargetLikeViewHolder
                 .thumbnail(0.1f)
                 .into(holder.iv_liked);
 
-        /*holder.iv_liked.setOnClickListener(new View.OnClickListener() {
+        /*holder.iv_liked.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getTargetLikeData(position);

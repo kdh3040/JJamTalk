@@ -67,7 +67,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_clicked_mypic);
         setContentView(R.layout.activity_user_page);
         //refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
-        /*refreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        /*refreshlayout.setOnRefreshListener(new_img SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                // RefreshData(refreshlayout);
@@ -87,12 +87,12 @@ public class ClickedMyPicActivity extends AppCompatActivity {
 
         btnShare = (ImageButton)findViewById(R.id.UserPage_btnShared);
         btnShare.setVisibility(View.GONE);
-        /*btnShare.setOnClickListener(new View.OnClickListener() {
+        /*btnShare.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String text = "안녕하세요 같이 놀아요.\n흥톡에 로그인해 맘에 드는지 확인해보세요 \n" + mMyData.strDownUri;
 
-                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                Intent intent = new_img Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 // intent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 intent.putExtra(Intent.EXTRA_TEXT, text);
@@ -208,20 +208,20 @@ public class ClickedMyPicActivity extends AppCompatActivity {
             //tv_like = findViewById(R.id.tv_like);
             //tv_like.setText(mMyData.getUserNick()+"님을 좋아하는 사람들");
             listView_like = (RecyclerView) findViewById(R.id.lv_like);
-            LikeAdapter likeAdapter = new LikeAdapter(this);
-            listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+            LikeAdapter likeAdapter = new_img LikeAdapter(this);
+            listView_like.setLayoutManager(new_img LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
             listView_like.setAdapter(likeAdapter);
 
-            listView_like.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
+            listView_like.addOnItemTouchListener(new_img RecyclerView.OnItemTouchListener()
             {
 
                 @Override
                 public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                     if(gestureDetector.onTouchEvent(e))
                     {
-                        Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
-                        Bundle bundle = new Bundle();
+                        Intent intent = new_img Intent(getApplicationContext(), FanClubActivity.class);
+                        Bundle bundle = new_img Bundle();
                         bundle.putSerializable("Target", TempSendUserData);
                         intent.putExtras(bundle);
                         startActivity(intent);
@@ -251,20 +251,20 @@ public class ClickedMyPicActivity extends AppCompatActivity {
             tv_liked.setText(mMyData.getUserNick() +"님이 좋아하는 사람들");
 
             listView_liked = (RecyclerView) findViewById(R.id.lv_liked);
-            LikedAdapter LikedAdapter = new LikedAdapter(this);
-            listView_liked.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+            LikedAdapter LikedAdapter = new_img LikedAdapter(this);
+            listView_liked.setLayoutManager(new_img LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
             listView_liked.setAdapter(LikedAdapter);
 
-            listView_liked.addOnItemTouchListener(new RecyclerView.OnItemTouchListener()
+            listView_liked.addOnItemTouchListener(new_img RecyclerView.OnItemTouchListener()
             {
 
                 @Override
                 public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                     if(gestureDetector.onTouchEvent(e))
                     {
-                       Intent intent = new Intent(getApplicationContext(), FanClubActivity.class);
-                        Bundle bundle = new Bundle();
+                       Intent intent = new_img Intent(getApplicationContext(), FanClubActivity.class);
+                        Bundle bundle = new_img Bundle();
                         bundle.putSerializable("Target", TempSendUserData);
                         intent.putExtras(bundle);
                         startActivity(intent);

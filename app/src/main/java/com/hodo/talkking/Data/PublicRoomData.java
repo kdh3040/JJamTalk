@@ -5,7 +5,7 @@ package com.hodo.talkking.Data;
  */
 
 public class PublicRoomData {
-    //public ArrayList<String> arrUserList = new ArrayList<>();
+    //public ArrayList<String> arrUserList = new_img ArrayList<>();
     public int nRoomLimit;
     public int nEndTime;
     public String strImg;

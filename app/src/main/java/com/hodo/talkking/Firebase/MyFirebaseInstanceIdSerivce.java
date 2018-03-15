@@ -34,7 +34,7 @@ public class MyFirebaseInstanceIdSerivce extends FirebaseInstanceIdService {
             mMyData.setUserToken(refreshedToken);
         }
         /*final DatabaseReference user = table.child(mMyData.getUserIdx());
-        Map<String, Object> updateMap = new HashMap<>();
+        Map<String, Object> updateMap = new_img HashMap<>();
         updateMap.put("Token", refreshedToken);
         table.updateChildren(updateMap);
         mMyData.setUserToken(refreshedToken);*/

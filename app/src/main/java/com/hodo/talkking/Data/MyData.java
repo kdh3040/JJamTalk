@@ -2012,7 +2012,7 @@ public class MyData {
         //stTargetData.Count = nTotalSendCnt;
 
 /*
-        SimpleUserData tempStarList = new SimpleUserData();
+        SimpleUserData tempStarList = new_img SimpleUserData();
         tempStarList.Idx = stTargetData.Idx;
         tempStarList.RecvGold = nTotalSendCnt;
         tempStarList.NickName = getUserNick();
@@ -2088,7 +2088,7 @@ public class MyData {
         DatabaseReference table = null;
         table = database.getReference("User");
 
-        table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+        table.child(strTargetIdx).addListenerForSingleValueEvent(new_img ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int saa = 0;
@@ -2118,11 +2118,11 @@ public class MyData {
 
         arrMyStarDataList.clear();
 
-        //user.addChildEventListener(new ChildEventListener() {
+        //user.addChildEventListener(new_img ChildEventListener() {
         for (int i = 0; i < arrMyStarList.size(); i++) {
             strTargetIdx = arrMyStarList.get(i).Idx;
 
-            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new_img ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     int saa = 0;

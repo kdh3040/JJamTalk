@@ -470,7 +470,7 @@ public class FirebaseData {
                 }
                 // mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_BOARD);
    /*
-                Intent intent = new Intent(mActivity, MainActivity.class);
+                Intent intent = new_img Intent(mActivity, MainActivity.class);
                 intent.putExtra("StartFragment", 4);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mActivity.startActivity(intent);
