@@ -736,7 +736,7 @@ public class CommonFunc {
                 SetActivityTopRightBtn(true, true, false, false, true);
                 break;
             default:
-                SetActivityTopRightBtn(false, true, false, false, false);
+                SetActivityTopRightBtn(false, false, false, false, false);
                 break;
         }
     }
