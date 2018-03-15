@@ -26,7 +26,7 @@ public class CoomonValueData  {
 
     public static final String DATE_FORMAT = "yyyyMMddHHmm";
     public static final String BOARD_TODAY_DATE_FORMAT = "HH:mm";
-    public static final String BOARD_DATE_FORMAT = "yyyy-MM-dd";
+    public static final String BOARD_DATE_FORMAT = "yy-MM-dd";
 
     public static final long UTC_OFFSET = 32400000;
     public static final long DAY_MILLI_SECONDS = 86400000;
