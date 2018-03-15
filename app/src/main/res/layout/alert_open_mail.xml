@@ -5,7 +5,7 @@
     android:id="@+id/dialog_open_mail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/chat_gift_bg"
+    android:background="@android:color/white"
     android:orientation="vertical"
     android:padding="32dp"
     tools:layout_editor_absoluteY="81dp">
@@ -38,9 +38,9 @@
         android:id="@+id/tv_count"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="8dp"
-        android:gravity="bottom"
+        android:gravity="center_vertical"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -51,9 +51,10 @@
         android:id="@+id/heart"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginRight="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_count"
-        app:layout_constraintStart_toEndOf="@+id/tv_count"
-        app:srcCompat="@drawable/heart" />
+        app:layout_constraintRight_toLeftOf="@+id/tv_count"
+        app:srcCompat="@drawable/heart_red" />
 
     <TextView
         android:id="@+id/msg"
@@ -71,8 +72,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/base_btn_bg"
+        android:background="@drawable/purple_btn_bg"
         android:text="확인"
+        android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/btn_ok"
         app:layout_constraintTop_toBottomOf="@+id/msg" />
@@ -81,7 +83,7 @@
         android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/base_btn_bg"
+        android:background="@drawable/purple_stroke_btn_bg"
         android:text="삭제"
         app:layout_constraintBottom_toBottomOf="@+id/confirm"
         app:layout_constraintLeft_toRightOf="@+id/confirm"
