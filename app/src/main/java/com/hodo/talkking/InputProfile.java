@@ -549,14 +549,14 @@ public class InputProfile extends AppCompatActivity {
         mNickName = (EditText) findViewById(R.id.InputProfile_NickName);
         final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        mMemo = (EditText) findViewById(R.id.InputProfile_Memo);
+        //mMemo = (EditText) findViewById(R.id.InputProfile_Memo);
         ConstraintLayout ll = (ConstraintLayout)findViewById(R.id.linearLayout);
         ll.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                imm.hideSoftInputFromWindow(mMemo.getWindowToken(), 0);
+                //imm.hideSoftInputFromWindow(mMemo.getWindowToken(), 0);
                 imm.hideSoftInputFromWindow(mNickName.getWindowToken(), 0);
             }
         });
@@ -642,7 +642,7 @@ public class InputProfile extends AppCompatActivity {
                 String strNickName = mNickName.getText().toString();
                 strNickName = CommonFunc.getInstance().RemoveEmptyString(strNickName);
 
-                String strMemo = mMemo.getText().toString();
+                //String strMemo = mMemo.getText().toString();
 
 
                 String strImg = mMyData.getUserImg();
@@ -684,7 +684,7 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.nStartAge = (Integer.parseInt(mMyData.getUserAge()) / 10) * 10;
                     mMyData.nEndAge = mMyData.nStartAge + 19;
                     mMyData.setUserNick(strNickName);
-                    mMyData.setUserMemo(strMemo);
+                    //mMyData.setUserMemo(strMemo);
 
                     mMyData.setUserHoney(50);
 
