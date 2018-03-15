@@ -288,7 +288,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             tempChatData.Nick = stTargetData.NickName;
             tempChatData.Idx = stTargetData.Idx;
             tempChatData.Img = stTargetData.Img;
-            tempChatData.Date = "";
+            tempChatData.Date = 0;
             tempChatData.Check = 0;
         }
         else
@@ -407,24 +407,23 @@ public class ChatRoomActivity extends AppCompatActivity {
                     viewHolder.date2.setVisibility(TextView.VISIBLE);
 
                     long time = CommonFunc.getInstance().GetCurrentTime();
-                    Date writeDate = CommonFunc.getInstance().GetStringToDate(chat_message.time, CoomonValueData.DATE_FORMAT);
                     Date todayDate = new Date(time);
-
+                    Date writeDate = new Date(chat_message.time);
                     if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
                     {
                         SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
-                        viewHolder.date2.setText(ctime.format(new Date(writeDate.getTime())));
-                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
-                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
-                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.date2.setText(ctime.format(writeDate));
+                        viewHolder.send_Img2_date.setText(ctime.format(writeDate));
+                        viewHolder.send_Img2_date.setText(ctime.format(writeDate));
+                        viewHolder.gift_date.setText(ctime.format(writeDate));
                     }
                     else
                     {
                         SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
-                        viewHolder.date2.setText(ctime.format(new Date(writeDate.getTime())));
-                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
-                        viewHolder.send_Img2_date.setText(ctime.format(new Date(writeDate.getTime())));
-                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.date2.setText(ctime.format(writeDate));
+                        viewHolder.send_Img2_date.setText(ctime.format(writeDate));
+                        viewHolder.send_Img2_date.setText(ctime.format(writeDate));
+                        viewHolder.gift_date.setText(ctime.format(writeDate));
                     }
 
                     if(chat_message.Heart == 0)
@@ -541,22 +540,23 @@ public class ChatRoomActivity extends AppCompatActivity {
                     viewHolder.gift_check.setVisibility(TextView.GONE);
 
                     long time = CommonFunc.getInstance().GetCurrentTime();
-                    Date writeDate = CommonFunc.getInstance().GetStringToDate(chat_message.time, CoomonValueData.DATE_FORMAT);
+                    Date writeDate = new Date(chat_message.time);
                     Date todayDate = new Date(time);
+
 
                     if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
                     {
                         SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
-                        viewHolder.date1.setText(ctime.format(new Date(writeDate.getTime())));
-                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
-                        viewHolder.send_Img1_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.date1.setText(ctime.format(writeDate));
+                        viewHolder.gift_date.setText(ctime.format(writeDate));
+                        viewHolder.send_Img1_date.setText(ctime.format(writeDate));
                     }
                     else
                     {
                         SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
-                        viewHolder.date1.setText(ctime.format(new Date(writeDate.getTime())));
-                        viewHolder.gift_date.setText(ctime.format(new Date(writeDate.getTime())));
-                        viewHolder.send_Img1_date.setText(ctime.format(new Date(writeDate.getTime())));
+                        viewHolder.date1.setText(ctime.format(writeDate));
+                        viewHolder.gift_date.setText(ctime.format(writeDate));
+                        viewHolder.send_Img1_date.setText(ctime.format(writeDate));
                     }
 
                     viewHolder.image_profile.setVisibility(View.VISIBLE);
@@ -769,16 +769,13 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 mMyData.setSendHoneyCnt(heartCount);
                                 mMyData.makeFanList(stTargetData, heartCount);
 
-                                Calendar cal = Calendar.getInstance();
-                                Date date = cal.getTime();
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                                String formatStr = sdf.format(date);
+                                long nowTime = CommonFunc.getInstance().GetCurrentTime();
 
-                                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, msg, formatStr, "", 0, heartCount);
+                                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, msg, nowTime, "", 0, heartCount);
 
                                 if(msg.equals(""))
                                     msg = mMyData.getUserNick() + "님이 " + heartCount + " 하트를 보냈습니다";
-                                mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, msg, formatStr, heartCount);
+                                mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, msg, nowTime, heartCount);
                                 mRef.push().setValue(chat_Data);
                             }
                         };
@@ -806,16 +803,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                     if (txt_msg.getText().toString().replace(" ", "").equals("")) {
                         return;
                     }else{
-                        Calendar cal = Calendar.getInstance();
-                        Date date = cal.getTime();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                        String formatStr = sdf.format(date);
+                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, message, nowTime, "",0, 0);
 
-                        //mNotiFunc.SendMsgToFCM(stTargetData);
-
-                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, message, formatStr, "",0, 0);
-
-                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, formatStr, 0);
+                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, message, nowTime, 0);
 
                         mRef.push().setValue(chat_Data);
                         txt_msg.setText("");
@@ -1077,14 +1067,11 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                 if(bPrePare[0] == false)
                 {
-                    Calendar cal = Calendar.getInstance();
-                    Date date = cal.getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                    String formatStr = sdf.format(date);
+                    long nowTime = CommonFunc.getInstance().GetCurrentTime();
 
-                    ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, mMyData.strImgLodingUri, 0, 0);
+                    ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", nowTime, mMyData.strImgLodingUri, 0, 0);
 
-                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr, 0);
+                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", nowTime, 0);
 
                     DatabaseReference pushedPostRef = mRef.push();
                     postId[0] = pushedPostRef.getKey();
@@ -1103,12 +1090,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                 //progressBar.setVisibility(View.INVISIBLE);
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                Calendar cal = Calendar.getInstance();
-                Date date = cal.getTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                String formatStr = sdf.format(date);
+                long nowTime = CommonFunc.getInstance().GetCurrentTime();
 
-                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
+                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", nowTime, downloadUrl.toString(), 0, 0);
 
               /*  ChatData chat_Data = new_img ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
 

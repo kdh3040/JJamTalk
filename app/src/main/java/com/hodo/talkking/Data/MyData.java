@@ -847,12 +847,8 @@ public class MyData {
         tempMySave.Check = 1;
         tempMySave.SendHeart = _SendCount;
 
-        Calendar cal = Calendar.getInstance();
-        Date date = cal.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-        String formatStr = sdf.format(date);
-
-        tempMySave.Date = formatStr;
+        long nowTime = CommonFunc.getInstance().GetCurrentTime();
+        tempMySave.Date = nowTime;
 
         SimpleChatData tempTargetSave = new SimpleChatData();
         tempTargetSave.ChatRoomName = strCheckName;
@@ -862,7 +858,7 @@ public class MyData {
         tempTargetSave.Msg = _strSend.toString();
         tempTargetSave.Grade = _UserData.Grade;
         tempTargetSave.BestItem = _UserData.BestItem;
-        tempTargetSave.Date = formatStr;
+        tempTargetSave.Date = nowTime;
         tempTargetSave.SendHeart = _SendCount;
 
         tempTargetSave.Check = 0;
@@ -2496,7 +2492,7 @@ public class MyData {
         return rtValue;
     }
 
-    public void makeLastMSG(UserData  tempData, String Roomname, String strMsg, String lTime, int SendCount) {
+    public void makeLastMSG(UserData  tempData, String Roomname, String strMsg, long lTime, int SendCount) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
@@ -2505,7 +2501,7 @@ public class MyData {
 
         String strLastMsg = strMsg;
         String strLastImg = strImg;
-        String strLastTime = lTime;
+        long LastTime = lTime;
         int nCheckMsg = 0;
 
         SimpleChatData tempMySave = new SimpleChatData();
@@ -2516,7 +2512,7 @@ public class MyData {
         tempMySave.Img = getUserImg();
         tempMySave.Grade = getGrade();
         tempMySave.BestItem = bestItem;
-        tempMySave.Date = strLastTime;
+        tempMySave.Date = LastTime;
         tempMySave.Check = 0;
         tempMySave.SendHeart = SendCount;
 
@@ -2529,7 +2525,7 @@ public class MyData {
         tempTargetSave.Img = tempData.Img;
         tempTargetSave.Grade = tempData.Grade;
         tempTargetSave.BestItem = tempData.BestItem;
-        tempTargetSave.Date = strLastTime;
+        tempTargetSave.Date = LastTime;
         tempTargetSave.Check = 1;
         tempTargetSave.SendHeart = SendCount;
 
