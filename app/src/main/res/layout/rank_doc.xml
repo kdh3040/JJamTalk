@@ -1,198 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout5"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/purple_rank_doc_bg">
+    android:background="@color/baseColor"
+    android:padding="1dp">
 
     <TextView
         android:id="@+id/mycoin"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/vvip"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="1dp"
         android:gravity="center"
-        android:text="나의 누적 코인 :" />
+        android:text="내가 획득한 총 코인 :"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vvip" />
+
+    <ImageView
+        android:id="@+id/iv_coin"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mycoin"
+        app:layout_constraintLeft_toRightOf="@+id/mycoin"
+        app:layout_constraintTop_toTopOf="@+id/mycoin"
+        app:srcCompat="@drawable/coin" />
 
     <TextView
         android:id="@+id/tv_rank"
-        android:layout_width="160dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
+        android:layout_marginRight="1dp"
+        android:background="@color/baseColorLight"
         android:gravity="center"
-        android:text="RANK" />
+        android:text="RANK"
+        android:textColor="@android:color/white"
+        app:layout_constraintRight_toLeftOf="@+id/tv_coin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_coin"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/tv_rank"
+        android:background="@color/baseColorLight"
         android:gravity="center"
-        android:text="누적 코인" />
+        android:text="획득한 총 코인"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toRightOf="@+id/tv_rank"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/bronze"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentTop="false"
-        android:layout_below="@+id/tv_rank"
-        android:layout_marginLeft="16dp"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rank"
         app:srcCompat="@drawable/rank_bronze" />
 
     <ImageView
         android:id="@+id/silver"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/bronze"
-        android:layout_marginLeft="16dp"
+        android:background="@android:color/white"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bronze"
         app:srcCompat="@drawable/rank_silver" />
 
     <ImageView
         android:id="@+id/gold"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/silver"
-        android:layout_marginLeft="16dp"
+        android:background="@android:color/white"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/silver"
         app:srcCompat="@drawable/rank_gold" />
 
     <ImageView
         android:id="@+id/diamond"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/gold"
-        android:layout_marginLeft="16dp"
+        android:background="@android:color/white"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gold"
         app:srcCompat="@drawable/rank_diamond" />
 
     <ImageView
         android:id="@+id/vip"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/diamond"
-        android:layout_marginLeft="16dp"
+        android:background="@android:color/white"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diamond"
         app:srcCompat="@drawable/rank_vip" />
 
     <ImageView
         android:id="@+id/vvip"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/vip"
-        android:layout_marginLeft="16dp"
+        android:background="@android:color/white"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vip"
         app:srcCompat="@drawable/rank_vvip" />
 
     <TextView
         android:id="@+id/tv_bronze"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_alignRight="@+id/tv_rank"
-        android:layout_below="@+id/tv_rank"
-        android:layout_toRightOf="@+id/bronze"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="Bronze" />
+        android:text="Bronze"
+        app:layout_constraintLeft_toRightOf="@+id/bronze"
+        app:layout_constraintRight_toRightOf="@+id/tv_rank"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
 
     <TextView
         android:id="@+id/tv_silver"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/silver"
-        android:layout_alignRight="@+id/tv_rank"
-        android:layout_toRightOf="@+id/silver"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="Silver" />
+        android:text="Silver"
+        app:layout_constraintBottom_toBottomOf="@+id/silver"
+        app:layout_constraintLeft_toRightOf="@+id/silver"
+        app:layout_constraintRight_toRightOf="@+id/tv_rank" />
 
     <TextView
         android:id="@+id/tv_gold"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/gold"
-        android:layout_alignRight="@+id/tv_rank"
-        android:layout_toRightOf="@+id/gold"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="Gold" />
+        android:text="Gold"
+        app:layout_constraintBottom_toBottomOf="@+id/gold"
+        app:layout_constraintLeft_toRightOf="@+id/gold"
+        app:layout_constraintRight_toRightOf="@+id/tv_rank" />
 
     <TextView
         android:id="@+id/tv_diamond"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/diamond"
-        android:layout_alignRight="@+id/tv_rank"
-        android:layout_toRightOf="@+id/diamond"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="Diamond" />
+        android:text="Diamond"
+        app:layout_constraintBottom_toBottomOf="@+id/diamond"
+        app:layout_constraintLeft_toRightOf="@+id/diamond"
+        app:layout_constraintRight_toRightOf="@+id/tv_rank" />
 
     <TextView
         android:id="@+id/tv_vip"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/vip"
-        android:layout_alignRight="@+id/tv_rank"
-        android:layout_toRightOf="@+id/vip"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="VIP" />
+        android:text="VIP"
+        app:layout_constraintBottom_toBottomOf="@+id/vip"
+        app:layout_constraintLeft_toRightOf="@+id/vip"
+        app:layout_constraintRight_toRightOf="@+id/tv_rank" />
 
     <TextView
         android:id="@+id/tv_vvip"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/vvip"
-        android:layout_alignRight="@+id/tv_rank"
-        android:layout_toRightOf="@+id/vvip"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="VVIP" />
+        android:text="VVIP"
+        app:layout_constraintBottom_toBottomOf="@+id/vvip"
+        app:layout_constraintLeft_toRightOf="@+id/vvip"
+        app:layout_constraintRight_toRightOf="@+id/tv_rank" />
 
     <TextView
         android:id="@+id/tv_bronze2"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/tv_rank"
-        android:layout_toRightOf="@+id/tv_bronze"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="100코인" />
+        android:text="100코인"
+        app:layout_constraintLeft_toRightOf="@+id/tv_bronze"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
 
     <TextView
         android:id="@+id/tv_silver2"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/silver"
-        android:layout_toRightOf="@+id/tv_silver"
+        android:layout_marginLeft="1dp"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="200코인" />
+        android:text="200코인"
+        app:layout_constraintBottom_toBottomOf="@+id/silver"
+        app:layout_constraintLeft_toRightOf="@+id/tv_silver"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/tv_gold2"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/gold"
-        android:layout_toRightOf="@+id/tv_gold"
+        android:layout_marginLeft="1dp"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="300코인" />
+        android:text="300코인"
+        app:layout_constraintBottom_toBottomOf="@+id/gold"
+        app:layout_constraintLeft_toRightOf="@+id/tv_gold"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/tv_diamond2"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/diamond"
-        android:layout_toRightOf="@+id/tv_diamond"
+        android:layout_marginLeft="1dp"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="500코인" />
+        android:text="500코인"
+        app:layout_constraintBottom_toBottomOf="@+id/diamond"
+        app:layout_constraintLeft_toRightOf="@+id/tv_diamond"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/tv_vip2"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/vip"
-        android:layout_toRightOf="@+id/tv_vip"
+        android:layout_marginLeft="1dp"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="1000코인" />
+        android:text="1000코인"
+        app:layout_constraintBottom_toBottomOf="@+id/vip"
+        app:layout_constraintLeft_toRightOf="@+id/tv_vip"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/tv_vvip2"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/vvip"
-        android:layout_toRightOf="@+id/tv_vvip"
+        android:layout_marginLeft="1dp"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:text="2000코인" />
+        android:text="2000코인"
+        app:layout_constraintBottom_toBottomOf="@+id/vvip"
+        app:layout_constraintLeft_toRightOf="@+id/tv_vvip"
+        app:layout_constraintRight_toRightOf="parent" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
