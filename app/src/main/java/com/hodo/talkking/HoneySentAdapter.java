@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
+import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.ViewHolder.HoneySentViewHoler;
 
 import java.text.SimpleDateFormat;
@@ -38,9 +39,19 @@ public class HoneySentAdapter extends RecyclerView.Adapter<HoneySentViewHoler>{
     public void onBindViewHolder(HoneySentViewHoler holder, int position) {
         holder.tv_Honeycount.setText(Integer.toString(mMyData.arrSendHoneyDataList.get(position).nSendHoney));
         holder.tv_Nickname.setText(mMyData.arrSendHoneyDataList.get(position).strTargetNick);
+
         Date sendDate = new Date(mMyData.arrSendHoneyDataList.get(position).strSendDate);
-        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.MAIL_DATE_FORMAT);
-        holder.tv_Date.setText(ctime.format(sendDate));
+        if(CommonFunc.getInstance().IsTodayDate(new Date(CommonFunc.getInstance().GetCurrentTime()), sendDate))
+        {
+            SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
+            holder.tv_Date.setText(ctime.format(sendDate));
+        }
+        else
+        {
+            SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
+            holder.tv_Date.setText(ctime.format(sendDate));
+        }
+
         Glide.with(mContext)
                 .load(mMyData.arrSendHoneyDataList.get(position).strTargetImg)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

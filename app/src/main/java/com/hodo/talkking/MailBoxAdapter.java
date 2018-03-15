@@ -61,8 +61,16 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
                 .into(holder.imageView);
 
         Date sendDate = new Date(mMyData.arrGiftHoneyDataList.get(position).strSendDate);
-        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.MAIL_DATE_FORMAT);
-        holder.SendDate.setText(ctime.format(sendDate));
+        if(CommonFunc.getInstance().IsTodayDate(new Date(CommonFunc.getInstance().GetCurrentTime()), sendDate))
+        {
+            SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
+            holder.SendDate.setText(ctime.format(sendDate));
+        }
+        else
+        {
+            SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
+            holder.SendDate.setText(ctime.format(sendDate));
+        }
 
         holder.textView.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney));
 
