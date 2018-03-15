@@ -772,6 +772,16 @@ public class CommonFunc {
     public void SetMailAlarmVisible(boolean enable) {
         if (Mail_Alarm != null)
             Mail_Alarm.setVisibility(enable ? View.VISIBLE : View.GONE);
+
+        if(Honey_Box != null)
+        {
+            if(enable == true)
+            {
+                AnimationDrawable frameAnimation = (AnimationDrawable) Honey_Box.getBackground();
+                frameAnimation.start();
+            }
+        }
+
     }
 
 
