@@ -1642,15 +1642,13 @@ public class MainActivity extends AppCompatActivity {
             user.child("Age").setValue(strAge);
 
             double lon = random.nextDouble() * 1000;
-            lon = Double.parseDouble(String.format("%.8f", lon));
+            lon = Math.random() * (1.072271) + 126.611512;
 
             double lat = random.nextDouble() * 100;
-            lat = Double.parseDouble(String.format("%.8f", lat));
+            lat =Math.random() * (0.836468) + 37.077091;
 
             user.child("Lon").setValue(lon);
             user.child("Lat").setValue(lat);
-
-
 
             user.child("Dist").setValue(LocationFunc.getInstance().getDistance(lat, lon, REF_LAT, REF_LON,"meter"));
 
@@ -1660,7 +1658,7 @@ public class MainActivity extends AppCompatActivity {
             user.child("ImgCount").setValue(mMyData.getUserImgCnt());
 
             long time = CommonFunc.getInstance().GetCurrentTime();
-            user.child("Date").setValue(Long.toString(random.nextLong()));
+            user.child("Date").setValue(Long.toString( -1 * random.nextLong()));
 
             user.child("Memo").setValue(mMyData.getUserMemo());
 
@@ -1711,7 +1709,7 @@ public class MainActivity extends AppCompatActivity {
             user.child("Lat").setValue(lat);
             user.child("Dist").setValue(LocationFunc.getInstance().getDistance(lat, lon, REF_LAT, REF_LON,"meter"));
 
-            user.child("Date").setValue(Long.toString(random.nextLong()));
+            user.child("Date").setValue(Long.toString(-1 * random.nextLong()));
             user.child("FanCount").setValue(-1 * Long.valueOf(Index));
 
             user.child("Point").setValue(random.nextInt(10000));
