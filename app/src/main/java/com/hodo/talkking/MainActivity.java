@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(mMyData.getUserIdx() == null)
         {
-            int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+            CommonFunc.getInstance().restartApp(getApplicationContext());
         }
 
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
@@ -356,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(mMyData.getUserIdx() == null)
         {
-            int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+           CommonFunc.getInstance().restartApp(getApplicationContext());
         }
 
 /*        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
