@@ -16,6 +16,7 @@ public class SimpleChatData implements Serializable,Parcelable {
     public String ChatRoomName;
     public String Msg;
     public String Nick;
+    public String WriterIdx;
     public String Idx;
     public String Img;
     public long Date;
@@ -40,6 +41,7 @@ public class SimpleChatData implements Serializable,Parcelable {
         ChatRoomName = in.readString();
         Msg = in.readString();
         Nick = in.readString();
+        WriterIdx = in.readString();
         Idx = in.readString();
         Img = in.readString();
         Date = in.readLong();
@@ -71,6 +73,7 @@ public class SimpleChatData implements Serializable,Parcelable {
         parcel.writeString(ChatRoomName);
         parcel.writeString(Msg);
         parcel.writeString(Nick);
+        parcel.writeString(WriterIdx);
         parcel.writeString(Idx);
         parcel.writeString(Img);
         parcel.writeLong(Date);

@@ -846,6 +846,7 @@ public class MyData {
         tempMySave.BestItem = bestItem;
         tempMySave.Check = 1;
         tempMySave.SendHeart = _SendCount;
+        tempMySave.WriterIdx = getUserIdx();
 
         long nowTime = CommonFunc.getInstance().GetCurrentTime();
         tempMySave.Date = nowTime;
@@ -860,6 +861,7 @@ public class MyData {
         tempTargetSave.BestItem = _UserData.BestItem;
         tempTargetSave.Date = nowTime;
         tempTargetSave.SendHeart = _SendCount;
+        tempTargetSave.WriterIdx = getUserIdx();
 
         tempTargetSave.Check = 0;
 
@@ -1109,7 +1111,10 @@ public class MyData {
                 int saa = 0;
                 SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
                 if (!arrChatNameList.contains(SendList.ChatRoomName)) {
-                    CommonFunc.getInstance().SetChatAlarmVisible(true);
+
+                    if(!SendList.WriterIdx.equals(getUserIdx()))
+                        CommonFunc.getInstance().SetChatAlarmVisible(true);
+
                     arrChatNameList.add(SendList.ChatRoomName);
                     arrChatDataList.put(SendList.ChatRoomName, SendList);
 
@@ -1130,9 +1135,13 @@ public class MyData {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 int saa = 0;
-                CommonFunc.getInstance().SetChatAlarmVisible(true);
+
+
                 SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
                 arrChatDataList.put(SendList.ChatRoomName, SendList);
+
+                if(!SendList.WriterIdx.equals(getUserIdx()))
+                    CommonFunc.getInstance().SetChatAlarmVisible(true);
 
                 ActivityManager activityManager = (ActivityManager) mContext.getSystemService(ACTIVITY_SERVICE);
                 List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
@@ -2503,6 +2512,8 @@ public class MyData {
         tempMySave.Date = LastTime;
         tempMySave.Check = 0;
         tempMySave.SendHeart = SendCount;
+        tempMySave.WriterIdx = getUserIdx();
+
 
 
         SimpleChatData tempTargetSave = new SimpleChatData();
@@ -2516,6 +2527,7 @@ public class MyData {
         tempTargetSave.Date = LastTime;
         tempTargetSave.Check = 1;
         tempTargetSave.SendHeart = SendCount;
+        tempTargetSave.WriterIdx = getUserIdx();
 
         user.setValue(tempTargetSave);
         targetuser.setValue(tempMySave);
