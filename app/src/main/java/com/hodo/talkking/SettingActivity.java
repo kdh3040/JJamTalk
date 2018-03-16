@@ -1,11 +1,15 @@
 package com.hodo.talkking;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -231,7 +235,13 @@ public class SettingActivity extends AppCompatActivity {
                 CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
                     public void YesListener() {
 
-                        FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
+                        FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+
+                        mMyData.Clear();
+
+                        CommonFunc.getInstance().restartApp(getApplicationContext());
+
+                /*        FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
                         currentUser.delete()
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -244,7 +254,7 @@ public class SettingActivity extends AppCompatActivity {
                                             startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                                         }
                                     }
-                                });
+                                });*/
 
 
                     }
@@ -518,5 +528,6 @@ public class SettingActivity extends AppCompatActivity {
             btn_ViewMode_4.setChecked(true);
         }
     }*/
+
 
 }
