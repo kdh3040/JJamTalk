@@ -72,7 +72,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
 
 
         holder.iv_honey_rank.setLayoutParams(lpForIcon);
-        holder.iv_honey_rank.setImageResource(R.mipmap.ic_new);
+        holder.iv_honey_rank.setImageResource(R.drawable.rank_bronze);
 
         RelativeLayout.LayoutParams lpForBgTxt  = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2));
         lpForBgTxt.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
