@@ -208,7 +208,7 @@ public class MyJewelBoxActivity extends Activity {
             }
         };
 
-        CommonFunc.getInstance().ShowBoxOpen(mActivity, count, bonus, endlistener, buyGoldlistener);
+        CommonFunc.getInstance().ShowBoxOpen(this, count, bonus, endlistener, buyGoldlistener);
     }
 
 
