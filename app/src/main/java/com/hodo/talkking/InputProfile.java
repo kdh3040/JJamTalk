@@ -663,10 +663,12 @@ public class InputProfile extends AppCompatActivity {
                 if(!CbAccess.isChecked())
                 {
                     CommonFunc.getInstance().ShowToast(InputProfile.this, "이용약관에 동의해주세요", true);
+                    return;
                 }
                 if(!CbLoc.isChecked())
                 {
                     CommonFunc.getInstance().ShowToast(InputProfile.this, "위치정보 이용에 동의해주세요", true);
+                    return;
                 }
 
                 else
@@ -1024,77 +1026,58 @@ public class InputProfile extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
-
-
-        String alertTitle = "종료";
-        View v = LayoutInflater.from(this).inflate(R.layout.dialog_exit_app,null,false);
-
-        final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.show();
-
-        final Button btn_exit;
-        final Button btn_no;
-        final TextView title;
-        final AdView mAdView;
-
-        title =  (TextView) v.findViewById(R.id.title);
-        title.setVisibility(View.GONE);
-
-
-        btn_exit = (Button) v.findViewById(R.id.btn_yes);
-        btn_exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
-
-                FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
-                currentUser.delete()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d(TAG, "User account deleted.");
-                                    int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
-                                }
-                            }
-                        });
-
-            }
-        });
-
-        btn_no = (Button) v.findViewById(R.id.btn_no);
-        btn_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-
-        mAdView = (AdView)v.findViewById(R.id.adView);
-        mAdView.setVisibility(View.VISIBLE);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
-        if(keyCode == KeyEvent.KEYCODE_HOME){
-            FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            String alertTitle = "종료";
+            View v = LayoutInflater.from(this).inflate(R.layout.dialog_exit_app,null,false);
 
-            FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
-            currentUser.delete()
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "User account deleted.");
-                                int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
-                            }
-                        }
-                    });
+            final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.show();
+
+            final Button btn_exit;
+            final Button btn_no;
+            final TextView title;
+            final AdView mAdView;
+
+            title =  (TextView) v.findViewById(R.id.title);
+            title.setVisibility(View.GONE);
+
+
+            btn_exit = (Button) v.findViewById(R.id.btn_yes);
+            btn_exit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+
+                    FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
+                    currentUser.delete()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "User account deleted.");
+                                        int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+                                    }
+                                }
+                            });
+
+                }
+            });
+
+            btn_no = (Button) v.findViewById(R.id.btn_no);
+            btn_no.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+
+            mAdView = (AdView)v.findViewById(R.id.adView);
+            mAdView.setVisibility(View.VISIBLE);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
 
         }
         return true;
