@@ -228,6 +228,15 @@ public class UserPageActivity extends AppCompatActivity {
         else
             imgBestItem.setImageResource(mUIdata.getJewels()[stTargetData.BestItem]);
 
+
+        imgBestItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommonFunc.getInstance().ViewUserBox(mActivity, stTargetData.BestItem);
+            }
+        });
+
+
         imgGrade = (ImageView)findViewById(R.id.iv_rank);
         imgGrade.setImageResource(mUIdata.getGrades()[stTargetData.Grade]);
 /*        Glide.with(getApplicationContext())
