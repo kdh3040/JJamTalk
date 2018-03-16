@@ -44,7 +44,7 @@ public class NotiFunc {
 
             data.put("body", strMsg);
 
-            data.put("title", mMyData.getUserNick() + "님이 쪽지를 보냈습니다");
+            data.put("title", mMyData.getUserNick() + " 님이 쪽지를 보냈습니다");
             data.put("Img", stTargetData.Img);
             data.put("Idx", stTargetData.Idx);
             data.put("NickName", mMyData.getUserNick());
@@ -79,7 +79,7 @@ public class NotiFunc {
             JSONObject data = new JSONObject();
 
             data.put("body", strMsg);
-            data.put("title", mMyData.getUserNick() + "님이 하트를" + nHoneyCnt+ "개 보냈습니다");
+            data.put("title", mMyData.getUserNick() + "님이 하트를 " + nHoneyCnt+ "개 보냈습니다");
             data.put("Img", stTargetData.Img);
             data.put("Idx", stTargetData.Idx);
             data.put("Gender", stTargetData.Gender);
