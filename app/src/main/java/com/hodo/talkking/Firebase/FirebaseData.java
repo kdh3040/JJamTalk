@@ -159,7 +159,7 @@ public class FirebaseData {
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
         // DatabaseReference user = table.child( userIdx);
-        final DatabaseReference user = table.child(mMyData.getUserIdx());
+        DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
 
         mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
@@ -199,7 +199,35 @@ public class FirebaseData {
         user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
 
         // 심플 디비 저장
-        SaveSimpleData();
+        table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
+        user = table.child( userIdx);
+        user.child("Idx").setValue(mMyData.getUserIdx());
+
+        mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+        user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+        user.child("Img").setValue(mMyData.getUserImg());
+
+        user.child("NickName").setValue(mMyData.getUserNick());
+        user.child("Gender").setValue(mMyData.getUserGender());
+        user.child("Age").setValue(mMyData.getUserAge());
+
+        user.child("Memo").setValue(mMyData.getUserMemo());
+
+        user.child("RecvGold").setValue(mMyData.getRecvHoney());
+        user.child("SendGold").setValue(mMyData.getSendHoney());
+
+        user.child("Lon").setValue(mMyData.getUserLon());
+        user.child("Lat").setValue(mMyData.getUserLat());
+        user.child("Dist").setValue(mMyData.getUserDist());
+        user.child("Date").setValue(mMyData.getUserDate());
+
+        user.child("FanCount").setValue(-1 * (mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
+
+        user.child("Point").setValue(mMyData.getPoint());
+
+        user.child("Grade").setValue(mMyData.getGrade());
+        user.child("BestItem").setValue(mMyData.bestItem);
+        user.child("Honey").setValue(mMyData.getUserHoney());
     }
 
     public void SaveData(String userIdx) {
@@ -276,9 +304,6 @@ public class FirebaseData {
         user.child("Dist").setValue(mMyData.getUserDist());
 
         user.child("FanCount").setValue(-1 * (mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
-
-        Random rand = new Random();
-        rand.setSeed(System.currentTimeMillis()); // 시드값을 설정하여 생성
 
         user.child("Point").setValue(mMyData.getPoint());
 

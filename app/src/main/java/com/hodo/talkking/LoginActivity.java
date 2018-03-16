@@ -1315,10 +1315,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Integer doInBackground(Integer... voids) {
-            long time = CommonFunc.getInstance().GetCurrentTime();
-            SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
-            int nTodayDate =  Integer.parseInt(ctime.format(new Date(time)));
-            int nStartDate = nTodayDate - 7;
 
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
