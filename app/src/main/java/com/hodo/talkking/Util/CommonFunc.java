@@ -2,6 +2,7 @@ package com.hodo.talkking.Util;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -56,6 +57,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by woong on 2018-01-05.
@@ -819,7 +822,8 @@ public class CommonFunc {
     public void View_OpenedItem(Context context, View v, int result, ImageView img_Opened, TextView text_Opened) {
         img_Opened.setImageResource(UIData.getInstance().getJewels()[result]);
 
-        switch (result) {
+        text_Opened.setText(UIData.getInstance().getItems()[result]);
+/*        switch (result) {
             case 1: {
                 text_Opened.setText(R.string.Item_0_text);
                 break;
@@ -848,7 +852,7 @@ public class CommonFunc {
                 text_Opened.setText(R.string.Item_6_text);
                 break;
             }
-        }
+        }*/
 
     }
 
@@ -948,6 +952,39 @@ public class CommonFunc {
         });
     }
 
+
+    public void ViewUserBox(final Context context, final int Index)
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View v = LayoutInflater.from(context).inflate(R.layout.popup_item_get, null);
+        ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
+        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
+        TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
+        //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+        TextView Text_blar = (TextView)v.findViewById(R.id.tv_blar);
+
+        Text_Prob.setText("확률 " + UIData.getInstance().getProb()[Index]);
+        Text_blar.setText(UIData.getInstance().getItemBlar()[Index]);
+        CommonFunc.getInstance().View_OpenedItem(context, v, Index, Img_Opened, Text_Opened);
+
+        Button btn_confirm = v.findViewById(R.id.button3);
+        Button btn_sell = v.findViewById(R.id.button2);
+        builder.setView(v);
+
+        btn_sell.setVisibility(View.GONE);
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+    }
+
     public void ViewBox(final Context context, final int Index, final ShowBoxOpen_End endListener)
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -1030,9 +1067,9 @@ public class CommonFunc {
         });
     }
 
-    public void ShowBoxOpen(final Context context, final int count, final int bonus, final ShowBoxOpen_End endListener, final ShowBoxOpen_End buyGoldListener) {
-        View v = LayoutInflater.from(context).inflate(R.layout.dialog_exit_app, null, false);
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    public void ShowBoxOpen(final Activity activity, final int count, final int bonus, final ShowBoxOpen_End endListener, final ShowBoxOpen_End buyGoldListener) {
+        View v = LayoutInflater.from(activity).inflate(R.layout.dialog_exit_app, null, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         final AlertDialog dialog = builder.setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
@@ -1053,16 +1090,42 @@ public class CommonFunc {
             btn_yes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dialog.cancel();
-                    if (mMyData.getUserHoney() >= (CoomonValueData.OPEN_BOX_COST * count)) {
-                        mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
-                        for (int i = 0; i < count + bonus; i++) {
-                            BuyItemPopup(context, endListener);
-                        }
 
-                        endListener.EndListener();
-                    } else {
-                        CommonFunc.getInstance().ShowToast(context, "코인이 부족합니다.", false);
+                    if (mMyData.getUserHoney() >= (CoomonValueData.OPEN_BOX_COST * count)) {
+
+                        dialog.cancel();
+                        ShowLoadingPage(activity,"뽑기중");
+                        TimerTask mTask;
+                        Timer mTimer;
+
+                        mTask = new TimerTask() {
+
+                            @Override
+                            public void run() {
+
+                                activity.runOnUiThread(new Runnable(){
+
+                                    public void run(){
+                                        mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
+                                        for (int i = 0; i < count + bonus; i++) {
+                                            BuyItemPopup(activity, endListener);
+                                        }
+
+                                        endListener.EndListener();
+                                        DismissLoadingPage();
+
+                                    }
+
+                                });
+                            }
+                        };
+
+                        mTimer = new Timer();
+
+                        mTimer.schedule(mTask, 2000);
+                    }
+                    else {
+                        CommonFunc.getInstance().ShowToast(activity, "코인이 부족합니다.", false);
                     }
                 }
             });
