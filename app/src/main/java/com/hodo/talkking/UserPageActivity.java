@@ -206,6 +206,7 @@ public class UserPageActivity extends AppCompatActivity {
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {
+                        CommonFunc.getInstance().DismissLoadingPage();
                         return false;
                     }
 
