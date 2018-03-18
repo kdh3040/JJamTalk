@@ -467,11 +467,16 @@ public class ChatRoomActivity extends AppCompatActivity {
                             viewHolder.send_Img2.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
+
                                     Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
                                     Bundle bundle = new Bundle();
                                     UserData tempUser = new UserData();
                                     tempUser.ImgCount = 1;
                                     tempUser.Img= tempUser.ImgGroup0 = chat_message.getImg().toString();
+                                    tempUser.Img= tempUser.ImgGroup1 = "1";
+                                    tempUser.Img= tempUser.ImgGroup2 = "1";
+                                    tempUser.Img= tempUser.ImgGroup3 = "1";
+
                                     bundle.putSerializable("Target", tempUser);
                                     bundle.putSerializable("Index", 0);
                                     intent.putExtras(bundle);
@@ -615,11 +620,16 @@ public class ChatRoomActivity extends AppCompatActivity {
                         viewHolder.send_Img1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+
                                 Intent intent = new Intent(getApplicationContext(), ImageViewPager.class);
                                 Bundle bundle = new Bundle();
                                 UserData tempUser = new UserData();
                                 tempUser.ImgCount = 1;
                                 tempUser.Img= tempUser.ImgGroup0 = chat_message.getImg().toString();
+                                tempUser.Img= tempUser.ImgGroup1 = "1";
+                                tempUser.Img= tempUser.ImgGroup2 = "1";
+                                tempUser.Img= tempUser.ImgGroup3 = "1";
+
                                 bundle.putSerializable("Target", tempUser);
                                 bundle.putSerializable("Index", 0);
                                 intent.putExtras(bundle);
