@@ -131,6 +131,7 @@ public class ChatListFragment extends Fragment {
 
             chatListRecyclerView.setAdapter(mAdapter);
             chatListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            SortByChatDate();
             mAdapter.notifyDataSetChanged();
         }
         return fragView;
@@ -308,7 +309,13 @@ public class ChatListFragment extends Fragment {
             holder.nickname.setText(mMyData.arrChatDataList.get(str).Nick);
 
             if(mMyData.arrChatDataList.get(str).Check == 0)
-                holder.check.setVisibility(View.VISIBLE);
+            {
+                if(!mMyData.arrChatDataList.get(str).WriterIdx.equals(mMyData.getUserIdx()))
+                    holder.check.setVisibility(View.VISIBLE);
+                else
+                    holder.check.setVisibility(View.INVISIBLE);
+            }
+
             else
                 holder.check.setVisibility(View.INVISIBLE);
 
