@@ -1429,7 +1429,9 @@ public class MainActivity extends AppCompatActivity {
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
+                finish();
+                int pid = android.os.Process.myPid();
+                android.os.Process.killProcess(pid);
             }
         });
 

@@ -654,10 +654,12 @@ public class InputProfile extends AppCompatActivity {
 
                 if ("".equals(strNickName)) {
                     CommonFunc.getInstance().ShowToast(InputProfile.this, "이름을 입력 해주세요", true);
+                    return;
                 }
                 //if ("null".equals(strImg)) {
                 if (strImg == null) {
                     CommonFunc.getInstance().ShowToast(InputProfile.this, "사진을 입력 해주세요", true);
+                    return;
                 }
 
                 if(!CbAccess.isChecked())
@@ -1028,6 +1030,7 @@ public class InputProfile extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
         if(keyCode == KeyEvent.KEYCODE_BACK){
+
             String alertTitle = "종료";
             View v = LayoutInflater.from(this).inflate(R.layout.dialog_exit_app,null,false);
 
@@ -1048,9 +1051,14 @@ public class InputProfile extends AppCompatActivity {
             btn_exit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+                  //  FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
 
-                    FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
+                   // moveTaskToBack(true);
+                    finish();
+                    int pid = android.os.Process.myPid();
+                    android.os.Process.killProcess(pid);
+
+/*                    FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
                     currentUser.delete()
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -1060,7 +1068,7 @@ public class InputProfile extends AppCompatActivity {
                                         int pid = android.os.Process.myPid(); android.os.Process.killProcess(pid);
                                     }
                                 }
-                            });
+                            });*/
 
                 }
             });
