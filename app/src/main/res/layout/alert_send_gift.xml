@@ -9,12 +9,11 @@
     >
 
 
-
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/baseColorLight"
+        android:background="@color/baseColor2"
         android:gravity="center"
         android:text="하트를 날려서 팬이 되어보세요!"
         android:textColor="@android:color/white"
@@ -177,7 +176,7 @@
         android:layout_height="40dp"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/purple_btn_bg"
+        android:background="@drawable/purple_btn_bg2"
         android:text="날린다"
         android:textColor="@android:color/white"
         android:textSize="18sp"

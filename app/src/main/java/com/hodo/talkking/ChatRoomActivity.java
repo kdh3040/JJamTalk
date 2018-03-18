@@ -172,7 +172,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             send_Img1_date = (TextView)itemView.findViewById(R.id.img_date1);
 
             from = itemView.findViewById(R.id.from);
-            nickname1 = itemView.findViewById(R.id.from_nickname);
+            //nickname1 = itemView.findViewById(R.id.from_nickname);
             to = itemView.findViewById(R.id.to);
             nickname2 = itemView.findViewById(R.id.to_nickname);
             giftMsg = itemView.findViewById(R.id.giftmessage);
@@ -294,7 +294,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         else
             tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
 
-        GiftLayout = (ConstraintLayout)findViewById(R.id.ChatGiftLayout);
+       // GiftLayout = (ConstraintLayout)findViewById(R.id.ChatGiftLayout);
         //stTargetData.NickName = tempChatData.strTargetNick;
         //stTargetData.Img= tempChatData.strTargetImg;
 

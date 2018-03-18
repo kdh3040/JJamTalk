@@ -773,7 +773,7 @@ public class MainActivity extends AppCompatActivity {
             txt_Title.setText("출석 체크 보상");
             final TextView txt_Body;
             txt_Body = (TextView)v.findViewById(R.id.msg);
-            txt_Body.setText("매일 "+mUIData.getAdReward()[mMyData.getGrade()]+"골드 추가");
+            txt_Body.setText(mUIData.getAdReward()[mMyData.getGrade()]+"코인 획득!");
 
             final Button btn_exit;
             final Button btn_no;

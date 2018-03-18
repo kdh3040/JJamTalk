@@ -9,7 +9,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/baseColorLight"
+        android:background="@color/baseColor2"
 
 
         android:gravity="center"
@@ -54,7 +54,7 @@
 
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:background="@drawable/purple_btn_bg"
+            android:background="@drawable/purple_btn_bg2"
             android:text="종료"
             android:textColor="@android:color/white"
             android:textSize="18sp" />

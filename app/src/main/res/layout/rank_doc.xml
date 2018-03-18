@@ -5,7 +5,7 @@
     android:id="@+id/relativeLayout5"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/baseColor"
+    android:background="@color/baseColor2"
     android:padding="1dp">
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginRight="1dp"
-        android:background="@color/baseColorLight"
+        android:background="@color/baseColor2"
         android:gravity="center"
         android:text="RANK"
         android:textColor="@android:color/white"
@@ -47,7 +47,7 @@
         android:id="@+id/tv_coin"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/baseColorLight"
+        android:background="@color/baseColor2"
         android:gravity="center"
         android:text="획득한 총 코인"
         android:textColor="@android:color/white"

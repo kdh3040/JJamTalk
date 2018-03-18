@@ -18,12 +18,14 @@
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:scaleType="centerCrop"
+        android:layout_height="0dp"
         android:layout_marginLeft="5dp"
+        android:padding="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/bg_topbar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logotalkingreal_200"/>
+        app:srcCompat="@drawable/logotalkingreal_200" />
     <ImageView
         android:id="@+id/iv_mypage"
         android:layout_width="30dp"

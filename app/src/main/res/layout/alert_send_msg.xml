@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
 
-        android:background="@color/baseColor"
+        android:background="@color/baseColor2"
         android:gravity="center"
         android:text="쪽지를 보내보세요!"
         android:textColor="@android:color/white"
@@ -65,7 +65,7 @@
 
 
         android:layout_marginTop="20dp"
-        android:background="@drawable/purple_btn_bg"
+        android:background="@drawable/purple_btn_bg2"
         android:text="전송"
         android:textColor="@android:color/white"
         android:textSize="18sp"

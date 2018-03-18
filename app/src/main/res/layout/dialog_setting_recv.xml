@@ -10,7 +10,7 @@
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/baseColorLight"
+        android:background="@color/baseColor"
         android:gravity="center"
         android:text="수신 거부 설정하기"
         android:textColor="@color/white"

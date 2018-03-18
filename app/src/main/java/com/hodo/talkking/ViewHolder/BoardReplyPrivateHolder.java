@@ -19,8 +19,8 @@ public class BoardReplyPrivateHolder extends RecyclerView.ViewHolder {
     public BoardReplyPrivateHolder(View itemView) {
         super(itemView);
 
-        messageTextView = (TextView)itemView.findViewById(R.id.Reply_txtMemo);
-        imageView = (ImageView)itemView.findViewById(R.id.Reply_ImgProfile);
+        //messageTextView = (TextView)itemView.findViewById(R.id.Reply_txtMemo);
+        //imageView = (ImageView)itemView.findViewById(R.id.Reply_ImgProfile);
 
     }
 }
