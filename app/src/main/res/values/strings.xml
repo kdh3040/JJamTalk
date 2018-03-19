@@ -151,7 +151,7 @@
     <string name="myProfileLO">내프로필레이아웃</string>
     <string name="settingdesc">설정아이콘</string>
     <string name="myJewelImage">내보석이미지</string>
-    <string name="recvMessage">수신 거부 설정하기</string>
+    <string name="recvMessage">쪽지 수신 거부</string>
     <string name="title_activity_privacy">개인정보 취급방침</string>
     <string name="large_text">
         "도호소프트’는 (이하 '회사'라 합니다.) 이용자의 개인정보를 중요하게 생각합니다. 회사는 정보통신망 이용촉진 및 정보보호 등에 관한 법률, 전기통신사업법, 통신비밀보호법 등 개인정보와 관련된 법령 상의 개인정보 보호 규정 및 방송통신위원회가 제정한 개인정보보호지침을 준수하고 있습니다.\n

@@ -126,44 +126,48 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_setting" />
 
 
-
-
-    <ImageView
-        android:id="@+id/iv_coin"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="5dp"
-        android:paddingLeft="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:srcCompat="@drawable/coin" />
-
     <TextView
         android:id="@+id/coin"
 
         android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_margin="5dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+
+
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/purple_alpha_btn_bg"
         android:gravity="left|center"
-
-
+        android:paddingLeft="60dp"
+        android:paddingRight="130dp"
         android:text="0"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/iv_coin"
-        app:layout_constraintRight_toLeftOf="@id/coin_charge"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/iv_coin"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/coin"
+        app:layout_constraintLeft_toLeftOf="@+id/coin"
+        app:layout_constraintTop_toTopOf="@+id/coin"
+        app:srcCompat="@drawable/coin" />
 
     <Button
         android:id="@+id/coin_charge"
         android:layout_width="118dp"
         android:layout_height="40dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="8dp"
         android:background="@drawable/yellow_btn_bg"
         android:text="코인충전하기"
         android:textColor="@color/baseColor"
         app:layout_constraintBottom_toBottomOf="@+id/coin"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/coin"
         app:layout_constraintTop_toTopOf="@+id/coin" />
 
 

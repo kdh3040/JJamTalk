@@ -10,7 +10,7 @@
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/baseColor"
+        android:background="@color/baseColor2"
         android:gravity="center"
         android:text="알람 설정"
         android:textColor="@color/white"
