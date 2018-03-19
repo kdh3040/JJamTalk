@@ -39,6 +39,8 @@ import com.hodo.talkking.Util.CommonFunc;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -251,6 +253,8 @@ public class MyData {
     public String NewDateRef;
 
     public boolean bHotMemberReady = false;
+
+    private  Resources res;
 
     private MyData() {
         strUid = null;
@@ -1763,11 +1767,62 @@ public class MyData {
 
     }
 
+    private void SortByRecvHeart(UserData stTargetData, Context context, Resources res)
+    {
+        Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(stTargetData.FanList);
+        //tempDataMap = mMyData.arrMyFanDataList;
+        Iterator it = sortByValue(tempDataMap).iterator();
+        stTargetData.arrFanList.clear();
+        while(it.hasNext()) {
+            String temp = (String) it.next();
+            stTargetData.arrFanList.add(tempDataMap.get(temp));
+        }
+
+        for(int i=0; i<stTargetData.arrFanList.size(); i++)
+        {
+            if(stTargetData.arrFanList.get(i).Idx.equals(getUserIdx()))
+            {
+                switch (i)
+                {
+                    case 0:
+                        CommonFunc.getInstance().ShowDefaultPopup(context, res.getString(R.string.Fan_Rank_Title), stTargetData.NickName + res.getString(R.string.Fan_Rank_1st));
+                        break;
+                    case 1:
+                        CommonFunc.getInstance().ShowDefaultPopup(context, res.getString(R.string.Fan_Rank_Title), stTargetData.NickName + res.getString(R.string.Fan_Rank_2nd));
+                        break;
+                    case 2:
+                        CommonFunc.getInstance().ShowDefaultPopup(context, res.getString(R.string.Fan_Rank_Title), stTargetData.NickName + res.getString(R.string.Fan_Rank_3rd));
+                        break;
+                }
+            }
+        }
+    }
+
+    public static List sortByValue(final Map map) {
+        List<String> list = new ArrayList();
+        list.addAll(map.keySet());
+        Collections.sort(list,new Comparator() {
+
+            public int compare(Object o1,Object o2) {
+                FanData g1 = (FanData)map.get(o1);
+                FanData g2 = (FanData)map.get(o2);
+
+                Object v1 = g1.RecvGold;
+                Object v2 = g2.RecvGold;
+                return ((Comparable) v2).compareTo(v1);
+            }
+        });
+        // Collections.reverse(list); // 주석시 오름차순
+        return list;
+    }
+
     public void makeFanList(Context context, final UserData stTargetData, int SendCount) {
 
         int nTotalSendCnt = 0;
 
         int Check = 0;
+
+        res = context.getResources();
 
         if(stTargetData.FanList.size() == 0)
         {
@@ -1871,7 +1926,6 @@ public class MyData {
                 }
             });
 
-            Resources res = context.getResources();
 
             CommonFunc.getInstance().ShowDefaultPopup(context, res.getString(R.string.Fan_Rank_Title), stTargetData.NickName + res.getString(R.string.Fan_Rank_1st));
         }
@@ -1897,6 +1951,7 @@ public class MyData {
                 Check = 2;
                 stTargetData.FanList.get(getUserIdx()).RecvGold += SendCount;
                 nTotalSendCnt = stTargetData.FanList.get(getUserIdx()).RecvGold;
+
             }
 
             else
@@ -1931,6 +1986,7 @@ public class MyData {
                 tempData.BestItem = bestItem;
                 tempData.Grade = getGrade();
                 stTargetData.arrFanData.put(getUserIdx(), tempData);
+
 
 
                 FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
@@ -1999,6 +2055,8 @@ public class MyData {
                     }
                 });
             }
+
+            SortByRecvHeart(stTargetData, context, res);
         }
 
 
@@ -2590,5 +2648,7 @@ public class MyData {
         FirebaseData.getInstance().SaveLastAdsTime(time);
         LastAdsTime = time;
     }
+
+
 }
 
