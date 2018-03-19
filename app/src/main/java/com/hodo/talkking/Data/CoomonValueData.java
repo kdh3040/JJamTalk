@@ -8,8 +8,8 @@ import com.hodo.talkking.Util.CommonFunc;
 
 public class CoomonValueData  {
     public static final long UNIQ_FANCOUNT = 10000000;
-    public static final int FIRST_LOAD_MAIN_COUNT = 30;
-    public static final int LOAD_MAIN_COUNT = 8;
+    public static final int FIRST_LOAD_MAIN_COUNT = 100;
+    public static final int LOAD_MAIN_COUNT = 60;
 
     public static final int FIRST_LOAD_BOARD_COUNT = 15;
     public static final int LOAD_BOARD_COUNT = 10;
