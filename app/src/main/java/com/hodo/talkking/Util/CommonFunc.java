@@ -887,10 +887,12 @@ public class CommonFunc {
         Text_blar.setText(UIData.getInstance().getItemBlar()[result]);
         Button btn_confirm = v.findViewById(R.id.button3);
         Button btn_sell = v.findViewById(R.id.button2);
+
         builder.setView(v);
 
         final AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
         dialog.show();
 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
