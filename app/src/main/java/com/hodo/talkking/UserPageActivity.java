@@ -393,7 +393,7 @@ if(mMyData.itemList.get(i) != 0)
                                 mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
                                 mNotiFunc.SendHoneyToFCM(stTargetData, heartCount, msg);
                                 mMyData.setSendHoneyCnt(heartCount);
-                                mMyData.makeFanList(stTargetData, heartCount);
+                                mMyData.makeFanList(mActivity, stTargetData, heartCount);
 
                               /*  Calendar cal = Calendar.getInstance();
                                 Date date = cal.getTime();

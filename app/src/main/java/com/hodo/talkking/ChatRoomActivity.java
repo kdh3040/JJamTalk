@@ -777,7 +777,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
                                 mNotiFunc.SendHoneyToFCM(stTargetData, heartCount, msg );
                                 mMyData.setSendHoneyCnt(heartCount);
-                                mMyData.makeFanList(stTargetData, heartCount);
+                                mMyData.makeFanList(ChatRoomActivity.this, stTargetData, heartCount);
 
                                 long nowTime = CommonFunc.getInstance().GetCurrentTime();
 

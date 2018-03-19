@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -30,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hodo.talkking.ChatRoomActivity;
 import com.hodo.talkking.Firebase.FirebaseData;
+import com.hodo.talkking.MainActivity;
 import com.hodo.talkking.R;
 import com.hodo.talkking.UserPageActivity;
 import com.hodo.talkking.Util.CommonFunc;
@@ -1761,7 +1763,7 @@ public class MyData {
 
     }
 
-    public void makeFanList(final UserData stTargetData, int SendCount) {
+    public void makeFanList(Context context, final UserData stTargetData, int SendCount) {
 
         int nTotalSendCnt = 0;
 
@@ -1868,6 +1870,10 @@ public class MyData {
 
                 }
             });
+
+            Resources res = context.getResources();
+
+            CommonFunc.getInstance().ShowDefaultPopup(context, res.getString(R.string.Fan_Rank_Title), stTargetData.NickName + res.getString(R.string.Fan_Rank_1st));
         }
         else
         {

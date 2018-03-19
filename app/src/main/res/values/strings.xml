@@ -146,6 +146,10 @@
         <item name="android:windowExitAnimation">@anim/slide_right</item>
     </style>
 
+    <string name="Fan_Rank_Title">팬 순위권 제목</string>
+    <string name="Fan_Rank_1st">님의 팬 1위</string>
+    <string name="Fan_Rank_2nd">님의 팬 1위</string>
+    <string name="Fan_Rank_3rd">님의 팬 1위</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
