@@ -57,11 +57,11 @@ public class MyProfileActivity extends AppCompatActivity {
     private EditText et_Memo;
     private ImageView Img_Sum;
     private Button change_nick;
+    private TextView Gender;
 
     private ImageView[] Img_Profiles = new ImageView[4];
     private int nImgNumber;
     private Spinner Spinner_Age;
-    private RadioButton male, female;
     private  int nAge1, nAge2;
     private MyData mMyData = MyData.getInstance();
     private UserData stTargetData = new UserData();
@@ -85,6 +85,9 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private int tempImgChange[] = new int[4];
     private int tempImgChangeCnt;
+    private boolean tempChangeNickNameEnable = false;
+    private String saveChangeNickName;
+    private int saveChagneNickNameCost = 0;
 
 
 
@@ -112,6 +115,9 @@ public class MyProfileActivity extends AppCompatActivity {
             tempImgChange[i] = 0;
         }
 
+        saveChagneNickNameCost = CoomonValueData.CHANGE_NICK_NAME_COST;
+        tempChangeNickNameEnable = false;
+        saveChangeNickName = mMyData.getUserNick();
         tempImgChangeCnt = 0;
 
         nUserAge -= 20;
@@ -132,41 +138,8 @@ public class MyProfileActivity extends AppCompatActivity {
             }
         });
 
-        male = (RadioButton)findViewById(R.id.male);
-        male.setChecked(false);
-        female = (RadioButton)findViewById(R.id.female);
-        female.setChecked(false);
-
-        male.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(female.isChecked()) {
-                    male.setChecked(true);
-                    female.setChecked(false);
-                    tempGender = "남자";
-                   // mMyData.setUserGender("남자");
-                }
-            }
-        });
-
-        female.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(male.isChecked()) {
-                    female.setChecked(true);
-                    male.setChecked(false);
-                    tempGender = "여자";
-                    //mMyData.setUserGender("여자");
-                }
-            }
-        });
-
-
-        if(mMyData.getUserGender().equals("남자"))
-            male.setChecked(true);
-        else
-            female.setChecked(true);
-
+        Gender = (TextView)findViewById(R.id.gender_view);
+        Gender.setText(mMyData.getUserGender());
 
         Img_Sum = (ImageView) findViewById(R.id.MyProfile_SumImg);
 
@@ -252,10 +225,10 @@ public class MyProfileActivity extends AppCompatActivity {
 
                         TextView body = (TextView)view1.findViewById(R.id.tv_change_nick);
                         if(mMyData.NickChangeCnt != 0)
-                            body.setText("닉네임 변경 시 50코인이 소모됩니다");
+                            body.setText("닉네임 변경 시 "+CoomonValueData.CHANGE_NICK_NAME_COST+"코인이 소모됩니다");
 
                         else
-                            body.setText("닉네임 최초 변경은 무료입니다 \n 이후에는 50코인이 소모됩니다");
+                            body.setText("닉네임 최초 변경은 무료입니다 \n 이후에는 "+CoomonValueData.CHANGE_NICK_NAME_COST+"코인이 소모됩니다");
 
                         builder.setView(view1);
 
@@ -303,29 +276,30 @@ public class MyProfileActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                if(mMyData.getUserHoney() < 50)
+                                if(mMyData.NickChangeCnt != 0 && mMyData.getUserHoney() < CoomonValueData.CHANGE_NICK_NAME_COST)
                                     CommonFunc.getInstance().ShowToast(getApplicationContext(), "코인이 부족합니다.", true);
                                 else
                                     {
 
-                                    String strMemo = et_msg.getText().toString();
-                                    strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
+                                        String strMemo = et_msg.getText().toString();
+                                        strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
 
-                                    if(CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, MyProfileActivity.this ,"닉네임", true) == false)
-                                        return;
+                                        if(CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_NICKNAME, MyProfileActivity.this ,"닉네임", true) == false)
+                                            return;
 
+                                        tempChangeNickNameEnable = true;
+                                        saveChagneNickNameCost = 0;
+                                        if(mMyData.NickChangeCnt != 0)
+                                        {
+                                            mMyData.setUserHoney(mMyData.getUserHoney() - CoomonValueData.CHANGE_NICK_NAME_COST);
+                                            saveChagneNickNameCost = CoomonValueData.CHANGE_NICK_NAME_COST;
+                                        }
 
-                                    if(mMyData.NickChangeCnt != 0)
-                                    {
-                                        mMyData.setUserHoney(mMyData.getUserHoney() - 50);
-                                    }
+                                        saveChangeNickName = strMemo;
+                                        et_NickName.setText(strMemo);
+                                        CommonFunc.getInstance().ShowToast(getApplicationContext(), "닉네임 변경 완료!", true);
 
-                                    mMyData.NickChangeCnt++;
-                                    mMyData.setUserNick(strMemo);
-                                    et_NickName.setText(strMemo);
-                                    CommonFunc.getInstance().ShowToast(getApplicationContext(), "닉네임 변경 완료!", true);
-
-                                    msgDialog.dismiss();
+                                        msgDialog.dismiss();
 
                                     }
                                 }
@@ -704,7 +678,7 @@ public class MyProfileActivity extends AppCompatActivity {
             }
         }
 
-        if(!mMyData.getUserNick().equals(tempNickName) ||
+        if(!mMyData.getUserNick().equals(saveChangeNickName) ||
                 !mMyData.getUserAge().equals(tempAge) ||
                 !mMyData.getUserGender().equals(tempGender) ||
                 !et_Memo.getText().toString().equals(mMyData.getUserMemo()) ||
@@ -715,8 +689,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
                     CommonFunc.getInstance().ShowLoadingPage(MyProfileActivity.this, "저장 중");
 
-                    if(!mMyData.getUserNick().equals(tempNickName))
-                        mMyData.setUserNick(tempNickName);
+                    if(!mMyData.getUserNick().equals(saveChangeNickName))
+                        mMyData.setUserNick(saveChangeNickName);
 
                     if(!mMyData.getUserAge().equals(tempAge))
                         mMyData.setUserAge(tempAge);
@@ -750,6 +724,11 @@ public class MyProfileActivity extends AppCompatActivity {
 
                     mMyData.setUserImgCnt(tempImgCnt);
 
+                    if(tempChangeNickNameEnable)
+                    {
+                        mMyData.NickChangeCnt++;
+                    }
+
                     if(bChangeImg == false)
                         SaveData();
                 }
@@ -757,6 +736,12 @@ public class MyProfileActivity extends AppCompatActivity {
 
             CommonFunc.ShowDefaultPopup_YesListener Nolistener = new CommonFunc.ShowDefaultPopup_YesListener() {
                 public void YesListener() {
+
+                    if(tempChangeNickNameEnable)
+                    {
+                        mMyData.setUserHoney(mMyData.getUserHoney() + saveChagneNickNameCost);
+                    }
+
                     onRealBackPressed();
                 }
             };

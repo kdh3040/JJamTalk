@@ -54,4 +54,6 @@ public class CoomonValueData  {
 
 
     public static boolean OFFAPP = true;
+
+    public static int CHANGE_NICK_NAME_COST = 50;
 }
