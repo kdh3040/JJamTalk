@@ -1928,6 +1928,7 @@ public class MyData {
 
 
             CommonFunc.getInstance().ShowDefaultPopup(context, res.getString(R.string.Fan_Rank_Title), stTargetData.NickName + res.getString(R.string.Fan_Rank_1st));
+
         }
         else
         {
