@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -124,11 +125,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
                 if (pref.getBoolean("Sound", bSound)  ) {
-                    builder.setVibrate(new long[] {1000});
+                    Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    builder.setSound(uri);
                 }
 
-                if (pref.getBoolean("Vibe", bVibe)  ) {
-                    builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
+                if (!pref.getBoolean("Vibe", bVibe)  ) {
+                    builder.setVibrate(new long[] {1000});
                 }
 
 
@@ -148,13 +150,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .setWhen(System.currentTimeMillis());
 
                     if (pref.getBoolean("Sound", bSound)  ) {
+                        Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                        builder.setSound(uri);
+                    }
+
+                    if (!pref.getBoolean("Vibe", bVibe)  ) {
                         builder.setVibrate(new long[] {1000});
                     }
-
-                    if (pref.getBoolean("Vibe", bVibe)  ) {
-                        builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
-                    }
-
 
                     NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                     nm.notify(1234, builder.build());
@@ -181,11 +183,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
                     if (pref.getBoolean("Sound", bSound)  ) {
-                        builder.setVibrate(new long[] {1000});
+                        Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                        builder.setSound(uri);
                     }
 
-                    if (pref.getBoolean("Vibe", bVibe)  ) {
-                        builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
+                    if (!pref.getBoolean("Vibe", bVibe)  ) {
+                        builder.setVibrate(new long[] {1000});
                     }
 
 
@@ -205,11 +208,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setWhen(System.currentTimeMillis());
 
                 if (pref.getBoolean("Sound", bSound)  ) {
-                    builder.setVibrate(new long[] {1000});
+                    Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    builder.setSound(uri);
                 }
 
-                if (pref.getBoolean("Vibe", bVibe)  ) {
-                    builder.setSound(Uri.parse("android.resource://com.hodo.talkking/" + com.hodo.talkking.R.raw.katalk));
+                if (!pref.getBoolean("Vibe", bVibe)  ) {
+                    builder.setVibrate(new long[] {1000});
                 }
 
 

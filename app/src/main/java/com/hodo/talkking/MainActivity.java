@@ -375,6 +375,13 @@ public class MainActivity extends AppCompatActivity {
         if(mMyData.arrReportList.size() >= 10)
             ViewReportPop();
 
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("PrefSetting", getApplicationContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("Sound",SettingData.getInstance().IsAlarmSettingSound());
+        editor.putBoolean("Vibe",SettingData.getInstance().IsAlarmSettingVibration());
+        editor.commit();
+
+
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
         pref.getInt("Badge", mMyData.badgecount );
 
