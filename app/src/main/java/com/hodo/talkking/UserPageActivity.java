@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -50,12 +49,6 @@ import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.LocationFunc;
 import com.hodo.talkking.Util.NotiFunc;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 import static com.hodo.talkking.MainActivity.mFragmentMng;
 
@@ -238,7 +231,7 @@ public class UserPageActivity extends AppCompatActivity {
         });*/
 
 
-        imgGrade = (ImageView)findViewById(R.id.iv_rank);
+        imgGrade = (ImageView)findViewById(R.id.iv_fan);
         imgGrade.setImageResource(mUIdata.getGrades()[stTargetData.Grade]);
 /*        Glide.with(getApplicationContext())
                 .load(stTargetData.BestItem)

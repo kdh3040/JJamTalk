@@ -435,7 +435,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
-                overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+                //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
             }
         });
 

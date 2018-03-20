@@ -60,9 +60,9 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         final BoardMsgDBData dbData = data.GetDBData();
         final SimpleUserData simpleUserData = data.GetBoardSimpleUserData();
 
+        String boardMsg = CommonFunc.getInstance().RemoveEnterString(dbData.Msg, 5);
 
-
-        BoardMsg.setText(dbData.Msg);
+        BoardMsg.setText(boardMsg);
 
 
         long time = CommonFunc.getInstance().GetCurrentTime();

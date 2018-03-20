@@ -45,27 +45,49 @@
         app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <ImageView
-        android:id="@+id/iv_rank"
+        android:id="@+id/iv_heart"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:padding="10dp"
+        android:layout_height="0dp"
+        android:padding="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/iv_fan"
+        app:layout_constraintRight_toLeftOf="@+id/tv_heart"
+        app:layout_constraintTop_toTopOf="@+id/bg_top"
+        app:srcCompat="@drawable/heart_white_alpha" />
+
+    <ImageView
+        android:id="@+id/iv_fan"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:padding="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bg_top"
         app:layout_constraintRight_toLeftOf="@+id/txt_fanCount"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_heart"
         app:srcCompat="@drawable/fan_white" />
 
     <TextView
+        android:id="@+id/tv_heart"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="200"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_heart"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_heart" />
+
+    <TextView
         android:id="@+id/txt_fanCount"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginRight="8dp"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
         android:background="@android:color/transparent"
-        android:gravity="center_vertical"
-        android:padding="3dp"
+        android:gravity="center"
         android:text="50"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_fan"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="@+id/iv_fan"></TextView>
 
 
     <android.support.v7.widget.RecyclerView

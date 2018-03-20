@@ -150,7 +150,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
             imgBestItem.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
         }*/
         imgBestItem.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
-        imgGrade = (ImageView)findViewById(R.id.iv_rank);
+        imgGrade = (ImageView)findViewById(R.id.iv_fan);
         imgGrade.setImageResource(mUIdata.getGrades()[mMyData.Grade]);
 
         final GestureDetector gestureDetector = new GestureDetector(ClickedMyPicActivity.this,new GestureDetector.SimpleOnGestureListener()

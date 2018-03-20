@@ -46,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@+id/UserPage_ImgProfile" />
 
         <ImageView
-            android:id="@+id/iv_rank"
+            android:id="@+id/iv_fan"
             android:layout_width="30dp"
             android:layout_height="30dp"
 
@@ -61,7 +61,7 @@
             android:layout_height="30dp"
             android:padding="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/UserPage_txtProfile"
-            app:layout_constraintLeft_toRightOf="@+id/iv_rank"
+            app:layout_constraintLeft_toRightOf="@+id/iv_fan"
             app:layout_constraintTop_toTopOf="@+id/UserPage_txtProfile"
             app:srcCompat="@drawable/rank_gold" />
 

@@ -25,7 +25,7 @@
         android:weightSum="7">
 
         <ImageView
-            android:id="@+id/iv_rank"
+            android:id="@+id/iv_fan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

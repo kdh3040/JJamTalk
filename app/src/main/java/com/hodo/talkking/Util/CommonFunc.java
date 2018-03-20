@@ -2,16 +2,13 @@ package com.hodo.talkking.Util;
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.hardware.input.InputManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -33,7 +30,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -307,7 +303,7 @@ public class CommonFunc {
         Title = (TextView) v.findViewById(R.id.tv_text);
         Title.setText(title);
 
-        iv_Rank = (ImageView)v.findViewById(R.id.iv_rank);
+        iv_Rank = (ImageView)v.findViewById(R.id.iv_fan);
 
         layout = (ConstraintLayout)v.findViewById(R.id.cl_rank);
 
@@ -1260,6 +1256,30 @@ public class CommonFunc {
                 continue;
 
             frontEmpty = false;
+            returnString += text.charAt(index);
+        }
+
+        return returnString;
+    }
+
+    public String RemoveEnterString(String text, int line)
+    {
+        String returnString = "";
+        int lineCount = 0;
+        boolean enterEnable = false;
+        for(int index = 0 ; index < text.length() ; ++index)
+        {
+            enterEnable = false;
+            if(text.charAt(index) == '\n')
+            {
+                lineCount++;
+                enterEnable = true;
+            }
+
+
+            if(line > 0 && line <= lineCount && enterEnable)
+                continue;
+
             returnString += text.charAt(index);
         }
 

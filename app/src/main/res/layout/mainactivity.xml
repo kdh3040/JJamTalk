@@ -16,6 +16,48 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/iv_heart_cnt"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:padding="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_heart_cnt"
+        app:layout_constraintRight_toLeftOf="@+id/tv_heart_cnt"
+        app:layout_constraintTop_toTopOf="@+id/tv_heart_cnt"
+        app:srcCompat="@drawable/heart_white_alpha" />
+
+    <TextView
+        android:id="@+id/tv_heart_cnt"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="300"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/tv_fan_cnt"
+        app:layout_constraintRight_toRightOf="@+id/bg_topbar"
+        app:layout_constraintTop_toTopOf="@+id/bg_topbar" />
+
+    <ImageView
+        android:id="@+id/iv_fan_cnt"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:padding="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_fan_cnt"
+        app:layout_constraintRight_toLeftOf="@+id/tv_fan_cnt"
+        app:layout_constraintTop_toTopOf="@+id/tv_fan_cnt"
+        app:srcCompat="@drawable/fan_white" />
+
+    <TextView
+        android:id="@+id/tv_fan_cnt"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="20"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/bg_topbar"
+        app:layout_constraintRight_toRightOf="@+id/bg_topbar"
+        app:layout_constraintTop_toBottomOf="@+id/tv_heart_cnt" />
+
+    <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="80dp"
         android:layout_height="0dp"
