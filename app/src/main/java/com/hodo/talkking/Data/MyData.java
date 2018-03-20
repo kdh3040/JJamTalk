@@ -579,6 +579,11 @@ public class MyData {
     public void setGrade(int nGrade){
         Grade = nGrade;
 
+        if(getUserIdx() == null || getUserIdx().equals("") )
+        {
+            return;
+        }
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
 
@@ -596,7 +601,7 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
 
-        if(getUserIdx().equals("") || getUserIdx() == null)
+        if(getUserIdx() == null || getUserIdx().equals("") )
         {
             return;
         }
@@ -614,17 +619,21 @@ public class MyData {
     public int getPoint(){return Point;}
 
     public void SetMyGrade() {
-        if(getPoint() <= 100)
+
+        int nGrade = getPoint() / 100;
+        setGrade(nGrade);
+
+        if(0<= nGrade && nGrade < 2)
             setGrade(0);
-        else if(getPoint() <= 200)
+        else if(2<= nGrade && nGrade < 3)
             setGrade(1);
-        else if(getPoint() <= 300)
+        else if(3<= nGrade && nGrade < 5)
             setGrade(2);
-        else if(getPoint() <= 500)
+        else if(5<= nGrade && nGrade < 10)
             setGrade(3);
-        else if(getPoint() <= 1000)
+        else if(10<= nGrade && nGrade < 20)
             setGrade(4);
-        else if(getPoint() <= 2000)
+        else if(20<= nGrade)
             setGrade(5);
     }
 
