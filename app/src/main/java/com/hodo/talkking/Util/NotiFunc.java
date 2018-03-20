@@ -1,7 +1,10 @@
 package com.hodo.talkking.Util;
 
+import android.content.res.Resources;
+
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.R;
 
 import org.json.JSONObject;
 
@@ -71,15 +74,29 @@ public class NotiFunc {
         }
     }
 
-    public void SendHoneyToFCM(final UserData stTargetData, int nHoneyCnt, String strMsg) {
+    public void SendHoneyToFCM(final UserData stTargetData, int nHoneyCnt, String strMsg, int Rank) {
+
         try {
 
             // FMC 메시지 생성 start
             JSONObject root = new JSONObject();
             JSONObject data = new JSONObject();
-
-            data.put("body", strMsg);
             data.put("title", mMyData.getUserNick() + "님이 하트를 " + nHoneyCnt+ "개 보냈습니다");
+
+            switch (Rank)
+            {
+                case 0:
+
+                    data.put("body", mMyData.getUserNick() + "님이 팬클럽에 가입하였습니다!");
+                    break;
+                case 1:
+                    data.put("body", mMyData.getUserNick() + "님이 1등 팬이 되셨군요!");
+                    break;
+                case 2:
+                    data.put("body", strMsg);
+                    break;
+            }
+
             data.put("Img", stTargetData.Img);
             data.put("Idx", stTargetData.Idx);
             data.put("Gender", stTargetData.Gender);

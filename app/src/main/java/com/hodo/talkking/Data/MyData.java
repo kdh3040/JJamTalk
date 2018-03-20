@@ -35,6 +35,7 @@ import com.hodo.talkking.MainActivity;
 import com.hodo.talkking.R;
 import com.hodo.talkking.UserPageActivity;
 import com.hodo.talkking.Util.CommonFunc;
+import com.hodo.talkking.Util.NotiFunc;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -341,7 +342,7 @@ public class MyData {
         arrUserMan_Recv_Age.clear();
         arrUserWoman_Recv_Age.clear();
         arrUserAll_Recv_Age.clear();
-        
+
         mapChatTargetData.clear();
 
         arrMyFanList.clear();
@@ -377,7 +378,7 @@ public class MyData {
 
 
         nFanCount = 0;
-        
+
         strUid = null;
         strIdx= null;
         strToken= null;
@@ -947,7 +948,7 @@ public class MyData {
                 int saa = 0;
                 FanData tempFanData = new FanData();
                 tempFanData = dataSnapshot.getValue(FanData.class);
-               // arrMyFanList.add(tempFanData);
+                // arrMyFanList.add(tempFanData);
                 if (!arrMyFanList.contains(tempFanData.Idx)) {
                     arrMyFanList.add(tempFanData);
                     arrMyFanRecvList.put(tempFanData.Idx, tempFanData);
@@ -1783,7 +1784,7 @@ public class MyData {
 
     }
 
-    private void SortByRecvHeart(UserData stTargetData, Context context, Resources res, int myrank)
+    private void SortByRecvHeart(UserData stTargetData, Context context, Resources res, int myrank, int SendCount, String msg)
     {
         Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(stTargetData.FanList);
         //tempDataMap = mMyData.arrMyFanDataList;
@@ -1808,15 +1809,19 @@ public class MyData {
                     {
                         case 0:
                             CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_1st), 0);
+                            NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 1);
                             break;
                         case 1:
+                            NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 2);
                             CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_2nd), 1);
                             break;
                         case 2:
+                            NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 2);
                             CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_3rd), 2);
                             break;
                     }
                 }
+                NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 2);
             }
         }
     }
@@ -1839,7 +1844,7 @@ public class MyData {
         return list;
     }
 
-    public void makeFanList(Context context, final UserData stTargetData, final int SendCount) {
+    public void makeFanList(Context context, final UserData stTargetData, final int SendCount, String msg) {
 
         int nTotalSendCnt = 0;
 
@@ -1849,6 +1854,8 @@ public class MyData {
 
         if(stTargetData.FanList.size() == 0)
         {
+            NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 0);
+
             Check = 1;
 
             FanData tempFan = new FanData();
@@ -1895,7 +1902,7 @@ public class MyData {
                     index -= UNIQ_FANCOUNT;
                     mutableData.setValue(index);
 
-                   // mutableData.setValue(index);
+                    // mutableData.setValue(index);
                     return Transaction.success(mutableData);
                 }
 
@@ -2052,7 +2059,7 @@ public class MyData {
                 stTargetData.FanList.get(getUserIdx()).RecvGold += SendCount;
                 nTotalSendCnt = stTargetData.FanList.get(getUserIdx()).RecvGold;
 
-                SortByRecvHeart(stTargetData, context, res, nMyRank);
+                SortByRecvHeart(stTargetData, context, res, nMyRank,SendCount,  msg);
             }
 
             else
@@ -2088,7 +2095,7 @@ public class MyData {
                 tempData.Grade = getGrade();
                 stTargetData.arrFanData.put(getUserIdx(), tempData);
 
-                SortByRecvHeart(stTargetData, context, res, 4);
+                SortByRecvHeart(stTargetData, context, res, 4, SendCount, msg);
 
                 FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
                 DatabaseReference data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("FanCount");
