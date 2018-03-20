@@ -801,9 +801,16 @@ public class ChatRoomActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(CommonFunc.getInstance().CheckTextMaxLength(txt_msg.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_CHAT, mActivity ,"채팅", true) == false)
+                if(CommonFunc.getInstance().IsStringEmptyCheck(txt_msg.getText().toString()))
+                {
+                    CommonFunc.getInstance().ShowToast(mActivity ,"채팅에 내용이 없습니다.",false);
                     return;
+                }
+                else if(txt_msg.getText().toString().length() > CoomonValueData.TEXT_MAX_LENGTH_CHAT)
+                {
+                    CommonFunc.getInstance().ShowToast(mActivity ,"채팅에 내용이 너무 많습니다.",false);
+                    return;
+                }
 
                 if(CommonFunc.getInstance().ShowBlockUser(mActivity, stTargetData.Idx) == false)
                 {
