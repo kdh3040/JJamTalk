@@ -167,6 +167,7 @@ public class FanListFragment extends Fragment {
             //holder.imageView.setImageResource(R.mipmap.hdvd);
 
 
+
             holder.imgAlarm.setVisibility(View.GONE);
             holder.imgNew.setVisibility(View.GONE);
 
@@ -200,7 +201,31 @@ public class FanListFragment extends Fragment {
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrMyFanDataList.get(i).Grade]);
 
             holder.textNick.setText(mMyData.arrMyFanDataList.get(i).NickName);
-            holder.textRank.setText((position + 1) + "위");
+
+            if(position < 3)
+            {
+                switch (position)
+                {
+                    case 0:
+                        holder.imgRank.setImageResource(R.drawable.fan_mark1);
+                        break;
+                    case 1:
+                        holder.imgRank.setImageResource(R.drawable.fan_mark2);
+                        break;
+                    case 2:
+                        holder.imgRank.setImageResource(R.drawable.fan_mark3);
+                        break;
+                }
+
+                holder.textRank.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                holder.textRank.setText((position + 1) + "위");
+                holder.imgRank.setVisibility(View.INVISIBLE);
+            }
+
+
 
             int RecvCnt = mMyData.arrMyFanList.get(position).RecvGold;
             holder.textCount.setText(Integer.toString(RecvCnt));
@@ -320,7 +345,7 @@ public class FanListFragment extends Fragment {
             });
         }
         public class ViewHolder extends RecyclerView.ViewHolder{
-            public ImageView img;
+            public ImageView img, imgRank;
             public TextView textRank, textNick, textCount;
             public ConstraintLayout constraintLayout;
 
@@ -329,6 +354,8 @@ public class FanListFragment extends Fragment {
             public ViewHolder(View itemView) {
                 super(itemView);
                 img = (ImageView)itemView.findViewById(R.id.iv_fan);
+                imgRank = (ImageView)itemView.findViewById(R.id.iv_rank_mark);
+
                 textRank = (TextView)itemView.findViewById(R.id.tv_gift_ranking);
                 textNick = (TextView)itemView.findViewById(R.id.tv_nickname);
                 textCount = (TextView)itemView.findViewById(R.id.tv_gift_count);

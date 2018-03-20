@@ -177,7 +177,30 @@ public class UserFanActivity extends AppCompatActivity {
                     .into(holder.img);
 
             holder.textNick.setText(stTargetData.arrFanData.get(i).NickName);
-            holder.textRank.setText((position + 1) + "위");
+
+            if(position < 3)
+            {
+                switch (position)
+                {
+                    case 0:
+                        holder.imgRank.setImageResource(R.drawable.fan_mark1);
+                        break;
+                    case 1:
+                        holder.imgRank.setImageResource(R.drawable.fan_mark2);
+                        break;
+                    case 2:
+                        holder.imgRank.setImageResource(R.drawable.fan_mark3);
+                        break;
+                }
+
+                holder.textRank.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                holder.textRank.setText((position + 1) + "위");
+                holder.imgRank.setVisibility(View.INVISIBLE);
+            }
+
 
             holder.imgItem.setVisibility(View.VISIBLE);
 
@@ -291,7 +314,7 @@ public class UserFanActivity extends AppCompatActivity {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder{
-            public ImageView img;
+            public ImageView img, imgRank;
             public TextView textRank, textNick, textCount;
             public ConstraintLayout constraintLayout;
             public ImageView imgGrade, imgItem, imgNew, imgAlarm;
@@ -300,6 +323,7 @@ public class UserFanActivity extends AppCompatActivity {
             public ViewHolder(View itemView) {
                 super(itemView);
                 img = (ImageView)itemView.findViewById(R.id.iv_fan);
+                imgRank = (ImageView)itemView.findViewById(R.id.iv_rank_mark);
                 imgGrade= (ImageView)itemView.findViewById(R.id.iv_grade);
                 imgItem = (ImageView)itemView.findViewById(R.id.iv_item);
 

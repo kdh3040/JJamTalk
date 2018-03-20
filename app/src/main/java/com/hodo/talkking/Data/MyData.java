@@ -1785,13 +1785,13 @@ public class MyData {
                 switch (i)
                 {
                     case 0:
-                        CommonFunc.getInstance().ShowDefaultPopup(context, res.getString(R.string.Fan_Rank_Title), stTargetData.NickName + res.getString(R.string.Fan_Rank_1st));
+                        CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_1st), 0);
                         break;
                     case 1:
-                        CommonFunc.getInstance().ShowDefaultPopup(context, res.getString(R.string.Fan_Rank_Title), stTargetData.NickName + res.getString(R.string.Fan_Rank_2nd));
+                        CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_2nd), 1);
                         break;
                     case 2:
-                        CommonFunc.getInstance().ShowDefaultPopup(context, res.getString(R.string.Fan_Rank_Title), stTargetData.NickName + res.getString(R.string.Fan_Rank_3rd));
+                        CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_3rd), 2);
                         break;
                 }
             }
@@ -1927,7 +1927,7 @@ public class MyData {
             });
 
 
-            CommonFunc.getInstance().ShowDefaultPopup(context, res.getString(R.string.Fan_Rank_Title), stTargetData.NickName + res.getString(R.string.Fan_Rank_1st));
+            CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_1st), 0);
 
         }
         else

@@ -374,16 +374,16 @@ if(mMyData.itemList.get(i) != 0)
                         break;
 
                     case R.id.UserPage_btnGiftHoney:
-                        View v = LayoutInflater.from(context).inflate(R.layout.dialog_be_ranker, null, false);
+                  /*      View v = LayoutInflater.from(context).inflate(R.layout.dialog_be_ranker, null, false);
 
 
 
 
                         AlertDialog dialogrank = new AlertDialog.Builder(context).setView(v).create();
                         dialogrank.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                        dialogrank.show();
+                        dialogrank.show();*/
 
-                        /*
+
 
                         CommonFunc.HeartGiftPopup_Change_End changeListener = new CommonFunc.HeartGiftPopup_Change_End()
                         {
@@ -403,7 +403,11 @@ if(mMyData.itemList.get(i) != 0)
                                 mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
                                 mNotiFunc.SendHoneyToFCM(stTargetData, heartCount, msg);
                                 mMyData.setSendHoneyCnt(heartCount);
-                                mMyData.makeFanList(mActivity, stTargetData, heartCount);*/
+                                mMyData.makeFanList(mActivity, stTargetData, heartCount);
+
+
+                                RefreshFanData();
+                                likeAdapter.notifyDataSetChanged();
 
                               /*  Calendar cal = Calendar.getInstance();
                                 Date date = cal.getTime();
@@ -437,15 +441,13 @@ if(mMyData.itemList.get(i) != 0)
 
                                 mRef.push().setValue(chat_Data);*/
 
-/*
-                                RefreshFanData();
-                                likeAdapter.notifyDataSetChanged();
+
                             }
                         };
                         CommonFunc.getInstance().HeartGiftPopup(UserPageActivity.this, stTargetData.Idx, changeListener, sendListener);
 
 
-                        //ClickBtnSendHeart();             */
+                        //ClickBtnSendHeart();
                         break;
 
                     case R.id.UserPage_btnMessage:

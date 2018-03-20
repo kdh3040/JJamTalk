@@ -296,6 +296,40 @@ public class CommonFunc {
         mInterstitialAd.loadAd(adRequest);
     }
 
+
+    public void ShowFanRankPopup(Context context, String title, int Rank) {
+        ImageView iv_Rank;
+        TextView Title;
+
+        View v = LayoutInflater.from(context).inflate(R.layout.dialog_be_ranker, null, false);
+
+        Title = (TextView) v.findViewById(R.id.tv_text);
+        Title.setText(title);
+
+        iv_Rank = (ImageView)v.findViewById(R.id.iv_rank);
+
+        switch (Rank)
+        {
+            case 0:
+                iv_Rank.setImageResource(R.drawable.fan_mark1);
+                break;
+            case 1:
+                iv_Rank.setImageResource(R.drawable.fan_mark2);
+                break;
+            case 2:
+                iv_Rank.setImageResource(R.drawable.fan_mark3);
+                break;
+
+        }
+
+        final AlertDialog dialog = new AlertDialog.Builder(context).setView(v).create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+    }
+
+
+
     public interface ShowDefaultPopup_YesListener {
         void YesListener();
     }
