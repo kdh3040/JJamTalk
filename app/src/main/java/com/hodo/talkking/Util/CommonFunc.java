@@ -1262,6 +1262,30 @@ public class CommonFunc {
         return returnString;
     }
 
+    public String RemoveEnterString(String text, int line)
+    {
+        String returnString = "";
+        int lineCount = 0;
+        boolean enterEnable = false;
+        for(int index = 0 ; index < text.length() ; ++index)
+        {
+            enterEnable = false;
+            if(text.charAt(index) == '\n')
+            {
+                lineCount++;
+                enterEnable = true;
+            }
+
+
+            if(line > 0 && line <= lineCount && enterEnable)
+                continue;
+
+            returnString += text.charAt(index);
+        }
+
+        return returnString;
+    }
+
     public void setClickStatus(boolean Status)
     {
         bClickSync = Status;
