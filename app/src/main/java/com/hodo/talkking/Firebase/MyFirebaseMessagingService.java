@@ -136,6 +136,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 nm.notify(1234, builder.build());
+
+                mMyData.badgecount++ ;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
+
+                SharedPreferences prefs = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("Badge",  mMyData.badgecount);
+                editor.commit();
             }
 
            else if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
@@ -219,22 +231,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 nm.notify(1234, builder.build());
+
+                mMyData.badgecount++ ;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
+
+                SharedPreferences prefs = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("Badge",  mMyData.badgecount);
+                editor.commit();
+
             }
-
-
-            mMyData.badgecount++ ;
-            Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
-            intent.putExtra("badge_count_package_name", "com.hodo.talkking");
-            intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
-            intent.putExtra("badge_count", mMyData.badgecount);
-            sendBroadcast(intent);
-
-            SharedPreferences prefs = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt("Badge",  mMyData.badgecount);
-            editor.commit();
-
-
         }
     }
 
