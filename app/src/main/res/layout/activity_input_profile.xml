@@ -10,6 +10,17 @@
     tools:layout_editor_absoluteY="81dp">
 
 
+    <TextView
+        android:id="@+id/tv_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사진"
+        android:textColor="@color/baseColorAlpha3"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/InputProfile_SumImg"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_nickname"
+        app:layout_constraintTop_toTopOf="@+id/InputProfile_SumImg" />
+
     <ImageView
         android:id="@+id/InputProfile_SumImg"
         android:layout_width="150dp"
@@ -124,7 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:gravity="center_vertical"
-        android:text="*성별은 추후에 변경이 불가능합니다"
+        android:text="*성별은 나중에 변경이 불가능합니다"
         android:textColor="@color/boardLikeColor"
         android:textSize="10sp"
         android:textStyle="bold"
