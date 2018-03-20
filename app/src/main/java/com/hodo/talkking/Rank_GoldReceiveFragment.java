@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SettingData;
@@ -32,15 +31,15 @@ public class Rank_GoldReceiveFragment extends Fragment {
     private AppStatus mAppStatus = AppStatus.getInstance();
     private CommonFunc mCommon = CommonFunc.getInstance();
 
-    private Rank_GoldReceiveAdapter HotAdapter;
+    private Rank_GoldReceiveAdapter RecvAdapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rank_honey_receive,container,false);
-        HotAdapter = new Rank_GoldReceiveAdapter(getContext());
-        HotAdapter.setHasStableIds(true);
+        RecvAdapter = new Rank_GoldReceiveAdapter(getContext());
+        RecvAdapter.setHasStableIds(true);
         recyclerView = view.findViewById(R.id.rank_honey_receive);
-        recyclerView.setAdapter(HotAdapter);
+        recyclerView.setAdapter(RecvAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));
 
 
@@ -110,7 +109,7 @@ public class Rank_GoldReceiveFragment extends Fragment {
                 if (lastVisibleItemPosition == nSize) {
                    // Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
                     CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
-                    FirebaseData.getInstance().GetHotData(HotAdapter, nSize, false);
+                    FirebaseData.getInstance().GetRecvData(RecvAdapter, nSize, false);
                 }
             }
         });

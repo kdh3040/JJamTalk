@@ -25,7 +25,7 @@ public class SimpleUserData implements Serializable,Parcelable {
     public String Memo;
 
     // 팬창
-    public int RecvGold;
+    public long RecvGold;
     public int SendGold;
 
     // 가까운순
@@ -81,7 +81,7 @@ public class SimpleUserData implements Serializable,Parcelable {
         Gender = in.readString();
         Age = in.readString();
         Memo = in.readString();
-        RecvGold = in.readInt();
+        RecvGold = in.readLong();
         SendGold = in.readInt();
         Lat = in.readDouble();
         Lon = in.readDouble();
@@ -120,7 +120,7 @@ public class SimpleUserData implements Serializable,Parcelable {
         parcel.writeString(Age);
         parcel.writeString(Memo);
 
-        parcel.writeInt(RecvGold);
+        parcel.writeLong(RecvGold);
         parcel.writeInt(SendGold);
 
         parcel.writeDouble(Lat);

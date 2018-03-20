@@ -834,7 +834,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
                             mMyData.setMyData(stRecvData.Uid, stRecvData.Idx, stRecvData.ImgCount, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3,
-                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvCount, stRecvData.Date,
+                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvGold, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.RecvMsgReject, stRecvData.PublicRoomStatus, stRecvData.PublicRoomName, stRecvData.PublicRoomLimit, stRecvData.PublicRoomTime,
                                     stRecvData.ItemCount, stRecvData.Item_1, stRecvData.Item_2, stRecvData.Item_3, stRecvData.Item_4, stRecvData.Item_5, stRecvData.Item_6, stRecvData.Item_7, stRecvData.Item_8, stRecvData.BestItem,
                                     stRecvData.Point, stRecvData.Grade, stRecvData.ConnectDate, stRecvData.LastBoardWriteTime, stRecvData.LastAdsTime, stRecvData.NickChangeCnt);
@@ -1062,8 +1062,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("HotMember");
-            Query query=ref.orderByChild("Point").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            Query query=ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -1095,13 +1095,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         i++;
                                     }
 
-                                    mMyData.bHotMemberReady = true;
                                 }
 
                             }
 
                             bSetRecv = true;
-                            //  mMyData.HotIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).Point;
+                            if(mMyData.arrUserAll_Recv.size() > 0)
+                                mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
 
