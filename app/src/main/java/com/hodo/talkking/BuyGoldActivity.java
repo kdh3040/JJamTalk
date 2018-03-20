@@ -43,8 +43,8 @@ public class BuyGoldActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
     private UIData mUIData = UIData.getInstance();
-    private TextView txt_heartStatus;
-    private ListView HeartChargeList;
+    private TextView tv_mycoin;
+    private Button btn_10, btn_30, btn_50, btn_100, btn_300, btn_500, btn_1000;
     private Button Free_1, Free_2;
     private Activity mActivity;
 
@@ -92,7 +92,7 @@ public class BuyGoldActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cash_charge);
+        setContentView(R.layout.activity_coin_charge);
 
         mActivity = this;
         mMyData.SetCurFrag(0);
@@ -166,42 +166,12 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         loadRewardedVideoAd(getApplicationContext());
 
-        txt_heartStatus = (TextView)findViewById(R.id.Heart_MyHeart);
-        txt_heartStatus.setText("보유 코인 : " + mMyData.getUserHoney());
+        tv_mycoin = (TextView)findViewById(R.id.tv_mycoin);
+        tv_mycoin.setText("보유 코인 : " + mMyData.getUserHoney());
 
-        HeartChargeList = (ListView)findViewById(R.id.Heart_list);
-
-        list = new ArrayList<HeartItem>();
         mMyData.SetCurFrag(0);
 
-        HeartItem mHeartItem;
-
-        mHeartItem = new HeartItem(R.drawable.buy_10, "900원");
-        list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.buy_30, "2900원");
-        list.add(mHeartItem);
-        mHeartItem = new HeartItem(R.drawable.buy_50, "4900원");
-        list.add(mHeartItem);
-
-        mHeartItem = new HeartItem(R.drawable.buy_100, "9900원");
-        list.add(mHeartItem);
-
-        mHeartItem = new HeartItem(R.drawable.buy_300, "29000원");
-        list.add(mHeartItem);
-
-        mHeartItem = new HeartItem(R.drawable.buy_500, "49000원");
-        list.add(mHeartItem);
-
-        mHeartItem = new HeartItem(R.drawable.buy_1000, "99000원");
-        list.add(mHeartItem);
-
-
-        HeartItemAdapter adapter = new HeartItemAdapter(this, R.layout.content_cash_charge, list);
-
-        HeartChargeList.setAdapter(adapter);
-
-
-        Free_1 = (Button)findViewById(R.id.btn_Free_1);
+        Free_1 = (Button)findViewById(R.id.button14);
         Free_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -229,6 +199,63 @@ public class BuyGoldActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btn_10 = (Button)findViewById(R.id.btn_10);
+        btn_10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               BuyGoldByGoogle(mMyData.skuGold[0]);
+            }
+        });
+
+        btn_30 = (Button)findViewById(R.id.btn_30);
+        btn_30.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(mMyData.skuGold[1]);
+            }
+        });
+
+        btn_50 = (Button)findViewById(R.id.btn_50);
+        btn_50.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(mMyData.skuGold[2]);
+            }
+        });
+
+        btn_100 = (Button)findViewById(R.id.btn_100);
+        btn_100.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(mMyData.skuGold[3]);
+            }
+        });
+
+        btn_300 = (Button)findViewById(R.id.btn_300);
+        btn_300.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(mMyData.skuGold[4]);
+            }
+        });
+
+        btn_500 = (Button)findViewById(R.id.btn_500);
+        btn_500.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(mMyData.skuGold[5]);
+            }
+        });
+
+        btn_1000 = (Button)findViewById(R.id.btn_1000);
+        btn_1000.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(mMyData.skuGold[6]);
+            }
+        });
+
 
         /*ServiceConnection mServiceConn = new_img ServiceConnection() {
             @Override
@@ -262,7 +289,7 @@ public class BuyGoldActivity extends AppCompatActivity {
 
     public void refreshHearCnt()
     {
-        txt_heartStatus.setText("보유 코인 : " + mMyData.getUserHoney());
+        tv_mycoin.setText("보유 코인 : " + mMyData.getUserHoney());
     }
 
 
@@ -377,6 +404,28 @@ public class BuyGoldActivity extends AppCompatActivity {
             });
 
             return view;
+        }
+    }
+
+    private void BuyGoldByGoogle(String tempStrGold)
+    {
+        try {
+            mMyData.buyIntentBundle = mMyData.mService.getBuyIntent(3, getPackageName(),
+                    tempStrGold, "inapp", "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        mMyData.pendingIntent = mMyData.buyIntentBundle.getParcelable("BUY_INTENT");
+        if(mMyData.pendingIntent != null)
+        {
+            try {
+                startIntentSenderForResult(mMyData.pendingIntent.getIntentSender(),
+                        1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
+                        Integer.valueOf(0));
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
         }
     }
 
