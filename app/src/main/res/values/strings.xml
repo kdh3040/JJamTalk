@@ -147,9 +147,9 @@
     </style>
 
     <string name="Fan_Rank_Title">팬 순위권 제목</string>
-    <string name="Fan_Rank_1st">님의 팬 1위</string>
-    <string name="Fan_Rank_2nd">님의 팬 2위</string>
-    <string name="Fan_Rank_3rd">님의 팬 3위</string>
+    <string name="Fan_Rank_1st">님의 1등 팬!</string>
+    <string name="Fan_Rank_2nd">님의 2등 팬!</string>
+    <string name="Fan_Rank_3rd">님의 3등 팬!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
