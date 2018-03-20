@@ -1385,11 +1385,8 @@ public class CommonFunc {
                     }
 
                     if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                        int nPrice = nSendHoneyCnt[0] - mMyData.getUserHoney();
-                        btn_gift_send.setEnabled(false);
                         Msg.setText("코인이 부족합니다. (" + nSendHoneyCnt[0] + " 코인 필요)");
                     } else {
-                        btn_gift_send.setEnabled(true);
                         Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?(" + nSendHoneyCnt[0] + "코인 소모)");
                     }
                 }
@@ -1408,6 +1405,11 @@ public class CommonFunc {
             {
                  @Override
                  public void onClick(View view) {
+                     if(mMyData.getUserHoney() < nSendHoneyCnt[0])
+                     {
+                         CommonFunc.getInstance().ShowToast(context, (nSendHoneyCnt[0] - mMyData.getUserHoney())+ " 코인이 부족 합니다.", true);
+                         return;
+                     }
                      String strSendMsg = SendMsg.getText().toString();
 
                      sendFunc.EndListener(nSendHoneyCnt[0], strSendMsg);
