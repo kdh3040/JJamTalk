@@ -137,7 +137,7 @@ public class MyData {
 
     public int nHoney;
     public int nSendCount;
-    public int nRecvCount;
+    public long nRecvGold;
 
     public String strDate;
 
@@ -247,12 +247,12 @@ public class MyData {
 
     public int NickChangeCnt;
 
-    public long HotIndexRef;
+    public long RecvIndexRef;
     public long FanCountRef;
     public Double NearDistanceRef;
     public String NewDateRef;
 
-    public boolean bHotMemberReady = false;
+    //public boolean bHotMemberReady = false;
 
     private  Resources res;
 
@@ -395,7 +395,7 @@ public class MyData {
 
         nHoney= 0;
         nSendCount = 0;
-        nRecvCount = 0;
+        nRecvGold = 0;
 
         strDate = null;
 
@@ -439,7 +439,7 @@ public class MyData {
 
     public void setMyData(String _UserUid, String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge,
-                          int _UserHoney, int _UserSendCount, int _UserRecvCount, String _UserDate,
+                          int _UserHoney, int _UserSendCount, long _UserRecvCount, String _UserDate,
                           String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
                           int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime, int _UserNickChangeCnt) {
@@ -460,7 +460,7 @@ public class MyData {
         strMemo = _UserMemo;
 
         nSendCount = _UserSendCount;
-        nRecvCount = _UserRecvCount;
+        nRecvGold = _UserRecvCount;
 
         nImgCount = _UserImgCount;
 
@@ -794,8 +794,8 @@ public class MyData {
         return nHoney;
     }
 
-    public int getRecvHoney() {
-        return nRecvCount;
+    public long getRecvHoney() {
+        return nRecvGold;
     }
 
     public int getSendHoney() {
@@ -816,16 +816,8 @@ public class MyData {
         table.updateChildren(updateMap);
     }
 
-    public void setRecvHoneyCnt(int recvHoneyCnt) {
-        nRecvCount -= recvHoneyCnt;
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table;
-        table = database.getReference("User/" + strIdx);
-
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("RecvCount", nRecvCount);
-        table.updateChildren(updateMap);
+    public void setRecvHoneyCnt(long recvHoneyCnt) {
+        nRecvGold -= recvHoneyCnt;
     }
 
     public void setUserMemo(String userMemo) {
@@ -1832,7 +1824,7 @@ public class MyData {
         return list;
     }
 
-    public void makeFanList(Context context, final UserData stTargetData, int SendCount) {
+    public void makeFanList(Context context, final UserData stTargetData, final int SendCount) {
 
         int nTotalSendCnt = 0;
 
@@ -1937,6 +1929,72 @@ public class MyData {
                     table = database.getReference("SimpleData/" + stTargetData.Idx);
 
                     updateFanCountMap.put("FanCount", stTargetData.FanCount);
+                    table.updateChildren(updateFanCountMap);
+
+                }
+            });
+
+            data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("RecvGold");
+            data.runTransaction(new Transaction.Handler() {
+                @Override
+                public Transaction.Result doTransaction(MutableData mutableData) {
+                    Long index = mutableData.getValue(Long.class);
+                    if (index == null) {
+                        return Transaction.success(mutableData);
+                    }
+
+                    index -= SendCount;
+                    mutableData.setValue(index);
+
+                    // mutableData.setValue(index);
+                    return Transaction.success(mutableData);
+                }
+
+                @Override
+                public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                    stTargetData.RecvGold = dataSnapshot.getValue(Long.class);
+
+                    for(int i = 0; i < arrUserAll_Recv_Age.size(); i++)
+                    {
+                        if(arrUserAll_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                            arrUserAll_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
+                            break;
+                        }
+                    }
+
+                    if(stTargetData.Gender.equals("여자"))
+                    {
+                        for(int i = 0; i < arrUserWoman_Recv_Age.size(); i++)
+                        {
+                            if(arrUserWoman_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                arrUserWoman_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for(int i = 0; i < arrUserMan_Recv_Age.size(); i++)
+                        {
+                            if(arrUserMan_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                arrUserMan_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
+                                break;
+                            }
+                        }
+                    }
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference table;
+                    table = database.getReference("User/" + stTargetData.Idx);
+
+                    Map<String, Object> updateFanCountMap = new HashMap<>();
+                    updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
+                    table.updateChildren(updateFanCountMap);
+
+                    table = database.getReference("SimpleData/" + stTargetData.Idx);
+
+                    updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
                     table.updateChildren(updateFanCountMap);
 
                 }
@@ -2082,6 +2140,74 @@ public class MyData {
 
                     }
                 });
+
+
+                data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("RecvGold");
+                data.runTransaction(new Transaction.Handler() {
+                    @Override
+                    public Transaction.Result doTransaction(MutableData mutableData) {
+                        Long index = mutableData.getValue(Long.class);
+                        if (index == null) {
+                            return Transaction.success(mutableData);
+                        }
+
+                        index -= SendCount;
+                        mutableData.setValue(index);
+
+                        // mutableData.setValue(index);
+                        return Transaction.success(mutableData);
+                    }
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                        stTargetData.RecvGold = dataSnapshot.getValue(Long.class);
+
+                        for(int i = 0; i < arrUserAll_Recv_Age.size(); i++)
+                        {
+                            if(arrUserAll_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                arrUserAll_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
+                                break;
+                            }
+                        }
+
+                        if(stTargetData.Gender.equals("여자"))
+                        {
+                            for(int i = 0; i < arrUserWoman_Recv_Age.size(); i++)
+                            {
+                                if(arrUserWoman_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                    arrUserWoman_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for(int i = 0; i < arrUserMan_Recv_Age.size(); i++)
+                            {
+                                if(arrUserMan_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                    arrUserMan_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
+                                    break;
+                                }
+                            }
+                        }
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference table;
+                        table = database.getReference("User/" + stTargetData.Idx);
+
+                        Map<String, Object> updateFanCountMap = new HashMap<>();
+                        updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
+                        table.updateChildren(updateFanCountMap);
+
+                        table = database.getReference("SimpleData/" + stTargetData.Idx);
+
+                        updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
+                        table.updateChildren(updateFanCountMap);
+
+                    }
+                });
+
             }
 
 

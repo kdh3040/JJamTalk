@@ -46,11 +46,8 @@ public class HomeFragment extends Fragment {
             fragView = inflater.inflate(R.layout.fragment_home,container,false);
             tabLayout = fragView.findViewById(R.id.tabLayout);
 
-            if (MyData.getInstance().bHotMemberReady == true)
-            {
-                tabLayout.addTab(tabLayout.newTab().setText("Hot"));
-            }
 
+            tabLayout.addTab(tabLayout.newTab().setText("Heart"));
             tabLayout.addTab(tabLayout.newTab().setText("Fan"));
             tabLayout.addTab(tabLayout.newTab().setText("Near"));
             tabLayout.addTab(tabLayout.newTab().setText("New"));
@@ -90,31 +87,17 @@ public class HomeFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
 
-            if (MyData.getInstance().bHotMemberReady == true)
-            {
-                switch(position){
-                    case 0:
-                        return new Rank_GoldReceiveFragment();
-                    case 1:
-                        return new Rank_FanRichFragment();
-                    case 2:
-                        return new Rank_NearFragment();
-                    case 3:
-                        return new Rank_NewMemberFragment();
-                }
+            switch(position){
+                case 0:
+                    return new Rank_GoldReceiveFragment();
+                case 1:
+                    return new Rank_FanRichFragment();
+                case 2:
+                    return new Rank_NearFragment();
+                case 3:
+                    return new Rank_NewMemberFragment();
             }
 
-            else
-            {
-                switch(position){
-                    case 0:
-                        return new Rank_FanRichFragment();
-                    case 1:
-                        return new Rank_NearFragment();
-                    case 2:
-                        return new Rank_NewMemberFragment();
-                }
-            }
 
             return null;
         }

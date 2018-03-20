@@ -1662,7 +1662,8 @@ public class MainActivity extends AppCompatActivity {
             user.child("Dist").setValue(LocationFunc.getInstance().getDistance(lat, lon, REF_LAT, REF_LON,"meter"));
 
             user.child("SendCount").setValue(mMyData.getSendHoney());
-            user.child("RecvCount").setValue(mMyData.getRecvHoney());
+            long recvGold = random.nextInt(10000);
+            user.child("RecvGold").setValue(-1* recvGold);
 
             user.child("ImgCount").setValue(mMyData.getUserImgCnt());
 
@@ -1711,7 +1712,7 @@ public class MainActivity extends AppCompatActivity {
 
             user.child("Memo").setValue(mMyData.getUserMemo());
 
-            user.child("RecvGold").setValue(mMyData.getRecvHoney());
+            user.child("RecvGold").setValue(-1* recvGold);
             user.child("SendGold").setValue(mMyData.getSendHoney());
 
             user.child("Lon").setValue(lon);

@@ -35,7 +35,7 @@ public class UserData implements Serializable,Parcelable {
     public int Heart;
     public int Rank;
     public int SendCount;
-    public int RecvCount;
+    public long RecvGold;
 
     public int RecvMsgReject;
 
@@ -118,7 +118,7 @@ public class UserData implements Serializable,Parcelable {
         Heart = in.readInt();
         Rank = in.readInt();
         SendCount = in.readInt();
-        RecvCount = in.readInt();
+        RecvGold = in.readLong();
         RecvMsgReject = in.readInt();
         Date = in.readString();
         SendMSG = in.readString();
@@ -209,7 +209,7 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeInt(Heart);
         parcel.writeInt(Rank);
         parcel.writeInt(SendCount);
-        parcel.writeInt(RecvCount);
+        parcel.writeLong(RecvGold);
         parcel.writeInt(RecvMsgReject);
         parcel.writeString(Date);
         parcel.writeString(SendMSG);

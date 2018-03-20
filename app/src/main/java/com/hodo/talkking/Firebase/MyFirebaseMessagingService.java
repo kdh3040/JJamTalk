@@ -248,48 +248,4 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-    void getTargetData(String Gender, String idx)
-    {
-        final DatabaseReference ref;
-
-        ref = FirebaseDatabase.getInstance().getReference().child("User").child(idx);
-        ref.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
-                        UserData stRecvData = new UserData ();
-                        stRecvData = dataSnapshot.getValue(UserData.class);
-                        if(stRecvData != null) {
-
-                            Map<String, Object> updateMap = new HashMap<>();
-
-
-                            if(strSenderHoney != null) {
-                                nRecvHoneyCnt = stRecvData.RecvCount;
-                                nRecvHoneyCnt -= Integer.valueOf(strSenderHoney);
-                                updateMap.put("RecvCount", nRecvHoneyCnt);
-                                mMyData.setRecvHoneyCnt(Integer.valueOf(strSenderHoney));
-                                mMyData.setUserHoney(mMyData.getUserHoney() + Integer.valueOf(strSenderHoney));
-
-                                  /*  FanData tempData = new_img FanData();
-                                    tempData.Img = strSenderImg;
-                                    tempData.Idx = strSenderIdx;
-                                    tempData.Nick = strSenderName;
-                                    mMyData.makeFanList(tempData, Integer.parseInt(strSenderHoney));*/
-
-                            }
-
-                            ref.updateChildren(updateMap);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                    }
-                });
-    }
-
 }

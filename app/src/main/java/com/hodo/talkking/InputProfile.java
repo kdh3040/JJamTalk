@@ -152,8 +152,8 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("HotMember");
-            Query query=ref.orderByChild("Point").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴;//키가 id와 같은걸 쿼리로 가져옴
+            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            Query query=ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -186,10 +186,12 @@ public class InputProfile extends AppCompatActivity {
                                         i++;
                                     }
 
-                                    mMyData.bHotMemberReady = true;
 
                                 }
                             }
+                            
+                            if(mMyData.arrUserAll_Recv.size() > 0)
+                                mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
 
                             bSetRecv = true;
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
