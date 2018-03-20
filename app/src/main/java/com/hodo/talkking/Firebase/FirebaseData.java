@@ -178,7 +178,7 @@ public class FirebaseData {
         user.child("Dist").setValue(mMyData.getUserDist());
 
         user.child("SendCount").setValue(mMyData.getSendHoney());
-        user.child("RecvCount").setValue(mMyData.getRecvHoney());
+        user.child("RecvGold").setValue(mMyData.getRecvHoney());
 
         user.child("ImgCount").setValue(mMyData.getUserImgCnt());
 
@@ -255,7 +255,7 @@ public class FirebaseData {
         user.child("Dist").setValue(mMyData.getUserDist());
 
         user.child("SendCount").setValue(mMyData.getSendHoney());
-        user.child("RecvCount").setValue(mMyData.getRecvHoney());
+        user.child("RecvGold").setValue(mMyData.getRecvHoney());
 
         user.child("ImgCount").setValue(mMyData.getUserImgCnt());
 
@@ -742,7 +742,7 @@ public class FirebaseData {
 
 
     Rank_GoldReceiveAdapter UpdateHotAdapter = null;
-    public void GetHotData(Rank_GoldReceiveAdapter updateAdapter, int lastVisibleCount, Boolean top)
+    public void GetRecvData(Rank_GoldReceiveAdapter updateAdapter, int lastVisibleCount, Boolean top)
     {
         UpdateHotAdapter = updateAdapter;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
@@ -752,7 +752,7 @@ public class FirebaseData {
             data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point"). startAt(0).endAt(LOAD_MAIN_COUNT );
         else
             //data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").startAt(mMyData.HotIndexRef).limitToFirst(LOAD_MAIN_COUNT);
-            data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").limitToFirst(LOAD_MAIN_COUNT);
+            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("RecvGold").startAt(mMyData.RecvIndexRef).limitToFirst(LOAD_MAIN_COUNT);
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -792,6 +792,8 @@ public class FirebaseData {
                     }
                 }
 
+                if(mMyData.arrUserAll_Recv.size() > 0)
+                    mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
                 //mMyData.HotIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).Point;
                 CommonFunc.getInstance().DismissLoadingPage();
                 UpdateHotAdapter.notifyDataSetChanged();
