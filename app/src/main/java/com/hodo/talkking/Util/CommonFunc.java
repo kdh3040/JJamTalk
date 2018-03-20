@@ -300,6 +300,7 @@ public class CommonFunc {
     public void ShowFanRankPopup(Context context, String title, int Rank) {
         ImageView iv_Rank;
         TextView Title;
+        ConstraintLayout layout;
 
         View v = LayoutInflater.from(context).inflate(R.layout.dialog_be_ranker, null, false);
 
@@ -307,6 +308,8 @@ public class CommonFunc {
         Title.setText(title);
 
         iv_Rank = (ImageView)v.findViewById(R.id.iv_rank);
+
+        layout = (ConstraintLayout)v.findViewById(R.id.cl_rank);
 
         switch (Rank)
         {
@@ -322,10 +325,18 @@ public class CommonFunc {
 
         }
 
+
         final AlertDialog dialog = new AlertDialog.Builder(context).setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
 
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 
 
