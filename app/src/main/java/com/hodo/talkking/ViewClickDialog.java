@@ -30,7 +30,7 @@ public class ViewClickDialog extends Dialog {
         tv_see = (TextView)findViewById(R.id.tv_see);
         //tv_camera = (TextView)findViewById(R.id.tv_camera);
         tv_album = (TextView)findViewById(R.id.tv_album);
-
+        tv_delete = (TextView)findViewById(R.id.tv_del);
 
 
 

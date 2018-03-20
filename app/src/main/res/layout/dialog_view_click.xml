@@ -45,4 +45,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
+    <TextView
+        android:id="@+id/tv_del"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+
+        android:layout_marginLeft="8dp"
+        android:gravity="center_vertical"
+        android:text="사진 삭제"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_album" />
+
 </android.support.constraint.ConstraintLayout>

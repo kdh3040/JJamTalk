@@ -416,7 +416,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
-            /*dialog.tv_delete.setOnClickListener(new_img View.OnClickListener() {
+            dialog.tv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // 사진 삭제
@@ -424,7 +424,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     //DeleteFireBaseData(index);
                     dialog.dismiss();
                 }
-            });*/
+            });
         }
 
 
@@ -672,7 +672,7 @@ public class MyProfileActivity extends AppCompatActivity {
         boolean bChangeImg = false;
         for(int i=0; i<4; i++)
         {
-            if(tempImgChange[i] == 1)
+            if(tempImgChange[i] == 1 || tempImgChange[i] == 2)
             {
                 bChangeImg = true;
             }
@@ -784,6 +784,13 @@ public class MyProfileActivity extends AppCompatActivity {
                 //   .bitmapTransform(new_img RoundedCornersTransformation(getApplicationContext()))
                 .thumbnail(0.1f)
                 .into(Img_Sum);
+
+        if(tempImgChange[Index] == 0) {
+            tempImgChangeCnt++;
+        }
+
+        tempImgChange[Index] = 2;
+
 
         for (int i = 0; i < 4; i++) {
 
