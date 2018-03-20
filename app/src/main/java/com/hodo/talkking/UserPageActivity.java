@@ -394,9 +394,8 @@ if(mMyData.itemList.get(i) != 0)
                                 mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
                                 mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
                                 mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
-                                mNotiFunc.SendHoneyToFCM(stTargetData, heartCount, msg);
                                 mMyData.setSendHoneyCnt(heartCount);
-                                mMyData.makeFanList(mActivity, stTargetData, heartCount);
+                                mMyData.makeFanList(mActivity, stTargetData, heartCount, msg);
 
 
                                 RefreshFanData();
