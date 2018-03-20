@@ -225,7 +225,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
                         TextView body = (TextView)view1.findViewById(R.id.tv_change_nick);
                         if(mMyData.NickChangeCnt != 0)
-                            body.setText("닉네임 변경 시 "+CoomonValueData.CHANGE_NICK_NAME_COST+"코인이 소모됩니다");
+                            body.setText("닉네임 변경 시 "+CoomonValueData.CHANGE_NICK_NAME_COST+"코인이 소모됩니다.\n 현재 코인 : ");
 
                         else
                             body.setText("닉네임 최초 변경은 무료입니다 \n 이후에는 "+CoomonValueData.CHANGE_NICK_NAME_COST+"코인이 소모됩니다");
