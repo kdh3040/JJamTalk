@@ -44,7 +44,7 @@
         android:layout_margin="32dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/et_outline"
-        android:gravity="bottom"
+        android:gravity="top"
         android:hint="(30자 이내)"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="30"
