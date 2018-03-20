@@ -1776,32 +1776,39 @@ public class MyData {
 
     }
 
-    private void SortByRecvHeart(UserData stTargetData, Context context, Resources res)
+    private void SortByRecvHeart(UserData stTargetData, Context context, Resources res, int myrank)
     {
         Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(stTargetData.FanList);
         //tempDataMap = mMyData.arrMyFanDataList;
         Iterator it = sortByValue(tempDataMap).iterator();
+
+
         stTargetData.arrFanList.clear();
+        stTargetData.FanList.clear();
         while(it.hasNext()) {
             String temp = (String) it.next();
             stTargetData.arrFanList.add(tempDataMap.get(temp));
+            stTargetData.FanList.put(temp, tempDataMap.get(temp));
         }
 
         for(int i=0; i<stTargetData.arrFanList.size(); i++)
         {
             if(stTargetData.arrFanList.get(i).Idx.equals(getUserIdx()))
             {
-                switch (i)
+                if(myrank != i)
                 {
-                    case 0:
-                        CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_1st), 0);
-                        break;
-                    case 1:
-                        CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_2nd), 1);
-                        break;
-                    case 2:
-                        CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_3rd), 2);
-                        break;
+                    switch (i)
+                    {
+                        case 0:
+                            CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_1st), 0);
+                            break;
+                        case 1:
+                            CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_2nd), 1);
+                            break;
+                        case 2:
+                            CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_3rd), 2);
+                            break;
+                    }
                 }
             }
         }
@@ -1944,9 +1951,9 @@ public class MyData {
             Set<String> keySet = stTargetData.FanList.keySet();
             Iterator iterator = keySet.iterator();
             boolean bExist = false;
+            int nMyRank = 0;
             while(iterator.hasNext()){
                 String element = (String) iterator.next();
-
                 if(stTargetData.FanList.get(element).Idx.equals(getUserIdx()))
                 {
 
@@ -1956,12 +1963,23 @@ public class MyData {
             }
 
 
+            for(int i = 0; i<stTargetData.arrFanList.size(); i++)
+            {
+                if(stTargetData.arrFanList.get(i).Idx.equals(getUserIdx()))
+                {
+                    nMyRank = i;
+                    break;
+                }
+
+            }
+
             if(bExist == true)
             {
                 Check = 2;
                 stTargetData.FanList.get(getUserIdx()).RecvGold += SendCount;
                 nTotalSendCnt = stTargetData.FanList.get(getUserIdx()).RecvGold;
 
+                SortByRecvHeart(stTargetData, context, res, nMyRank);
             }
 
             else
@@ -1997,7 +2015,7 @@ public class MyData {
                 tempData.Grade = getGrade();
                 stTargetData.arrFanData.put(getUserIdx(), tempData);
 
-
+                SortByRecvHeart(stTargetData, context, res, 4);
 
                 FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
                 DatabaseReference data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("FanCount");
@@ -2066,7 +2084,7 @@ public class MyData {
                 });
             }
 
-            SortByRecvHeart(stTargetData, context, res);
+
         }
 
 
