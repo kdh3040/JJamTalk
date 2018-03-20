@@ -48,6 +48,7 @@
         android:id="@+id/iv_heart"
         android:layout_width="50dp"
         android:layout_height="0dp"
+        android:padding="3dp"
         app:layout_constraintBottom_toTopOf="@+id/iv_fan"
         app:layout_constraintRight_toLeftOf="@+id/tv_heart"
         app:layout_constraintTop_toTopOf="@+id/bg_top"
@@ -57,6 +58,7 @@
         android:id="@+id/iv_fan"
         android:layout_width="50dp"
         android:layout_height="0dp"
+        android:padding="3dp"
         app:layout_constraintBottom_toBottomOf="@+id/bg_top"
         app:layout_constraintRight_toLeftOf="@+id/txt_fanCount"
         app:layout_constraintTop_toBottomOf="@+id/iv_heart"
@@ -64,7 +66,7 @@
 
     <TextView
         android:id="@+id/tv_heart"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="0dp"
         android:gravity="center"
         android:text="200"
@@ -76,7 +78,7 @@
 
     <TextView
         android:id="@+id/txt_fanCount"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
         android:gravity="center"
