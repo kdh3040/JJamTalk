@@ -182,5 +182,19 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         BoardDate.setOnClickListener(listener);
         BoardDeleteButton.setOnClickListener(listener);
         BoardReportButton.setOnClickListener(listener);
+
+        View.OnLongClickListener longClick = new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true; // 다음 이벤트 계속 진행 false, 이벤트 완료 true
+            }
+        };
+
+        BoardMsg.setOnLongClickListener(longClick);
+        BoardThumnail.setOnLongClickListener(longClick);
+        BoardWriter.setOnLongClickListener(longClick);
+        BoardDate.setOnLongClickListener(longClick);
+        BoardDeleteButton.setOnLongClickListener(longClick);
+        BoardReportButton.setOnLongClickListener(longClick);
     }
 }
