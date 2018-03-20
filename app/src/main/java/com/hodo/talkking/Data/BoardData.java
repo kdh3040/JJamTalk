@@ -5,6 +5,7 @@ import com.google.firebase.database.DataSnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 /**
  * Created by boram on 2017-08-16.
@@ -70,6 +71,13 @@ public class BoardData {
             ClientData = new BoardMsgClientData(dbData);
             if(ClientData.IsReportUser(MyData.getInstance().getUserIdx()))
                 return;
+
+            if(CoomonValueData.getInstance().BoardLoadingDate > 0 && dbData.Date < CoomonValueData.getInstance().BoardLoadingDate)
+            {
+                CoomonValueData.getInstance().BoardPastLoading = false;
+                return;
+            }
+
             BoardList.add(ClientData);
             Collections.sort(BoardList, new BoardSort());
         }

@@ -699,6 +699,7 @@ public class InputProfile extends AppCompatActivity {
 
                     mMyData.getDownUrl();
                     mMyData.getImageLoading();
+                    mMyData.getBoardLoadingDate();
 
                     mMyData.getFanList();
                     mMyData.getReportedCnt();

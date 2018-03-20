@@ -1086,7 +1086,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 {
                     long nowTime = CommonFunc.getInstance().GetCurrentTime();
 
-                    ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", nowTime, mMyData.strImgLodingUri, 0, 0);
+                    ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", nowTime, CoomonValueData.getInstance().ImgUrl, 0, 0);
 
                     mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", nowTime, 0);
 

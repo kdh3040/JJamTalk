@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SettingData;
 import com.hodo.talkking.Firebase.FirebaseData;
@@ -180,7 +181,7 @@ public class SettingActivity extends AppCompatActivity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text = "회원님을 위한 특별한 어플을 발견했습니다.\n톡킹에 로그인해보세요 \n" + mMyData.strDownUri;
+                String text = "회원님을 위한 특별한 어플을 발견했습니다.\n톡킹에 로그인해보세요 \n" + CoomonValueData.getInstance().DownUrl;
                 Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 // intent.putExtra(Intent.EXTRA_SUBJECT, subject);

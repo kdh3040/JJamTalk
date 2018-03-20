@@ -27,6 +27,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.Data.BoardData;
 import com.hodo.talkking.Data.BoardMsgClientData;
+import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Data.SimpleUserData;
@@ -308,6 +309,9 @@ public class BoardFragment extends Fragment {
                         }
                     }
                     else if(!recyclerView.canScrollVertically(1)) {
+                        if(CoomonValueData.getInstance().BoardPastLoading == false)
+                            return;
+
                         if(mBoardInstanceData.BoardList.size() <= 0)
                             return;
 

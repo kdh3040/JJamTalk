@@ -56,4 +56,25 @@ public class CoomonValueData  {
     public static boolean OFFAPP = true;
 
     public static int CHANGE_NICK_NAME_COST = 50;
+
+
+
+    private static CoomonValueData _Instance;
+
+    public static CoomonValueData getInstance() {
+        if (_Instance == null)
+            _Instance = new CoomonValueData();
+
+        return _Instance;
+    }
+
+    private CoomonValueData() {
+
+    }
+
+    public long BoardLoadingDate = -1; // 게시판글 몇일전꺼는 안불러오게 하는 변수 -1은 무제한
+    public boolean BoardPastLoading = true; // 과거 게시글을 불러 올까?
+    public String DownUrl;
+    public String ImgUrl;
+
 }

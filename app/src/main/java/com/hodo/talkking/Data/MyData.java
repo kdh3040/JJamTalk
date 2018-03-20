@@ -199,8 +199,6 @@ public class MyData {
     public  Uri urSaveUri;
     public  int nSaveUri;
 
-    public  String strImgLodingUri;
-    public  String strDownUri;
     public  String strBannerID = "ca-app-pub-8954582850495744/1996257938";
 
     public  boolean bChatRefresh = false;
@@ -1222,16 +1220,12 @@ public class MyData {
     public void getImageLoading() {
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = null;
-        table = database.getReference("ImgUrl");
+        DatabaseReference table = database.getReference("CommonValue").child("ImgUrl");
 
         table.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int saa = 0;
-                String tempUserData = dataSnapshot.getValue(String.class);
-                strImgLodingUri = tempUserData;
-
+                CoomonValueData.getInstance().ImgUrl = dataSnapshot.getValue(String.class);
             }
 
             @Override
@@ -1244,16 +1238,37 @@ public class MyData {
     public void getDownUrl() {
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = null;
-        table = database.getReference("DownUrl");
+        DatabaseReference table = database.getReference("CommonValue").child("DownUrl");
 
         table.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int saa = 0;
-                String tempUserData = dataSnapshot.getValue(String.class);
-                strDownUri = tempUserData;
+                CoomonValueData.getInstance().DownUrl = dataSnapshot.getValue(String.class);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
+    public void getBoardLoadingDate() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("CommonValue").child("BoardLoadingDate");
+
+        table.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int boardLoadingDateDay = dataSnapshot.getValue(Integer.class);
+
+                if(boardLoadingDateDay > 0)
+                {
+                    long nowTimeLong = CommonFunc.getInstance().GetCurrentTime();
+                    nowTimeLong = nowTimeLong - (nowTimeLong % CoomonValueData.getInstance().DAY_MILLI_SECONDS);
+                    CoomonValueData.getInstance().BoardLoadingDate = nowTimeLong - boardLoadingDateDay * CoomonValueData.getInstance().DAY_MILLI_SECONDS;
+                }
             }
 
             @Override

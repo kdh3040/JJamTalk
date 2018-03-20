@@ -884,6 +884,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             mMyData.getDownUrl();
                             mMyData.getImageLoading();
+                            mMyData.getBoardLoadingDate();
                             //mMyData.getAdBannerID();
                             mMyData.getFanList();
 
