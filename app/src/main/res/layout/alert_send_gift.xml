@@ -30,17 +30,9 @@
         android:layout_marginLeft="50dp"
         android:gravity="center_vertical"
         android:text="현재 코인 :"
+        android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
-
-    <TextView
-        android:id="@+id/tv_coin"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:gravity="center_vertical"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_coin"
-        app:layout_constraintLeft_toRightOf="@+id/iv_coin" />
 
     <ImageView
         android:id="@+id/iv_coin"
@@ -50,6 +42,16 @@
         app:layout_constraintLeft_toRightOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:srcCompat="@drawable/coin" />
+
+    <TextView
+        android:id="@+id/tv_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin"
+        app:layout_constraintLeft_toRightOf="@+id/iv_coin" />
 
     <Button
         android:id="@+id/HeartPop_10"
@@ -133,7 +135,7 @@
 
 
         android:id="@+id/HeartPop_text"
-        android:layout_width="0dp"
+        android:layout_width="18sp"
         android:layout_height="50dp"
 
 
@@ -143,10 +145,10 @@
         android:layout_marginTop="16dp"
         android:background="@color/white"
         android:gravity="center"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:textColor="@color/baseColorLight"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HeartPop_500" />

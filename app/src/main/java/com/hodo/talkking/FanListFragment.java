@@ -207,13 +207,13 @@ public class FanListFragment extends Fragment {
                 switch (position)
                 {
                     case 0:
-                        holder.imgRank.setImageResource(R.drawable.fan_mark1);
+                        holder.imgRank.setImageResource(R.drawable.fan_mark1_80);
                         break;
                     case 1:
-                        holder.imgRank.setImageResource(R.drawable.fan_mark2);
+                        holder.imgRank.setImageResource(R.drawable.fan_mark2_80);
                         break;
                     case 2:
-                        holder.imgRank.setImageResource(R.drawable.fan_mark3);
+                        holder.imgRank.setImageResource(R.drawable.fan_mark3_80);
                         break;
                 }
 
