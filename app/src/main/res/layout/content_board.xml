@@ -71,7 +71,7 @@
         android:layout_marginRight="5dp"
         android:maxLength="33"
         android:minHeight="50dp"
-        android:maxLines="5"
+        android:maxLines="8"
         android:text="본문"
         android:textColor="@color/gray"
         app:layout_constraintLeft_toLeftOf="@id/board_writer"
