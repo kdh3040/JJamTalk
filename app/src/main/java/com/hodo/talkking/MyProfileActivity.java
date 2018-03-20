@@ -225,7 +225,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
                         TextView body = (TextView)view1.findViewById(R.id.tv_change_nick);
                         if(mMyData.NickChangeCnt != 0)
-                            body.setText("닉네임 변경 시 "+CoomonValueData.CHANGE_NICK_NAME_COST+"코인이 소모됩니다.\n 현재 코인 : ");
+                            body.setText("닉네임 변경 시 "+CoomonValueData.CHANGE_NICK_NAME_COST+"코인이 소모됩니다.\n 현재 코인 : " + mMyData.getUserHoney());
 
                         else
                             body.setText("닉네임 최초 변경은 무료입니다 \n 이후에는 "+CoomonValueData.CHANGE_NICK_NAME_COST+"코인이 소모됩니다");
@@ -291,7 +291,6 @@ public class MyProfileActivity extends AppCompatActivity {
                                         saveChagneNickNameCost = 0;
                                         if(mMyData.NickChangeCnt != 0)
                                         {
-                                            mMyData.setUserHoney(mMyData.getUserHoney() - CoomonValueData.CHANGE_NICK_NAME_COST);
                                             saveChagneNickNameCost = CoomonValueData.CHANGE_NICK_NAME_COST;
                                         }
 
@@ -727,6 +726,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     if(tempChangeNickNameEnable)
                     {
                         mMyData.NickChangeCnt++;
+                        mMyData.setUserHoney(mMyData.getUserHoney() - saveChagneNickNameCost);
                     }
 
                     if(bChangeImg == false)
@@ -736,11 +736,6 @@ public class MyProfileActivity extends AppCompatActivity {
 
             CommonFunc.ShowDefaultPopup_YesListener Nolistener = new CommonFunc.ShowDefaultPopup_YesListener() {
                 public void YesListener() {
-
-                    if(tempChangeNickNameEnable)
-                    {
-                        mMyData.setUserHoney(mMyData.getUserHoney() + saveChagneNickNameCost);
-                    }
 
                     onRealBackPressed();
                 }
