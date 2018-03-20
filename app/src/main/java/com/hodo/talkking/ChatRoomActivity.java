@@ -54,7 +54,6 @@ import com.hodo.talkking.Util.NotiFunc;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -197,7 +196,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             gift_Msg = (TextView) itemView.findViewById(R.id.giftmessage);
             gift_Heart_img = (ImageView)itemView.findViewById(R.id.heart);
             gift_Heart_Cnt = (TextView)itemView.findViewById(R.id.heart_count);
-            gift_check= (TextView)itemView.findViewById(R.id.gift_check);
+            gift_check= (TextView)itemView.findViewById(R.id.gift_check2);
             gift_date = (TextView)itemView.findViewById(R.id.gift_date);
 
             //send_new = (TextView)itemView.findViewById(R.id.Send_new);

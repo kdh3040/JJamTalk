@@ -14,11 +14,23 @@
         android:layout_height="0dp"
 
 
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/ChatRoom_name1"
+        app:layout_constraintTop_toBottomOf="@+id/ChatRoom_name1"
+        app:srcCompat="@drawable/purple_stroke_btn_bg" />
+
+    <ImageView
+        android:id="@+id/bg_gift2"
+        android:layout_width="230dp"
+        android:layout_height="0dp"
+
+
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/purple_stroke_btn_bg" />
+        app:srcCompat="@drawable/white_btn_bg" />
 
     <TextView
         android:id="@+id/gift_date"
@@ -28,19 +40,9 @@
         android:text="gift_date"
         android:textColor="@color/gray"
         android:textSize="10sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/bg_gift"
         app:layout_constraintLeft_toRightOf="@+id/bg_gift" />
-
-    <TextView
-        android:id="@+id/gift_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:gravity="center"
-        android:text="1"
-        android:textColor="@color/baseColor2"
-        app:layout_constraintBottom_toTopOf="@+id/gift_date"
-        app:layout_constraintLeft_toRightOf="@id/bg_gift" />
 
     <ImageView
         android:id="@+id/ChatRoom_Img"
@@ -183,9 +185,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:gravity="bottom"
         android:text="To"
-        android:textColor="@color/gray"
         android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/to_nickname"
         app:layout_constraintLeft_toLeftOf="@+id/bg_gift" />
 
@@ -194,24 +197,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:gravity="bottom"
         android:text="선물받는닉네임"
+        android:textColor="@color/baseColorDark"
         android:textSize="18sp"
+        android:visibility="gone"
         app:layout_constraintLeft_toRightOf="@+id/to"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/bg_gift" />
 
     <TextView
         android:id="@+id/giftmessage"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@color/baseColorAlpha"
         android:gravity="center_vertical"
         android:padding="3dp"
         android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@+id/bg_gift"
+        app:layout_constraintRight_toRightOf="@+id/bg_gift"
         app:layout_constraintTop_toBottomOf="@+id/to_nickname" />
 
     <TextView
@@ -222,22 +227,111 @@
         android:gravity="center"
 
         android:text="하트갯수"
-        android:textColor="@android:color/holo_purple"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/bg_gift"
+        app:layout_constraintRight_toRightOf="@+id/bg_gift"
         app:layout_constraintTop_toBottomOf="@id/giftmessage" />
 
     <ImageView
         android:id="@+id/heart"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/heart_count"
         app:layout_constraintStart_toEndOf="@+id/heart_count"
-        app:srcCompat="@drawable/heart_red"
 
-        />
+        app:srcCompat="@drawable/heart_red" />
+
+    <TextView
+        android:id="@+id/gift_date2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="4dp"
+        android:text="gift_date"
+        android:textColor="@color/gray"
+        android:textSize="10sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/bg_gift2"
+        app:layout_constraintRight_toLeftOf="@+id/bg_gift2" />
+
+    <TextView
+        android:id="@+id/to2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:gravity="bottom"
+        android:text="To"
+        android:textSize="14sp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/to_nickname2"
+        app:layout_constraintLeft_toLeftOf="@+id/bg_gift2" />
+
+    <TextView
+        android:id="@+id/to_nickname2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="bottom"
+        android:text="선물받는닉네임"
+        android:textColor="@color/baseColorDark"
+        android:textSize="18sp"
+
+        app:layout_constraintLeft_toRightOf="@+id/to2"
+        app:layout_constraintTop_toTopOf="@+id/bg_gift2" />
+
+    <TextView
+        android:id="@+id/giftmessage2"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:padding="3dp"
+        android:text="안녕하세요"
+        android:textSize="14sp"
+
+        app:layout_constraintLeft_toLeftOf="@+id/bg_gift2"
+        app:layout_constraintRight_toRightOf="@+id/bg_gift2"
+        app:layout_constraintTop_toBottomOf="@+id/to_nickname2" />
+
+    <TextView
+        android:id="@+id/heart_count2"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+
+        android:gravity="center"
+        android:text="하트갯수"
+        android:textColor="@android:color/black"
+
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/bg_gift2"
+        app:layout_constraintRight_toRightOf="@+id/bg_gift2"
+        app:layout_constraintTop_toBottomOf="@+id/giftmessage2" />
+
+    <TextView
+        android:id="@+id/gift_check2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/baseColor2"
+        app:layout_constraintBottom_toTopOf="@+id/gift_date2"
+        app:layout_constraintRight_toLeftOf="@+id/bg_gift2" />
+
+    <ImageView
+        android:id="@+id/heart2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/heart_count2"
+        app:layout_constraintLeft_toRightOf="@+id/heart_count2"
+
+        app:srcCompat="@drawable/heart_red" />
 
 
 </android.support.constraint.ConstraintLayout>
