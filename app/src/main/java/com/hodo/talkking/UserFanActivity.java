@@ -64,7 +64,8 @@ public class UserFanActivity extends AppCompatActivity {
     Activity mActivity;
     RecyclerView UserFanRecycler;
 
-    private TextView txt_FanCount;
+    private TextView txt_FanCount, txt_heartCount;
+
 
     private void SortByRecvHeart()
     {
@@ -130,6 +131,11 @@ public class UserFanActivity extends AppCompatActivity {
 
         txt_FanCount = findViewById(R.id.txt_fanCount);
         txt_FanCount.setText(Integer.toString(stTargetData.FanList.size()));
+
+        txt_heartCount = (TextView)findViewById(R.id.tv_heart);
+        String str = String.format("%,d", stTargetData.RecvGold  * -1);
+
+        txt_heartCount.setText(str);
     }
 
     private class UserFanListAdapter extends RecyclerView.Adapter<UserFanListAdapter.ViewHolder> {
@@ -215,6 +221,8 @@ public class UserFanActivity extends AppCompatActivity {
 
             int RecvCnt = stTargetData.arrFanList.get(position).RecvGold;
             holder.textCount.setText(Integer.toString(RecvCnt));
+
+            //holder.textheartCount.setText(Long.toString(stTargetData.arrFanData.get(i).RecvGold));
 
         }
 
@@ -333,6 +341,7 @@ public class UserFanActivity extends AppCompatActivity {
                 textRank = (TextView)itemView.findViewById(R.id.tv_gift_ranking);
                 textNick = (TextView)itemView.findViewById(R.id.tv_nickname);
                 textCount = (TextView)itemView.findViewById(R.id.tv_gift_count);
+
                 constraintLayout = itemView.findViewById(R.id.layout_fan);
             }
         }

@@ -133,7 +133,7 @@ public class MyPageActivity extends AppCompatActivity {
                 View view = LayoutInflater.from(mActivity).inflate(R.layout.rank_doc,null,false);
 
                 TextView mycoin = (TextView) view.findViewById(R.id.mycoin);
-                mycoin.setText("내가 획득한 총 코인 : " + mMyData.getPoint());
+                mycoin.setText(" "+mMyData.getPoint());
                 AlertDialog dialog = builder1.setView(view).create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                 dialog.show();

@@ -117,6 +117,12 @@ public class MainActivity extends AppCompatActivity {
     TextView txt_fan;
     TextView txt_board;
 
+    ImageView iv_heartCnt;
+    TextView txt_heartCnt;
+
+    ImageView iv_fanCnt;
+    TextView txt_fanCnt;
+
     //ImageButton ib_pcr_open;
     ImageButton ib_buy_jewel;
 
@@ -909,6 +915,20 @@ public class MainActivity extends AppCompatActivity {
 
         ib_home = findViewById(R.id.ib_home);
 
+
+
+        iv_heartCnt = findViewById(R.id.iv_heart_cnt);
+        iv_heartCnt.setVisibility(View.GONE);
+
+        txt_heartCnt = findViewById(R.id.tv_heart_cnt);
+        txt_heartCnt.setVisibility(View.GONE);
+
+        iv_fanCnt = findViewById(R.id.iv_fan_cnt);
+        iv_fanCnt.setVisibility(View.GONE);
+
+        txt_fanCnt = findViewById(R.id.tv_fan_cnt);
+        txt_fanCnt.setVisibility(View.GONE);
+
         //ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
         ib_home.setOnClickListener(new View.OnClickListener() {
@@ -918,6 +938,13 @@ public class MainActivity extends AppCompatActivity {
                 iv_myPage.setVisibility(View.VISIBLE);
                 logo.setVisibility(View.VISIBLE);
                 txt_title.setVisibility(TextView.GONE);
+
+
+                iv_heartCnt.setVisibility(View.GONE);
+                txt_heartCnt.setVisibility(View.GONE);
+                iv_fanCnt.setVisibility(View.GONE);
+                txt_fanCnt.setVisibility(View.GONE);
+
 
                 mMyData.SetCurFrag(0);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
@@ -964,6 +991,11 @@ public class MainActivity extends AppCompatActivity {
                 txt_title.setText("게시판");
                 mMyData.SetCurFrag(4);
 
+                iv_heartCnt.setVisibility(View.GONE);
+                txt_heartCnt.setVisibility(View.GONE);
+                iv_fanCnt.setVisibility(View.GONE);
+                txt_fanCnt.setVisibility(View.GONE);
+
                 if(boardFragment == null)
                     boardFragment = new BoardFragment();
                 else
@@ -985,6 +1017,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 iv_myPage.setVisibility(View.GONE);
                 logo.setVisibility(View.GONE);
+                iv_heartCnt.setVisibility(View.GONE);
+                txt_heartCnt.setVisibility(View.GONE);
+                iv_fanCnt.setVisibility(View.GONE);
+                txt_fanCnt.setVisibility(View.GONE);
+
+
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("즐겨찾기");
                 mMyData.SetCurFrag(1);
@@ -1019,6 +1057,11 @@ public class MainActivity extends AppCompatActivity {
                 CommonFunc.getInstance().SetChatAlarmVisible(false);
                 iv_myPage.setVisibility(View.GONE);
                 logo.setVisibility(View.GONE);
+                iv_heartCnt.setVisibility(View.GONE);
+                txt_heartCnt.setVisibility(View.GONE);
+                iv_fanCnt.setVisibility(View.GONE);
+                txt_fanCnt.setVisibility(View.GONE);
+
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("채팅 목록");
                 mMyData.SetCurFrag(2);
@@ -1063,6 +1106,18 @@ public class MainActivity extends AppCompatActivity {
                 CommonFunc.getInstance().SetFanAlarmVisible(false);
                 iv_myPage.setVisibility(View.GONE);
                 logo.setVisibility(View.GONE);
+
+                iv_heartCnt.setVisibility(View.VISIBLE);
+                txt_heartCnt.setVisibility(View.VISIBLE);
+                String str = String.format("%,d", mMyData.getRecvHoney()  * -1);
+
+                txt_heartCnt.setText(str);
+
+                iv_fanCnt.setVisibility(View.VISIBLE);
+                txt_fanCnt.setVisibility(View.VISIBLE);
+                txt_fanCnt.setText(Integer.toString(mMyData.arrMyFanList.size()));
+
+
 
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("내 팬");
