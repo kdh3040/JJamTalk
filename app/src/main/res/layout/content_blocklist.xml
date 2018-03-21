@@ -9,7 +9,7 @@
         android:id="@+id/Block_Profile"
         android:layout_width="70dp"
         android:layout_height="match_parent"
-        android:padding="2dp"
+        android:padding="7dp"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/image" />
 
@@ -25,10 +25,11 @@
     <Button
         android:id="@+id/btn_unblock"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
         android:layout_weight="1"
-        android:background="@drawable/purple_stroke_btn_bg"
-        android:text="차단 해제" />
+        android:background="@drawable/purple_btn_bg2"
+        android:text="차단 해제"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
