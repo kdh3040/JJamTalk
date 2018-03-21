@@ -27,11 +27,11 @@
         android:layout_marginLeft="10dp"
         android:gravity="bottom"
         android:maxLength="14"
-        android:textStyle="bold"
         android:text="ㅁㅁㅁ ㅁㅁㅁㅁ (20세)"
-
         android:textColor="@android:color/black"
-        android:textSize="18sp"
+
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iv_my_card"
         app:layout_constraintLeft_toRightOf="@+id/iv_my_card"
         app:layout_constraintTop_toTopOf="@+id/iv_my_card" />
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
         android:layout_marginTop="20dp"
-        android:background="@color/fabRipple"
+        android:background="@color/gray_light"
         android:gravity="right|center_vertical"
         android:maxLength="8"
         android:padding="10dp"
