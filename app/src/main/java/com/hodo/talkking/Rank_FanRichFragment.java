@@ -73,8 +73,9 @@ public class Rank_FanRichFragment extends Fragment {
                                     break;
                             }
 
-                            if(mCommon.getClickStatus() == false)
+                            if(mCommon.getClickStatus() == false) {
                                 mCommon.getUserData(getActivity(), stTargetData);
+                            }
                         }
                     }
 
