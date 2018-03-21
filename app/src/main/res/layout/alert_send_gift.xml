@@ -135,7 +135,7 @@
 
 
         android:id="@+id/HeartPop_text"
-        android:layout_width="18sp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
 
 

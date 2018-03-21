@@ -56,11 +56,12 @@
     <TextView
         android:id="@+id/board_write_date"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="16dp"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
         android:text="글쓴 날자"
         android:textColor="@android:color/darker_gray"
+        android:textSize="10sp"
         app:layout_constraintRight_toRightOf="@+id/divider_fan"
         app:layout_constraintTop_toTopOf="@+id/board_thumnail" />
 
@@ -81,14 +82,18 @@
     <Button
         android:id="@+id/board_delete"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/purple_btn_bg2"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/red_btn_bg_stroke"
-        android:visibility="invisible"
         android:text="삭제"
-        app:layout_constraintTop_toBottomOf="@+id/board_write_date"
+        android:textColor="@android:color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/board_thumnail"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/board_write_date" />
 
     <ImageButton
         android:id="@+id/board_report"
@@ -111,10 +116,10 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
+        android:background="@color/gray"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/board_msg"
-        app:srcCompat="@color/gray_light" />
+        app:layout_constraintTop_toBottomOf="@+id/board_msg" />
 
 
 

@@ -93,7 +93,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                         CommonFunc.getInstance().LastBoardWrite = null;
                     }
                 };
-                CommonFunc.getInstance().ShowDefaultPopup(BoardWriteActivity.this, listener, null, "게시판 글쓰기","작성한 글을 게시하시겠습니까?\n 10분에 한번 씩 작성할 수 있습니다.", "네", "취소" );
+                CommonFunc.getInstance().ShowDefaultPopup(BoardWriteActivity.this, listener, null, "게시판 글쓰기","작성한 글을 게시하시겠습니까?\n 도배방지를 위해 다음 글은 10분후에 쓰실 수 있습니다.", "네", "취소" );
 
             }
         });
