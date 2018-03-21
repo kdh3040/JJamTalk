@@ -14,11 +14,11 @@
         android:layout_height="0dp"
 
 
+        android:background="@drawable/purple_alpha_btn_bg"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/ChatRoom_name1"
-        app:layout_constraintTop_toBottomOf="@+id/ChatRoom_name1"
-        app:srcCompat="@drawable/purple_stroke_btn_bg" />
+        app:layout_constraintTop_toBottomOf="@+id/ChatRoom_name1" />
 
     <ImageView
         android:id="@+id/bg_gift2"
@@ -26,11 +26,11 @@
         android:layout_height="0dp"
 
 
-        android:visibility="visible"
+        android:background="@drawable/white_btn_bg"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/white_btn_bg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/gift_date"
@@ -70,12 +70,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:background="@drawable/purple_btn_bg2"
+        android:background="@drawable/purple_alpha_btn_bg"
         android:gravity="left"
         android:maxWidth="250dp"
         android:padding="6dp"
         android:text="메세지내용1"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         app:layout_constraintLeft_toLeftOf="@id/ChatRoom_name1"
         app:layout_constraintTop_toBottomOf="@id/ChatRoom_name1" />
 
@@ -254,7 +254,7 @@
         android:textColor="@color/gray"
         android:textSize="10sp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/bg_gift2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/bg_gift2" />
 
     <TextView
@@ -318,6 +318,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:paddingRight="6dp"
         android:text="1"
         android:textColor="@color/baseColor2"
         app:layout_constraintBottom_toTopOf="@+id/gift_date2"
