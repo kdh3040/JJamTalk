@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -50,6 +51,7 @@ import com.hodo.talkking.Util.CommonFunc;
 import com.hodo.talkking.Util.LocationFunc;
 import com.hodo.talkking.Util.NotiFunc;
 
+import static com.hodo.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -109,6 +111,9 @@ public class UserPageActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout refreshlayout;
     private  TargetLikeAdapter likeAdapter;
+
+    private FloatingActionButton btnFAB;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -698,6 +703,14 @@ if(mMyData.itemList.get(i) != 0)
         }
 
 
+
+        btnFAB = (FloatingActionButton)findViewById(R.id.btnFAB);
+        btnFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonFunc.getInstance().GoMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+            }
+        });
     }
 /*
     private void SetStickerImg() {
