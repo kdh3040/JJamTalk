@@ -164,14 +164,14 @@ public class UserFanActivity extends AppCompatActivity {
             holder.imgAlarm.setVisibility(View.GONE);
             holder.imgNew.setVisibility(View.GONE);
 
-            if(stTargetData.arrFanList.get(position).Check == 1)
+         /*   if(stTargetData.arrFanList.get(position).Check == 1)
             {
                 holder.imgNew.setVisibility(View.VISIBLE);
             }
             else if(stTargetData.arrFanList.get(position).Check == 2)
             {
                 holder.imgAlarm.setVisibility(View.VISIBLE);
-            }
+            }*/
 
             String i = stTargetData.arrFanList.get(position).Idx;
 
