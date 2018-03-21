@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -52,9 +53,14 @@ import com.hodo.talkking.R;
 import com.hodo.talkking.UserPageActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -204,39 +210,45 @@ public class CommonFunc {
             mActivity.startActivity(intent);
         }
 
-        for(int i = 0 ;i < tempUserData.arrFanList.size(); i++)
+        else
         {
-            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(tempUserData.arrFanList.get(i).Idx);
-            final FanData finalTempFanData = tempUserData.arrFanList.get(i);
-            final int finalI = i;
-            data.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
-                    tempUserData.arrFanData.put(finalTempFanData.Idx, DBData);
+            CommonFunc.getInstance().SortByRecvHeart(mMyData.mapChatTargetData.get(tempUserData));
 
-                    if( finalI == tempUserData.arrFanList.size() -1)
-                    {
-                        Intent intent = new Intent(mActivity, UserPageActivity.class);
-                        Bundle bundle = new Bundle();
+            for(int i = 0 ;i < tempUserData.arrFanList.size(); i++)
+            {
+                Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(tempUserData.arrFanList.get(i).Idx);
+                final FanData finalTempFanData = tempUserData.arrFanList.get(i);
+                final int finalI = i;
+                data.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                        tempUserData.arrFanData.put(finalTempFanData.Idx, DBData);
 
-                        bundle.putSerializable("Target", tempUserData);
-                        intent.putExtra("FanList", tempUserData.arrFanList);
-                        intent.putExtra("FanCount", tempUserData.FanCount);
+                        if( finalI == tempUserData.arrFanList.size() -1)
+                        {
+                            Intent intent = new Intent(mActivity, UserPageActivity.class);
+                            Bundle bundle = new Bundle();
 
-                        intent.putExtra("StarList", tempUserData.arrStarList);
-                        intent.putExtras(bundle);
+                            bundle.putSerializable("Target", tempUserData);
+                            intent.putExtra("FanList", tempUserData.arrFanList);
+                            intent.putExtra("FanCount", tempUserData.FanCount);
 
-                        mActivity.startActivity(intent);
+                            intent.putExtra("StarList", tempUserData.arrStarList);
+                            intent.putExtras(bundle);
+
+                            mActivity.startActivity(intent);
+                        }
                     }
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
+            }
         }
+
 
 
 
@@ -1581,4 +1593,38 @@ public class CommonFunc {
         System.exit(0);
     }
 
+
+    public void SortByRecvHeart(UserData stTargetData)
+    {
+        Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(stTargetData.FanList);
+        //tempDataMap = mMyData.arrMyFanDataList;
+        Iterator it = sortByValue(tempDataMap).iterator();
+
+        stTargetData.arrFanList.clear();
+        stTargetData.FanList.clear();
+        while(it.hasNext()) {
+            String temp = (String) it.next();
+            stTargetData.arrFanList.add(tempDataMap.get(temp));
+            stTargetData.FanList.put(temp, tempDataMap.get(temp));
+        }
+
+    }
+
+    public static List sortByValue(final Map map) {
+        List<String> list = new ArrayList();
+        list.addAll(map.keySet());
+        Collections.sort(list,new Comparator() {
+
+            public int compare(Object o1,Object o2) {
+                FanData g1 = (FanData)map.get(o1);
+                FanData g2 = (FanData)map.get(o2);
+
+                Object v1 = g1.RecvGold;
+                Object v2 = g2.RecvGold;
+                return ((Comparable) v2).compareTo(v1);
+            }
+        });
+        // Collections.reverse(list); // 주석시 오름차순
+        return list;
+    }
 }

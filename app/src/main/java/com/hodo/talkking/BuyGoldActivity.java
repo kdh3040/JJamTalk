@@ -204,7 +204,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         btn_10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               BuyGoldByGoogle(mMyData.skuGold[0]);
+                BuyGoldByGoogle(getApplicationContext(), mMyData.skuGold[0]);
             }
         });
 
@@ -212,7 +212,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         btn_30.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuyGoldByGoogle(mMyData.skuGold[1]);
+                BuyGoldByGoogle(getApplicationContext(), mMyData.skuGold[1]);
             }
         });
 
@@ -220,7 +220,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         btn_50.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuyGoldByGoogle(mMyData.skuGold[2]);
+                BuyGoldByGoogle(getApplicationContext(),mMyData.skuGold[2]);
             }
         });
 
@@ -228,7 +228,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         btn_100.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuyGoldByGoogle(mMyData.skuGold[3]);
+                BuyGoldByGoogle(getApplicationContext(),mMyData.skuGold[3]);
             }
         });
 
@@ -236,7 +236,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         btn_300.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuyGoldByGoogle(mMyData.skuGold[4]);
+                BuyGoldByGoogle(getApplicationContext(),mMyData.skuGold[4]);
             }
         });
 
@@ -244,7 +244,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         btn_500.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuyGoldByGoogle(mMyData.skuGold[5]);
+                BuyGoldByGoogle(getApplicationContext(),mMyData.skuGold[5]);
             }
         });
 
@@ -252,7 +252,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         btn_1000.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuyGoldByGoogle(mMyData.skuGold[6]);
+                BuyGoldByGoogle(getApplicationContext(),mMyData.skuGold[6]);
             }
         });
 
@@ -407,13 +407,25 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
     }
 
-    private void BuyGoldByGoogle(String tempStrGold)
+    private void BuyGoldByGoogle(Context context, String tempStrGold)
     {
         try {
+            if(mMyData.mService == null)
+            {
+                CommonFunc.getInstance().ShowToast(context, "결제에 실패하였습니다. 다시 시도해주세요.", true);
+                return;
+            }
             mMyData.buyIntentBundle = mMyData.mService.getBuyIntent(3, getPackageName(),
                     tempStrGold, "inapp", "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
+
         } catch (RemoteException e) {
             e.printStackTrace();
+        }
+
+        if(mMyData.buyIntentBundle == null)
+        {
+            CommonFunc.getInstance().ShowToast(context, "결제에 실패하였습니다. 다시 시도해주세요.", true);
+            return;
         }
 
         mMyData.pendingIntent = mMyData.buyIntentBundle.getParcelable("BUY_INTENT");

@@ -295,6 +295,8 @@ public class FanListFragment extends Fragment {
                         }
                         else
                         {
+                            CommonFunc.getInstance().SortByRecvHeart(mMyData.mapMyFanData.get(strTargetIdx));
+
                             for(int i = 0 ;i < mMyData.mapMyFanData.get(strTargetIdx).arrFanList.size(); i++)
                             {
                                 Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapMyFanData.get(strTargetIdx).arrFanList.get(i).Idx);
