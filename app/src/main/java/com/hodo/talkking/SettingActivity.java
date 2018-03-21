@@ -95,6 +95,13 @@ public class SettingActivity extends AppCompatActivity {
 
     private void SaveSettingData()
     {
+        
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("PrefSetting", getApplicationContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("Sound",SoundCheckBox.isChecked() );
+        editor.putBoolean("Vibe",VibrationCheckBox.isChecked() );
+        editor.commit();
+
         mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration(),  mSetting.IsAlarmSettingPop());
         mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration(), mSetting.IsAlarmSettingPop());
     }
@@ -150,14 +157,7 @@ public class SettingActivity extends AppCompatActivity {
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss (DialogInterface var1){
-                        mSetting.setAlarmSetting(SoundCheckBox.isChecked(), VibrationCheckBox.isChecked(), PopCheckBox.isChecked());
-
-
-                        SharedPreferences prefs = getApplicationContext().getSharedPreferences("PrefSetting", getApplicationContext().MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putBoolean("Sound",SoundCheckBox.isChecked() );
-                        editor.putBoolean("Vibe",VibrationCheckBox.isChecked() );
-                        editor.commit();
+                        SaveSettingData();
                     }
 
                 });

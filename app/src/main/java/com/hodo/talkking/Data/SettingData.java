@@ -16,10 +16,6 @@ public class SettingData {
     private int nAlarmSetting = 0;
     private int nViewSetting = 0;
     private boolean nRecvMsgReject = false;
-    private boolean nAlarmSetting_Sound = true;
-    private boolean nAlarmSetting_Vibration = true;
-    private boolean nAlarmSetting_Pop = true;
-
     public static SettingData getInstance()
     {
         if(_Instance == null)
@@ -31,31 +27,18 @@ public class SettingData {
     {
     }
 
-    public void setAlarmSetting(boolean sound, boolean vibration, boolean popup)
-    {
-        nAlarmSetting_Sound = sound;
-        nAlarmSetting_Vibration = vibration;
-        nAlarmSetting_Pop = popup;
-
-        mMyData.nAlarmSetting_Sound = sound;
-        mMyData.nAlarmSetting_Vibration = vibration;
-        mMyData.nAlarmSetting_Pop = popup;
-
-
-    }
-
     public boolean IsAlarmSettingSound()
     {
-        return nAlarmSetting_Sound;
+        return mMyData.nAlarmSetting_Sound;
     }
 
     public boolean IsAlarmSettingVibration()
     {
-        return nAlarmSetting_Vibration;
+        return mMyData.nAlarmSetting_Vibration;
     }
     public boolean IsAlarmSettingPop()
     {
-        return nAlarmSetting_Pop;
+        return mMyData.nAlarmSetting_Pop;
     }
 
     public void setRecvMsgRejectSetting(boolean recvMsgReject)
