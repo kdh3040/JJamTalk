@@ -359,9 +359,6 @@ public class ChatListFragment extends Fragment {
 
         public void moveChatPage(UserData user, int pos)
         {
-
-            CommonFunc.getInstance().setClickStatus(false);
-
             Intent intent = new Intent(getContext(),ChatRoomActivity.class);
             Bundle bundle = new Bundle();
 
@@ -369,11 +366,15 @@ public class ChatListFragment extends Fragment {
             bundle.putSerializable("Position", pos);
             intent.putExtras(bundle);
             startActivity(intent);
+
+            CommonFunc.getInstance().DismissLoadingPage();
+            CommonFunc.getInstance().setClickStatus(false);
         }
 
 
         public void getChatTargetData(final int position) {
 
+            CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
             CommonFunc.getInstance().setClickStatus(true);
             
             String str = mMyData.arrChatNameList.get(position);

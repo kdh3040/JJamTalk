@@ -203,7 +203,7 @@ public class CommonFunc {
 
     public void MoveUserPage(final Activity mActivity, final UserData tempUserData) {
 
-        CommonFunc.getInstance().setClickStatus(false);
+
 /*        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
             tempUserData.arrStarList.add(entry.getValue());
         }*/
@@ -226,6 +226,9 @@ public class CommonFunc {
             intent.putExtras(bundle);
 
             mActivity.startActivity(intent);
+
+            CommonFunc.getInstance().DismissLoadingPage();
+            CommonFunc.getInstance().setClickStatus(false);
         }
 
         else
@@ -256,6 +259,9 @@ public class CommonFunc {
                             intent.putExtras(bundle);
 
                             mActivity.startActivity(intent);
+
+                            CommonFunc.getInstance().DismissLoadingPage();
+                            CommonFunc.getInstance().setClickStatus(false);
                         }
                     }
 
@@ -274,6 +280,7 @@ public class CommonFunc {
     }
 
     public void getUserData(final Activity mActivity, final SimpleUserData Target) {
+        CommonFunc.getInstance().ShowLoadingPage(mActivity, "로딩중");
         CommonFunc.getInstance().setClickStatus(true);
 
         final String strTargetIdx = Target.Idx;

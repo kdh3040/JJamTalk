@@ -256,7 +256,7 @@ public class FanListFragment extends Fragment {
 
         public void moveFanPage(int position) {
 
-            CommonFunc.getInstance().setClickStatus(false);
+
 
             String i = mMyData.arrMyFanList.get(position).Idx;
 
@@ -267,11 +267,17 @@ public class FanListFragment extends Fragment {
             intent.putExtras(bundle);
 
             mContext.startActivity(intent);
+
+            CommonFunc.getInstance().DismissLoadingPage();
+            CommonFunc.getInstance().setClickStatus(false);
+
         }
 
 
         public void getMyfanData(final int position) {
+            CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
             CommonFunc.getInstance().setClickStatus(true);
+
             String i = mMyData.arrMyFanList.get(position).Idx;
 
             final String strTargetIdx = mMyData.arrMyFanDataList.get(i).Idx;

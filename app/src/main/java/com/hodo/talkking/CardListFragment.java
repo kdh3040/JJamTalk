@@ -253,7 +253,6 @@ public class CardListFragment extends Fragment {
 
         public void moveCardPage(int position)
         {
-            CommonFunc.getInstance().setClickStatus(false);
             final String i = mMyData.arrCardNameList.get(position);
             stTargetData = mMyData.mapMyCardData.get(mMyData.arrCarDataList.get(i).Idx);
             Intent intent = new Intent(mContext, UserPageActivity.class);
@@ -267,11 +266,16 @@ public class CardListFragment extends Fragment {
 
             intent.putExtras(bundle);
             startActivity(intent);
+
+            CommonFunc.getInstance().DismissLoadingPage();
+            CommonFunc.getInstance().setClickStatus(false);
+
             notifyDataSetChanged();
         }
 
 
         public void getMyCardData(final int position) {
+            CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
             CommonFunc.getInstance().setClickStatus(true);
             final String i = mMyData.arrCardNameList.get(position);
             final String strTargetIdx = mMyData.arrCarDataList.get(i).Idx;

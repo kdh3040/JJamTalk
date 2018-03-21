@@ -156,8 +156,6 @@ public class BoardFragment extends Fragment {
         // 글쓴이 페이지로 이동하는 함수
         public void moveWriterPage(UserData stTargetData)
         {
-            CommonFunc.getInstance().setClickStatus(false);
-
             Intent intent = new Intent(getContext(), UserPageActivity.class);
             Bundle bundle = new Bundle();
 
@@ -171,11 +169,16 @@ public class BoardFragment extends Fragment {
 
             startActivity(intent);
 
+            CommonFunc.getInstance().DismissLoadingPage();
+            CommonFunc.getInstance().setClickStatus(false);
+
         }
 
         // 글쓴이 데이터 받아오는 함수
         public void getBoardWriterData(final int position) {
             CommonFunc.getInstance().setClickStatus(true);
+            CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
+
             final String strTargetIdx = mBoardInstanceData.BoardList.get(position).GetDBData().Idx;
 
             if(strTargetIdx.equals(mMyData.getUserIdx()))

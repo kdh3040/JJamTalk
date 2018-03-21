@@ -238,7 +238,6 @@ public class UserFanActivity extends AppCompatActivity {
         }
 
         public void moveFanPage(int position) {
-            CommonFunc.getInstance().setClickStatus(false);
             String i = stTargetData.arrFanList.get(position).Idx;
 
             Intent intent = new Intent(mActivity, UserPageActivity.class);
@@ -248,11 +247,17 @@ public class UserFanActivity extends AppCompatActivity {
             intent.putExtras(bundle);
 
             mActivity.startActivity(intent);
+
+            CommonFunc.getInstance().DismissLoadingPage();
+            CommonFunc.getInstance().setClickStatus(false);
+
         }
 
 
         public void getMyfanData(final int position) {
+            CommonFunc.getInstance().ShowLoadingPage(getApplicationContext(), "로딩중");
             CommonFunc.getInstance().setClickStatus(true);
+
             String i = stTargetData.arrFanList.get(position).Idx;
 
             final String strTargetIdx = stTargetData.FanList.get(i).Idx;
