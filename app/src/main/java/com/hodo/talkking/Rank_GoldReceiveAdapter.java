@@ -118,7 +118,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
             case 1:
                 //   float Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Send.get(i).Lat, mMyData.arrUserMan_Send.get(i).Lon);
                 //  Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
-                holder.iv_honey_rank.setImageResource(R.drawable.heart_white);
+                holder.iv_honey_rank.setImageResource(R.drawable.heart_red);
                 String str = String.format("%,d", mMyData.arrUserMan_Recv_Age.get(i).RecvGold * -1);
 
                 holder.textView.setText(str);
@@ -132,7 +132,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
             case 2:
                 //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Send.get(i).Lat, mMyData.arrUserWoman_Send.get(i).Lon,"kilometer");
                 //  Log.d("Guide !!!! ", "Case 2 : "+ (int)Dist);
-                holder.iv_honey_rank.setImageResource(R.drawable.heart_white);
+                holder.iv_honey_rank.setImageResource(R.drawable.heart_red);
 
                 str = String.format("%,d", mMyData.arrUserWoman_Recv_Age.get(i).RecvGold * -1);
 
@@ -148,7 +148,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
             case 3:
                 //Log.d("Guide !!!! ", "Case 3");
                 //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
-                holder.iv_honey_rank.setImageResource(R.drawable.heart_white);
+                holder.iv_honey_rank.setImageResource(R.drawable.heart_red);
 
                 str = String.format("%,d", mMyData.arrUserAll_Recv_Age.get(i).RecvGold * -1);
                 holder.textView.setText(str);
