@@ -15,6 +15,8 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AlertDialog;
 
@@ -40,6 +42,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.hodo.talkking.BoardFragment;
+import com.hodo.talkking.CardListFragment;
+import com.hodo.talkking.ChatListFragment;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
@@ -47,6 +52,7 @@ import com.hodo.talkking.Data.SimpleChatData;
 import com.hodo.talkking.Data.SimpleUserData;
 import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
+import com.hodo.talkking.FanListFragment;
 import com.hodo.talkking.Firebase.FirebaseData;
 import com.hodo.talkking.MainActivity;
 import com.hodo.talkking.R;
@@ -64,6 +70,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
  * Created by woong on 2018-01-05.
@@ -1637,5 +1645,167 @@ public class CommonFunc {
         // Collections.reverse(list); // 주석시 오름차순
         return list;
     }
+
+    CardListFragment.CardListAdapter UpdateCardAdapter = null;
+    public void RefreshCardData(CardListFragment.CardListAdapter updateBoardAdapter) {
+
+        UpdateCardAdapter = updateBoardAdapter;
+
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+        for(int i = 0; i < mMyData.arrCardNameList.size(); i++)
+        {
+            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.arrCardNameList.get(i));
+            final int finalI = i;
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                    mMyData.arrCarDataList.put(mMyData.arrCardNameList.get(finalI), DBData);
+                    UpdateCardAdapter.notifyDataSetChanged();
+                    CommonFunc.getInstance().DismissLoadingPage();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    private void SortByRecvHeart()
+    {
+        Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(mMyData.arrMyFanRecvList);
+        //tempDataMap = mMyData.arrMyFanDataList;
+        Iterator it = sortByValue(tempDataMap).iterator();
+        mMyData.arrMyFanList.clear();
+        while(it.hasNext()) {
+            String temp = (String) it.next();
+            mMyData.arrMyFanList.add(tempDataMap.get(temp));
+        }
+    }
+
+    FanListFragment.MyFanListAdapter UpdateFanAdapter = null;
+    public void RefreshFanData(FanListFragment.MyFanListAdapter updateBoardAdapter) {
+
+        SortByRecvHeart();
+
+        UpdateFanAdapter = updateBoardAdapter;
+
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+        for(int i = 0; i < mMyData.arrMyFanList.size(); i++)
+        {
+            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.arrMyFanList.get(i).Idx);
+            final int finalI = i;
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                    mMyData.arrMyFanDataList.put(mMyData.arrMyFanList.get(finalI).Idx, DBData);
+                    UpdateFanAdapter.notifyDataSetChanged();
+                    CommonFunc.getInstance().DismissLoadingPage();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+    }
+
+
+
+    private void SortByChatDate()
+    {
+        Map<String, SimpleChatData> tempDataMap = new LinkedHashMap<String, SimpleChatData>(mMyData.arrChatDataList);
+        //tempDataMap = mMyData.arrMyFanDataList;
+        Iterator it = sortByDate(tempDataMap).iterator();
+        mMyData.arrChatDataList.clear();
+        mMyData.arrChatNameList.clear();
+        while(it.hasNext()) {
+            String temp = (String) it.next();
+            System.out.println(temp + " = " + mMyData.arrChatDataList.get(temp));
+            mMyData.arrChatDataList.put(temp, tempDataMap.get(temp));
+            mMyData.arrChatNameList.add(tempDataMap.get(temp).ChatRoomName);
+
+        }
+    }
+
+    public static List sortByDate(final Map map) {
+        List<String> list = new ArrayList();
+        list.addAll(map.keySet());
+        Collections.sort(list,new Comparator() {
+
+            public int compare(Object o1,Object o2) {
+                SimpleChatData g1 = (SimpleChatData)map.get(o1);
+                SimpleChatData g2 = (SimpleChatData)map.get(o2);
+
+                Object v1 = g1.Date;
+                Object v2 = g2.Date;
+                return ((Comparable) v2).compareTo(v1);
+            }
+        });
+        // Collections.reverse(list); // 주석시 오름차순
+        return list;
+    }
+
+
+    ChatListFragment.ChatListAdapter UpdateChatAdapter = null;
+    public void RefreshChatListData(ChatListFragment.ChatListAdapter updateBoardAdapter) {
+
+        SortByChatDate();
+
+        UpdateChatAdapter = updateBoardAdapter;
+        String strTargetIdx = null;
+
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+        for(int i = 0; i < mMyData.arrChatNameList.size(); i++)
+        {
+            final String str = mMyData.arrChatNameList.get(i);
+            String[] strIdx = mMyData.arrChatDataList.get(str).ChatRoomName.split("_");
+
+            if(strIdx[0].equals(mMyData.getUserIdx()))
+            {
+                strTargetIdx = strIdx[1];
+            }
+            else
+            {
+                strTargetIdx = strIdx[0];
+            }
+
+            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(strTargetIdx);
+            final int finalI = i;
+            final String finalStrTargetIdx = str;
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    SimpleUserData tempDB = dataSnapshot.getValue(SimpleUserData.class);
+                    SimpleChatData DBData = new SimpleChatData();
+                    DBData = mMyData.arrChatDataList.get(finalStrTargetIdx);
+                    DBData.Age = tempDB.Age;
+                    DBData.Img = tempDB.Img;
+                    DBData.Gender = tempDB.Gender;
+                    DBData.Nick = tempDB.NickName;
+                    DBData.Grade = tempDB.Grade;
+                    DBData.BestItem = tempDB.BestItem;
+                    mMyData.arrChatDataList.put(finalStrTargetIdx, DBData);
+                    UpdateChatAdapter.notifyDataSetChanged();
+
+                    CommonFunc.getInstance().DismissLoadingPage();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+    }
+
 }
 

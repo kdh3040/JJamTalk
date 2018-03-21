@@ -123,8 +123,9 @@ public class FanListFragment extends Fragment {
 
 
         if (fragView!= null) {
-            SortByRecvHeart();
-            fanListAdapter.notifyDataSetChanged();
+            CommonFunc.getInstance().RefreshFanData(fanListAdapter);
+           // SortByRecvHeart();
+            //fanListAdapter.notifyDataSetChanged();
 
         }
         else
@@ -140,7 +141,7 @@ public class FanListFragment extends Fragment {
         return fragView;
     }
 
-    private class MyFanListAdapter extends RecyclerView.Adapter<MyFanListAdapter.ViewHolder> {
+    public class MyFanListAdapter extends RecyclerView.Adapter<MyFanListAdapter.ViewHolder> {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_my_fan, parent, false);
@@ -200,7 +201,12 @@ public class FanListFragment extends Fragment {
 
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrMyFanDataList.get(i).Grade]);
 
-            holder.textNick.setText(mMyData.arrMyFanDataList.get(i).NickName);
+            holder.textNick.setText(mMyData.arrMyFanDataList.get(i).NickName + " (" + mMyData.arrMyFanDataList.get(i).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");ata.arrCardNameList.get(i).Age + "세");
+            if(mMyData.arrMyFanDataList.get(i).Gender.equals("여자"))
+                holder.textNick.setTextColor(0xffda1d81);
+            else
+                holder.textNick.setTextColor(0xff005baf);
+
 
             if(position < 3)
             {

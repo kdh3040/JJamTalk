@@ -30,6 +30,7 @@
         android:text="글쓴이"
         android:textColor="@color/black"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/board_thumnail"
         app:layout_constraintTop_toTopOf="@+id/board_thumnail" />
 
