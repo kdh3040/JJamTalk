@@ -82,7 +82,7 @@ public class CardListFragment extends Fragment {
 
 
         if (fragView!= null) {
-            CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
+          /*  CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");*/
             CommonFunc.getInstance().RefreshCardData(cardListAdapter);
             //cardListAdapter.notifyDataSetChanged();
         }
