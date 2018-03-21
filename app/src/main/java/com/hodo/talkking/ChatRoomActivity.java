@@ -686,9 +686,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                     else
                     {
 
-
-                        viewHolder.image_profile.setVisibility(TextView.GONE);
-                        viewHolder.targetName.setVisibility(TextView.GONE);
                         viewHolder.date1.setVisibility(TextView.GONE);
                         viewHolder.send_Img1.setVisibility(TextView.GONE);
                         viewHolder.send_Img1_date.setVisibility(TextView.GONE);
