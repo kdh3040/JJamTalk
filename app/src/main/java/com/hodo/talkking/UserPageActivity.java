@@ -112,7 +112,7 @@ public class UserPageActivity extends AppCompatActivity {
     private SwipeRefreshLayout refreshlayout;
     private  TargetLikeAdapter likeAdapter;
 
-    private FloatingActionButton btnFAB;
+    private ImageButton btnFAB;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -704,7 +704,7 @@ if(mMyData.itemList.get(i) != 0)
 
 
 
-        btnFAB = (FloatingActionButton)findViewById(R.id.btnFAB);
+        btnFAB = (ImageButton)findViewById(R.id.btnFAB);
         btnFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
