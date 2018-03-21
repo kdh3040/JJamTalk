@@ -129,8 +129,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     builder.setSound(uri);
                 }
 
-                if (!pref.getBoolean("Vibe", bVibe)  ) {
-                    builder.setVibrate(new long[] {1000});
+                if (pref.getBoolean("Vibe", bVibe)  ) {
+                    builder.setVibrate(new long[] {0, 1000});
                 }
 
 
@@ -166,8 +166,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         builder.setSound(uri);
                     }
 
-                    if (!pref.getBoolean("Vibe", bVibe)  ) {
-                        builder.setVibrate(new long[] {1000});
+                    if (pref.getBoolean("Vibe", bVibe)  ) {
+                        builder.setVibrate(new long[] {0, 1000});
                     }
 
                     NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -199,8 +199,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         builder.setSound(uri);
                     }
 
-                    if (!pref.getBoolean("Vibe", bVibe)  ) {
-                        builder.setVibrate(new long[] {1000});
+                    if (pref.getBoolean("Vibe", bVibe)  ) {
+                        builder.setVibrate(new long[] {0, 1000});
                     }
 
 
@@ -224,10 +224,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     builder.setSound(uri);
                 }
 
-                if (!pref.getBoolean("Vibe", bVibe)  ) {
-                    builder.setVibrate(new long[] {1000});
+                if (pref.getBoolean("Vibe", bVibe)  ) {
+                    builder.setVibrate(new long[] {0, 1000});
                 }
-
 
                 NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 nm.notify(1234, builder.build());
