@@ -255,7 +255,7 @@ public class UserFanActivity extends AppCompatActivity {
 
 
         public void getMyfanData(final int position) {
-            CommonFunc.getInstance().ShowLoadingPage(getApplicationContext(), "로딩중");
+            CommonFunc.getInstance().ShowLoadingPage(mActivity, "로딩중");
             CommonFunc.getInstance().setClickStatus(true);
 
             String i = stTargetData.arrFanList.get(position).Idx;
@@ -263,6 +263,7 @@ public class UserFanActivity extends AppCompatActivity {
             final String strTargetIdx = stTargetData.FanList.get(i).Idx;
             if(strTargetIdx.equals(mMyData.getUserIdx()))
             {
+                CommonFunc.getInstance().DismissLoadingPage();
                 CommonFunc.getInstance().setClickStatus(false);
                 CommonFunc.getInstance().ShowToast(getApplicationContext(), "본인 입니다", false);
             }

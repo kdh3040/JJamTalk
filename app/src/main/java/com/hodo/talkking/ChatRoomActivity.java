@@ -382,7 +382,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        CommonFunc.getInstance().ShowLoadingPage(getApplicationContext(), "로딩중");
+                        CommonFunc.getInstance().ShowLoadingPage(mActivity, "로딩중");
                         CommonFunc.getInstance().setClickStatus(true);
 
                         Intent intent = new Intent(getApplicationContext(), UserPageActivity.class);

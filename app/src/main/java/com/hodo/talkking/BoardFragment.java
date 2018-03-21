@@ -183,6 +183,7 @@ public class BoardFragment extends Fragment {
 
             if(strTargetIdx.equals(mMyData.getUserIdx()))
             {
+                CommonFunc.getInstance().DismissLoadingPage();
                 CommonFunc.getInstance().setClickStatus(false);
                 CommonFunc.getInstance().ShowToast(getContext(), "글쓴이가 본인 입니다", false);
             }
@@ -238,6 +239,7 @@ public class BoardFragment extends Fragment {
                                             }
                                             else {
                                                 CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
+                                                CommonFunc.getInstance().DismissLoadingPage();
                                                 CommonFunc.getInstance().setClickStatus(false);
                                             }
 
