@@ -150,7 +150,7 @@ public class UserPageActivity extends AppCompatActivity {
         //getTargetfanData();
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
-        txtProfile.setText(stTargetData.NickName + ",  " + stTargetData.Age+"세");
+        txtProfile.setText(stTargetData.NickName + "(" + stTargetData.Age+"세)");
 
         //View Divide_Memo = (View)findViewById(R.id.Divide_Memo);
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
