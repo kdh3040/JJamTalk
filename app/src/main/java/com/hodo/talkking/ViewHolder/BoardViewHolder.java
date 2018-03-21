@@ -85,7 +85,7 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
         {
             if(simpleUserData.Idx.equals(mMyData.getUserIdx()))
             {
-                BoardWriter.setText(mMyData.getUserNick());
+                BoardWriter.setText(mMyData.getUserNick()  + " (" + mMyData.getUserAge() + "세 )");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
                 if(mMyData.getUserGender().equals("여자"))
                     BoardWriter.setTextColor(0xffda1d81);
                 else
@@ -112,7 +112,7 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
             }
             else
             {
-                BoardWriter.setText(simpleUserData.NickName);
+                BoardWriter.setText(simpleUserData.NickName+ " (" + simpleUserData.Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
                 if(simpleUserData.Gender.equals("여자"))
                     BoardWriter.setTextColor(0xffda1d81);
                 else

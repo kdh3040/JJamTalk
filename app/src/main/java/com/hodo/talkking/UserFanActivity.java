@@ -182,7 +182,12 @@ public class UserFanActivity extends AppCompatActivity {
                     .thumbnail(0.1f)
                     .into(holder.img);
 
-            holder.textNick.setText(stTargetData.arrFanData.get(i).NickName);
+            holder.textNick.setText(stTargetData.arrFanData.get(i).NickName+ " (" + stTargetData.arrFanData.get(i).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");ata.arrCardNameList.get(i).Age + "세");
+
+            if(stTargetData.arrFanData.get(i).Gender.equals("여자"))
+                holder.textNick.setTextColor(0xffda1d81);
+            else
+                holder.textNick.setTextColor(0xff005baf);
 
             if(position < 3)
             {

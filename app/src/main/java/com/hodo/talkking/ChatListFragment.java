@@ -120,8 +120,9 @@ public class ChatListFragment extends Fragment {
 
 
         if (fragView!= null) {
-            SortByChatDate();
-            mAdapter.notifyDataSetChanged();
+            CommonFunc.getInstance().RefreshChatListData(mAdapter);
+           /* SortByChatDate();
+            mAdapter.notifyDataSetChanged();*/
         }
         else
         {
@@ -180,7 +181,7 @@ public class ChatListFragment extends Fragment {
         return list;
     }
 
-    private class ChatListAdapter extends RecyclerView.Adapter<ChatListViewHolder> {
+    public class ChatListAdapter extends RecyclerView.Adapter<ChatListViewHolder> {
         @Override
         public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.content_chat_list,parent,false);
@@ -306,7 +307,17 @@ public class ChatListFragment extends Fragment {
             }
 
 
-            holder.nickname.setText(mMyData.arrChatDataList.get(str).Nick);
+            holder.nickname.setText(mMyData.arrChatDataList.get(str).Nick + " (" + mMyData.arrChatDataList.get(str).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
+
+            if(mMyData.arrChatDataList.get(str).Gender == null || mMyData.arrChatDataList.get(str).Gender.equals(""))
+            {
+                int asd= 0;
+                asd++;
+            }
+            if(mMyData.arrChatDataList.get(str).Gender.equals("여자"))
+                holder.nickname.setTextColor(0xffda1d81);
+            else
+                holder.nickname.setTextColor(0xff005baf);
 
             if(mMyData.arrChatDataList.get(str).Check == 0)
             {
@@ -401,7 +412,7 @@ public class ChatListFragment extends Fragment {
 
                         if(mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size() == 0)
                         {
-                            RefreshUserChatSimpleData(tempUserData, position);
+                            //RefreshUserChatSimpleData(tempUserData, position);
                             moveChatPage(mMyData.mapChatTargetData.get(strTargetIdx), position);
                             notifyDataSetChanged();
                         }
@@ -425,7 +436,7 @@ public class ChatListFragment extends Fragment {
 
                                             if( finalI == mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size() -1)
                                             {
-                                                RefreshUserChatSimpleData(tempUserData, position);
+                                               // RefreshUserChatSimpleData(tempUserData, position);
                                                 moveChatPage(mMyData.mapChatTargetData.get(strTargetIdx), position);
                                                 notifyDataSetChanged();
                                             }

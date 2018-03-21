@@ -19,6 +19,8 @@ public class SimpleChatData implements Serializable,Parcelable {
     public String WriterIdx;
     public String Idx;
     public String Img;
+    public String Age;
+    public String Gender;
     public long Date;
 
     public int Grade;
@@ -44,6 +46,8 @@ public class SimpleChatData implements Serializable,Parcelable {
         WriterIdx = in.readString();
         Idx = in.readString();
         Img = in.readString();
+        Age = in.readString();
+        Gender = in.readString();
         Date = in.readLong();
         Grade = in.readInt();
         BestItem = in.readInt();
@@ -76,6 +80,8 @@ public class SimpleChatData implements Serializable,Parcelable {
         parcel.writeString(WriterIdx);
         parcel.writeString(Idx);
         parcel.writeString(Img);
+        parcel.writeString(Age);
+        parcel.writeString(Gender);
         parcel.writeLong(Date);
         parcel.writeInt(Grade);
         parcel.writeInt(BestItem);

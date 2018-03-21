@@ -1115,7 +1115,7 @@ public class MyData {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 int saa = 0;
-                SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
+                final SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
                 if (!arrChatNameList.contains(SendList.ChatRoomName)) {
 
                     if(!SendList.WriterIdx.equals(getUserIdx()))
@@ -1124,16 +1124,55 @@ public class MyData {
                     arrChatNameList.add(SendList.ChatRoomName);
                     arrChatDataList.put(SendList.ChatRoomName, SendList);
 
-                    if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
-                        if (GetCurFrag() == 2) {
-                            Fragment frg = null;
-                            frg = mFragmentMng.findFragmentByTag("ChatListFragment");
-                            final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                            ft.detach(frg);
-                            ft.attach(frg);
-                            ft.commit();
-                        }
+
+                    final String str =SendList.ChatRoomName;
+                    String[] strIdx = SendList.ChatRoomName.split("_");
+
+                    String strTargetIdx = null;
+
+                    if(strIdx[0].equals(getUserIdx()))
+                    {
+                        strTargetIdx = strIdx[1];
                     }
+                    else
+                    {
+                        strTargetIdx = strIdx[0];
+                    }
+
+                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(strTargetIdx);
+                    final String finalStrTargetIdx = str;
+                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            SimpleUserData tempDB = dataSnapshot.getValue(SimpleUserData.class);
+                            SimpleChatData DBData = new SimpleChatData();
+                            DBData = arrChatDataList.get(finalStrTargetIdx);
+                            DBData.Age = tempDB.Age;
+                            DBData.Img = tempDB.Img;
+                            DBData.Gender = tempDB.Gender;
+                            DBData.Nick = tempDB.NickName;
+                            DBData.Grade = tempDB.Grade;
+                            DBData.BestItem = tempDB.BestItem;
+                            arrChatDataList.put(finalStrTargetIdx, DBData);
+
+                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                                if (GetCurFrag() == 2) {
+                                    Fragment frg = null;
+                                    frg = mFragmentMng.findFragmentByTag("ChatListFragment");
+                                    final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                                    ft.detach(frg);
+                                    ft.attach(frg);
+                                    ft.commit();
+                                }
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
                 }
                 //arrCardList.add(CardList);
             }
@@ -1142,66 +1181,71 @@ public class MyData {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 int saa = 0;
 
-
-                SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
+                final SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
                 arrChatDataList.put(SendList.ChatRoomName, SendList);
 
                 if(!SendList.WriterIdx.equals(getUserIdx()))
                     CommonFunc.getInstance().SetChatAlarmVisible(true);
 
-                ActivityManager activityManager = (ActivityManager) mContext.getSystemService(ACTIVITY_SERVICE);
-                List<ActivityManager.RunningTaskInfo> info = activityManager.getRunningTasks(1);
+                final String str =SendList.ChatRoomName;
+                String[] strIdx = SendList.ChatRoomName.split("_");
 
+                String strTargetIdx = null;
 
-                if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
-
-   /*                 if(info.get(0).topActivity.getClassName().equals(ChatRoomActivity.class.getName()) == false)
-                    {
-                        CommonFunc.getInstance().PlayVibration(mContext);
-                        CommonFunc.getInstance().PlayAlramSound(mContext, R.raw.katalk);
-
-        *//*                if(GetCurFrag() == 2 || GetCurFrag() == 5)
-                        {
-
-                        }
-                        else
-                        {
-                            if(SendList.SendHeart == 0)
-                                CommonFunc.getInstance().ShowMsgPopup(mContext, SendList);
-                            else
-                                CommonFunc.getInstance().ShowGiftPopup(mContext, SendList);
-                        }*//*
-
-                    }
-*/
-                    if (GetCurFrag() == 2) {
-                        Fragment frg = null;
-                        frg = mFragmentMng.findFragmentByTag("ChatListFragment");
-                        final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                        ft.detach(frg);
-                        ft.attach(frg);
-                        ft.commit();
-                    } else if (GetCurFrag() == 5) {
-                        SendList.Check = 1;
-                        arrChatDataList.put(SendList.ChatRoomName, SendList);
-                    }
+                if(strIdx[0].equals(getUserIdx()))
+                {
+                    strTargetIdx = strIdx[1];
                 }
+                else
+                {
+                    strTargetIdx = strIdx[0];
+                }
+
+                Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(strTargetIdx);
+                final String finalStrTargetIdx = str;
+                data.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        SimpleUserData tempDB = dataSnapshot.getValue(SimpleUserData.class);
+                        SimpleChatData DBData = new SimpleChatData();
+                        DBData = arrChatDataList.get(finalStrTargetIdx);
+                        DBData.Age = tempDB.Age;
+                        DBData.Img = tempDB.Img;
+                        DBData.Gender = tempDB.Gender;
+                        DBData.Nick = tempDB.NickName;
+                        DBData.Grade = tempDB.Grade;
+                        DBData.BestItem = tempDB.BestItem;
+                        arrChatDataList.put(finalStrTargetIdx, DBData);
+
+                        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+
+                            if (GetCurFrag() == 2) {
+                                Fragment frg = null;
+                                frg = mFragmentMng.findFragmentByTag("ChatListFragment");
+                                final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                                ft.detach(frg);
+                                ft.attach(frg);
+                                ft.commit();
+                            } else if (GetCurFrag() == 5) {
+                                SendList.Check = 1;
+                                arrChatDataList.put(SendList.ChatRoomName, SendList);
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+
+
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-       /*         int saa = 0;
-                SendData SendList = dataSnapshot.getValue(SendData.class);
-                int index = arrSendNameList.indexOf(SendList.strSendName);
-                arrSendNameList.remove(index);
-
-                for (Iterator<SendData> it = arrSendDataList.iterator(); it.hasNext(); ) {
-                    String value = it.next().strSendName;
-
-                    if (value.equals(SendList.strSendName)) {
-                        it.remove();
-                    }
-                }*/
 
             }
 

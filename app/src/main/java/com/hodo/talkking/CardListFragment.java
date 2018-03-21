@@ -82,7 +82,9 @@ public class CardListFragment extends Fragment {
 
 
         if (fragView!= null) {
-            cardListAdapter.notifyDataSetChanged();
+            CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
+            CommonFunc.getInstance().RefreshCardData(cardListAdapter);
+            //cardListAdapter.notifyDataSetChanged();
         }
         else
         {
@@ -90,6 +92,7 @@ public class CardListFragment extends Fragment {
             card_recylerview = fragView.findViewById(R.id.cardlist_recy);
             card_recylerview.setAdapter(cardListAdapter);
             card_recylerview.setLayoutManager(new LinearLayoutManager(getContext()));
+
             cardListAdapter.notifyDataSetChanged();
             mContext = getContext();
         }
@@ -98,7 +101,7 @@ public class CardListFragment extends Fragment {
         return fragView;
     }
 
-    private class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHolder> {
+    public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHolder> {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_my_card,parent,false);
@@ -149,9 +152,13 @@ public class CardListFragment extends Fragment {
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrCarDataList.get(i).Grade]);
 
 
-            holder.textView.setText(mMyData.arrCarDataList.get(i).NickName);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
+            holder.textView.setText(mMyData.arrCarDataList.get(i).NickName + " (" + mMyData.arrCarDataList.get(i).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
 
-            holder.textView.setText(mMyData.arrCarDataList.get(i).NickName);// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
+            if(mMyData.arrCarDataList.get(i).Gender.equals("여자"))
+                holder.textView.setTextColor(0xffda1d81);
+            else
+                holder.textView.setTextColor(0xff005baf);
+
             holder.constraintLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -291,7 +298,7 @@ public class CardListFragment extends Fragment {
 
                         if(mMyData.mapMyCardData.get(strTargetIdx).arrFanList.size() == 0)
                         {
-                            RefreshUserCardSimpleData(tempUserData, position);
+                            //RefreshUserCardSimpleData(tempUserData, position);
                             moveCardPage(position);
                         }
                         else
@@ -313,7 +320,7 @@ public class CardListFragment extends Fragment {
 
                                             if( finalI == mMyData.mapMyCardData.get(strTargetIdx).arrFanList.size() -1)
                                             {
-                                                RefreshUserCardSimpleData(tempUserData, position);
+                                             //   RefreshUserCardSimpleData(tempUserData, position);
                                                 moveCardPage(position);
                                             }
                                         }
