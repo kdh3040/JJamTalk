@@ -90,7 +90,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
 
             //  남자 탐색
             case 1:
-                holder.textView.setText(mMyData.arrUserMan_New_Age.get(i).NickName + ", " + mMyData.arrUserMan_New_Age.get(i).Age);
+                holder.textView.setText("(" + mMyData.arrUserMan_New_Age.get(i).Age+"세)"+mMyData.arrUserMan_New_Age.get(i).NickName);
 
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_New_Age.get(i).Img)
@@ -100,7 +100,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
                 break;
             // 여자 탐색
             case 2:
-                holder.textView.setText(mMyData.arrUserWoman_New_Age.get(i).NickName + ", " + mMyData.arrUserWoman_New_Age.get(i).Age);
+                holder.textView.setText("(" + mMyData.arrUserWoman_New_Age.get(i).Age+"세)"+mMyData.arrUserWoman_New_Age.get(i).NickName+mMyData.arrUserWoman_New_Age.get(i).NickName);
 
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_New_Age.get(i).Img)
@@ -111,7 +111,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
             case 0:
             case 3:
                 //Log.d("Guide !!!! ", "Case 3");
-                holder.textView.setText(mMyData.arrUserAll_New_Age.get(i).NickName + ", " + mMyData.arrUserAll_New_Age.get(i).Age);
+                holder.textView.setText("(" + mMyData.arrUserAll_New_Age.get(i).Age+"세)"+mMyData.arrUserAll_New_Age.get(i).NickName);
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_New_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
