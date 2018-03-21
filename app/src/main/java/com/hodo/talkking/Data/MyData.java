@@ -1401,13 +1401,16 @@ public class MyData {
         strMemo = memo.toString();
     }
 
-    public void setSettingData(int SearchMode, int ViewMode, boolean recvMsgReject, boolean alarmSetting_Sound, boolean alarmSetting_Vibration, boolean alarmSetting_Popup ) {
+    public void setSettingData(int SearchMode, int ViewMode, boolean recvMsgReject ) {
         nSearchMode = SearchMode;
+        nViewMode = ViewMode;
+        nRecvMsgReject = recvMsgReject;
+    }
+
+    public void setAlarmSettingData(boolean alarmSetting_Sound, boolean alarmSetting_Vibration, boolean alarmSetting_Popup ) {
         nAlarmSetting_Sound = alarmSetting_Sound;
         nAlarmSetting_Vibration = alarmSetting_Vibration;
         nAlarmSetting_Pop = alarmSetting_Popup;
-        nViewMode = ViewMode;
-        nRecvMsgReject = recvMsgReject;
     }
 
     public void getGiftData(String Idx) {
