@@ -2162,76 +2162,74 @@ public class MyData {
 
                     }
                 });
+            }
 
-
-                data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("RecvGold");
-                data.runTransaction(new Transaction.Handler() {
-                    @Override
-                    public Transaction.Result doTransaction(MutableData mutableData) {
-                        Long index = mutableData.getValue(Long.class);
-                        if (index == null) {
-                            return Transaction.success(mutableData);
-                        }
-
-                        index -= SendCount;
-                        mutableData.setValue(index);
-
-                        // mutableData.setValue(index);
+            FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+            DatabaseReference data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("RecvGold");
+            data.runTransaction(new Transaction.Handler() {
+                @Override
+                public Transaction.Result doTransaction(MutableData mutableData) {
+                    Long index = mutableData.getValue(Long.class);
+                    if (index == null) {
                         return Transaction.success(mutableData);
                     }
 
-                    @Override
-                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                    index -= SendCount;
+                    mutableData.setValue(index);
 
-                        stTargetData.RecvGold = dataSnapshot.getValue(Long.class);
+                    // mutableData.setValue(index);
+                    return Transaction.success(mutableData);
+                }
 
-                        for(int i = 0; i < arrUserAll_Recv_Age.size(); i++)
+                @Override
+                public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                    stTargetData.RecvGold = dataSnapshot.getValue(Long.class);
+
+                    for(int i = 0; i < arrUserAll_Recv_Age.size(); i++)
+                    {
+                        if(arrUserAll_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                            arrUserAll_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
+                            break;
+                        }
+                    }
+
+                    if(stTargetData.Gender.equals("여자"))
+                    {
+                        for(int i = 0; i < arrUserWoman_Recv_Age.size(); i++)
                         {
-                            if(arrUserAll_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserAll_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
+                            if(arrUserWoman_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                arrUserWoman_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
                                 break;
                             }
                         }
-
-                        if(stTargetData.Gender.equals("여자"))
-                        {
-                            for(int i = 0; i < arrUserWoman_Recv_Age.size(); i++)
-                            {
-                                if(arrUserWoman_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                    arrUserWoman_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            for(int i = 0; i < arrUserMan_Recv_Age.size(); i++)
-                            {
-                                if(arrUserMan_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                    arrUserMan_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
-                                    break;
-                                }
-                            }
-                        }
-
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference table;
-                        table = database.getReference("User/" + stTargetData.Idx);
-
-                        Map<String, Object> updateFanCountMap = new HashMap<>();
-                        updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
-                        table.updateChildren(updateFanCountMap);
-
-                        table = database.getReference("SimpleData/" + stTargetData.Idx);
-
-                        updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
-                        table.updateChildren(updateFanCountMap);
-
                     }
-                });
+                    else
+                    {
+                        for(int i = 0; i < arrUserMan_Recv_Age.size(); i++)
+                        {
+                            if(arrUserMan_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                                arrUserMan_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
+                                break;
+                            }
+                        }
+                    }
 
-            }
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference table;
+                    table = database.getReference("User/" + stTargetData.Idx);
 
+                    Map<String, Object> updateFanCountMap = new HashMap<>();
+                    updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
+                    table.updateChildren(updateFanCountMap);
+
+                    table = database.getReference("SimpleData/" + stTargetData.Idx);
+
+                    updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
+                    table.updateChildren(updateFanCountMap);
+
+                }
+            });
 
         }
 

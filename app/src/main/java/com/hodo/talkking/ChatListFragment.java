@@ -408,6 +408,8 @@ public class ChatListFragment extends Fragment {
 
                         else
                         {
+                            CommonFunc.getInstance().SortByRecvHeart(mMyData.mapChatTargetData.get(strTargetIdx));
+
                             for(int i = 0 ;i < mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size(); i++)
                             {
                                 Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.get(i).Idx);

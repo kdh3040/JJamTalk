@@ -213,6 +213,8 @@ public class BoardFragment extends Fragment {
                             }
                             else
                             {
+                                CommonFunc.getInstance().SortByRecvHeart(_BoardWriterData);
+
                                 for(int i = 0 ;i < _BoardWriterData.arrFanList.size(); i++)
                                 {
                                     Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(_BoardWriterData.arrFanList.get(i).Idx);

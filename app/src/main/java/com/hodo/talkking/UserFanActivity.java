@@ -277,6 +277,9 @@ public class UserFanActivity extends AppCompatActivity {
                             if (stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() == 0) {
                                 moveFanPage(position);
                             } else {
+
+                                CommonFunc.getInstance().SortByRecvHeart(stTargetData.mapFanData.get(strTargetIdx));
+
                                 for (int i = 0; i < stTargetData.mapFanData.get(strTargetIdx).arrFanList.size(); i++) {
                                     Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i).Idx);
                                     final FanData finalTempFanData = stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i);
