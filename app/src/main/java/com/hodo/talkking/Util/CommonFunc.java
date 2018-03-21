@@ -759,16 +759,16 @@ public class CommonFunc {
         if(hour > 0)
         {
             if(secView)
-                Desc = Desc + " " + String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
+                Desc = Desc + " " + String.format("%02d시", hour) + " " + String.format("%02d분", min) + " " + String.format("%02d초", sec);
             else
-                Desc = Desc + " " + String.format("%02d", hour) + ":" + String.format("%02d", min);
+                Desc = Desc + " " + String.format("%02d시", hour) + " " + String.format("%02d분", min);
         }
         else
         {
             if(secView)
-                Desc = Desc + " " + String.format("%02d", min) + ":" + String.format("%02d", sec);
+                Desc = Desc + " " + String.format("%02d분", min) + " " + String.format("%02d초", sec);
             else
-                Desc = Desc + " " + String.format("%02d", min);
+                Desc = Desc + " " + String.format("%02d분", min);
         }
 
         return Desc;

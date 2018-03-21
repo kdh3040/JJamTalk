@@ -463,7 +463,7 @@ public class MainActivity extends AppCompatActivity {
                 if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastBoardWriteTime()), CoomonValueData.BOARD_WRITE_TIME_MIN) == false)
                 {
                     String Desc = CommonFunc.getInstance().GetRemainTimeByFuture(new Date(mMyData.GetLastBoardWriteTime() + (CoomonValueData.BOARD_WRITE_TIME_MIN * CoomonValueData.MIN_MILLI_SECONDS)), true);
-                    CommonFunc.getInstance().ShowDefaultPopup(MainActivity.this, "게시판 작성", "도배방지를 위해 " + Desc+"후에 글을 쓰실 수 있습니다.");
+                    CommonFunc.getInstance().ShowDefaultPopup(MainActivity.this, "게시판 작성", "도배방지를 위해 " + Desc+" 후에 글을 쓰실 수 있습니다.");
                 }
                 else
                     startActivity(new Intent(getApplicationContext(),BoardWriteActivity.class));
