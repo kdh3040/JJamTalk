@@ -931,10 +931,9 @@ public class MainActivity extends AppCompatActivity {
 
         //ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
-        ib_home.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+        View.OnClickListener homeListener = new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 iv_myPage.setVisibility(View.VISIBLE);
                 logo.setVisibility(View.VISIBLE);
                 txt_title.setVisibility(TextView.GONE);
@@ -955,22 +954,12 @@ public class MainActivity extends AppCompatActivity {
                 SetButtonColor(0);
                 SetFontColor(0);
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.HOME_ACTIVITY);
-                view.setSelected(!view.isSelected());
-                if(view.isSelected()){
-
-
-                }else{
-
-                }
-
+                ib_home.setSelected(!v.isSelected());
+                txt_home.setSelected(!v.isSelected());
             }
-        });
-
-        //tv_MainTitle = (TextView)findViewById(R.id.tv_maintitle);
-
-
-        //layout_topbar = (LinearLayout)findViewById(R.id.layout_topbar);
-        //layout_lowbar = (LinearLayout)findViewById(R.id.layout_lowbar);
+        };
+        ib_home.setOnClickListener(homeListener);
+        txt_home.setOnClickListener(homeListener);
 
         homeFragment = new HomeFragment();
         LoadFanData();
@@ -978,13 +967,9 @@ public class MainActivity extends AppCompatActivity {
         LoadCardData();
         LoadChatData();
 
-        ib_board = findViewById(R.id.ib_board);
-        // ib_board.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
-
-        ib_board.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+        View.OnClickListener boardListener = new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 iv_myPage.setVisibility(View.GONE);
                 logo.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
@@ -1001,20 +986,22 @@ public class MainActivity extends AppCompatActivity {
                 else
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment, "BoardFragment").commit();
 
-                view.setSelected(!view.isSelected());
+                ib_board.setSelected(!v.isSelected());
+                txt_board.setSelected(!v.isSelected());
                 setImageAlpha(100,100,100,100,255);
                 SetButtonColor(4);
                 SetFontColor(4);
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.BOARD_ACTIVITY);
-
             }
-        });
-        ib_cardList = findViewById(R.id.ib_cardlist);
-        //ib_cardList.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
-        ib_cardList.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+        };
+
+        ib_board = findViewById(R.id.ib_board);
+        ib_board.setOnClickListener(boardListener);
+        txt_board.setOnClickListener(boardListener);
+
+        View.OnClickListener cardListener = new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 iv_myPage.setVisibility(View.GONE);
                 logo.setVisibility(View.GONE);
                 iv_heartCnt.setVisibility(View.GONE);
@@ -1030,30 +1017,23 @@ public class MainActivity extends AppCompatActivity {
                     LoadCardData();
                 else
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment, "CardListFragment").commit();
-                view.setSelected(!view.isSelected());
+                ib_cardList.setSelected(!v.isSelected());
+                txt_cardList.setSelected(!v.isSelected());
 
                 setImageAlpha(100,255,100,100,100);
                 SetButtonColor(1);
                 SetFontColor(1);
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
-
-                if(view.isSelected()){
-                    int a = 0;
-
-                }else{
-                    int b = 0;
-                }
-                //startActivity(new_img Intent(getApplicationContext(),CardListActivity.class));
-                //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-
             }
-        });
-        ib_chatList = findViewById(R.id.ib_chatlist);
-        //ib_chatList.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
-        ib_chatList.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+        };
+
+        ib_cardList = findViewById(R.id.ib_cardlist);
+        ib_cardList.setOnClickListener(cardListener);
+        txt_cardList.setOnClickListener(cardListener);
+
+        View.OnClickListener chatListener = new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 CommonFunc.getInstance().SetChatAlarmVisible(false);
                 iv_myPage.setVisibility(View.GONE);
                 logo.setVisibility(View.GONE);
@@ -1074,35 +1054,22 @@ public class MainActivity extends AppCompatActivity {
                     mFragmentMng.beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
 
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
-                // mCommon.mFragmentManager.beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
 
-                /*FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().addToBackStack("ChatListFragment").replace(R.id.frag_container,cardListFragment).commit();
-                transaction.add(R.id.frag_container,chatListFragment, "ChatListFragment");
-                transaction.commit();*/
-                // getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment).commit();
-                view.setSelected(!view.isSelected());
+                ib_chatList.setSelected(!v.isSelected());
+                txt_chatList.setSelected(!v.isSelected());
                 setImageAlpha(100,100,255,100,100);
                 SetButtonColor(2);
                 SetFontColor(2);
-                /*
-
-                ib_fan.setImageResource(R.drawable.btn_fan_normal);
-                ib_board.setImageResource(R.drawable.btn_board_normal);
-                ib_chatList.setImageResource(R.drawable.btn_chat_selected);
-                ib_cardList.setImageResource(R.drawable.btn_card_normal);
-                ib_home.setImageResource(R.drawable.btn_home_normal);*/
-
-                //startActivity(new_img Intent(getApplicationContext(),ChatListActivity.class));
-                //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-
             }
-        });
-        ib_fan = findViewById(R.id.ib_fan);
-        //ib_fan.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
-        ib_fan.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+        };
+
+        ib_chatList = findViewById(R.id.ib_chatlist);
+        ib_chatList.setOnClickListener(chatListener);
+        txt_chatList.setOnClickListener(chatListener);
+
+        View.OnClickListener fanListener = new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 CommonFunc.getInstance().SetFanAlarmVisible(false);
                 iv_myPage.setVisibility(View.GONE);
                 logo.setVisibility(View.GONE);
@@ -1117,42 +1084,21 @@ public class MainActivity extends AppCompatActivity {
                 txt_fanCnt.setVisibility(View.VISIBLE);
                 txt_fanCnt.setText(Integer.toString(mMyData.arrMyFanList.size()));
 
-
-
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("내 팬");
                 mMyData.SetCurFrag(3);
-                view.setSelected(!view.isSelected());
+                ib_fan.setSelected(!v.isSelected());
+                txt_fan.setSelected(!v.isSelected());
                 setImageAlpha(100,100,100,255,100);
 
                 SetButtonColor(3);
                 SetFontColor(3);
-/*
-                ib_fan.setImageResource(R.drawable.btn_fan_selected);
-                ib_board.setImageResource(R.drawable.btn_board_normal);
-                ib_chatList.setImageResource(R.drawable.btn_chat_normal);
-                ib_cardList.setImageResource(R.drawable.btn_card_normal);
-                ib_home.setImageResource(R.drawable.btn_home_normal);*/
-
-                //startActivity(new_img Intent(getApplicationContext(),FanActivity.class));
-         /*       Intent intent = new_img Intent(getApplicationContext(), FanActivity.class);
-                intent.putExtra("ViewMode", 0);
-                startActivity(intent);
-*/
                 Intent intent = new Intent(getApplicationContext(), FanFragment.class);
                 Bundle bundle = new Bundle();
 
                 intent.putExtra("FanList", mMyData.arrMyFanList);
                 intent.putExtra("FanCount", mMyData.nFanCount);
-
-                //intent.putExtra("FanData", mMyData.arrMyFanDataList);
-
                 intent.putExtra("StarList", mMyData.arrMyStarList);
-                //intent.putExtra("StarData", mMyData.arrMyStarDataList);
-
-  /*              bundle.putSerializable("Target", stTargetData);
-                intent.putExtra("FanList", stTargetData.arrFanList);
-                intent.putExtra("StarList", stTargetData.arrStarList);*/
                 intent.putExtra("ViewMode", 0);
                 intent.putExtras(bundle);
                 if(fanFragment == null)
@@ -1162,14 +1108,11 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
-
-                //startActivity(intent);
-                //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-
-
-
             }
-        });
+        };
+        ib_fan = findViewById(R.id.ib_fan);
+        ib_fan.setOnClickListener(fanListener);
+        txt_fan.setOnClickListener(fanListener);
 
 
         /*PagerModelManager manager = new_img PagerModelManager();
