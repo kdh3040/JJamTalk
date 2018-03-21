@@ -212,7 +212,7 @@ public class CommonFunc {
 
         else
         {
-            CommonFunc.getInstance().SortByRecvHeart(mMyData.mapChatTargetData.get(tempUserData));
+            CommonFunc.getInstance().SortByRecvHeart(tempUserData);
 
             for(int i = 0 ;i < tempUserData.arrFanList.size(); i++)
             {
