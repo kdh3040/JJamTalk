@@ -96,6 +96,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -1090,15 +1091,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                             mMyData.arrUserMan_Recv.add(cTempData);
                                         }
 
-                                        mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                        mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                        mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+
                                         i++;
                                     }
 
                                 }
 
                             }
+
+                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
 
                             bSetRecv = true;
                             if(mMyData.arrUserAll_Recv.size() > 0)
@@ -1167,9 +1170,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                             mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
                                         }
 
-                                        mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
+
                                         i++;
                                     }
 
@@ -1177,6 +1178,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 }
                             }
 
+                            mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
 
                             bSetRich = true;
 
@@ -1229,7 +1233,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
             Query query=ref
-                    .orderByChild("Dist").endAt(mMyData.getUserDist() + 10000).limitToFirst(FIRST_LOAD_MAIN_COUNT);
+                    .orderByChild("Dist").endAt(mMyData.getUserDist() + 50000).limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -1251,7 +1255,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                            double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon,"kilometer");
+                                            double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon,"meter");
+                                            stRecvData.Dist = Dist;
 
                                             mMyData.arrUserAll_Near.add(stRecvData);
 
@@ -1261,14 +1266,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                                 mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
                                             }
 
-                                            mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
                                             i++;
                                         }
                                     }
                                 }
                             }
+
+
+                            CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
+                            Collections.sort(mMyData.arrUserAll_Near, cNearSort);
+                            Collections.sort(mMyData.arrUserWoman_Near, cNearSort);
+                            Collections.sort(mMyData.arrUserMan_Near, cNearSort);
+
+                            mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
 
 
                             bSetNear = true;
@@ -1343,15 +1355,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                             mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
                                         }
 
-                                        mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
                                         i++;
                                     }
-
-
                                 }
                             }
+
+                            mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
 
                             bSetNew = true;
 

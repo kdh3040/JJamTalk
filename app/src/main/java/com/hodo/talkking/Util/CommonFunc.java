@@ -45,6 +45,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.hodo.talkking.BoardFragment;
 import com.hodo.talkking.CardListFragment;
 import com.hodo.talkking.ChatListFragment;
+import com.hodo.talkking.Data.BoardMsgClientData;
 import com.hodo.talkking.Data.CoomonValueData;
 import com.hodo.talkking.Data.FanData;
 import com.hodo.talkking.Data.MyData;
@@ -1814,5 +1815,17 @@ public class CommonFunc {
         }
     }
 
+    public static class NearSort implements Comparator<SimpleUserData>{
+        @Override
+        public int compare(SimpleUserData a, SimpleUserData b)
+        {
+            if(a.Dist > b.Dist )
+                return 1;
+            else if(a.Dist < b.Dist )
+                return -1;
+            else
+                return 0;
+        }
+    }
 }
 

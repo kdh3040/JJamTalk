@@ -87,6 +87,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import gun0912.tedbottompicker.TedBottomPicker;
@@ -180,16 +181,18 @@ public class InputProfile extends AppCompatActivity {
                                             mMyData.arrUserMan_Recv.add(cTempData);
                                         }
 
-                                        mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                        mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                                        mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
                                         i++;
                                     }
 
 
                                 }
                             }
-                            
+
+
+                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+
                             if(mMyData.arrUserAll_Recv.size() > 0)
                                 mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
 
@@ -255,9 +258,7 @@ public class InputProfile extends AppCompatActivity {
                                             mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
                                         }
 
-                                        mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
+
                                         i++;
                                     }
 
@@ -265,6 +266,9 @@ public class InputProfile extends AppCompatActivity {
                                 }
                             }
 
+                            mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
 
                             bSetRich = true;
 
@@ -322,7 +326,7 @@ public class InputProfile extends AppCompatActivity {
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
             Query query=ref
-                    .orderByChild("Dist").endAt(mMyData.getUserDist() + 10000).limitToFirst(FIRST_LOAD_MAIN_COUNT);
+                    .orderByChild("Dist").endAt(mMyData.getUserDist() + 50000).limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -344,6 +348,9 @@ public class InputProfile extends AppCompatActivity {
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
+                                            double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon,"meter");
+
+                                            stRecvData.Dist = Dist;
                                             mMyData.arrUserAll_Near.add(stRecvData);
 
                                             if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
@@ -351,17 +358,21 @@ public class InputProfile extends AppCompatActivity {
                                             } else {
                                                 mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
                                             }
-
-                                            mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
-                                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
                                             i++;
                                         }
                                     }
-
-
                                 }
                             }
+
+
+                            CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
+                            Collections.sort(mMyData.arrUserAll_Near, cNearSort);
+                            Collections.sort(mMyData.arrUserWoman_Near, cNearSort);
+                            Collections.sort(mMyData.arrUserMan_Near, cNearSort);
+
+                            mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
 
                             bSetNear = true;
 
@@ -438,18 +449,14 @@ public class InputProfile extends AppCompatActivity {
                                         } else {
                                             mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
                                         }
-
-                                        mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
-                                        mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
-
-
                                         i++;
                                     }
-
-
                                 }
                             }
+
+                            mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
 
                             if(mMyData.arrUserAll_New.size() > 0)
                                 mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
