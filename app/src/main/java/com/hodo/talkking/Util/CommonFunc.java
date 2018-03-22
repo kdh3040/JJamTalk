@@ -904,7 +904,7 @@ public class CommonFunc {
     }
 
     public void View_OpenedItem(Context context, View v, int result, ImageView img_Opened, TextView text_Opened) {
-        img_Opened.setImageResource(UIData.getInstance().getJewels()[result]);
+        img_Opened.setImageResource(UIData.getInstance().getJewelGifts()[result]);
 
         text_Opened.setText(UIData.getInstance().getItems()[result]);
 /*        switch (result) {
@@ -952,15 +952,18 @@ public class CommonFunc {
     public void BuyItemPopup(final Context context, final ShowBoxOpen_End endListener)
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View v = LayoutInflater.from(context).inflate(R.layout.popup_item_get, null);
+        View v = LayoutInflater.from(context).inflate(R.layout.pop_jewel, null);
 
 
-        ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
-        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
-          //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
-
+        ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_jewel);
+        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_jewel);
         TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
-        TextView Text_blar = (TextView)v.findViewById(R.id.tv_blar);
+        Button btn_confirm = v.findViewById(R.id.btn_yes);
+        Button btn_sell = v.findViewById(R.id.btn_sell);
+
+          //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+        //TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
+        //TextView Text_blar = (TextView)v.findViewById(R.id.tv_blar);
           //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
 
 
@@ -968,9 +971,8 @@ public class CommonFunc {
         CommonFunc.getInstance().View_OpenedItem(context, v, result, Img_Opened, Text_Opened);
         mMyData.setMyItem(result);
         Text_Prob.setText("확률 " + UIData.getInstance().getProb()[result]);
-        Text_blar.setText(UIData.getInstance().getItemBlar()[result]);
-        Button btn_confirm = v.findViewById(R.id.button3);
-        Button btn_sell = v.findViewById(R.id.button2);
+       // Text_blar.setText(UIData.getInstance().getItemBlar()[result]);
+
 
         builder.setView(v);
 
@@ -1077,19 +1079,19 @@ public class CommonFunc {
     public void ViewBox(final Context context, final int Index, final ShowBoxOpen_End endListener)
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View v = LayoutInflater.from(context).inflate(R.layout.popup_item_get, null);
-        ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
-        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
+        View v = LayoutInflater.from(context).inflate(R.layout.pop_jewel, null);
+
+
+        ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_jewel);
+        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_jewel);
         TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
-        //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
-        TextView Text_blar = (TextView)v.findViewById(R.id.tv_blar);
+        Button btn_confirm = v.findViewById(R.id.btn_yes);
+        Button btn_sell = v.findViewById(R.id.btn_sell);
 
         Text_Prob.setText("확률 " + UIData.getInstance().getProb()[Index]);
-        Text_blar.setText(UIData.getInstance().getItemBlar()[Index]);
+       // Text_blar.setText(UIData.getInstance().getItemBlar()[Index]);
         CommonFunc.getInstance().View_OpenedItem(context, v, Index, Img_Opened, Text_Opened);
 
-        Button btn_confirm = v.findViewById(R.id.button3);
-        Button btn_sell = v.findViewById(R.id.button2);
         builder.setView(v);
 
         final AlertDialog dialog = builder.create();

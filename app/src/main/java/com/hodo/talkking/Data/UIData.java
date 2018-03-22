@@ -37,6 +37,7 @@ public class UIData {
 
 
     private String ItemsReference[] = {"페레가모 구두", "구찌 드레스", "헤르메스 가방", "롤렉스 시계", "다이아몬드", "페라리", "럭셔리 요트", "전용기"};
+    private int jewelGifts[] = { R.drawable.randombox, R.drawable.opal_gift,R.drawable.pearl_gift,R.drawable.amethyst_gift,R.drawable.sapphire_gift,R.drawable.emerald_gift,R.drawable.ruby_gift,R.drawable.diamond_gift};
     private int jewels[] = { R.drawable.randombox, R.drawable.opal,R.drawable.pearl,R.drawable.amethyst,R.drawable.sapphire,R.drawable.emerald,R.drawable.ruby,R.drawable.diamond};
     private int grades[] = {R.drawable.rank_bronze,R.drawable.rank_silver,R.drawable.rank_gold,R.drawable.rank_diamond,R.drawable.rank_vip,R.drawable.rank_vvip};
     private int sellJewelValue[] = {4,4,4,4,4,4,4,4};
@@ -73,6 +74,9 @@ public class UIData {
         return Items;
     }
 
+    public int[] getJewelGifts(){
+        return jewelGifts;
+    }
 
     public int[] getJewels(){
         return jewels;
