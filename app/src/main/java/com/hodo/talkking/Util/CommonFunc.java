@@ -897,8 +897,8 @@ public class CommonFunc {
         else if (231 <= nGrade && nGrade <= 500) rtValue = 3;
         else if (91 <= nGrade && nGrade <= 230) rtValue = 4;
         else if (21 <= nGrade && nGrade <= 90) rtValue = 5;
-        else if (2 <= nGrade && nGrade <= 20) rtValue = 6;
-        else if (1 == nGrade ) rtValue = 7;
+        else if (4 <= nGrade && nGrade <= 20) rtValue = 6;
+        else if (1 <= nGrade && nGrade <= 3) rtValue = 7;
 
         return rtValue;
     }
