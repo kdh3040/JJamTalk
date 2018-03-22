@@ -72,6 +72,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.hodo.talkking.MainActivity.mActivity;
 import static com.hodo.talkking.MainActivity.mContext;
 import static com.hodo.talkking.MainActivity.mFragmentMng;
 
@@ -952,12 +953,15 @@ public class CommonFunc {
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View v = LayoutInflater.from(context).inflate(R.layout.popup_item_get, null);
+
+
         ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
         TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
-        //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+          //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+
         TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
         TextView Text_blar = (TextView)v.findViewById(R.id.tv_blar);
-        //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
+          //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
 
 
         final int result = CommonFunc.getInstance().Select_OpenedItem();
@@ -1193,12 +1197,8 @@ public class CommonFunc {
                                     public void run(){
                                         mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
                                         for (int i = 0; i < count + bonus; i++) {
-                                           // BuyItemPopup(activity, endListener);
-                                            View v = LayoutInflater.from(mContext).inflate(R.layout.pop_jewel,null);
-                                            AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
-                                            AlertDialog dialog1 = builder1.setView(v).create();
-                                            dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                                            dialog1.show();
+                                           BuyItemPopup(activity, endListener);
+
                                         }
 
                                         endListener.EndListener();

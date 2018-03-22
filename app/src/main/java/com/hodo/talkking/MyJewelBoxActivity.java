@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +37,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * Created by User0 on 2018-02-20.
  */
 
-public class MyJewelBoxActivity extends Activity {
+public class MyJewelBoxActivity extends AppCompatActivity {
 
     private MyData mMyData = MyData.getInstance();
     private UIData mUIData = UIData.getInstance();
@@ -113,6 +115,7 @@ public class MyJewelBoxActivity extends Activity {
         open_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //이미지 확대
                 ShowOpenBox(1,0);
             }
@@ -192,6 +195,8 @@ public class MyJewelBoxActivity extends Activity {
 
     public void ShowOpenBox(int count, int bonus)
     {
+
+
 
 
         CommonFunc.ShowBoxOpen_End endlistener = new CommonFunc.ShowBoxOpen_End() {

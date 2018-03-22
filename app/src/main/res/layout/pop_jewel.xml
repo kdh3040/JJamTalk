@@ -1,37 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imageView8"
+    <Button
+        android:id="@+id/btn_sell"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="5dp"
+        android:background="@color/baseColor2"
+        android:text="팔기"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_jewel"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_jewel"
+        app:layout_constraintRight_toLeftOf="@+id/btn_yes" />
+
+    <Button
+        android:id="@+id/btn_yes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/white"
+        android:text="확인"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_jewel"
+        app:layout_constraintLeft_toRightOf="@id/btn_sell"
+        app:layout_constraintRight_toRightOf="@+id/iv_jewel" />
+
+    <ImageView
+        android:id="@+id/iv_jewel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/amethyst_gift" />
+        app:srcCompat="@drawable/opal_gift" />
 
-    <Button
-        android:id="@+id/button6"
+    <TextView
+        android:id="@+id/tv_prob"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_margin="12dp"
+        android:text="획득 확률 0.5%"
+        android:textColor="@android:color/white"
+        android:textSize="8sp"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_jewel"
+        app:layout_constraintTop_toTopOf="@+id/iv_jewel" />
 
-    <Button
-        android:id="@+id/button7"
+    <TextView
+        android:id="@+id/tv_jewel"
         android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_marginEnd="112dp"
-        android:layout_marginTop="8dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button6" />
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="자수정"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sell"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_jewel"
+        app:layout_constraintRight_toRightOf="@+id/iv_jewel" />
+
 </android.support.constraint.ConstraintLayout>
