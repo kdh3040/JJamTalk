@@ -170,6 +170,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
             if(mMyData.itemList.get(i + 1) != 0)
             {
                 Img_item[i].setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.MULTIPLY);
+                txt_item[i].setTextColor(Color.parseColor("#5f52a0"));
                 txt_item[i].setText(mMyData.itemList.get(i + 1).toString() + "개");
             }
             else
