@@ -71,6 +71,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.hodo.talkking.MainActivity.mContext;
 import static com.hodo.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -1191,7 +1192,12 @@ public class CommonFunc {
                                     public void run(){
                                         mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
                                         for (int i = 0; i < count + bonus; i++) {
-                                            BuyItemPopup(activity, endListener);
+                                           // BuyItemPopup(activity, endListener);
+                                            View v = LayoutInflater.from(mContext).inflate(R.layout.pop_jewel,null);
+                                            AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
+                                            AlertDialog dialog1 = builder1.setView(v).create();
+                                            dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                                            dialog1.show();
                                         }
 
                                         endListener.EndListener();
