@@ -152,62 +152,64 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
            else if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
 
-                if(mMyData.GetCurFrag() == 2 || mMyData.GetCurFrag() == 5)
+                if(mMyData.GetCurFrag() != 5)
                 {
-                    builder.setContentTitle(title)
-                            .setContentText(body)
-                            .setSmallIcon(R.drawable.logo300)
-                            .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.logo300))
-                            .setAutoCancel(true)
-                            .setWhen(System.currentTimeMillis());
-
-                    if (pref.getBoolean("Sound", bSound)  ) {
-                        Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                        builder.setSound(uri);
-                    }
-
-                    if (pref.getBoolean("Vibe", bVibe)  ) {
-                        builder.setVibrate(new long[] {0, 1000});
-                    }
-
-                    NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    nm.notify(1234, builder.build());
-                }
-
-                else
-                {
-                    builder.setContentTitle(title)
-                            .setContentText(body)
-                            .setSmallIcon(R.drawable.logo300)
-                            .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.logo300))
-                            .setAutoCancel(true)
-                            .setWhen(System.currentTimeMillis())
-                            .setDefaults(Notification.DEFAULT_LIGHTS);
-
-                    if(mMyData.nAlarmSetting_Pop == true)
+                    if(mMyData.GetCurFrag() == 2)
                     {
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                            builder.setCategory(Notification.CATEGORY_MESSAGE)
-                                    .setPriority(Notification.PRIORITY_HIGH)
-                                    .setVisibility(Notification.VISIBILITY_PUBLIC);
+                        builder.setContentTitle(title)
+                                .setContentText(body)
+                                .setSmallIcon(R.drawable.logo300)
+                                .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.logo300))
+                                .setAutoCancel(true)
+                                .setWhen(System.currentTimeMillis());
+
+                        if (pref.getBoolean("Sound", bSound)  ) {
+                            Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                            builder.setSound(uri);
                         }
+
+                        if (pref.getBoolean("Vibe", bVibe)  ) {
+                            builder.setVibrate(new long[] {0, 1000});
+                        }
+
+                        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        nm.notify(1234, builder.build());
                     }
 
+                    else
+                    {
+                        builder.setContentTitle(title)
+                                .setContentText(body)
+                                .setSmallIcon(R.drawable.logo300)
+                                .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.logo300))
+                                .setAutoCancel(true)
+                                .setWhen(System.currentTimeMillis())
+                                .setDefaults(Notification.DEFAULT_LIGHTS);
 
-                    if (pref.getBoolean("Sound", bSound)  ) {
-                        Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                        builder.setSound(uri);
+                        if(mMyData.nAlarmSetting_Pop == true)
+                        {
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                                builder.setCategory(Notification.CATEGORY_MESSAGE)
+                                        .setPriority(Notification.PRIORITY_HIGH)
+                                        .setVisibility(Notification.VISIBILITY_PUBLIC);
+                            }
+                        }
+
+
+                        if (pref.getBoolean("Sound", bSound)  ) {
+                            Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                            builder.setSound(uri);
+                        }
+
+                        if (pref.getBoolean("Vibe", bVibe)  ) {
+                            builder.setVibrate(new long[] {0, 1000});
+                        }
+
+
+                        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        nm.notify(1234, builder.build());
                     }
-
-                    if (pref.getBoolean("Vibe", bVibe)  ) {
-                        builder.setVibrate(new long[] {0, 1000});
-                    }
-
-
-                    NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    nm.notify(1234, builder.build());
                 }
-
             }
 
             else  if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.BACKGROUND) {

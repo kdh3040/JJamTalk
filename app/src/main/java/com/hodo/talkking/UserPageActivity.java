@@ -157,6 +157,11 @@ public class UserPageActivity extends AppCompatActivity {
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + "(" + stTargetData.Age+"세)");
 
+        if(stTargetData.Gender.equals("여자"))
+            txtProfile.setTextColor(0xffda1d81);
+        else
+            txtProfile.setTextColor(0xff005baf);
+
         //View Divide_Memo = (View)findViewById(R.id.Divide_Memo);
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
         if(stTargetData.Memo == null || stTargetData.Memo.equals(""))

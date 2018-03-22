@@ -92,11 +92,10 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
 
             //  남자 탐색
             case 1:
-                double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserMan_Near_Age.get(i).Lat, mMyData.arrUserMan_Near_Age.get(i).Lon,"kilometer");
-                if(Dist < 1.0)
+                if((mMyData.arrUserMan_Near_Age.get(i).Dist  / 1000) < 1.0)
                     holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
                 else
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
+                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)(mMyData.arrUserMan_Near_Age.get(i).Dist / 1000) + "km");
 
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_Near_Age.get(i).Img)
@@ -107,12 +106,11 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
             // 여자 탐색
             case 2:
 
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserWoman_Near_Age.get(i).Lat, mMyData.arrUserWoman_Near_Age.get(i).Lon,"kilometer");
-                if(Dist < 1.0)
+                if((mMyData.arrUserWoman_Near_Age.get(i).Dist  / 1000) < 1.0)
                     holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
                 else
                 {
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
+                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)(mMyData.arrUserWoman_Near_Age.get(i).Dist / 1000) + "km");
                 }
 
                 Glide.with(mContext)
@@ -125,11 +123,10 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
             case 0:
             case 3:
                 Log.d("Guide !!!! ", "Case 3");
-                Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Near_Age.get(i).Lat, mMyData.arrUserAll_Near_Age.get(i).Lon,"kilometer");
-                if(Dist < 1.0)
+                if((mMyData.arrUserAll_Near_Age.get(i).Dist / 1000) < 1.0)
                     holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
                 else
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)Dist + "km");
+                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)(mMyData.arrUserAll_Near_Age.get(i).Dist / 1000) + "km");
 
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Near_Age.get(i).Img)
