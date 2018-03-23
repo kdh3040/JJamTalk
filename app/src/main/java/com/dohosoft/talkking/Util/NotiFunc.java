@@ -15,7 +15,7 @@ import java.net.URL;
 
 public class NotiFunc {
 
-    private String SERVER_KEY = "AAAA6jLM7_4:APA91bE4W2A2LGIkPmn975GLKL7pFzg9yqfczKrY41GKzCfIFEH97H2AGbAzNsaK-LgzkhuNVa6PqWfnrR9yf87fjIJpcZ6i9wr7jLIXPjjpHOX-98y_nzB41ZGR9FLW-spfyMM9zW3B";
+    private String SERVER_KEY = "AAAAvYp2n-A:APA91bFtWA4riLbJLFdPshzLsTATQkxuiYMb6N70H3rcx2y2ZIBbbkjCjaqrxjCYkNvgvSmi-Z4W4ujcrhxsSQ9OtML28quaGZbJXhsKKxfD9EKovU9wMKvlBFglMVcaj0pC93E_u12G";
     private String MSG_URL = "https://fcm.googleapis.com/fcm/send";
 
     private static NotiFunc _Instance;
