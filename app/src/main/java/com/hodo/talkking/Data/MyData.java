@@ -815,8 +815,8 @@ public class MyData {
         table.updateChildren(updateMap);
     }
 
-    public void setRecvHoneyCnt(long recvHoneyCnt) {
-        nRecvGold -= recvHoneyCnt;
+    public void setRecvHoney(long recvHoney) {
+        nRecvGold = recvHoney;
     }
 
     public void setUserMemo(String userMemo) {
@@ -981,18 +981,12 @@ public class MyData {
 
                         }
                     });
-
-
-
-
-
                 }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 FanData SendList = dataSnapshot.getValue(FanData.class);
-
                 boolean bEqual = false;
                 int Idx = 0;
                 for(int i=0; i<arrMyFanList.size(); i++)
@@ -1100,6 +1094,29 @@ public class MyData {
         });
     }
 
+
+    public void getRecvGold() {
+        String MyID = strIdx;
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table, user;
+        table = database.getReference("User");
+        user = table.child(strIdx).child("RecvGold");
+
+        user.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Long temp = dataSnapshot.getValue(Long.class);
+                if(temp != 0)
+                    setRecvHoney(temp);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public void getSendList() {
         String MyID = strIdx;

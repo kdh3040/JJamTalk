@@ -709,6 +709,7 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.getBoardLoadingDate();
 
                     mMyData.getFanList();
+                    mMyData.getRecvGold();
                     mMyData.getReportedCnt();
                     mMyData.getSetting();
 

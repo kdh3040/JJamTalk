@@ -888,7 +888,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getBoardLoadingDate();
                             //mMyData.getAdBannerID();
                             mMyData.getFanList();
-
+                            mMyData.getRecvGold();
                             mMyData.getReportedCnt();
 
                             mMyData.getSetting();
