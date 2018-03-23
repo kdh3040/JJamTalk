@@ -137,7 +137,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if(mMyData.itemList.get(finalI) == 0){
-                        //ShowOpenBox(1,0);
+                        ViewEmptyItem(finalI);
                          }
                     else{
                         ViewItem(finalI);}
@@ -182,6 +182,12 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         }
     }
 
+    public void ViewEmptyItem(int Index)
+    {
+        CommonFunc.getInstance().ViewEmptyBox(mActivity, Index);
+    }
+
+
     public void ViewItem(int Index)
     {
         CommonFunc.ShowBoxOpen_End endlistener = new CommonFunc.ShowBoxOpen_End() {
@@ -196,10 +202,6 @@ public class MyJewelBoxActivity extends AppCompatActivity {
 
     public void ShowOpenBox(int count, int bonus)
     {
-
-
-
-
         CommonFunc.ShowBoxOpen_End endlistener = new CommonFunc.ShowBoxOpen_End() {
             public void EndListener() {
                 refreshHearCnt();

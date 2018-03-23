@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
@@ -907,36 +908,15 @@ public class CommonFunc {
         img_Opened.setImageResource(UIData.getInstance().getJewelGifts()[result]);
 
         text_Opened.setText(UIData.getInstance().getItems()[result]);
-/*        switch (result) {
-            case 1: {
-                text_Opened.setText(R.string.Item_0_text);
-                break;
-            }
-            case 2: {
-                text_Opened.setText(R.string.Item_1_text);
-                break;
-            }
-            case 3: {
-                text_Opened.setText(R.string.Item_2_text);
-                break;
-            }
-            case 4: {
-                text_Opened.setText(R.string.Item_3_text);
-                break;
-            }
-            case 5: {
-                text_Opened.setText(R.string.Item_4_text);
-                break;
-            }
-            case 6: {
-                text_Opened.setText(R.string.Item_5_text);
-                break;
-            }
-            case 7: {
-                text_Opened.setText(R.string.Item_6_text);
-                break;
-            }
-        }*/
+
+    }
+
+
+    public void View_EmptyItem(Context context, View v, int result, ImageView img_Opened, TextView text_Opened) {
+        img_Opened.setImageResource(UIData.getInstance().getJewelGifts()[result]);
+        img_Opened.setColorFilter(Color.parseColor("#707070"), PorterDuff.Mode.MULTIPLY);
+
+        text_Opened.setText(UIData.getInstance().getItems()[result]);
 
     }
 
@@ -1155,6 +1135,43 @@ public class CommonFunc {
                 });
 
             }
+        });
+    }
+
+    public void ViewEmptyBox(final Context context, final int Index)
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View v = LayoutInflater.from(context).inflate(R.layout.pop_jewel, null);
+
+
+        ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_jewel);
+        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_jewel);
+        TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
+        Button btn_confirm = v.findViewById(R.id.btn_yes);
+        Button btn_sell = v.findViewById(R.id.btn_sell);
+
+        btn_confirm.setVisibility(View.GONE);
+        btn_sell.setVisibility(View.GONE);
+
+        Text_Prob.setText("확률 " + UIData.getInstance().getProb()[Index]);
+        // Text_blar.setText(UIData.getInstance().getItemBlar()[Index]);
+        CommonFunc.getInstance().View_EmptyItem(context, v, Index, Img_Opened, Text_Opened);
+
+        builder.setView(v);
+
+
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        Img_Opened.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+
         });
     }
 
