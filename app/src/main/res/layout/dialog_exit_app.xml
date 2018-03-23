@@ -26,7 +26,7 @@
         android:background="@android:color/white"
         android:visibility="gone"
         ads:adSize="MEDIUM_RECTANGLE"
-        ads:adUnitId="ca-app-pub-8954582850495744/1996257938"></com.google.android.gms.ads.AdView>
+        ads:adUnitId="ca-app-pub-4020702622451243/5961056047"></com.google.android.gms.ads.AdView>
 
     <TextView
         android:id="@+id/msg"

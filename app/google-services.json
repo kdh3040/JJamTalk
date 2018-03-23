@@ -1,51 +1,35 @@
 {
   "project_info": {
-    "project_number": "1005874638846",
-    "firebase_url": "https://talkking-2aa18.firebaseio.com",
-    "project_id": "talkking-2aa18",
-    "storage_bucket": "talkking-2aa18.appspot.com"
+    "project_number": "814071848928",
+    "firebase_url": "https://talkking-25dd8.firebaseio.com",
+    "project_id": "talkking-25dd8",
+    "storage_bucket": "talkking-25dd8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1005874638846:android:72598e3147769afe",
+        "mobilesdk_app_id": "1:814071848928:android:72598e3147769afe",
         "android_client_info": {
           "package_name": "com.hodo.talkking"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1005874638846-4tpe9ilv35gepjpldhrdpn6d2t4pi668.apps.googleusercontent.com",
+          "client_id": "814071848928-t73ubcavq4kr74gimo42vlg5bffraqge.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hodo.talkking",
-            "certificate_hash": "ac7afbc6d2a5d624f832f1c6de503d289e2b75c9"
+            "certificate_hash": "f79ba573b2b48c3244e49ad09cc3a1668baab4ae"
           }
         },
         {
-          "client_id": "1005874638846-tt3c8hpvai5gc40gqnv7h9aac9b8c9r8.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hodo.talkking",
-            "certificate_hash": "6cb6c2c41456e863fc2b9c01632e3238326f3580"
-          }
-        },
-        {
-          "client_id": "1005874638846-ilo6rp4kv26rnjtd8q4624i2nbsjbfpq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hodo.talkking",
-            "certificate_hash": "6232180ab8aac07e749025f8d05a1dbb8de071ae"
-          }
-        },
-        {
-          "client_id": "1005874638846-ijg6u71b06kn0ksehlabksai81h3ub30.apps.googleusercontent.com",
+          "client_id": "814071848928-bs94povihci0qc5jp6em4iec6rghfusn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDwZ8Ub2h0aR47n3h87PGxrzFhjFHzn73w"
+          "current_key": "AIzaSyBCZz8P1nLua7TGywma2dBUgobuS0UYGuI"
         }
       ],
       "services": {
@@ -56,7 +40,51 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "1005874638846-ijg6u71b06kn0ksehlabksai81h3ub30.apps.googleusercontent.com",
+              "client_id": "814071848928-bs94povihci0qc5jp6em4iec6rghfusn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814071848928:android:9a83b498d4b784c5",
+        "android_client_info": {
+          "package_name": "com.dohosoft.talkking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "814071848928-dl9iupilujmim1cec6bf0bdqr58r37fs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dohosoft.talkking",
+            "certificate_hash": "f79ba573b2b48c3244e49ad09cc3a1668baab4ae"
+          }
+        },
+        {
+          "client_id": "814071848928-bs94povihci0qc5jp6em4iec6rghfusn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCZz8P1nLua7TGywma2dBUgobuS0UYGuI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "814071848928-bs94povihci0qc5jp6em4iec6rghfusn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
