@@ -950,7 +950,7 @@ public class CommonFunc {
         final int result = CommonFunc.getInstance().Select_OpenedItem();
         CommonFunc.getInstance().View_OpenedItem(context, v, result, Img_Opened, Text_Opened);
         mMyData.setMyItem(result);
-        Text_Prob.setText("확률 " + UIData.getInstance().getProb()[result]);
+        Text_Prob.setText("획득 확률 " + UIData.getInstance().getProb()[result]);
        // Text_blar.setText(UIData.getInstance().getItemBlar()[result]);
 
 
@@ -1034,7 +1034,7 @@ public class CommonFunc {
         //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
         TextView Text_blar = (TextView)v.findViewById(R.id.tv_blar);
 
-        Text_Prob.setText("확률 " + UIData.getInstance().getProb()[Index]);
+        Text_Prob.setText("획득 확률  " + UIData.getInstance().getProb()[Index]);
         Text_blar.setText(UIData.getInstance().getItemBlar()[Index]);
         CommonFunc.getInstance().View_OpenedItem(context, v, Index, Img_Opened, Text_Opened);
 
@@ -1068,7 +1068,7 @@ public class CommonFunc {
         Button btn_confirm = v.findViewById(R.id.btn_yes);
         Button btn_sell = v.findViewById(R.id.btn_sell);
 
-        Text_Prob.setText("확률 " + UIData.getInstance().getProb()[Index]);
+        Text_Prob.setText("획득 확률  " + UIData.getInstance().getProb()[Index]);
        // Text_blar.setText(UIData.getInstance().getItemBlar()[Index]);
         CommonFunc.getInstance().View_OpenedItem(context, v, Index, Img_Opened, Text_Opened);
 
@@ -1153,7 +1153,7 @@ public class CommonFunc {
         btn_confirm.setVisibility(View.GONE);
         btn_sell.setVisibility(View.GONE);
 
-        Text_Prob.setText("확률 " + UIData.getInstance().getProb()[Index]);
+        Text_Prob.setText("획득 확률  " + UIData.getInstance().getProb()[Index]);
         // Text_blar.setText(UIData.getInstance().getItemBlar()[Index]);
         CommonFunc.getInstance().View_EmptyItem(context, v, Index, Img_Opened, Text_Opened);
 
