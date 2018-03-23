@@ -398,7 +398,7 @@ if(mMyData.itemList.get(i) != 0)
                         {
                             @Override
                             public void EndListener(int heartCount, String msg) {
-                                mMyData.makeSendList(stTargetData, msg, heartCount);
+                                //mMyData.makeSendList(stTargetData, msg, heartCount);
                                 mMyData.makeCardList(stTargetData);
                                 mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
                                 mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
