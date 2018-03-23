@@ -39,6 +39,7 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
     UIData mUIData = UIData.getInstance();
     public UserData stTargetData = new UserData();
 
+
     public MailBoxAdapter(Activity activity) {
         mActivity = activity;
     }
@@ -46,6 +47,10 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
     @Override
     public MailboxViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mActivity).inflate(R.layout.content_mailbox_item,parent,false);
+
+
+
+
         return new MailboxViewHolder(view);
     }
 

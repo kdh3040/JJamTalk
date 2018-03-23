@@ -65,6 +65,7 @@ public class ChatListFragment extends Fragment {
     LinearLayout layout_chatlist;
 
     View fragView;
+    private TextView txt_empty;
 
     public void refreshFragMent()
     {
@@ -120,7 +121,16 @@ public class ChatListFragment extends Fragment {
 
 
         if (fragView!= null) {
-            CommonFunc.getInstance().RefreshChatListData(mAdapter);
+
+            if(mMyData.arrChatDataList.size() == 0)
+            {
+                txt_empty.setVisibility(View.VISIBLE);
+            }
+            else {
+                txt_empty.setVisibility(View.GONE);
+                CommonFunc.getInstance().RefreshChatListData(mAdapter);
+            }
+
            /* SortByChatDate();
             mAdapter.notifyDataSetChanged();*/
         }
@@ -128,6 +138,15 @@ public class ChatListFragment extends Fragment {
         {
             fragView = inflater.inflate(R.layout.fragment_chat_list,container,false);
             fragView.setTag("ChatListFragment");
+
+            txt_empty = fragView.findViewById(R.id.txt_empty);
+            if(mMyData.arrChatDataList.size() == 0)
+            {
+                txt_empty.setVisibility(View.VISIBLE);
+            }
+            else
+                txt_empty.setVisibility(View.GONE);
+
             chatListRecyclerView = fragView.findViewById(R.id.chat_list_recy);
 
             chatListRecyclerView.setAdapter(mAdapter);

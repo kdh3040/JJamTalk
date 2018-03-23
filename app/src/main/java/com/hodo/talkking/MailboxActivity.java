@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -27,12 +29,23 @@ public class MailboxActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     MailBoxAdapter mailBoxAdapter;
     private MyData mMyData = MyData.getInstance();
-
+    private TextView txt_empty;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mailbox);
         mailBoxAdapter = new MailBoxAdapter(this);
+
+        txt_empty = (TextView)findViewById(R.id.txt_empty);
+
+        if(mMyData.arrGiftHoneyDataList.size() == 0)
+        {
+            txt_empty.setVisibility(View.VISIBLE);
+        }
+        else {
+            txt_empty.setVisibility(View.GONE);
+        }
+
         recyclerView = (RecyclerView)findViewById(R.id.rv_mailbox);
         recyclerView.setAdapter(mailBoxAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

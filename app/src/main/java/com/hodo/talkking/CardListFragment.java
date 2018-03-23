@@ -33,6 +33,8 @@ import com.hodo.talkking.Data.UIData;
 import com.hodo.talkking.Data.UserData;
 import com.hodo.talkking.Util.CommonFunc;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -55,6 +57,7 @@ public class CardListFragment extends Fragment {
     private Context mContext;
     private UIData mUIData = UIData.getInstance();
 
+    private TextView txt_empty;
     View fragView;
 
     private void refreshFragMent()
@@ -82,13 +85,30 @@ public class CardListFragment extends Fragment {
 
 
         if (fragView!= null) {
-          /*  CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");*/
-            CommonFunc.getInstance().RefreshCardData(cardListAdapter);
-            //cardListAdapter.notifyDataSetChanged();
+            if(mMyData.arrCarDataList.size() == 0)
+            {
+                txt_empty.setVisibility(View.VISIBLE);
+            }
+            else {
+                txt_empty.setVisibility(View.GONE);
+                CommonFunc.getInstance().RefreshCardData(cardListAdapter);
+            }
+
+
         }
         else
         {
             fragView = inflater.inflate(R.layout.fragment_card_list,container,false);
+
+            txt_empty = fragView.findViewById(R.id.txt_empty);
+            if(mMyData.arrCarDataList.size() == 0)
+            {
+                txt_empty.setVisibility(View.VISIBLE);
+            }
+            else
+                txt_empty.setVisibility(View.GONE);
+
+
             card_recylerview = fragView.findViewById(R.id.cardlist_recy);
             card_recylerview.setAdapter(cardListAdapter);
             card_recylerview.setLayoutManager(new LinearLayoutManager(getContext()));

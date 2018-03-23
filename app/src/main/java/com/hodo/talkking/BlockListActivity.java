@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.hodo.talkking.Data.MyData;
 import com.hodo.talkking.Util.CommonFunc;
@@ -19,12 +21,24 @@ public class BlockListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     BlockListAdapter blockListAdapter;
     private MyData mMyData = MyData.getInstance();
+    public TextView txt_empty;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_block);
 
-        blockListAdapter = new BlockListAdapter(getApplicationContext());
+        txt_empty = (TextView)findViewById(R.id.txt_empty);
+
+        if(mMyData.arrBlockDataList.size() == 0)
+        {
+            txt_empty.setVisibility(View.VISIBLE);
+        }
+        else {
+            txt_empty.setVisibility(View.GONE);
+        }
+
+
+        blockListAdapter = new BlockListAdapter(getApplicationContext(), txt_empty);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview_blocklist);
 
         recyclerView.setAdapter(blockListAdapter);

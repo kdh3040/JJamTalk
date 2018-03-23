@@ -60,6 +60,7 @@ public class FanListFragment extends Fragment {
     private UIData mUIData = UIData.getInstance();
 
     View fragView;
+    private TextView txt_empty;
 
     private void refreshFragMent()
     {
@@ -123,7 +124,17 @@ public class FanListFragment extends Fragment {
 
 
         if (fragView!= null) {
-            CommonFunc.getInstance().RefreshFanData(fanListAdapter);
+
+            if(mMyData.arrMyFanDataList.size() == 0)
+            {
+                txt_empty.setVisibility(View.VISIBLE);
+            }
+            else {
+                txt_empty.setVisibility(View.GONE);
+                CommonFunc.getInstance().RefreshFanData(fanListAdapter);
+            }
+
+
            // SortByRecvHeart();
             //fanListAdapter.notifyDataSetChanged();
 
@@ -131,6 +142,16 @@ public class FanListFragment extends Fragment {
         else
         {
             fragView = inflater.inflate(R.layout.fragment_fan_list,container,false);
+
+            txt_empty = fragView.findViewById(R.id.txt_empty);
+            if(mMyData.arrMyFanDataList.size() == 0)
+            {
+                txt_empty.setVisibility(View.VISIBLE);
+            }
+            else
+                txt_empty.setVisibility(View.GONE);
+
+
             fan_recylerview = fragView.findViewById(R.id.fanlist_recy);
             fan_recylerview.setAdapter(fanListAdapter);
             fan_recylerview.setLayoutManager(new LinearLayoutManager(getContext()));

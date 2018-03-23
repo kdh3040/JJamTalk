@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -23,17 +24,25 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListViewHolder> 
     private MyData mMyData = MyData.getInstance();
 
     Context mContext;
+    public TextView txt_empty;
 
-
-    public BlockListAdapter(Context context) {
+    public BlockListAdapter(Context context, TextView empty) {
         super();
         mContext = context;
+        txt_empty = empty;
     }
 
     @Override
     public BlockListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.content_blocklist,parent,false);
 
+        if(mMyData.arrBlockDataList.size() == 0)
+        {
+            txt_empty.setVisibility(View.VISIBLE);
+        }
+        else {
+            txt_empty.setVisibility(View.GONE);
+        }
 
         return new BlockListViewHolder(view);
     }
