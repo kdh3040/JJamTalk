@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
         Analyticsbundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, Analyticsbundle);*/
 
-        //AddDummy(100);
+        //AddDummy(32);
 
         mMyData.mContext = getApplicationContext();
         mMyData.mActivity = mActivity;
@@ -1560,36 +1560,36 @@ public class MainActivity extends AppCompatActivity {
     private void AddDummy(int Count)
     {
 
-        RandImg[0] = "https://cdn.pixabay.com/photo/2017/07/20/21/48/portrait-2523916_960_720.jpg";
-        RandImg[1] = "https://cdn.pixabay.com/photo/2014/07/03/23/20/making-a-face-383391_960_720.jpg";
-        RandImg[2] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA6CuJdoyKGP5oGe8lrqCV_IwuoBErScZuUUwoYZ39zGkUfpqokw";
-        RandImg[3] = "https://cdn.pixabay.com/photo/2017/03/30/21/34/portrait-2189787_960_720.jpg";
-        RandImg[4] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0i4zzU2SdB2tHGBHQ8PAkYE9NBWB0dG0KJ9dS_XnolhACILB5";
-        RandImg[5] = "https://cdn.pixabay.com/photo/2015/12/06/15/34/guy-1079623_960_720.jpg";
-        RandImg[6] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTd0TN695P_D6xEQLHuD8IsZmkyhiKqKB9uEFZheXqZy0Wdgz55Q";
-        RandImg[7] = "https://cdn.pixabay.com/photo/2015/07/28/19/21/person-864804_960_720.jpg";
+        RandImg[0] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-144474.jpeg?alt=media&token=b990fd33-af19-4268-a996-5b7c7629660d";
+        RandImg[1] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-169915.jpeg?alt=media&token=97c43368-0d28-45cc-9b50-f7169424167d";
+        RandImg[2] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-206434.jpeg?alt=media&token=8aa6e539-95b7-4157-9a83-c1c6350f4e87";
+        RandImg[3] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-247287.jpeg?alt=media&token=6aaca0d4-256b-4df7-b858-4e607fb1a544";
+        RandImg[4] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-247322.jpeg?alt=media&token=feabcaf0-c5f4-43a2-bf23-877fd714b076";
+        RandImg[5] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-253758.jpeg?alt=media&token=edf88006-5d8c-4f1d-b807-87720aa7fbf7";
+        RandImg[6] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-255349.jpeg?alt=media&token=763ed69e-b5af-44ff-b2cf-77f241dd9378";
+        RandImg[7] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-256639.jpeg?alt=media&token=8b115c10-79c8-4ac3-9a3e-5f1ece2f40f9";
 
-        RandImg[8] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcFnRY5kdiB4Wu4ek76QQYUTtX755sjkHWOG3Xpfs38Y9UcIhp";
-        RandImg[9] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfTpD1mrqkj3wwzCnZTws_UIMEeVUShx1Cc7dqpqwaxxJc0NfSuA";
-        RandImg[10] = "https://cdn.pixabay.com/photo/2016/03/17/16/50/person-1263323_960_720.jpg";
-        RandImg[11] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7GumcCQMXEHyypqfzfZx1D6Tb-gUHZMHfN3ldndicvkStg6t";
-        RandImg[12] = "https://cdn.pixabay.com/photo/2015/02/09/12/13/apple-629581_960_720.jpg";
-        RandImg[13] = "https://cdn.pixabay.com/photo/2017/12/01/01/25/autumn-2989943_960_720.jpg";
-        RandImg[14] = "https://cdn.pixabay.com/photo/2016/08/03/10/41/seagull-1566323_960_720.jpg";
-        RandImg[15] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsoqhHmogled-rW7km3MO251N4-yjaM12faA4c_e6ioGDXTJSD";
+        RandImg[8] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-324658.jpeg?alt=media&token=871e0556-d1b6-4011-b5ff-906665199cb6";
+        RandImg[9] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-341971.jpeg?alt=media&token=a8e68a0b-09f0-4442-ba17-be4f5934e3ce";
+        RandImg[10] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-373918.jpeg?alt=media&token=24aad93d-5d35-4297-a724-fd92eb85c830";
+        RandImg[11] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-415829.jpeg?alt=media&token=8c3a690d-4ea4-46cc-b9b1-f694b402dda9";
+        RandImg[12] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-459947.jpeg?alt=media&token=4c014403-b76f-4f77-a5ac-7830d4460626";
+        RandImg[13] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-531126.jpeg?alt=media&token=85910027-aa71-4884-80f2-851a6ba9dc61";
+        RandImg[14] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-573299.jpeg?alt=media&token=f406f392-6a61-4b32-8e98-3b50e24caa4e";
+        RandImg[15] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-613713.jpeg?alt=media&token=1dbf91af-9449-4a98-8a68-5287aacf7c94";
 
 
-        RandImg[16] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVXL22N5bWqcocWkoi6ztv3rnIK_R1iyZ2nvIVztOihB5lIccv";
-        RandImg[17] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKiJMnOcE5VrIbpBEyOkJ6rHaldgAH-d7Z4ps7lRJULFCAwXGPtw";
-        RandImg[18] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGxwiFB7ZuQecKM1nd83ZhBJ0y-cNHcrhFY12_dj1BbjL9OJmeug";
-        RandImg[19] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdIJL8X53dMq8WEH07cjd8nPvjp66TQR8Ia26I83q2XNe-xXzt";
-        RandImg[20] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_60MRDkVdMpV9m2FcqymjH9aFGA_0HwI6vuI4-zVN6UGNyN2zag";
-        RandImg[21] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSjrknXxPfvTTfMbeUPuHg9Yys05Gk5LmZTSSFd-ju41QQiq0zvg";
-        RandImg[22] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYm0Ieyu-q1Nwf81mW-tgnZq0j4cRQm-HXncnAff401ovJJaA7bA";
-        RandImg[23] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8QNDZi9t9GRBLaGcBNpL1_0LIAW0-WoJq0dZ9OIpFYONTt46g";
+        RandImg[16] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-765196.jpeg?alt=media&token=01451d3b-4de5-4555-ae91-d376ee5ceb44";
+        RandImg[17] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-356185.jpeg?alt=media&token=bfb58f43-6a54-4cbf-9ee8-2591de5486b0";
+        RandImg[18] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-264172.jpeg?alt=media&token=033980e0-29f6-4501-9640-f81abf4c0f4a";
+        RandImg[19] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-765228.jpeg?alt=media&token=48bafae0-3bd2-43d6-b536-54486a5128b7";
+        RandImg[20] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-672444.jpeg?alt=media&token=4987d946-074c-4f29-825b-bed9ed721351";
+        RandImg[21] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-458766.jpeg?alt=media&token=69311d64-a613-4af6-ad2a-fe47c4919acb";
+        RandImg[22] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-371311.jpeg?alt=media&token=c595419f-df54-4265-ad5a-32fe8a3a41db";
+        RandImg[23] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-371160.jpeg?alt=media&token=682b33b7-2971-4dcd-a79d-2e01aff58223";
 
-        RandImg[24] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk2rQpc80hjIITyfTe-WXXZ2L3pj1UYGYGUwv0gXzDsJwOkIrh";
-        RandImg[25] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs8NDsBYk5WrSzyCw-i38SBfNw-eF3t57EXxxYJEMBFnBi85lHyQ";
+        RandImg[24] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-347917.jpeg?alt=media&token=3b004d98-edad-4aa9-bf4e-631f4c5b5b97";
+        RandImg[25] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-255349.jpeg?alt=media&token=763ed69e-b5af-44ff-b2cf-77f241dd9378";
         RandImg[26] = "https://cdn.pixabay.com/photo/2018/02/01/17/09/man-3123561_960_720.jpg";
         RandImg[27] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMScn9nnzqZ8r8zK-ktCdu1bEJk0lSZ5sY3IyoC4lVVnp1dwknFQ";
         RandImg[28] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIjtRrDJNIZkRHsnFZQrwqboDJzvb_v7oeieiIlqEqefpdeA6O";
@@ -1614,7 +1614,7 @@ public class MainActivity extends AppCompatActivity {
             mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
             user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
 
-            int nImgIdx = random.nextInt(32);
+            int nImgIdx = i;//random.nextInt(32);
             user.child("Img").setValue(RandImg[nImgIdx]);
 
 

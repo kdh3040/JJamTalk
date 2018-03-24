@@ -1117,24 +1117,29 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
+
+                CommonFunc.getInstance().DismissLoadingPage();
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                CommonFunc.getInstance().ShowLoadingPage(mActivity, "로딩중");
+
 /*                progressBar.setVisibility(View.VISIBLE);
                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                 System.out.println("Upload is " + progress + "% done");
                 int currentprogress = (int) progress;
                 progressBar.setProgress(currentprogress);*/
 
-                if(bPrePare[0] == false)
+               /* if(bPrePare[0] == false)
                 {
-                    long nowTime = CommonFunc.getInstance().GetCurrentTime();
+
 
                     ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", nowTime, CoomonValueData.getInstance().ImgUrl, 0, 0);
                     mNotiFunc.SendMSGToFCM(stTargetData, "이미지를 보냈습니다");
 
-                    mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", nowTime, 0);
+
 
                     DatabaseReference pushedPostRef = mRef.push();
                     postId[0] = pushedPostRef.getKey();
@@ -1142,7 +1147,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
                     bPrePare[0] = true;
-                }
+                }*/
 
 
             }
@@ -1151,20 +1156,29 @@ public class ChatRoomActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 //progressBar.setVisibility(View.INVISIBLE);
+
+                CommonFunc.getInstance().DismissLoadingPage();
+
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
                 long nowTime = CommonFunc.getInstance().GetCurrentTime();
+                mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", nowTime, 0);
 
                 ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", nowTime, downloadUrl.toString(), 0, 0);
 
-              /*  ChatData chat_Data = new_img ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
+                DatabaseReference pushedPostRef = mRef.push();
+                pushedPostRef.setValue(chat_Data);
+
+      /*        *//*  ChatData chat_Data = new_img ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), tempChatData.Nick, "", formatStr, downloadUrl.toString(), 0, 0);
 
                 mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, "이미지를 보냈습니다", formatStr, 0);
-                mRef.push().setValue(chat_Data);*/
+                mRef.push().setValue(chat_Data);*//*
 
                 Map<String, Object> updateMap = new HashMap<>();
                 updateMap.put("img", downloadUrl.toString());
-                mRef.child( postId[0]).updateChildren(updateMap);
+                mRef.child( postId[0]).updateChildren(updateMap);*/
+
+
 
              /*   mRef.child( postId[0]).setValue(chat_Data);
                 mRef.child( postId[0]).updateChildren()*/
