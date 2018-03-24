@@ -27,6 +27,11 @@ public class CoomonValueData  {
     public static final String BOARD_DATE_FORMAT = "yy-MM-dd";
     public static final String MAIL_DATE_FORMAT = "yy-MM-dd HH:mm";
 
+    public static final String DATE_MONTH_DAY = "MM/dd\n";
+    public static final String DATE_HOURS_MIN = "HH:mm";
+    public static final String CHAT_DATE_TIME_COLOR_MONTH_DAY = "#000000";
+    public static final String CHAT_DATE_TIME_COLOR_HOURS_MIN = "#ff0000";
+
     public static final long UTC_OFFSET = 32400000;
     public static final long DAY_MILLI_SECONDS = 86400000;
     public static final long HOUR_MILLI_SECONDS = 3600000;

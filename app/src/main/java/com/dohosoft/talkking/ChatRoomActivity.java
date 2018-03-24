@@ -16,6 +16,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -442,19 +444,25 @@ public class ChatRoomActivity extends AppCompatActivity {
                     Date writeDate = new Date(chat_message.time);
                     if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
                     {
-                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
-                        viewHolder.date2.setText(ctime.format(writeDate));
-                        viewHolder.send_Img2_date.setText(ctime.format(writeDate));
-                        viewHolder.send_Img2_date.setText(ctime.format(writeDate));
-                        viewHolder.gift_date2.setText(ctime.format(writeDate));
+                        SimpleDateFormat chatTime_1 = new SimpleDateFormat(CoomonValueData.DATE_MONTH_DAY);
+                        SimpleDateFormat chatTime_2 = new SimpleDateFormat(CoomonValueData.DATE_HOURS_MIN);
+                        String DateTime = "<font color=" + CoomonValueData.CHAT_DATE_TIME_COLOR_MONTH_DAY + ">"+ chatTime_1.format(writeDate) + "<br>" +
+                                "</font><font color=" + CoomonValueData.CHAT_DATE_TIME_COLOR_HOURS_MIN + ">" + chatTime_2.format(writeDate) + "</font>";
+
+                        viewHolder.date2.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
+                        viewHolder.send_Img2_date.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
+                        viewHolder.send_Img2_date.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
+                        viewHolder.gift_date2.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
                     }
                     else
                     {
-                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
-                        viewHolder.date2.setText(ctime.format(writeDate));
-                        viewHolder.send_Img2_date.setText(ctime.format(writeDate));
-                        viewHolder.send_Img2_date.setText(ctime.format(writeDate));
-                        viewHolder.gift_date2.setText(ctime.format(writeDate));
+                        SimpleDateFormat chatTime = new SimpleDateFormat(CoomonValueData.DATE_HOURS_MIN);
+                        String DateTime = "<font color=" + CoomonValueData.CHAT_DATE_TIME_COLOR_HOURS_MIN + ">" + chatTime.format(writeDate) + "</font>";
+
+                        viewHolder.date2.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
+                        viewHolder.send_Img2_date.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
+                        viewHolder.send_Img2_date.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
+                        viewHolder.gift_date2.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
                     }
 
                     if(chat_message.Heart == 0)
@@ -588,21 +596,35 @@ public class ChatRoomActivity extends AppCompatActivity {
                     Date writeDate = new Date(chat_message.time);
                     Date todayDate = new Date(time);
 
-
                     if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
                     {
-                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_TODAY_DATE_FORMAT);
-                        viewHolder.date1.setText(ctime.format(writeDate));
-                        viewHolder.gift_date.setText(ctime.format(writeDate));
-                        viewHolder.send_Img1_date.setText(ctime.format(writeDate));
+                        SimpleDateFormat chatTime_1 = new SimpleDateFormat(CoomonValueData.DATE_MONTH_DAY);
+                        SimpleDateFormat chatTime_2 = new SimpleDateFormat(CoomonValueData.DATE_HOURS_MIN);
+                        String DateTime = "<font color=" + CoomonValueData.CHAT_DATE_TIME_COLOR_MONTH_DAY + ">"+ chatTime_1.format(writeDate) + "<br>" +
+                                "</font><font color=" + CoomonValueData.CHAT_DATE_TIME_COLOR_HOURS_MIN + ">" + chatTime_2.format(writeDate) + "</font>";
+
+                        viewHolder.date1.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
+                        viewHolder.gift_date.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
+                        viewHolder.send_Img1_date.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
                     }
                     else
                     {
-                        SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.BOARD_DATE_FORMAT);
-                        viewHolder.date1.setText(ctime.format(writeDate));
-                        viewHolder.gift_date.setText(ctime.format(writeDate));
-                        viewHolder.send_Img1_date.setText(ctime.format(writeDate));
+                        SimpleDateFormat chatTime = new SimpleDateFormat(CoomonValueData.DATE_HOURS_MIN);
+                        String DateTime = "<font color=" + CoomonValueData.CHAT_DATE_TIME_COLOR_HOURS_MIN + ">" + chatTime.format(writeDate) + "</font>";
+
+                        viewHolder.date1.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
+                        viewHolder.gift_date.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
+                        viewHolder.send_Img1_date.setText(Html.fromHtml(DateTime), TextView.BufferType.SPANNABLE);
                     }
+
+
+
+
+
+
+
+
+
 
                     viewHolder.image_profile.setVisibility(View.VISIBLE);
                     Glide.with(getApplicationContext())
