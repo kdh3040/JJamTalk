@@ -442,7 +442,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     long time = CommonFunc.getInstance().GetCurrentTime();
                     Date todayDate = new Date(time);
                     Date writeDate = new Date(chat_message.time);
-                    if(CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
+                    if(!CommonFunc.getInstance().IsTodayDate(todayDate, writeDate))
                     {
                         SimpleDateFormat chatTime_1 = new SimpleDateFormat(CoomonValueData.DATE_MONTH_DAY);
                         SimpleDateFormat chatTime_2 = new SimpleDateFormat(CoomonValueData.DATE_HOURS_MIN);

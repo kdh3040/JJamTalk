@@ -293,7 +293,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
                                         saveChangeNickName = strMemo;
                                         et_NickName.setText(strMemo);
-                                        CommonFunc.getInstance().ShowToast(getApplicationContext(), "닉네임 변경 완료!", true);
+                                       // CommonFunc.getInstance().ShowToast(getApplicationContext(), "닉네임 변경 완료!", true);
 
                                         msgDialog.dismiss();
 
