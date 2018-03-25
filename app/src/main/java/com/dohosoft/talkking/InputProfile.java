@@ -1043,6 +1043,7 @@ public class InputProfile extends AppCompatActivity {
 
                    // moveTaskToBack(true);
                     finish();
+                    System.exit(0);
                     int pid = android.os.Process.myPid();
                     android.os.Process.killProcess(pid);
 

@@ -157,6 +157,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
             public void YesListener() {
                 finish();
+                System.exit(0);
                 int pid = android.os.Process.myPid();
                 android.os.Process.killProcess(pid);
             }
@@ -588,7 +589,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         intent.putExtras(bundle);
 
         startActivity(intent);
-       // finish();
+        finish();
     }
     private void GoMainPage() {
 

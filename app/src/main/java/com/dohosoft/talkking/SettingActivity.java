@@ -250,8 +250,8 @@ public class SettingActivity extends AppCompatActivity {
                         FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
 
                         mMyData.Clear();
-
                         CommonFunc.getInstance().restartApp(getApplicationContext());
+                        finish();
 
                 /*        FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
                         currentUser.delete()
