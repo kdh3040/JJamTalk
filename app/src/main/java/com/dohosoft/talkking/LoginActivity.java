@@ -128,6 +128,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean bMySet, bMyLoc = false;
     private boolean bSetNear, bSetNew, bSetRich, bSetRecv = false;
+    private boolean bUpdate = true;
 
     private int nUserSet = 0;
     private static final int RC_SIGN_IN = 9001;
@@ -181,15 +182,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mMyData.SetCurFrag(0);
 
-        //mDialog = new_img AlertDialog.Builder(this);
+        mDialog = new AlertDialog.Builder(this);
         //new_img getMarketVersion().execute();
 
+        getMarketVersion getversion = new getMarketVersion();
+        getversion.execute();
 
-        try {
+     /*   try {
             PackageInfo i = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0);
             version = i.versionName;
         } catch (PackageManager.NameNotFoundException e) {
-        }
+        }*/
 
         getApplication().registerActivityLifecycleCallbacks(new CommonFunc.MyActivityLifecycleCallbacks());
 
@@ -222,15 +225,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
 
-        /*ImgLoading = (ImageView)findViewById(R.id.loading);
-
-        Glide.with(getApplicationContext())
-                //.load(mMyData.arrSendDataList.get(position).strTargetImg)
-                .load(R.drawable.logo_loading)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(ImgLoading);*/
-
-
         bSetNear = bSetNew = bSetRich = bSetRecv = false;
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -243,182 +237,52 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         final long[] tempVal = {0};
         final String[] rtStr = new String[1];
 
-  /*      Handler handler = new_img Handler();
-        handler.postDelayed(new_img Runnable() {
-            public void run() {*/
-
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
-    /*    if(currentUser != null)
-        {
-            FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
-            Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
 
-            data.addListenerForSingleValueEvent(new_img ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    rtStr[0] = dataSnapshot.getValue(String.class);
+        final boolean[] bCheckedMyIdx = {false};
 
-                    mMyData.setUserIdx(rtStr[0]);
-                    InitData_Mine();
-                }
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
 
-                }
-            });
-        }
-        else*/
-        {
+                data.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        bCheckedMyIdx[0] = true;
+                        rtStr[0] = dataSnapshot.getValue(String.class);
 
-            final boolean[] bCheckedMyIdx = {false};
-
-            PermissionListener permissionlistener = new PermissionListener() {
-                @Override
-                public void onPermissionGranted() {
-
-                    //mLoginFormView = findViewById(R.id.login_form);
-                    //progressBar = findViewById(R.id.login_progress);
-
-
-                /*    gso = new_img GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                            .requestIdToken(getString(R.string.default_web_client_id))
-                            .requestEmail()
-                            .build();
-
-                    mGoogleApiClient = new_img GoogleApiClient.Builder(getApplicationContext())
-                            .enableAutoManage(this *//* FragmentActivity *//*, this *//* OnConnectionFailedListener *//*)
-                            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                            .build();*/
-                    FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
-                    Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
-
-                    data.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            bCheckedMyIdx[0] = true;
-                            rtStr[0] = dataSnapshot.getValue(String.class);
-
-                            if (rtStr[0] == null || rtStr[0].equals(""))
-                                go();
-                            else {
-                                mMyData.setUserIdx(rtStr[0]);
-                                getLocation();
-                                InitData_Mine();
-                            }
+                        if (rtStr[0] == null || rtStr[0].equals(""))
+                            go();
+                        else {
+                            mMyData.setUserIdx(rtStr[0]);
+                            getLocation();
+                            InitData_Mine();
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
-                }
-
-                @Override
-                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                    int aaa = 0;
-                }
-            };
-
-            new TedPermission(LoginActivity.this)
-                    .setPermissionListener(permissionlistener)
-                    .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
-                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE)
-                    .check();
-
-        }
-
-/*
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-*/
-
-
-       /* OptionalPendingResult<GoogleSignInResult> pendingResult = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        if(pendingResult != null)
-        {
-            if(pendingResult.isDone())
-            {
-                GoogleSignInResult signInResult = pendingResult.get();
-                onSilentLoginFinished(signInResult);
+                    }
+                });
             }
-        }
-*/
 
-/*
-        LoginTask login = new_img LoginTask();
-        login.execute(0,0,0);
-*/
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                int aaa = 0;
+            }
+        };
 
-        // Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-
-        /*Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);*/
-
-
+        new TedPermission(LoginActivity.this)
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE)
+                .check();
 
 
-
-
-
-/*
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        //populateAutoComplete();
-        mPasswordView = (EditText) findViewById(R.id.password);
-
-        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mTextView_NeedHelp = (TextView) findViewById(R.id.Login_NeedHelp);
-        mGoogleSignInButton = (SignInButton) findViewById(R.id.Login_Google);
-        mTextView_SignUp = (TextView) findViewById(R.id.Login_SignUp);
-
-        *//*LoginTask login = new_img LoginTask();
-        login.execute(0,0,0);*//*
-
-
-       if(mAuth.getCurrentUser() != null){
-            strMyIdx = mAwsFunc.GetUserIdx(mAuth.getCurrentUser().getEmail());
-            Log.d(TAG, "Current User:" + mAuth.getCurrentUser().getEmail());
-            InitData_Mine();
-        }
-        else
-            {
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(signInIntent, RC_SIGN_IN);
-
-
-            mEmailSignInButton.setOnClickListener(new_img OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    attemptLogin(null, null);
-                }
-            });
-            mTextView_SignUp.setOnClickListener(new_img OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new_img Intent(LoginActivity.this, SignUpActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-            mTextView_NeedHelp.setOnClickListener(new_img OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d("LoginActivity", "mTextView_NeedHelp Clicked!");
-                }
-            });
-            mGoogleSignInButton.setOnClickListener(new_img OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                    startActivityForResult(signInIntent, RC_SIGN_IN);
-                }
-            });
-
-        }*/
-        /*    }
-        }, 5000);*/
     }
 
     private void go() {
@@ -548,7 +412,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
         }
 
-        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
             Log.d(TAG, "Account Log in  Complete");
             GoMainPage();
@@ -1081,7 +945,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if(mMyData.arrUserAll_Recv.size() > 0)
                                 mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
 
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
@@ -1099,7 +963,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
@@ -1161,7 +1025,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if(mMyData.arrUserAll_Send.size() > 0)
                                 mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
 
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
 
                                 Log.d(TAG, "Account Log in  Complete");
@@ -1181,7 +1045,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
@@ -1262,7 +1126,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if(mMyData.arrUserAll_Near.size() > 0)
                                 mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
 
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
@@ -1281,7 +1145,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
@@ -1343,7 +1207,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if(mMyData.arrUserAll_New.size() > 0)
                                 mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
 
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
@@ -1362,7 +1226,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
@@ -1417,7 +1281,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                      /*   .connect(
                                 "https://play.google.com/store/apps/details?id=패키지명 적으세요" )*/
                         .connect(
-                                "https://play.google.com/store/apps/details?id=com.dohosoft.talkking&hl=ko&ah=g8NB2YFme5iIsyT0jkSW1gFAaFg" )
+                                "https://play.google.com/store/apps/details?id=com.dohosoft.talkking" )
                         .get();
                 Elements Version = doc.select(".content");
 
@@ -1445,8 +1309,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
             verSion = pi.versionName;
             marketVersion = result;
-
             if (!verSion.equals(marketVersion)) {
+                bUpdate = false;
                 mDialog.setMessage("업데이트 후 사용해주세요.")
                         .setCancelable(false)
                         .setPositiveButton("업데이트 바로가기",
@@ -1457,7 +1321,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                                 Intent.ACTION_VIEW);
                                         marketLaunch.setData(Uri
                                                 //.parse("https://play.google.com/store/apps/details?id=패키지명 적으세요"));
-                                                .parse("https://play.google.com/apps/testing/com.dohosoft.talkking"));
+                                                .parse("https://play.google.com/store/apps/details?id=com.dohosoft.talkking"));
 
                                         startActivity(marketLaunch);
                                         finish();
@@ -1467,6 +1331,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 alert.setTitle("안 내");
                 alert.show();
             }
+            else
+                bUpdate = true;
 
             super.onPostExecute(result);
         }
