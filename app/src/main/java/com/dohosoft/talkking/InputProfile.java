@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dohosoft.talkking.Data.UIData;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -676,7 +677,7 @@ public class InputProfile extends AppCompatActivity {
                     //mMyData.setUserMemo(strMemo);
 
                     mMyData.setUserHoney(50);
-
+                    mMyData.setPoint(50);
 
                     bMySet = true;
 
