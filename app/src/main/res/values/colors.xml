@@ -20,6 +20,7 @@
     <color name ="baseColorLight">#909dd4</color>
     <color name ="baseColorDark">#2e2b57</color>
     <color name ="baseColorAlpha">#225f52a0</color>
+    <color name ="chatBg">#dcd9ea</color>
     <color name ="baseColorAlpha2">#555f52a0</color>
     <color name ="baseColorAlpha3">#955f52a0</color>
     <color name ="GreenDark">#4a235a</color>
