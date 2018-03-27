@@ -309,8 +309,15 @@ public class ChatRoomActivity extends AppCompatActivity {
             tempChatData.Date = 0;
             tempChatData.Check = 0;
         }
-        else
-            tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
+        else {
+            if(mMyData.arrChatDataList.size() != mMyData.arrChatNameList.size())
+            {
+                finish();
+                onBackPressed();
+            }
+            else
+                tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
+        }
 
         // GiftLayout = (ConstraintLayout)findViewById(R.id.ChatGiftLayout);
         //stTargetData.NickName = tempChatData.strTargetNick;
