@@ -39,23 +39,27 @@
 
     <ImageButton
         android:id="@+id/rank"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
         android:elevation="5dp"
+        android:adjustViewBounds="true"
+        android:padding="7dp"
+
         android:scaleType="fitCenter"
         android:src="@drawable/rank_bronze"
         android:theme="@style/PrimaryButton"
         app:layout_constraintBottom_toBottomOf="@+id/nickname"
-        app:layout_constraintLeft_toRightOf="@+id/nickname"
-        app:layout_constraintTop_toTopOf="@id/nickname"
 
-        />
+        app:layout_constraintLeft_toRightOf="@+id/nickname"
+        app:layout_constraintTop_toTopOf="@id/nickname" />
 
     <ImageButton
         android:id="@+id/jewel"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
         android:elevation="5dp"
+        android:adjustViewBounds="true"
+        android:padding="7dp"
         android:scaleType="fitCenter"
         android:src="@drawable/dia_s"
         android:theme="@style/PrimaryButton"
