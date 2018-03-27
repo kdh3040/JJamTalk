@@ -183,7 +183,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mMyData.SetCurFrag(0);
 
         mDialog = new AlertDialog.Builder(this);
-        new getMarketVersion().execute();
+        //new getMarketVersion().execute();
 
 
       /*  try {

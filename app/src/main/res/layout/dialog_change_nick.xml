@@ -96,7 +96,7 @@
         android:layout_height="40dp"
 
 
-        android:theme="@style/PrimaryButtonBaseColor"
+        android:background="@drawable/purple_stroke_btn_bg"
 
         android:text="취소"
         android:textColor="@color/black"
