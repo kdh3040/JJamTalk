@@ -6,17 +6,27 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/baseColor2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/baseColor2"
         android:gravity="center"
         android:text="차단하기"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/imageView8"
+        app:layout_constraintBottom_toBottomOf="@id/imageView8"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView8"
+        app:layout_constraintRight_toRightOf="@+id/imageView8" />
 
     <TextView
         android:id="@+id/textView6"
