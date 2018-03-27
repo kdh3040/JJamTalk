@@ -675,9 +675,6 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.setUserNick(strNickName);
                     //mMyData.setUserMemo(strMemo);
 
-                    mMyData.setUserHoney(50);
-
-
                     bMySet = true;
 
                     mMyData.getDownUrl();
@@ -1002,12 +999,16 @@ public class InputProfile extends AppCompatActivity {
         final DatabaseReference UserIdx = table.child(mMyData.ANDROID_ID);
         UserIdx.setValue(strIdx);
 
+        mMyData.setUserHoney(50);
+        mMyData.setPoint(50);
+
+
         mFireBaseData.SaveFirstMyData(mMyData.getUserIdx());
         mMyData.getRecvGold();
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
         CommonFunc.getInstance().DismissLoadingPage();
-        mCommon.refreshMainActivity(this, MAIN_ACTIVITY_HOME);
+        mCommon.refreshMainActivity(this, MAIN_ACTIVITY_HOME, 0, 1);
         finish();
         /*Intent intent = new_img Intent(InputProfile.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);

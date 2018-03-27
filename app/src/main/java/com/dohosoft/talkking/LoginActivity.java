@@ -598,7 +598,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         FirebaseData.getInstance().GetInitMyBoardData();
         FirebaseData.getInstance().SaveData(mMyData.getUserIdx());
         mMyData.getRecvGold();
-        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
         //finish();
         /*Intent intent = new_img Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
