@@ -154,7 +154,7 @@
 
         android:layout_marginLeft="32dp"
         android:layout_marginRight="30dp"
-        android:background="@drawable/purple_alpha_btn_bg"
+        android:background="@drawable/purple_alpha1_btn_bg"
         android:gravity="left|center"
         android:paddingLeft="60dp"
         android:paddingRight="130dp"
