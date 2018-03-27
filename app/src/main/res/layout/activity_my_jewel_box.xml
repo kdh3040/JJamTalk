@@ -414,70 +414,45 @@
         app:layout_constraintTop_toTopOf="@+id/iv_coin6" />
 
 
-    <ImageView
-        android:id="@+id/button4"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="4dp"
-        android:elevation="7dp"
-        android:padding="6dp"
-        android:src="@drawable/randombox"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_openBox"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_openBox"
-        app:layout_constraintTop_toTopOf="@+id/btn_openBox" />
-
-    <Button
+    <ImageButton
         android:id="@+id/btn_openBox"
         android:layout_width="80dp"
-        android:layout_height="0dp"
-
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
-
-        android:background="@drawable/purple_btn_bg2"
+        android:layout_height="40dp"
 
 
-        android:paddingLeft="40dp"
-        android:text="x 1"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/bg_mid"
+        android:background="@drawable/element_background"
+
+
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/bg_bottom"
         app:layout_constraintEnd_toStartOf="@+id/btn_sellJewely"
         app:layout_constraintHorizontal_bias="0.5"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bg_bottom" />
+        app:layout_constraintTop_toTopOf="@+id/bg_bottom"
+        app:srcCompat="@drawable/x1" />
+
+        <!-- your layout stuff here -->
 
 
-    <ImageView
-        android:id="@+id/button11"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="4dp"
-        android:elevation="7dp"
-        android:padding="5dp"
-        android:src="@drawable/randombox"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_sellJewely"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_sellJewely"
-        app:layout_constraintTop_toTopOf="@+id/btn_sellJewely" />
-
-    <Button
+    <ImageButton
         android:id="@+id/btn_sellJewely"
         android:layout_width="80dp"
-        android:layout_height="0dp"
-        android:background="@drawable/purple_btn_bg2"
+        android:layout_height="40dp"
 
+        android:background="@drawable/element_background"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:scaleType="fitCenter"
 
-        android:paddingLeft="40dp"
-        android:text="x 10"
-        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/btn_openBox"
         app:layout_constraintEnd_toStartOf="@+id/buy_coin"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_openBox"
-        app:layout_constraintTop_toTopOf="@+id/btn_openBox" />
+        app:layout_constraintTop_toTopOf="@+id/btn_openBox"
+        app:srcCompat="@drawable/x10" />
 
     <Button
         android:id="@+id/buy_coin"

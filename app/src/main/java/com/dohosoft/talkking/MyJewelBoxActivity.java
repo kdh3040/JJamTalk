@@ -7,8 +7,10 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,8 +37,8 @@ public class MyJewelBoxActivity extends AppCompatActivity {
     private ImageView Img_item[] = new ImageView[7];
     private TextView txt_item[] = new TextView[7];
 
-    private Button open_1;
-    private Button open_10;
+    private ImageButton open_1;
+    private ImageButton open_10;
     private Button buy_Coin;
 
     Context mActivity;
@@ -94,7 +96,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
             }
         });
 
-        open_1 = (Button) findViewById(R.id.btn_openBox);
+        open_1 =findViewById(R.id.btn_openBox);
         open_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +106,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
             }
         });
 
-        open_10 = (Button)findViewById(R.id.btn_sellJewely);
+        open_10 = findViewById(R.id.btn_sellJewely);
         open_10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
