@@ -6,9 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context="com.dohosoft.talkking.InputProfile"
-    tools:layout_editor_absoluteY="81dp">
+    tools:context="com.dohosoft.talkking.InputProfile">
 
+
+    <TextView
+        android:id="@+id/tv_top"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:text="간단한 기본정보를 입력해주세요 :)"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/InputProfile_SumImg"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_image"
@@ -21,18 +33,18 @@
         app:layout_constraintLeft_toLeftOf="@+id/tv_nickname"
         app:layout_constraintTop_toTopOf="@+id/InputProfile_SumImg" />
 
+
     <ImageView
         android:id="@+id/InputProfile_SumImg"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/purple_stroke_btn_bg"
         android:padding="20dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/tv_nickname"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/InputProfile_NickName"
+        app:layout_constraintLeft_toLeftOf="@+id/InputProfile_NickName"
+        app:layout_constraintTop_toBottomOf="@+id/tv_top"
         app:srcCompat="@drawable/image" />
 
 
@@ -40,59 +52,61 @@
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
         android:gravity="center_vertical"
         android:text="닉네임"
         android:textColor="@color/baseColorAlpha3"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_age"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/InputProfile_SumImg" />
+        app:layout_constraintBottom_toBottomOf="@id/InputProfile_NickName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/InputProfile_NickName" />
 
     <EditText
         android:id="@+id/InputProfile_NickName"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/purple_stroke_btn_bg"
         android:ems="10"
         android:hint="( 최대 8자)"
         android:inputType="textPersonName"
         android:maxLength="8"
         android:paddingLeft="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/InputProfile_Age_1"
+
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toRightOf="@+id/tv_nickname"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/InputProfile_SumImg" />
 
     <TextView
         android:id="@+id/tv_age"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:text="나이"
         android:textColor="@color/baseColorAlpha3"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView_Gender"
-        app:layout_constraintStart_toStartOf="@+id/tv_nickname"
-        app:layout_constraintTop_toBottomOf="@id/tv_nickname" />
-
+        app:layout_constraintBottom_toBottomOf="@+id/InputProfile_Age_1"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_nickname"
+        app:layout_constraintTop_toTopOf="@+id/InputProfile_Age_1" />
 
 
     <Spinner
         android:id="@+id/InputProfile_Age_1"
         android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/purple_stroke_btn_bg"
         android:entries="@array/MyProfire_Age"
         android:spinnerMode="dialog"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_age"
-        app:layout_constraintStart_toStartOf="@+id/InputProfile_NickName" />
+        app:layout_constraintBottom_toTopOf="@+id/InputProfile_Gender_1"
+        app:layout_constraintLeft_toLeftOf="@+id/InputProfile_NickName"
+        app:layout_constraintTop_toBottomOf="@+id/InputProfile_NickName" />
 
 
     <TextView
@@ -108,93 +122,97 @@
     <TextView
         android:id="@+id/textView_Gender"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="0dp"
         android:gravity="center_vertical"
         android:text="성별"
         android:textColor="@color/baseColorAlpha3"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_GenderDes"
-        app:layout_constraintStart_toStartOf="@+id/tv_age"
-        app:layout_constraintTop_toBottomOf="@+id/tv_age" />
+        app:layout_constraintBottom_toBottomOf="@+id/InputProfile_Gender_1"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_age"
+        app:layout_constraintTop_toTopOf="@+id/InputProfile_Gender_1" />
 
     <Spinner
         android:id="@+id/InputProfile_Gender_1"
         android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/purple_stroke_btn_bg"
         android:entries="@array/InputProfile_Gender"
         android:spinnerMode="dialog"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_Gender"
-        app:layout_constraintStart_toStartOf="@+id/InputProfile_Age_1" />
+        app:layout_constraintBottom_toTopOf="@+id/tv_GenderDes"
+        app:layout_constraintLeft_toLeftOf="@+id/InputProfile_Age_1"
+        app:layout_constraintTop_toBottomOf="@+id/InputProfile_Age_1" />
 
 
     <TextView
         android:id="@+id/tv_GenderDes"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="0dp"
         android:gravity="center_vertical"
         android:text="*성별은 나중에 변경이 불가능하오니 신중히 선택해주세요 :)"
         android:textColor="@color/boardLikeColor"
         android:textSize="10sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/cb_access"
-        app:layout_constraintStart_toStartOf="@+id/InputProfile_Gender_1"
-        app:layout_constraintTop_toBottomOf="@+id/textView_Gender" />
+        app:layout_constraintBottom_toTopOf="@+id/btn_access"
+        app:layout_constraintLeft_toLeftOf="@+id/InputProfile_Gender_1"
+        app:layout_constraintTop_toBottomOf="@+id/InputProfile_Gender_1" />
 
     <CheckBox
         android:id="@+id/cb_access"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="16dp"
         android:gravity="center"
         android:textSize="15sp"
         android:textStyle="bold"
         android:theme="@style/RejectCheckBox"
-        app:layout_constraintBottom_toTopOf="@+id/cb_loc"
-        app:layout_constraintStart_toStartOf="@+id/textView_Gender"
-        app:layout_constraintTop_toBottomOf="@+id/tv_GenderDes" />
+        app:layout_constraintBottom_toBottomOf="@id/btn_access"
+        app:layout_constraintLeft_toLeftOf="@+id/textView_Gender"
+        app:layout_constraintTop_toTopOf="@id/btn_access" />
 
     <TextView
         android:id="@+id/tv_access"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:gravity="center"
         android:text="이용 약관 동의 (필수)"
         android:textColor="@color/baseColorAlpha3"
         android:textSize="13sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/cb_access"
-        app:layout_constraintStart_toEndOf="@+id/cb_access" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_access"
+        app:layout_constraintLeft_toRightOf="@+id/cb_access"
+        app:layout_constraintTop_toTopOf="@+id/btn_access" />
 
     <Button
         android:id="@+id/btn_access"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
 
+        android:layout_height="0dp"
+        android:layout_margin="3dp"
         android:background="@drawable/purple_btn_bg2"
+        android:padding="2dp"
         android:text="약관 보기"
         android:textColor="@color/white"
         android:textSize="13sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_access"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_access" />
+        app:layout_constraintBottom_toTopOf="@+id/btn_loc"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="@+id/tv_access"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_GenderDes" />
 
     <CheckBox
         android:id="@+id/cb_loc"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="8dp"
         android:gravity="center"
         android:textSize="13sp"
         android:textStyle="bold"
         android:theme="@style/RejectCheckBox"
-        app:layout_constraintBottom_toTopOf="@+id/tv_privacy"
-        app:layout_constraintStart_toStartOf="@+id/cb_access"
-        app:layout_constraintTop_toBottomOf="@+id/cb_access" />
+        app:layout_constraintBottom_toBottomOf="@id/btn_loc"
+        app:layout_constraintLeft_toLeftOf="@+id/cb_access"
+        app:layout_constraintTop_toTopOf="@id/btn_loc" />
 
     <TextView
         android:id="@+id/tv_loc"
@@ -205,68 +223,75 @@
         android:textColor="@color/baseColorAlpha3"
         android:textSize="13sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/cb_loc"
-        app:layout_constraintStart_toStartOf="@+id/tv_access" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_loc"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_access"
+        app:layout_constraintTop_toTopOf="@+id/btn_loc" />
 
     <Button
         android:id="@+id/btn_loc"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_height="0dp"
+        android:layout_margin="3dp"
         android:background="@drawable/purple_btn_bg2"
+        android:padding="2dp"
         android:text="약관 보기"
+
         android:textColor="@color/white"
         android:textSize="13sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_loc"
-        app:layout_constraintEnd_toEndOf="@+id/btn_access"
-        app:layout_constraintStart_toStartOf="@+id/btn_access" />
+        app:layout_constraintBottom_toTopOf="@+id/btn_privacy"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_access"
+        app:layout_constraintRight_toRightOf="@+id/btn_access"
+        app:layout_constraintTop_toBottomOf="@+id/btn_access" />
 
     <TextView
         android:id="@+id/tv_privacy"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="개인정보 취급방침"
         android:textColor="@color/baseColorAlpha3"
         android:textSize="13sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/InputProfile_Check"
-        app:layout_constraintStart_toStartOf="@+id/tv_loc"
-        app:layout_constraintTop_toBottomOf="@+id/cb_loc" />
+        app:layout_constraintBottom_toBottomOf="@id/btn_privacy"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_loc"
+        app:layout_constraintTop_toTopOf="@id/btn_privacy" />
 
     <Button
         android:id="@+id/btn_privacy"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_height="0dp"
+        android:layout_margin="3dp"
         android:background="@drawable/purple_btn_bg2"
+        android:padding="2dp"
         android:text="약관 보기"
         android:textColor="@color/white"
+
         android:textSize="13sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_privacy"
-        app:layout_constraintEnd_toEndOf="@+id/btn_loc"
-        app:layout_constraintStart_toStartOf="@+id/btn_loc" />
+        app:layout_constraintBottom_toTopOf="@+id/InputProfile_Check"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_loc"
+        app:layout_constraintRight_toRightOf="@+id/btn_loc"
+        app:layout_constraintTop_toBottomOf="@+id/btn_loc" />
 
     <Button
         android:id="@+id/InputProfile_Check"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/purple_btn_bg2"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:text="Go Go !"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_privacy" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_privacy" />
 
 
 </android.support.constraint.ConstraintLayout>
