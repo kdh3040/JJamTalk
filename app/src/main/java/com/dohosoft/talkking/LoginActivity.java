@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         };
 
-        CommonFunc.getInstance().ShowDefaultPopup(this, listener, null, "종료 확인", "킹톡을 종료하시겠습니까?", "종료", "계속");
+        CommonFunc.getInstance().ShowDefaultPopup(this, listener, null, "종료 확인", "톡킹을 종료하시겠습니까?", "종료", "계속");
     }
 
     @Override
