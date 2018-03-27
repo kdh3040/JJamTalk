@@ -46,10 +46,13 @@ public class ClickedMyPicActivity extends AppCompatActivity {
 
     private ImageButton btnShare;
     private ImageButton btnMessage;
+    private ImageButton btnFAB;
+
     private ImageView imgFan;
     private ImageView imgProfile;
     private ImageView imgBestItem;
     private ImageView imgGrade;
+
 
     RecyclerView listView_like, listView_liked;
     final Context context = this;
@@ -302,6 +305,9 @@ public class ClickedMyPicActivity extends AppCompatActivity {
 
         btnMessage =  findViewById(R.id.UserPage_btnMessage);
         btnMessage.setVisibility(View.GONE);
+
+        btnFAB =  findViewById(R.id.btnFAB);
+        btnFAB.setVisibility(View.GONE);
 
     }
 
