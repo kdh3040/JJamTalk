@@ -94,6 +94,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_New_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
@@ -104,6 +105,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_New_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
@@ -114,6 +116,7 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_New_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;

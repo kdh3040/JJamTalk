@@ -125,6 +125,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_Recv_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
@@ -141,6 +142,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Recv_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
@@ -156,6 +158,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Recv_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
