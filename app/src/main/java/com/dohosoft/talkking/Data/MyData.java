@@ -134,9 +134,9 @@ public class MyData {
     private String strMemo;
 
     public int nSearchMode = 0;
-    public boolean nAlarmSetting_Sound = false;
-    public boolean nAlarmSetting_Vibration = false;
-    public boolean nAlarmSetting_Pop = false;
+    public boolean nAlarmSetting_Sound = true;
+    public boolean nAlarmSetting_Vibration = true;
+    public boolean nAlarmSetting_Pop = true;
 
     public int nViewMode = 1;
     public boolean nRecvMsgReject = false;
