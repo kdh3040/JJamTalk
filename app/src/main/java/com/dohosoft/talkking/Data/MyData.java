@@ -2856,7 +2856,7 @@ public class MyData {
         {
             int nDataAge = Integer.parseInt(arrData.get(i).Age);
 
-            if( nDataAge >= Start && nDataAge < End)
+            if( nDataAge >= Start && nDataAge <= End)
             {
                 rtData.add(arrData.get(i));
             }
