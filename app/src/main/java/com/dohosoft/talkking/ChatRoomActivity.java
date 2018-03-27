@@ -1129,6 +1129,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
         } catch (Exception e) {
         }
 
@@ -1137,6 +1138,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             options.inSampleSize = calculateInSampleSize(options, 1024, 1024 , 2);
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+                bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
             } catch (Exception e) {
             }
         }
@@ -1145,6 +1147,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         {
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+                bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
+
             } catch (Exception e) {
             }
         }

@@ -805,6 +805,7 @@ public class InputProfile extends AppCompatActivity {
 
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
         } catch (Exception e) {
             FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
 
@@ -848,6 +849,7 @@ public class InputProfile extends AppCompatActivity {
                 options.inSampleSize = calculateInSampleSize(options, 512, 512 , 2);
                 try {
                     bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+                    bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
                 } catch (Exception e) {
                 }
             }
@@ -856,11 +858,10 @@ public class InputProfile extends AppCompatActivity {
             {
                 try {
                     bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+                    bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
                 } catch (Exception e) {
                 }
             }
-
-            bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             //bitmap.createScaledBitmap(bitmap, 50, 50, true);
@@ -897,6 +898,7 @@ public class InputProfile extends AppCompatActivity {
 
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
         } catch (Exception e) {
         }
 
@@ -905,6 +907,7 @@ public class InputProfile extends AppCompatActivity {
             options.inSampleSize = calculateInSampleSize(options, 1024, 1024 , 2);
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+                bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
             } catch (Exception e) {
             }
         }
@@ -913,6 +916,7 @@ public class InputProfile extends AppCompatActivity {
         {
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+                bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
             } catch (Exception e) {
             }
         }
