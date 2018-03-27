@@ -189,7 +189,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/et_outline"
             android:ems="10"
-            android:gravity="bottom|left"
+            android:gravity="top|left"
             android:hint="(100자 이내)"
             android:inputType="textCapSentences|textMultiLine"
             android:maxLength="100"
