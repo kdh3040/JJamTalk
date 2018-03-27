@@ -526,9 +526,9 @@ public class MyProfileActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
 
-        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 60)
+        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 100)
         {
-            options.inSampleSize = calculateInSampleSize(options, 100, 100 , 8);
+            options.inSampleSize = calculateInSampleSize(options, 512, 512 , 2);
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
             } catch (Exception e) {
@@ -576,13 +576,27 @@ public class MyProfileActivity extends AppCompatActivity {
         Bitmap bitmap = null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        options.inSampleSize = calculateInSampleSize(options, 100, 100 , 2);
-
 
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
-            bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
         } catch (Exception e) {
+        }
+
+        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 10000)
+        {
+            options.inSampleSize = calculateInSampleSize(options, 1024, 1024 , 2);
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            } catch (Exception e) {
+            }
+        }
+
+        else
+        {
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            } catch (Exception e) {
+            }
         }
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -843,9 +843,9 @@ public class InputProfile extends AppCompatActivity {
 
         else
         {
-            if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 60)
+            if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 100)
             {
-                options.inSampleSize = calculateInSampleSize(options, 100, 100 , 8);
+                options.inSampleSize = calculateInSampleSize(options, 512, 512 , 2);
                 try {
                     bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
                 } catch (Exception e) {
@@ -894,26 +894,27 @@ public class InputProfile extends AppCompatActivity {
         Bitmap bitmap = null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        options.inSampleSize = calculateInSampleSize(options, 100, 100 , 2);
 
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
-            bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
         } catch (Exception e) {
-            FirebaseData.getInstance().DelUser(mMyData.ANDROID_ID, mMyData.getUserIdx());
+        }
 
-            FirebaseUser currentUser =  FirebaseAuth.getInstance().getCurrentUser();
-            currentUser.delete()
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast toast = Toast.makeText(getApplicationContext(), "잘못된 이미지 입니다", Toast.LENGTH_SHORT);
-                                mMyData.Clear();
-                                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                            }
-                        }
-                    });
+        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 10000)
+        {
+            options.inSampleSize = calculateInSampleSize(options, 1024, 1024 , 2);
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            } catch (Exception e) {
+            }
+        }
+
+        else
+        {
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+            } catch (Exception e) {
+            }
         }
 
         if(bitmap == null)
