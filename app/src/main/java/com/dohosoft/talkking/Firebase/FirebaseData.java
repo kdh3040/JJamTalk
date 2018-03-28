@@ -134,16 +134,17 @@ public class FirebaseData {
         DatabaseReference data = fierBaseDataInstance.getReference("UserIdx").child(Uid);
         data.removeValue();
 
-  /*      data = fierBaseDataInstance.getReference("User").child(Idx);
-        data.removeValue();
-
-        data = fierBaseDataInstance.getReference("SimpleData").child(Idx);
-        data.removeValue();*/
-
-
         data = fierBaseDataInstance.getReference("UserIdx_History");
         final DatabaseReference user = data;
         user.push().child(Uid).setValue(Idx);
+
+        data = fierBaseDataInstance.getReference("SimpleData").child(mMyData.getUserIdx());
+        final DatabaseReference SimpleToken = data.child("Token");
+        SimpleToken.setValue("0");
+
+        data = fierBaseDataInstance.getReference("User").child(mMyData.getUserIdx());
+        final DatabaseReference UserToken = data.child("Token");
+        UserToken.setValue("0");
 
     }
 
@@ -155,6 +156,8 @@ public class FirebaseData {
         // DatabaseReference user = table.child( userIdx);
         DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
+
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
         mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
         user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
