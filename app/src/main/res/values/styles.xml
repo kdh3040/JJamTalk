@@ -122,6 +122,12 @@
     <style name="PrimaryButton" parent="Theme.AppCompat">
         <item name="colorButtonNormal">@android:color/white</item>
         <item name="colorControlHighlight">@color/gray_light</item>
+    </style>
+
+    <style name="PrimaryButtonBaseColor" parent="Theme.AppCompat">
+        <item name="colorButtonNormal">@color/baseColor2</item>
+
+        <item name="colorControlHighlight">@color/gray_light</item>
 
 
     </style>

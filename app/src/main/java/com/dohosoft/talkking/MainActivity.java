@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
     public int nStartFragment = 0;
     public int nStartByNoti = 0;
+    public int nStartByNew = 0;
 
     // 눌렀을때의 폰트 색상
     private int nEnableFontColor = Color.BLACK;
@@ -260,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+            mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
         }
 
         @Override
@@ -339,6 +340,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         nStartFragment = (int) bundle.getSerializable("StartFragment");
         nStartByNoti = (int) bundle.getSerializable("Noti");
+        nStartByNew = (int) bundle.getSerializable("New");
 
 
         OFFAPP = false;
@@ -760,6 +762,7 @@ public class MainActivity extends AppCompatActivity {
 
         prepareJob.execute();*/
 
+
         boolean bCheckConnt = mMyData.CheckConnectDate();
         if(bCheckConnt == true)
         {
@@ -768,6 +771,7 @@ public class MainActivity extends AppCompatActivity {
 
             final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
             dialog.show();
 
             final TextView txt_Title;
@@ -807,6 +811,54 @@ public class MainActivity extends AppCompatActivity {
             });
 
             bCheckConnt = false;
+        }
+
+        if(nStartByNew == 1)
+        {
+
+            View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+
+            final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+            dialog.show();
+
+            final TextView txt_Title;
+            txt_Title = (TextView)v.findViewById(R.id.title);
+            txt_Title.setText("신규 가입 보상");
+            final TextView txt_Body;
+            txt_Body = (TextView)v.findViewById(R.id.msg);
+            txt_Body.setText("신규 가입으로 50코인을 획득하였습니다!");
+
+            final Button btn_exit;
+            final Button btn_no;
+
+            btn_exit = (Button) v.findViewById(R.id.btn_yes);
+            btn_exit.setText("확인");
+            btn_exit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            btn_no = (Button) v.findViewById(R.id.btn_no);
+            btn_no.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+            btn_no.setVisibility(View.GONE);
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss (DialogInterface var1){
+
+                }
+
+            });
+
+            nStartByNew = 0;
         }
 
         // Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();

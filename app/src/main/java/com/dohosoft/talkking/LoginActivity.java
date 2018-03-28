@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         };
 
-        CommonFunc.getInstance().ShowDefaultPopup(this, listener, null, "종료 확인", "킹톡을 종료하시겠습니까?", "종료", "계속");
+        CommonFunc.getInstance().ShowDefaultPopup(this, listener, null, "종료 확인", "톡킹을 종료하시겠습니까?", "종료", "계속");
     }
 
     @Override
@@ -183,16 +183,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mMyData.SetCurFrag(0);
 
         mDialog = new AlertDialog.Builder(this);
-        //new_img getMarketVersion().execute();
 
         getMarketVersion getversion = new getMarketVersion();
         getversion.execute();
-
-     /*   try {
-            PackageInfo i = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0);
-            version = i.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-        }*/
 
         getApplication().registerActivityLifecycleCallbacks(new CommonFunc.MyActivityLifecycleCallbacks());
 
@@ -412,8 +405,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
         }
 
-        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
+        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
             Log.d(TAG, "Account Log in  Complete");
             GoMainPage();
         }
@@ -428,7 +421,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     mMyData.setUserLat(tempLoc.getLatitude());
 
                     bMyLoc = true;
-                    if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true){
+                          if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
                         Log.d(TAG, "Account Log in  Complete");
                         GoMainPage();
@@ -462,7 +455,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         FirebaseData.getInstance().GetInitMyBoardData();
         FirebaseData.getInstance().SaveData(mMyData.getUserIdx());
         mMyData.getRecvGold();
-        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
         //finish();
         /*Intent intent = new_img Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
@@ -946,7 +939,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
-
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
                             }
@@ -963,8 +955,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
             }
@@ -1026,8 +1018,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
-
-
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
                             }
@@ -1045,8 +1035,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
             }
@@ -1127,7 +1117,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
-
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
                             }
@@ -1145,8 +1134,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
             }
@@ -1208,7 +1197,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
 
                             if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
-
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
                             }
@@ -1226,8 +1214,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
+            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
             }
@@ -1265,8 +1253,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     public  class getMarketVersion extends AsyncTask<Void, Void, String> {
-
-
 
         @Override
         protected void onPreExecute() {
@@ -1333,6 +1319,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
             else
                 bUpdate = true;
+
 
             super.onPostExecute(result);
         }

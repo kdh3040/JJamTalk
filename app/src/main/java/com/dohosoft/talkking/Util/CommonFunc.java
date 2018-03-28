@@ -175,10 +175,11 @@ public class CommonFunc {
         FOREGROUND;            // app is foreground
     }
 
-    public void refreshMainActivity(Activity mActivity, int StartFragMent) {
+    public void refreshMainActivity(Activity mActivity, int StartFragMent, int Noti, int New) {
         Intent intent = new Intent(mActivity, MainActivity.class);
         intent.putExtra("StartFragment", StartFragMent);
-        intent.putExtra("Noti", 0);
+        intent.putExtra("Noti", Noti);
+        intent.putExtra("New", New);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
         mActivity.startActivity(intent);
@@ -186,10 +187,11 @@ public class CommonFunc {
 
     }
 
-    public void GoMainActivity(Activity mActivity, int StartFragMent) {
+    public void GoMainActivity(Activity mActivity, int StartFragMent, int Noti, int New) {
         Intent intent = new Intent(mActivity, MainActivity.class);
         intent.putExtra("StartFragment", StartFragMent);
-        intent.putExtra("Noti", 0);
+        intent.putExtra("Noti", Noti);
+        intent.putExtra("New", New);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         mActivity.startActivity(intent);
         mActivity.finish();

@@ -309,8 +309,15 @@ public class ChatRoomActivity extends AppCompatActivity {
             tempChatData.Date = 0;
             tempChatData.Check = 0;
         }
-        else
-            tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
+        else {
+            if(mMyData.arrChatDataList.size() != mMyData.arrChatNameList.size())
+            {
+                finish();
+                onBackPressed();
+            }
+            else
+                tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
+        }
 
         // GiftLayout = (ConstraintLayout)findViewById(R.id.ChatGiftLayout);
         //stTargetData.NickName = tempChatData.strTargetNick;
@@ -1119,7 +1126,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         Bitmap bitmap = null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        options.inSampleSize = calculateInSampleSize(options, 100, 100 , 2);
 
         try {
             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
@@ -1127,6 +1133,25 @@ public class ChatRoomActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
 
+        if(bitmap.getWidth() * bitmap.getHeight() * 4 / 1024 >= 10000)
+        {
+            options.inSampleSize = calculateInSampleSize(options, 1024, 1024 , 2);
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+                bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
+            } catch (Exception e) {
+            }
+        }
+
+        else
+        {
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(file), null, options);
+                bitmap = ExifUtils.rotateBitmap(file.getPath(),bitmap);
+
+            } catch (Exception e) {
+            }
+        }
 
         //bitmap = BitmapFactory.decodeFile(file.f, options);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

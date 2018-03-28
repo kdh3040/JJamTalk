@@ -712,7 +712,7 @@ if(mMyData.itemList.get(i) != 0)
         btnFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonFunc.getInstance().GoMainActivity(mActivity, MAIN_ACTIVITY_HOME);
+                CommonFunc.getInstance().GoMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
             }
         });
     }

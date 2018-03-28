@@ -140,6 +140,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_Send_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
@@ -153,6 +154,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Send_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
@@ -169,6 +171,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Send_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;

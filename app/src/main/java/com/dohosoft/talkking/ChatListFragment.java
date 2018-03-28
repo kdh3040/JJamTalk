@@ -114,6 +114,8 @@ public class ChatListFragment extends Fragment {
 
         }
     */
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -156,15 +158,6 @@ public class ChatListFragment extends Fragment {
         }
         return fragView;
     }
-/*
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-        overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-
-    }*/
-
 
     private void SortByChatDate()
     {
@@ -330,9 +323,10 @@ public class ChatListFragment extends Fragment {
 
             if(mMyData.arrChatDataList.get(str).Gender == null || mMyData.arrChatDataList.get(str).Gender.equals(""))
             {
-                int asd= 0;
-                asd++;
+                SortByChatDate();
+                mAdapter.notifyDataSetChanged();
             }
+
             if(mMyData.arrChatDataList.get(str).Gender.equals("여자"))
                 holder.nickname.setTextColor(0xffda1d81);
             else

@@ -43,6 +43,7 @@ import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 
 import static com.dohosoft.talkking.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_BOARD_COUNT;
+import static com.dohosoft.talkking.Data.CoomonValueData.UNIQ_FANCOUNT;
 import static com.dohosoft.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -181,7 +182,7 @@ public class FirebaseData {
 
         user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
-        user.child("FanCount").setValue(-1 * (mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
+        user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
 
         user.child("Point").setValue(mMyData.getPoint());
 
@@ -214,7 +215,7 @@ public class FirebaseData {
         user.child("Dist").setValue(mMyData.getUserDist());
         user.child("Date").setValue(mMyData.getUserDate());
 
-        user.child("FanCount").setValue(-1 * (mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
+        user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
 
         user.child("Point").setValue(mMyData.getPoint());
 
@@ -256,7 +257,7 @@ public class FirebaseData {
 
         user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
-        user.child("FanCount").setValue(-1 * (mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
+        user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
 
         user.child("Point").setValue(mMyData.getPoint());
 

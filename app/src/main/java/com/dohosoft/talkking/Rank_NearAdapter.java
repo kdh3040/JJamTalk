@@ -100,6 +100,7 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
                 Glide.with(mContext)
                         .load(mMyData.arrUserMan_Near_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;
@@ -116,6 +117,7 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
                 Glide.with(mContext)
                         .load(mMyData.arrUserWoman_Near_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
 
@@ -131,6 +133,7 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
                 Glide.with(mContext)
                         .load(mMyData.arrUserAll_Near_Age.get(i).Img)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.image)
                         .thumbnail(0.1f)
                         .into(holder.iv_profile);
                 break;

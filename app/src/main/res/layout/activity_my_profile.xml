@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<android.support.constraint.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="20dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingBottom="20dp">
 
         <ImageView
             android:id="@+id/bg_photo"
             android:layout_width="0dp"
             android:layout_height="210dp"
             android:background="@color/baseColorAlpha"
+            app:layout_constraintBottom_toTopOf="@+id/nickname"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/MyProfile_SumImg"
@@ -81,14 +84,15 @@
         <TextView
             android:id="@+id/nickname"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="4dp"
             android:gravity="center_vertical"
             android:text="닉네임"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/age"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bg_photo" />
 
         <TextView
@@ -102,7 +106,8 @@
             android:textColor="@color/gray"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/nickname"
-            app:layout_constraintLeft_toRightOf="@+id/nickname" />
+            app:layout_constraintLeft_toRightOf="@+id/nickname"
+            app:layout_constraintTop_toTopOf="@+id/nickname" />
 
         <Button
             android:id="@+id/change_nick"
@@ -113,49 +118,23 @@
             android:background="@drawable/purple_btn_bg2"
             android:text="변경"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="@+id/MyProfile_Memo"
             app:layout_constraintBottom_toBottomOf="@+id/nickname"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/MyProfile_Memo"
+            app:layout_constraintRight_toRightOf="@+id/MyProfile_Memo"
             app:layout_constraintTop_toTopOf="@+id/nickname" />
-
-        <TextView
-            android:id="@+id/gender"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="성별"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="@+id/age"
-            app:layout_constraintTop_toBottomOf="@+id/age" />
-
-        <TextView
-            android:id="@+id/gender_view"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="성별"
-            android:textColor="@color/gray"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/MyProfile_NickName"
-            app:layout_constraintLeft_toRightOf="@+id/gender"
-            app:layout_constraintTop_toBottomOf="@+id/age"/>
 
         <TextView
             android:id="@+id/age"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
             android:gravity="center_vertical"
             android:text="나이"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/gender"
             app:layout_constraintLeft_toLeftOf="@+id/nickname"
             app:layout_constraintTop_toBottomOf="@+id/nickname" />
-
 
         <Spinner
             android:id="@+id/MyProfile_Age_1"
@@ -164,19 +143,47 @@
             android:entries="@array/MyProfire_Age"
             android:spinnerMode="dialog"
             app:layout_constraintBottom_toBottomOf="@+id/age"
-            app:layout_constraintLeft_toLeftOf="@+id/MyProfile_NickName" />
+            app:layout_constraintLeft_toLeftOf="@+id/MyProfile_NickName"
+            app:layout_constraintTop_toTopOf="@+id/age" />
+
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="성별"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/say"
+            app:layout_constraintLeft_toLeftOf="@+id/age"
+            app:layout_constraintTop_toBottomOf="@+id/age" />
+
+        <TextView
+            android:id="@+id/gender_view"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="성별"
+            android:textColor="@color/gray"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/gender"
+            app:layout_constraintLeft_toLeftOf="@+id/MyProfile_Age_1"
+            app:layout_constraintTop_toTopOf="@+id/gender" />
 
 
         <TextView
             android:id="@+id/say"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
             android:gravity="center_vertical"
 
             android:text="하고 싶은 말 (선택)"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/MyProfile_Memo"
             app:layout_constraintLeft_toLeftOf="@+id/nickname"
             app:layout_constraintTop_toBottomOf="@+id/gender" />
 
@@ -186,10 +193,10 @@
             android:layout_height="0dp"
             android:layout_marginRight="16dp"
 
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/et_outline"
             android:ems="10"
-            android:gravity="bottom|left"
+            android:gravity="top|left"
             android:hint="(100자 이내)"
             android:inputType="textCapSentences|textMultiLine"
             android:maxLength="100"
@@ -199,6 +206,7 @@
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
 
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="@+id/nickname"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/say" />

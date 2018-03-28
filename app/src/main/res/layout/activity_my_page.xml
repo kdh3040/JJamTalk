@@ -18,7 +18,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/nickname"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/image" />
@@ -33,42 +35,49 @@
         android:text="닉네임"
         android:textColor="@color/black"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/cover_profile"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile" />
 
     <ImageButton
         android:id="@+id/rank"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:adjustViewBounds="true"
         android:elevation="5dp"
+        android:padding="7dp"
+
         android:scaleType="fitCenter"
         android:src="@drawable/rank_bronze"
         android:theme="@style/PrimaryButton"
         app:layout_constraintBottom_toBottomOf="@+id/nickname"
-        app:layout_constraintLeft_toRightOf="@+id/nickname"
-        app:layout_constraintTop_toTopOf="@id/nickname"
 
-        />
+        app:layout_constraintLeft_toRightOf="@+id/nickname"
+        app:layout_constraintTop_toTopOf="@id/nickname" />
 
     <ImageButton
         android:id="@+id/jewel"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:adjustViewBounds="true"
         android:elevation="5dp"
+        android:padding="7dp"
         android:scaleType="fitCenter"
         android:src="@drawable/dia_s"
         android:theme="@style/PrimaryButton"
         app:layout_constraintBottom_toBottomOf="@+id/nickname"
         app:layout_constraintLeft_toRightOf="@+id/rank"
         app:layout_constraintTop_toTopOf="@id/nickname" />
+
     <ImageButton
         android:id="@+id/cover_profile"
         android:layout_width="100dp"
         android:layout_height="100dp"
 
         android:theme="@style/PrimaryButton"
-        app:layout_constraintBottom_toTopOf="@+id/iv_coin"
+        app:layout_constraintBottom_toTopOf="@+id/coin"
         app:layout_constraintEnd_toStartOf="@+id/cover_setting"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -145,15 +154,17 @@
 
         android:layout_marginLeft="32dp"
         android:layout_marginRight="30dp"
-        android:background="@drawable/purple_alpha_btn_bg"
+        android:background="@drawable/purple_alpha1_btn_bg"
         android:gravity="left|center"
         android:paddingLeft="60dp"
         android:paddingRight="130dp"
         android:text="0"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cover_profile" />
 
 
     <ImageView
