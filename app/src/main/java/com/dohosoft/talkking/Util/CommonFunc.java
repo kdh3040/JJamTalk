@@ -905,12 +905,10 @@ public class CommonFunc {
     }
 
 
-    public void View_EmptyItem(Context context, View v, int result, ImageView img_Opened, TextView text_Opened) {
+    public void View_EmptyItem(Context context, View v, int result, ImageView img_Opened) {
         img_Opened.setImageResource(UIData.getInstance().getJewels()[result]);
-
         img_Opened.setColorFilter(Color.parseColor("#707070"), PorterDuff.Mode.SRC_ATOP);
 
-        text_Opened.setText(UIData.getInstance().getItems()[result]);
 
     }
 
@@ -1106,12 +1104,12 @@ public class CommonFunc {
 
 
         ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
-        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
+        //TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
         TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
 
         Text_Prob.setText("획득 확률  " + UIData.getInstance().getProb()[Index]);
         // Text_blar.setText(UIData.getInstance().getItemBlar()[Index]);
-        CommonFunc.getInstance().View_EmptyItem(context, v, Index, Img_Opened, Text_Opened);
+        CommonFunc.getInstance().View_EmptyItem(context, v, Index, Img_Opened);
 
         builder.setView(v);
 
