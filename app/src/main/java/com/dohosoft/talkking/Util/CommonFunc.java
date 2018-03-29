@@ -899,15 +899,16 @@ public class CommonFunc {
 
     public void View_OpenedItem(Context context, View v, int result, ImageView img_Opened, TextView text_Opened) {
         img_Opened.setImageResource(UIData.getInstance().getJewelGifts()[result]);
-
+        img_Opened.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.MULTIPLY);
         text_Opened.setText(UIData.getInstance().getItems()[result]);
 
     }
 
 
     public void View_EmptyItem(Context context, View v, int result, ImageView img_Opened, TextView text_Opened) {
-        img_Opened.setImageResource(UIData.getInstance().getJewelGifts()[result]);
-        img_Opened.setColorFilter(Color.parseColor("#707070"), PorterDuff.Mode.MULTIPLY);
+        img_Opened.setImageResource(UIData.getInstance().getJewels()[result]);
+
+        img_Opened.setColorFilter(Color.parseColor("#707070"), PorterDuff.Mode.SRC_ATOP);
 
         text_Opened.setText(UIData.getInstance().getItems()[result]);
 
@@ -1016,39 +1017,6 @@ public class CommonFunc {
         });
     }
 
-
-    public void ViewUserBox(final Context context, final int Index)
-    {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View v = LayoutInflater.from(context).inflate(R.layout.popup_jewel_missing, null);
-        ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
-        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
-        TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
-        //Button Btn_Opened = (Button)v.findViewById(R.id.opened_btn);
-        TextView Text_blar = (TextView)v.findViewById(R.id.tv_blar);
-
-        Text_Prob.setText("획득 확률  " + UIData.getInstance().getProb()[Index]);
-        Text_blar.setText(UIData.getInstance().getItemBlar()[Index]);
-        CommonFunc.getInstance().View_OpenedItem(context, v, Index, Img_Opened, Text_Opened);
-
-        Button btn_confirm = v.findViewById(R.id.button3);
-        Button btn_sell = v.findViewById(R.id.button2);
-        builder.setView(v);
-
-        btn_sell.setVisibility(View.GONE);
-        final AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.show();
-
-        btn_confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-    }
-
     public void ViewBox(final Context context, final int Index, final ShowBoxOpen_End endListener)
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -1134,17 +1102,12 @@ public class CommonFunc {
     public void ViewEmptyBox(final Context context, final int Index)
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View v = LayoutInflater.from(context).inflate(R.layout.pop_jewel, null);
+        View v = LayoutInflater.from(context).inflate(R.layout.popup_jewel_missing, null);
 
 
-        ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_jewel);
-        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_jewel);
+        ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
+        TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
         TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
-        Button btn_confirm = v.findViewById(R.id.btn_yes);
-        Button btn_sell = v.findViewById(R.id.btn_sell);
-
-        btn_confirm.setVisibility(View.GONE);
-        btn_sell.setVisibility(View.GONE);
 
         Text_Prob.setText("획득 확률  " + UIData.getInstance().getProb()[Index]);
         // Text_blar.setText(UIData.getInstance().getItemBlar()[Index]);
