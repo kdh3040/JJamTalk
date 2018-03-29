@@ -129,7 +129,7 @@ public class MyData {
     public int nSendCount;
     public long nRecvGold;
 
-    public String strDate;
+    public long strDate;
 
     private String strMemo;
 
@@ -238,7 +238,7 @@ public class MyData {
     public long RecvIndexRef;
     public long FanCountRef;
     public Double NearDistanceRef;
-    public String NewDateRef;
+    public long NewDateRef;
 
     //public boolean bHotMemberReady = false;
 
@@ -254,7 +254,7 @@ public class MyData {
         lLat = 0f;
         lDist = 0f;
         nHoney = 0;
-        strDate = null;
+        strDate = 0;
 
 
         for (int i = 0; i < 4; i++) {
@@ -292,7 +292,7 @@ public class MyData {
         mServiceConn= null;
 
         NickChangeCnt = 0;
-        NewDateRef = "0";
+        NewDateRef = 0;
         FanCountRef = 0;
         NearDistanceRef = 0.0d;
     }
@@ -385,7 +385,7 @@ public class MyData {
         nSendCount = 0;
         nRecvGold = 0;
 
-        strDate = null;
+        strDate = 0;
 
         strMemo = null;
 
@@ -427,7 +427,7 @@ public class MyData {
 
     public void setMyData(String _UserUid, String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge,
-                          int _UserHoney, int _UserSendCount, long _UserRecvCount, String _UserDate,
+                          int _UserHoney, int _UserSendCount, long _UserRecvCount, long _UserDate,
                           String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
                           int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime, int _UserNickChangeCnt) {
@@ -643,10 +643,10 @@ public class MyData {
     }
 
     public void setUserDate() {
-        strDate = Long.toString(-1 * CommonFunc.getInstance().GetCurrentTime());
+        strDate = -1 * CommonFunc.getInstance().GetCurrentTime();
     }
 
-    public String getUserDate() {
+    public long getUserDate() {
         return strDate;
     }
 

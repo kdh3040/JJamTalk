@@ -1307,7 +1307,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query=ref.orderByChild("Date").limitToFirst(LOAD_MAIN_COUNT);
+            Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {

@@ -38,7 +38,7 @@ public class UserData implements Serializable,Parcelable {
 
     public int RecvMsgReject;
 
-    public String Date;
+    public long Date;
 
     public String SendMSG;
     public String Memo;
@@ -119,7 +119,7 @@ public class UserData implements Serializable,Parcelable {
         SendCount = in.readInt();
         RecvGold = in.readLong();
         RecvMsgReject = in.readInt();
-        Date = in.readString();
+        Date = in.readLong();
         SendMSG = in.readString();
         Memo = in.readString();
 
@@ -210,7 +210,7 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeInt(SendCount);
         parcel.writeLong(RecvGold);
         parcel.writeInt(RecvMsgReject);
-        parcel.writeString(Date);
+        parcel.writeLong(Date);
         parcel.writeString(SendMSG);
         parcel.writeString(Memo);
         parcel.writeInt(PublicRoomStatus);
