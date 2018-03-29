@@ -1154,7 +1154,7 @@ public class CommonFunc {
 
 
         final AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
 
         Img_Opened.setOnClickListener(new View.OnClickListener() {
