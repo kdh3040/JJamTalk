@@ -1020,7 +1020,7 @@ public class CommonFunc {
     public void ViewUserBox(final Context context, final int Index)
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View v = LayoutInflater.from(context).inflate(R.layout.popup_item_get, null);
+        View v = LayoutInflater.from(context).inflate(R.layout.popup_jewel_missing, null);
         ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
         TextView Text_Opened = (TextView) v.findViewById(R.id.tv_content);
         TextView Text_Prob = (TextView)v.findViewById(R.id.tv_prob);
