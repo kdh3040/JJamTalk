@@ -37,6 +37,8 @@ public class MyJewelBoxActivity extends AppCompatActivity {
     private ImageView Img_item[] = new ImageView[7];
     private TextView txt_item[] = new TextView[7];
 
+    private TextView txt_Prob[] = new TextView[7];
+
     private ImageButton open_1;
     private ImageButton open_10;
     private Button buy_Coin;
@@ -84,6 +86,15 @@ public class MyJewelBoxActivity extends AppCompatActivity {
         txt_item[5] = (TextView)findViewById(R.id.tv_cnt5);
         txt_item[6] = (TextView)findViewById(R.id.tv_cnt6);
 
+
+        txt_Prob[0] = (TextView)findViewById(R.id.tv_prob0);
+        txt_Prob[1] = (TextView)findViewById(R.id.tv_prob1);
+        txt_Prob[2] = (TextView)findViewById(R.id.tv_prob2);
+        txt_Prob[3] = (TextView)findViewById(R.id.tv_prob3);
+        txt_Prob[4] = (TextView)findViewById(R.id.tv_prob4);
+        txt_Prob[5] = (TextView)findViewById(R.id.tv_prob5);
+        txt_Prob[6] = (TextView)findViewById(R.id.tv_prob6);
+
         Img_Coin = (ImageView)findViewById(R.id.iv_coin);
         txt_Coin = (TextView)findViewById(R.id.tv_coin);
 
@@ -122,7 +133,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if(mMyData.itemList.get(finalI) == 0){
-                        ViewEmptyItem(finalI);
+                        //ViewEmptyItem(finalI);
                          }
                     else{
                         ViewItem(finalI);}
@@ -157,9 +168,13 @@ public class MyJewelBoxActivity extends AppCompatActivity {
                 Img_item[i].setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.MULTIPLY);
                 txt_item[i].setTextColor(Color.parseColor("#5f52a0"));
                 txt_item[i].setText(mMyData.itemList.get(i + 1).toString() + "개");
+
+                txt_Prob[i].setVisibility(View.GONE);
             }
             else
             {
+                txt_Prob[i].setVisibility(View.VISIBLE);
+                txt_Prob[i].setText(UIData.getInstance().getProb()[i+1]);
                 Img_item[i].setColorFilter(Color.parseColor("#707070"), PorterDuff.Mode.SRC_ATOP);
                 txt_item[i].setText("미 보유");
 
