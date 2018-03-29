@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <ImageView
         android:id="@+id/bg_topbar"
@@ -239,7 +240,7 @@
         android:id="@+id/bg_bottom"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/white"
+        android:background="@color/gray_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -406,6 +407,7 @@
         android:id="@+id/tv_prob6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
         android:text="50%"
         android:textColor="@android:color/white"
         android:textSize="10sp"
@@ -519,7 +521,7 @@
         app:layout_constraintTop_toTopOf="@+id/bg_bottom"
         app:srcCompat="@drawable/x1" />
 
-        <!-- your layout stuff here -->
+    <!-- your layout stuff here -->
 
 
     <ImageButton
