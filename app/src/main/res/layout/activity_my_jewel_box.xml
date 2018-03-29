@@ -263,6 +263,7 @@
         android:layout_height="wrap_content"
         android:text="50%"
         android:textColor="@android:color/white"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_coin0"
         app:layout_constraintLeft_toLeftOf="@+id/iv_coin0"
         app:layout_constraintRight_toRightOf="@+id/iv_coin0"
