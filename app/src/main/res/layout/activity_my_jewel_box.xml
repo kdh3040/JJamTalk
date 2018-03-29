@@ -257,6 +257,17 @@
         app:layout_constraintTop_toTopOf="@+id/btn_item0"
         app:srcCompat="@drawable/coin" />
 
+    <TextView
+        android:id="@+id/tv_prob0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50%"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin0"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_coin0"
+        app:layout_constraintRight_toRightOf="@+id/iv_coin0"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin0" />
+
     <ImageView
         android:id="@+id/iv_coin1"
         android:layout_width="50dp"
@@ -268,6 +279,18 @@
         app:layout_constraintStart_toStartOf="@+id/btn_item1"
         app:layout_constraintTop_toTopOf="@+id/btn_item1"
         app:srcCompat="@drawable/coin" />
+
+    <TextView
+        android:id="@+id/tv_prob1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50%"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin1"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_coin1"
+        app:layout_constraintRight_toRightOf="@+id/iv_coin1"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin1" />
 
     <ImageView
         android:id="@+id/iv_coin2"
@@ -281,6 +304,19 @@
         app:layout_constraintTop_toTopOf="@+id/btn_item2"
         app:srcCompat="@drawable/coin" />
 
+    <TextView
+        android:id="@+id/tv_prob2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="50%"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin2"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_coin2"
+        app:layout_constraintRight_toRightOf="@+id/iv_coin2"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin2" />
+
     <ImageView
         android:id="@+id/iv_coin3"
         android:layout_width="50dp"
@@ -292,6 +328,18 @@
         app:layout_constraintStart_toStartOf="@+id/btn_item3"
         app:layout_constraintTop_toTopOf="@+id/btn_item3"
         app:srcCompat="@drawable/coin" />
+
+    <TextView
+        android:id="@+id/tv_prob3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50%"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin3"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_coin3"
+        app:layout_constraintRight_toRightOf="@+id/iv_coin3"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin3" />
 
     <ImageView
         android:id="@+id/iv_coin4"
@@ -305,6 +353,18 @@
         app:layout_constraintTop_toTopOf="@+id/btn_item4"
         app:srcCompat="@drawable/coin" />
 
+    <TextView
+        android:id="@+id/tv_prob4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50%"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin4"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_coin4"
+        app:layout_constraintRight_toRightOf="@+id/iv_coin4"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin4" />
+
     <ImageView
         android:id="@+id/iv_coin5"
         android:layout_width="50dp"
@@ -317,6 +377,18 @@
         app:layout_constraintTop_toTopOf="@+id/btn_item5"
         app:srcCompat="@drawable/coin" />
 
+    <TextView
+        android:id="@+id/tv_prob5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50%"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin5"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_coin5"
+        app:layout_constraintRight_toRightOf="@+id/iv_coin5"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin5" />
+
     <ImageView
         android:id="@+id/iv_coin6"
         android:layout_width="50dp"
@@ -328,6 +400,18 @@
         app:layout_constraintStart_toStartOf="@+id/btn_item6"
         app:layout_constraintTop_toTopOf="@+id/btn_item6"
         app:srcCompat="@drawable/coin" />
+
+    <TextView
+        android:id="@+id/tv_prob6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50%"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_coin6"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_coin6"
+        app:layout_constraintRight_toRightOf="@+id/iv_coin6"
+        app:layout_constraintTop_toTopOf="@+id/iv_coin6" />
 
     <TextView
         android:id="@+id/tv_cnt0"
