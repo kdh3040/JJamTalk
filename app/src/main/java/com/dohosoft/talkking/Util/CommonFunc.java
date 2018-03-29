@@ -907,7 +907,7 @@ public class CommonFunc {
 
     public void View_EmptyItem(Context context, View v, int result, ImageView img_Opened) {
         img_Opened.setImageResource(UIData.getInstance().getJewels()[result]);
-        img_Opened.setColorFilter(Color.parseColor("#707070"), PorterDuff.Mode.SRC_ATOP);
+        img_Opened.setColorFilter(Color.parseColor("#7f75b3"), PorterDuff.Mode.SRC_ATOP);
 
 
     }
@@ -1018,7 +1018,7 @@ public class CommonFunc {
     public void ViewBox(final Context context, final int Index, final ShowBoxOpen_End endListener)
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View v = LayoutInflater.from(context).inflate(R.layout.pop_jewel, null);
+        View v = LayoutInflater.from(context).inflate(R.layout.pop_jewel, null,false);
 
 
         ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_jewel);
@@ -1100,7 +1100,7 @@ public class CommonFunc {
     public void ViewEmptyBox(final Context context, final int Index)
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View v = LayoutInflater.from(context).inflate(R.layout.popup_jewel_missing, null);
+        View v = LayoutInflater.from(context).inflate(R.layout.popup_jewel_missing, null,false);
 
 
         ImageView Img_Opened = (ImageView) v.findViewById(R.id.iv_item);
@@ -1115,7 +1115,7 @@ public class CommonFunc {
 
 
         final AlertDialog dialog = builder.create();
-        //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
 
         Img_Opened.setOnClickListener(new View.OnClickListener() {
