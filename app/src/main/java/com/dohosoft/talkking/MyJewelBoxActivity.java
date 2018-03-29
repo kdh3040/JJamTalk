@@ -175,7 +175,7 @@ public class MyJewelBoxActivity extends AppCompatActivity {
             {
                 txt_Prob[i].setVisibility(View.VISIBLE);
                 txt_Prob[i].setText(UIData.getInstance().getProb()[i+1]);
-                Img_item[i].setColorFilter(Color.parseColor("#707070"), PorterDuff.Mode.SRC_ATOP);
+                Img_item[i].setColorFilter(Color.parseColor("#5f52a0"), PorterDuff.Mode.SRC_ATOP);
                 txt_item[i].setText("미 보유");
 
             }
