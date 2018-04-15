@@ -47,7 +47,7 @@ public class Rank_GoldReceiveFragment extends Fragment {
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        CommonFunc.getInstance().ShowToast(view.getContext(), position+"번 째 아이템 클릭", true);
+                        //CommonFunc.getInstance().ShowToast(view.getContext(), position+"번 째 아이템 클릭", true);
                         if(mAppStatus.bCheckMultiSend == false) {
 
                             switch (mSettingData.getnSearchSetting())
