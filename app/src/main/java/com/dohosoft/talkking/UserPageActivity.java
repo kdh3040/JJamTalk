@@ -51,6 +51,8 @@ import com.dohosoft.talkking.Util.LocationFunc;
 import com.dohosoft.talkking.Util.NotiFunc;
 
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_MAN;
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_WOMAN;
 import static com.dohosoft.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -157,9 +159,9 @@ public class UserPageActivity extends AppCompatActivity {
         txtProfile.setText(stTargetData.NickName + "(" + stTargetData.Age+"세)");
 
         if(stTargetData.Gender.equals("여자"))
-            txtProfile.setTextColor(0xffda1d81);
+            txtProfile.setTextColor(TEXTCOLOR_WOMAN);
         else
-            txtProfile.setTextColor(0xff005baf);
+            txtProfile.setTextColor(TEXTCOLOR_MAN);
 
         //View Divide_Memo = (View)findViewById(R.id.Divide_Memo);
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);

@@ -42,6 +42,9 @@ import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_MAN;
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_WOMAN;
+
 /**
  * Created by mjk on 2017. 9. 14..
  */
@@ -181,9 +184,9 @@ public class UserFanActivity extends AppCompatActivity {
             holder.textNick.setText(stTargetData.arrFanData.get(i).NickName+ " (" + stTargetData.arrFanData.get(i).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");ata.arrCardNameList.get(i).Age + "세");
 
             if(stTargetData.arrFanData.get(i).Gender.equals("여자"))
-                holder.textNick.setTextColor(0xffda1d81);
+                holder.textNick.setTextColor(TEXTCOLOR_WOMAN);
             else
-                holder.textNick.setTextColor(0xff005baf);
+                holder.textNick.setTextColor(TEXTCOLOR_MAN);
 
             if(position < 3)
             {

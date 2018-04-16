@@ -26,6 +26,9 @@ import java.util.Date;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_MAN;
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_WOMAN;
+
 /**
  * Created by mjk on 2017. 8. 10..
  */
@@ -86,9 +89,9 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
             {
                 BoardWriter.setText(mMyData.getUserNick()  + " (" + mMyData.getUserAge() + "세 )");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
                 if(mMyData.getUserGender().equals("여자"))
-                    BoardWriter.setTextColor(0xffda1d81);
+                    BoardWriter.setTextColor(TEXTCOLOR_WOMAN);
                 else
-                    BoardWriter.setTextColor(0xff005baf);
+                    BoardWriter.setTextColor(TEXTCOLOR_MAN);
 
                 BoardUserItem.setVisibility(View.VISIBLE);
 
@@ -113,9 +116,9 @@ public class BoardViewHolder extends RecyclerView.ViewHolder {
             {
                 BoardWriter.setText(simpleUserData.NickName+ " (" + simpleUserData.Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
                 if(simpleUserData.Gender.equals("여자"))
-                    BoardWriter.setTextColor(0xffda1d81);
+                    BoardWriter.setTextColor(TEXTCOLOR_WOMAN);
                 else
-                    BoardWriter.setTextColor(0xff005baf);
+                    BoardWriter.setTextColor(TEXTCOLOR_MAN);
 
                 BoardUserItem.setVisibility(View.VISIBLE);
 

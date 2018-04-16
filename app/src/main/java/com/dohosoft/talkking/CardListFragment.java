@@ -38,6 +38,9 @@ import java.util.LinkedHashMap;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_MAN;
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_WOMAN;
+
 /**
  * Created by mjk on 2017. 8. 10..
  */
@@ -173,9 +176,9 @@ public class CardListFragment extends Fragment {
             holder.textView.setText(mMyData.arrCarDataList.get(i).NickName + " (" + mMyData.arrCarDataList.get(i).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
 
             if(mMyData.arrCarDataList.get(i).Gender.equals("여자"))
-                holder.textView.setTextColor(0xffda1d81);
+                holder.textView.setTextColor(TEXTCOLOR_WOMAN);
             else
-                holder.textView.setTextColor(0xff005baf);
+                holder.textView.setTextColor(TEXTCOLOR_MAN);
 
             holder.constraintLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

@@ -40,6 +40,8 @@ import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_MAN;
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_WOMAN;
 import static com.dohosoft.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -224,9 +226,9 @@ public class FanListFragment extends Fragment {
 
             holder.textNick.setText(mMyData.arrMyFanDataList.get(i).NickName + " (" + mMyData.arrMyFanDataList.get(i).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");ata.arrCardNameList.get(i).Age + "세");
             if(mMyData.arrMyFanDataList.get(i).Gender.equals("여자"))
-                holder.textNick.setTextColor(0xffda1d81);
+                holder.textNick.setTextColor(TEXTCOLOR_WOMAN);
             else
-                holder.textNick.setTextColor(0xff005baf);
+                holder.textNick.setTextColor(TEXTCOLOR_MAN);
 
 
             if(position < 3)

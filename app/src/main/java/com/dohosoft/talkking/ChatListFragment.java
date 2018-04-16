@@ -49,6 +49,9 @@ import java.util.Map;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_MAN;
+import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_WOMAN;
+
 /**
  * Created by mjk on 2017. 8. 10..
  */
@@ -328,9 +331,9 @@ public class ChatListFragment extends Fragment {
             }
 
             if(mMyData.arrChatDataList.get(str).Gender.equals("여자"))
-                holder.nickname.setTextColor(0xffda1d81);
+                holder.nickname.setTextColor(TEXTCOLOR_WOMAN);
             else
-                holder.nickname.setTextColor(0xff005baf);
+                holder.nickname.setTextColor(TEXTCOLOR_MAN);
 
             if(mMyData.arrChatDataList.get(str).Check == 0)
             {
