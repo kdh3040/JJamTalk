@@ -55,8 +55,8 @@ public class CoomonValueData  {
     public static final Double DEF_LAT = 37.475610;
     public static final Double DEF_LON = 127.007094;
 
-    public static final int TEXTCOLOR_MAN = 0xffda1d81;
-    public static final int TEXTCOLOR_WOMAN = 0xff005baf;
+    public static final int TEXTCOLOR_MAN = 0xff5fb9e6;
+    public static final int TEXTCOLOR_WOMAN = 0xffffafff;
 
     public static boolean OFFAPP = true;
 
