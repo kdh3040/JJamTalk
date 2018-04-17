@@ -44,9 +44,9 @@ public class HomeFragment extends Fragment {
             tabLayout = fragView.findViewById(R.id.tabLayout);
 
 
-            tabLayout.addTab(tabLayout.newTab().setText("Heart"));
-            tabLayout.addTab(tabLayout.newTab().setText("Fan"));
-            tabLayout.addTab(tabLayout.newTab().setText("Near"));
+            tabLayout.addTab(tabLayout.newTab().setText("인기순"));
+            tabLayout.addTab(tabLayout.newTab().setText("팬보유순"));
+            tabLayout.addTab(tabLayout.newTab().setText("가까운순"));
             tabLayout.addTab(tabLayout.newTab().setText("New"));
 
             viewPager = (ViewPager)fragView.findViewById(vp);
