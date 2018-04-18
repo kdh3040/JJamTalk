@@ -179,12 +179,17 @@ public class FanListFragment extends Fragment {
             holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(CommonFunc.getInstance().getClickStatus() == false) {
+                    if(!mMyData.arrMyFanList.get(position).Idx.equals(mMyData.getUserIdx()))
+                    {
+                        if(CommonFunc.getInstance().getClickStatus() == false) {
 
-                        SetMyFanCheck(position);
-                        fanListAdapter.notifyDataSetChanged();
-                        getMyfanData(position);
+                            SetMyFanCheck(position);
+                            fanListAdapter.notifyDataSetChanged();
+                            getMyfanData(position);
+                        }
                     }
+                    else
+                        CommonFunc.getInstance().ShowToast(mContext, "본인 입니다", false);
 
                 }
             });

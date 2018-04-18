@@ -266,11 +266,11 @@ if(mMyData.itemList.get(i) != 0)
  */
         btnRegister = findViewById(R.id.UserPage_btnRegister);
         btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_pressed : R.drawable.favor);
-        btnRegister.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
+        //btnRegister.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
         btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
-        btnGiftHoney.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
+        //btnGiftHoney.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
         btnMessage =  findViewById(R.id.UserPage_btnMessage);
-        btnMessage.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
+        //btnMessage.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
 
 
 

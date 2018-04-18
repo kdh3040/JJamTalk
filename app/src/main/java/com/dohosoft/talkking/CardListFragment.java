@@ -257,9 +257,14 @@ public class CardListFragment extends Fragment {
                     updateMap.put("Count",  mMyData.arrCardNameList.get(position).Count);
                     table.child("CardList").child(mMyData.arrCardNameList.get(position).Idx).updateChildren(updateMap);*/
 
-                    if(CommonFunc.getInstance().getClickStatus() == false)
-                        getMyCardData(position);
+                    if(!mMyData.arrCardNameList.get(position).equals(mMyData.getUserIdx()))
+                    {
+                        if(CommonFunc.getInstance().getClickStatus() == false)
+                            getMyCardData(position);
+                    }
 
+                    else
+                        CommonFunc.getInstance().ShowToast(mContext, "본인 입니다", false);
                     //stTargetData = arrTargetData.get(position);
 
                 }

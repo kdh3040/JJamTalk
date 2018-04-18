@@ -1051,7 +1051,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 SimpleUserData cTempData = new SimpleUserData();
                                 cTempData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(cTempData != null) {
-                                    if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                   // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1134,7 +1134,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 SimpleUserData cTempData = new SimpleUserData();
                                 cTempData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(cTempData != null) {
-                                    if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                                    //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1226,7 +1227,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     }
                                     else
                                     {
-                                        if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
+                                        //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
+                                        {
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1318,7 +1320,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 SimpleUserData stRecvData = new SimpleUserData ();
                                 stRecvData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(stRecvData != null) {
-                                    if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
+                                    //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
+                                    {
                                         if (stRecvData.Img == null)
                                             stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 

@@ -56,8 +56,17 @@ public class FanListAdapter extends RecyclerView.Adapter<FanViewHolder>{
             @Override
             public void onClick(View view) {
 
-                if(CommonFunc.getInstance().getClickStatus()==false)
-                    getMyfanData(position);
+                if(!mMyData.arrMyFanList.get(position).Idx.equals(mMyData.getUserIdx()))
+                {
+                    if(CommonFunc.getInstance().getClickStatus()==false)
+                    {
+                        getMyfanData(position);
+                    }
+                }
+                else
+                    CommonFunc.getInstance().ShowToast(mContext, "본인 입니다", false);
+
+
 
             }
         });
