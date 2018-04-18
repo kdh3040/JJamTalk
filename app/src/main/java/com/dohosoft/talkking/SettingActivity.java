@@ -272,7 +272,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
                 };
 
-                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, listener, null, "계정삭제", "계정삭제를 하시겠습니까?", "네", "아니요");
+                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, listener, null, "계정삭제", "계정을 삭제하시겠습니까? (*주의: 즐겨찾기, 채팅방 내용, 내 코인 등 기존 활동 내역이 모두 영구삭제됩니다.) ", "네", "아니요");
             }
         });
 
