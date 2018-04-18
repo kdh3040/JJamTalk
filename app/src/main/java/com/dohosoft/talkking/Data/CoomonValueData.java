@@ -82,4 +82,6 @@ public class CoomonValueData  {
     public String DownUrl;
     public String ImgUrl;
 
+    public String Notice = null;
+
 }

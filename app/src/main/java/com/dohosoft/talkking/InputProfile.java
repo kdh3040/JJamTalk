@@ -680,6 +680,7 @@ public class InputProfile extends AppCompatActivity {
 
                     bMySet = true;
 
+                    mMyData.getNotice();
                     mMyData.getDownUrl();
                     mMyData.getImageLoading();
                     mMyData.getBoardLoadingDate();

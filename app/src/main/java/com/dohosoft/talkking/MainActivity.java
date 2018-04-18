@@ -861,6 +861,55 @@ public class MainActivity extends AppCompatActivity {
             nStartByNew = 0;
         }
 
+        else {
+
+            if(CoomonValueData.getInstance().Notice != null && !CoomonValueData.getInstance().Notice.equals(""))
+            {
+                View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+
+                final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+                dialog.show();
+
+                final TextView txt_Title;
+                txt_Title = (TextView)v.findViewById(R.id.title);
+                txt_Title.setText("알림");
+                final TextView txt_Body;
+                txt_Body = (TextView)v.findViewById(R.id.msg);
+                txt_Body.setText(CoomonValueData.getInstance().Notice);
+
+                final Button btn_exit;
+                final Button btn_no;
+
+                btn_exit = (Button) v.findViewById(R.id.btn_yes);
+                btn_exit.setText("확인");
+                btn_exit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                btn_no = (Button) v.findViewById(R.id.btn_no);
+                btn_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                btn_no.setVisibility(View.GONE);
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss (DialogInterface var1){
+
+                    }
+
+                });
+            }
+
+
+        }
         // Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
         /*ib_pcr_open = (ImageButton)findViewById(R.id.ib_pcr_open);
         ib_pcr_open.setOnClickListener(new_img View.OnClickListener() {

@@ -858,7 +858,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             //mMyData.getCardList();
 
-
+                            mMyData.getNotice();
                             mMyData.getDownUrl();
                             mMyData.getImageLoading();
                             mMyData.getBoardLoadingDate();

@@ -1272,6 +1272,25 @@ public class MyData {
 
     }
 
+    public void getNotice() {
+        String strTargetIdx;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("CommonValue").child("Notice");
+
+        table.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                CoomonValueData.getInstance().Notice = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
+
     public void getImageLoading() {
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
