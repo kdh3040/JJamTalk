@@ -357,6 +357,7 @@ public class ChatListFragment extends Fragment {
                 public void onClick(View view) {
                     if(CommonFunc.getInstance().getClickStatus() == false)
                     {
+
                         getChatTargetData(position);
                     }
 
@@ -396,6 +397,8 @@ public class ChatListFragment extends Fragment {
             String str = mMyData.arrChatNameList.get(position);
 
             String[] strIdx = mMyData.arrChatDataList.get(str).ChatRoomName.split("_");
+
+            mMyData.arrChatDataList.get(str).Check = 1;
 
             if(strIdx[0].equals(mMyData.getUserIdx()))
             {
