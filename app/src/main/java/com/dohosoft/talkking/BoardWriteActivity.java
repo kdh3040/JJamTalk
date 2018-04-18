@@ -67,27 +67,38 @@ public class BoardWriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
-                    public void YesListener() {
-                        if(CommonFunc.getInstance().IsStringEmptyCheck(txt_Memo.getText().toString()))
-                        {
-                            CommonFunc.getInstance().ShowToast(BoardWriteActivity.this ,"게시글의 내용이 없습니다.",false);
-                            return;
+                if(CommonFunc.getInstance().getClickStatus() == false)
+                {
+                    CommonFunc.getInstance().setClickStatus(true);
+
+                    CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                        public void YesListener() {
+                            if(CommonFunc.getInstance().IsStringEmptyCheck(txt_Memo.getText().toString()))
+                            {
+                                CommonFunc.getInstance().ShowToast(BoardWriteActivity.this ,"게시글의 내용이 없습니다.",false);
+                                CommonFunc.getInstance().setClickStatus(false);
+                                return;
+                            }
+
+                            if(CommonFunc.getInstance().CheckTextMaxLength(txt_Memo.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_BOARD, BoardWriteActivity.this ,"게시판 글쓰기", true) == false)
+                            {
+                                CommonFunc.getInstance().setClickStatus(false);
+                                return;
+                            }
+
+                            BoardMsgDBData sendData = new BoardMsgDBData();
+                            sendData.Idx = mMydata.getUserIdx();
+                            sendData.Msg = txt_Memo.getText().toString();
+                            mFireBaseData.SaveBoardData_GetBoardIndex((BoardWriteActivity)mActivity);
+
+                            CommonFunc.getInstance().LastBoardWrite = null;
+                            CommonFunc.getInstance().setClickStatus(false);
+
                         }
+                    };
+                    CommonFunc.getInstance().ShowDefaultPopup(BoardWriteActivity.this, listener, null, "게시판 글쓰기","작성한 글을 게시하시겠습니까?\n 도배방지를 위해 다음 글은 10분후에 쓰실 수 있습니다.", "네", "취소" );
+                }
 
-                        if(CommonFunc.getInstance().CheckTextMaxLength(txt_Memo.getText().toString(), CoomonValueData.TEXT_MAX_LENGTH_BOARD, BoardWriteActivity.this ,"게시판 글쓰기", true) == false)
-                            return;
-
-
-                        BoardMsgDBData sendData = new BoardMsgDBData();
-                        sendData.Idx = mMydata.getUserIdx();
-                        sendData.Msg = txt_Memo.getText().toString();
-                        mFireBaseData.SaveBoardData_GetBoardIndex((BoardWriteActivity)mActivity);
-
-                        CommonFunc.getInstance().LastBoardWrite = null;
-                    }
-                };
-                CommonFunc.getInstance().ShowDefaultPopup(BoardWriteActivity.this, listener, null, "게시판 글쓰기","작성한 글을 게시하시겠습니까?\n 도배방지를 위해 다음 글은 10분후에 쓰실 수 있습니다.", "네", "취소" );
 
             }
         });
