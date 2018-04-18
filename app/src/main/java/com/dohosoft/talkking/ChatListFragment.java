@@ -400,6 +400,8 @@ public class ChatListFragment extends Fragment {
 
             mMyData.arrChatDataList.get(str).Check = 1;
 
+            RefreshUserChatSimpleData(str);
+
             if(strIdx[0].equals(mMyData.getUserIdx()))
             {
                 strTargetIdx = strIdx[1];
@@ -496,22 +498,15 @@ public class ChatListFragment extends Fragment {
 
     }
 
-    public void RefreshUserChatSimpleData(UserData stTargetData, int position) {
-
-        String  str = mMyData.arrChatNameList.get(position);
+    public void RefreshUserChatSimpleData(String  str) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(mMyData.getUserIdx()).child("SendList").child(str);
 
-        user.child("Nick").setValue(stTargetData.NickName);
-        user.child("Img").setValue(stTargetData.Img);
         user.child("Check").setValue(1);
-
-        mMyData.arrChatDataList.get(str).Img = stTargetData.Img;
-        mMyData.arrChatDataList.get(str).Nick= stTargetData.NickName;
-        mMyData.arrChatDataList.get(str).Check= 1;
+        mMyData.arrChatDataList.get(str).Check = 1;
 
     }
 
