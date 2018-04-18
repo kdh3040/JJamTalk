@@ -142,7 +142,7 @@ public class InputProfile extends AppCompatActivity {
                                 cTempData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(cTempData != null) {
 
-                                    if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -223,7 +223,8 @@ public class InputProfile extends AppCompatActivity {
                                 SimpleUserData cTempData = new SimpleUserData();
                                 cTempData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(cTempData != null) {
-                                    if (!cTempData.Idx.equals(mMyData.getUserIdx()))  {
+                                    //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                     {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -320,7 +321,8 @@ public class InputProfile extends AppCompatActivity {
                                     }
                                     else
                                     {
-                                        if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
+                                        //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
+                                        {
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -414,7 +416,8 @@ public class InputProfile extends AppCompatActivity {
                                 SimpleUserData stRecvData = new SimpleUserData ();
                                 stRecvData = fileSnapshot.getValue(SimpleUserData.class);
                                 if(stRecvData != null) {
-                                    if (!stRecvData.Idx.equals(mMyData.getUserIdx()))  {
+                                   // if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
+                                    {
                                         if (stRecvData.Img == null)
                                             stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -670,8 +673,8 @@ public class InputProfile extends AppCompatActivity {
 
 
                     mMyData.setUserDate();
-                    mMyData.nStartAge = (Integer.parseInt(mMyData.getUserAge()) / 10) * 10;
-                    mMyData.nEndAge = mMyData.nStartAge + 19;
+                    mMyData.nStartAge = 20;//(Integer.parseInt(mMyData.getUserAge()) / 10) * 10;
+                    mMyData.nEndAge = (Integer.parseInt(mMyData.getUserAge()) + 19);
                     mMyData.setUserNick(strNickName);
                     //mMyData.setUserMemo(strMemo);
 
