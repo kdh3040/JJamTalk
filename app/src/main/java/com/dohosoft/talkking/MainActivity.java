@@ -381,7 +381,7 @@ public class MainActivity extends AppCompatActivity {
         pref.getInt("Badge", mMyData.badgecount );
 
 
-        if ( mMyData.badgecount >= 1)
+        //if ( mMyData.badgecount >= 1)
         {
             mMyData.badgecount = 0;
             Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
@@ -764,44 +764,48 @@ public class MainActivity extends AppCompatActivity {
 
 
         boolean bCheckConnt = mMyData.CheckConnectDate();
+
         if(bCheckConnt == true)
         {
             String alertTitle = "종료";
-            View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+            View ConnV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
 
-            final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
-            dialog.show();
+            final AlertDialog ConnDialog = new AlertDialog.Builder(this).setView(ConnV).create();
+            ConnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            ConnDialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+            ConnDialog.show();
 
             final TextView txt_Title;
-            txt_Title = (TextView)v.findViewById(R.id.title);
+            txt_Title = (TextView)ConnV.findViewById(R.id.title);
             txt_Title.setText("출석 체크 보상");
             final TextView txt_Body;
-            txt_Body = (TextView)v.findViewById(R.id.msg);
-            txt_Body.setText(mUIData.getAdReward()[mMyData.getGrade()]+"코인 획득!");
+            txt_Body = (TextView)ConnV.findViewById(R.id.msg);
+            txt_Body.setText(CoomonValueData.getInstance().Login + "\n" + mUIData.getAdReward()[mMyData.getGrade()]+"코인 획득 하였습니다");
+           // txt_Body.setText("톡킹을 다운로드 해주셔서 감사합니다" + "\n" + "여러분들의 외로움을 해결해드리기 위해 "+ "\n" + "최선을 다하겠습니다");
+
+
 
             final Button btn_exit;
             final Button btn_no;
 
-            btn_exit = (Button) v.findViewById(R.id.btn_yes);
+            btn_exit = (Button) ConnV.findViewById(R.id.btn_yes);
             btn_exit.setText("확인");
             btn_exit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dialog.dismiss();
+                    ConnDialog.dismiss();
                 }
             });
 
-            btn_no = (Button) v.findViewById(R.id.btn_no);
+            btn_no = (Button) ConnV.findViewById(R.id.btn_no);
             btn_no.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dialog.dismiss();
+                    ConnDialog.dismiss();
                 }
             });
             btn_no.setVisibility(View.GONE);
-            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            ConnDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss (DialogInterface var1){
                     mMyData.setUserHoney(mMyData.getUserHoney()+mUIData.getAdReward()[mMyData.getGrade()]);
@@ -809,6 +813,51 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             });
+
+            if(CoomonValueData.getInstance().Notice != null && !CoomonValueData.getInstance().Notice.equals(""))
+            {
+                View NoticeV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+
+                final AlertDialog NoticeDialog = new AlertDialog.Builder(this).setView(NoticeV).create();
+                NoticeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                NoticeDialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+                NoticeDialog.show();
+
+                final TextView txt_NoticeTitle;
+                txt_NoticeTitle = (TextView)NoticeV.findViewById(R.id.title);
+                txt_NoticeTitle.setText("알림");
+                final TextView txt_NoticeBody;
+                txt_NoticeBody = (TextView)NoticeV.findViewById(R.id.msg);
+                txt_NoticeBody.setText(CoomonValueData.getInstance().Notice);
+
+                final Button btn_NoticeExit;
+                final Button btn_NoticeNo;
+
+                btn_NoticeExit = (Button)NoticeV.findViewById(R.id.btn_yes);
+                btn_NoticeExit.setText("확인");
+                btn_NoticeExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        NoticeDialog.dismiss();
+                    }
+                });
+
+                btn_NoticeNo = (Button)NoticeV.findViewById(R.id.btn_no);
+                btn_NoticeNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        NoticeDialog.dismiss();
+                    }
+                });
+                btn_NoticeNo.setVisibility(View.GONE);
+                NoticeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss (DialogInterface var1){
+
+                    }
+
+                });
+            }
 
             bCheckConnt = false;
         }
@@ -825,10 +874,10 @@ public class MainActivity extends AppCompatActivity {
 
             final TextView txt_Title;
             txt_Title = (TextView)v.findViewById(R.id.title);
-            txt_Title.setText("신규 가입 보상");
+            txt_Title.setText("신규 가입");
             final TextView txt_Body;
             txt_Body = (TextView)v.findViewById(R.id.msg);
-            txt_Body.setText("신규 가입으로 50코인을 획득하였습니다!");
+            txt_Body.setText(CoomonValueData.getInstance().SignUp);
 
             final Button btn_exit;
             final Button btn_no;
@@ -859,56 +908,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
             nStartByNew = 0;
-        }
-
-        else {
-
-            if(CoomonValueData.getInstance().Notice != null && !CoomonValueData.getInstance().Notice.equals(""))
-            {
-                View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
-
-                final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
-                dialog.show();
-
-                final TextView txt_Title;
-                txt_Title = (TextView)v.findViewById(R.id.title);
-                txt_Title.setText("알림");
-                final TextView txt_Body;
-                txt_Body = (TextView)v.findViewById(R.id.msg);
-                txt_Body.setText(CoomonValueData.getInstance().Notice);
-
-                final Button btn_exit;
-                final Button btn_no;
-
-                btn_exit = (Button) v.findViewById(R.id.btn_yes);
-                btn_exit.setText("확인");
-                btn_exit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-                btn_no = (Button) v.findViewById(R.id.btn_no);
-                btn_no.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-                btn_no.setVisibility(View.GONE);
-                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss (DialogInterface var1){
-
-                    }
-
-                });
-            }
-
-
         }
         // Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
         /*ib_pcr_open = (ImageButton)findViewById(R.id.ib_pcr_open);

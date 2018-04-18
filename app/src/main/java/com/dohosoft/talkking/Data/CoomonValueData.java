@@ -82,6 +82,8 @@ public class CoomonValueData  {
     public String DownUrl;
     public String ImgUrl;
 
+    public String SignUp = null;
+    public String Login = null;
     public String Notice = null;
 
 }

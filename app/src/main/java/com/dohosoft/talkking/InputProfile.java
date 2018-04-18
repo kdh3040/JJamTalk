@@ -681,6 +681,9 @@ public class InputProfile extends AppCompatActivity {
                     bMySet = true;
 
                     mMyData.getNotice();
+                    mMyData.getLogin();
+                    mMyData.getSignUp();
+
                     mMyData.getDownUrl();
                     mMyData.getImageLoading();
                     mMyData.getBoardLoadingDate();
