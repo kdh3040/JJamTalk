@@ -260,7 +260,7 @@ public class FirebaseData {
 
         user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
-        user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
+        user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
 
         user.child("Point").setValue(mMyData.getPoint());
 
@@ -300,7 +300,7 @@ public class FirebaseData {
         user.child("Lat").setValue(mMyData.getUserLat());
         user.child("Dist").setValue(mMyData.getUserDist());
 
-        user.child("FanCount").setValue(-1 * (mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
+        user.child("FanCount").setValue(-1 * (mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
 
         user.child("Point").setValue(mMyData.getPoint());
 

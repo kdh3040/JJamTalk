@@ -2007,8 +2007,9 @@ public class MyData {
 
                     table = database.getReference("SimpleData/" + stTargetData.Idx);
 
-                    updateFanCountMap.put("FanCount", stTargetData.FanCount);
-                    table.updateChildren(updateFanCountMap);
+                    Map<String, Object> updateFanCountSimpleDataMap = new HashMap<>();
+                    updateFanCountSimpleDataMap.put("FanCount", stTargetData.FanCount);
+                    table.updateChildren(updateFanCountSimpleDataMap);
 
                 }
             });
