@@ -131,11 +131,11 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
                 Bundle bundle = new Bundle();
 
 
-                bundle.putSerializable("Target", stTargetData);
-                intent.putExtra("FanList", stTargetData.arrFanList);
-                intent.putExtra("FanCount", stTargetData.FanCount);
+                bundle.putSerializable("Target", mMyData.arrGiftUserDataList.get(position));
+                intent.putExtra("FanList", mMyData.arrGiftUserDataList.get(position).arrFanList);
+                intent.putExtra("FanCount", mMyData.arrGiftUserDataList.get(position).FanCount);
 
-                intent.putExtra("StarList", stTargetData.arrStarList);
+                intent.putExtra("StarList", mMyData.arrGiftUserDataList.get(position).arrStarList);
                 intent.putExtras(bundle);
 
                 view.getContext().startActivity(intent);
