@@ -74,6 +74,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             LoginNotifyIntent.putExtra("StartFragment", 0);
             LoginNotifyIntent.putExtra("Noti", 1);
+            LoginNotifyIntent.putExtra("New", 0);
 
 
             PendingIntent LoginNotifyPendingIntent =
