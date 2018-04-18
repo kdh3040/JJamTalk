@@ -181,7 +181,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                 {
                     CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
                         public void YesListener() {
-                            if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastAdsTime()), 1440) == false)
+                            if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastAdsTime()), 60) == false)
                             {
                                 // TODO 환웅
                                 CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "하루에 한번만 충전 할 수 있습니다.");
