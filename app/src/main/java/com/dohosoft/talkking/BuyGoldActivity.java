@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.dohosoft.talkking.Data.MyData;
@@ -514,46 +516,58 @@ public class BuyGoldActivity extends AppCompatActivity {
 
     public void loadRewardedVideoAd(Context mContext) {
 
-        mMyData.mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-            @Override
-            public void onRewarded(RewardItem reward) {
+        if(mMyData.mRewardedVideoAd == null)
+        {
+            mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
+            mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/5818242350",
+                    new AdRequest.Builder().build());
 
-                CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "보상", mUIData.getAdReward()[mMyData.getGrade()] + "코인을 획득 하였습니다.");
-                mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
-                refreshHearCnt();
-                // Reward the user.
-            }
+            loadRewardedVideoAd(mContext);
+        }
+        else
+        {
+            mMyData.mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+                @Override
+                public void onRewarded(RewardItem reward) {
 
-            @Override
-            public void onRewardedVideoAdLeftApplication() {
-                int aaa = 0;
-            }
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "보상", mUIData.getAdReward()[mMyData.getGrade()] + "코인을 획득 하였습니다.");
+                    mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
+                    refreshHearCnt();
+                    // Reward the user.
+                }
 
-            @Override
-            public void onRewardedVideoAdClosed() {
-                int aaa = 0;
-            }
+                @Override
+                public void onRewardedVideoAdLeftApplication() {
+                    int aaa = 0;
+                }
 
-            @Override
-            public void onRewardedVideoAdFailedToLoad(int errorCode) {
-                int aaa = 0;
-            }
+                @Override
+                public void onRewardedVideoAdClosed() {
+                    int aaa = 0;
+                }
 
-            @Override
-            public void onRewardedVideoAdLoaded() {
-                int aaa = 0;
-            }
+                @Override
+                public void onRewardedVideoAdFailedToLoad(int errorCode) {
+                    int aaa = 0;
+                }
 
-            @Override
-            public void onRewardedVideoAdOpened() {
-                int aaa = 0;
-            }
+                @Override
+                public void onRewardedVideoAdLoaded() {
+                    int aaa = 0;
+                }
 
-            @Override
-            public void onRewardedVideoStarted() {
-                int aaa = 0;
-            }
-        });
+                @Override
+                public void onRewardedVideoAdOpened() {
+                    int aaa = 0;
+                }
+
+                @Override
+                public void onRewardedVideoStarted() {
+                    int aaa = 0;
+                }
+            });
+        }
+
 
     }
 
