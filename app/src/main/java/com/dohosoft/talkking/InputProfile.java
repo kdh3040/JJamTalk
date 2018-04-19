@@ -303,7 +303,7 @@ public class InputProfile extends AppCompatActivity {
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
             Query query=ref
-                    .orderByChild("Dist").endAt(mMyData.getUserDist() + 50000).limitToFirst(FIRST_LOAD_MAIN_COUNT);
+                    .orderByChild("Dist").startAt(0).limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -764,12 +764,14 @@ public class InputProfile extends AppCompatActivity {
         }
         Location location = service.getLastKnownLocation(provider);
         bMyLoc = true;
+        double tempLon, tempLat;
+
         if(location != null)
         {
-            double tempLon, tempLat;
+
             if(location.getLongitude() == 0)
             {
-                tempLon = DEF_LON;
+                tempLon = Math.random() * (1.072271) + 126.611512;;
             }
             else
             {
@@ -777,7 +779,7 @@ public class InputProfile extends AppCompatActivity {
             }
             if(location.getLatitude() == 0)
             {
-                tempLat = DEF_LAT;
+                tempLat = Math.random() * (0.836468) + 37.077091;
             }
             else
             {
@@ -786,13 +788,17 @@ public class InputProfile extends AppCompatActivity {
 
             mMyData.setUserLon(tempLon);
             mMyData.setUserLat(tempLat);
-            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), tempLat, tempLon,"meter"));
         }
         else
         {
-            mMyData.setUserLon(DEF_LON);
-            mMyData.setUserLat(DEF_LAT);
-            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
+            tempLon = Math.random() * (1.072271) + 126.611512;
+            tempLat = Math.random() * (0.836468) + 37.077091;
+
+
+            mMyData.setUserLon(tempLon);
+            mMyData.setUserLat(tempLat);
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), tempLat, tempLon,"meter"));
         }
 
         if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){

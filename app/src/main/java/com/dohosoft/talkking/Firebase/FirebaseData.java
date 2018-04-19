@@ -903,6 +903,8 @@ public class FirebaseData {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
 
+        final double[] tempDist = {0};
+
         Query data = null;
         data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Dist").startAt(mMyData.NearDistanceRef).limitToFirst(LOAD_MAIN_COUNT);
         data.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -939,6 +941,8 @@ public class FirebaseData {
 
                                 if(bExist == false)
                                 {
+
+                                    tempDist[0] = cTempData.Dist;
                                     double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), cTempData.Lat, cTempData.Lon,"meter");
 
                                     cTempData.Dist = Dist;
@@ -959,6 +963,11 @@ public class FirebaseData {
 
                 }
 
+                if(mMyData.arrUserAll_Near.size() > 0)
+                    //mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
+                    mMyData.NearDistanceRef = tempDist[0] ; //mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
+
+
                 CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
                 Collections.sort(mMyData.arrUserAll_Near, cNearSort);
                 Collections.sort(mMyData.arrUserWoman_Near, cNearSort);
@@ -968,8 +977,7 @@ public class FirebaseData {
                 mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
                 mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
 
-                if(mMyData.arrUserAll_Near.size() > 0)
-                    mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
+
 
                 CommonFunc.getInstance().DismissLoadingPage();
                 UpdateNearAdapter.notifyDataSetChanged();

@@ -517,13 +517,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Location location = service.getLastKnownLocation(provider);
         bMyLoc = true;
 
-
+        double tempLon, tempLat;
         if(location != null)
         {
-            double tempLon, tempLat;
+
             if(location.getLongitude() == 0)
             {
-                tempLon = DEF_LON;
+                tempLon = Math.random() * (1.072271) + 126.611512;;
             }
             else
             {
@@ -531,7 +531,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
             if(location.getLatitude() == 0)
             {
-                tempLat = DEF_LAT;
+                tempLat = Math.random() * (0.836468) + 37.077091;
             }
             else
             {
@@ -540,13 +540,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             mMyData.setUserLon(tempLon);
             mMyData.setUserLat(tempLat);
-            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), tempLat, tempLon,"meter"));
         }
         else
         {
+            tempLon = Math.random() * (1.072271) + 126.611512;
+            tempLat = Math.random() * (0.836468) + 37.077091;
+
+            mMyData.setUserLon(tempLon);
+            mMyData.setUserLat(tempLat);
+
             mMyData.setUserLon(DEF_LON);
             mMyData.setUserLat(DEF_LAT);
-            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), tempLat, tempLon,"meter"));
         }
 
               if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
@@ -1212,8 +1218,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
             Query query=ref
-                    .orderByChild("Dist").endAt(mMyData.getUserDist() + 50000).limitToFirst(FIRST_LOAD_MAIN_COUNT);
+                    .orderByChild("Dist").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
+            final double[] tempDist = {0};
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -1235,6 +1242,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
+                                            tempDist[0] = stRecvData.Dist;
                                             double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon,"meter");
                                             stRecvData.Dist = Dist;
 
@@ -1252,6 +1260,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 }
                             }
 
+                            if(mMyData.arrUserAll_Near.size() > 0)
+                                mMyData.NearDistanceRef = tempDist[0] ; //mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
 
                             CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
                             Collections.sort(mMyData.arrUserAll_Near, cNearSort);
@@ -1265,8 +1275,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             bSetNear = true;
 
-                            if(mMyData.arrUserAll_Near.size() > 0)
-                                mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
+
 
                                   if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
 
