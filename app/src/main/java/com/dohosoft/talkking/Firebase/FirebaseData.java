@@ -157,11 +157,19 @@ public class FirebaseData {
         DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
 
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        if(FirebaseInstanceId.getInstance() == null ||  FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals(""))
+        {
+            mMyData.setUserToken("0");
+            user.child("Token").setValue("0");
+        }
+        else
+        {
+            mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+            user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+        }
 
-        mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
-        user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         user.child("Img").setValue(mMyData.getUserImg());
+
 
         for(int i=0; i< 4 ; i++)
             user.child("ImgGroup"+Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
@@ -236,8 +244,17 @@ public class FirebaseData {
         final DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
 
-        mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
-        user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+        if(FirebaseInstanceId.getInstance() == null ||  FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals(""))
+        {
+            mMyData.setUserToken("0");
+            user.child("Token").setValue("0");
+        }
+        else
+        {
+            mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+            user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+        }
+
         user.child("Img").setValue(mMyData.getUserImg());
 
         for(int i=0; i< 4 ; i++)
@@ -283,8 +300,17 @@ public class FirebaseData {
         final DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
 
-        mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
-        user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+        if(FirebaseInstanceId.getInstance() == null ||  FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals(""))
+        {
+            mMyData.setUserToken("0");
+            user.child("Token").setValue("0");
+        }
+        else
+        {
+            mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+            user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+        }
+
         user.child("Img").setValue(mMyData.getUserImg());
 
         user.child("NickName").setValue(mMyData.getUserNick());
