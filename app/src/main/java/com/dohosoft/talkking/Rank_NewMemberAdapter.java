@@ -65,6 +65,8 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
         lpForTextView.addRule(RelativeLayout.RIGHT_OF,R.id.iv_honey_rank);
         holder.textView.setLayoutParams(lpForTextView);
 
+        holder.iv_rank.setVisibility(View.GONE);
+
         RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
