@@ -66,6 +66,13 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         holder.iv_honey_rank.setLayoutParams(lpForIcon);
 
+        //순위 레이아웃파람
+
+        RelativeLayout.LayoutParams lpForIvRank = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.3),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.3));
+        lpForIvRank.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        lpForIvRank.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        holder.iv_rank.setLayoutParams(lpForIvRank);
+
         RelativeLayout.LayoutParams lpForBgTxt  = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2));
         lpForBgTxt.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lpForBgTxt.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
