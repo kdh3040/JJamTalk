@@ -518,44 +518,34 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         bMyLoc = true;
 
         double tempLon, tempLat;
-        if(location != null)
-        {
+        if (location != null) {
 
-            if(location.getLongitude() == 0)
-            {
-                tempLon = Math.random() * (1.072271) + 126.611512;;
-            }
-            else
-            {
+            if (location.getLongitude() == 0) {
+                tempLon = Math.random() * (1.072271) + 126.611512;
+                ;
+            } else {
                 tempLon = location.getLongitude();
             }
-            if(location.getLatitude() == 0)
-            {
+            if (location.getLatitude() == 0) {
                 tempLat = Math.random() * (0.836468) + 37.077091;
-            }
-            else
-            {
+            } else {
                 tempLat = location.getLatitude();
             }
 
             mMyData.setUserLon(tempLon);
             mMyData.setUserLat(tempLat);
-            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), tempLat, tempLon,"meter"));
-        }
-        else
-        {
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON, "meter"));
+        } else {
             tempLon = Math.random() * (1.072271) + 126.611512;
             tempLat = Math.random() * (0.836468) + 37.077091;
 
             mMyData.setUserLon(tempLon);
             mMyData.setUserLat(tempLat);
 
-            mMyData.setUserLon(DEF_LON);
-            mMyData.setUserLat(DEF_LAT);
-            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), tempLat, tempLon,"meter"));
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON, "meter"));
         }
 
-              if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
+        if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
             Log.d(TAG, "Account Log in  Complete");
             GoMainPage();
@@ -598,6 +588,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         startActivity(intent);
         finish();
     }
+
     private void GoMainPage() {
 
         //  progressBar.setVisibility(ProgressBar.GONE);
@@ -725,7 +716,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String email = null;
         String password = null;
 
-        if(Email == null)
+        if (Email == null)
             email = mEmailView.getText().toString();
         else
             email = Email;
@@ -737,9 +728,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             password = PW;
 
 
-
         // mMyData.setUserIdx(mAwsFunc.GetUserIdx(email));
-
 
 
         boolean cancel = false;
@@ -786,9 +775,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     Log.d(TAG, "Sing in Account:" + task.isSuccessful());
-                                    if(task.isSuccessful()){
+                                    if (task.isSuccessful()) {
                                         InitData_Mine();
-                                    }else {
+                                    } else {
                                         //Toast.makeText(LoginActivity.this,"Log In Failed", Toast.LENGTH_LONG).show();
                                     }
                                 }
@@ -808,11 +797,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int i = 0;
-                        UserData stRecvData = new UserData ();
+                        UserData stRecvData = new UserData();
                         stRecvData = dataSnapshot.getValue(UserData.class);
-                        if(stRecvData != null) {
+                        if (stRecvData != null) {
 
-                            if(stRecvData.Img == null)
+                            if (stRecvData.Img == null)
                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
 
@@ -854,7 +843,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
 */
 
-                            for(LinkedHashMap.Entry<String, String> entry : stRecvData.CardList.entrySet()) {
+                            for (LinkedHashMap.Entry<String, String> entry : stRecvData.CardList.entrySet()) {
                                 mMyData.arrCardNameList.add(entry.getValue());
                                 //mMyData.sortStarData();
                             }
@@ -886,16 +875,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             //mMyData.MonitorPublicRoomStatus();
 
                             PrePareHot initHot = new PrePareHot();
-                            initHot.execute(0,0,0);
+                            initHot.execute(0, 0, 0);
 
                             PrePareFan initFan = new PrePareFan();
-                            initFan.execute(0,0,0);
+                            initFan.execute(0, 0, 0);
 
                             PrePareNear initNear = new PrePareNear();
-                            initNear.execute(0,0,0);
+                            initNear.execute(0, 0, 0);
 
                             PrePareNew initNew = new PrePareNew();
-                            initNew.execute(0,0,0);
+                            initNew.execute(0, 0, 0);
 
                             bInit = true;
                         }
@@ -1049,29 +1038,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query=ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            Query query = ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0;
-                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
-                            {
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 SimpleUserData cTempData = new SimpleUserData();
                                 cTempData = fileSnapshot.getValue(SimpleUserData.class);
-                                if(cTempData != null) {
-                                   // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                if (cTempData != null) {
+                                    // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
-                                        if(cTempData.Img == null)
+                                        if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_Recv.add(cTempData);
 
-                                        if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
-                                        {
+                                        if (mMyData.arrUserAll_Recv.get(i).Gender.equals("여자")) {
                                             mMyData.arrUserWoman_Recv.add(cTempData);
-                                        }
-                                        else {
+                                        } else {
                                             mMyData.arrUserMan_Recv.add(cTempData);
                                         }
 
@@ -1083,15 +1069,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             }
 
-                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
 
                             bSetRecv = true;
-                            if(mMyData.arrUserAll_Recv.size() > 0)
-                                mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
+                            if (mMyData.arrUserAll_Recv.size() > 0)
+                                mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1).RecvGold;
 
-                                  if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
+                            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
@@ -1109,7 +1095,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-                  if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
+            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
@@ -1122,7 +1108,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    public class PrePareFan extends AsyncTask<Integer, Integer, Integer>  {
+    public class PrePareFan extends AsyncTask<Integer, Integer, Integer> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -1133,7 +1119,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Integer doInBackground(Integer... voids) {
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query= ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            Query query = ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -1142,7 +1128,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 SimpleUserData cTempData = new SimpleUserData();
                                 cTempData = fileSnapshot.getValue(SimpleUserData.class);
-                                if(cTempData != null) {
+                                if (cTempData != null) {
                                     //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
                                         if (cTempData.Img == null)
@@ -1169,10 +1155,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             bSetRich = true;
 
-                            if(mMyData.arrUserAll_Send.size() > 0)
-                                mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
+                            if (mMyData.arrUserAll_Send.size() > 0)
+                                mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size() - 1).FanCount;
 
-                                  if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
+                            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
 
                                 Log.d(TAG, "Account Log in  Complete");
@@ -1192,7 +1178,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-                  if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
+            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
@@ -1205,7 +1191,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    public class PrePareNear extends AsyncTask<Integer, Integer, Integer>  {
+    public class PrePareNear extends AsyncTask<Integer, Integer, Integer> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -1217,7 +1203,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query=ref
+            Query query = ref
                     .orderByChild("Dist").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             final double[] tempDist = {0};
@@ -1225,25 +1211,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            int i = 0, j=0, k=0;
+                            int i = 0, j = 0, k = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData stRecvData = new SimpleUserData ();
+                                SimpleUserData stRecvData = new SimpleUserData();
                                 stRecvData = fileSnapshot.getValue(SimpleUserData.class);
-                                if(stRecvData != null) {
+                                if (stRecvData != null) {
 
-                                    if(stRecvData.Lat == 0 || stRecvData.Lon == 0)
-                                    {
+                                    if (stRecvData.Lat == 0 || stRecvData.Lon == 0) {
                                         // 위치 못받아오는 애들
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
                                         {
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                             tempDist[0] = stRecvData.Dist;
-                                            double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon,"meter");
+                                            double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon, "meter");
                                             stRecvData.Dist = Dist;
 
                                             mMyData.arrUserAll_Near.add(stRecvData);
@@ -1260,8 +1243,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 }
                             }
 
-                            if(mMyData.arrUserAll_Near.size() > 0)
-                                mMyData.NearDistanceRef = tempDist[0] ; //mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
+                            if (mMyData.arrUserAll_Near.size() > 0)
+                                mMyData.NearDistanceRef = tempDist[0]; //mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
 
                             CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
                             Collections.sort(mMyData.arrUserAll_Near, cNearSort);
@@ -1276,8 +1259,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             bSetNear = true;
 
 
-
-                                  if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
+                            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
@@ -1296,7 +1278,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-                  if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
+            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
@@ -1309,7 +1291,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    public class PrePareNew extends AsyncTask<Integer, Integer, Integer>  {
+    public class PrePareNew extends AsyncTask<Integer, Integer, Integer> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -1321,17 +1303,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             DatabaseReference ref;
             ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
-            Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
+            Query query = ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            int i = 0, j=0, k=0;
+                            int i = 0, j = 0, k = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData stRecvData = new SimpleUserData ();
+                                SimpleUserData stRecvData = new SimpleUserData();
                                 stRecvData = fileSnapshot.getValue(SimpleUserData.class);
-                                if(stRecvData != null) {
+                                if (stRecvData != null) {
                                     //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
                                     {
                                         if (stRecvData.Img == null)
@@ -1356,10 +1338,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             bSetNew = true;
 
-                            if(mMyData.arrUserAll_New.size() > 0)
-                                mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
+                            if (mMyData.arrUserAll_New.size() > 0)
+                                mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() - 1).Date;
 
-                                  if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
+                            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                                 Log.d(TAG, "Account Log in  Complete");
                                 GoMainPage();
@@ -1378,7 +1360,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-                  if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true){
+            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
                 GoMainPage();
@@ -1391,7 +1373,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    public class LoginTask extends AsyncTask<Integer, Integer, Integer>  {
+    public class LoginTask extends AsyncTask<Integer, Integer, Integer> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -1416,7 +1398,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-    public  class getMarketVersion extends AsyncTask<Void, Void, String> {
+    public class getMarketVersion extends AsyncTask<Void, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -1431,7 +1413,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                      /*   .connect(
                                 "https://play.google.com/store/apps/details?id=패키지명 적으세요" )*/
                         .connect(
-                                "https://play.google.com/store/apps/details?id=com.dohosoft.talkking" )
+                                "https://play.google.com/store/apps/details?id=com.dohosoft.talkking")
                         .get();
                 Elements Version = doc.select(".content");
 
@@ -1481,8 +1463,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 AlertDialog alert = mDialog.create();
                 alert.setTitle("안 내");
                 alert.show();
-            }
-            else
+            } else
                 bUpdate = true;
 
 

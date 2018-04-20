@@ -788,7 +788,7 @@ public class InputProfile extends AppCompatActivity {
 
             mMyData.setUserLon(tempLon);
             mMyData.setUserLat(tempLat);
-            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), tempLat, tempLon,"meter"));
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
         }
         else
         {
@@ -798,7 +798,7 @@ public class InputProfile extends AppCompatActivity {
 
             mMyData.setUserLon(tempLon);
             mMyData.setUserLat(tempLat);
-            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), tempLat, tempLon,"meter"));
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
         }
 
         if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
