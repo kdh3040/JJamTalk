@@ -90,6 +90,42 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
         //Log.d("Guide !!!! ", "Start");
         int i = position;
 
+
+        if(i < 3)
+        {
+            switch (i)
+            {
+                case 0:
+                    Glide.with(mContext)
+                            .load(R.drawable.main_order1)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.image)
+                            .thumbnail(0.1f)
+                            .into(holder.iv_rank);
+                    break;
+                case 1:
+                    Glide.with(mContext)
+                            .load(R.drawable.main_order2)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.image)
+                            .thumbnail(0.1f)
+                            .into(holder.iv_rank);
+                    break;
+                case 2:
+                    Glide.with(mContext)
+                            .load(R.drawable.main_order3)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.image)
+                            .thumbnail(0.1f)
+                            .into(holder.iv_rank);
+                    break;
+            }
+        }
+        else
+        {
+            holder.iv_rank.setVisibility(View.GONE);
+        }
+
         switch (mSetting.getnSearchSetting())
         {
            /* case 0:
