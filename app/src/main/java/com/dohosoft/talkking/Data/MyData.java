@@ -2053,17 +2053,14 @@ public class MyData {
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table;
-                    table = database.getReference("User/" + stTargetData.Idx);
+                    table = database.getReference("SimpleData/" + stTargetData.Idx);
 
                     Map<String, Object> updateFanCountMap = new HashMap<>();
                     updateFanCountMap.put("FanCount", stTargetData.FanCount);
                     table.updateChildren(updateFanCountMap);
 
-                    table = database.getReference("SimpleData/" + stTargetData.Idx);
-
-                    Map<String, Object> updateFanCountSimpleDataMap = new HashMap<>();
-                    updateFanCountSimpleDataMap.put("FanCount", stTargetData.FanCount);
-                    table.updateChildren(updateFanCountSimpleDataMap);
+                    table = database.getReference("User/" + stTargetData.Idx);
+                    table.updateChildren(updateFanCountMap);
 
                 }
             });
@@ -2127,8 +2124,6 @@ public class MyData {
                     table.updateChildren(updateFanCountMap);
 
                     table = database.getReference("SimpleData/" + stTargetData.Idx);
-
-                    updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
                     table.updateChildren(updateFanCountMap);
 
                 }
@@ -2201,7 +2196,7 @@ public class MyData {
                 tempData.Lat = getUserLat();
                 tempData.Lon = getUserLon();
                 tempData.Date = strDate;
-                tempData.FanCount = -1 * getFanCount() * UNIQ_FANCOUNT + Integer.parseInt(getUserIdx());
+                tempData.FanCount = getFanCount();
                 tempData.Point = getPoint();
                 tempData.BestItem = bestItem;
                 tempData.Grade = getGrade();
@@ -2268,8 +2263,6 @@ public class MyData {
                         table.updateChildren(updateFanCountMap);
 
                         table = database.getReference("SimpleData/" + stTargetData.Idx);
-
-                        updateFanCountMap.put("FanCount", stTargetData.FanCount);
                         table.updateChildren(updateFanCountMap);
 
                     }
@@ -2336,8 +2329,6 @@ public class MyData {
                     table.updateChildren(updateFanCountMap);
 
                     table = database.getReference("SimpleData/" + stTargetData.Idx);
-
-                    updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
                     table.updateChildren(updateFanCountMap);
 
                 }
@@ -2804,8 +2795,8 @@ public class MyData {
         SimpleUser.child("BestItem").setValue(bestItem);
     }
 
-    public int getFanCount() {
-        return arrMyFanList.size();
+    public long getFanCount() {
+        return  (-1 * (UNIQ_FANCOUNT * arrMyFanList.size() + Long.valueOf(getUserIdx())));
     }
 
     public int SetBestItem() {
