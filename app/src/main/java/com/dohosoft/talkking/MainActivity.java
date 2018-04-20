@@ -118,9 +118,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView logo;
 
     TextView tv_MainTitle;
-    LinearLayout layout_lowbar,layout_topbar;
+    LinearLayout layout_lowbar, layout_topbar;
     BoardFragment boardFragment;
-
 
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
@@ -160,8 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            if(mMyData.mServiceConn == null)
-            {
+            if (mMyData.mServiceConn == null) {
                 mMyData.mServiceConn = new ServiceConnection() {
                     @Override
                     public void onServiceDisconnected(ComponentName name) {
@@ -174,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                         mMyData.mService = IInAppBillingService.Stub.asInterface(service);
 
                         try {
-                            mMyData.skuDetails = mMyData.mService.getSkuDetails(3,getPackageName(), "inapp", mMyData.querySkus);
+                            mMyData.skuDetails = mMyData.mService.getSkuDetails(3, getPackageName(), "inapp", mMyData.querySkus);
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
@@ -203,13 +201,20 @@ public class MainActivity extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                if (mMyData.sku.equals("gold_10")) mMyData.strGold[0] = mMyData.price;
-                                else if (mMyData.sku.equals("gold_20")) mMyData.strGold[1]= mMyData.price;
-                                else if (mMyData.sku.equals("gold_50")) mMyData.strGold[2] = mMyData.price;
-                                else if (mMyData.sku.equals("gold_100")) mMyData.strGold[3] = mMyData.price;
-                                else if (mMyData.sku.equals("gold_200")) mMyData.strGold[4] = mMyData.price;
-                                else if (mMyData.sku.equals("gold_500")) mMyData.strGold[5] = mMyData.price;
-                                else if (mMyData.sku.equals("gold_1000")) mMyData.strGold[6] = mMyData.price;
+                                if (mMyData.sku.equals("gold_10"))
+                                    mMyData.strGold[0] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_20"))
+                                    mMyData.strGold[1] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_50"))
+                                    mMyData.strGold[2] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_100"))
+                                    mMyData.strGold[3] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_200"))
+                                    mMyData.strGold[4] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_500"))
+                                    mMyData.strGold[5] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_1000"))
+                                    mMyData.strGold[6] = mMyData.price;
                             }
                         }
 
@@ -219,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent serviceIntent =
                         new Intent("com.android.vending.billing.InAppBillingService.BIND");
                 serviceIntent.setPackage("com.android.vending");
-                bindService(serviceIntent, mMyData.mServiceConn , Context.BIND_AUTO_CREATE);
+                bindService(serviceIntent, mMyData.mServiceConn, Context.BIND_AUTO_CREATE);
             }
             return null;
         }
@@ -236,23 +241,24 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
         }
+
         @Override
         protected Integer doInBackground(Void... voids) {
             mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
-            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
+            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
 
-            mMyData.arrUserAll_Recv_Age= mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
 
             mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge );
-            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge );
+            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
 
             mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge );
-            mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge );
+            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
 
             return 0;
         }
@@ -261,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
+            mCommon.GoMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
         }
 
         @Override
@@ -280,31 +286,50 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
 
-
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        if(mMyData.getUserIdx() == null)
-        {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+        mMyData.badgecount = pref.getInt("Badge", 1);
+
+        if (mMyData.badgecount >= 1) {
+            mMyData.badgecount = 0;
+            Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+            intent.putExtra("badge_count_package_name", "com.hodo.talkking");
+            intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+            intent.putExtra("badge_count", mMyData.badgecount);
+            sendBroadcast(intent);
+        }
+
+        int nTempNoti = 0;
+        int nTempStartFrag = 0;
+        SharedPreferences NotiPref = getApplicationContext().getSharedPreferences("ExecByNoti", getApplicationContext().MODE_PRIVATE);
+        nTempStartFrag = NotiPref.getInt("StartFrag", 0);
+        nTempNoti = NotiPref.getInt("ExecByNoti", 0);
+
+        if (mMyData.getUserIdx() == null) {
             CommonFunc.getInstance().restartApp(getApplicationContext());
         }
 
-        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+        if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+            if (nTempNoti == 1) {
+                SetButtonColor(nTempStartFrag);
+                SetFontColor(nTempStartFrag);
 
-            SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
-            pref.getInt("Badge", mMyData.badgecount );
+                logo.setVisibility(View.GONE);
+                mMyData.SetCurFrag(2);
 
-            if ( mMyData.badgecount >= 1)
-            {
-                mMyData.badgecount = 0;
-                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
-                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
-                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
-                intent.putExtra("badge_count", mMyData.badgecount);
-                sendBroadcast(intent);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, chatListFragment, "ChatListFragment").commit();
+
+                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
+                setImageAlpha(100, 100, 255, 100, 100);
+                iv_myPage.setVisibility(View.GONE);
+                txt_title.setVisibility(TextView.VISIBLE);
+                txt_title.setText("채팅 목록");
             }
-
+        }
+        else  if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             if (mMyData.GetCurFrag() == 2) {
                 Fragment frg = null;
@@ -314,15 +339,8 @@ public class MainActivity extends AppCompatActivity {
                 ft.attach(frg);
                 ft.commit();
             }
- /*           if(mMyData.GetCurFrag() == 3)
-            {
-                Fragment frg = null;
-                frg = mFragmentMng.findFragmentByTag("FanListFragment");
-                final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                ft.detach(frg);
-                ft.attach(frg);
-                ft.commit();
-            }*/
+
+
         }
     }
 
@@ -335,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
         mActivity = this;
         mContext = getApplicationContext();
         mFragmentMng = getSupportFragmentManager();
-        MobileAds.initialize(getApplicationContext(),"ca-app-pub-4020702622451243~3824534212");
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-4020702622451243~3824534212");
 
         Bundle bundle = getIntent().getExtras();
         nStartFragment = (int) bundle.getSerializable("StartFragment");
@@ -343,15 +361,15 @@ public class MainActivity extends AppCompatActivity {
         nStartByNew = (int) bundle.getSerializable("New");
 
 
+        SharedPreferences pref = getSharedPreferences("ExecByNoti", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.commit();
+
         OFFAPP = false;
-        if(nStartByNoti == 1)
-            return;
 
-
-
-        if(mMyData.getUserIdx() == null)
-        {
-           CommonFunc.getInstance().restartApp(getApplicationContext());
+        if (mMyData.getUserIdx() == null) {
+            CommonFunc.getInstance().restartApp(getApplicationContext());
         }
 
 /*        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -367,18 +385,18 @@ public class MainActivity extends AppCompatActivity {
         mMyData.mContext = getApplicationContext();
         mMyData.mActivity = mActivity;
 
-        if(mMyData.arrReportList.size() >= 10)
+        if (mMyData.arrReportList.size() >= 10)
             ViewReportPop();
 
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("PrefSetting", getApplicationContext().MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("Sound",SettingData.getInstance().IsAlarmSettingSound());
-        editor.putBoolean("Vibe",SettingData.getInstance().IsAlarmSettingVibration());
+        editor = prefs.edit();
+        editor.putBoolean("Sound", SettingData.getInstance().IsAlarmSettingSound());
+        editor.putBoolean("Vibe", SettingData.getInstance().IsAlarmSettingVibration());
         editor.commit();
 
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
-        pref.getInt("Badge", mMyData.badgecount );
+        pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+        mMyData.badgecount = pref.getInt("Badge", 0);
 
 
         //if ( mMyData.badgecount >= 1)
@@ -391,14 +409,10 @@ public class MainActivity extends AppCompatActivity {
             sendBroadcast(intent);
         }
 
-
-
-        logo = findViewById(R.id.iv_logo);
-
-
-
         iv_myPage = findViewById(R.id.iv_mypage);
         txt_title = findViewById(R.id.txt_title);
+
+        logo = findViewById(R.id.iv_logo);
 
         /*Glide.with(getApplicationContext())
                 .load(R.drawable.mypage)
@@ -417,70 +431,67 @@ public class MainActivity extends AppCompatActivity {
         iv_myPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
+                startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
             }
         });
 
-        CommonFunc.getInstance().Card_Alarm = (ImageView)findViewById(R.id.alarm_favor);
-        CommonFunc.getInstance().Chat_Alarm = (ImageView)findViewById(R.id.alarm_chat);
-        CommonFunc.getInstance().Fan_Alarm = (ImageView)findViewById(R.id.alarm_fan);
-        CommonFunc.getInstance().Mail_Alarm = (ImageView)findViewById(R.id.alarm_mail);
-        CommonFunc.getInstance().Item_Box = (ImageView)findViewById(R.id.iv_itemBox);
+        CommonFunc.getInstance().Card_Alarm = (ImageView) findViewById(R.id.alarm_favor);
+        CommonFunc.getInstance().Chat_Alarm = (ImageView) findViewById(R.id.alarm_chat);
+        CommonFunc.getInstance().Fan_Alarm = (ImageView) findViewById(R.id.alarm_fan);
+        CommonFunc.getInstance().Mail_Alarm = (ImageView) findViewById(R.id.alarm_mail);
+        CommonFunc.getInstance().Item_Box = (ImageView) findViewById(R.id.iv_itemBox);
         CommonFunc.getInstance().Item_Box.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MyJewelBoxActivity.class));
+                startActivity(new Intent(getApplicationContext(), MyJewelBoxActivity.class));
                 //overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
             }
         });
 
         final boolean[] bThreadRun = {false};
-        CommonFunc.getInstance().Honey_Box = (ImageView)findViewById(R.id.iv_honeybox);
+        CommonFunc.getInstance().Honey_Box = (ImageView) findViewById(R.id.iv_honeybox);
         CommonFunc.getInstance().SetMailAlarmVisible(false);
         CommonFunc.getInstance().Honey_Box.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CommonFunc.getInstance().SetMailAlarmVisible(false);
-                startActivity(new Intent(getApplicationContext(),MailboxActivity.class));
+                startActivity(new Intent(getApplicationContext(), MailboxActivity.class));
             }
         });
 
-        CommonFunc.getInstance().Board_Write = (ImageView)findViewById(R.id.iv_boardwrite);
+        CommonFunc.getInstance().Board_Write = (ImageView) findViewById(R.id.iv_boardwrite);
         CommonFunc.getInstance().Board_Write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastBoardWriteTime()), CoomonValueData.BOARD_WRITE_TIME_MIN) == false)
-                {
+                if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastBoardWriteTime()), CoomonValueData.BOARD_WRITE_TIME_MIN) == false) {
                     String Desc = CommonFunc.getInstance().GetRemainTimeByFuture(new Date(mMyData.GetLastBoardWriteTime() + (CoomonValueData.BOARD_WRITE_TIME_MIN * CoomonValueData.MIN_MILLI_SECONDS)), true);
-                    CommonFunc.getInstance().ShowDefaultPopup(MainActivity.this, "게시판 작성", "도배방지를 위해 " + Desc+" 후에 글을 쓰실 수 있습니다.");
-                }
-                else
-                    startActivity(new Intent(getApplicationContext(),BoardWriteActivity.class));
+                    CommonFunc.getInstance().ShowDefaultPopup(MainActivity.this, "게시판 작성", "도배방지를 위해 " + Desc + " 후에 글을 쓰실 수 있습니다.");
+                } else
+                    startActivity(new Intent(getApplicationContext(), BoardWriteActivity.class));
             }
         });
-        CommonFunc.getInstance().MyBoard_Write = (Button)findViewById(R.id.iv_myboardwrite);
+        CommonFunc.getInstance().MyBoard_Write = (Button) findViewById(R.id.iv_myboardwrite);
         CommonFunc.getInstance().MyBoard_Write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),BoardMyListActivity.class));
+                startActivity(new Intent(getApplicationContext(), BoardMyListActivity.class));
 
             }
         });
 
         CommonFunc.getInstance().Filter = findViewById(R.id.ib_filter);
-        CommonFunc.getInstance().Filter.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.boardBgColor), PorterDuff.Mode.MULTIPLY);
+        CommonFunc.getInstance().Filter.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.boardBgColor), PorterDuff.Mode.MULTIPLY);
 
         CommonFunc.getInstance().Filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-
                 //  startActivity(new_img Intent(getApplicationContext(),MainSettingActivity.class));
                 //  overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                View v = LayoutInflater.from(mActivity).inflate(R.layout.category_popup,null,false);
+                View v = LayoutInflater.from(mActivity).inflate(R.layout.category_popup, null, false);
 
                 builder.setView(v);
                 final AlertDialog filter_dialog = builder.create();
@@ -537,13 +548,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        mMyData.setAlarmSettingData(mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration(),  mSetting.IsAlarmSettingPop());
+                        mMyData.setAlarmSettingData(mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration(), mSetting.IsAlarmSettingPop());
                         mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting());
                         mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration(), mSetting.IsAlarmSettingPop());
                         filter_dialog.dismiss();
 
-                        SortDataAge sortData = new SortDataAge();
-                        sortData.execute();
+                        FirebaseData.getInstance().RefreshUserData(mActivity);
+                        //SortDataAge sortData = new SortDataAge();
+                        // sortData.execute();
 
                /*         Intent intent = new_img Intent(getApplicationContext(),MainActivity.class);
                         intent.putExtra("StartFragment", 0);
@@ -569,16 +581,12 @@ public class MainActivity extends AppCompatActivity {
                 cbox_man = (CheckBox) v.findViewById(R.id.rbtn_man);
                 cbox_woman = (CheckBox) v.findViewById(R.id.rbtn_woman);
 
-                switch (mMyData.nSearchMode)
-                {
+                switch (mMyData.nSearchMode) {
                     case 0:
-                        if(mMyData.getUserGender().equals("여자"))
-                        {
+                        if (mMyData.getUserGender().equals("여자")) {
                             cbox_man.setChecked(true);
                             cbox_woman.setChecked(false);
-                        }
-                        else
-                        {
+                        } else {
                             cbox_man.setChecked(false);
                             cbox_woman.setChecked(true);
                         }
@@ -597,18 +605,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
 
-                if(mSetting.getnViewSetting() == 0)
-                {
+                if (mSetting.getnViewSetting() == 0) {
                     rbtn_three.setChecked(false);
                     rbtn_four.setChecked(false);
-                }
-                else if(mSetting.getnViewSetting() == 1)
-                {
+                } else if (mSetting.getnViewSetting() == 1) {
                     rbtn_three.setChecked(true);
                     rbtn_four.setChecked(false);
-                }
-                else if(mSetting.getnViewSetting() == 2)
-                {
+                } else if (mSetting.getnViewSetting() == 2) {
                     rbtn_three.setChecked(false);
                     rbtn_four.setChecked(true);
                 }
@@ -617,7 +620,7 @@ public class MainActivity extends AppCompatActivity {
                 rbtn_three.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(rbtn_three.isChecked()) {
+                        if (rbtn_three.isChecked()) {
                             rbtn_three.setChecked(true);
                             rbtn_four.setChecked(false);
                             mSetting.setnViewSetting(1);
@@ -629,8 +632,7 @@ public class MainActivity extends AppCompatActivity {
                 rbtn_four.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(rbtn_four.isChecked())
-                        {
+                        if (rbtn_four.isChecked()) {
                             rbtn_three.setChecked(false);
                             rbtn_four.setChecked(true);
                             mSetting.setnViewSetting(2);
@@ -642,14 +644,12 @@ public class MainActivity extends AppCompatActivity {
                 cbox_man.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(cbox_man.isChecked())
-                        {
-                            if(cbox_woman.isChecked())
+                        if (cbox_man.isChecked()) {
+                            if (cbox_woman.isChecked())
                                 mSetting.setnSearchSetting(3);
                             else
                                 mSetting.setnSearchSetting(1);
-                        }
-                        else {
+                        } else {
                             cbox_woman.setChecked(true);
                             mSetting.setnSearchSetting(2);
                         }
@@ -659,14 +659,12 @@ public class MainActivity extends AppCompatActivity {
                 cbox_woman.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(cbox_woman.isChecked())
-                        {
-                            if(cbox_man.isChecked())
+                        if (cbox_woman.isChecked()) {
+                            if (cbox_man.isChecked())
                                 mSetting.setnSearchSetting(3);
                             else
                                 mSetting.setnSearchSetting(2);
-                        }
-                        else {
+                        } else {
                             cbox_man.setChecked(true);
                             mSetting.setnSearchSetting(1);
                         }
@@ -709,19 +707,15 @@ public class MainActivity extends AppCompatActivity {
                 }*/
 
 
-
-
-                RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener(){
+                RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(rbtn_three.isChecked())
+                        if (rbtn_three.isChecked())
                             mSetting.setnViewSetting(1);
-                        else if(rbtn_four.isChecked())
+                        else if (rbtn_four.isChecked())
                             mSetting.setnViewSetting(2);
                     }
                 };
-
-
 
 
             }
@@ -736,7 +730,7 @@ public class MainActivity extends AppCompatActivity {
 
         mUIData.setHeight(height);
         mUIData.setWidth(width);
-        mUIData.setLlp_ListItem(new LinearLayout.LayoutParams(width,height/7));
+        mUIData.setLlp_ListItem(new LinearLayout.LayoutParams(width, height / 7));
 
         //int mHeight = mUIData.getHeight();
         int mWidth = mUIData.getWidth();
@@ -765,10 +759,9 @@ public class MainActivity extends AppCompatActivity {
 
         boolean bCheckConnt = mMyData.CheckConnectDate();
 
-        if(bCheckConnt == true)
-        {
+        if (bCheckConnt == true) {
             String alertTitle = "종료";
-            View ConnV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+            View ConnV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);
 
             final AlertDialog ConnDialog = new AlertDialog.Builder(this).setView(ConnV).create();
             ConnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -776,13 +769,12 @@ public class MainActivity extends AppCompatActivity {
             ConnDialog.show();
 
             final TextView txt_Title;
-            txt_Title = (TextView)ConnV.findViewById(R.id.title);
+            txt_Title = (TextView) ConnV.findViewById(R.id.title);
             txt_Title.setText("출석 체크 보상");
             final TextView txt_Body;
-            txt_Body = (TextView)ConnV.findViewById(R.id.msg);
-            txt_Body.setText(CoomonValueData.getInstance().Login + "\n" + mUIData.getAdReward()[mMyData.getGrade()]+"코인 획득 하였습니다");
-           // txt_Body.setText("톡킹을 다운로드 해주셔서 감사합니다" + "\n" + "여러분들의 외로움을 해결해드리기 위해 "+ "\n" + "최선을 다하겠습니다");
-
+            txt_Body = (TextView) ConnV.findViewById(R.id.msg);
+            txt_Body.setText(CoomonValueData.getInstance().Login + "\n" + mUIData.getAdReward()[mMyData.getGrade()] + "코인 획득 하였습니다");
+            // txt_Body.setText("톡킹을 다운로드 해주셔서 감사합니다" + "\n" + "여러분들의 외로움을 해결해드리기 위해 "+ "\n" + "최선을 다하겠습니다");
 
 
             final Button btn_exit;
@@ -807,16 +799,15 @@ public class MainActivity extends AppCompatActivity {
             btn_no.setVisibility(View.GONE);
             ConnDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
-                public void onDismiss (DialogInterface var1){
-                    mMyData.setUserHoney(mMyData.getUserHoney()+mUIData.getAdReward()[mMyData.getGrade()]);
+                public void onDismiss(DialogInterface var1) {
+                    mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
                     mMyData.setPoint(mUIData.getAdReward()[mMyData.getGrade()]);
                 }
 
             });
 
-            if(CoomonValueData.getInstance().Notice != null && !CoomonValueData.getInstance().Notice.equals(""))
-            {
-                View NoticeV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+            if (CoomonValueData.getInstance().Notice != null && !CoomonValueData.getInstance().Notice.equals("")) {
+                View NoticeV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);
 
                 final AlertDialog NoticeDialog = new AlertDialog.Builder(this).setView(NoticeV).create();
                 NoticeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -824,16 +815,16 @@ public class MainActivity extends AppCompatActivity {
                 NoticeDialog.show();
 
                 final TextView txt_NoticeTitle;
-                txt_NoticeTitle = (TextView)NoticeV.findViewById(R.id.title);
+                txt_NoticeTitle = (TextView) NoticeV.findViewById(R.id.title);
                 txt_NoticeTitle.setText("알림");
                 final TextView txt_NoticeBody;
-                txt_NoticeBody = (TextView)NoticeV.findViewById(R.id.msg);
+                txt_NoticeBody = (TextView) NoticeV.findViewById(R.id.msg);
                 txt_NoticeBody.setText(CoomonValueData.getInstance().Notice);
 
                 final Button btn_NoticeExit;
                 final Button btn_NoticeNo;
 
-                btn_NoticeExit = (Button)NoticeV.findViewById(R.id.btn_yes);
+                btn_NoticeExit = (Button) NoticeV.findViewById(R.id.btn_yes);
                 btn_NoticeExit.setText("확인");
                 btn_NoticeExit.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -842,7 +833,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                btn_NoticeNo = (Button)NoticeV.findViewById(R.id.btn_no);
+                btn_NoticeNo = (Button) NoticeV.findViewById(R.id.btn_no);
                 btn_NoticeNo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -852,7 +843,7 @@ public class MainActivity extends AppCompatActivity {
                 btn_NoticeNo.setVisibility(View.GONE);
                 NoticeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onDismiss (DialogInterface var1){
+                    public void onDismiss(DialogInterface var1) {
 
                     }
 
@@ -862,10 +853,9 @@ public class MainActivity extends AppCompatActivity {
             bCheckConnt = false;
         }
 
-        if(nStartByNew == 1)
-        {
+        if (nStartByNew == 1) {
 
-            View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+            View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);
 
             final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -873,10 +863,10 @@ public class MainActivity extends AppCompatActivity {
             dialog.show();
 
             final TextView txt_Title;
-            txt_Title = (TextView)v.findViewById(R.id.title);
+            txt_Title = (TextView) v.findViewById(R.id.title);
             txt_Title.setText("신규 가입");
             final TextView txt_Body;
-            txt_Body = (TextView)v.findViewById(R.id.msg);
+            txt_Body = (TextView) v.findViewById(R.id.msg);
             txt_Body.setText(CoomonValueData.getInstance().SignUp);
 
             final Button btn_exit;
@@ -901,7 +891,7 @@ public class MainActivity extends AppCompatActivity {
             btn_no.setVisibility(View.GONE);
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
-                public void onDismiss (DialogInterface var1){
+                public void onDismiss(DialogInterface var1) {
 
                 }
 
@@ -997,13 +987,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         txt_home = findViewById(R.id.tv_home);
-        txt_cardList  = findViewById(R.id.tv_favor);
-        txt_chatList= findViewById(R.id.tv_chat);
-        txt_fan= findViewById(R.id.tv_fan);
+        txt_cardList = findViewById(R.id.tv_favor);
+        txt_chatList = findViewById(R.id.tv_chat);
+        txt_fan = findViewById(R.id.tv_fan);
         txt_board = findViewById(R.id.tv_board);
 
         ib_home = findViewById(R.id.ib_home);
-
 
 
         iv_heartCnt = findViewById(R.id.iv_heart_cnt);
@@ -1036,10 +1025,10 @@ public class MainActivity extends AppCompatActivity {
 
                 mMyData.SetCurFrag(0);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment).commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment, "HomeFragment").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, homeFragment, "HomeFragment").commit();
                 //ib_home.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.botItem), PorterDuff.Mode.MULTIPLY);
 
-                setImageAlpha(255,100,100,100,100);
+                setImageAlpha(255, 100, 100, 100, 100);
                 SetButtonColor(0);
                 SetFontColor(0);
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.HOME_ACTIVITY);
@@ -1070,14 +1059,14 @@ public class MainActivity extends AppCompatActivity {
                 iv_fanCnt.setVisibility(View.GONE);
                 txt_fanCnt.setVisibility(View.GONE);
 
-                if(boardFragment == null)
+                if (boardFragment == null)
                     boardFragment = new BoardFragment();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment, "BoardFragment").commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, boardFragment, "BoardFragment").commit();
 
                 ib_board.setSelected(!v.isSelected());
                 txt_board.setSelected(!v.isSelected());
-                setImageAlpha(100,100,100,100,255);
+                setImageAlpha(100, 100, 100, 100, 255);
                 SetButtonColor(4);
                 SetFontColor(4);
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.BOARD_ACTIVITY);
@@ -1102,14 +1091,14 @@ public class MainActivity extends AppCompatActivity {
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("즐겨찾기");
                 mMyData.SetCurFrag(1);
-                if(cardListFragment == null)
+                if (cardListFragment == null)
                     LoadCardData();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment, "CardListFragment").commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, cardListFragment, "CardListFragment").commit();
                 ib_cardList.setSelected(!v.isSelected());
                 txt_cardList.setSelected(!v.isSelected());
 
-                setImageAlpha(100,255,100,100,100);
+                setImageAlpha(100, 255, 100, 100, 100);
                 SetButtonColor(1);
                 SetFontColor(1);
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
@@ -1137,16 +1126,16 @@ public class MainActivity extends AppCompatActivity {
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
 
-                if(chatListFragment == null)
+                if (chatListFragment == null)
                     LoadChatData();
                 else
-                    mFragmentMng.beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
+                    mFragmentMng.beginTransaction().replace(R.id.frag_container, chatListFragment, "ChatListFragment").commit();
 
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
 
                 ib_chatList.setSelected(!v.isSelected());
                 txt_chatList.setSelected(!v.isSelected());
-                setImageAlpha(100,100,255,100,100);
+                setImageAlpha(100, 100, 255, 100, 100);
                 SetButtonColor(2);
                 SetFontColor(2);
             }
@@ -1165,7 +1154,7 @@ public class MainActivity extends AppCompatActivity {
 
                 iv_heartCnt.setVisibility(View.VISIBLE);
                 txt_heartCnt.setVisibility(View.VISIBLE);
-                String str = String.format("%,d", mMyData.getRecvHoney()  * -1);
+                String str = String.format("%,d", mMyData.getRecvHoney() * -1);
 
                 txt_heartCnt.setText(str);
 
@@ -1178,7 +1167,7 @@ public class MainActivity extends AppCompatActivity {
                 mMyData.SetCurFrag(3);
                 ib_fan.setSelected(!v.isSelected());
                 txt_fan.setSelected(!v.isSelected());
-                setImageAlpha(100,100,100,255,100);
+                setImageAlpha(100, 100, 100, 255, 100);
 
                 SetButtonColor(3);
                 SetFontColor(3);
@@ -1190,7 +1179,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("StarList", mMyData.arrMyStarList);
                 intent.putExtra("ViewMode", 0);
                 intent.putExtras(bundle);
-                if(fanFragment == null)
+                if (fanFragment == null)
                     LoadFanData();
                 else {
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fanFragment, "FanListFragment").commit();
@@ -1221,83 +1210,81 @@ public class MainActivity extends AppCompatActivity {
         SetButtonColor(nStartFragment);
         SetFontColor(nStartFragment);
 
-        switch (nStartFragment)
-        {
+        switch (nStartFragment) {
 
             case 0:
-                if(homeFragment == null)
+                if (homeFragment == null)
                     homeFragment = new HomeFragment();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment, "HomeFragment").commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, homeFragment, "HomeFragment").commit();
 
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.HOME_ACTIVITY);
 
 
-                setImageAlpha(255,100,100,100,100);
+                setImageAlpha(255, 100, 100, 100, 100);
                 iv_myPage.setVisibility(View.VISIBLE);
                 txt_title.setVisibility(TextView.GONE);
 
                 break;
             case 1:
-                if(cardListFragment == null)
+                if (cardListFragment == null)
                     LoadCardData();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,cardListFragment, "CardListFragment").commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, cardListFragment, "CardListFragment").commit();
 
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
-                setImageAlpha(100,255,100,100,100);
+                setImageAlpha(100, 255, 100, 100, 100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("즐겨찾기");
                 break;
             case 2:
-                if(chatListFragment == null)
+                if (chatListFragment == null)
                     LoadChatData();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,chatListFragment, "ChatListFragment").commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, chatListFragment, "ChatListFragment").commit();
 
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
-                setImageAlpha(100,100,255,100,100);
+                setImageAlpha(100, 100, 255, 100, 100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("채팅 목록");
                 break;
             case 3:
-                if(fanFragment == null)
+                if (fanFragment == null)
                     LoadFanData();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,fanFragment, "FanListFragment").commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fanFragment, "FanListFragment").commit();
 
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
-                setImageAlpha(100,100,100,255,100);
+                setImageAlpha(100, 100, 100, 255, 100);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("내 팬");
                 break;
             case 4:
-                if(boardFragment == null)
+                if (boardFragment == null)
                     boardFragment = new BoardFragment();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,boardFragment, "BoardFragment").commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, boardFragment, "BoardFragment").commit();
 
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.BOARD_ACTIVITY);
-                setImageAlpha(100,100,100,100,255);
+                setImageAlpha(100, 100, 100, 100, 255);
                 iv_myPage.setVisibility(View.GONE);
                 txt_title.setVisibility(TextView.VISIBLE);
                 txt_title.setText("게시판");
                 break;
 
             default:
-                if(homeFragment == null)
+                if (homeFragment == null)
                     homeFragment = new HomeFragment();
                 else
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container,homeFragment,"HomeFragment").commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, homeFragment, "HomeFragment").commit();
 
                 CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.HOME_ACTIVITY);
-                setImageAlpha(255,100,100,100,100);
+                setImageAlpha(255, 100, 100, 100, 100);
                 break;
         }
-
 
 
         // 111111111
@@ -1314,15 +1301,13 @@ public class MainActivity extends AppCompatActivity {
     private void LoadChatData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
-        if(mMyData.arrChatNameList.size() == 0 || mMyData.arrChatNameList.size() == mMyData.arrChatDataList.size())
-        {
+        if (mMyData.arrChatNameList.size() == 0 || mMyData.arrChatNameList.size() == mMyData.arrChatDataList.size()) {
             chatListFragment = new ChatListFragment(getApplicationContext());
             return;
         }
 
 
-        for(int i = 0; i < mMyData.arrChatNameList.size(); i++)
-        {
+        for (int i = 0; i < mMyData.arrChatNameList.size(); i++) {
             Query data = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx()).child("SendList").child(mMyData.arrChatNameList.get(i));
             final int finalI = i;
             data.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1332,7 +1317,7 @@ public class MainActivity extends AppCompatActivity {
                     SimpleChatData DBData = dataSnapshot.getValue(SimpleChatData.class);
                     mMyData.arrChatDataList.put(mMyData.arrChatNameList.get(finalI), DBData);
 
-                    if(mMyData.arrChatNameList.size() == mMyData.arrChatDataList.size())
+                    if (mMyData.arrChatNameList.size() == mMyData.arrChatDataList.size())
                         chatListFragment = new ChatListFragment(getApplicationContext());
                 }
 
@@ -1347,11 +1332,10 @@ public class MainActivity extends AppCompatActivity {
     private void LoadCardData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
-        if(mMyData.arrCardNameList.size() == 0)
+        if (mMyData.arrCardNameList.size() == 0)
             cardListFragment = new CardListFragment();
 
-        for(int i = 0; i < mMyData.arrCardNameList.size(); i++)
-        {
+        for (int i = 0; i < mMyData.arrCardNameList.size(); i++) {
             Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.arrCardNameList.get(i));
             final int finalI = i;
             data.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1361,7 +1345,7 @@ public class MainActivity extends AppCompatActivity {
                     SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
                     mMyData.arrCarDataList.put(mMyData.arrCardNameList.get(finalI), DBData);
 
-                    if(mMyData.arrCarDataList.size() == mMyData.arrCardNameList.size())
+                    if (mMyData.arrCarDataList.size() == mMyData.arrCardNameList.size())
                         cardListFragment = new CardListFragment();
                 }
 
@@ -1414,16 +1398,14 @@ public class MainActivity extends AppCompatActivity {
     private void LoadFanData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
-        if(mMyData.arrMyFanList.size() == 0 || mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
-        {
-            if(fanFragment == null) {
+        if (mMyData.arrMyFanList.size() == 0 || mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size()) {
+            if (fanFragment == null) {
                 fanFragment = new FanListFragment();
                 return;
             }
         }
 
-        for(int i = 0; i < mMyData.arrMyFanList.size(); i++)
-        {
+        for (int i = 0; i < mMyData.arrMyFanList.size(); i++) {
             Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.arrMyFanList.get(i).Idx);
             final int finalI = i;
             data.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1440,9 +1422,8 @@ public class MainActivity extends AppCompatActivity {
                             SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
                             mMyData.arrMyFanDataList.put(mMyData.arrMyFanList.get(finalI).Idx, DBData);
 
-                            if(mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size())
-                            {
-                                if(fanFragment == null)
+                            if (mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size()) {
+                                if (fanFragment == null)
                                     fanFragment = new FanListFragment();
                             }
 
@@ -1465,10 +1446,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void ViewReportPop()
-    {
+    public void ViewReportPop() {
         String alertTitle = "종료";
-        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);
 
         final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -1479,10 +1459,10 @@ public class MainActivity extends AppCompatActivity {
         final TextView title;
         final TextView msg;
 
-        title =  (TextView) v.findViewById(R.id.title);
+        title = (TextView) v.findViewById(R.id.title);
         title.setText("경고");
 
-        msg =  (TextView) v.findViewById(R.id.msg);
+        msg = (TextView) v.findViewById(R.id.msg);
         msg.setText("10건의 신고가 들어왔습니다");
 
         btn_exit = (Button) v.findViewById(R.id.btn_yes);
@@ -1501,10 +1481,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
         String alertTitle = "종료";
-        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app,null,false);
+        View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);
 
         final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -1515,7 +1495,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView title;
         final AdView mAdView;
 
-        title =  (TextView) v.findViewById(R.id.title);
+        title = (TextView) v.findViewById(R.id.title);
         title.setVisibility(View.GONE);
 
 
@@ -1538,7 +1518,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mAdView = (AdView)v.findViewById(R.id.adView);
+        mAdView = (AdView) v.findViewById(R.id.adView);
         mAdView.setVisibility(View.VISIBLE);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -1551,7 +1531,7 @@ public class MainActivity extends AppCompatActivity {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (event.getKeyCode()) {
                 case KeyEvent.KEYCODE_MENU:
-                    startActivity(new Intent(getApplicationContext(),MyPageActivity.class));
+                    startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
                     return true;
             }
 
@@ -1567,15 +1547,14 @@ public class MainActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayShowCustomEnabled(true);
 
-        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-        View menu_Main  = inflater.inflate(R.layout.menu_main,null);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View menu_Main = inflater.inflate(R.layout.menu_main, null);
         actionBar.setCustomView(menu_Main);
-        Toolbar parent = (Toolbar)menu_Main.getParent();
-        parent.setContentInsetsAbsolute(0,0);
+        Toolbar parent = (Toolbar) menu_Main.getParent();
+        parent.setContentInsetsAbsolute(0, 0);
 
 
-
-        CheckBox cbMultiSend = (CheckBox)findViewById(R.id.checkBox);
+        CheckBox cbMultiSend = (CheckBox) findViewById(R.id.checkBox);
         cbMultiSend.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -1587,7 +1566,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    private void setImageAlpha(int home, int card, int chat, int fan, int board ){
+    private void setImageAlpha(int home, int card, int chat, int fan, int board) {
         /*ib_fan.setImageAlpha(fan);
         ib_board.setImageAlpha(board);
         ib_chatList.setImageAlpha(chat);
@@ -1598,8 +1577,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void SetButtonColor(int idx)
-    {
+    private void SetButtonColor(int idx) {
 
         ib_home.setImageResource(R.drawable.home);
         ib_cardList.setImageResource(R.drawable.favor);
@@ -1607,8 +1585,7 @@ public class MainActivity extends AppCompatActivity {
         ib_fan.setImageResource(R.drawable.fan);
         ib_board.setImageResource(R.drawable.board);
 
-        switch (idx)
-        {
+        switch (idx) {
             case 0:
                 ib_home.setImageResource(R.drawable.home_pressed);
                 break;
@@ -1627,16 +1604,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void SetFontColor(int idx)
-    {
+    private void SetFontColor(int idx) {
         txt_home.setTextColor(nDisableFontColor);
         txt_cardList.setTextColor(nDisableFontColor);
         txt_chatList.setTextColor(nDisableFontColor);
         txt_fan.setTextColor(nDisableFontColor);
         txt_board.setTextColor(nDisableFontColor);
 
-        switch (idx)
-        {
+        switch (idx) {
             case 0:
                 txt_home.setTextColor(nEnableFontColor);
                 break;
@@ -1655,10 +1630,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    String RandImg[] = new String [100];
+    String RandImg[] = new String[100];
 
-    private void AddDummy(int Count)
-    {
+    private void AddDummy(int Count) {
 
         RandImg[0] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-144474.jpeg?alt=media&token=b990fd33-af19-4268-a996-5b7c7629660d";
         RandImg[1] = "https://firebasestorage.googleapis.com/v0/b/talkking-25dd8.appspot.com/o/dummy%2Fpexels-photo-169915.jpeg?alt=media&token=97c43368-0d28-45cc-9b50-f7169424167d";
@@ -1698,8 +1672,7 @@ public class MainActivity extends AppCompatActivity {
         RandImg[31] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc0EtUi4VWj0rJjecjXSbUL3KTvWaeFBvlWmBKXOjVahSwz67bHQ";
 
 
-        for(int i = 0; i < Count; i++)
-        {
+        for (int i = 0; i < Count; i++) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
@@ -1720,42 +1693,42 @@ public class MainActivity extends AppCompatActivity {
 
             user.child("ImgGroup0").setValue(RandImg[nImgIdx]);
 
-            for(int j=1; j< 4 ; j++)
-                user.child("ImgGroup"+Integer.toString(j)).setValue(mMyData.getUserProfileImg(j));
+            for (int j = 1; j < 4; j++)
+                user.child("ImgGroup" + Integer.toString(j)).setValue(mMyData.getUserProfileImg(j));
 
             String strRandName = randomHangulName();
 
-            user.child("NickName").setValue(strRandName );
+            user.child("NickName").setValue(strRandName);
 
 
             Boolean bRand = random.nextBoolean();
-            if(bRand == false)
+            if (bRand == false)
                 user.child("Gender").setValue("남자");
             else
                 user.child("Gender").setValue("여자");
 
-            String strAge = Integer.toString(random.nextInt(50)+20);
+            String strAge = Integer.toString(random.nextInt(50) + 20);
             user.child("Age").setValue(strAge);
 
             double lon = random.nextDouble() * 1000;
             lon = Math.random() * (1.072271) + 126.611512;
 
             double lat = random.nextDouble() * 100;
-            lat =Math.random() * (0.836468) + 37.077091;
+            lat = Math.random() * (0.836468) + 37.077091;
 
             user.child("Lon").setValue(lon);
             user.child("Lat").setValue(lat);
 
-            user.child("Dist").setValue(LocationFunc.getInstance().getDistance(lat, lon, REF_LAT, REF_LON,"meter"));
+            user.child("Dist").setValue(LocationFunc.getInstance().getDistance(lat, lon, REF_LAT, REF_LON, "meter"));
 
             user.child("SendCount").setValue(mMyData.getSendHoney());
             long recvGold = random.nextInt(10000);
-            user.child("RecvGold").setValue(-1* recvGold);
+            user.child("RecvGold").setValue(-1 * recvGold);
 
             user.child("ImgCount").setValue(mMyData.getUserImgCnt());
 
             long time = CommonFunc.getInstance().GetCurrentTime();
-            user.child("Date").setValue(Long.toString( -1 * random.nextLong()));
+            user.child("Date").setValue(Long.toString(-1 * random.nextLong()));
 
             user.child("Memo").setValue(mMyData.getUserMemo());
 
@@ -1776,7 +1749,6 @@ public class MainActivity extends AppCompatActivity {
             user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
 
 
-
             table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
 
             // DatabaseReference user = table.child( userIdx);
@@ -1790,7 +1762,7 @@ public class MainActivity extends AppCompatActivity {
 
             user.child("NickName").setValue(strRandName);
 
-            if(bRand == false)
+            if (bRand == false)
                 user.child("Gender").setValue("남자");
             else
                 user.child("Gender").setValue("여자");
@@ -1799,12 +1771,12 @@ public class MainActivity extends AppCompatActivity {
 
             user.child("Memo").setValue(mMyData.getUserMemo());
 
-            user.child("RecvGold").setValue(-1* recvGold);
+            user.child("RecvGold").setValue(-1 * recvGold);
             user.child("SendGold").setValue(mMyData.getSendHoney());
 
             user.child("Lon").setValue(lon);
             user.child("Lat").setValue(lat);
-            user.child("Dist").setValue(LocationFunc.getInstance().getDistance(lat, lon, REF_LAT, REF_LON,"meter"));
+            user.child("Dist").setValue(LocationFunc.getInstance().getDistance(lat, lon, REF_LAT, REF_LON, "meter"));
 
             user.child("Date").setValue(Long.toString(-1 * random.nextLong()));
             user.child("FanCount").setValue(-1 * Long.valueOf(Index));
@@ -1846,7 +1818,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     class Bot extends Thread {
-        private int count=0;  // 카운트 변수
+        private int count = 0;  // 카운트 변수
+
         public Bot() { // 생성자
             System.out.println(getName() + " Created.");
         }
@@ -1862,8 +1835,7 @@ public class MainActivity extends AppCompatActivity {
                 Random random = new Random();
                 int temp = random.nextInt(4);
 
-                switch (temp)
-                {
+                switch (temp) {
                     case 0:
                         RunCard();
                         break;
@@ -1879,8 +1851,11 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                try { sleep(count); } // 0.5초간 sleep
-                catch (InterruptedException e) {}
+                try {
+                    sleep(count);
+                } // 0.5초간 sleep
+                catch (InterruptedException e) {
+                }
             }
         }
     }
@@ -1899,7 +1874,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public Transaction.Result doTransaction(MutableData mutableData) {
                         Long index = mutableData.getValue(Long.class);
-                        if(index == null)
+                        if (index == null)
                             return Transaction.success(mutableData);
 
                         index--;

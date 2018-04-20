@@ -951,7 +951,7 @@ public class MyData {
                             arrMyFanDataList.put(finalTempFanData.Idx, DBData);
 
                             CommonFunc.getInstance().SetFanAlarmVisible(true);
-                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
                                 if(GetCurFrag() == 3)
                                 {
                                     Fragment frg = null;
@@ -1000,7 +1000,7 @@ public class MyData {
                             SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
                             arrMyFanDataList.put(finalTempFanData.Idx, DBData);
 
-                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
                                 if(GetCurFrag() == 3)
                                 {
                                     Fragment frg = null;
@@ -1038,7 +1038,7 @@ public class MyData {
                             arrMyFanDataList.put(finalTempFanData.Idx, DBData);
                             arrMyFanRecvList.put(finalTempFanData.Idx, finalTempFanData);
 
-                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
                                 if(GetCurFrag() == 3)
                                 {
                                     Fragment frg = null;
@@ -1166,7 +1166,7 @@ public class MyData {
                             DBData.BestItem = tempDB.BestItem;
                             arrChatDataList.put(finalStrTargetIdx, DBData);
 
-                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
                                 if (GetCurFrag() == 2) {
                                     Fragment frg = null;
                                     frg = mFragmentMng.findFragmentByTag("ChatListFragment");
@@ -1228,7 +1228,7 @@ public class MyData {
                         DBData.BestItem = tempDB.BestItem;
                         arrChatDataList.put(finalStrTargetIdx, DBData);
 
-                        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
                             if (GetCurFrag() == 2) {
                                 Fragment frg = null;

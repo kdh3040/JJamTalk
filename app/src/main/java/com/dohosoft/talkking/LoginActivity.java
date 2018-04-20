@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private int nUserSet = 0;
     private static final int RC_SIGN_IN = 9001;
-    private static String TAG = "LoginActivity Log!!";
+    private static String TAG = "123123123";
 
     private FusedLocationProviderClient mFusedLocationClient;
     LocationManager locationManager;
@@ -185,12 +185,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mDialog = new AlertDialog.Builder(this);
         //new getMarketVersion().execute();
 
-
       /*  try {
             PackageInfo i = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0);
             version = i.versionName;
         } catch (PackageManager.NameNotFoundException e) {
         }*/
+
+        Log.d(TAG, "!!!!!!!!!!!!!!!!!!!");
 
         getApplication().registerActivityLifecycleCallbacks(new CommonFunc.MyActivityLifecycleCallbacks());
 
@@ -481,6 +482,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onResume() {
         super.onResume();
 
+        Log.d(TAG, "@@@@@@@@@@@@@@@@@@@");
+
 /*        Log.d("nUserSet !!!", "nUserSet : " + nUserSet);
         if (mLocalFunc.checkLocationPermission(getApplicationContext(), this)) {
             if (ContextCompat.checkSelfPermission(this,
@@ -596,8 +599,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         FirebaseData.getInstance().GetInitMyBoardData();
         FirebaseData.getInstance().SaveData(mMyData.getUserIdx());
         mMyData.getRecvGold();
-        mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
-        //finish();
+       // mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
+        mCommon.GoMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
+       // GoMainActivity
         /*Intent intent = new_img Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("StartFragment", 0);
         startActivity(intent);

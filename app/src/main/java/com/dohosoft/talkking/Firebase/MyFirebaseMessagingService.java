@@ -68,11 +68,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             Intent LoginNotifyIntent =
                     new Intent(this, MainActivity.class);
+           // LoginNotifyIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             LoginNotifyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-            LoginNotifyIntent.putExtra("StartFragment", 0);
+            LoginNotifyIntent.putExtra("StartFragment", 2);
             LoginNotifyIntent.putExtra("Noti", 1);
             LoginNotifyIntent.putExtra("New", 0);
 
@@ -85,18 +86,34 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             PendingIntent.FLAG_UPDATE_CURRENT
                     );
 
-            Intent notifyIntent =
-                    new Intent(this, LoginActivity.class);
-            notifyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+            Intent BackGroundNotifyIntent =
+                    new Intent(this, MainActivity.class);
+            BackGroundNotifyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            PendingIntent notifyPendingIntent =
+
+            BackGroundNotifyIntent.putExtra("StartFragment", 0);
+            BackGroundNotifyIntent.putExtra("Noti", 0);
+            BackGroundNotifyIntent.putExtra("New", 0);
+
+
+            PendingIntent BackgroundNotifyPendingIntent =
                     PendingIntent.getActivity(
                             this,
                             0,
-                            notifyIntent,
+                            BackGroundNotifyIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT
                     );
+
+
+
+            Intent notifyIntent =
+                    new Intent(getApplicationContext(), LoginActivity.class);
+            notifyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+            PendingIntent notifyPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notifyIntent, PendingIntent.FLAG_NO_CREATE);
 
             SharedPreferences pref = getApplicationContext().getSharedPreferences("PrefSetting", getApplicationContext().MODE_PRIVATE);
             boolean bSound =  true;
@@ -139,10 +156,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 editor.commit();
             }
 
-           else if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+           else if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
                 if(mMyData.GetCurFrag() != 5)
                 {
+                    SharedPreferences prefs = getApplicationContext().getSharedPreferences("ExecByNoti", getApplicationContext().MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("StartFrag",  2);
+                    editor.putInt("ExecByNoti", 1);
+                    editor.commit();
+
                     if(mMyData.GetCurFrag() == 2)
                     {
                         builder.setContentTitle(title)
@@ -150,6 +173,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                 .setSmallIcon(R.drawable.logo300)
                                 .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.logo300))
                                 .setAutoCancel(true)
+                                .setContentIntent(LoginNotifyPendingIntent)
                                 .setWhen(System.currentTimeMillis());
 
                         if (pref.getBoolean("Sound", bSound)  ) {
@@ -173,6 +197,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                 .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.logo300))
                                 .setAutoCancel(true)
                                 .setWhen(System.currentTimeMillis())
+                                .setContentIntent(LoginNotifyPendingIntent)
                                 .setDefaults(Notification.DEFAULT_LIGHTS);
 
                         if(mMyData.nAlarmSetting_Pop == true)
@@ -202,12 +227,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
 
             else  if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.BACKGROUND) {
+
+                SharedPreferences ExecByNoti = getApplicationContext().getSharedPreferences("ExecByNoti", getApplicationContext().MODE_PRIVATE);
+                SharedPreferences.Editor ExecByEditor = ExecByNoti.edit();
+                ExecByEditor.putInt("StartFrag",  0);
+                ExecByEditor.putInt("ExecByNoti", 0);
+                ExecByEditor.commit();
+
+
                 builder.setContentTitle(title)
                         .setContentText(body)
                         .setSmallIcon(R.drawable.logo300)
                         .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.logo300))
                         .setAutoCancel(true)
-                        .setContentIntent(LoginNotifyPendingIntent)
+                        .setContentIntent(BackgroundNotifyPendingIntent)
                         .setWhen(System.currentTimeMillis());
 
                 if (pref.getBoolean("Sound", bSound)  ) {

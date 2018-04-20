@@ -94,7 +94,7 @@ public class ChatListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             mMyData.SetCurFrag(2);
         }

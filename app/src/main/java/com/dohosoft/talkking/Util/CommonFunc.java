@@ -176,11 +176,14 @@ public class CommonFunc {
     }
 
     public void refreshMainActivity(Activity mActivity, int StartFragMent, int Noti, int New) {
+
+        CommonFunc.getInstance().DismissLoadingPage();
         Intent intent = new Intent(mActivity, MainActivity.class);
         intent.putExtra("StartFragment", StartFragMent);
         intent.putExtra("Noti", Noti);
         intent.putExtra("New", New);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
         mActivity.startActivity(intent);
         mActivity.finish();
@@ -188,11 +191,12 @@ public class CommonFunc {
     }
 
     public void GoMainActivity(Activity mActivity, int StartFragMent, int Noti, int New) {
+        CommonFunc.getInstance().DismissLoadingPage();
         Intent intent = new Intent(mActivity, MainActivity.class);
         intent.putExtra("StartFragment", StartFragMent);
         intent.putExtra("Noti", Noti);
         intent.putExtra("New", New);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.setFlags(Intent. FLAG_ACTIVITY_SINGLE_TOP);
         mActivity.startActivity(intent);
         mActivity.finish();
 

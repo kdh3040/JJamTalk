@@ -1,9 +1,12 @@
 package com.dohosoft.talkking.Firebase;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
+import com.dohosoft.talkking.LoginActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,10 +42,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import static com.dohosoft.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 
 import static com.dohosoft.talkking.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_BOARD_COUNT;
+import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.dohosoft.talkking.Data.CoomonValueData.UNIQ_FANCOUNT;
 import static com.dohosoft.talkking.MainActivity.mFragmentMng;
 
@@ -57,21 +62,18 @@ public class FirebaseData {
     private AwsFunc mAwsFunc = AwsFunc.getInstance();
     private CommonFunc mCommon = CommonFunc.getInstance();
 
-    public static FirebaseData getInstance()
-    {
-        if(_Instance == null)
+    public static FirebaseData getInstance() {
+        if (_Instance == null)
             _Instance = new FirebaseData();
 
-        return  _Instance;
+        return _Instance;
     }
 
-    private FirebaseData()
-    {
+    private FirebaseData() {
 
     }
 
-    public String  CreateUserIdx(final String Uid)
-    {
+    public String CreateUserIdx(final String Uid) {
         final long[] tempVal = {0};
         final String[] rtStr = new String[1];
 
@@ -81,7 +83,7 @@ public class FirebaseData {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
                 Long index = mutableData.getValue(Long.class);
-                if(index == null)
+                if (index == null)
                     return Transaction.success(mutableData);
 
                 index++;
@@ -105,8 +107,7 @@ public class FirebaseData {
         return rtStr[0];
     }
 
-    public String  GetUserIdx(final String Uid)
-    {
+    public String GetUserIdx(final String Uid) {
         final long[] tempVal = {0};
         final String[] rtStr = new String[1];
 
@@ -128,8 +129,7 @@ public class FirebaseData {
     }
 
 
-    public void   DelUser(final String Uid, final  String Idx)
-    {
+    public void DelUser(final String Uid, final String Idx) {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         DatabaseReference data = fierBaseDataInstance.getReference("UserIdx").child(Uid);
         data.removeValue();
@@ -157,13 +157,10 @@ public class FirebaseData {
         DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
 
-        if(FirebaseInstanceId.getInstance() == null ||  FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals(""))
-        {
+        if (FirebaseInstanceId.getInstance() == null || FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals("")) {
             mMyData.setUserToken("0");
             user.child("Token").setValue("0");
-        }
-        else
-        {
+        } else {
             mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
             user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         }
@@ -171,8 +168,8 @@ public class FirebaseData {
         user.child("Img").setValue(mMyData.getUserImg());
 
 
-        for(int i=0; i< 4 ; i++)
-            user.child("ImgGroup"+Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
+        for (int i = 0; i < 4; i++)
+            user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
 
         user.child("NickName").setValue(mMyData.getUserNick());
         user.child("Gender").setValue(mMyData.getUserGender());
@@ -193,7 +190,7 @@ public class FirebaseData {
 
         user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
-        user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
+        user.child("FanCount").setValue(mMyData.getFanCount());
 
         user.child("Point").setValue(mMyData.getPoint());
 
@@ -205,7 +202,7 @@ public class FirebaseData {
 
         // 심플 디비 저장
         table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
-        user = table.child( userIdx);
+        user = table.child(userIdx);
         user.child("Idx").setValue(mMyData.getUserIdx());
 
         mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
@@ -226,7 +223,7 @@ public class FirebaseData {
         user.child("Dist").setValue(mMyData.getUserDist());
         user.child("Date").setValue(mMyData.getUserDate());
 
-        user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.getFanCount() + Long.valueOf(mMyData.getUserIdx())));
+        user.child("FanCount").setValue(mMyData.getFanCount());
 
         user.child("Point").setValue(mMyData.getPoint());
 
@@ -244,21 +241,18 @@ public class FirebaseData {
         final DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
 
-        if(FirebaseInstanceId.getInstance() == null ||  FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals(""))
-        {
+        if (FirebaseInstanceId.getInstance() == null || FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals("")) {
             mMyData.setUserToken("0");
             user.child("Token").setValue("0");
-        }
-        else
-        {
+        } else {
             mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
             user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         }
 
         user.child("Img").setValue(mMyData.getUserImg());
 
-        for(int i=0; i< 4 ; i++)
-            user.child("ImgGroup"+Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
+        for (int i = 0; i < 4; i++)
+            user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
 
         user.child("NickName").setValue(mMyData.getUserNick());
         user.child("Gender").setValue(mMyData.getUserGender());
@@ -300,13 +294,10 @@ public class FirebaseData {
         final DatabaseReference user = table.child(mMyData.getUserIdx());
         user.child("Idx").setValue(mMyData.getUserIdx());
 
-        if(FirebaseInstanceId.getInstance() == null ||  FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals(""))
-        {
+        if (FirebaseInstanceId.getInstance() == null || FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals("")) {
             mMyData.setUserToken("0");
             user.child("Token").setValue("0");
-        }
-        else
-        {
+        } else {
             mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
             user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         }
@@ -337,7 +328,6 @@ public class FirebaseData {
     }
 
 
-
     public boolean SaveBoardReplyData(TempBoard_ReplyData strMemo) {
 
         Random rand = new Random();
@@ -356,7 +346,7 @@ public class FirebaseData {
 
         table.push().setValue(tempData);
 
-        return  true;
+        return true;
     }
 
     public void setHeart(UserData stTargetData) {
@@ -365,10 +355,9 @@ public class FirebaseData {
         final DatabaseReference user = table.child(stTargetData.Idx);
 
         Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Heart", stTargetData.Heart+1);
+        updateMap.put("Heart", stTargetData.Heart + 1);
         user.updateChildren(updateMap);
     }
-
 
 
     public void setHoney(UserData stTargetData, int nGiftCnt) {
@@ -377,12 +366,11 @@ public class FirebaseData {
         final DatabaseReference user = table.child(stTargetData.Idx);
 
         Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Honey", stTargetData.Honey+nGiftCnt);
+        updateMap.put("Honey", stTargetData.Honey + nGiftCnt);
         user.updateChildren(updateMap);
     }
 
-    public void DelCardList(String Idx)
-    {
+    public void DelCardList(String Idx) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         Query queryRef = database.getReference("User").orderByValue().equalTo(Idx);
 
@@ -411,16 +399,14 @@ public class FirebaseData {
 
     }
 
-    public void DelChatData(String Idx)
-    {
+    public void DelChatData(String Idx) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        table = database.getReference( "/ChatData/").child(Idx);
+        table = database.getReference("/ChatData/").child(Idx);
         table.removeValue();
     }
 
-    public void DelSendData(String Idx)
-    {
+    public void DelSendData(String Idx) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         Query queryRef = database.getReference("SendList").child(mMyData.getUserIdx()).orderByChild("strSendName").equalTo(Idx);
 
@@ -472,8 +458,8 @@ public class FirebaseData {
         SaveData(mMyData.getUserIdx());
 
     }
-    public void GetWriteAfterData(final Activity mActivity)
-    {
+
+    public void GetWriteAfterData(final Activity mActivity) {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
         Query data = FirebaseDatabase.getInstance().getReference().child("Board").limitToFirst(FIRST_LOAD_BOARD_COUNT);
@@ -483,7 +469,7 @@ public class FirebaseData {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 BoardData.getInstance().loadingCount = 0;
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     BoardData.getInstance().loadingCount = dataSnapshot.getChildrenCount();
                     BoardMsgDBData DBData = postSnapshot.getValue(BoardMsgDBData.class);
                     BoardData.getInstance().AddBoardData(DBData);
@@ -493,14 +479,14 @@ public class FirebaseData {
                     data.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot == null)
+                            if (dataSnapshot == null)
                                 return;
 
                             SimpleUserData simpleUserData = dataSnapshot.getValue(SimpleUserData.class);
                             BoardData.getInstance().AddBoardSimpleUserData(simpleUserData);
 
                             BoardData.getInstance().loadingCount--;
-                            if(BoardData.getInstance().loadingCount <= 0) {
+                            if (BoardData.getInstance().loadingCount <= 0) {
                                 mActivity.finish();
                                 Fragment frg = null;
                                 frg = mFragmentMng.findFragmentByTag("BoardFragment");
@@ -534,8 +520,7 @@ public class FirebaseData {
         });
     }
 
-    public void GetInitBoardData()
-    {
+    public void GetInitBoardData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
         Query data = FirebaseDatabase.getInstance().getReference().child("Board").limitToFirst(FIRST_LOAD_BOARD_COUNT);
@@ -543,9 +528,9 @@ public class FirebaseData {
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot == null)
+                if (dataSnapshot == null)
                     return;
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     BoardMsgDBData DBData = postSnapshot.getValue(BoardMsgDBData.class);
                     BoardData.getInstance().AddBoardData(DBData);
 
@@ -554,7 +539,7 @@ public class FirebaseData {
                     data.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot == null)
+                            if (dataSnapshot == null)
                                 return;
 
                             SimpleUserData simpleUserData = dataSnapshot.getValue(SimpleUserData.class);
@@ -576,17 +561,16 @@ public class FirebaseData {
         });
     }
 
-    public void GetInitMyBoardData()
-    {
+    public void GetInitMyBoardData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         Query data = FirebaseDatabase.getInstance().getReference().child("Board").orderByChild("Idx").equalTo(mMyData.getUserIdx());
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot == null)
+                if (dataSnapshot == null)
                     return;
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     BoardMsgDBData DBData = postSnapshot.getValue(BoardMsgDBData.class);
                     BoardData.getInstance().AddBoardMyData(DBData);
 
@@ -595,7 +579,7 @@ public class FirebaseData {
                     data.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot == null)
+                            if (dataSnapshot == null)
                                 return;
 
                             SimpleUserData simpleUserData = dataSnapshot.getValue(SimpleUserData.class);
@@ -619,26 +603,25 @@ public class FirebaseData {
 
     // 게시판 관련 함수 (환웅)
     BoardFragment.BoardListAdapter UpdateBoardAdapter = null;
-    public void GetBoardData(BoardFragment.BoardListAdapter updateBoardAdapter, long startIdx, Boolean top)
-    {
+
+    public void GetBoardData(BoardFragment.BoardListAdapter updateBoardAdapter, long startIdx, Boolean top) {
         UpdateBoardAdapter = updateBoardAdapter;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
         Query data = null;
-        if(top)
-            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx - LOAD_BOARD_COUNT).endAt(startIdx );
+        if (top)
+            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx").startAt(startIdx - LOAD_BOARD_COUNT).endAt(startIdx);
         else
-            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx"). startAt(startIdx).endAt(startIdx + LOAD_BOARD_COUNT); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
+            data = fierBaseDataInstance.getReference().child("Board").orderByChild("BoardIdx").startAt(startIdx).endAt(startIdx + LOAD_BOARD_COUNT); // TODO 환웅 게시판의 마지막에 있는 친구 인덱스를 가져 온다.
 
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot == null)
+                if (dataSnapshot == null)
                     return;
 
-                if(dataSnapshot.getChildrenCount() <= 0)
-                {
+                if (dataSnapshot.getChildrenCount() <= 0) {
                     CommonFunc.getInstance().DismissLoadingPage();
                     UpdateBoardAdapter.BoardDataLoding = false;
                     return;
@@ -648,7 +631,7 @@ public class FirebaseData {
 
 
                 BoardData.getInstance().loadingCount = 0;
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     BoardData.getInstance().loadingCount = dataSnapshot.getChildrenCount();
                     BoardMsgDBData DBData = postSnapshot.getValue(BoardMsgDBData.class);
                     BoardData.getInstance().AddBoardData(DBData);
@@ -658,17 +641,16 @@ public class FirebaseData {
                     data.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot == null)
+                            if (dataSnapshot == null)
                                 return;
                             BoardData.getInstance().loadingCount--;
                             SimpleUserData simpleUserData = dataSnapshot.getValue(SimpleUserData.class);
                             BoardData.getInstance().AddBoardSimpleUserData(simpleUserData);
 
-                            if(BoardData.getInstance().loadingCount <= 0)
-                            {
+                            if (BoardData.getInstance().loadingCount <= 0) {
                                 CommonFunc.getInstance().DismissLoadingPage();
                                 UpdateBoardAdapter.BoardDataLoding = false;
-                                if(BoardData.getInstance().TempTopBoardIdx != BoardData.getInstance().TopBoardIdx || BoardData.getInstance().TempBottomBoardIdx != BoardData.getInstance().BottomBoardIdx)
+                                if (BoardData.getInstance().TempTopBoardIdx != BoardData.getInstance().TopBoardIdx || BoardData.getInstance().TempBottomBoardIdx != BoardData.getInstance().BottomBoardIdx)
                                     UpdateBoardAdapter.notifyDataSetChanged();
                             }
                         }
@@ -689,6 +671,7 @@ public class FirebaseData {
     }
 
     private BoardWriteActivity WriteActivity = null;
+
     public void SaveBoardData_GetBoardIndex(final BoardWriteActivity activity) {
         WriteActivity = activity;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
@@ -698,7 +681,7 @@ public class FirebaseData {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
                 Long index = mutableData.getValue(Long.class);
-                if(index == null)
+                if (index == null)
                     return Transaction.success(mutableData);
 
                 index--;
@@ -738,18 +721,16 @@ public class FirebaseData {
         MyData.getInstance().SetLastBoardWriteTime(CommonFunc.getInstance().GetCurrentTime());
         myTable.setValue(CommonFunc.getInstance().GetCurrentTime());
 
-        return  true;
+        return true;
     }
 
-    public void RemoveBoard(long boardIdx)
-    {
+    public void RemoveBoard(long boardIdx) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx));
         table.removeValue();
     }
 
-    public void ReportBoard(long boardIdx, String Idx)
-    {
+    public void ReportBoard(long boardIdx, String Idx) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Board").child(Long.toString(boardIdx)).child("ReportList").child(Idx);
 
@@ -764,16 +745,396 @@ public class FirebaseData {
     }
 
 
+    private boolean bSetNear, bSetNew, bSetFan, bSetRecv = false;
+
+    public void RefreshUserData(Activity activity) {
+
+        CommonFunc.getInstance().ShowLoadingPage(activity, "로딩중");
+
+        RefreshGoldReceiver initHot = new RefreshGoldReceiver(activity);
+        initHot.execute(0,0,0);
+
+        RefreshFanCount initFan = new RefreshFanCount(activity);
+        initFan.execute(0,0,0);
+
+        RefreshNear initNear = new RefreshNear(activity);
+        initNear.execute(0,0,0);
+
+        RefreshNew initNew = new RefreshNew(activity);
+        initNew.execute(0,0,0);
+
+    }
+
+    public class RefreshGoldReceiver extends AsyncTask<Integer, Integer, Integer> {
+        Activity mActivity;
+        public RefreshGoldReceiver(Activity activity) {
+            mActivity = activity;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mMyData.arrUserAll_Recv.clear();
+            mMyData.arrUserWoman_Recv.clear();
+            mMyData.arrUserMan_Recv.clear();
+
+            mMyData.arrUserAll_Recv_Age.clear();
+            mMyData.arrUserWoman_Recv_Age.clear();
+            mMyData.arrUserMan_Recv_Age.clear();
+            //progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            DatabaseReference ref;
+            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            Query query=ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
+                            {
+                                SimpleUserData cTempData = new SimpleUserData();
+                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                                if(cTempData != null) {
+                                    // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    {
+                                        if(cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_Recv.add(cTempData);
+
+                                        if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                                        {
+                                            mMyData.arrUserWoman_Recv.add(cTempData);
+                                        }
+                                        else {
+                                            mMyData.arrUserMan_Recv.add(cTempData);
+                                        }
+                                        i++;
+                                    }
+                                }
+                            }
+
+                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+
+
+
+                            if(mMyData.arrUserAll_Recv.size() > 0)
+                                mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
+
+                            bSetRecv = true;
+                            if (bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                                CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+         }
+
+        @Override
+        protected void onProgressUpdate(Integer... params) {
+            super.onProgressUpdate(params);
+        }
+    }
+    public class RefreshFanCount extends AsyncTask<Integer, Integer, Integer> {
+        Activity mActivity;
+        public RefreshFanCount(Activity activity) {
+            mActivity = activity;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mMyData.arrUserAll_Send.clear();
+            mMyData.arrUserWoman_Send.clear();
+            mMyData.arrUserMan_Send.clear();
+
+            mMyData.arrUserAll_Send_Age.clear();
+            mMyData.arrUserWoman_Send_Age.clear();
+            mMyData.arrUserMan_Send_Age.clear();
+            //progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            DatabaseReference ref;
+            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            Query query= ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                SimpleUserData cTempData = new SimpleUserData();
+                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                                if(cTempData != null) {
+                                    //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    {
+                                        if (cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_Send.add(cTempData);
+                                        if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
+                                        }
+                                        i++;
+                                    }
+                                }
+                            }
+
+                            mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
+
+                            if(mMyData.arrUserAll_Send.size() > 0)
+                                mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
+
+                            bSetFan = true;
+                            if (bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                                CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                        }
+                    });
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... params) {
+            super.onProgressUpdate(params);
+        }
+    }
+    public class RefreshNear extends AsyncTask<Integer, Integer, Integer> {
+        Activity mActivity;
+        public RefreshNear(Activity activity) {
+            mActivity = activity;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mMyData.arrUserAll_Near.clear();
+            mMyData.arrUserWoman_Near.clear();
+            mMyData.arrUserMan_Near.clear();
+
+            mMyData.arrUserAll_Near_Age.clear();
+            mMyData.arrUserWoman_Near_Age.clear();
+            mMyData.arrUserMan_Near_Age.clear();
+            //progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            DatabaseReference ref;
+            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            Query query=ref
+                    .orderByChild("Dist").limitToFirst(FIRST_LOAD_MAIN_COUNT);
+
+            final double[] tempDist = {0};
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0, j=0, k=0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                SimpleUserData stRecvData = new SimpleUserData ();
+                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
+                                if(stRecvData != null) {
+
+                                    if(stRecvData.Lat == 0 || stRecvData.Lon == 0)
+                                    {
+                                        // 위치 못받아오는 애들
+                                    }
+                                    else
+                                    {
+                                        //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
+                                        {
+                                            if (stRecvData.Img == null)
+                                                stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                            tempDist[0] = stRecvData.Dist;
+                                            double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon,"meter");
+                                            stRecvData.Dist = Dist;
+
+                                            mMyData.arrUserAll_Near.add(stRecvData);
+
+                                            if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
+                                                mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
+                                            } else {
+                                                mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
+                                            }
+
+                                            i++;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if(mMyData.arrUserAll_Near.size() > 0)
+                                mMyData.NearDistanceRef = tempDist[0] ; //mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
+
+                            CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
+                            Collections.sort(mMyData.arrUserAll_Near, cNearSort);
+                            Collections.sort(mMyData.arrUserWoman_Near, cNearSort);
+                            Collections.sort(mMyData.arrUserMan_Near, cNearSort);
+
+                            mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
+
+                            bSetNear = true;
+                            if (bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                                CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                        }
+                    });
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... params) {
+            super.onProgressUpdate(params);
+        }
+    }
+    public class RefreshNew extends AsyncTask<Integer, Integer, Integer> {
+        Activity mActivity;
+        public RefreshNew(Activity activity) {
+            mActivity = activity;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mMyData.arrUserAll_New.clear();
+            mMyData.arrUserWoman_New.clear();
+            mMyData.arrUserMan_New.clear();
+
+            mMyData.arrUserAll_New_Age.clear();
+            mMyData.arrUserWoman_New_Age.clear();
+            mMyData.arrUserMan_New_Age.clear();
+
+            //progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            DatabaseReference ref;
+            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
+
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0, j=0, k=0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                SimpleUserData stRecvData = new SimpleUserData ();
+                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
+                                if(stRecvData != null) {
+                                    //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
+                                    {
+                                        if (stRecvData.Img == null)
+                                            stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_New.add(stRecvData);
+
+                                        if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
+                                        }
+
+                                        i++;
+                                    }
+                                }
+                            }
+
+                            mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
+
+                            if(mMyData.arrUserAll_New.size() > 0)
+                                mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
+
+                            bSetNew = true;
+                            if (bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                                CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //handle databaseError
+                            //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                        }
+                    });
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... params) {
+            super.onProgressUpdate(params);
+        }
+    }
+
+
     Rank_GoldReceiveAdapter UpdateHotAdapter = null;
-    public void GetRecvData(Rank_GoldReceiveAdapter updateAdapter, int lastVisibleCount, Boolean top)
-    {
+
+    public void GetRecvData(Rank_GoldReceiveAdapter updateAdapter, Boolean top) {
         UpdateHotAdapter = updateAdapter;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
         Query data = null;
-        if(top)
-            data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point"). startAt(0).endAt(LOAD_MAIN_COUNT );
-        else
+        if (top) {
+            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("RecvGold").limitToFirst(LOAD_MAIN_COUNT);
+        } else
             //data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").startAt(mMyData.HotIndexRef).limitToFirst(LOAD_MAIN_COUNT);
             data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("RecvGold").startAt(mMyData.RecvIndexRef).limitToFirst(LOAD_MAIN_COUNT);
 
@@ -781,10 +1142,10 @@ public class FirebaseData {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     SimpleUserData cTempData = new SimpleUserData();
                     cTempData = postSnapshot.getValue(SimpleUserData.class);
-                    if(cTempData != null) {
+                    if (cTempData != null) {
                         if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -800,10 +1161,10 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_Recv.add(cTempData);
-                                if (mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() -1).Gender.equals("여자")) {
-                                    mMyData.arrUserWoman_Recv.add(mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() -1));
+                                if (mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1).Gender.equals("여자")) {
+                                    mMyData.arrUserWoman_Recv.add(mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1));
                                 } else {
-                                    mMyData.arrUserMan_Recv.add(mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() -1));
+                                    mMyData.arrUserMan_Recv.add(mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1));
                                 }
                             }
                             i++;
@@ -815,8 +1176,8 @@ public class FirebaseData {
                 mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
                 mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
 
-                if(mMyData.arrUserAll_Recv.size() > 0)
-                    mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
+                if (mMyData.arrUserAll_Recv.size() > 0)
+                    mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1).RecvGold;
                 //mMyData.HotIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).Point;
                 CommonFunc.getInstance().DismissLoadingPage();
                 UpdateHotAdapter.notifyDataSetChanged();
@@ -831,14 +1192,14 @@ public class FirebaseData {
 
 
     Rank_FanRichAdapter UpdateFanAdapter = null;
-    public void GetFanData(Rank_FanRichAdapter updateAdapter, long lastVisibleCount, Boolean top)
-    {
+
+    public void GetFanData(Rank_FanRichAdapter updateAdapter, long lastVisibleCount, Boolean top) {
         UpdateFanAdapter = updateAdapter;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
         Query data = null;
-        if(top)
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount"). startAt(0).endAt(LOAD_MAIN_COUNT );
+        if (top)
+            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").startAt(0).endAt(LOAD_MAIN_COUNT);
         else
             data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").startAt(mMyData.FanCountRef).limitToFirst(LOAD_MAIN_COUNT);
 
@@ -846,10 +1207,10 @@ public class FirebaseData {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     SimpleUserData cTempData = new SimpleUserData();
                     cTempData = postSnapshot.getValue(SimpleUserData.class);
-                    if(cTempData != null) {
+                    if (cTempData != null) {
 
                         if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
                             if (cTempData.Img == null)
@@ -881,8 +1242,8 @@ public class FirebaseData {
                 mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
                 mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
 
-                if(mMyData.arrUserAll_Send.size() > 0)
-                    mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
+                if (mMyData.arrUserAll_Send.size() > 0)
+                    mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size() - 1).FanCount;
 
                 CommonFunc.getInstance().DismissLoadingPage();
                 UpdateFanAdapter.notifyDataSetChanged();
@@ -897,8 +1258,8 @@ public class FirebaseData {
 
 
     Rank_NearAdapter UpdateNearAdapter = null;
-    public void GetNearData(Rank_NearAdapter updateAdapter, int lastVisibleCount, Boolean top)
-    {
+
+    public void GetNearData(Rank_NearAdapter updateAdapter, int lastVisibleCount, Boolean top) {
         UpdateNearAdapter = updateAdapter;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
@@ -911,47 +1272,38 @@ public class FirebaseData {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     SimpleUserData cTempData = new SimpleUserData();
                     cTempData = postSnapshot.getValue(SimpleUserData.class);
-                    if(cTempData != null) {
+                    if (cTempData != null) {
 
-                        if(cTempData.Lat == 0 || cTempData.Lon == 0)
-                        {
+                        if (cTempData.Lat == 0 || cTempData.Lon == 0) {
                             // 위치 못받아오는 애들
-                        }
-                        else
-                        {
-                            if(!cTempData.Idx.equals(mMyData.getUserIdx()))
-                            {
+                        } else {
+                            if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
 
-                                if(cTempData.Img == null)
+                                if (cTempData.Img == null)
                                     cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                 boolean bExist = false;
 
-                                for(int j = 0 ; j< mMyData.arrUserAll_Near.size(); j++)
-                                {
-                                    if(mMyData.arrUserAll_Near.get(j).Idx.equals(cTempData.Idx))
-                                    {
+                                for (int j = 0; j < mMyData.arrUserAll_Near.size(); j++) {
+                                    if (mMyData.arrUserAll_Near.get(j).Idx.equals(cTempData.Idx)) {
                                         bExist = true;
                                         break;
                                     }
                                 }
 
-                                if(bExist == false)
-                                {
+                                if (bExist == false) {
 
                                     tempDist[0] = cTempData.Dist;
-                                    double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), cTempData.Lat, cTempData.Lon,"meter");
+                                    double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), cTempData.Lat, cTempData.Lon, "meter");
 
                                     cTempData.Dist = Dist;
                                     mMyData.arrUserAll_Near.add(cTempData);
-                                    if(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1).Gender.equals("여자"))
-                                    {
+                                    if (mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1).Gender.equals("여자")) {
                                         mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
-                                    }
-                                    else {
+                                    } else {
                                         mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
                                     }
                                 }
@@ -963,9 +1315,9 @@ public class FirebaseData {
 
                 }
 
-                if(mMyData.arrUserAll_Near.size() > 0)
+                if (mMyData.arrUserAll_Near.size() > 0)
                     //mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
-                    mMyData.NearDistanceRef = tempDist[0] ; //mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
+                    mMyData.NearDistanceRef = tempDist[0]; //mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
 
 
                 CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
@@ -973,10 +1325,9 @@ public class FirebaseData {
                 Collections.sort(mMyData.arrUserWoman_Near, cNearSort);
                 Collections.sort(mMyData.arrUserMan_Near, cNearSort);
 
-                mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge );
-                mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge );
-                mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge );
-
+                mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
+                mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+                mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
 
 
                 CommonFunc.getInstance().DismissLoadingPage();
@@ -992,18 +1343,18 @@ public class FirebaseData {
 
 
     Rank_NewMemberAdapter UpdateNewAdapter = null;
-    public void GetNewData(Rank_NewMemberAdapter updateAdapter, int lastVisibleCount, Boolean top)
-    {
+
+    public void GetNewData(Rank_NewMemberAdapter updateAdapter, int lastVisibleCount, Boolean top) {
         UpdateNewAdapter = updateAdapter;
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         long time = CommonFunc.getInstance().GetCurrentTime();
         SimpleDateFormat ctime = new SimpleDateFormat("yyyyMMdd");
-        int nTodayDate =  Integer.parseInt(ctime.format(new Date(time)));
+        int nTodayDate = Integer.parseInt(ctime.format(new Date(time)));
         int nStartDate = nTodayDate - 7;
 
         Query data = null;
-        if(top)
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount"). startAt(0).endAt(LOAD_MAIN_COUNT );
+        if (top)
+            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").startAt(0).endAt(LOAD_MAIN_COUNT);
         else
             data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Date").startAt(mMyData.NewDateRef).limitToFirst(LOAD_MAIN_COUNT);
 
@@ -1011,10 +1362,10 @@ public class FirebaseData {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     SimpleUserData cTempData = new SimpleUserData();
                     cTempData = postSnapshot.getValue(SimpleUserData.class);
-                    if(cTempData != null) {
+                    if (cTempData != null) {
                         if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1030,10 +1381,10 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_New.add(cTempData);
-                                if (mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() -1).Gender.equals("여자")) {
-                                    mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() -1));
+                                if (mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() - 1).Gender.equals("여자")) {
+                                    mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() - 1));
                                 } else {
-                                    mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() -1));
+                                    mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() - 1));
                                 }
                             }
                             i++;
@@ -1045,8 +1396,8 @@ public class FirebaseData {
                 mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
                 mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
 
-                if(mMyData.arrUserAll_New.size() > 0)
-                    mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
+                if (mMyData.arrUserAll_New.size() > 0)
+                    mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() - 1).Date;
 
                 CommonFunc.getInstance().DismissLoadingPage();
                 UpdateNewAdapter.notifyDataSetChanged();
