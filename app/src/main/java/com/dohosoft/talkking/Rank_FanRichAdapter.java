@@ -93,6 +93,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
 
         if(i < 3)
         {
+            holder.iv_rank.setVisibility(View.VISIBLE);
             switch (i)
             {
                 case 0:
@@ -123,7 +124,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
         }
         else
         {
-            holder.iv_rank.setVisibility(View.GONE);
+            holder.iv_rank.setVisibility(View.INVISIBLE);
         }
 
         switch (mSetting.getnSearchSetting())

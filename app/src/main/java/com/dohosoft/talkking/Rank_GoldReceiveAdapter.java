@@ -90,6 +90,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
 
         if(i < 3)
         {
+            holder.iv_rank.setVisibility(View.VISIBLE);
             switch (i)
             {
                 case 0:
@@ -120,7 +121,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
         }
         else
         {
-            holder.iv_rank.setVisibility(View.GONE);
+            holder.iv_rank.setVisibility(View.INVISIBLE);
         }
 
 
