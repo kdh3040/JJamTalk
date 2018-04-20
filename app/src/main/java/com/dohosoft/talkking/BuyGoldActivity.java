@@ -177,7 +177,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(mMyData.mRewardedVideoAd.isLoaded() == false)
                 {
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "하루에 한번만 충전 할 수 있습니다.");
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "한 시간에 한번만 충전 할 수 있습니다.");
                 }
                 else
                 {
@@ -186,7 +186,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                             if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastAdsTime()), 60) == false)
                             {
                                 // TODO 환웅
-                                CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "하루에 한번만 충전 할 수 있습니다.");
+                                CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "한 시간에 한번만 충전 할 수 있습니다.");
                                 return;
                             }
 
