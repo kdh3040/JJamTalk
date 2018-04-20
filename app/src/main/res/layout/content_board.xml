@@ -71,7 +71,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:maxLength="33"
+        android:maxLength="200"
         android:minHeight="50dp"
         android:maxLines="8"
         android:text="본문"
