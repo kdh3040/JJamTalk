@@ -190,6 +190,8 @@ public class UserFanActivity extends AppCompatActivity {
 
             if(position < 3)
             {
+                holder.textRank.setVisibility(View.INVISIBLE);
+                holder.imgRank.setVisibility(View.VISIBLE);
                 switch (position)
                 {
                     case 0:
@@ -203,12 +205,14 @@ public class UserFanActivity extends AppCompatActivity {
                         break;
                 }
 
-                holder.textRank.setVisibility(View.INVISIBLE);
+
             }
             else
             {
-                holder.textRank.setText((position + 1) + "위");
                 holder.imgRank.setVisibility(View.INVISIBLE);
+                holder.textRank.setVisibility(View.VISIBLE);
+                holder.textRank.setText(Integer.toString(position + 1) + "위");
+
             }
 
 
