@@ -167,9 +167,14 @@ public class FirebaseData {
 
         user.child("Img").setValue(mMyData.getUserImg());
 
-
         for (int i = 0; i < 4; i++)
             user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
+
+        if(mMyData.getUserProfileImg(0).equals("1"))
+        {
+            mMyData.setUserProfileImg(0, mMyData.getUserImg());
+            user.child("ImgGroup0").setValue(mMyData.getUserImg());
+        }
 
         user.child("NickName").setValue(mMyData.getUserNick());
         user.child("Gender").setValue(mMyData.getUserGender());
@@ -199,6 +204,11 @@ public class FirebaseData {
         user.child("Honey").setValue(mMyData.getUserHoney());
 
         user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
+
+        long time = CommonFunc.getInstance().GetCurrentTime();
+        SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+        int nTodayTime = Integer.parseInt( (date.format(new Date(time))).toString());
+        user.child("ConnectDate").setValue(nTodayTime);
 
         // 심플 디비 저장
         table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
@@ -230,6 +240,9 @@ public class FirebaseData {
         user.child("Grade").setValue(mMyData.getGrade());
         user.child("BestItem").setValue(mMyData.bestItem);
         user.child("Honey").setValue(mMyData.getUserHoney());
+
+        user.child("ConnectDate").setValue(nTodayTime);
+
     }
 
     public void SaveData(String userIdx) {

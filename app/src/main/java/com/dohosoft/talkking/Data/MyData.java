@@ -566,42 +566,12 @@ public class MyData {
 
     public void setGrade(int nGrade){
         Grade = nGrade;
-
-        if(getUserIdx() == null || getUserIdx().equals("") )
-        {
-            return;
-        }
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table;
-
-        table = database.getReference("User/" + getUserIdx());
-        table.child("Grade").setValue(Grade);
-
-        table = database.getReference("SimpleData/" + getUserIdx());
-        table.child("Grade").setValue(Grade);
     }
 
     public int getGrade(){return Grade;}
 
     public void setPoint(int nPoint){
         Point += nPoint;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table;
-
-        if(getUserIdx() == null || getUserIdx().equals("") )
-        {
-            return;
-        }
-
-        table = database.getReference("User/" + getUserIdx());
-        table.child("Point").setValue(Point);
-        table.child("ConnectDate").setValue(ConnectDate);
-
-        table = database.getReference("SimpleData/" + getUserIdx());
-        table.child("Point").setValue(Point);
-        table.child("ConnectDate").setValue(ConnectDate);
-
         SetMyGrade();
     }
     public int getPoint(){return Point;}
@@ -767,15 +737,6 @@ public class MyData {
 
     public void setUserHoney(int userHoney) {
         nHoney = userHoney;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table;
-        table = database.getReference("User/" + strIdx);
-
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Honey", nHoney);
-        table.updateChildren(updateMap);
-
-
     }
 
     public int getUserHoney() {
@@ -2889,6 +2850,16 @@ public class MyData {
             rtValue = true;
             ConnectDate = nTodayTime;
 
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference table;
+
+            table = database.getReference("User/" + strIdx);
+            Map<String, Object> updateMap = new HashMap<>();
+            updateMap.put("ConnectDate", ConnectDate);
+            table.updateChildren(updateMap);
+
+            table = database.getReference("SimpleData/" + strIdx);
+            table.updateChildren(updateMap);
         }
 
 

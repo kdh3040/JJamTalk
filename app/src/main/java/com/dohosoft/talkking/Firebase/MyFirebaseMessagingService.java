@@ -126,7 +126,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setSmallIcon(R.drawable.logo300)
                         .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.logo300))
                         .setAutoCancel(true)
-                        .setContentIntent(notifyPendingIntent)
+                       // .setContentIntent(notifyPendingIntent)
                         .setWhen(System.currentTimeMillis());
 
 
