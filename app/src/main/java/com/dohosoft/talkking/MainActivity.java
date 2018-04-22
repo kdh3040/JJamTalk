@@ -1412,14 +1412,14 @@ public class MainActivity extends AppCompatActivity {
     private void LoadFanData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
-        if (mMyData.arrMyFanList.size() == 0 || mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size()) {
+        //if (mMyData.arrMyFanList.size() == 0 || mMyData.arrMyFanDataList.size() == mMyData.arrMyFanList.size()) {
             if (fanFragment == null) {
                 fanFragment = new FanListFragment();
                 return;
             }
-        }
+      //  }
 
-        for (int i = 0; i < mMyData.arrMyFanList.size(); i++) {
+     /*   for (int i = 0; i < mMyData.arrMyFanList.size(); i++) {
             Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.arrMyFanList.get(i).Idx);
             final int finalI = i;
             data.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1457,7 +1457,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-        }
+        }*/
     }
 
     public void ViewReportPop() {
