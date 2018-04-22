@@ -67,7 +67,7 @@ public class MailboxActivity extends AppCompatActivity {
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
-            pref.getInt("Badge", mMyData.badgecount );
+            mMyData.badgecount = pref.getInt("Badge", 1 );
 
             if (mMyData.badgecount >= 1) {
                 mMyData.badgecount = 0;

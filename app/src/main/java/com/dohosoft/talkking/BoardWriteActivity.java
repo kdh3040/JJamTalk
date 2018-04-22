@@ -124,7 +124,7 @@ public class BoardWriteActivity extends AppCompatActivity {
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
-            pref.getInt("Badge", mMydata.badgecount );
+            mMydata.badgecount = pref.getInt("Badge", 1 );
 
             if (mMydata.badgecount >= 1) {
                 mMydata.badgecount = 0;
