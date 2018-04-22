@@ -182,13 +182,13 @@
     </style>
 
     <style name="ManCheckBox" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/bambamcolor</item>
-        <item name="colorControlActivated">@color/bambamcolor</item>
+        <item name="colorControlNormal">@color/menColor</item>
+        <item name="colorControlActivated">@color/menColor</item>
     </style>
 
     <style name="WomanCheckBox" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/womenColor</item>
-        <item name="colorControlActivated">@color/womenColor</item>
+        <item name="colorControlNormal">@color/redBtnColor</item>
+        <item name="colorControlActivated">@color/redBtnColor</item>
     </style>
 
     <style name="ReportCheckBox" parent="Theme.AppCompat.Light">
