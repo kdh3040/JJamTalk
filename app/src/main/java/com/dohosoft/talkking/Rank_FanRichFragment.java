@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.dohosoft.talkking.Data.MyData;
 import com.dohosoft.talkking.Data.SettingData;
 import com.dohosoft.talkking.Data.SimpleUserData;
+import com.dohosoft.talkking.Data.UserData;
 import com.dohosoft.talkking.Firebase.FirebaseData;
 import com.dohosoft.talkking.Util.AppStatus;
 import com.dohosoft.talkking.Util.CommonFunc;
@@ -26,7 +27,7 @@ public class Rank_FanRichFragment extends Fragment {
 
     private MyData mMyData = MyData.getInstance();
     private AppStatus mAppStatus = AppStatus.getInstance();
-    public SimpleUserData stTargetData = new SimpleUserData();
+    public UserData stTargetData = new UserData();
     private SettingData mSettingData = SettingData.getInstance();
     private CommonFunc mCommon = CommonFunc.getInstance();
     private Rank_FanRichAdapter FanAdapter;
@@ -72,7 +73,7 @@ public class Rank_FanRichFragment extends Fragment {
                             }
 
                             if(mCommon.getClickStatus() == false) {
-                                mCommon.getUserData(getActivity(), stTargetData);
+                                mCommon.MoveUserPage(getActivity(), stTargetData);
                             }
                         }
                     }

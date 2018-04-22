@@ -1798,9 +1798,9 @@ public class CommonFunc {
         }
     }
 
-    public static class NearSort implements Comparator<SimpleUserData>{
+    public static class NearSort implements Comparator<UserData>{
         @Override
-        public int compare(SimpleUserData a, SimpleUserData b)
+        public int compare(UserData a, UserData b)
         {
             if(a.Dist > b.Dist )
                 return 1;

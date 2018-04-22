@@ -1041,7 +1041,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query = ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -1049,8 +1049,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData cTempData = new SimpleUserData();
-                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
                                 if (cTempData != null) {
                                     // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
@@ -1073,9 +1073,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             }
 
-                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
 
                             bSetRecv = true;
                             if (mMyData.arrUserAll_Recv.size() > 0)
@@ -1122,7 +1122,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Integer doInBackground(Integer... voids) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query = ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -1130,8 +1130,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData cTempData = new SimpleUserData();
-                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
                                 if (cTempData != null) {
                                     //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
@@ -1206,7 +1206,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Integer doInBackground(Integer... voids) {
 
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query = ref
                     .orderByChild("Dist").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
@@ -1217,8 +1217,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0, j = 0, k = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData stRecvData = new SimpleUserData();
-                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData stRecvData = new UserData();
+                                stRecvData = fileSnapshot.getValue(UserData.class);
                                 if (stRecvData != null) {
 
                                     if (stRecvData.Lat == 0 || stRecvData.Lon == 0) {
@@ -1306,7 +1306,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Integer doInBackground(Integer... voids) {
 
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query = ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
@@ -1315,8 +1315,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0, j = 0, k = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData stRecvData = new SimpleUserData();
-                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData stRecvData = new UserData();
+                                stRecvData = fileSnapshot.getValue(UserData.class);
                                 if (stRecvData != null) {
                                     //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
                                     {

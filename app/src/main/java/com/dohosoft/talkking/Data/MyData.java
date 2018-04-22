@@ -64,38 +64,38 @@ public class MyData {
         return _Instance;
     }
 
-    public ArrayList<SimpleUserData> arrUserMan_Near = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserWoman_Near = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserAll_Near = new ArrayList<>();
+    public ArrayList<UserData> arrUserMan_Near = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Near = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Near = new ArrayList<>();
 
-    public ArrayList<SimpleUserData> arrUserMan_New = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserWoman_New = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserAll_New = new ArrayList<>();
+    public ArrayList<UserData> arrUserMan_New = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_New = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_New = new ArrayList<>();
 
-    public ArrayList<SimpleUserData> arrUserMan_Send = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserWoman_Send = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserAll_Send = new ArrayList<>();
+    public ArrayList<UserData> arrUserMan_Send = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Send = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Send = new ArrayList<>();
 
-    public ArrayList<SimpleUserData> arrUserMan_Recv = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserWoman_Recv = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserAll_Recv = new ArrayList<>();
+    public ArrayList<UserData> arrUserMan_Recv = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
 
 
-    public ArrayList<SimpleUserData> arrUserMan_Near_Age = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserWoman_Near_Age = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserAll_Near_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserMan_Near_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Near_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Near_Age = new ArrayList<>();
 
-    public ArrayList<SimpleUserData> arrUserMan_New_Age = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserWoman_New_Age = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserAll_New_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserMan_New_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_New_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_New_Age = new ArrayList<>();
 
-    public ArrayList<SimpleUserData> arrUserMan_Send_Age = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserWoman_Send_Age = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserAll_Send_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserMan_Send_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Send_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Send_Age = new ArrayList<>();
 
-    public ArrayList<SimpleUserData> arrUserMan_Recv_Age = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserWoman_Recv_Age = new ArrayList<>();
-    public ArrayList<SimpleUserData> arrUserAll_Recv_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserMan_Recv_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Recv_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Recv_Age = new ArrayList<>();
 
 
     public  Map<String, UserData> mapChatTargetData = new LinkedHashMap<String, UserData>();
@@ -579,7 +579,6 @@ public class MyData {
     public void SetMyGrade() {
 
         int nGrade = getPoint() / 100;
-        setGrade(nGrade);
 
         if(0<= nGrade && nGrade < 2)
             setGrade(0);
@@ -2866,9 +2865,25 @@ public class MyData {
         return rtValue;
     }
 
-    public ArrayList<SimpleUserData> SortData_Age(ArrayList<SimpleUserData> arrData, int Start, int End)
+    public ArrayList<UserData> SortData_UAge(ArrayList<UserData> arrData, int Start, int End)
     {
-        ArrayList<SimpleUserData> rtData = new ArrayList<SimpleUserData>();
+        ArrayList<UserData> rtData = new ArrayList<UserData>();
+        for(int i = 0; i < arrData.size(); i++)
+        {
+            int nDataAge = Integer.parseInt(arrData.get(i).Age);
+
+            if( nDataAge >= Start && nDataAge <= End)
+            {
+                rtData.add(arrData.get(i));
+            }
+        }
+
+        return rtData;
+    }
+
+    public ArrayList<UserData> SortData_Age(ArrayList<UserData> arrData, int Start, int End)
+    {
+        ArrayList<UserData> rtData = new ArrayList<UserData>();
         for(int i = 0; i < arrData.size(); i++)
         {
             int nDataAge = Integer.parseInt(arrData.get(i).Age);

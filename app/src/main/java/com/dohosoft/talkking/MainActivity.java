@@ -26,6 +26,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -248,9 +249,9 @@ public class MainActivity extends AppCompatActivity {
             mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
             mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
 
-            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
+            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
 
             mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
             mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
@@ -359,6 +360,19 @@ public class MainActivity extends AppCompatActivity {
         nStartFragment = (int) bundle.getSerializable("StartFragment");
         nStartByNoti = (int) bundle.getSerializable("Noti");
         nStartByNew = (int) bundle.getSerializable("New");
+/*
+        for(int i = 0; i < 755; i++)
+        {
+            double  lon = Math.random() * (1.072271) + 126.611512;
+
+         //   Log.d("123123123", "   " + lon);
+            double  lat = Math.random() * (0.836468) + 37.077091;
+         //  Log.d("123123123", "   " + lat);
+
+            mMyData.setUserDist(LocationFunc.getInstance().getDistance(lat,lon, REF_LAT, REF_LON,"meter"));
+            Log.d("123123123", "   " + mMyData.getUserDist());
+
+        }*/
 
 
         SharedPreferences pref = getSharedPreferences("ExecByNoti", MODE_PRIVATE);

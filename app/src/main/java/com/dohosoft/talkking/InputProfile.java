@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dohosoft.talkking.Data.UserData;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -129,7 +130,7 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query=ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -138,8 +139,8 @@ public class InputProfile extends AppCompatActivity {
                             int i = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
                             {
-                                SimpleUserData cTempData = new SimpleUserData();
-                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
                                 if(cTempData != null) {
 
                                     //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
@@ -165,9 +166,9 @@ public class InputProfile extends AppCompatActivity {
                             }
 
 
-                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
 
                             if(mMyData.arrUserAll_Recv.size() > 0)
                                 mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
@@ -212,7 +213,7 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Integer... voids) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query= ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -220,8 +221,8 @@ public class InputProfile extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData cTempData = new SimpleUserData();
-                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
                                 if(cTempData != null) {
                                     //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                      {
@@ -301,7 +302,7 @@ public class InputProfile extends AppCompatActivity {
             Double IEndLat = mMyData.getUserLon() + 0.1;
 
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query=ref
                     .orderByChild("Dist").startAt(0).limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
@@ -311,8 +312,8 @@ public class InputProfile extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0, j=0, k=0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData stRecvData = new SimpleUserData ();
-                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData stRecvData = new UserData ();
+                                stRecvData = fileSnapshot.getValue(UserData.class);
                                 if(stRecvData != null) {
 
                                     if(stRecvData.Lat == 0 || stRecvData.Lon == 0)
@@ -404,7 +405,7 @@ public class InputProfile extends AppCompatActivity {
             int nStartDate = nTodayDate - 7;
 
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
@@ -413,8 +414,8 @@ public class InputProfile extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0, j=0, k=0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData stRecvData = new SimpleUserData ();
-                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData stRecvData = new UserData ();
+                                stRecvData = fileSnapshot.getValue(UserData.class);
                                 if(stRecvData != null) {
                                    // if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
                                     {

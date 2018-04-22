@@ -176,6 +176,13 @@ public class FirebaseData {
             user.child("ImgGroup0").setValue(mMyData.getUserImg());
         }
 
+        user.child("ImgCount").setValue(mMyData.getUserImgCnt());
+        if(mMyData.getUserImgCnt() == 0)
+        {
+            mMyData.setUserImgCnt(1);
+            user.child("ImgCount").setValue(1);
+        }
+
         user.child("NickName").setValue(mMyData.getUserNick());
         user.child("Gender").setValue(mMyData.getUserGender());
         user.child("Age").setValue(mMyData.getUserAge());
@@ -187,7 +194,7 @@ public class FirebaseData {
         user.child("SendCount").setValue(mMyData.getSendHoney());
         user.child("RecvGold").setValue(mMyData.getRecvHoney());
 
-        user.child("ImgCount").setValue(mMyData.getUserImgCnt());
+
 
         user.child("Date").setValue(mMyData.getUserDate());
 
@@ -262,10 +269,23 @@ public class FirebaseData {
             user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         }
 
+        user.child("ImgCount").setValue(mMyData.getUserImgCnt());
+        if(mMyData.getUserImgCnt() == 0)
+        {
+            mMyData.setUserImgCnt(1);
+            user.child("ImgCount").setValue(1);
+        }
+
         user.child("Img").setValue(mMyData.getUserImg());
 
         for (int i = 0; i < 4; i++)
             user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
+
+        if(mMyData.getUserProfileImg(0).equals("1"))
+        {
+            mMyData.setUserProfileImg(0, mMyData.getUserImg());
+            user.child("ImgGroup0").setValue(mMyData.getUserImg());
+        }
 
         user.child("NickName").setValue(mMyData.getUserNick());
         user.child("Gender").setValue(mMyData.getUserGender());
@@ -278,7 +298,7 @@ public class FirebaseData {
         user.child("SendCount").setValue(mMyData.getSendHoney());
         user.child("RecvGold").setValue(mMyData.getRecvHoney());
 
-        user.child("ImgCount").setValue(mMyData.getUserImgCnt());
+
 
         user.child("Memo").setValue(mMyData.getUserMemo());
 
@@ -800,7 +820,7 @@ public class FirebaseData {
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query=ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -809,8 +829,8 @@ public class FirebaseData {
                             int i = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
                             {
-                                SimpleUserData cTempData = new SimpleUserData();
-                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
                                 if(cTempData != null) {
                                     // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
@@ -831,9 +851,9 @@ public class FirebaseData {
                                 }
                             }
 
-                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
 
 
 
@@ -886,7 +906,7 @@ public class FirebaseData {
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query= ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -894,8 +914,8 @@ public class FirebaseData {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData cTempData = new SimpleUserData();
-                                cTempData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
                                 if(cTempData != null) {
                                     //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
@@ -968,7 +988,7 @@ public class FirebaseData {
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query=ref
                     .orderByChild("Dist").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
@@ -979,8 +999,8 @@ public class FirebaseData {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0, j=0, k=0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData stRecvData = new SimpleUserData ();
-                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData stRecvData = new UserData ();
+                                stRecvData = fileSnapshot.getValue(UserData.class);
                                 if(stRecvData != null) {
 
                                     if(stRecvData.Lat == 0 || stRecvData.Lon == 0)
@@ -1073,7 +1093,7 @@ public class FirebaseData {
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("SimpleData");
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
             Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
@@ -1082,8 +1102,8 @@ public class FirebaseData {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0, j=0, k=0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                SimpleUserData stRecvData = new SimpleUserData ();
-                                stRecvData = fileSnapshot.getValue(SimpleUserData.class);
+                                UserData stRecvData = new UserData ();
+                                stRecvData = fileSnapshot.getValue(UserData.class);
                                 if(stRecvData != null) {
                                     //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
                                     {
@@ -1146,18 +1166,18 @@ public class FirebaseData {
         // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
         Query data = null;
         if (top) {
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("RecvGold").limitToFirst(LOAD_MAIN_COUNT);
+            data = fierBaseDataInstance.getReference().child("User").orderByChild("RecvGold").limitToFirst(LOAD_MAIN_COUNT);
         } else
             //data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").startAt(mMyData.HotIndexRef).limitToFirst(LOAD_MAIN_COUNT);
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("RecvGold").startAt(mMyData.RecvIndexRef).limitToFirst(LOAD_MAIN_COUNT);
+            data = fierBaseDataInstance.getReference().child("User").orderByChild("RecvGold").startAt(mMyData.RecvIndexRef).limitToFirst(LOAD_MAIN_COUNT);
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    SimpleUserData cTempData = new SimpleUserData();
-                    cTempData = postSnapshot.getValue(SimpleUserData.class);
+                    UserData cTempData = new UserData();
+                    cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null) {
                         if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
                             if (cTempData.Img == null)
@@ -1185,9 +1205,9 @@ public class FirebaseData {
                     }
                 }
 
-                mMyData.arrUserAll_Recv_Age = mMyData.SortData_Age(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
-                mMyData.arrUserWoman_Recv_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
-                mMyData.arrUserMan_Recv_Age = mMyData.SortData_Age(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
 
                 if (mMyData.arrUserAll_Recv.size() > 0)
                     mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1).RecvGold;
@@ -1214,15 +1234,15 @@ public class FirebaseData {
         if (top)
             data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").startAt(0).endAt(LOAD_MAIN_COUNT);
         else
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").startAt(mMyData.FanCountRef).limitToFirst(LOAD_MAIN_COUNT);
+            data = fierBaseDataInstance.getReference().child("User").orderByChild("FanCount").startAt(mMyData.FanCountRef).limitToFirst(LOAD_MAIN_COUNT);
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    SimpleUserData cTempData = new SimpleUserData();
-                    cTempData = postSnapshot.getValue(SimpleUserData.class);
+                    UserData cTempData = new UserData();
+                    cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null) {
 
                         if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
@@ -1280,14 +1300,14 @@ public class FirebaseData {
         final double[] tempDist = {0};
 
         Query data = null;
-        data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Dist").startAt(mMyData.NearDistanceRef).limitToFirst(LOAD_MAIN_COUNT);
+        data = fierBaseDataInstance.getReference().child("User").orderByChild("Dist").startAt(mMyData.NearDistanceRef).limitToFirst(LOAD_MAIN_COUNT);
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    SimpleUserData cTempData = new SimpleUserData();
-                    cTempData = postSnapshot.getValue(SimpleUserData.class);
+                    UserData cTempData = new UserData();
+                    cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null) {
 
                         if (cTempData.Lat == 0 || cTempData.Lon == 0) {
@@ -1369,15 +1389,15 @@ public class FirebaseData {
         if (top)
             data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").startAt(0).endAt(LOAD_MAIN_COUNT);
         else
-            data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("Date").startAt(mMyData.NewDateRef).limitToFirst(LOAD_MAIN_COUNT);
+            data = fierBaseDataInstance.getReference().child("User").orderByChild("Date").startAt(mMyData.NewDateRef).limitToFirst(LOAD_MAIN_COUNT);
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    SimpleUserData cTempData = new SimpleUserData();
-                    cTempData = postSnapshot.getValue(SimpleUserData.class);
+                    UserData cTempData = new UserData();
+                    cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null) {
                         if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
                             if (cTempData.Img == null)
