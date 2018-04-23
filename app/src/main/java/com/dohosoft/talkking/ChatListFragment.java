@@ -219,9 +219,39 @@ public class ChatListFragment extends Fragment {
             return new ChatListViewHolder(view);
         }
 
+        boolean bAlarmChat = false;
         @Override
         public void onBindViewHolder(ChatListViewHolder holder, final int position) {
+
+            if(position == 0)
+            {
+                for(int i = 0; i< mMyData.arrChatNameList.size(); i++)
+                {
+                    if(mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(i)).Check == 0)
+                    {
+                        if(!mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(i)).WriterIdx.equals(mMyData.getUserIdx())) {
+                            bAlarmChat = true;
+                            break;
+                        }
+                    }
+                }
+
+                if(bAlarmChat == true)
+                {
+                    CommonFunc.getInstance().SetChatAlarmVisible(true);
+                    bAlarmChat = false;
+                }
+                else
+                {
+                    CommonFunc.getInstance().SetChatAlarmVisible(false);
+                }
+
+            }
+
+
+
             int i = position;
+
 
             final String str = mMyData.arrChatNameList.get(i);
 
@@ -350,14 +380,17 @@ public class ChatListFragment extends Fragment {
 
             if(mMyData.arrChatDataList.get(str).Check == 0)
             {
-                if(!mMyData.arrChatDataList.get(str).WriterIdx.equals(mMyData.getUserIdx()))
+                if(!mMyData.arrChatDataList.get(str).WriterIdx.equals(mMyData.getUserIdx())) {
                     holder.check.setVisibility(View.VISIBLE);
-                else
+                }
+                else {
                     holder.check.setVisibility(View.INVISIBLE);
+                }
             }
 
-            else
+            else {
                 holder.check.setVisibility(View.INVISIBLE);
+            }
 
             if(mMyData.arrChatDataList.get(str).Msg.equals(""))
                 holder.textView.setText(mMyData.arrChatDataList.get(str).Nick + "님과의 채팅방입니다");
