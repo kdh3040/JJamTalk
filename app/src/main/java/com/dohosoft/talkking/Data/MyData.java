@@ -169,7 +169,7 @@ public class MyData {
 
     public ArrayList<String> arrGiftHoneyNameList = new ArrayList<>();
     public ArrayList<SendData> arrGiftHoneyDataList = new ArrayList<>();
-    public ArrayList<UserData> arrGiftUserDataList = new ArrayList<>();
+    public Map<String, UserData> arrGiftUserDataList = new LinkedHashMap<>();
 
     public ArrayList<String> arrRecvHoneyNameList = new ArrayList<>();
     public ArrayList<SendData> arrRecvHoneyDataList = new ArrayList<>();
@@ -1489,7 +1489,7 @@ public class MyData {
 
         // arrMyStarDataList.clear();
 
-        String strTargetIdx;
+        final String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
         table = database.getReference("User");
@@ -1504,7 +1504,7 @@ public class MyData {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                arrGiftUserDataList.add(tempUserData);
+                arrGiftUserDataList.put(strTargetIdx, tempUserData);
 
                 int i = arrGiftUserDataList.size();
            /*     for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
