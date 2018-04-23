@@ -126,7 +126,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setSmallIcon(R.drawable.logo300)
                         .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.logo300))
                         .setAutoCancel(true)
-                       // .setContentIntent(notifyPendingIntent)
+                        .setContentIntent(LoginNotifyPendingIntent)
                         .setWhen(System.currentTimeMillis());
 
 
@@ -166,7 +166,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     editor.putInt("ExecByNoti", 1);
                     editor.commit();
 
-                    if(mMyData.GetCurFrag() == 2)
+                /*    if(mMyData.GetCurFrag() == 2)
                     {
                         builder.setContentTitle(title)
                                 .setContentText(body)
@@ -189,7 +189,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         nm.notify(1234, builder.build());
                     }
 
-                    else
+                    else*/
                     {
                         builder.setContentTitle(title)
                                 .setContentText(body)

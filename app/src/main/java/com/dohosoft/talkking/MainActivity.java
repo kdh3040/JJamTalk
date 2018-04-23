@@ -1,6 +1,7 @@
 package com.dohosoft.talkking;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -164,6 +165,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
+    boolean bAlarmChat = false;
+
     public interface  CallBack{
         void callback();
     }
@@ -315,6 +318,9 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.cancelAll();
+
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
         mMyData.badgecount = pref.getInt("Badge", 1);
 
@@ -355,10 +361,26 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
+       /*     SetButtonColor(nTempStartFrag);
+            SetFontColor(nTempStartFrag);
+
+            logo.setVisibility(View.GONE);
+            mMyData.SetCurFrag(2);
+
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, chatListFragment, "ChatListFragment").commit();
+
+            CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
+            setImageAlpha(100, 100, 255, 100, 100);
+            iv_myPage.setVisibility(View.GONE);
+            txt_title.setVisibility(TextView.VISIBLE);
+            txt_title.setText("채팅 목록");*/
+
+
             if (mMyData.GetCurFrag() == 2) {
                 Fragment frg = null;
                 frg = mFragmentMng.findFragmentByTag("ChatListFragment");
-                final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                FragmentTransaction ft = mFragmentMng.beginTransaction();
                 ft.detach(frg);
                 ft.attach(frg);
                 ft.commit();
@@ -383,6 +405,9 @@ public class MainActivity extends AppCompatActivity {
         nStartFragment = (int) bundle.getSerializable("StartFragment");
         nStartByNoti = (int) bundle.getSerializable("Noti");
         nStartByNew = (int) bundle.getSerializable("New");
+
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.cancelAll();
 /*
         for(int i = 0; i < 755; i++)
         {
@@ -493,6 +518,28 @@ public class MainActivity extends AppCompatActivity {
         CommonFunc.getInstance().Chat_Alarm = (ImageView) findViewById(R.id.alarm_chat);
         CommonFunc.getInstance().Fan_Alarm = (ImageView) findViewById(R.id.alarm_fan);
         CommonFunc.getInstance().Mail_Alarm = (ImageView) findViewById(R.id.alarm_mail);
+
+
+        for (int i = 0; i < mMyData.arrChatNameList.size(); i++) {
+            if (!mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(i)).WriterIdx.equals(mMyData.getUserIdx())) {
+                if (mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(i)).Check == 0) {
+                    bAlarmChat = true;
+                    break;
+                }
+            }
+        }
+
+        if(bAlarmChat == true)
+        {
+            CommonFunc.getInstance().SetChatAlarmVisible(true);
+        }
+        else
+        {
+            CommonFunc.getInstance().SetChatAlarmVisible(false);
+        }
+
+
+
         CommonFunc.getInstance().Item_Box = (ImageView) findViewById(R.id.iv_itemBox);
         CommonFunc.getInstance().Item_Box.setOnClickListener(new View.OnClickListener() {
             @Override

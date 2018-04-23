@@ -1121,12 +1121,14 @@ public class MyData {
                 final SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
                 if (!arrChatNameList.contains(SendList.ChatRoomName)) {
 
-                    if(!SendList.WriterIdx.equals(getUserIdx()))
-                        CommonFunc.getInstance().SetChatAlarmVisible(true);
-
                     arrChatNameList.add(SendList.ChatRoomName);
                     arrChatDataList.put(SendList.ChatRoomName, SendList);
 
+                    if(!SendList.WriterIdx.equals(getUserIdx()))
+                    {
+                        if(arrChatDataList.get(SendList.ChatRoomName).Check == 0)
+                            CommonFunc.getInstance().SetChatAlarmVisible(true);
+                    }
 
                     final String str =SendList.ChatRoomName;
                     String[] strIdx = SendList.ChatRoomName.split("_");
@@ -1191,7 +1193,10 @@ public class MyData {
                 arrChatDataList.put(SendList.ChatRoomName, SendList);
 
                 if(!SendList.WriterIdx.equals(getUserIdx()))
-                    CommonFunc.getInstance().SetChatAlarmVisible(true);
+                {
+                    if(arrChatDataList.get(SendList.ChatRoomName).Check == 0)
+                        CommonFunc.getInstance().SetChatAlarmVisible(true);
+                }
 
                 final String str =SendList.ChatRoomName;
                 String[] strIdx = SendList.ChatRoomName.split("_");

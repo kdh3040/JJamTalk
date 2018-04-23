@@ -100,6 +100,7 @@ public class CommonFunc {
 
     private CommonFunc() {
 
+
     }
 
     private MyData mMyData = MyData.getInstance();
