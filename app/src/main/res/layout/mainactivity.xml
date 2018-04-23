@@ -362,4 +362,15 @@
         app:layout_constraintLeft_toRightOf="@+id/tv_fan"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_fan" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/RefreshBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ib_board"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/logotalkingreal_200" />
+
+
 </android.support.constraint.ConstraintLayout>

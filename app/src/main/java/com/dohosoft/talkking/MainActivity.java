@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout layout_lowbar, layout_topbar;
     BoardFragment boardFragment;
 
+    ImageButton RefreshBtn;
 
     private FirebaseData mFireBaseData = FirebaseData.getInstance();
     private MyData mMyData = MyData.getInstance();
@@ -392,6 +393,17 @@ public class MainActivity extends AppCompatActivity {
             Log.d("123123123", "   " + mMyData.getUserDist());
 
         }*/
+
+
+
+
+        RefreshBtn = (ImageButton)findViewById(R.id.RefreshBtn);
+        RefreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseData.getInstance().RefreshUserData(mActivity);
+            }
+        });
 
 
         SharedPreferences pref = getSharedPreferences("ExecByNoti", MODE_PRIVATE);
