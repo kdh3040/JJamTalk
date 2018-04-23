@@ -158,7 +158,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
            else if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
-                if(mMyData.GetCurFrag() != 5)
+                //if(mMyData.GetCurFrag() != 5)
                 {
                     SharedPreferences prefs = getApplicationContext().getSharedPreferences("ExecByNoti", getApplicationContext().MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
