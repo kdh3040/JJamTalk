@@ -129,8 +129,8 @@ public class BoardWriteActivity extends AppCompatActivity {
             if (mMydata.badgecount >= 1) {
                 mMydata.badgecount = 0;
                 Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
-                intent.putExtra("badge_count_package_name", "com.hodo.talkking");
-                intent.putExtra("badge_count_class_name", "com.hodo.talkking.LoginActivity");
+                intent.putExtra("badge_count_package_name", "com.dohosoft.talkking");
+                intent.putExtra("badge_count_class_name", "com.dohosoft.talkking.LoginActivity");
                 intent.putExtra("badge_count", mMydata.badgecount);
                 sendBroadcast(intent);
             }
