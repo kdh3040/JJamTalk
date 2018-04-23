@@ -99,6 +99,9 @@ import static com.dohosoft.talkking.Data.CoomonValueData.bSetRich;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    boolean RefreshTest = true;
+
     ImageView ib_home;
     ImageView ib_cardList;
     ImageView ib_chatList;
@@ -395,15 +398,21 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
 
-
-
         RefreshBtn = (ImageButton)findViewById(R.id.RefreshBtn);
-        RefreshBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseData.getInstance().RefreshUserData(mActivity);
-            }
-        });
+
+        RefreshBtn.setVisibility(View.GONE);
+
+        if(RefreshTest == true)
+        {
+            RefreshBtn.setVisibility(View.VISIBLE);
+            RefreshBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseData.getInstance().RefreshUserData(mActivity);
+                }
+            });
+        }
+
 
 
         SharedPreferences pref = getSharedPreferences("ExecByNoti", MODE_PRIVATE);
