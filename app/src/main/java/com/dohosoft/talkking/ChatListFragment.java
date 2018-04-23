@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -79,12 +80,23 @@ public class ChatListFragment extends Fragment {
     public  void refresh()
     {
         SortByChatDate();
-        mAdapter.notifyDataSetChanged();
+        handler.post(r);
+        //mAdapter.notifyDataSetChanged();
     }
 
     ChatListAdapter mAdapter = new ChatListAdapter();
 
     public ChatListFragment() {SortByChatDate();}
+
+    Handler handler = new Handler();
+    final Runnable r = new Runnable()
+    {
+        public void run() {
+            mAdapter.notifyDataSetChanged();
+        }
+    };
+
+
 
     @SuppressLint("ValidFragment")
     public ChatListFragment(Context Context) {
@@ -157,7 +169,8 @@ public class ChatListFragment extends Fragment {
             chatListRecyclerView.setAdapter(mAdapter);
             chatListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             SortByChatDate();
-            mAdapter.notifyDataSetChanged();
+            handler.post(r);
+            //mAdapter.notifyDataSetChanged();
         }
         return fragView;
     }
@@ -167,12 +180,12 @@ public class ChatListFragment extends Fragment {
         Map<String, SimpleChatData> tempDataMap = new LinkedHashMap<String, SimpleChatData>(mMyData.arrChatDataList);
         //tempDataMap = mMyData.arrMyFanDataList;
         Iterator it = sortByValue(tempDataMap).iterator();
-        mMyData.arrChatDataList.clear();
+        //mMyData.arrChatDataList.clear();
         mMyData.arrChatNameList.clear();
         while(it.hasNext()) {
             String temp = (String) it.next();
-            System.out.println(temp + " = " + mMyData.arrChatDataList.get(temp));
-            mMyData.arrChatDataList.put(temp, tempDataMap.get(temp));
+            //System.out.println(temp + " = " + mMyData.arrChatDataList.get(temp));
+          //  mMyData.arrChatDataList.put(temp, tempDataMap.get(temp));
             mMyData.arrChatNameList.add(tempDataMap.get(temp).ChatRoomName);
 
         }
@@ -326,8 +339,7 @@ public class ChatListFragment extends Fragment {
 
             if(mMyData.arrChatDataList.get(str).Gender == null || mMyData.arrChatDataList.get(str).Gender.equals(""))
             {
-                SortByChatDate();
-                mAdapter.notifyDataSetChanged();
+                 int aaa = 0;
             }
 
             if(mMyData.arrChatDataList.get(str).Gender.equals("여자"))
@@ -368,7 +380,7 @@ public class ChatListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return mMyData.arrChatDataList.size();
+            return mMyData.arrChatNameList.size();
             //return mMyData.arrChatTargetData.size();
         }
 

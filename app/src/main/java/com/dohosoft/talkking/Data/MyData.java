@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.dohosoft.talkking.CardListFragment;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -222,7 +223,7 @@ public class MyData {
     public String price = null;
 
     public Context mContext;
-    public Activity mActivity;
+    public Activity mMainActivity;
 
     public int nReportedCnt;
     public ArrayList<ReportedData> arrReportList = new ArrayList<>();
@@ -880,7 +881,30 @@ public class MyData {
         });
     }
 
-    public void getFanList() {
+    public void getCardList()
+    {
+        for (int i = 0; i < arrCardNameList.size(); i++) {
+            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(arrCardNameList.get(i));
+            final int finalI = i;
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                    arrCarDataList.put(arrCardNameList.get(finalI), DBData);
+                    CoomonValueData.getInstance().bMySet_Card = true;
+                    //CommonFunc.getInstance().CheckMyDataSet(mActivity);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+
+    public void getFanList(final Activity mActivity) {
         String MyID = strIdx;
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -902,6 +926,11 @@ public class MyData {
                     arrMyFanList.add(tempFanData);
                     arrMyFanRecvList.put(tempFanData.Idx, tempFanData);
 
+                    if(arrMyFanList.get(i).Check == 1)
+                    {
+                        CommonFunc.getInstance().SetFanAlarmVisible(true);
+                    }
+
                     Query data = database.getReference().child("SimpleData").child(tempFanData.Idx);
                     final FanData finalTempFanData = tempFanData;
                     data.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -910,7 +939,9 @@ public class MyData {
                             SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
                             arrMyFanDataList.put(finalTempFanData.Idx, DBData);
 
-                            CommonFunc.getInstance().SetFanAlarmVisible(true);
+                            CoomonValueData.getInstance().bMySet_Fan = true;
+                            CommonFunc.getInstance().CheckMyDataSet(mActivity);
+
                             if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
                                 if(GetCurFrag() == 3)
                                 {
@@ -930,6 +961,8 @@ public class MyData {
 
                         }
                     });
+
+                    i++;
                 }
             }
 
@@ -1021,7 +1054,7 @@ public class MyData {
 
                 }
 
-                CommonFunc.getInstance().SetFanAlarmVisible(true);
+             //   CommonFunc.getInstance().SetFanAlarmVisible(true);
 
 
             }
@@ -1071,7 +1104,7 @@ public class MyData {
         });
     }
 
-    public void getSendList() {
+    public void getSendList(final Activity mActivity) {
         String MyID = strIdx;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -1125,6 +1158,9 @@ public class MyData {
                             DBData.Grade = tempDB.Grade;
                             DBData.BestItem = tempDB.BestItem;
                             arrChatDataList.put(finalStrTargetIdx, DBData);
+
+                            CoomonValueData.getInstance().bMySet_Send = true;
+                            CommonFunc.getInstance().CheckMyDataSet(mActivity);
 
                             if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
                                 if (GetCurFrag() == 2) {
@@ -1286,7 +1322,7 @@ public class MyData {
     }
 
 
-    public void getImageLoading() {
+    public void getImageLoading(final Activity mActivity) {
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("CommonValue").child("ImgUrl");
@@ -1295,6 +1331,8 @@ public class MyData {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 CoomonValueData.getInstance().ImgUrl = dataSnapshot.getValue(String.class);
+                CoomonValueData.getInstance().bMySet_Image = true;
+                CommonFunc.getInstance().CheckMyDataSet(mActivity);
             }
 
             @Override
@@ -1304,7 +1342,7 @@ public class MyData {
         });
     }
 
-    public void getDownUrl() {
+    public void getDownUrl(final Activity mActivity) {
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("CommonValue").child("DownUrl");
@@ -1313,6 +1351,8 @@ public class MyData {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 CoomonValueData.getInstance().DownUrl = dataSnapshot.getValue(String.class);
+                CoomonValueData.getInstance().bMySet_DownUrl = true;
+                CommonFunc.getInstance().CheckMyDataSet(mActivity);
             }
 
             @Override
@@ -1322,7 +1362,7 @@ public class MyData {
         });
     }
 
-    public void getBoardLoadingDate() {
+    public void getBoardLoadingDate(final Activity mActivity) {
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("CommonValue").child("BoardLoadingDate");
@@ -1337,6 +1377,8 @@ public class MyData {
                     long nowTimeLong = CommonFunc.getInstance().GetCurrentTime();
                     nowTimeLong = nowTimeLong - (nowTimeLong % CoomonValueData.getInstance().DAY_MILLI_SECONDS);
                     CoomonValueData.getInstance().BoardLoadingDate = nowTimeLong - boardLoadingDateDay * CoomonValueData.getInstance().DAY_MILLI_SECONDS;
+                    CoomonValueData.getInstance().bMySet_BoardLoad = true;
+                    CommonFunc.getInstance().CheckMyDataSet(mActivity);
                 }
             }
 
@@ -1393,6 +1435,7 @@ public class MyData {
                 SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
 
                 arrCarDataList.put(target.Idx, DBData);
+
             }
 
             @Override
@@ -2911,7 +2954,6 @@ public class MyData {
         FirebaseData.getInstance().SaveLastAdsTime(time);
         LastAdsTime = time;
     }
-
 
 }
 

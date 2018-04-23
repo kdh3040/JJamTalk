@@ -183,6 +183,9 @@ public class FanListFragment extends Fragment {
                     {
                         if(CommonFunc.getInstance().getClickStatus() == false) {
 
+                            if(mMyData.arrMyFanList.get(position).Check == 1)
+                                CommonFunc.getInstance().SetFanAlarmVisible(false);
+
                             SetMyFanCheck(position);
                             fanListAdapter.notifyDataSetChanged();
                             getMyfanData(position);

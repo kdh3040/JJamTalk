@@ -25,6 +25,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
 import android.support.v7.app.AppCompatDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -67,6 +68,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMyLoc;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_BoardLoad;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_Card;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_DownUrl;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_Fan;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_Image;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_Send;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMySet;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetNear;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetNew;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetRecv;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetRich;
 
 /**
  * Created by woong on 2018-01-05.
@@ -452,7 +467,7 @@ public class CommonFunc {
         ImageView profile, heart;
         Button confirm, block, report;
 
-        Activity mActivity = mMyData.mActivity;
+        Activity mActivity = mMyData.mMainActivity;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         View v = LayoutInflater.from(mActivity).inflate(R.layout.alert_mail, null, false);
@@ -578,7 +593,7 @@ public class CommonFunc {
     }
 
     public void ShowMsgPopup(Context context, final SimpleChatData SendList) {
-        Activity mActivity = mMyData.mActivity;
+        Activity mActivity = mMyData.mMainActivity;
         TextView from, tv_count, msg;
         ImageView profile, heart;
         Button confirm, block, report;
@@ -1796,6 +1811,26 @@ public class CommonFunc {
                 }
             });
         }
+    }
+
+    public boolean CheckMyDataSet(Activity mActivity)
+    {
+      //  if(bMySet_DownUrl == true && bMySet_Image == true && bMySet_BoardLoad == true && bMySet_Card == true && bMySet_Send == true && bMySet_Fan == true)
+            bMySet = true;
+
+        if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true ) {
+
+           GoMainPage(mActivity);
+        }
+
+        return bMySet;
+    }
+
+    public void GoMainPage(Activity mActivity) {
+
+        FirebaseData.getInstance().SaveData(mMyData.getUserIdx());
+        mMyData.getRecvGold();
+        GoMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
     }
 
     public static class NearSort implements Comparator<UserData>{

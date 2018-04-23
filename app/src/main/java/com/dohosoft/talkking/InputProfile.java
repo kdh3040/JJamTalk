@@ -1,6 +1,7 @@
 package com.dohosoft.talkking;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -91,6 +92,8 @@ public class InputProfile extends AppCompatActivity {
     private CommonFunc mCommon = CommonFunc.getInstance();
 
     StorageReference storageRef = storage.getReferenceFromUrl("gs://talkking-25dd8.appspot.com/");
+
+    private Activity mActivity;
 
     private ImageView mProfileImage;
     private EditText mNickName, mMemo;
@@ -479,6 +482,9 @@ public class InputProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_profile);
 
+
+        mActivity = this;
+
         final Bundle bundle = getIntent().getExtras();
         strIdx = (String) bundle.getSerializable("Idx");
 
@@ -679,27 +685,28 @@ public class InputProfile extends AppCompatActivity {
                     mMyData.setUserNick(strNickName);
                     //mMyData.setUserMemo(strMemo);
 
-                    bMySet = true;
-
                     mMyData.getNotice();
                     mMyData.getLogin();
                     mMyData.getSignUp();
 
-                    mMyData.getDownUrl();
-                    mMyData.getImageLoading();
-                    mMyData.getBoardLoadingDate();
+                    mMyData.getDownUrl(mActivity);
+                    mMyData.getImageLoading(mActivity);
+                    mMyData.getBoardLoadingDate(mActivity);
 
-                    mMyData.getFanList();
+                    //mMyData.getCardList(mActivity);
+                    mMyData.getFanList(mActivity);
 
                     mMyData.getReportedCnt();
                     mMyData.getSetting();
 
-                    mMyData.getSendList();
+                    mMyData.getSendList(mActivity);
                     mMyData.getSendHoneyList();
                     mMyData.getGiftHoneyList();
                     mMyData.getRecvHoneyList();
                     mMyData.getBlockList();
                     mMyData.getBlockedList();
+
+                    bMySet = true;
 
                     PrePareHot initHot = new PrePareHot();
                     initHot.execute(0,0,0);

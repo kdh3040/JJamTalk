@@ -84,6 +84,12 @@ import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.dohosoft.talkking.Data.CoomonValueData.REF_LAT;
 import static com.dohosoft.talkking.Data.CoomonValueData.REF_LON;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMyLoc;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMySet;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetNear;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetNew;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetRecv;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetRich;
 
 /**
  * A login screen that offers login via email/password.
@@ -126,8 +132,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     DatabaseReference ref;
 
 
-    private boolean bMySet, bMyLoc = false;
-    private boolean bSetNear, bSetNew, bSetRich, bSetRecv = false;
     private boolean bUpdate = true;
 
     private int nUserSet = 0;
@@ -231,9 +235,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .load(R.drawable.logo_loading)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(ImgLoading);*/
-
-
-        bSetNear = bSetNew = bSetRich = bSetRecv = false;
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -518,7 +519,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return;
         }
         Location location = service.getLastKnownLocation(provider);
-        bMyLoc = true;
 
         double tempLon, tempLat;
         if (location != null) {
@@ -551,7 +551,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
             Log.d(TAG, "Account Log in  Complete");
-            GoMainPage();
+            CommonFunc.getInstance().GoMainPage(mActivity);
         }
 
         /*
@@ -590,22 +590,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         startActivity(intent);
         finish();
-    }
-
-    private void GoMainPage() {
-
-        //  progressBar.setVisibility(ProgressBar.GONE);
-        FirebaseData.getInstance().GetInitBoardData();
-        FirebaseData.getInstance().GetInitMyBoardData();
-        FirebaseData.getInstance().SaveData(mMyData.getUserIdx());
-        mMyData.getRecvGold();
-       // mCommon.refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
-        mCommon.GoMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
-       // GoMainActivity
-        /*Intent intent = new_img Intent(LoginActivity.this, MainActivity.class);
-        intent.putExtra("StartFragment", 0);
-        startActivity(intent);
-        finish();*/
     }
 
     private void SetBoardMyData() {
@@ -814,7 +798,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     stRecvData.Memo, stRecvData.RecvMsgReject, stRecvData.PublicRoomStatus, stRecvData.PublicRoomName, stRecvData.PublicRoomLimit, stRecvData.PublicRoomTime,
                                     stRecvData.ItemCount, stRecvData.Item_1, stRecvData.Item_2, stRecvData.Item_3, stRecvData.Item_4, stRecvData.Item_5, stRecvData.Item_6, stRecvData.Item_7, stRecvData.Item_8, stRecvData.BestItem,
                                     stRecvData.Point, stRecvData.Grade, stRecvData.ConnectDate, stRecvData.LastBoardWriteTime, stRecvData.LastAdsTime, stRecvData.NickChangeCnt);
-                            bMySet = true;
+
 
 
                       /*      for(LinkedHashMap.Entry<String, String> entry : stRecvData.ChatTargetList.entrySet()) {
@@ -861,21 +845,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getLogin();
                             mMyData.getSignUp();
 
-                            mMyData.getDownUrl();
-                            mMyData.getImageLoading();
-                            mMyData.getBoardLoadingDate();
+                            mMyData.getDownUrl(mActivity);
+                            mMyData.getImageLoading(mActivity);
+                            mMyData.getBoardLoadingDate(mActivity);
                             //mMyData.getAdBannerID();
-                            mMyData.getFanList();
+//                            mMyData.getCardList(mActivity);
+                            mMyData.getFanList(mActivity);
                             mMyData.getReportedCnt();
 
                             mMyData.getSetting();
 
-                            mMyData.getSendList();
+                            mMyData.getSendList(mActivity);
                             mMyData.getSendHoneyList();
                             mMyData.getGiftHoneyList();
                             mMyData.getRecvHoneyList();
                             mMyData.getBlockList();
                             mMyData.getBlockedList();
+
+                            FirebaseData.getInstance().GetInitBoardData();
+                            FirebaseData.getInstance().GetInitMyBoardData();
+
                             //mMyData.MonitorPublicRoomStatus();
 
                             PrePareHot initHot = new PrePareHot();
@@ -1084,7 +1073,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                                 Log.d(TAG, "Account Log in  Complete");
-                                GoMainPage();
+                                CommonFunc.getInstance().GoMainPage(mActivity);
                             }
 
                         }
@@ -1102,7 +1091,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
-                GoMainPage();
+                CommonFunc.getInstance().GoMainPage(mActivity);
             }
         }
 
@@ -1166,7 +1155,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
                                 Log.d(TAG, "Account Log in  Complete");
-                                GoMainPage();
+                                CommonFunc.getInstance().GoMainPage(mActivity);
                             }
                         }
 
@@ -1185,7 +1174,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
-                GoMainPage();
+                CommonFunc.getInstance().GoMainPage(mActivity);
             }
         }
 
@@ -1266,7 +1255,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                                 Log.d(TAG, "Account Log in  Complete");
-                                GoMainPage();
+                                CommonFunc.getInstance().GoMainPage(mActivity);
                             }
                         }
 
@@ -1285,7 +1274,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
-                GoMainPage();
+                CommonFunc.getInstance().GoMainPage(mActivity);
             }
         }
 
@@ -1348,7 +1337,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                                 Log.d(TAG, "Account Log in  Complete");
-                                GoMainPage();
+                                CommonFunc.getInstance().GoMainPage(mActivity);
                             }
                         }
 
@@ -1367,7 +1356,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
-                GoMainPage();
+                CommonFunc.getInstance().GoMainPage(mActivity);
             }
         }
 
@@ -1474,7 +1463,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             super.onPostExecute(result);
         }
     }
-
 
 }
 

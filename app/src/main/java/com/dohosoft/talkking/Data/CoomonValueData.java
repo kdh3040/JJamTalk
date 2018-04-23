@@ -62,7 +62,19 @@ public class CoomonValueData  {
 
     public static int CHANGE_NICK_NAME_COST = 50;
 
+    public static boolean bMySet_DownUrl = false;
+    public static  boolean bMySet_Image = false;
+    public static  boolean bMySet_BoardLoad = false;
+    public static  boolean bMySet_Card = false;
+    public static  boolean bMySet_Fan = false;
+    public static  boolean bMySet_Send =false;
+    public static  boolean bMySet = true;
 
+    public static  boolean bMyLoc = true;
+    public static  boolean bSetNear = false;
+    public static  boolean bSetNew = false;
+    public static  boolean bSetRich =false;
+    public static  boolean bSetRecv = false;
 
     private static CoomonValueData _Instance;
 
