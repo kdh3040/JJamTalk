@@ -56,7 +56,7 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
 
     @Override
     public void onBindViewHolder(MailboxViewHolder holder, final int position) {
-        stTargetData = mMyData.arrGiftUserDataList.get(position);
+        //stTargetData = mMyData.arrGiftUserDataList.get(position);
 
         Glide.with(mActivity)
                 .load(mMyData.arrGiftHoneyDataList.get(position).strTargetImg)
@@ -131,11 +131,11 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
                 Bundle bundle = new Bundle();
 
 
-                bundle.putSerializable("Target", mMyData.arrGiftUserDataList.get(position));
-                intent.putExtra("FanList", mMyData.arrGiftUserDataList.get(position).arrFanList);
-                intent.putExtra("FanCount", mMyData.arrGiftUserDataList.get(position).FanCount);
+                bundle.putSerializable("Target", mMyData.arrGiftUserDataList.get(mMyData.arrGiftHoneyDataList.get(position).strSendName));
+                intent.putExtra("FanList", mMyData.arrGiftUserDataList.get(mMyData.arrGiftHoneyDataList.get(position).strSendName).arrFanList);
+                intent.putExtra("FanCount", mMyData.arrGiftUserDataList.get(mMyData.arrGiftHoneyDataList.get(position).strSendName).FanCount);
 
-                intent.putExtra("StarList", mMyData.arrGiftUserDataList.get(position).arrStarList);
+                intent.putExtra("StarList", mMyData.arrGiftUserDataList.get(mMyData.arrGiftHoneyDataList.get(position).strSendName).arrStarList);
                 intent.putExtras(bundle);
 
                 view.getContext().startActivity(intent);
