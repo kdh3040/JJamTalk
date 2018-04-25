@@ -1025,8 +1025,8 @@ public class InputProfile extends AppCompatActivity {
         final DatabaseReference UserIdx = table.child(mMyData.ANDROID_ID);
         UserIdx.setValue(strIdx);
 
-        mMyData.setUserHoney(50);
-        mMyData.setPoint(50);
+        mMyData.setUserHoney(300);
+        mMyData.setPoint(300);
 
 
         mFireBaseData.SaveFirstMyData(mMyData.getUserIdx());
