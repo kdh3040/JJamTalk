@@ -179,6 +179,7 @@ public class MyData {
 
     public ArrayList<String> arrChatNameList = new ArrayList<>();
     public Map<String, SimpleChatData> arrChatDataList = new LinkedHashMap<String, SimpleChatData>();
+    public String CurChatTartgetIdx = null;
 
     public ArrayList<String> arrCardNameList = new ArrayList<>();
     public  Map<String, SimpleUserData> arrCarDataList = new LinkedHashMap<String, SimpleUserData>();
@@ -1239,7 +1240,11 @@ public class MyData {
                                 ft.attach(frg);
                                 ft.commit();
                             } else if (GetCurFrag() == 5) {
-                                SendList.Check = 1;
+                                if(CurChatTartgetIdx.equals(SendList.Idx))
+                                {
+                                    SendList.Check = 1;
+                                }
+
                                 arrChatDataList.put(SendList.ChatRoomName, SendList);
                             }
                         }

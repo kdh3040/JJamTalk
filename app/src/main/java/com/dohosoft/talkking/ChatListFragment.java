@@ -108,7 +108,7 @@ public class ChatListFragment extends Fragment {
         super.onResume();  // Always call the superclass method first
 
         if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
-
+            CommonFunc.getInstance().RefreshChatListData(mAdapter);
             mMyData.SetCurFrag(2);
         }
     }
@@ -371,6 +371,7 @@ public class ChatListFragment extends Fragment {
             if(mMyData.arrChatDataList.get(str).Gender == null || mMyData.arrChatDataList.get(str).Gender.equals(""))
             {
                  int aaa = 0;
+                 return;
             }
 
             if(mMyData.arrChatDataList.get(str).Gender.equals("여자"))

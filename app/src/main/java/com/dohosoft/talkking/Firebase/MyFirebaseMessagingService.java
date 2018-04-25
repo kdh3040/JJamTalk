@@ -60,6 +60,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String body = remoteMessage.getData().get("body");
             String title = remoteMessage.getData().get("title");
 
+            String index = remoteMessage.getData().get("TargetIdx");
+
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
             ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
@@ -158,6 +160,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
            else if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
+                if(mMyData.GetCurFrag() == 5)
+                {
+                    if(mMyData.CurChatTartgetIdx.equals(index))
+                    {
+                        return;
+                    }
+                }
+
                 //if(mMyData.GetCurFrag() != 5)
                 {
                     SharedPreferences prefs = getApplicationContext().getSharedPreferences("ExecByNoti", getApplicationContext().MODE_PRIVATE);
@@ -165,31 +175,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     editor.putInt("StartFrag",  2);
                     editor.putInt("ExecByNoti", 1);
                     editor.commit();
-
-                /*    if(mMyData.GetCurFrag() == 2)
-                    {
-                        builder.setContentTitle(title)
-                                .setContentText(body)
-                                .setSmallIcon(R.drawable.logo300)
-                                .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.logo300))
-                                .setAutoCancel(true)
-                                .setContentIntent(LoginNotifyPendingIntent)
-                                .setWhen(System.currentTimeMillis());
-
-                        if (pref.getBoolean("Sound", bSound)  ) {
-                            Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                            builder.setSound(uri);
-                        }
-
-                        if (pref.getBoolean("Vibe", bVibe)  ) {
-                            builder.setVibrate(new long[] {0, 1000});
-                        }
-
-                        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                        nm.notify(1234, builder.build());
-                    }
-
-                    else*/
                     {
                         builder.setContentTitle(title)
                                 .setContentText(body)

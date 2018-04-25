@@ -134,6 +134,7 @@ public class NotiFunc {
             data.put("title", mMyData.getUserNick() + "님이 메세지를 보냈습니다");
             data.put("Img", stTargetData.Img);
             data.put("Idx", stTargetData.Idx);
+            data.put("TargetIdx", mMyData.getUserIdx());
             data.put("NickName", mMyData.getUserNick());
             data.put("Type", "Msg");
 

@@ -231,7 +231,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         mMyData.SetCurFrag(2);
-
+        mMyData.CurChatTartgetIdx = null;
         ChatListFragment frg = null;
         if(mFragmentMng != null)
         {
@@ -318,6 +318,8 @@ public class ChatRoomActivity extends AppCompatActivity {
             else
                 tempChatData = mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(tempPosition));
         }
+
+        mMyData.CurChatTartgetIdx = stTargetData.Idx;
 
         // GiftLayout = (ConstraintLayout)findViewById(R.id.ChatGiftLayout);
         //stTargetData.NickName = tempChatData.strTargetNick;
