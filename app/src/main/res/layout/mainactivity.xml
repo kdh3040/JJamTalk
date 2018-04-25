@@ -371,7 +371,7 @@
         app:layout_constraintBottom_toTopOf="@+id/ib_board"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/baseColor2"
-        android:src="@drawable/refresh" />
+        android:src="@drawable/tothetop" />
 
 
 </android.support.constraint.ConstraintLayout>
