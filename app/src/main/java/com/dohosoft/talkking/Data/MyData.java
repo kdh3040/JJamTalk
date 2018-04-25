@@ -940,7 +940,7 @@ public class MyData {
                             arrMyFanDataList.put(finalTempFanData.Idx, DBData);
 
                             CoomonValueData.getInstance().bMySet_Fan = true;
-                            CommonFunc.getInstance().CheckMyDataSet(mActivity);
+                           // CommonFunc.getInstance().CheckMyDataSet(mActivity);
 
                             if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
                                 if(GetCurFrag() == 3)
@@ -1162,7 +1162,7 @@ public class MyData {
                             arrChatDataList.put(finalStrTargetIdx, DBData);
 
                             CoomonValueData.getInstance().bMySet_Send = true;
-                            CommonFunc.getInstance().CheckMyDataSet(mActivity);
+                            //CommonFunc.getInstance().CheckMyDataSet(mActivity);
 
                             if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
                                 if (GetCurFrag() == 2) {

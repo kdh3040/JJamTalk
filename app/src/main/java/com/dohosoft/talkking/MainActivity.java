@@ -101,7 +101,7 @@ import static com.dohosoft.talkking.Data.CoomonValueData.bSetRich;
 public class MainActivity extends AppCompatActivity {
 
 
-    boolean RefreshTest = true;
+    boolean RefreshTest = false;
 
     ImageView ib_home;
     ImageView ib_cardList;
@@ -1204,32 +1204,48 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                iv_myPage.setVisibility(View.GONE);
-                logo.setVisibility(View.GONE);
-                iv_heartCnt.setVisibility(View.GONE);
-                txt_heartCnt.setVisibility(View.GONE);
-                iv_fanCnt.setVisibility(View.GONE);
-                txt_fanCnt.setVisibility(View.GONE);
-
-                txt_title.setVisibility(TextView.VISIBLE);
-                txt_title.setText("채팅 목록");
-                mMyData.SetCurFrag(2);
-                Fragment frg = null;
-                frg = mFragmentMng.findFragmentByTag("ChatListFragment");
-
                 if (chatListFragment == null) {
                     LoadChatData();
                 }
-                else
-                    mFragmentMng.beginTransaction().replace(R.id.frag_container, chatListFragment, "ChatListFragment").commit();
+                else {
+                    boolean bSetChatData = true;
+                    for(int i = 0; i< mMyData.arrChatDataList.size(); i++)
+                    {
+                        if(mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(i)).Gender == null || mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(i)).Gender.equals("") )
+                        {
+                            bSetChatData = false;
+                            break;
+                        }
+                    }
 
-                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
+                    if(bSetChatData == true)
+                    {
+                        iv_myPage.setVisibility(View.GONE);
+                        logo.setVisibility(View.GONE);
+                        iv_heartCnt.setVisibility(View.GONE);
+                        txt_heartCnt.setVisibility(View.GONE);
+                        iv_fanCnt.setVisibility(View.GONE);
+                        txt_fanCnt.setVisibility(View.GONE);
 
-                ib_chatList.setSelected(!v.isSelected());
-                txt_chatList.setSelected(!v.isSelected());
-                setImageAlpha(100, 100, 255, 100, 100);
-                SetButtonColor(2);
-                SetFontColor(2);
+                        txt_title.setVisibility(TextView.VISIBLE);
+                        txt_title.setText("채팅 목록");
+                        mMyData.SetCurFrag(2);
+                        Fragment frg = null;
+                        frg = mFragmentMng.findFragmentByTag("ChatListFragment");
+                        mFragmentMng.beginTransaction().replace(R.id.frag_container, chatListFragment, "ChatListFragment").commit();
+
+                        CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
+
+                        ib_chatList.setSelected(!v.isSelected());
+                        txt_chatList.setSelected(!v.isSelected());
+                        setImageAlpha(100, 100, 255, 100, 100);
+                        SetButtonColor(2);
+                        SetFontColor(2);
+                    }
+
+                }
+
+
             }
         };
 
@@ -1241,42 +1257,62 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CommonFunc.getInstance().SetFanAlarmVisible(false);
-                iv_myPage.setVisibility(View.GONE);
-                logo.setVisibility(View.GONE);
 
-                iv_heartCnt.setVisibility(View.VISIBLE);
-                txt_heartCnt.setVisibility(View.VISIBLE);
-                String str = String.format("%,d", mMyData.getRecvHoney() * -1);
-
-                txt_heartCnt.setText(str);
-
-                iv_fanCnt.setVisibility(View.VISIBLE);
-                txt_fanCnt.setVisibility(View.VISIBLE);
-                txt_fanCnt.setText(Integer.toString(mMyData.arrMyFanList.size()));
-
-                txt_title.setVisibility(TextView.VISIBLE);
-                txt_title.setText("내 팬");
-                mMyData.SetCurFrag(3);
-                ib_fan.setSelected(!v.isSelected());
-                txt_fan.setSelected(!v.isSelected());
-                setImageAlpha(100, 100, 100, 255, 100);
-
-                SetButtonColor(3);
-                SetFontColor(3);
-                Intent intent = new Intent(getApplicationContext(), FanFragment.class);
-                Bundle bundle = new Bundle();
-
-                intent.putExtra("FanList", mMyData.arrMyFanList);
-                intent.putExtra("FanCount", mMyData.nFanCount);
-                intent.putExtra("StarList", mMyData.arrMyStarList);
-                intent.putExtra("ViewMode", 0);
-                intent.putExtras(bundle);
                 if (fanFragment == null)
                     LoadFanData();
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fanFragment, "FanListFragment").commit();
+                else {
 
-                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
+                    boolean bFanDataSet = true;
+                    for(int i = 0; i< mMyData.arrMyFanDataList.size(); i++)
+                    {
+                        if(mMyData.arrMyFanDataList.get(mMyData.arrMyFanList.get(i).Idx).Gender == null || mMyData.arrMyFanDataList.get(mMyData.arrMyFanList.get(i).Idx).Gender.equals(""))
+                        {
+                            bFanDataSet = false;
+                            break;
+                        }
+                    }
+
+                    if(bFanDataSet == true)
+                    {
+
+                        iv_myPage.setVisibility(View.GONE);
+                        logo.setVisibility(View.GONE);
+
+                        iv_heartCnt.setVisibility(View.VISIBLE);
+                        txt_heartCnt.setVisibility(View.VISIBLE);
+                        String str = String.format("%,d", mMyData.getRecvHoney() * -1);
+
+                        txt_heartCnt.setText(str);
+
+                        iv_fanCnt.setVisibility(View.VISIBLE);
+                        txt_fanCnt.setVisibility(View.VISIBLE);
+                        txt_fanCnt.setText(Integer.toString(mMyData.arrMyFanList.size()));
+
+                        txt_title.setVisibility(TextView.VISIBLE);
+                        txt_title.setText("내 팬");
+                        mMyData.SetCurFrag(3);
+                        ib_fan.setSelected(!v.isSelected());
+                        txt_fan.setSelected(!v.isSelected());
+                        setImageAlpha(100, 100, 100, 255, 100);
+
+                        SetButtonColor(3);
+                        SetFontColor(3);
+                        Intent intent = new Intent(getApplicationContext(), FanFragment.class);
+                        Bundle bundle = new Bundle();
+
+                        intent.putExtra("FanList", mMyData.arrMyFanList);
+                        intent.putExtra("FanCount", mMyData.nFanCount);
+                        intent.putExtra("StarList", mMyData.arrMyStarList);
+                        intent.putExtra("ViewMode", 0);
+                        intent.putExtras(bundle);
+
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fanFragment, "FanListFragment").commit();
+                        CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
+                    }
+                }
+
+
             }
         };
         ib_fan = findViewById(R.id.ib_fan);

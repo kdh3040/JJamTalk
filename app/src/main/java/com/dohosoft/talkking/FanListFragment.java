@@ -214,6 +214,13 @@ public class FanListFragment extends Fragment {
 
 
             String i = mMyData.arrMyFanList.get(position).Idx;
+
+            if(mMyData.arrMyFanDataList.get(i).Gender.equals("여자"))
+                holder.textNick.setTextColor(TEXTCOLOR_WOMAN);
+            else
+                holder.textNick.setTextColor(TEXTCOLOR_MAN);
+
+
             Glide.with(mContext)
                     .load(mMyData.arrMyFanDataList.get(i).Img)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -233,10 +240,7 @@ public class FanListFragment extends Fragment {
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrMyFanDataList.get(i).Grade]);
 
             holder.textNick.setText(mMyData.arrMyFanDataList.get(i).NickName + " (" + mMyData.arrMyFanDataList.get(i).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");ata.arrCardNameList.get(i).Age + "세");
-            if(mMyData.arrMyFanDataList.get(i).Gender.equals("여자"))
-                holder.textNick.setTextColor(TEXTCOLOR_WOMAN);
-            else
-                holder.textNick.setTextColor(TEXTCOLOR_MAN);
+
 
 
             if(position < 3)
