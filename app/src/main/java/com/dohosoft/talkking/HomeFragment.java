@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
             tabLayout.addTab(tabLayout.newTab().setText("New"));
 
             viewPager = (ViewPager)fragView.findViewById(vp);
+            viewPager.setOffscreenPageLimit(3);
 
             viewPager.setAdapter(new TabPagerAdapter(getFragmentManager(),tabLayout.getTabCount()));
             viewPager.setCurrentItem(0);
