@@ -35,6 +35,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dohosoft.talkking.Data.FanData;
+import com.dohosoft.talkking.Data.SettingData;
+import com.dohosoft.talkking.Data.SimpleChatData;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
@@ -777,7 +780,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void InitData_Mine() {
 
+/*        if(mMyData.getUserGender().equals("여자"))
+        {
+            ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx());
+        }
+        else
+        {
+            ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx());
+        }*/
+
         ref = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx());
+
         //ref.addValueEventListener(
         ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -866,6 +879,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             FirebaseData.getInstance().GetInitMyBoardData();
 
                             //mMyData.MonitorPublicRoomStatus();
+
+                            /*PrepareMan initHot = new PrepareMan();
+                            initHot.execute(0, 0, 0);*/
 
                             PrePareHot initHot = new PrePareHot();
                             initHot.execute(0, 0, 0);
@@ -1019,6 +1035,211 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+   /* public class PrepareMan extends AsyncTask<Integer, Integer, Integer> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            DatabaseReference ref;
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
+            Query query = ref.orderByChild("Idx").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
+                                if (cTempData != null) {
+                                    // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    {
+                                        if (cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_Recv.add(cTempData);
+
+                                        for (LinkedHashMap.Entry<String, String> entry : cTempData.CardList.entrySet()) {
+                                            mMyData.arrUserAll_Recv.get(i).arrCardList.add(entry.getValue());
+                                        }
+
+                                        for (LinkedHashMap.Entry<String, FanData> entry : cTempData.FanList.entrySet()) {
+                                            mMyData.arrUserAll_Recv.get(i).arrFanList.add(entry.getValue());
+                                        }
+
+
+
+                                        for (LinkedHashMap.Entry<String, SimpleChatData> entry : cTempData.SendList.entrySet()) {
+                                            mMyData.arrUserAll_Recv.get(i).tempChatData.add(entry.getValue());
+                                        }
+
+                                        if (mMyData.arrUserAll_Recv.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_Recv.add(mMyData.arrUserAll_Recv.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_Recv.add(mMyData.arrUserAll_Recv.get(i));
+                                        }
+
+
+                                        i++;
+                                    }
+
+                                }
+
+                            }
+
+                 *//*           mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);*//*
+
+                            bSetRecv = true;
+                       *//*     if (mMyData.arrUserAll_Recv.size() > 0)
+                                mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1).RecvGold;*//*
+
+                           // if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+
+                        //        Log.d(TAG, "Account Log in  Complete");
+                         //       CommonFunc.getInstance().GoMainPage(mActivity);
+                         //   }
+
+
+                            for(int a = 0; a<mMyData.arrUserWoman_Recv.size(); a++)
+                            {
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
+
+                                // DatabaseReference user = table.child( userIdx);
+                                DatabaseReference user = table.child("Woman").child(mMyData.arrUserWoman_Recv.get(a).Idx);
+                                user.child("Age").setValue(mMyData.arrUserWoman_Recv.get(a).Age);
+                                user.child("BestItem").setValue(mMyData.arrUserWoman_Recv.get(a).BestItem);
+                                user.child("ConnectDate").setValue(mMyData.arrUserWoman_Recv.get(a).ConnectDate);
+                                user.child("Date").setValue(mMyData.arrUserWoman_Recv.get(a).Date);
+                                user.child("Dist").setValue(mMyData.arrUserWoman_Recv.get(a).Dist);
+                                user.child("FanCount").setValue(mMyData.arrUserWoman_Recv.get(a).FanCount);
+
+                                user.child("FanList").setValue(mMyData.arrUserWoman_Recv.get(a).FanList);
+                                user.child("SendList").setValue(mMyData.arrUserWoman_Recv.get(a).SendList);
+
+
+                                user.child("Gender").setValue(mMyData.arrUserWoman_Recv.get(a).Gender);
+                                user.child("Grade").setValue(mMyData.arrUserWoman_Recv.get(a).Grade);
+                                user.child("Honey").setValue(mMyData.arrUserWoman_Recv.get(a).Honey);
+                                user.child("Idx").setValue(mMyData.arrUserWoman_Recv.get(a).Idx);
+                                user.child("Img").setValue(mMyData.arrUserWoman_Recv.get(a).Img);
+                                user.child("ImgCount").setValue(mMyData.arrUserWoman_Recv.get(a).ImgCount);
+                                user.child("ImgGroup0").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup0);
+                                user.child("ImgGroup1").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup1);
+                                user.child("ImgGroup2").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup2);
+                                user.child("ImgGroup3").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup3);
+
+                                user.child("Lat").setValue(mMyData.arrUserWoman_Recv.get(a).Lat);
+                                user.child("Lon").setValue(mMyData.arrUserWoman_Recv.get(a).Lon);
+
+                                user.child("NickChangeCnt").setValue(mMyData.arrUserWoman_Recv.get(a).NickChangeCnt);
+                                user.child("NickName").setValue(mMyData.arrUserWoman_Recv.get(a).NickName);
+                                user.child("Point").setValue(mMyData.arrUserWoman_Recv.get(a).Point);
+                                user.child("RecvGold").setValue(mMyData.arrUserWoman_Recv.get(a).RecvGold);
+                                user.child("RecvMsgReject").setValue(mMyData.arrUserWoman_Recv.get(a).RecvMsgReject);
+                                user.child("SendCount").setValue(mMyData.arrUserWoman_Recv.get(a).SendCount);
+                                user.child("Token").setValue(mMyData.arrUserWoman_Recv.get(a).Token);
+
+                                user.child("CardList").setValue(mMyData.arrUserWoman_Recv.get(a).CardList);
+
+                                user.child("ItemCount").setValue(mMyData.arrUserWoman_Recv.get(a).ItemCount);
+                                user.child("Item_1").setValue(mMyData.arrUserWoman_Recv.get(a).Item_1);
+                                user.child("Item_2").setValue(mMyData.arrUserWoman_Recv.get(a).Item_2);
+                                user.child("Item_3").setValue(mMyData.arrUserWoman_Recv.get(a).Item_3);
+                                user.child("Item_4").setValue(mMyData.arrUserWoman_Recv.get(a).Item_4);
+                                user.child("Item_5").setValue(mMyData.arrUserWoman_Recv.get(a).Item_5);
+                                user.child("Item_6").setValue(mMyData.arrUserWoman_Recv.get(a).Item_6);
+                                user.child("Item_7").setValue(mMyData.arrUserWoman_Recv.get(a).Item_7);
+                                user.child("Item_8").setValue(mMyData.arrUserWoman_Recv.get(a).Item_8);
+                            }
+
+
+                            for(int a = 0; a<mMyData.arrUserMan_Recv.size(); a++)
+                            {
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
+
+                                // DatabaseReference user = table.child( userIdx);
+                                DatabaseReference user = table.child("Man").child(mMyData.arrUserMan_Recv.get(a).Idx);
+                                user.child("Age").setValue(mMyData.arrUserMan_Recv.get(a).Age);
+                                user.child("BestItem").setValue(mMyData.arrUserMan_Recv.get(a).BestItem);
+                                user.child("ConnectDate").setValue(mMyData.arrUserMan_Recv.get(a).ConnectDate);
+                                user.child("Date").setValue(mMyData.arrUserMan_Recv.get(a).Date);
+                                user.child("Dist").setValue(mMyData.arrUserMan_Recv.get(a).Dist);
+                                user.child("FanCount").setValue(mMyData.arrUserMan_Recv.get(a).FanCount);
+
+                                user.child("FanList").setValue(mMyData.arrUserMan_Recv.get(a).FanList);
+                                user.child("SendList").setValue(mMyData.arrUserMan_Recv.get(a).SendList);
+
+
+                                user.child("Gender").setValue(mMyData.arrUserMan_Recv.get(a).Gender);
+                                user.child("Grade").setValue(mMyData.arrUserMan_Recv.get(a).Grade);
+                                user.child("Honey").setValue(mMyData.arrUserMan_Recv.get(a).Honey);
+                                user.child("Idx").setValue(mMyData.arrUserMan_Recv.get(a).Idx);
+                                user.child("Img").setValue(mMyData.arrUserMan_Recv.get(a).Img);
+                                user.child("ImgCount").setValue(mMyData.arrUserMan_Recv.get(a).ImgCount);
+                                user.child("ImgGroup0").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup0);
+                                user.child("ImgGroup1").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup1);
+                                user.child("ImgGroup2").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup2);
+                                user.child("ImgGroup3").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup3);
+
+                                user.child("Lat").setValue(mMyData.arrUserMan_Recv.get(a).Lat);
+                                user.child("Lon").setValue(mMyData.arrUserMan_Recv.get(a).Lon);
+
+                                user.child("NickChangeCnt").setValue(mMyData.arrUserMan_Recv.get(a).NickChangeCnt);
+                                user.child("NickName").setValue(mMyData.arrUserMan_Recv.get(a).NickName);
+                                user.child("Point").setValue(mMyData.arrUserMan_Recv.get(a).Point);
+                                user.child("RecvGold").setValue(mMyData.arrUserMan_Recv.get(a).RecvGold);
+                                user.child("RecvMsgReject").setValue(mMyData.arrUserMan_Recv.get(a).RecvMsgReject);
+                                user.child("SendCount").setValue(mMyData.arrUserMan_Recv.get(a).SendCount);
+                                user.child("Token").setValue(mMyData.arrUserMan_Recv.get(a).Token);
+
+                                user.child("CardList").setValue(mMyData.arrUserMan_Recv.get(a).CardList);
+
+                                user.child("ItemCount").setValue(mMyData.arrUserMan_Recv.get(a).ItemCount);
+                                user.child("Item_1").setValue(mMyData.arrUserMan_Recv.get(a).Item_1);
+                                user.child("Item_2").setValue(mMyData.arrUserMan_Recv.get(a).Item_2);
+                                user.child("Item_3").setValue(mMyData.arrUserMan_Recv.get(a).Item_3);
+                                user.child("Item_4").setValue(mMyData.arrUserMan_Recv.get(a).Item_4);
+                                user.child("Item_5").setValue(mMyData.arrUserMan_Recv.get(a).Item_5);
+                                user.child("Item_6").setValue(mMyData.arrUserMan_Recv.get(a).Item_6);
+                                user.child("Item_7").setValue(mMyData.arrUserMan_Recv.get(a).Item_7);
+                                user.child("Item_8").setValue(mMyData.arrUserMan_Recv.get(a).Item_8);
+                            }
+
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+
+                Log.d(TAG, "Account Log in  Complete");
+                CommonFunc.getInstance().GoMainPage(mActivity);
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... params) {
+            super.onProgressUpdate(params);
+        }
+    }
+*/
 
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
         @Override
@@ -1030,7 +1251,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
             Query query = ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -1048,11 +1278,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                         mMyData.arrUserAll_Recv.add(cTempData);
 
-                                        if (mMyData.arrUserAll_Recv.get(i).Gender.equals("여자")) {
-                                            mMyData.arrUserWoman_Recv.add(cTempData);
-                                        } else {
-                                            mMyData.arrUserMan_Recv.add(cTempData);
-                                        }
 
 
                                         i++;
@@ -1063,8 +1288,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
 
                             mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
 
                             bSetRecv = true;
                             if (mMyData.arrUserAll_Recv.size() > 0)
@@ -1111,7 +1334,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Integer doInBackground(Integer... voids) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
             Query query = ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -1128,11 +1360,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_Send.add(cTempData);
-                                        if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
-                                            mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
-                                        } else {
-                                            mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
-                                        }
 
 
                                         i++;
@@ -1143,8 +1370,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
 
                             mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
 
                             bSetRich = true;
 
@@ -1195,7 +1420,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Integer doInBackground(Integer... voids) {
 
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
             Query query = ref
                     .orderByChild("Dist").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
@@ -1224,11 +1458,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                             mMyData.arrUserAll_Near.add(stRecvData);
 
-                                            if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
-                                                mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
-                                            } else {
-                                                mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
-                                            }
 
                                             i++;
                                         }
@@ -1241,13 +1470,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
                             Collections.sort(mMyData.arrUserAll_Near, cNearSort);
-                            Collections.sort(mMyData.arrUserWoman_Near, cNearSort);
-                            Collections.sort(mMyData.arrUserMan_Near, cNearSort);
 
                             mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
-
 
                             bSetNear = true;
 
@@ -1295,7 +1519,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Integer doInBackground(Integer... voids) {
 
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
             Query query = ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
@@ -1314,11 +1547,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                         mMyData.arrUserAll_New.add(stRecvData);
 
-                                        if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
-                                            mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
-                                        } else {
-                                            mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
-                                        }
 
                                         i++;
                                     }
@@ -1326,8 +1554,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
 
                             mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
 
                             bSetNew = true;
 

@@ -32,6 +32,7 @@ public class Rank_FanRichFragment extends Fragment {
     private CommonFunc mCommon = CommonFunc.getInstance();
     private Rank_FanRichAdapter FanAdapter;
     RecyclerView recyclerView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,39 +41,17 @@ public class Rank_FanRichFragment extends Fragment {
         FanAdapter.setHasStableIds(true);
         recyclerView = view.findViewById(R.id.rank_recyclerview);
         recyclerView.setAdapter(FanAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), mSettingData.getViewCount()));
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                       // Toast.makeText(view.getContext(), position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
-                        if(mAppStatus.bCheckMultiSend == false) {
-                            switch (mSettingData.getnSearchSetting())
-                            {
-                      /*          case 0:
-                                case 3:
-                                    stTargetData = mMyData.arrUserAll_Send.get(position);
-                                    break;
-                                case 1:
-                                    stTargetData = mMyData.arrUserMan_Send.get(position);
-                                    break;
-                                case 2:
-                                    stTargetData = mMyData.arrUserWoman_Send.get(position);
-                                    break;*/
+                        // Toast.makeText(view.getContext(), position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
+                        if (mAppStatus.bCheckMultiSend == false) {
 
-                                case 1:
-                                    stTargetData = mMyData.arrUserMan_Send_Age.get(position);
-                                    break;
-                                case 2:
-                                    stTargetData = mMyData.arrUserWoman_Send_Age.get(position);
-                                    break;
-                                case 0:
-                                case 3:
-                                    stTargetData = mMyData.arrUserAll_Send_Age.get(position);
-                                    break;
-                            }
+                            stTargetData = mMyData.arrUserAll_Send_Age.get(position);
 
-                            if(mCommon.getClickStatus() == false) {
+                            if (mCommon.getClickStatus() == false) {
                                 mCommon.MoveUserPage(getActivity(), stTargetData);
                             }
                         }
@@ -88,14 +67,14 @@ public class Rank_FanRichFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int nSize = 0;
                 nSize = recyclerView.getAdapter().getItemCount() - 1;
 
                 if (lastVisibleItemPosition == nSize) {
-                 //   Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
-                    CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
-                    FirebaseData.getInstance().GetFanData(FanAdapter, nSize, false);
+                    //   Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
+                       CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
+                        FirebaseData.getInstance().GetFanData(FanAdapter, nSize, false);
                 }
             }
         });
@@ -108,3 +87,4 @@ public class Rank_FanRichFragment extends Fragment {
         super();
     }
 }
+//

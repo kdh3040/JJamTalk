@@ -86,6 +86,9 @@ public class UserData implements Serializable,Parcelable {
     public  ArrayList<String> arrCardList = new ArrayList<>();
     public  ArrayList<UserData> arrCardData = new ArrayList<>();
 
+    public  Map<String, SimpleChatData> SendList = new LinkedHashMap<String, SimpleChatData>();
+    public ArrayList<SimpleChatData> tempChatData = new ArrayList<>();
+
     public int Point;
     public int Grade;
 
@@ -163,6 +166,10 @@ public class UserData implements Serializable,Parcelable {
 
         arrCardList = (ArrayList<String>) in.readSerializable();
         arrCardData = (ArrayList<UserData>) in.readSerializable();
+
+        SendList = (HashMap<String, SimpleChatData>) in.readSerializable();
+        tempChatData = (ArrayList<SimpleChatData>) in.readSerializable();
+
 
         Point = in.readInt();
         Grade = in.readInt();
@@ -252,6 +259,10 @@ public class UserData implements Serializable,Parcelable {
 
         parcel.writeSerializable(arrCardList);
         parcel.writeSerializable(arrCardData);
+
+        parcel.writeSerializable((Serializable) SendList );
+        parcel.writeSerializable(tempChatData);
+
 
         parcel.writeInt(Point);
         parcel.writeInt(Grade);

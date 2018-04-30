@@ -65,37 +65,37 @@ public class MyData {
         return _Instance;
     }
 
-    public ArrayList<UserData> arrUserMan_Near = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Near = new ArrayList<>();
+    //public ArrayList<UserData> arrUserMan_Near = new ArrayList<>();
+    //public ArrayList<UserData> arrUserWoman_Near = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Near = new ArrayList<>();
 
-    public ArrayList<UserData> arrUserMan_New = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_New = new ArrayList<>();
+    //public ArrayList<UserData> arrUserMan_New = new ArrayList<>();
+   // public ArrayList<UserData> arrUserWoman_New = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_New = new ArrayList<>();
 
-    public ArrayList<UserData> arrUserMan_Send = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Send = new ArrayList<>();
+  //  public ArrayList<UserData> arrUserMan_Send = new ArrayList<>();
+   // public ArrayList<UserData> arrUserWoman_Send = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Send = new ArrayList<>();
 
-    public ArrayList<UserData> arrUserMan_Recv = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();
+/*    public ArrayList<UserData> arrUserMan_Recv = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();*/
     public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
 
 
-    public ArrayList<UserData> arrUserMan_Near_Age = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Near_Age = new ArrayList<>();
+/*    public ArrayList<UserData> arrUserMan_Near_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Near_Age = new ArrayList<>();*/
     public ArrayList<UserData> arrUserAll_Near_Age = new ArrayList<>();
 
-    public ArrayList<UserData> arrUserMan_New_Age = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_New_Age = new ArrayList<>();
+  /*  public ArrayList<UserData> arrUserMan_New_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_New_Age = new ArrayList<>();*/
     public ArrayList<UserData> arrUserAll_New_Age = new ArrayList<>();
 
-    public ArrayList<UserData> arrUserMan_Send_Age = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Send_Age = new ArrayList<>();
+  //  public ArrayList<UserData> arrUserMan_Send_Age = new ArrayList<>();
+    //public ArrayList<UserData> arrUserWoman_Send_Age = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Send_Age = new ArrayList<>();
 
-    public ArrayList<UserData> arrUserMan_Recv_Age = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Recv_Age = new ArrayList<>();
+/*    public ArrayList<UserData> arrUserMan_Recv_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Recv_Age = new ArrayList<>();*/
     public ArrayList<UserData> arrUserAll_Recv_Age = new ArrayList<>();
 
 
@@ -301,37 +301,37 @@ public class MyData {
 
     public void Clear()
     {
-        arrUserMan_Near.clear();
-        arrUserWoman_Near.clear();
+        //arrUserMan_Near.clear();
+        //arrUserWoman_Near.clear();
         arrUserAll_Near .clear();
 
-        arrUserMan_New.clear();
-        arrUserWoman_New.clear();
+        //arrUserMan_New.clear();
+      //  arrUserWoman_New.clear();
         arrUserAll_New.clear();
 
-        arrUserMan_Send.clear();
-        arrUserWoman_Send.clear();
+  //      arrUserMan_Send.clear();
+    //    arrUserWoman_Send.clear();
         arrUserAll_Send.clear();
 
-        arrUserMan_Recv.clear();
-        arrUserWoman_Recv.clear();
+/*        arrUserMan_Recv.clear();
+        arrUserWoman_Recv.clear();*/
         arrUserAll_Recv.clear();
 
 
-        arrUserMan_Near_Age.clear();
-        arrUserWoman_Near_Age.clear();
+/*        arrUserMan_Near_Age.clear();
+        arrUserWoman_Near_Age.clear();*/
         arrUserAll_Near_Age.clear();
 
-        arrUserMan_New_Age.clear();
-        arrUserWoman_New_Age.clear();
+  /*      arrUserMan_New_Age.clear();
+        arrUserWoman_New_Age.clear();*/
         arrUserAll_New_Age.clear();
 
-        arrUserMan_Send_Age.clear();
-        arrUserWoman_Send_Age.clear();
+     /*   arrUserMan_Send_Age.clear();
+        arrUserWoman_Send_Age.clear();*/
         arrUserAll_Send_Age.clear();
 
-        arrUserMan_Recv_Age.clear();
-        arrUserWoman_Recv_Age.clear();
+   /*     arrUserMan_Recv_Age.clear();
+        arrUserWoman_Recv_Age.clear();*/
         arrUserAll_Recv_Age.clear();
 
         mapChatTargetData.clear();
@@ -2043,7 +2043,7 @@ public class MyData {
                         }
                     }
 
-                    if(stTargetData.Gender.equals("여자"))
+             /*       if(stTargetData.Gender.equals("여자"))
                     {
                         for(int i = 0; i < arrUserWoman_Send_Age.size(); i++)
                         {
@@ -2062,7 +2062,7 @@ public class MyData {
                                 break;
                             }
                         }
-                    }
+                    }*/
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table;
@@ -2107,7 +2107,7 @@ public class MyData {
                         }
                     }
 
-                    if(stTargetData.Gender.equals("여자"))
+             /*       if(stTargetData.Gender.equals("여자"))
                     {
                         for(int i = 0; i < arrUserWoman_Recv_Age.size(); i++)
                         {
@@ -2126,7 +2126,7 @@ public class MyData {
                                 break;
                             }
                         }
-                    }
+                    }*/
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table;
@@ -2246,7 +2246,7 @@ public class MyData {
                             }
                         }
 
-                        if(stTargetData.Gender.equals("여자"))
+                      /*  if(stTargetData.Gender.equals("여자"))
                         {
                             for(int i = 0; i < arrUserWoman_Send_Age.size(); i++)
                             {
@@ -2265,7 +2265,7 @@ public class MyData {
                                     break;
                                 }
                             }
-                        }
+                        }*/
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference table;
@@ -2312,7 +2312,7 @@ public class MyData {
                         }
                     }
 
-                    if(stTargetData.Gender.equals("여자"))
+                  /*  if(stTargetData.Gender.equals("여자"))
                     {
                         for(int i = 0; i < arrUserWoman_Recv_Age.size(); i++)
                         {
@@ -2331,7 +2331,7 @@ public class MyData {
                                 break;
                             }
                         }
-                    }
+                    }*/
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table;

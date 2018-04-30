@@ -97,26 +97,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_filter"  />
 
-    <CheckBox
+    <RadioButton
         android:id="@+id/rbtn_man"
         android:layout_width="0dp"
         android:layout_height="60dp"
 
         android:layout_marginTop="16dp"
-
-        android:theme="@style/ManCheckBox"
         android:background="@color/white"
         android:text="남자"
+        android:theme="@style/ViewCountRadioButton"
         app:layout_constraintBottom_toBottomOf="@+id/txt_Gender"
         app:layout_constraintLeft_toRightOf="@+id/txt_Gender" />
 
-    <CheckBox
+    <RadioButton
         android:id="@+id/rbtn_woman"
         android:layout_width="0dp"
         android:layout_height="60dp"
 
         android:background="@color/white"
-        android:theme="@style/WomanCheckBox"
+        android:theme="@style/ViewCountRadioButton"
         android:text="여자"
         app:layout_constraintBottom_toBottomOf="@+id/txt_Gender"
         app:layout_constraintLeft_toRightOf="@+id/rbtn_man" />

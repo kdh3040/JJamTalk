@@ -21,7 +21,7 @@ import com.dohosoft.talkking.ViewHolder.GridUserViewHolder;
  * Created by mjk on 2017. 8. 10..
  */
 
-public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
+public class Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
     Context mContext;
 
     private SettingData mSetting = SettingData.getInstance();
@@ -38,7 +38,7 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
 
     @Override
     public GridUserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.content_user,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.content_user, parent, false);
       /*  view.setOnClickListener(new_img View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,25 +61,24 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
     public void onBindViewHolder(GridUserViewHolder holder, final int position) {
 
 
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(mUIData.getWidth()/mSetting.getViewCount(),(mUIData.getWidth()/mSetting.getViewCount()));
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(mUIData.getWidth() / mSetting.getViewCount(), (mUIData.getWidth() / mSetting.getViewCount()));
         holder.iv_profile.setLayoutParams(lp);
         //lp.setMargins(3,3,3,3);
-        RelativeLayout.LayoutParams lpForTextView = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2));
+        RelativeLayout.LayoutParams lpForTextView = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) ((mUIData.getWidth() / mSetting.getViewCount()) * 0.2));
         lpForTextView.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        lpForTextView.addRule(RelativeLayout.RIGHT_OF,R.id.iv_honey_rank);
+        lpForTextView.addRule(RelativeLayout.RIGHT_OF, R.id.iv_honey_rank);
         holder.textView.setLayoutParams(lpForTextView);
 
         holder.iv_honey_rank.setImageResource(R.drawable.location_white);
-        RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int)(mUIData.getWidth()/mSetting.getViewCount()*0.2),(int)(mUIData.getWidth()/mSetting.getViewCount()*0.2));
+        RelativeLayout.LayoutParams lpForIcon = new RelativeLayout.LayoutParams((int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2), (int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2));
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-
 
 
         holder.iv_rank.setVisibility(View.GONE);
         holder.iv_honey_rank.setLayoutParams(lpForIcon);
 
-        RelativeLayout.LayoutParams lpForBgTxt  = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,(int)((mUIData.getWidth()/mSetting.getViewCount())*0.2));
+        RelativeLayout.LayoutParams lpForBgTxt = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) ((mUIData.getWidth() / mSetting.getViewCount()) * 0.2));
         lpForBgTxt.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lpForBgTxt.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         lpForBgTxt.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -89,72 +88,26 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
 
         int i = position;
 
-        switch (mSetting.getnSearchSetting())
-        {
+        if ((mMyData.arrUserAll_Near_Age.get(i).Dist / 1000) < 1.0)
+            holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
+        else
+            holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int) (mMyData.arrUserAll_Near_Age.get(i).Dist / 1000) + "km");
 
+        Glide.with(mContext)
+                .load(mMyData.arrUserAll_Near_Age.get(i).Img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.image)
+                .thumbnail(0.1f)
+                .into(holder.iv_profile);
 
-            //  남자 탐색
-            case 1:
-                if((mMyData.arrUserMan_Near_Age.get(i).Dist  / 1000) < 1.0)
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
-                else
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)(mMyData.arrUserMan_Near_Age.get(i).Dist / 1000) + "km");
-
-                Glide.with(mContext)
-                        .load(mMyData.arrUserMan_Near_Age.get(i).Img)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.image)
-                        .thumbnail(0.1f)
-                        .into(holder.iv_profile);
-                break;
-            // 여자 탐색
-            case 2:
-
-                if((mMyData.arrUserWoman_Near_Age.get(i).Dist  / 1000) < 1.0)
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
-                else
-                {
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)(mMyData.arrUserWoman_Near_Age.get(i).Dist / 1000) + "km");
-                }
-
-                Glide.with(mContext)
-                        .load(mMyData.arrUserWoman_Near_Age.get(i).Img)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.image)
-                        .thumbnail(0.1f)
-                        .into(holder.iv_profile);
-
-                break;
-            case 0:
-            case 3:
-                Log.d("Guide !!!! ", "Case 3");
-                if((mMyData.arrUserAll_Near_Age.get(i).Dist / 1000) < 1.0)
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
-                else
-                    holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int)(mMyData.arrUserAll_Near_Age.get(i).Dist / 1000) + "km");
-
-                Glide.with(mContext)
-                        .load(mMyData.arrUserAll_Near_Age.get(i).Img)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.image)
-                        .thumbnail(0.1f)
-                        .into(holder.iv_profile);
-                break;
-            default:
-                break;
-        }
 
     }
+
     @Override
-    public long getItemId(int position){
+    public long getItemId(int position) {
         long rtValue = 0;
-        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3 ) {
-            rtValue = Long.valueOf(mMyData.arrUserAll_Near_Age.get(position).Idx);
-        } else if (mSetting.getnSearchSetting() == 1) {
-            rtValue  = Long.valueOf(mMyData.arrUserMan_Near_Age.get(position).Idx);
-        } else if (mSetting.getnSearchSetting() == 2) {
-            rtValue = Long.valueOf(mMyData.arrUserWoman_Near_Age.get(position).Idx);
-        }
+        rtValue = Long.valueOf(mMyData.arrUserAll_Near_Age.get(position).Idx);
+
         return rtValue;
     }
 
@@ -162,28 +115,8 @@ public class  Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> 
     public int getItemCount() {
         int rtValue = 0;
 
-/*        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
-            Log.d("Guide !!!! ", "getItem 3");
-            rtValue = mMyData.arrUserAll_Near.size();
-        }
-        else if (mSetting.getnSearchSetting() == 1) {
-            Log.d("Guide !!!! ", "getItem 1");
-            rtValue = mMyData.arrUserMan_Near.size();
-        } else if (mSetting.getnSearchSetting() == 2) {
-            Log.d("Guide !!!! ", "getItem 2");
-            rtValue = mMyData.arrUserWoman_Near.size();
-        }*/
-        if (mSetting.getnSearchSetting() == 0 || mSetting.getnSearchSetting() == 3) {
-            Log.d("Guide !!!! ", "getItem 3");
-            rtValue = mMyData.arrUserAll_Near_Age.size();
-        }
-        else if (mSetting.getnSearchSetting() == 1) {
-            Log.d("Guide !!!! ", "getItem 1");
-            rtValue = mMyData.arrUserMan_Near_Age.size();
-        } else if (mSetting.getnSearchSetting() == 2) {
-            Log.d("Guide !!!! ", "getItem 2");
-            rtValue = mMyData.arrUserWoman_Near_Age.size();
-        }
+        rtValue = mMyData.arrUserAll_Near_Age.size();
+
         return rtValue;
     }
 }

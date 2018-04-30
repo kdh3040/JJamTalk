@@ -55,30 +55,19 @@ public class Rank_NearFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.near_recyclerview);
         recyclerView.setAdapter(NearAdopter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), mSettingData.getViewCount()));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                     //   Toast.makeText(view.getContext(), position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
-                        if(mAppStatus.bCheckMultiSend == false) {
-                            switch (mSetting.getnSearchSetting())
-                            {
+                        //   Toast.makeText(view.getContext(), position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
+                        if (mAppStatus.bCheckMultiSend == false) {
 
-                                case 1:
-                                    stTargetData = mMyData.arrUserMan_Near_Age.get(position);
-                                    break;
-                                case 2:
-                                    stTargetData = mMyData.arrUserWoman_Near_Age.get(position);
-                                    break;
-                                case 0:
-                                case 3:
-                                    stTargetData = mMyData.arrUserAll_Near_Age.get(position);
-                                    break;
-                            }
+                            stTargetData = mMyData.arrUserAll_Near_Age.get(position);
 
-                            if(mCommon.getClickStatus() == false)
+
+                            if (mCommon.getClickStatus() == false)
                                 mCommon.MoveUserPage(getActivity(), stTargetData);
                         }
                     }
@@ -93,14 +82,14 @@ public class Rank_NearFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int nSize = 0;
                 nSize = recyclerView.getAdapter().getItemCount() - 1;
 
                 if (lastVisibleItemPosition == nSize) {
-                  //  Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
-                    CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
-                    FirebaseData.getInstance().GetNearData(NearAdopter, nSize, false);
+                    //  Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
+                       CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
+                       FirebaseData.getInstance().GetNearData(NearAdopter, nSize, false);
                 }
             }
         });

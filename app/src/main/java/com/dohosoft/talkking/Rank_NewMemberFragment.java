@@ -36,6 +36,7 @@ public class Rank_NewMemberFragment extends Fragment {
     private Rank_NewMemberAdapter NewAdapter;
 
     RecyclerView recyclerView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,39 +46,17 @@ public class Rank_NewMemberFragment extends Fragment {
         NewAdapter.setHasStableIds(true);
         recyclerView = view.findViewById(R.id.newmember_recyclerview);
         recyclerView.setAdapter(NewAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), mSettingData.getViewCount()));
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                       // Toast.makeText(view.getContext(), position + "번 째 아이템 클릭", Toast.LENGTH_SHORT).show();
-                       if (mAppStatus.bCheckMultiSend == false) {
-                            switch (mSetting.getnSearchSetting()) {
-                                /*case 0:
-                                case 3:
-                                    stTargetData = mMyData.arrUserAll_New.get(position);
-                                    break;
-                                case 1:
-                                    stTargetData = mMyData.arrUserMan_New.get(position);
-                                    break;
-                                case 2:
-                                    stTargetData = mMyData.arrUserWoman_New.get(position);
-                                    break;*/
+                        // Toast.makeText(view.getContext(), position + "번 째 아이템 클릭", Toast.LENGTH_SHORT).show();
+                        if (mAppStatus.bCheckMultiSend == false) {
+                            stTargetData = mMyData.arrUserAll_New_Age.get(position);
 
-                                case 1:
-                                    stTargetData = mMyData.arrUserMan_New_Age.get(position);
-                                    break;
-                                case 2:
-                                    stTargetData = mMyData.arrUserWoman_New_Age.get(position);
-                                    break;
-                                case 0:
-                                case 3:
-                                    stTargetData = mMyData.arrUserAll_New_Age.get(position);
-                                    break;
-                            }
-
-                            if(mCommon.getClickStatus() == false)
+                            if (mCommon.getClickStatus() == false)
                                 mCommon.MoveUserPage(getActivity(), stTargetData);
 
                         }
@@ -93,14 +72,14 @@ public class Rank_NewMemberFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int nSize = 0;
                 nSize = recyclerView.getAdapter().getItemCount() - 1;
 
                 if (lastVisibleItemPosition == nSize) {
-                  //  Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
-                    CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
-                    FirebaseData.getInstance().GetNewData(NewAdapter, nSize, false);
+                    //  Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
+                        CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
+                          FirebaseData.getInstance().GetNewData(NewAdapter, nSize, false);
                 }
             }
         });

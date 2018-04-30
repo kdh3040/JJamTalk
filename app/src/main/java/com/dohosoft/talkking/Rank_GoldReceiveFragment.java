@@ -33,15 +33,16 @@ public class Rank_GoldReceiveFragment extends Fragment {
     private CommonFunc mCommon = CommonFunc.getInstance();
 
     private Rank_GoldReceiveAdapter RecvAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rank_honey_receive,container,false);
+        View view = inflater.inflate(R.layout.fragment_rank_honey_receive, container, false);
         RecvAdapter = new Rank_GoldReceiveAdapter(getContext());
         RecvAdapter.setHasStableIds(true);
         recyclerView = view.findViewById(R.id.rank_honey_receive);
         recyclerView.setAdapter(RecvAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),mSettingData.getViewCount()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), mSettingData.getViewCount()));
 
 
         recyclerView.addOnItemTouchListener(
@@ -49,34 +50,11 @@ public class Rank_GoldReceiveFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         //CommonFunc.getInstance().ShowToast(view.getContext(), position+"번 째 아이템 클릭", true);
-                        if(mAppStatus.bCheckMultiSend == false) {
+                        if (mAppStatus.bCheckMultiSend == false) {
+                            stTargetData = mMyData.arrUserAll_Recv_Age.get(position);
 
-                            switch (mSettingData.getnSearchSetting())
-                            {
-                      /*          case 0:
-                                case 3:
-                                    stTargetData = mMyData.arrUserAll_Recv.get(position);
-                                    break;
-                                case 1:
-                                    stTargetData = mMyData.arrUserMan_Recv.get(position);
-                                    break;
-                                case 2:
-                                    stTargetData = mMyData.arrUserWoman_Recv.get(position);
-                                    break;*/
 
-                                case 1:
-                                    stTargetData = mMyData.arrUserMan_Recv_Age.get(position);
-                                    break;
-                                case 2:
-                                    stTargetData = mMyData.arrUserWoman_Recv_Age.get(position);
-                                    break;
-                                case 0:
-                                case 3:
-                                    stTargetData = mMyData.arrUserAll_Recv_Age.get(position);
-                                    break;
-                            }
-
-                            if(mCommon.getClickStatus() == false)
+                            if (mCommon.getClickStatus() == false)
                                 mCommon.MoveUserPage(getActivity(), stTargetData);
 
                  /*           Intent intent = new_img Intent(view.getContext(), UserPageActivity.class);
@@ -103,14 +81,14 @@ public class Rank_GoldReceiveFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int nSize = 0;
                 nSize = recyclerView.getAdapter().getItemCount() - 1;
 
                 if (lastVisibleItemPosition == nSize) {
-                   // Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
-                    CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
-                    FirebaseData.getInstance().GetRecvData(RecvAdapter, false);
+                    // Toast.makeText(getContext(), "Last Position", Toast.LENGTH_SHORT).show();
+                      CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
+                     FirebaseData.getInstance().GetRecvData(RecvAdapter, false);
                 }
             }
         });

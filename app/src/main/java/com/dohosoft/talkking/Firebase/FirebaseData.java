@@ -1,11 +1,16 @@
 package com.dohosoft.talkking.Firebase;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.IntentCompat;
 import android.util.Log;
 
+import com.dohosoft.talkking.Data.SettingData;
 import com.dohosoft.talkking.LoginActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -142,28 +147,37 @@ public class FirebaseData {
         final DatabaseReference SimpleToken = data.child("Token");
         SimpleToken.setValue("0");
 
-        data = fierBaseDataInstance.getReference("User").child(mMyData.getUserIdx());
-        final DatabaseReference UserToken = data.child("Token");
-        UserToken.setValue("0");
-
+        if(mMyData.getUserGender().equals("여자"))
+        {
+            data = fierBaseDataInstance.getReference("Users").child("Woman").child(mMyData.getUserIdx());
+            final DatabaseReference UserToken = data.child("Token");
+            UserToken.setValue("0");
+        }
+        else
+        {
+            data = fierBaseDataInstance.getReference("Users").child("Man").child(mMyData.getUserIdx());
+            final DatabaseReference UserToken = data.child("Token");
+            UserToken.setValue("0");
+        }
     }
 
-    public void SaveFirstMyData(String userIdx) {
+
+    public void SaveUsersMyData(String userIdx) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
-        // DatabaseReference user = table.child( userIdx);
-        DatabaseReference user = table.child(mMyData.getUserIdx());
-        user.child("Idx").setValue(mMyData.getUserIdx());
+        DatabaseReference user = table.child( userIdx);
+
 
         if (FirebaseInstanceId.getInstance() == null || FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals("")) {
-            mMyData.setUserToken("0");
-            user.child("Token").setValue("0");
+            System.exit(0);
         } else {
             mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
             user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         }
+
+        user.child("Idx").setValue(mMyData.getUserIdx());
 
         user.child("Img").setValue(mMyData.getUserImg());
 
@@ -194,7 +208,116 @@ public class FirebaseData {
         user.child("SendCount").setValue(mMyData.getSendHoney());
         user.child("RecvGold").setValue(mMyData.getRecvHoney());
 
+        user.child("Date").setValue(mMyData.getUserDate());
 
+        user.child("Memo").setValue(mMyData.getUserMemo());
+
+        user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
+
+        user.child("FanCount").setValue(mMyData.getFanCount());
+
+        user.child("Point").setValue(mMyData.getPoint());
+
+        user.child("Grade").setValue(mMyData.getGrade());
+        user.child("BestItem").setValue(mMyData.bestItem);
+        user.child("Honey").setValue(mMyData.getUserHoney());
+
+        user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
+
+        long time = CommonFunc.getInstance().GetCurrentTime();
+        SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+        int nTodayTime = Integer.parseInt( (date.format(new Date(time))).toString());
+        user.child("ConnectDate").setValue(nTodayTime);
+
+        // 심플 디비 저장
+        table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
+        user = table.child(userIdx);
+        user.child("Idx").setValue(mMyData.getUserIdx());
+
+        mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+        user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+        user.child("Img").setValue(mMyData.getUserImg());
+
+        user.child("NickName").setValue(mMyData.getUserNick());
+        user.child("Gender").setValue(mMyData.getUserGender());
+        user.child("Age").setValue(mMyData.getUserAge());
+
+        user.child("Memo").setValue(mMyData.getUserMemo());
+
+        user.child("RecvGold").setValue(mMyData.getRecvHoney());
+        user.child("SendGold").setValue(mMyData.getSendHoney());
+
+        user.child("Lon").setValue(mMyData.getUserLon());
+        user.child("Lat").setValue(mMyData.getUserLat());
+        user.child("Dist").setValue(mMyData.getUserDist());
+        user.child("Date").setValue(mMyData.getUserDate());
+
+        user.child("FanCount").setValue(mMyData.getFanCount());
+
+        user.child("Point").setValue(mMyData.getPoint());
+
+        user.child("Grade").setValue(mMyData.getGrade());
+        user.child("BestItem").setValue(mMyData.bestItem);
+        user.child("Honey").setValue(mMyData.getUserHoney());
+
+        user.child("ConnectDate").setValue(nTodayTime);
+
+    }
+
+
+    public void SaveFirstMyData(String userIdx) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
+
+        // DatabaseReference user = table.child( userIdx);
+        DatabaseReference user;
+        if(mMyData.getUserGender().equals("여자"))
+        {
+             user = table.child("Woman").child(mMyData.getUserIdx());
+        }
+        else
+        {
+            user = table.child("Man").child(mMyData.getUserIdx());
+        }
+
+        if (FirebaseInstanceId.getInstance() == null || FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals("")) {
+            System.exit(0);
+        } else {
+            mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+            user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+        }
+
+        user.child("Idx").setValue(mMyData.getUserIdx());
+
+        user.child("Img").setValue(mMyData.getUserImg());
+
+        for (int i = 0; i < 4; i++)
+            user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
+
+        if(mMyData.getUserProfileImg(0).equals("1"))
+        {
+            mMyData.setUserProfileImg(0, mMyData.getUserImg());
+            user.child("ImgGroup0").setValue(mMyData.getUserImg());
+        }
+
+        user.child("ImgCount").setValue(mMyData.getUserImgCnt());
+        if(mMyData.getUserImgCnt() == 0)
+        {
+            mMyData.setUserImgCnt(1);
+            user.child("ImgCount").setValue(1);
+        }
+
+        user.child("NickName").setValue(mMyData.getUserNick());
+        user.child("Gender").setValue(mMyData.getUserGender());
+        user.child("Age").setValue(mMyData.getUserAge());
+
+        user.child("Lon").setValue(mMyData.getUserLon());
+        user.child("Lat").setValue(mMyData.getUserLat());
+        user.child("Dist").setValue(mMyData.getUserDist());
+
+        user.child("SendCount").setValue(mMyData.getSendHoney());
+        user.child("RecvGold").setValue(mMyData.getRecvHoney());
 
         user.child("Date").setValue(mMyData.getUserDate());
 
@@ -255,20 +378,28 @@ public class FirebaseData {
     public void SaveData(String userIdx) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+        DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
 
         // DatabaseReference user = table.child( userIdx);
-        final DatabaseReference user = table.child(mMyData.getUserIdx());
-        user.child("Idx").setValue(mMyData.getUserIdx());
+
+        DatabaseReference user;
+        if(mMyData.getUserGender().equals("여자"))
+        {
+            user = table.child("Woman").child(mMyData.getUserIdx());
+        }
+        else
+        {
+            user = table.child("Man").child(mMyData.getUserIdx());
+        }
 
         if (FirebaseInstanceId.getInstance() == null || FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals("")) {
-            mMyData.setUserToken("0");
-            user.child("Token").setValue("0");
+            System.exit(0);
         } else {
             mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
             user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         }
 
+        user.child("Idx").setValue(mMyData.getUserIdx());
         user.child("ImgCount").setValue(mMyData.getUserImgCnt());
         if(mMyData.getUserImgCnt() == 0)
         {
@@ -314,6 +445,68 @@ public class FirebaseData {
 
         user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
 
+
+
+
+        table = database.getReference("User");//.child(mMyData.getUserIdx());
+        user = table.child( userIdx);
+
+
+        if (FirebaseInstanceId.getInstance() == null || FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals("")) {
+            System.exit(0);
+        } else {
+            mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
+            user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+        }
+
+        user.child("Idx").setValue(mMyData.getUserIdx());
+        user.child("ImgCount").setValue(mMyData.getUserImgCnt());
+        if(mMyData.getUserImgCnt() == 0)
+        {
+            mMyData.setUserImgCnt(1);
+            user.child("ImgCount").setValue(1);
+        }
+
+        user.child("Img").setValue(mMyData.getUserImg());
+
+        for (int i = 0; i < 4; i++)
+            user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
+
+        if(mMyData.getUserProfileImg(0).equals("1"))
+        {
+            mMyData.setUserProfileImg(0, mMyData.getUserImg());
+            user.child("ImgGroup0").setValue(mMyData.getUserImg());
+        }
+
+        user.child("NickName").setValue(mMyData.getUserNick());
+        user.child("Gender").setValue(mMyData.getUserGender());
+        user.child("Age").setValue(mMyData.getUserAge());
+
+        user.child("Lon").setValue(mMyData.getUserLon());
+        user.child("Lat").setValue(mMyData.getUserLat());
+        user.child("Dist").setValue(mMyData.getUserDist());
+
+        user.child("SendCount").setValue(mMyData.getSendHoney());
+        user.child("RecvGold").setValue(mMyData.getRecvHoney());
+
+
+
+        user.child("Memo").setValue(mMyData.getUserMemo());
+
+        user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
+
+        user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
+
+        user.child("Point").setValue(mMyData.getPoint());
+
+        user.child("Grade").setValue(mMyData.getGrade());
+        user.child("BestItem").setValue(mMyData.bestItem);
+        user.child("Honey").setValue(mMyData.getUserHoney());
+
+        user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
+
+
+
         // 심플 디비 저장
         SaveSimpleData();
     }
@@ -325,16 +518,15 @@ public class FirebaseData {
 
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(mMyData.getUserIdx());
-        user.child("Idx").setValue(mMyData.getUserIdx());
 
         if (FirebaseInstanceId.getInstance() == null || FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals("")) {
-            mMyData.setUserToken("0");
-            user.child("Token").setValue("0");
+            System.exit(0);
         } else {
             mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
             user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
         }
 
+        user.child("Idx").setValue(mMyData.getUserIdx());
         user.child("Img").setValue(mMyData.getUserImg());
 
         user.child("NickName").setValue(mMyData.getUserNick());
@@ -808,19 +1000,23 @@ public class FirebaseData {
         protected void onPreExecute() {
             super.onPreExecute();
             mMyData.arrUserAll_Recv.clear();
-            mMyData.arrUserWoman_Recv.clear();
-            mMyData.arrUserMan_Recv.clear();
-
             mMyData.arrUserAll_Recv_Age.clear();
-            mMyData.arrUserWoman_Recv_Age.clear();
-            mMyData.arrUserMan_Recv_Age.clear();
             //progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
         protected Integer doInBackground(Integer... integers) {
+
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
             Query query=ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -839,23 +1035,12 @@ public class FirebaseData {
 
                                         mMyData.arrUserAll_Recv.add(cTempData);
 
-                                        if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
-                                        {
-                                            mMyData.arrUserWoman_Recv.add(cTempData);
-                                        }
-                                        else {
-                                            mMyData.arrUserMan_Recv.add(cTempData);
-                                        }
                                         i++;
                                     }
                                 }
                             }
 
                             mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
-
-
 
                             if(mMyData.arrUserAll_Recv.size() > 0)
                                 mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
@@ -894,19 +1079,23 @@ public class FirebaseData {
         protected void onPreExecute() {
             super.onPreExecute();
             mMyData.arrUserAll_Send.clear();
-            mMyData.arrUserWoman_Send.clear();
-            mMyData.arrUserMan_Send.clear();
-
             mMyData.arrUserAll_Send_Age.clear();
-            mMyData.arrUserWoman_Send_Age.clear();
-            mMyData.arrUserMan_Send_Age.clear();
             //progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
             Query query= ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -923,19 +1112,13 @@ public class FirebaseData {
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_Send.add(cTempData);
-                                        if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
-                                            mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
-                                        } else {
-                                            mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
-                                        }
+
                                         i++;
                                     }
                                 }
                             }
 
                             mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
 
                             if(mMyData.arrUserAll_Send.size() > 0)
                                 mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
@@ -976,19 +1159,24 @@ public class FirebaseData {
         protected void onPreExecute() {
             super.onPreExecute();
             mMyData.arrUserAll_Near.clear();
-            mMyData.arrUserWoman_Near.clear();
-            mMyData.arrUserMan_Near.clear();
 
             mMyData.arrUserAll_Near_Age.clear();
-            mMyData.arrUserWoman_Near_Age.clear();
-            mMyData.arrUserMan_Near_Age.clear();
             //progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
             Query query=ref
                     .orderByChild("Dist").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
@@ -1020,11 +1208,6 @@ public class FirebaseData {
 
                                             mMyData.arrUserAll_Near.add(stRecvData);
 
-                                            if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
-                                                mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
-                                            } else {
-                                                mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
-                                            }
 
                                             i++;
                                         }
@@ -1037,12 +1220,8 @@ public class FirebaseData {
 
                             CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
                             Collections.sort(mMyData.arrUserAll_Near, cNearSort);
-                            Collections.sort(mMyData.arrUserWoman_Near, cNearSort);
-                            Collections.sort(mMyData.arrUserMan_Near, cNearSort);
 
                             mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
 
                             bSetNear = true;
                             if (bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
@@ -1080,20 +1259,25 @@ public class FirebaseData {
         protected void onPreExecute() {
             super.onPreExecute();
             mMyData.arrUserAll_New.clear();
-            mMyData.arrUserWoman_New.clear();
-            mMyData.arrUserMan_New.clear();
 
             mMyData.arrUserAll_New_Age.clear();
-            mMyData.arrUserWoman_New_Age.clear();
-            mMyData.arrUserMan_New_Age.clear();
 
             //progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
         protected Integer doInBackground(Integer... integers) {
+
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
             Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
@@ -1112,11 +1296,6 @@ public class FirebaseData {
 
                                         mMyData.arrUserAll_New.add(stRecvData);
 
-                                        if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
-                                            mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
-                                        } else {
-                                            mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
-                                        }
 
                                         i++;
                                     }
@@ -1124,8 +1303,6 @@ public class FirebaseData {
                             }
 
                             mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
 
                             if(mMyData.arrUserAll_New.size() > 0)
                                 mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
@@ -1168,8 +1345,21 @@ public class FirebaseData {
         if (top) {
             data = fierBaseDataInstance.getReference().child("User").orderByChild("RecvGold").limitToFirst(LOAD_MAIN_COUNT);
         } else
+        {
+            DatabaseReference ref;
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
+            data = ref.orderByChild("RecvGold").startAt(mMyData.RecvIndexRef).limitToFirst(LOAD_MAIN_COUNT);
+        }
             //data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").startAt(mMyData.HotIndexRef).limitToFirst(LOAD_MAIN_COUNT);
-            data = fierBaseDataInstance.getReference().child("User").orderByChild("RecvGold").startAt(mMyData.RecvIndexRef).limitToFirst(LOAD_MAIN_COUNT);
+
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1194,11 +1384,7 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_Recv.add(cTempData);
-                                if (mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1).Gender.equals("여자")) {
-                                    mMyData.arrUserWoman_Recv.add(mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1));
-                                } else {
-                                    mMyData.arrUserMan_Recv.add(mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1));
-                                }
+
                             }
                             i++;
                         }
@@ -1206,8 +1392,6 @@ public class FirebaseData {
                 }
 
                 mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
-                mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
-                mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
 
                 if (mMyData.arrUserAll_Recv.size() > 0)
                     mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1).RecvGold;
@@ -1234,7 +1418,21 @@ public class FirebaseData {
         if (top)
             data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").startAt(0).endAt(LOAD_MAIN_COUNT);
         else
-            data = fierBaseDataInstance.getReference().child("User").orderByChild("FanCount").startAt(mMyData.FanCountRef).limitToFirst(LOAD_MAIN_COUNT);
+        {
+            DatabaseReference ref;
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
+            data = ref.orderByChild("FanCount").startAt(mMyData.FanCountRef).limitToFirst(LOAD_MAIN_COUNT);
+
+        }
+
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1260,11 +1458,7 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_Send.add(cTempData);
-                                if (mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size() - 1).Gender.equals("여자")) {
-                                    mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size() - 1));
-                                } else {
-                                    mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size() - 1));
-                                }
+
                             }
                             i++;
                         }
@@ -1272,8 +1466,6 @@ public class FirebaseData {
                 }
 
                 mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
-                mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
-                mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
 
                 if (mMyData.arrUserAll_Send.size() > 0)
                     mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size() - 1).FanCount;
@@ -1300,7 +1492,19 @@ public class FirebaseData {
         final double[] tempDist = {0};
 
         Query data = null;
-        data = fierBaseDataInstance.getReference().child("User").orderByChild("Dist").startAt(mMyData.NearDistanceRef).limitToFirst(LOAD_MAIN_COUNT);
+        {
+            DatabaseReference ref;
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+            data = ref.orderByChild("Dist").startAt(mMyData.NearDistanceRef).limitToFirst(LOAD_MAIN_COUNT);
+        }
+
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -1334,11 +1538,7 @@ public class FirebaseData {
 
                                     cTempData.Dist = Dist;
                                     mMyData.arrUserAll_Near.add(cTempData);
-                                    if (mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1).Gender.equals("여자")) {
-                                        mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
-                                    } else {
-                                        mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size() - 1));
-                                    }
+
                                 }
                                 i++;
                             }
@@ -1355,13 +1555,8 @@ public class FirebaseData {
 
                 CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
                 Collections.sort(mMyData.arrUserAll_Near, cNearSort);
-                Collections.sort(mMyData.arrUserWoman_Near, cNearSort);
-                Collections.sort(mMyData.arrUserMan_Near, cNearSort);
 
                 mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-                mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
-                mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
-
 
                 CommonFunc.getInstance().DismissLoadingPage();
                 UpdateNearAdapter.notifyDataSetChanged();
@@ -1389,7 +1584,20 @@ public class FirebaseData {
         if (top)
             data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").startAt(0).endAt(LOAD_MAIN_COUNT);
         else
-            data = fierBaseDataInstance.getReference().child("User").orderByChild("Date").startAt(mMyData.NewDateRef).limitToFirst(LOAD_MAIN_COUNT);
+        {
+            DatabaseReference ref;
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
+            data = ref.orderByChild("Date").startAt(mMyData.NewDateRef).limitToFirst(LOAD_MAIN_COUNT);
+        }
+
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1414,11 +1622,7 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_New.add(cTempData);
-                                if (mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() - 1).Gender.equals("여자")) {
-                                    mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() - 1));
-                                } else {
-                                    mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() - 1));
-                                }
+
                             }
                             i++;
                         }
@@ -1426,8 +1630,6 @@ public class FirebaseData {
                 }
 
                 mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
-                mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
-                mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
 
                 if (mMyData.arrUserAll_New.size() > 0)
                     mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() - 1).Date;

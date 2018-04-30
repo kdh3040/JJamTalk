@@ -115,6 +115,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
         final String strTargetIdx = stTargetData.get(position).Idx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
+
         table = database.getReference("User");
 
             if (strTargetIdx != null)

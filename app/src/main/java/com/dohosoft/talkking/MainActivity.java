@@ -273,20 +273,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Void... voids) {
             mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
-
             mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
-
             mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
-
             mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
-            mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
 
             return 0;
         }
@@ -603,8 +592,8 @@ public class MainActivity extends AppCompatActivity {
                 final RadioButton rbtn_three;
                 final RadioButton rbtn_four;
 
-                final CheckBox cbox_man;
-                final CheckBox cbox_woman;
+                final RadioButton cbox_man;
+                final RadioButton cbox_woman;
 
                 final Spinner spin_StartAge, spin_EndAge;
 
@@ -679,8 +668,8 @@ public class MainActivity extends AppCompatActivity {
                 rbtn_three = (RadioButton) v.findViewById(R.id.rbtn_three);
                 rbtn_four = (RadioButton) v.findViewById(R.id.rbtn_four);
 
-                cbox_man = (CheckBox) v.findViewById(R.id.rbtn_man);
-                cbox_woman = (CheckBox) v.findViewById(R.id.rbtn_woman);
+                cbox_man = (RadioButton) v.findViewById(R.id.rbtn_man);
+                cbox_woman = (RadioButton) v.findViewById(R.id.rbtn_woman);
 
                 switch (mMyData.nSearchMode) {
                     case 0:
@@ -696,13 +685,13 @@ public class MainActivity extends AppCompatActivity {
                         cbox_man.setChecked(true);
                         cbox_woman.setChecked(true);
                         break;
-                    case 1:
-                        cbox_man.setChecked(true);
-                        cbox_woman.setChecked(false);
-                        break;
                     case 2:
                         cbox_man.setChecked(false);
                         cbox_woman.setChecked(true);
+                        break;
+                    case 1:
+                        cbox_man.setChecked(true);
+                        cbox_woman.setChecked(false);
                         break;
                 }
 
@@ -746,13 +735,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if (cbox_man.isChecked()) {
-                            if (cbox_woman.isChecked())
-                                mSetting.setnSearchSetting(3);
-                            else
-                                mSetting.setnSearchSetting(1);
-                        } else {
-                            cbox_woman.setChecked(true);
-                            mSetting.setnSearchSetting(2);
+                            cbox_woman.setChecked(false);
+                            cbox_man.setChecked(true);
+                            mSetting.setnSearchSetting(1);
                         }
                     }
                 });
@@ -760,14 +745,10 @@ public class MainActivity extends AppCompatActivity {
                 cbox_woman.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (cbox_woman.isChecked()) {
-                            if (cbox_man.isChecked())
-                                mSetting.setnSearchSetting(3);
-                            else
-                                mSetting.setnSearchSetting(2);
-                        } else {
-                            cbox_man.setChecked(true);
-                            mSetting.setnSearchSetting(1);
+                        if (cbox_man.isChecked()) {
+                            cbox_woman.setChecked(true);
+                            cbox_man.setChecked(false);
+                            mSetting.setnSearchSetting(2);
                         }
                     }
                 });

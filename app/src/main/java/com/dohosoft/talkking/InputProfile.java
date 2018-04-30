@@ -133,7 +133,16 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+
+            if(mMyData.getUserGender().equals("여자"))
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
             Query query=ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -153,13 +162,13 @@ public class InputProfile extends AppCompatActivity {
 
                                         mMyData.arrUserAll_Recv.add(cTempData);
 
-                                        if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
+                           /*             if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
                                         {
                                             mMyData.arrUserWoman_Recv.add(cTempData);
                                         }
                                         else {
                                             mMyData.arrUserMan_Recv.add(cTempData);
-                                        }
+                                        }*/
 
                                         i++;
                                     }
@@ -170,9 +179,9 @@ public class InputProfile extends AppCompatActivity {
 
 
                             mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
-                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                  /*          mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
                             mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
-
+*/
                             if(mMyData.arrUserAll_Recv.size() > 0)
                                 mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
 
@@ -216,7 +225,14 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Integer... voids) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+            if(mMyData.getUserGender().equals("여자"))
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
             Query query= ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -233,11 +249,11 @@ public class InputProfile extends AppCompatActivity {
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_Send.add(cTempData);
-                                        if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
+                               /*         if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
                                             mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
                                         } else {
                                             mMyData.arrUserMan_Send.add(mMyData.arrUserAll_Send.get(i));
-                                        }
+                                        }*/
 
 
                                         i++;
@@ -248,9 +264,9 @@ public class InputProfile extends AppCompatActivity {
                             }
 
                             mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
+                /*            mMyData.arrUserWoman_Send_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Send, mMyData.nStartAge, mMyData.nEndAge);
                             mMyData.arrUserMan_Send_Age = mMyData.SortData_Age(mMyData.arrUserMan_Send, mMyData.nStartAge, mMyData.nEndAge);
-
+*/
                             bSetRich = true;
 
                             if(mMyData.arrUserAll_Send.size() > 0)
@@ -305,7 +321,15 @@ public class InputProfile extends AppCompatActivity {
             Double IEndLat = mMyData.getUserLon() + 0.1;
 
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+            if(mMyData.getUserGender().equals("여자"))
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
+
             Query query=ref
                     .orderByChild("Dist").startAt(0).limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
@@ -335,11 +359,11 @@ public class InputProfile extends AppCompatActivity {
                                             stRecvData.Dist = Dist;
                                             mMyData.arrUserAll_Near.add(stRecvData);
 
-                                            if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
+                                /*            if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
                                                 mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
                                             } else {
                                                 mMyData.arrUserMan_Near.add(mMyData.arrUserAll_Near.get(i));
-                                            }
+                                            }*/
                                             i++;
                                         }
                                     }
@@ -349,12 +373,12 @@ public class InputProfile extends AppCompatActivity {
 
                             CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
                             Collections.sort(mMyData.arrUserAll_Near, cNearSort);
-                            Collections.sort(mMyData.arrUserWoman_Near, cNearSort);
-                            Collections.sort(mMyData.arrUserMan_Near, cNearSort);
+/*                            Collections.sort(mMyData.arrUserWoman_Near, cNearSort);
+                            Collections.sort(mMyData.arrUserMan_Near, cNearSort);*/
 
                             mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);
+  /*                          mMyData.arrUserWoman_Near_Age = mMyData.SortData_Age(mMyData.arrUserWoman_Near, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_Near_Age = mMyData.SortData_Age(mMyData.arrUserMan_Near, mMyData.nStartAge, mMyData.nEndAge);*/
 
                             bSetNear = true;
 
@@ -408,7 +432,14 @@ public class InputProfile extends AppCompatActivity {
             int nStartDate = nTodayDate - 7;
 
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
+            if(mMyData.getUserGender().equals("여자"))
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
+            }
             Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
@@ -427,19 +458,19 @@ public class InputProfile extends AppCompatActivity {
 
                                         mMyData.arrUserAll_New.add(stRecvData);
 
-                                        if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
+                             /*           if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
                                             mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
                                         } else {
                                             mMyData.arrUserMan_New.add(mMyData.arrUserAll_New.get(i));
-                                        }
+                                        }*/
                                         i++;
                                     }
                                 }
                             }
 
                             mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);
+/*                            mMyData.arrUserWoman_New_Age = mMyData.SortData_Age(mMyData.arrUserWoman_New, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_New_Age = mMyData.SortData_Age(mMyData.arrUserMan_New, mMyData.nStartAge, mMyData.nEndAge);*/
 
                             if(mMyData.arrUserAll_New.size() > 0)
                                 mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
@@ -1030,6 +1061,10 @@ public class InputProfile extends AppCompatActivity {
 
 
         mFireBaseData.SaveFirstMyData(mMyData.getUserIdx());
+
+        mFireBaseData.SaveUsersMyData(mMyData.getUserIdx());
+
+
         mMyData.getRecvGold();
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
