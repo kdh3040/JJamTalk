@@ -849,9 +849,10 @@ public class MainActivity extends AppCompatActivity {
 
         mMyData.querySkus.putStringArrayList("ITEM_ID_LIST", mMyData.skuList);
 
-        mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
-        mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/5818242350",
-                new AdRequest.Builder().build());
+/*        mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
+        //mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/5818242350",
+        mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/3514842138",
+                new AdRequest.Builder().build());*/
 
       /*  Prepare prepareJob = new_img Prepare();
 

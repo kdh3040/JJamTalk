@@ -62,6 +62,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         super.onDestroy();
         if (mMyData.mService != null) {
             unbindService(mMyData.mServiceConn);
+            mMyData.mRewardedVideoAd = null;
             mMyData.mServiceConn = null;
             mMyData.mService = null;
         }
@@ -108,6 +109,8 @@ public class BuyGoldActivity extends AppCompatActivity {
                 public void onServiceConnected(ComponentName name,
                                                IBinder service) {
                     mMyData.mService = IInAppBillingService.Stub.asInterface(service);
+
+                    loadRewardedVideoAd(getApplicationContext());
 
                     try {
                         mMyData.skuDetails = mMyData.mService.getSkuDetails(3, getPackageName(), "inapp", mMyData.querySkus);
@@ -164,7 +167,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             bindService(serviceIntent, mMyData.mServiceConn, Context.BIND_AUTO_CREATE);
         }
 
-        loadRewardedVideoAd(getApplicationContext());
+
 
         tv_mycoin = (TextView)findViewById(R.id.tv_mycoin);
         tv_mycoin.setText("보유 코인 : " + mMyData.getUserHoney());
@@ -172,6 +175,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         mMyData.SetCurFrag(0);
 
         Free_1 = (Button)findViewById(R.id.button14);
+        Free_1.setVisibility(View.GONE);
         Free_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -519,8 +523,10 @@ public class BuyGoldActivity extends AppCompatActivity {
         if(mMyData.mRewardedVideoAd == null)
         {
             mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
-            mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/5818242350",
+            mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/3514842138",
                     new AdRequest.Builder().build());
+          /*  mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/5818242350",
+                    new AdRequest.Builder().build());*/
 
             loadRewardedVideoAd(mContext);
         }
