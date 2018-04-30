@@ -91,14 +91,19 @@ public class SettingData {
     }
     public int getViewCount()
     {
+
         int rtValue = 0;
+/*
         if(mMyData.nViewMode == 0)
             rtValue = 2;
         else if(mMyData.nViewMode == 1)
             rtValue = 3;
         else if(mMyData.nViewMode == 2)
             rtValue = 4;
+*/
 
+
+        rtValue = 3;
             return  rtValue;
     }
 }
