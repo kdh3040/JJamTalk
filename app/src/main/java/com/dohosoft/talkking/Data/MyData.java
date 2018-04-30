@@ -77,8 +77,8 @@ public class MyData {
    // public ArrayList<UserData> arrUserWoman_Send = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Send = new ArrayList<>();
 
-/*    public ArrayList<UserData> arrUserMan_Recv = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();*/
+    public ArrayList<UserData> arrUserMan_Recv = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Recv = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
 
 
@@ -94,8 +94,8 @@ public class MyData {
     //public ArrayList<UserData> arrUserWoman_Send_Age = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Send_Age = new ArrayList<>();
 
-/*    public ArrayList<UserData> arrUserMan_Recv_Age = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Recv_Age = new ArrayList<>();*/
+    public ArrayList<UserData> arrUserMan_Recv_Age = new ArrayList<>();
+    public ArrayList<UserData> arrUserWoman_Recv_Age = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Recv_Age = new ArrayList<>();
 
 
@@ -313,8 +313,8 @@ public class MyData {
     //    arrUserWoman_Send.clear();
         arrUserAll_Send.clear();
 
-/*        arrUserMan_Recv.clear();
-        arrUserWoman_Recv.clear();*/
+        arrUserMan_Recv.clear();
+        arrUserWoman_Recv.clear();
         arrUserAll_Recv.clear();
 
 
@@ -330,8 +330,8 @@ public class MyData {
         arrUserWoman_Send_Age.clear();*/
         arrUserAll_Send_Age.clear();
 
-   /*     arrUserMan_Recv_Age.clear();
-        arrUserWoman_Recv_Age.clear();*/
+        arrUserMan_Recv_Age.clear();
+        arrUserWoman_Recv_Age.clear();
         arrUserAll_Recv_Age.clear();
 
         mapChatTargetData.clear();

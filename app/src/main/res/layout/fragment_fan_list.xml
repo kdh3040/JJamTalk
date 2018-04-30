@@ -7,7 +7,7 @@
         android:id="@+id/txt_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="내 팬으로 등록한 사람이 없습니다"
+        android:text="나에게 하트를 보낸 사람이 없습니다"
         android:visibility="visible"
         android:textSize="20dp"
         android:textColor="@color/baseColor"

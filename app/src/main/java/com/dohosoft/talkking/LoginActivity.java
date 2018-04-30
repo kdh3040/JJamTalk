@@ -1035,7 +1035,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-   /* public class PrepareMan extends AsyncTask<Integer, Integer, Integer> {
+    public class PrepareMan extends AsyncTask<Integer, Integer, Integer> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -1091,19 +1091,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             }
 
-                 *//*           mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
                             mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);*//*
+                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
 
-                            bSetRecv = true;
-                       *//*     if (mMyData.arrUserAll_Recv.size() > 0)
-                                mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1).RecvGold;*//*
-
-                           // if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
-
-                        //        Log.d(TAG, "Account Log in  Complete");
-                         //       CommonFunc.getInstance().GoMainPage(mActivity);
-                         //   }
 
 
                             for(int a = 0; a<mMyData.arrUserWoman_Recv.size(); a++)
@@ -1239,7 +1230,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             super.onProgressUpdate(params);
         }
     }
-*/
+
 
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
         @Override
