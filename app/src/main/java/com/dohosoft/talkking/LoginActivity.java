@@ -951,7 +951,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     /*        PrepareMan initHot = new PrepareMan();
                             initHot.execute(0, 0, 0);*/
 
-                            /*PrepareHotmember initHot = new PrepareHotmember();
+                     /*       PrepareHotmember initHot = new PrepareHotmember();
                             initHot.execute(0, 0, 0);*/
 
                             PrePareHot initHot = new PrePareHot();
@@ -1370,39 +1370,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-                           /* for(int a = 0; a<mMyData.arrUserWoman_Recv.size(); a++)
+                          /*  for(int a = 0; a<mMyData.arrUserWoman_Recv.size(); a++)
                             {
 
-                                if(mMyData.arrUserWoman_Recv.get(a).NickName.equals("이하은") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("꼬맹이") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("토깽") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("예쁜이 가인이") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("be_yonse") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("수현") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("진연16") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("썰꾸를") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("행복") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("안녕하세요") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("심심하다") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("최채린") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("마링이") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("윤경") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("정수현입니다") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("뚜효니") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("송쭈") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("suvely") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("올해로 여대생") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("현지니") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("귀염둥이") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("bauiopp") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("나는 나") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("민지민지") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("몽이깜이") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("나는자유인이다") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("퀴니") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("skdg12") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("심심해서 깔앗당") ||
-                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("윤떠"))
+                                if(mMyData.arrUserWoman_Recv.get(a).Idx.equals("2406") ||
+                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("2036") ||
+                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("778") ||
+                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("356") ||
+                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("2260") ||
+                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("2883") ||
+                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("2827") ||
+                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("2712") ||
+                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("2601") ||
+                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("2581") ||
+                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("2974")
+
+                                      )
                                 {
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                                     DatabaseReference table = database.getReference("HotMember");//.child(mMyData.getUserIdx());
@@ -1461,31 +1444,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             for(int a = 0; a<mMyData.arrUserMan_Recv.size(); a++)
                             {
 
-                                if(mMyData.arrUserMan_Recv.get(a).NickName.equals("웽") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("jun") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("실물파남") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("여니96") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("snkfjwkx") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("데스터니") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("바네바") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("둥둥하니") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("쓰리라차") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("꽁냥꽁냥") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("cooling") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("달콤오글한스푼씩") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("너요") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("덕쥬") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("아융기") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("마모루") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("다귀찮아") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("너가좋아") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("권승진") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("팅순이") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("yeasonsnc") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("용용이") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("윤지성") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("행운별") ||
-                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("군다스") )
+                                if(mMyData.arrUserMan_Recv.get(a).NickName.equals("퍼리브") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("이런날배그징") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("오늘밤ㄱ?") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("토오롱") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("삥구애요") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("피르미누") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("보봄실") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("동탄남") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("생미니") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("이거뭐야") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("더울때는빠삐코") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("주아") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("방울방울") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("jungno8") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("이제는") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("콜라콜라") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("안녕") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("janbee") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("건방진도사") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("쭈니") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("서재현") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("비셰프") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("심심") )
                                 {
 
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();

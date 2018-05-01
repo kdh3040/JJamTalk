@@ -152,7 +152,6 @@ public class UserPageActivity extends AppCompatActivity {
 
         TempSendUserData.arrStarList = stTargetData.arrStarList;
         TempSendUserData.arrFanList = stTargetData.arrFanList;
-
         //getTargetfanData();
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
