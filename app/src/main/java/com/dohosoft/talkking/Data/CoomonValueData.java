@@ -75,6 +75,7 @@ public class CoomonValueData  {
     public static  boolean bSetNew = false;
     public static  boolean bSetRich =false;
     public static  boolean bSetRecv = false;
+    public static  boolean bSetHot = false;
 
     private static CoomonValueData _Instance;
 

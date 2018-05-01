@@ -80,6 +80,7 @@ import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.dohosoft.talkking.Data.CoomonValueData.REF_LAT;
 import static com.dohosoft.talkking.Data.CoomonValueData.REF_LON;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetHot;
 import static com.dohosoft.talkking.MyProfileActivity.calculateInSampleSize;
 
 public class InputProfile extends AppCompatActivity {
@@ -125,6 +126,90 @@ public class InputProfile extends AppCompatActivity {
     private boolean bClickSave = false;
 
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            DatabaseReference ref;
+
+            if(mMyData.getUserGender().equals("여자"))
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Woman");
+            }
+
+            Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
+                            {
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
+                                if(cTempData != null) {
+
+                                    //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    {
+                                        if(cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_Hot.add(cTempData);
+
+                                        i++;
+                                    }
+
+                                }
+                            }
+
+
+                            mMyData.arrUserAll_Hot_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Hot, mMyData.nStartAge, mMyData.nEndAge );
+                  /*          mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
+*/
+                            if(mMyData.arrUserAll_Hot.size() > 0)
+                                mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size()-1).RecvGold;
+
+                            bSetHot = true;
+                            if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+                                GoMainPage();
+                                finish();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+                GoMainPage();
+                finish();
+            }
+
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... params) {
+            super.onProgressUpdate(params);
+        }
+    }
+
+
+    public class PrePareRecv extends AsyncTask<Integer, Integer, Integer> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -186,7 +271,7 @@ public class InputProfile extends AppCompatActivity {
                                 mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
 
                             bSetRecv = true;
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+                            if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
                                 finish();
                             }
@@ -203,7 +288,7 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+            if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                 GoMainPage();
                 finish();
             }
@@ -272,7 +357,7 @@ public class InputProfile extends AppCompatActivity {
                             if(mMyData.arrUserAll_Send.size() > 0)
                                 mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
 
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+                            if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
                                 finish();
                             }
@@ -291,7 +376,7 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+            if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                 GoMainPage();
                 finish();
             }
@@ -385,7 +470,7 @@ public class InputProfile extends AppCompatActivity {
                             if(mMyData.arrUserAll_Near.size() > 0)
                                 mMyData.NearDistanceRef = mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
 
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+                            if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
                                 finish();
                             }
@@ -404,7 +489,7 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+            if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                 GoMainPage();
                 finish();
             }
@@ -476,7 +561,7 @@ public class InputProfile extends AppCompatActivity {
                                 mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
 
                             bSetNew = true;
-                            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+                            if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                                 GoMainPage();
                                 finish();
                             }
@@ -495,7 +580,7 @@ public class InputProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+            if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
                 GoMainPage();
                 finish();
             }
@@ -742,6 +827,10 @@ public class InputProfile extends AppCompatActivity {
                     PrePareHot initHot = new PrePareHot();
                     initHot.execute(0,0,0);
 
+                    PrePareRecv initRecv = new PrePareRecv();
+                    initRecv.execute(0, 0, 0);
+
+
                     PrePareFan initFan = new PrePareFan();
                     initFan.execute(0,0,0);
 
@@ -840,7 +929,7 @@ public class InputProfile extends AppCompatActivity {
             mMyData.setUserDist(LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), REF_LAT, REF_LON,"meter"));
         }
 
-        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+        if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
             GoMainPage();
             finish();
         }
@@ -1030,7 +1119,7 @@ public class InputProfile extends AppCompatActivity {
         mMyData.setUserImgCnt(1);
         bMyThumb = true;
 
-        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+        if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
             GoMainPage();
             finish();
         }
@@ -1043,7 +1132,7 @@ public class InputProfile extends AppCompatActivity {
         mMyData.setUserImgCnt(1);
         bMyImg = true;
 
-        if(bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
+        if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
             GoMainPage();
             finish();
         }

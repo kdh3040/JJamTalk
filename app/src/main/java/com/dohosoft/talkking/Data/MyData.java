@@ -99,6 +99,9 @@ public class MyData {
     public ArrayList<UserData> arrUserWoman_Recv_Age = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Recv_Age = new ArrayList<>();
 
+    public ArrayList<UserData> arrUserAll_Hot = new ArrayList<>();
+    public ArrayList<UserData> arrUserAll_Hot_Age = new ArrayList<>();
+
 
     public  Map<String, UserData> mapChatTargetData = new LinkedHashMap<String, UserData>();
 
@@ -238,6 +241,7 @@ public class MyData {
 
     public int NickChangeCnt;
 
+    public long HotIndexRef;
     public long RecvIndexRef;
     public long FanCountRef;
     public Double NearDistanceRef;

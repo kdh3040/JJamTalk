@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.dohosoft.talkking.Data.SettingData;
 import com.dohosoft.talkking.LoginActivity;
+import com.dohosoft.talkking.Rank_HotAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +55,7 @@ import static com.dohosoft.talkking.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_BOARD_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.dohosoft.talkking.Data.CoomonValueData.UNIQ_FANCOUNT;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetHot;
 import static com.dohosoft.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -976,8 +978,11 @@ public class FirebaseData {
 
         CommonFunc.getInstance().ShowLoadingPage(activity, "로딩중");
 
-        RefreshGoldReceiver initHot = new RefreshGoldReceiver(activity);
+        RefreshHot initHot = new RefreshHot(activity);
         initHot.execute(0,0,0);
+
+        RefreshGoldReceiver initRecv = new RefreshGoldReceiver(activity);
+        initRecv.execute(0,0,0);
 
         RefreshFanCount initFan = new RefreshFanCount(activity);
         initFan.execute(0,0,0);
@@ -989,6 +994,87 @@ public class FirebaseData {
         initNew.execute(0,0,0);
 
     }
+
+    public class RefreshHot extends AsyncTask<Integer, Integer, Integer> {
+        Activity mActivity;
+        public RefreshHot(Activity activity) {
+            mActivity = activity;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mMyData.arrUserAll_Hot.clear();
+            mMyData.arrUserAll_Hot_Age.clear();
+            //progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+
+            DatabaseReference ref;
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Woman");
+            }
+
+            Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
+                            {
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
+                                if(cTempData != null) {
+                                    // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    {
+                                        if(cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_Hot.add(cTempData);
+
+                                        i++;
+                                    }
+                                }
+                            }
+
+                            mMyData.arrUserAll_Hot_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Hot, mMyData.nStartAge, mMyData.nEndAge );
+
+                            if(mMyData.arrUserAll_Hot.size() > 0)
+                                mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size()-1).Date;
+
+                            bSetHot = true;
+                            if (bSetHot== true && bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                                CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... params) {
+            super.onProgressUpdate(params);
+        }
+    }
+
 
     public class RefreshGoldReceiver extends AsyncTask<Integer, Integer, Integer> {
         Activity mActivity;
@@ -1046,7 +1132,7 @@ public class FirebaseData {
                                 mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
 
                             bSetRecv = true;
-                            if (bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                            if (bSetHot== true && bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1124,7 +1210,7 @@ public class FirebaseData {
                                 mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
 
                             bSetFan = true;
-                            if (bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                            if (bSetHot== true && bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1224,7 +1310,7 @@ public class FirebaseData {
                             mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
 
                             bSetNear = true;
-                            if (bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                            if (bSetHot== true && bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1308,7 +1394,7 @@ public class FirebaseData {
                                 mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
 
                             bSetNew = true;
-                            if (bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                            if (bSetHot== true && bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1333,6 +1419,83 @@ public class FirebaseData {
             super.onProgressUpdate(params);
         }
     }
+
+
+
+
+    Rank_HotAdapter UpdateAdapter = null;
+
+    public void GetHotData(Rank_HotAdapter updateAdapter, Boolean top) {
+        UpdateAdapter = updateAdapter;
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
+        Query data = null;
+        if (top) {
+            data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Date").limitToFirst(LOAD_MAIN_COUNT);
+        } else
+        {
+            DatabaseReference ref;
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Woman");
+            }
+
+            data = ref.orderByChild("Date").startAt(mMyData.HotIndexRef).limitToFirst(LOAD_MAIN_COUNT);
+        }
+        //data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").startAt(mMyData.HotIndexRef).limitToFirst(LOAD_MAIN_COUNT);
+
+
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int i = 0;
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    UserData cTempData = new UserData();
+                    cTempData = postSnapshot.getValue(UserData.class);
+                    if (cTempData != null) {
+                        if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                            if (cTempData.Img == null)
+                                cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                            boolean bExist = false;
+
+                            for (int j = 0; j < mMyData.arrUserAll_Hot.size(); j++) {
+                                if (mMyData.arrUserAll_Hot.get(j).Idx.equals(cTempData.Idx)) {
+                                    bExist = true;
+                                    break;
+                                }
+                            }
+
+                            if (bExist == false) {
+                                mMyData.arrUserAll_Hot.add(cTempData);
+
+                            }
+                            i++;
+                        }
+                    }
+                }
+
+                mMyData.arrUserAll_Hot_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Hot, mMyData.nStartAge, mMyData.nEndAge);
+
+                if (mMyData.arrUserAll_Hot.size() > 0)
+                    mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size() - 1).Date;
+                //mMyData.HotIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).Point;
+                CommonFunc.getInstance().DismissLoadingPage();
+                UpdateAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 
 
     Rank_GoldReceiveAdapter UpdateHotAdapter = null;

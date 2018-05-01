@@ -78,6 +78,7 @@ import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_Fan;
 import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_Image;
 import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_Send;
 import static com.dohosoft.talkking.Data.CoomonValueData.bMySet;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetHot;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetNear;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetNew;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetRecv;
@@ -1818,7 +1819,7 @@ public class CommonFunc {
       //  if(bMySet_DownUrl == true && bMySet_Image == true && bMySet_BoardLoad == true && bMySet_Card == true && bMySet_Send == true && bMySet_Fan == true)
             bMySet = true;
 
-        if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true ) {
+        if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true ) {
 
            GoMainPage(mActivity);
         }

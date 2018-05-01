@@ -94,6 +94,7 @@ import static com.dohosoft.talkking.Data.CoomonValueData.bSetNear;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetNew;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetRecv;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetRich;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetHot;
 
 /**
  * A login screen that offers login via email/password.
@@ -947,11 +948,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             //mMyData.MonitorPublicRoomStatus();
 
-                            /*PrepareMan initHot = new PrepareMan();
+                    /*        PrepareMan initHot = new PrepareMan();
+                            initHot.execute(0, 0, 0);*/
+
+                            /*PrepareHotmember initHot = new PrepareHotmember();
                             initHot.execute(0, 0, 0);*/
 
                             PrePareHot initHot = new PrePareHot();
                             initHot.execute(0, 0, 0);
+
+                            PrePareRecv initRecv = new PrePareRecv();
+                            initRecv.execute(0, 0, 0);
+
 
                             PrePareFan initFan = new PrePareFan();
                             initFan.execute(0, 0, 0);
@@ -1299,7 +1307,346 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
+
+    public class PrepareHotmember extends AsyncTask<Integer, Integer, Integer> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            DatabaseReference ref;
+            ref = FirebaseDatabase.getInstance().getReference().child("User");
+            Query query = ref.orderByChild("Idx").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
+                                if (cTempData != null) {
+                                    // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    {
+                                        if (cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_Recv.add(cTempData);
+
+                                        for (LinkedHashMap.Entry<String, String> entry : cTempData.CardList.entrySet()) {
+                                            mMyData.arrUserAll_Recv.get(i).arrCardList.add(entry.getValue());
+                                        }
+
+                                        for (LinkedHashMap.Entry<String, FanData> entry : cTempData.FanList.entrySet()) {
+                                            mMyData.arrUserAll_Recv.get(i).arrFanList.add(entry.getValue());
+                                        }
+
+
+
+                                        for (LinkedHashMap.Entry<String, SimpleChatData> entry : cTempData.SendList.entrySet()) {
+                                            mMyData.arrUserAll_Recv.get(i).tempChatData.add(entry.getValue());
+                                        }
+
+                                        if (mMyData.arrUserAll_Recv.get(i).Gender.equals("여자")) {
+                                            mMyData.arrUserWoman_Recv.add(mMyData.arrUserAll_Recv.get(i));
+                                        } else {
+                                            mMyData.arrUserMan_Recv.add(mMyData.arrUserAll_Recv.get(i));
+                                        }
+
+
+                                        i++;
+                                    }
+
+                                }
+
+                            }
+
+                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
+                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
+
+
+
+                           /* for(int a = 0; a<mMyData.arrUserWoman_Recv.size(); a++)
+                            {
+
+                                if(mMyData.arrUserWoman_Recv.get(a).NickName.equals("이하은") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("꼬맹이") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("토깽") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("예쁜이 가인이") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("be_yonse") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("수현") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("진연16") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("썰꾸를") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("행복") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("안녕하세요") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("심심하다") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("최채린") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("마링이") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("윤경") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("정수현입니다") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("뚜효니") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("송쭈") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("suvely") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("올해로 여대생") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("현지니") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("귀염둥이") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("bauiopp") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("나는 나") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("민지민지") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("몽이깜이") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("나는자유인이다") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("퀴니") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("skdg12") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("심심해서 깔앗당") ||
+                                        mMyData.arrUserWoman_Recv.get(a).NickName.equals("윤떠"))
+                                {
+                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                    DatabaseReference table = database.getReference("HotMember");//.child(mMyData.getUserIdx());
+
+                                    // DatabaseReference user = table.child( userIdx);
+                                    DatabaseReference user = table.child("Woman").child(mMyData.arrUserWoman_Recv.get(a).Idx);
+                                    user.child("Age").setValue(mMyData.arrUserWoman_Recv.get(a).Age);
+                                    user.child("BestItem").setValue(mMyData.arrUserWoman_Recv.get(a).BestItem);
+                                    user.child("ConnectDate").setValue(mMyData.arrUserWoman_Recv.get(a).ConnectDate);
+                                    user.child("Date").setValue(mMyData.arrUserWoman_Recv.get(a).Date);
+                                    user.child("Dist").setValue(mMyData.arrUserWoman_Recv.get(a).Dist);
+                                    user.child("FanCount").setValue(mMyData.arrUserWoman_Recv.get(a).FanCount);
+
+                                    user.child("FanList").setValue(mMyData.arrUserWoman_Recv.get(a).FanList);
+                                    user.child("SendList").setValue(mMyData.arrUserWoman_Recv.get(a).SendList);
+
+
+                                    user.child("Gender").setValue(mMyData.arrUserWoman_Recv.get(a).Gender);
+                                    user.child("Grade").setValue(mMyData.arrUserWoman_Recv.get(a).Grade);
+                                    user.child("Honey").setValue(mMyData.arrUserWoman_Recv.get(a).Honey);
+                                    user.child("Idx").setValue(mMyData.arrUserWoman_Recv.get(a).Idx);
+                                    user.child("Img").setValue(mMyData.arrUserWoman_Recv.get(a).Img);
+                                    user.child("ImgCount").setValue(mMyData.arrUserWoman_Recv.get(a).ImgCount);
+                                    user.child("ImgGroup0").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup0);
+                                    user.child("ImgGroup1").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup1);
+                                    user.child("ImgGroup2").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup2);
+                                    user.child("ImgGroup3").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup3);
+
+                                    user.child("Lat").setValue(mMyData.arrUserWoman_Recv.get(a).Lat);
+                                    user.child("Lon").setValue(mMyData.arrUserWoman_Recv.get(a).Lon);
+
+                                    user.child("NickChangeCnt").setValue(mMyData.arrUserWoman_Recv.get(a).NickChangeCnt);
+                                    user.child("NickName").setValue(mMyData.arrUserWoman_Recv.get(a).NickName);
+                                    user.child("Point").setValue(mMyData.arrUserWoman_Recv.get(a).Point);
+                                    user.child("RecvGold").setValue(mMyData.arrUserWoman_Recv.get(a).RecvGold);
+                                    user.child("RecvMsgReject").setValue(mMyData.arrUserWoman_Recv.get(a).RecvMsgReject);
+                                    user.child("SendCount").setValue(mMyData.arrUserWoman_Recv.get(a).SendCount);
+                                    user.child("Token").setValue(mMyData.arrUserWoman_Recv.get(a).Token);
+
+                                    user.child("CardList").setValue(mMyData.arrUserWoman_Recv.get(a).CardList);
+
+                                    user.child("ItemCount").setValue(mMyData.arrUserWoman_Recv.get(a).ItemCount);
+                                    user.child("Item_1").setValue(mMyData.arrUserWoman_Recv.get(a).Item_1);
+                                    user.child("Item_2").setValue(mMyData.arrUserWoman_Recv.get(a).Item_2);
+                                    user.child("Item_3").setValue(mMyData.arrUserWoman_Recv.get(a).Item_3);
+                                    user.child("Item_4").setValue(mMyData.arrUserWoman_Recv.get(a).Item_4);
+                                    user.child("Item_5").setValue(mMyData.arrUserWoman_Recv.get(a).Item_5);
+                                    user.child("Item_6").setValue(mMyData.arrUserWoman_Recv.get(a).Item_6);
+                                    user.child("Item_7").setValue(mMyData.arrUserWoman_Recv.get(a).Item_7);
+                                    user.child("Item_8").setValue(mMyData.arrUserWoman_Recv.get(a).Item_8);
+                                }
+
+                            }*/
+
+
+                            for(int a = 0; a<mMyData.arrUserMan_Recv.size(); a++)
+                            {
+
+                                if(mMyData.arrUserMan_Recv.get(a).NickName.equals("웽") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("jun") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("실물파남") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("여니96") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("snkfjwkx") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("데스터니") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("바네바") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("둥둥하니") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("쓰리라차") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("꽁냥꽁냥") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("cooling") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("달콤오글한스푼씩") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("너요") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("덕쥬") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("아융기") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("마모루") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("다귀찮아") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("너가좋아") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("권승진") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("팅순이") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("yeasonsnc") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("용용이") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("윤지성") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("행운별") ||
+                                        mMyData.arrUserMan_Recv.get(a).NickName.equals("군다스") )
+                                {
+
+                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                    DatabaseReference table = database.getReference("HotMember");//.child(mMyData.getUserIdx());
+
+                                    // DatabaseReference user = table.child( userIdx);
+                                    DatabaseReference user = table.child("Man").child(mMyData.arrUserMan_Recv.get(a).Idx);
+                                    user.child("Age").setValue(mMyData.arrUserMan_Recv.get(a).Age);
+                                    user.child("BestItem").setValue(mMyData.arrUserMan_Recv.get(a).BestItem);
+                                    user.child("ConnectDate").setValue(mMyData.arrUserMan_Recv.get(a).ConnectDate);
+                                    user.child("Date").setValue(mMyData.arrUserMan_Recv.get(a).Date);
+                                    user.child("Dist").setValue(mMyData.arrUserMan_Recv.get(a).Dist);
+                                    user.child("FanCount").setValue(mMyData.arrUserMan_Recv.get(a).FanCount);
+
+                                    user.child("FanList").setValue(mMyData.arrUserMan_Recv.get(a).FanList);
+                                    user.child("SendList").setValue(mMyData.arrUserMan_Recv.get(a).SendList);
+
+
+                                    user.child("Gender").setValue(mMyData.arrUserMan_Recv.get(a).Gender);
+                                    user.child("Grade").setValue(mMyData.arrUserMan_Recv.get(a).Grade);
+                                    user.child("Honey").setValue(mMyData.arrUserMan_Recv.get(a).Honey);
+                                    user.child("Idx").setValue(mMyData.arrUserMan_Recv.get(a).Idx);
+                                    user.child("Img").setValue(mMyData.arrUserMan_Recv.get(a).Img);
+                                    user.child("ImgCount").setValue(mMyData.arrUserMan_Recv.get(a).ImgCount);
+                                    user.child("ImgGroup0").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup0);
+                                    user.child("ImgGroup1").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup1);
+                                    user.child("ImgGroup2").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup2);
+                                    user.child("ImgGroup3").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup3);
+
+                                    user.child("Lat").setValue(mMyData.arrUserMan_Recv.get(a).Lat);
+                                    user.child("Lon").setValue(mMyData.arrUserMan_Recv.get(a).Lon);
+
+                                    user.child("NickChangeCnt").setValue(mMyData.arrUserMan_Recv.get(a).NickChangeCnt);
+                                    user.child("NickName").setValue(mMyData.arrUserMan_Recv.get(a).NickName);
+                                    user.child("Point").setValue(mMyData.arrUserMan_Recv.get(a).Point);
+                                    user.child("RecvGold").setValue(mMyData.arrUserMan_Recv.get(a).RecvGold);
+                                    user.child("RecvMsgReject").setValue(mMyData.arrUserMan_Recv.get(a).RecvMsgReject);
+                                    user.child("SendCount").setValue(mMyData.arrUserMan_Recv.get(a).SendCount);
+                                    user.child("Token").setValue(mMyData.arrUserMan_Recv.get(a).Token);
+
+                                    user.child("CardList").setValue(mMyData.arrUserMan_Recv.get(a).CardList);
+
+                                    user.child("ItemCount").setValue(mMyData.arrUserMan_Recv.get(a).ItemCount);
+                                    user.child("Item_1").setValue(mMyData.arrUserMan_Recv.get(a).Item_1);
+                                    user.child("Item_2").setValue(mMyData.arrUserMan_Recv.get(a).Item_2);
+                                    user.child("Item_3").setValue(mMyData.arrUserMan_Recv.get(a).Item_3);
+                                    user.child("Item_4").setValue(mMyData.arrUserMan_Recv.get(a).Item_4);
+                                    user.child("Item_5").setValue(mMyData.arrUserMan_Recv.get(a).Item_5);
+                                    user.child("Item_6").setValue(mMyData.arrUserMan_Recv.get(a).Item_6);
+                                    user.child("Item_7").setValue(mMyData.arrUserMan_Recv.get(a).Item_7);
+                                    user.child("Item_8").setValue(mMyData.arrUserMan_Recv.get(a).Item_8);
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+
+                Log.d(TAG, "Account Log in  Complete");
+                CommonFunc.getInstance().GoMainPage(mActivity);
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... params) {
+            super.onProgressUpdate(params);
+        }
+    }
+
+
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            DatabaseReference ref;
+
+            if(SettingData.getInstance().getnSearchSetting() == 1)
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Man");
+            }
+            else
+            {
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Woman");
+            }
+
+            Query query = ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
+                                if (cTempData != null) {
+                                    // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    {
+                                        if (cTempData.Img == null)
+                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                        mMyData.arrUserAll_Hot.add(cTempData);
+
+                                        i++;
+                                    }
+                                }
+                            }
+
+                            mMyData.arrUserAll_Hot_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Hot, mMyData.nStartAge, mMyData.nEndAge);
+
+                            bSetHot = true;
+                            if (mMyData.arrUserAll_Hot.size() > 0)
+                                mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size() - 1).Date;
+
+                            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+
+                                Log.d(TAG, "Account Log in  Complete");
+                                CommonFunc.getInstance().GoMainPage(mActivity);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+
+                Log.d(TAG, "Account Log in  Complete");
+                CommonFunc.getInstance().GoMainPage(mActivity);
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... params) {
+            super.onProgressUpdate(params);
+        }
+    }
+
+
+    public class PrePareRecv extends AsyncTask<Integer, Integer, Integer> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -1351,7 +1698,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if (mMyData.arrUserAll_Recv.size() > 0)
                                 mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1).RecvGold;
 
-                            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+                            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                                 Log.d(TAG, "Account Log in  Complete");
                                 CommonFunc.getInstance().GoMainPage(mActivity);
@@ -1369,7 +1716,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
                 CommonFunc.getInstance().GoMainPage(mActivity);
@@ -1434,7 +1781,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if (mMyData.arrUserAll_Send.size() > 0)
                                 mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size() - 1).FanCount;
 
-                            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+                            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
 
                                 Log.d(TAG, "Account Log in  Complete");
@@ -1454,7 +1801,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
                 CommonFunc.getInstance().GoMainPage(mActivity);
@@ -1534,7 +1881,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             bSetNear = true;
 
 
-                            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+                            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                                 Log.d(TAG, "Account Log in  Complete");
                                 CommonFunc.getInstance().GoMainPage(mActivity);
@@ -1553,7 +1900,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
                 CommonFunc.getInstance().GoMainPage(mActivity);
@@ -1618,7 +1965,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if (mMyData.arrUserAll_New.size() > 0)
                                 mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() - 1).Date;
 
-                            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+                            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                                 Log.d(TAG, "Account Log in  Complete");
                                 CommonFunc.getInstance().GoMainPage(mActivity);
@@ -1637,7 +1984,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if (bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
                 Log.d(TAG, "Account Log in  Complete");
                 CommonFunc.getInstance().GoMainPage(mActivity);

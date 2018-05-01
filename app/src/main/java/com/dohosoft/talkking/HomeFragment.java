@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
             fragView = inflater.inflate(R.layout.fragment_home,container,false);
             tabLayout = fragView.findViewById(R.id.tabLayout);
 
-
+            tabLayout.addTab(tabLayout.newTab().setText("Hot"));
             tabLayout.addTab(tabLayout.newTab().setText("인기순"));
             tabLayout.addTab(tabLayout.newTab().setText("팬보유순"));
             tabLayout.addTab(tabLayout.newTab().setText("가까운순"));
@@ -87,12 +87,14 @@ public class HomeFragment extends Fragment {
 
             switch(position){
                 case 0:
-                    return new Rank_GoldReceiveFragment();
+                    return new Rank_HotFragment();
                 case 1:
-                    return new Rank_FanRichFragment();
+                    return new Rank_GoldReceiveFragment();
                 case 2:
-                    return new Rank_NearFragment();
+                    return new Rank_FanRichFragment();
                 case 3:
+                    return new Rank_NearFragment();
+                case 4:
                     return new Rank_NewMemberFragment();
             }
 
