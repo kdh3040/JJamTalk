@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -307,48 +308,76 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.cancelAll();
+        android.app.AlertDialog.Builder mDialog = null;
+        mDialog = new android.app.AlertDialog.Builder(this);
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
-        mMyData.badgecount = pref.getInt("Badge", 1);
+        if (!mMyData.verSion.equals(mMyData.marketVersion)) {
+            mDialog.setMessage("업데이트 후 사용해주세요.")
+                    .setCancelable(false)
+                    .setPositiveButton("업데이트 바로가기",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    Intent marketLaunch = new Intent(
+                                            Intent.ACTION_VIEW);
+                                    marketLaunch.setData(Uri
+                                            //.parse("https://play.google.com/store/apps/details?id=패키지명 적으세요"));
+                                            .parse("https://play.google.com/store/apps/details?id=com.dohosoft.talkking"));
 
-        if (mMyData.badgecount >= 1) {
-            mMyData.badgecount = 0;
-            Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
-            intent.putExtra("badge_count_package_name", "com.dohosoft.talkking");
-            intent.putExtra("badge_count_class_name", "com.dohosoft.talkking.LoginActivity");
-            intent.putExtra("badge_count", mMyData.badgecount);
-            sendBroadcast(intent);
+                                    startActivity(marketLaunch);
+                                    System.exit(0);
+                                }
+                            });
+            android.app.AlertDialog alert = mDialog.create();
+            alert.setTitle("안 내");
+            alert.show();
         }
 
-        int nTempNoti = 0;
-        int nTempStartFrag = 0;
-        SharedPreferences NotiPref = getApplicationContext().getSharedPreferences("ExecByNoti", getApplicationContext().MODE_PRIVATE);
-        nTempStartFrag = NotiPref.getInt("StartFrag", 0);
-        nTempNoti = NotiPref.getInt("ExecByNoti", 0);
+        else
+        {
 
-        if (mMyData.getUserIdx() == null) {
-            CommonFunc.getInstance().restartApp(getApplicationContext());
-        }
+            NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.cancelAll();
 
-        if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
-            if (nTempNoti == 1) {
-                SetButtonColor(nTempStartFrag);
-                SetFontColor(nTempStartFrag);
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
+            mMyData.badgecount = pref.getInt("Badge", 1);
 
-                logo.setVisibility(View.GONE);
-                mMyData.SetCurFrag(2);
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, chatListFragment, "ChatListFragment").commit();
-
-                CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
-                setImageAlpha(100, 100, 255, 100, 100);
-                iv_myPage.setVisibility(View.GONE);
-                txt_title.setVisibility(TextView.VISIBLE);
-                txt_title.setText("채팅 목록");
+            if (mMyData.badgecount >= 1) {
+                mMyData.badgecount = 0;
+                Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+                intent.putExtra("badge_count_package_name", "com.dohosoft.talkking");
+                intent.putExtra("badge_count_class_name", "com.dohosoft.talkking.LoginActivity");
+                intent.putExtra("badge_count", mMyData.badgecount);
+                sendBroadcast(intent);
             }
-        } else if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+
+            int nTempNoti = 0;
+            int nTempStartFrag = 0;
+            SharedPreferences NotiPref = getApplicationContext().getSharedPreferences("ExecByNoti", getApplicationContext().MODE_PRIVATE);
+            nTempStartFrag = NotiPref.getInt("StartFrag", 0);
+            nTempNoti = NotiPref.getInt("ExecByNoti", 0);
+
+            if (mMyData.getUserIdx() == null) {
+                CommonFunc.getInstance().restartApp(getApplicationContext());
+            }
+
+            if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND) {
+                if (nTempNoti == 1) {
+                    SetButtonColor(nTempStartFrag);
+                    SetFontColor(nTempStartFrag);
+
+                    logo.setVisibility(View.GONE);
+                    mMyData.SetCurFrag(2);
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, chatListFragment, "ChatListFragment").commit();
+
+                    CommonFunc.getInstance().SetActivityTopRightBtn(CommonFunc.ACTIVITY_TYPE.NONE);
+                    setImageAlpha(100, 100, 255, 100, 100);
+                    iv_myPage.setVisibility(View.GONE);
+                    txt_title.setVisibility(TextView.VISIBLE);
+                    txt_title.setText("채팅 목록");
+                }
+            } else if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
        /*     SetButtonColor(nTempStartFrag);
             SetFontColor(nTempStartFrag);
@@ -366,17 +395,20 @@ public class MainActivity extends AppCompatActivity {
             txt_title.setText("채팅 목록");*/
 
 
-            if (mMyData.GetCurFrag() == 2) {
-                Fragment frg = null;
-                frg = mFragmentMng.findFragmentByTag("ChatListFragment");
-                FragmentTransaction ft = mFragmentMng.beginTransaction();
-                ft.detach(frg);
-                ft.attach(frg);
-                ft.commit();
+                if (mMyData.GetCurFrag() == 2) {
+                    Fragment frg = null;
+                    frg = mFragmentMng.findFragmentByTag("ChatListFragment");
+                    FragmentTransaction ft = mFragmentMng.beginTransaction();
+                    ft.detach(frg);
+                    ft.attach(frg);
+                    ft.commit();
+                }
+
+
             }
-
-
         }
+
+
     }
 
 

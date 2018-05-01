@@ -1,8 +1,11 @@
 package com.dohosoft.talkking.Data;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -247,6 +250,8 @@ public class MyData {
     public long FanCountRef;
     public Double NearDistanceRef;
     public long NewDateRef;
+
+    public  String marketVersion, verSion;
 
     //public boolean bHotMemberReady = false;
 
@@ -925,6 +930,26 @@ public class MyData {
             });
         }
     }
+
+
+    public void getVersion() {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("CommonValue").child("Version");
+
+        table.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                marketVersion = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
 
 
     public void getFanList(final Activity mActivity) {

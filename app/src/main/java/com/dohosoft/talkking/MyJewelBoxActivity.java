@@ -1,9 +1,11 @@
 package com.dohosoft.talkking;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -224,8 +226,37 @@ public class MyJewelBoxActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-        mMyData.SetCurFrag(0);
-        refreshHearCnt();
+
+        android.app.AlertDialog.Builder mDialog = null;
+        mDialog = new android.app.AlertDialog.Builder(this);
+
+        if (!MyData.getInstance().verSion.equals(MyData.getInstance().marketVersion)) {
+            mDialog.setMessage("업데이트 후 사용해주세요.")
+                    .setCancelable(false)
+                    .setPositiveButton("업데이트 바로가기",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    Intent marketLaunch = new Intent(
+                                            Intent.ACTION_VIEW);
+                                    marketLaunch.setData(Uri
+                                            //.parse("https://play.google.com/store/apps/details?id=패키지명 적으세요"));
+                                            .parse("https://play.google.com/store/apps/details?id=com.dohosoft.talkking"));
+
+                                    startActivity(marketLaunch);
+                                    System.exit(0);
+                                }
+                            });
+            android.app.AlertDialog alert = mDialog.create();
+            alert.setTitle("안 내");
+            alert.show();
+        }
+        else
+        {
+            mMyData.SetCurFrag(0);
+            refreshHearCnt();
+        }
+
     }
 
 

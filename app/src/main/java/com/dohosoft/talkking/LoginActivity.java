@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     String rtStr = null;
     String version = null;
 
-    String marketVersion, verSion;
+
     AlertDialog.Builder mDialog;
 
     @Override
@@ -192,9 +192,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         table.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                marketVersion = dataSnapshot.getValue(String.class);
+                mMyData.marketVersion = dataSnapshot.getValue(String.class);
 
-                if (!verSion.equals(marketVersion)) {
+                if (!mMyData.verSion.equals(mMyData.marketVersion)) {
                     bUpdate = false;
                     mDialog.setMessage("업데이트 후 사용해주세요.")
                             .setCancelable(false)
@@ -243,7 +243,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        verSion = pi.versionName;
+        mMyData.verSion = pi.versionName;
 
         mDialog = new AlertDialog.Builder(this);
         getVersion();
@@ -939,6 +939,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                            mMyData.getCardList(mActivity);
                             mMyData.getFanList(mActivity);
                             mMyData.getReportedCnt();
+                            mMyData.getVersion();
 
 
 
@@ -2081,79 +2082,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-
-    public class getMarketVersion extends AsyncTask<Void, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-                Document doc = Jsoup
-                     /*   .connect(
-                                "https://play.google.com/store/apps/details?id=패키지명 적으세요" )*/
-                        .connect(
-                                "https://play.google.com/store/apps/details?id=com.dohosoft.talkking")
-                        .get();
-                Elements Version = doc.select(".content");
-
-                for (Element v : Version) {
-                    if (v.attr("itemprop").equals("softwareVersion")) {
-                        marketVersion = v.text();
-                    }
-                }
-                return marketVersion;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            PackageInfo pi = null;
-            try {
-                pi = getPackageManager().getPackageInfo(getPackageName(), 0);
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-            verSion = pi.versionName;
-            marketVersion = result;
-
-            if (!verSion.equals(marketVersion)) {
-                bUpdate = false;
-                mDialog.setMessage("업데이트 후 사용해주세요.")
-                        .setCancelable(false)
-                        .setPositiveButton("업데이트 바로가기",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        Intent marketLaunch = new Intent(
-                                                Intent.ACTION_VIEW);
-                                        marketLaunch.setData(Uri
-                                                //.parse("https://play.google.com/store/apps/details?id=패키지명 적으세요"));
-                                                .parse("https://play.google.com/store/apps/details?id=com.dohosoft.talkking"));
-
-                                        startActivity(marketLaunch);
-                                        finish();
-                                    }
-                                });
-                AlertDialog alert = mDialog.create();
-                alert.setTitle("안 내");
-                alert.show();
-            } else
-                bUpdate = true;
-
-
-            super.onPostExecute(result);
-        }
-    }
 
 }
 
