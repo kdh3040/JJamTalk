@@ -62,6 +62,10 @@ import static com.dohosoft.talkking.MainActivity.mFragmentMng;
  */
 
 public class UserPageActivity extends AppCompatActivity {
+
+    boolean MOD_AddHotMember = false;
+
+
     private UserData stTargetData;
     private ImageView bg_fan;
     private ImageView ic_fan;
@@ -325,31 +329,40 @@ if(mMyData.itemList.get(i) != 0)
 
                     case R.id.UserPage_btnRegister:
 
-
-                        if(mMyData.IsCardList(stTargetData.Idx) == false)
+                        if(MOD_AddHotMember == true)
                         {
-                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기에 등록 하였습니다.", true);
-                            mMyData.makeCardList(stTargetData);
+                            CommonFunc.getInstance().AddHotMember(stTargetData);
+                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "핫멤버로 등록 하였습니다.", true);
                         }
+
                         else
                         {
-                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기를 취소 하였습니다.", true);
-                            mMyData.removeCardList(stTargetData);
+                            if(mMyData.IsCardList(stTargetData.Idx) == false)
+                            {
+                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기에 등록 하였습니다.", true);
+                                mMyData.makeCardList(stTargetData);
+                            }
+                            else
+                            {
+                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기를 취소 하였습니다.", true);
+                                mMyData.removeCardList(stTargetData);
+                            }
+
+
+                            Fragment frg = null;
+                            frg = mFragmentMng.findFragmentByTag("CardListFragment");
+                            if(frg != null)
+                            {
+                                final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                                ft.detach(frg);
+                                ft.attach(frg);
+                                ft.commitAllowingStateLoss();
+                            }
+
+
+                            btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_pressed : R.drawable.favor);
+
                         }
-
-
-                        Fragment frg = null;
-                        frg = mFragmentMng.findFragmentByTag("CardListFragment");
-                        if(frg != null)
-                        {
-                            final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                            ft.detach(frg);
-                            ft.attach(frg);
-                            ft.commitAllowingStateLoss();
-                        }
-
-
-                        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_pressed : R.drawable.favor);
 
                         //ClickBtnSendHeart();
                         break;
@@ -365,17 +378,28 @@ if(mMyData.itemList.get(i) != 0)
 
                     case R.id.UserPage_btnShared:
 
-                        // 공유하기 버튼
-                        int aaa= 0;
-                       // String subject = "회원님을 위한 특별한 이성을 발견했습니다.";
-                        String text = "회원님을 위한 특별한 이성을 발견했습니다.\n톡킹에 로그인해 맘에 드는지 확인해보세요 \n" + CoomonValueData.getInstance().DownUrl;
-
                         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-                        intent.setType("text/plain");
-                       // intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-                        intent.putExtra(Intent.EXTRA_TEXT, text);
-                        Intent chooser = Intent.createChooser(intent, "타이틀");
-                        startActivity(chooser);
+
+                        if(MOD_AddHotMember == true)
+                        {
+                            CommonFunc.getInstance().RemoveHotMember(stTargetData);
+                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "핫멤버에서 삭제 하였습니다.", true);
+                        }
+                        else
+                        {
+                            int aaa= 0;
+                            // String subject = "회원님을 위한 특별한 이성을 발견했습니다.";
+                            String text = "회원님을 위한 특별한 이성을 발견했습니다.\n톡킹에 로그인해 맘에 드는지 확인해보세요 \n" + CoomonValueData.getInstance().DownUrl;
+
+
+                            intent.setType("text/plain");
+                            // intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                            intent.putExtra(Intent.EXTRA_TEXT, text);
+                            Intent chooser = Intent.createChooser(intent, "타이틀");
+                            startActivity(chooser);
+                        }
+                        // 공유하기 버튼
+
                         break;
 
                     case R.id.UserPage_btnGiftHoney:

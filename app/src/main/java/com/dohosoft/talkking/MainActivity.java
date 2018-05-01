@@ -104,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
 
     boolean RefreshTest = false;
 
+
+
     ImageView ib_home;
     ImageView ib_cardList;
     ImageView ib_chatList;

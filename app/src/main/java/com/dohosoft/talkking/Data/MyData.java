@@ -798,11 +798,15 @@ public class MyData {
 
     public boolean makeSendList(UserData _UserData, String _strSend, int _SendCount) {
         boolean rtValue = false;
+        long nowTime = CommonFunc.getInstance().GetCurrentTime();
+        String strCheckName = strIdx + "_" + _UserData.Idx;
+        String strCheckName1 = _UserData.Idx + "_" + strIdx;
+
 
         UserData SaveUserData = _UserData;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, user, targetuser;
+        DatabaseReference table, user, targetuser = null;
         table = database.getReference("Users");
 
         if(getUserGender().equals("여자"))
@@ -814,11 +818,26 @@ public class MyData {
             user =  table.child("Man").child(strIdx).child("SendList");
         }
 
+        String tempGender = mapGenderData.get(_UserData.Idx);
 
-        targetuser = table.child(_UserData.Idx).child("SendList");
+        if (tempGender == null || tempGender.equals("")) {
 
-        String strCheckName = strIdx + "_" + _UserData.Idx;
-        String strCheckName1 = _UserData.Idx + "_" + strIdx;
+        }
+
+        else
+        {
+            if (tempGender.equals("여자")) {
+                table = database.getReference("Users").child("Woman");
+            } else {
+                table = database.getReference("Users").child("Man");
+            }
+            targetuser = table.child(_UserData.Idx).child("SendList");
+        }
+
+
+
+
+
 
         SimpleChatData tempMySave = new SimpleChatData();
         tempMySave.ChatRoomName = strCheckName;
@@ -832,7 +851,7 @@ public class MyData {
         tempMySave.SendHeart = _SendCount;
         tempMySave.WriterIdx = getUserIdx();
 
-        long nowTime = CommonFunc.getInstance().GetCurrentTime();
+
         tempMySave.Date = nowTime;
 
         SimpleChatData tempTargetSave = new SimpleChatData();
