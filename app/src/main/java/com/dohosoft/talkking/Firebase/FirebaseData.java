@@ -447,68 +447,6 @@ public class FirebaseData {
 
         user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
 
-
-
-
-        table = database.getReference("User");//.child(mMyData.getUserIdx());
-        user = table.child( userIdx);
-
-
-        if (FirebaseInstanceId.getInstance() == null || FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals("")) {
-            System.exit(0);
-        } else {
-            mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
-            user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
-        }
-
-        user.child("Idx").setValue(mMyData.getUserIdx());
-        user.child("ImgCount").setValue(mMyData.getUserImgCnt());
-        if(mMyData.getUserImgCnt() == 0)
-        {
-            mMyData.setUserImgCnt(1);
-            user.child("ImgCount").setValue(1);
-        }
-
-        user.child("Img").setValue(mMyData.getUserImg());
-
-        for (int i = 0; i < 4; i++)
-            user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
-
-        if(mMyData.getUserProfileImg(0).equals("1"))
-        {
-            mMyData.setUserProfileImg(0, mMyData.getUserImg());
-            user.child("ImgGroup0").setValue(mMyData.getUserImg());
-        }
-
-        user.child("NickName").setValue(mMyData.getUserNick());
-        user.child("Gender").setValue(mMyData.getUserGender());
-        user.child("Age").setValue(mMyData.getUserAge());
-
-        user.child("Lon").setValue(mMyData.getUserLon());
-        user.child("Lat").setValue(mMyData.getUserLat());
-        user.child("Dist").setValue(mMyData.getUserDist());
-
-        user.child("SendCount").setValue(mMyData.getSendHoney());
-        user.child("RecvGold").setValue(mMyData.getRecvHoney());
-
-
-
-        user.child("Memo").setValue(mMyData.getUserMemo());
-
-        user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
-
-        user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
-
-        user.child("Point").setValue(mMyData.getPoint());
-
-        user.child("Grade").setValue(mMyData.getGrade());
-        user.child("BestItem").setValue(mMyData.bestItem);
-        user.child("Honey").setValue(mMyData.getUserHoney());
-
-        user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
-
-
-
         // 심플 디비 저장
         SaveSimpleData();
     }
@@ -944,9 +882,23 @@ public class FirebaseData {
         BoardData.getInstance().AddBoardData(sendData, true);
         writeBoardTable.setValue(sendData);
 
-        DatabaseReference myTable = database.getReference("User").child(MyData.getInstance().getUserIdx()).child("LastBoardWriteTime");
+        DatabaseReference myTable = database.getReference("Users");
+
+        if(mMyData.getUserGender().equals("여자"))
+        {
+            myTable.child("Woman").child(MyData.getInstance().getUserIdx()).child("LastBoardWriteTime");
+        }
+        else
+        {
+            myTable.child("Man").child(MyData.getInstance().getUserIdx()).child("LastBoardWriteTime");
+        }
+
         MyData.getInstance().SetLastBoardWriteTime(CommonFunc.getInstance().GetCurrentTime());
         myTable.setValue(CommonFunc.getInstance().GetCurrentTime());
+
+      /*  DatabaseReference myTable = database.getReference("User").child(MyData.getInstance().getUserIdx()).child("LastBoardWriteTime");
+        MyData.getInstance().SetLastBoardWriteTime(CommonFunc.getInstance().GetCurrentTime());
+        myTable.setValue(CommonFunc.getInstance().GetCurrentTime());*/
 
         return true;
     }
@@ -1812,7 +1764,18 @@ public class FirebaseData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         SimpleDateFormat ctime = new SimpleDateFormat(CoomonValueData.DATE_FORMAT);
 
-        DatabaseReference myTable = database.getReference("User").child(MyData.getInstance().getUserIdx()).child("LastAdsTime");
+        DatabaseReference myTable = database.getReference("Users");
+
+        if(mMyData.getUserGender().equals("여자"))
+        {
+            myTable.child("Woman").child(MyData.getInstance().getUserIdx()).child("LastAdsTime");
+        }
+        else
+        {
+            myTable.child("Man").child(MyData.getInstance().getUserIdx()).child("LastAdsTime");
+        }
+
+
         myTable.setValue(Long.valueOf(time));
     }
 }

@@ -66,8 +66,7 @@ public class BoardFragment extends Fragment {
         BOTTOM
     }
 
-    private void refreshFragMent()
-    {
+    private void refreshFragMent() {
         FragmentTransaction trans = getFragmentManager().beginTransaction();
         trans.detach(this).attach(this).commit();
     }
@@ -75,7 +74,7 @@ public class BoardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+        if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             mMyData.SetCurFrag(4);
         }
@@ -86,16 +85,17 @@ public class BoardFragment extends Fragment {
         public BOARD_SCROLL_STATE_TYPE BoardScrollState = BOARD_SCROLL_STATE_TYPE.NONE;
         public Boolean BoardDataLoding = false;
         private BoardViewHolder ViewHolder = null;
+
         @Override
         public BoardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.content_board,parent,false);
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.content_board, parent, false);
 
             return new BoardViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(BoardViewHolder holder, final int position) {
-            BoardMsgClientData BoardData =  mBoardInstanceData.BoardList.get(position);
+            BoardMsgClientData BoardData = mBoardInstanceData.BoardList.get(position);
             holder.SetBoardViewHolder(getContext(), BoardData, BoardData.GetDBData().Idx.equals(mMyData.getUserIdx()), false);
 
             View.OnClickListener listener = new View.OnClickListener() {
@@ -106,18 +106,17 @@ public class BoardFragment extends Fragment {
                         case R.id.board_msg:
                         case R.id.board_write_date:
                         case R.id.board_thumnail:
-                            if(CommonFunc.getInstance().getClickStatus() == false)
+                            if (CommonFunc.getInstance().getClickStatus() == false)
                                 getBoardWriterData(position);
                             break;
 
-                        case R.id.board_report:
-                        {
+                        case R.id.board_report: {
 
                             CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
                                 public void YesListener() {
-                                    BoardMsgClientData data =  mBoardInstanceData.BoardList.get(position);
+                                    BoardMsgClientData data = mBoardInstanceData.BoardList.get(position);
                                     mBoardInstanceData.RemoveBoard(data.GetDBData().BoardIdx);
-                                    if(data.ReportList.size() >= REPORT_BOARD_DELETE)
+                                    if (data.ReportList.size() >= REPORT_BOARD_DELETE)
                                         FirebaseData.getInstance().RemoveBoard(data.GetDBData().BoardIdx);
                                     else
                                         FirebaseData.getInstance().ReportBoard(data.GetDBData().BoardIdx, mMyData.getUserIdx());
@@ -142,8 +141,7 @@ public class BoardFragment extends Fragment {
         }
 
         // 글쓴이 페이지로 이동하는 함수
-        public void moveWriterPage(UserData stTargetData)
-        {
+        public void moveWriterPage(UserData stTargetData) {
             Intent intent = new Intent(getContext(), UserPageActivity.class);
             Bundle bundle = new Bundle();
 
@@ -169,90 +167,174 @@ public class BoardFragment extends Fragment {
 
             final String strTargetIdx = mBoardInstanceData.BoardList.get(position).GetDBData().Idx;
 
-            if(strTargetIdx.equals(mMyData.getUserIdx()))
-            {
+            if (strTargetIdx.equals(mMyData.getUserIdx())) {
                 CommonFunc.getInstance().DismissLoadingPage();
                 CommonFunc.getInstance().setClickStatus(false);
                 CommonFunc.getInstance().ShowToast(getContext(), "글쓴이가 본인 입니다", false);
-            }
-
-            else
-            {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
+            } else {
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference table = null;
-                table = database.getReference("User");
 
-                table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int saa = 0;
-                        UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                        if(tempUserData != null)
-                        {
-                            _BoardWriterData = tempUserData;
+                String tempGender = mMyData.mapGenderData.get(strTargetIdx);
+                if (tempGender == null || tempGender.equals("")) {
+
+                    table = database.getReference("GenderList");
+                    table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String tempValue = dataSnapshot.getValue(String.class);
+                            mMyData.mapGenderData.put(strTargetIdx, tempValue);
+
+                            DatabaseReference table = null;
+                            if (tempValue.equals("여자")) {
+                                table = database.getReference("Users").child("Woman");
+                            } else {
+                                table = database.getReference("Users").child("Man");
+                            }
+
+                            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    int saa = 0;
+                                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                                    if (tempUserData != null) {
+                                        _BoardWriterData = tempUserData;
 
                      /*   for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             _BoardWriterData.arrStarList.add(entry.getValue());
                         }*/
 
-                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
-                                _BoardWriterData.arrFanList.add(entry.getValue());
-                            }
-
-                            if(_BoardWriterData.arrFanList.size() == 0)
-                            {
-                                moveWriterPage(_BoardWriterData);
-                            }
-                            else
-                            {
-                                CommonFunc.getInstance().SortByRecvHeart(_BoardWriterData);
-
-                                for(int i = 0 ;i < _BoardWriterData.arrFanList.size(); i++)
-                                {
-                                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(_BoardWriterData.arrFanList.get(i).Idx);
-                                    final FanData finalTempFanData = _BoardWriterData.arrFanList.get(i);
-                                    final int finalI = i;
-                                    data.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
-                                            if(DBData != null)
-                                            {
-                                                _BoardWriterData.arrFanData.put(finalTempFanData.Idx, DBData);
-
-                                                if( finalI == _BoardWriterData.arrFanList.size() -1)
-                                                {
-                                                    moveWriterPage(_BoardWriterData);
-                                                }
-                                            }
-                                            else {
-                                                CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
-                                                CommonFunc.getInstance().DismissLoadingPage();
-                                                CommonFunc.getInstance().setClickStatus(false);
-                                            }
-
+                                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                                            _BoardWriterData.arrFanList.add(entry.getValue());
                                         }
 
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
+                                        if (_BoardWriterData.arrFanList.size() == 0) {
+                                            moveWriterPage(_BoardWriterData);
+                                        } else {
+                                            CommonFunc.getInstance().SortByRecvHeart(_BoardWriterData);
 
+                                            for (int i = 0; i < _BoardWriterData.arrFanList.size(); i++) {
+                                                Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(_BoardWriterData.arrFanList.get(i).Idx);
+                                                final FanData finalTempFanData = _BoardWriterData.arrFanList.get(i);
+                                                final int finalI = i;
+                                                data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                                        if (DBData != null) {
+                                                            _BoardWriterData.arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                                            if (finalI == _BoardWriterData.arrFanList.size() - 1) {
+                                                                moveWriterPage(_BoardWriterData);
+                                                            }
+                                                        } else {
+                                                            CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
+                                                            CommonFunc.getInstance().DismissLoadingPage();
+                                                            CommonFunc.getInstance().setClickStatus(false);
+                                                        }
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+                                            }
                                         }
-                                    });
+                                    } else {
+                                        CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
+                                        CommonFunc.getInstance().setClickStatus(false);
+                                    }
+
                                 }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+
+
+                    });
+
+                } else {
+                    if (tempGender.equals("여자")) {
+                        table = database.getReference("Users").child("Woman");
+                    } else {
+                        table = database.getReference("Users").child("Man");
+                    }
+
+                    table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int saa = 0;
+                            UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                            if (tempUserData != null) {
+                                _BoardWriterData = tempUserData;
+
+                     /*   for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
+                            _BoardWriterData.arrStarList.add(entry.getValue());
+                        }*/
+
+                                for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                                    _BoardWriterData.arrFanList.add(entry.getValue());
+                                }
+
+                                if (_BoardWriterData.arrFanList.size() == 0) {
+                                    moveWriterPage(_BoardWriterData);
+                                } else {
+                                    CommonFunc.getInstance().SortByRecvHeart(_BoardWriterData);
+
+                                    for (int i = 0; i < _BoardWriterData.arrFanList.size(); i++) {
+                                        Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(_BoardWriterData.arrFanList.get(i).Idx);
+                                        final FanData finalTempFanData = _BoardWriterData.arrFanList.get(i);
+                                        final int finalI = i;
+                                        data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                                if (DBData != null) {
+                                                    _BoardWriterData.arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                                    if (finalI == _BoardWriterData.arrFanList.size() - 1) {
+                                                        moveWriterPage(_BoardWriterData);
+                                                    }
+                                                } else {
+                                                    CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
+                                                    CommonFunc.getInstance().DismissLoadingPage();
+                                                    CommonFunc.getInstance().setClickStatus(false);
+                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    }
+                                }
+                            } else {
+                                CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
+                                CommonFunc.getInstance().setClickStatus(false);
                             }
-                        }
-                        else
-                        {
-                            CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
-                            CommonFunc.getInstance().setClickStatus(false);
+
                         }
 
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+
             }
 
         }
@@ -269,11 +351,9 @@ public class BoardFragment extends Fragment {
             //CommonFunc.getInstance().refreshFragMent(this);
             BoradListAdapter.notifyDataSetChanged();
             //refreshFragMent();
-        }
-        else
-        {
-            mFragmentView = inflater.inflate(R.layout.fragment_board,container,false);
-            BoardSlotListRecycler = (RecyclerView)mFragmentView.findViewById(R.id.board_recy);
+        } else {
+            mFragmentView = inflater.inflate(R.layout.fragment_board, container, false);
+            BoardSlotListRecycler = (RecyclerView) mFragmentView.findViewById(R.id.board_recy);
             BoardSlotListRecycler.setAdapter(BoradListAdapter);
             BoardSlotListRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
             BoradListAdapter.notifyDataSetChanged();
@@ -291,46 +371,40 @@ public class BoardFragment extends Fragment {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
 
-                    if(!recyclerView.canScrollVertically(-1)) {
-                        if(mBoardInstanceData.BoardList.size() <= 0)
+                    if (!recyclerView.canScrollVertically(-1)) {
+                        if (mBoardInstanceData.BoardList.size() <= 0)
                             return;
 
-                        if(BoradListAdapter.BoardDataLoding == false)
-                        {
+                        if (BoradListAdapter.BoardDataLoding == false) {
                             CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
                             BoradListAdapter.BoardDataLoding = true;
                             BoardMsgClientData lastBoardData = mBoardInstanceData.BoardList.get(0);
-                            FirebaseData.getInstance().GetBoardData(BoradListAdapter,mBoardInstanceData.TopBoardIdx, true);
+                            FirebaseData.getInstance().GetBoardData(BoradListAdapter, mBoardInstanceData.TopBoardIdx, true);
                         }
-                    }
-                    else if(!recyclerView.canScrollVertically(1)) {
-                        if(CoomonValueData.getInstance().BoardPastLoading == false)
+                    } else if (!recyclerView.canScrollVertically(1)) {
+                        if (CoomonValueData.getInstance().BoardPastLoading == false)
                             return;
 
-                        if(mBoardInstanceData.BoardList.size() <= 0)
+                        if (mBoardInstanceData.BoardList.size() <= 0)
                             return;
 
-                        if(BoradListAdapter.BoardDataLoding == false)
-                        {
+                        if (BoradListAdapter.BoardDataLoding == false) {
                             CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
                             BoradListAdapter.BoardDataLoding = true;
-                            FirebaseData.getInstance().GetBoardData(BoradListAdapter,mBoardInstanceData.BottomBoardIdx, false);
+                            FirebaseData.getInstance().GetBoardData(BoradListAdapter, mBoardInstanceData.BottomBoardIdx, false);
                         }
-                    }
-                    else
+                    } else
                         BoradListAdapter.BoardScrollState = BOARD_SCROLL_STATE_TYPE.CENTER;
 
                 }
             });
         }
 
-        if(mBoardInstanceData.BoardList.size() <= 0)
-        {
-            if(BoradListAdapter.BoardDataLoding == false)
-            {
+        if (mBoardInstanceData.BoardList.size() <= 0) {
+            if (BoradListAdapter.BoardDataLoding == false) {
                 CommonFunc.getInstance().ShowLoadingPage(getContext(), "로딩중");
                 BoradListAdapter.BoardDataLoding = true;
-                FirebaseData.getInstance().GetBoardData(BoradListAdapter,mBoardInstanceData.TopBoardIdx, true);
+                FirebaseData.getInstance().GetBoardData(BoradListAdapter, mBoardInstanceData.TopBoardIdx, true);
             }
         }
 
@@ -338,29 +412,30 @@ public class BoardFragment extends Fragment {
         return mFragmentView;
     }
 
-    private RecyclerView.OnItemTouchListener GetBoradListClickFunc()
-    {
+    private RecyclerView.OnItemTouchListener GetBoradListClickFunc() {
         RecyclerView.OnItemTouchListener returnFunc =
-        new RecyclerItemClickListener(getContext(), BoardSlotListRecycler, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getContext(), BoardItemActivity.class);
-                BoardMsgClientData boardMsgData =  mBoardInstanceData.BoardList.get(position);
-                if(boardMsgData == null)
-                    return;
+                new RecyclerItemClickListener(getContext(), BoardSlotListRecycler, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        //  Toast.makeText(getApplicationContext(),position+"번 째 아이템 클릭",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(), BoardItemActivity.class);
+                        BoardMsgClientData boardMsgData = mBoardInstanceData.BoardList.get(position);
+                        if (boardMsgData == null)
+                            return;
 
-                // Intent 하면서 변수를 넘겨준다. TODO 환웅 키값을 넘겨주는게 좋지 않을까..
-                intent.putExtra("Target", position);
+                        // Intent 하면서 변수를 넘겨준다. TODO 환웅 키값을 넘겨주는게 좋지 않을까..
+                        intent.putExtra("Target", position);
 
-                // 조회수 갱신
-                // mFireBaseData.PushBoardViewCount(boardMsgData.GetDBData().Key);
+                        // 조회수 갱신
+                        // mFireBaseData.PushBoardViewCount(boardMsgData.GetDBData().Key);
 
-                startActivity(intent);
-            }
-            @Override
-            public void onLongItemClick(View view, int position) {}
-        });
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                    }
+                });
 
         return returnFunc;
     }

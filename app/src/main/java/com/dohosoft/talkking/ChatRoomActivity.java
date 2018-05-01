@@ -911,7 +911,15 @@ public class ChatRoomActivity extends AppCompatActivity {
                     onBackPressed();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table;
-                    table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/").child(tempChatData.ChatRoomName);
+                    if(mMyData.getUserGender().equals("여자"))
+                    {
+                        table = database.getReference("Users/Woman/" + mMyData.getUserIdx()+ "/SendList/").child(tempChatData.ChatRoomName);
+                    }
+                    else
+                    {
+                        table = database.getReference("Users/Man/" + mMyData.getUserIdx()+ "/SendList/").child(tempChatData.ChatRoomName);
+                    }
+
                     table.removeValue();
 
                     if(tempPosition == -1)
@@ -970,7 +978,16 @@ public class ChatRoomActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference table;
-                        table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
+
+                        if(mMyData.getUserGender().equals("여자"))
+                        {
+                            table = database.getReference("Users/Woman/" + mMyData.getUserIdx()+ "/SendList/" );
+                        }
+                        else
+                        {
+                            table = database.getReference("Users/Man/" + mMyData.getUserIdx() + "/SendList/");
+                        }
+
                         table.child(tempChatData.ChatRoomName).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -1045,7 +1062,16 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference table;
-                        table = database.getReference("User/" + mMyData.getUserIdx()+ "/SendList/");
+
+                        if(mMyData.getUserGender().equals("여자"))
+                        {
+                            table = database.getReference("Users/Woman/" + mMyData.getUserIdx()+ "/SendList/" );
+                        }
+                        else
+                        {
+                            table = database.getReference("Users/Man/" + mMyData.getUserIdx() + "/SendList/");
+                        }
+
                         final int finalNReportVal = nReportVal;
                         table.child(tempChatData.ChatRoomName).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

@@ -288,7 +288,15 @@ public class FanListFragment extends Fragment {
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table;
-            table = database.getReference("User/" + mMyData.getUserIdx() );
+            if(mMyData.getUserGender().equals("여자"))
+            {
+                table = database.getReference("Users/Woman/" + mMyData.getUserIdx() );
+            }
+            else
+            {
+                table = database.getReference("Users/Man/" + mMyData.getUserIdx() );
+            }
+
             table.child("FanList").child(mMyData.arrMyFanList.get(position).Idx).child("Check").setValue(mMyData.arrMyFanList.get(position).Check);
         }
 
@@ -322,7 +330,16 @@ public class FanListFragment extends Fragment {
             final String strTargetIdx = mMyData.arrMyFanDataList.get(i).Idx;
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table = null;
-            table = database.getReference("User");
+
+
+            if(mMyData.arrMyFanDataList.get(i).Gender.equals("여자"))
+            {
+                table = database.getReference("Users").child("Woman");
+            }
+            else
+            {
+                table = database.getReference("Users").child("Man");
+            }
 
             table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

@@ -387,6 +387,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.mainactivity);
         mActivity = this;
         mContext = getApplicationContext();
+
+        SharedPreferences MyDataPref = mContext.getSharedPreferences("MyData", mContext.MODE_PRIVATE);
+        SharedPreferences.Editor MyDataEditor = MyDataPref.edit();
+        MyDataEditor.putString("Gender",  mMyData.getUserGender());
+        MyDataEditor.commit();
+
+
         mFragmentMng = getSupportFragmentManager();
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-4020702622451243~3824534212");
 

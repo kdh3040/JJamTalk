@@ -102,6 +102,7 @@ public class MyData {
     public ArrayList<UserData> arrUserAll_Hot = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Hot_Age = new ArrayList<>();
 
+    public  Map<String, String> mapGenderData = new LinkedHashMap<String, String>();
 
     public  Map<String, UserData> mapChatTargetData = new LinkedHashMap<String, UserData>();
 
@@ -764,7 +765,14 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
 
-        table = database.getReference("User/" + strIdx);
+        if(getUserGender().equals("여자"))
+        {
+            table = database.getReference("Users/Woman/" + strIdx );
+        }
+        else
+        {
+            table = database.getReference("Users/Man/" + strIdx);
+        }
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("SendCount", nSendCount);
@@ -790,9 +798,18 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user, targetuser;
-        table = database.getReference("User");
+        table = database.getReference("Users");
 
-        user = table.child(strIdx).child("SendList");
+        if(getUserGender().equals("여자"))
+        {
+            user = table.child("Woman").child(strIdx).child("SendList");
+        }
+        else
+        {
+            user =  table.child("Man").child(strIdx).child("SendList");
+        }
+
+
         targetuser = table.child(_UserData.Idx).child("SendList");
 
         String strCheckName = strIdx + "_" + _UserData.Idx;
@@ -915,7 +932,16 @@ public class MyData {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
-        table = database.getReference("User");
+
+        if(getUserGender().equals("여자"))
+        {
+            table = database.getReference("Users").child("Woman");
+        }
+        else
+        {
+            table = database.getReference("Users").child("Man");
+        }
+
         user = table.child(strIdx).child("FanList");
 
 
@@ -1088,7 +1114,16 @@ public class MyData {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
-        table = database.getReference("User");
+
+        if(getUserGender().equals("여자"))
+        {
+            table = database.getReference("Users").child("Woman");
+        }
+        else
+        {
+            table = database.getReference("Users").child("Man");
+        }
+
         user = table.child(strIdx).child("RecvGold");
 
         user.addValueEventListener(new ValueEventListener() {
@@ -1115,7 +1150,15 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
-        table = database.getReference("User");
+
+        if(MyData.getInstance().getUserGender().equals("여자"))
+        {
+            table = database.getReference("Users").child("Woman");//.child(mMyData.getUserIdx());
+        }
+        else {
+            table = database.getReference("Users").child("Man");//.child(mMyData.getUserIdx());
+        }
+
         user = table.child(strIdx).child("SendList");
 
         user.addChildEventListener(new ChildEventListener() {
@@ -1431,7 +1474,14 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        table = database.getReference("User/" + getUserIdx());
+        if(getUserGender().equals("여자"))
+        {
+            table = database.getReference("Users/Woman/" + getUserIdx());
+        }
+        else
+        {
+            table = database.getReference("Users/Man/" + getUserIdx());
+        }
 
 
         if(IsCardList(target.Idx))
@@ -1511,7 +1561,15 @@ public class MyData {
         final String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
-        table = database.getReference("User");
+
+        if(MyData.getInstance().getUserGender().equals("여자"))
+        {
+            table = database.getReference("Users").child("Woman");//.child(mMyData.getUserIdx());
+        }
+        else {
+            table = database.getReference("Users").child("Man");//.child(mMyData.getUserIdx());
+        }
+
         //Log.d("!!!!!!", "getMyStarData  " + arrMyStarList.size());
 
         strTargetIdx = Idx;
@@ -2028,7 +2086,16 @@ public class MyData {
 
 
             FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
-            DatabaseReference data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("FanCount");
+            DatabaseReference data;
+            if(stTargetData.Gender.equals("여자"))
+            {
+                 data = fierBaseDataInstance.getReference("Users").child("Woman").child(stTargetData.Idx).child("FanCount");
+            }
+            else
+            {
+                 data = fierBaseDataInstance.getReference("Users").child("Man").child(stTargetData.Idx).child("FanCount");
+            }
+
             data.runTransaction(new Transaction.Handler() {
                 @Override
                 public Transaction.Result doTransaction(MutableData mutableData) {
@@ -2057,27 +2124,6 @@ public class MyData {
                         }
                     }
 
-             /*       if(stTargetData.Gender.equals("여자"))
-                    {
-                        for(int i = 0; i < arrUserWoman_Send_Age.size(); i++)
-                        {
-                            if(arrUserWoman_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount;
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        for(int i = 0; i < arrUserMan_Send_Age.size(); i++)
-                        {
-                            if(arrUserMan_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount;
-                                break;
-                            }
-                        }
-                    }*/
-
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table;
                     table = database.getReference("SimpleData/" + stTargetData.Idx);
@@ -2086,13 +2132,29 @@ public class MyData {
                     updateFanCountMap.put("FanCount", stTargetData.FanCount);
                     table.updateChildren(updateFanCountMap);
 
-                    table = database.getReference("User/" + stTargetData.Idx);
+                    if(stTargetData.Gender.equals("여자"))
+                    {
+                        table = database.getReference("Users/Woman/" + stTargetData.Idx);
+                    }
+                    else
+                    {
+                        table = database.getReference("Users/Man/" + stTargetData.Idx);
+                    }
+
                     table.updateChildren(updateFanCountMap);
 
                 }
             });
 
-            data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("RecvGold");
+            if(stTargetData.Gender.equals("여자"))
+            {
+                data = fierBaseDataInstance.getReference("Users").child("Woman").child(stTargetData.Idx).child("RecvGold");
+            }
+            else
+            {
+                data = fierBaseDataInstance.getReference("Users").child("Man").child(stTargetData.Idx).child("RecvGold");
+            }
+
             data.runTransaction(new Transaction.Handler() {
                 @Override
                 public Transaction.Result doTransaction(MutableData mutableData) {
@@ -2121,30 +2183,17 @@ public class MyData {
                         }
                     }
 
-             /*       if(stTargetData.Gender.equals("여자"))
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference table;
+
+                    if(stTargetData.Gender.equals("여자"))
                     {
-                        for(int i = 0; i < arrUserWoman_Recv_Age.size(); i++)
-                        {
-                            if(arrUserWoman_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserWoman_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
-                                break;
-                            }
-                        }
+                        table = database.getReference("Users/Woman/" + stTargetData.Idx);
                     }
                     else
                     {
-                        for(int i = 0; i < arrUserMan_Recv_Age.size(); i++)
-                        {
-                            if(arrUserMan_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserMan_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
-                                break;
-                            }
-                        }
-                    }*/
-
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference table;
-                    table = database.getReference("User/" + stTargetData.Idx);
+                        table = database.getReference("Users/Man/" + stTargetData.Idx);
+                    }
 
                     Map<String, Object> updateFanCountMap = new HashMap<>();
                     updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
@@ -2232,7 +2281,16 @@ public class MyData {
                 SortByRecvHeart(stTargetData, context, res, 4, SendCount, msg);
 
                 FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
-                DatabaseReference data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("FanCount");
+                DatabaseReference data;
+                if(stTargetData.Gender.equals("여자"))
+                {
+                    data = fierBaseDataInstance.getReference("Users").child("Woman").child(stTargetData.Idx).child("FanCount");
+                }
+                else
+                {
+                    data = fierBaseDataInstance.getReference("Users").child("Man").child(stTargetData.Idx).child("FanCount");
+                }
+
                 data.runTransaction(new Transaction.Handler() {
                     @Override
                     public Transaction.Result doTransaction(MutableData mutableData) {
@@ -2260,30 +2318,16 @@ public class MyData {
                             }
                         }
 
-                      /*  if(stTargetData.Gender.equals("여자"))
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference table;
+                        if(stTargetData.Gender.equals("여자"))
                         {
-                            for(int i = 0; i < arrUserWoman_Send_Age.size(); i++)
-                            {
-                                if(arrUserWoman_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                    arrUserWoman_Send_Age.get(i).FanCount = stTargetData.FanCount;
-                                    break;
-                                }
-                            }
+                            table = database.getReference("Users/Woman/" + stTargetData.Idx);
                         }
                         else
                         {
-                            for(int i = 0; i < arrUserMan_Send_Age.size(); i++)
-                            {
-                                if(arrUserMan_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                    arrUserMan_Send_Age.get(i).FanCount = stTargetData.FanCount;
-                                    break;
-                                }
-                            }
-                        }*/
-
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference table;
-                        table = database.getReference("User/" + stTargetData.Idx);
+                            table = database.getReference("Users/Man/" + stTargetData.Idx);
+                        }
 
                         Map<String, Object> updateFanCountMap = new HashMap<>();
                         updateFanCountMap.put("FanCount", stTargetData.FanCount );
@@ -2297,7 +2341,16 @@ public class MyData {
             }
 
             FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
-            DatabaseReference data = fierBaseDataInstance.getReference("User").child(stTargetData.Idx).child("RecvGold");
+            DatabaseReference data;
+            if(stTargetData.Gender.equals("여자"))
+            {
+                data  = fierBaseDataInstance.getReference("Users").child("Woman").child(stTargetData.Idx).child("RecvGold");
+            }
+            else
+            {
+                data  = fierBaseDataInstance.getReference("Users").child("Man").child(stTargetData.Idx).child("RecvGold");
+            }
+
             data.runTransaction(new Transaction.Handler() {
                 @Override
                 public Transaction.Result doTransaction(MutableData mutableData) {
@@ -2326,30 +2379,17 @@ public class MyData {
                         }
                     }
 
-                  /*  if(stTargetData.Gender.equals("여자"))
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference table;
+                    if(stTargetData.Gender.equals("여자"))
                     {
-                        for(int i = 0; i < arrUserWoman_Recv_Age.size(); i++)
-                        {
-                            if(arrUserWoman_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserWoman_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
-                                break;
-                            }
-                        }
+                        table = database.getReference("Users/Woman/" + stTargetData.Idx);
                     }
                     else
                     {
-                        for(int i = 0; i < arrUserMan_Recv_Age.size(); i++)
-                        {
-                            if(arrUserMan_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
-                                arrUserMan_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
-                                break;
-                            }
-                        }
-                    }*/
+                        table = database.getReference("Users/Man/" + stTargetData.Idx);
+                    }
 
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference table;
-                    table = database.getReference("User/" + stTargetData.Idx);
 
                     Map<String, Object> updateFanCountMap = new HashMap<>();
                     updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
@@ -2368,7 +2408,15 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
 
-        table = database.getReference("User/" + stTargetData.Idx).child("FanList");
+        if(stTargetData.Gender.equals("여자"))
+        {
+            table = database.getReference("Users/Woman/" + stTargetData.Idx).child("FanList");
+        }
+        else
+        {
+            table = database.getReference("Users/Man/" + stTargetData.Idx).child("FanList");
+        }
+
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("RecvGold", nTotalSendCnt);
         updateMap.put("Idx", getUserIdx());
@@ -2376,240 +2424,6 @@ public class MyData {
 
         table.child(getUserIdx()).updateChildren(updateMap);
 
-        //getMyfanData(stTargetData.Idx);
-
-        //stTargetData.Count = nTotalSendCnt;
-
-/*
-        SimpleUserData tempStarList = new_img SimpleUserData();
-        tempStarList.Idx = stTargetData.Idx;
-        tempStarList.RecvGold = nTotalSendCnt;
-        tempStarList.NickName = getUserNick();
-        tempStarList.Img = getUserImg();
-*/
-
-
-        //arrMyFanList.add(tempStarList);
-
-    }
-
-    public void makeStarList(UserData stTargetData, int SendCount) {
-
-        int nTotalSendCnt = 0;
-        for (int i = 0; i < arrSendHoneyDataList.size(); i++) {
-            if (arrSendHoneyDataList.get(i).strTargetNick.equals(stTargetData.NickName))
-                nTotalSendCnt -= arrSendHoneyDataList.get(i).nSendHoney;
-        }
-
-        nTotalSendCnt -= SendCount;
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table;
-        table = database.getReference("User/" + getUserIdx());
-
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("SendGold", nTotalSendCnt);
-        updateMap.put("Idx", stTargetData.Idx);
-        table.child("StarList").child(stTargetData.Idx).updateChildren(updateMap);
-        //
-
-        final StarData tempStarList = new StarData();
-        tempStarList.Idx = stTargetData.Idx;
-        tempStarList.SendGold = nTotalSendCnt;
-
-        boolean bSame = false;
-        for (int i = 0; i < arrMyStarList.size(); i++) {
-            if (arrMyStarList.get(i).equals(tempStarList.Idx)) {
-                bSame = true;
-                arrMyStarList.get(i).SendGold = nTotalSendCnt;
-                // sortStarData();
-                break;
-            }
-        }
-
-        if (bSame == false) {
-            arrMyStarList.add(tempStarList);
-            // arrMyStarDataList.put(tempStarList.Idx, tempStarList);
-            //sortStarData();
-            // getMyStarData(tempStarList.Idx);
-
-            Query data = database.getReference().child("SimpleData").child(tempStarList.Idx);
-            data.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
-                    arrMyStarDataList.put(tempStarList.Idx, DBData);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-        }
-
-    }
-/*
-    public void getMyStarData(String TargetIdx) {
-        final String strTargetIdx =TargetIdx;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = null;
-        table = database.getReference("User");
-
-        table.child(strTargetIdx).addListenerForSingleValueEvent(new_img ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int saa = 0;
-                UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                if(tempUserData != null)
-                {
-                    mapMyStarData.put(strTargetIdx, tempUserData);
-
-                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
-                        mapMyStarData.get(strTargetIdx).arrFanList.add(entry.getValue());
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-        });
-    }
-
-    public void getMyStarData() {
-        String strTargetIdx;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = null;
-        table = database.getReference("User");
-
-        arrMyStarDataList.clear();
-
-        //user.addChildEventListener(new_img ChildEventListener() {
-        for (int i = 0; i < arrMyStarList.size(); i++) {
-            strTargetIdx = arrMyStarList.get(i).Idx;
-
-            table.child(strTargetIdx).addListenerForSingleValueEvent(new_img ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int saa = 0;
-                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    arrMyStarDataList.add(tempUserData);
-
-                    int idx = 0;
-                    for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
-                        if( idx < arrMyStarDataList.size()) {
-                            arrMyStarDataList.get(idx).arrStarList.add(entry.getValue());
-                            idx++;
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-
-            });
-        }
-    }*/
-
- /*   public void sortStarData() {
-        Collections.sort(arrMyStarList);
-    }*/
-
-    public boolean makePublicRoom(int RoomLimit, int RoomTime) {
-        boolean rtValue = false;
-
-        long now = CommonFunc.getInstance().GetCurrentTime();
-        Date date = new Date(now);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHMM");
-        String getTime = sdf.format(date);
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, RoomName, RoomData;
-        table = database.getReference("PublicRoomList");
-        RoomName = table.child(getUserIdx()).child(getTime);
-
-        PublicRoomData tempPRD = new PublicRoomData();
-        tempPRD.CurRoomName = getTime;
-        tempPRD.CurRoomStatus = 1;
-        tempPRD.nEndTime = Integer.parseInt(getTime) + RoomTime;
-        tempPRD.strImg = getUserImg();
-        RoomName.setValue(tempPRD);
-
-        //RoomName.child("UserList").push().setValue(getUserIdx());
-        RoomName.child("UserList").push().setValue(getUserNick());
-
-        nPublicRoomName =  Integer.parseInt(tempPRD.CurRoomName);
-        nPublicRoomLimit =  RoomLimit;
-        nPublicRoomTime =  RoomTime;
-
-
-        RoomData = database.getReference("PublicRoomData").child(getUserIdx()).child(tempPRD.CurRoomName);
-        long nowTime =CommonFunc.getInstance().GetCurrentTime();
-
-        PublicRoomChatData tempPRDChatData = new PublicRoomChatData(getUserIdx(), null, getUserNick()+"의 공개채팅방입니다.", nowTime, getUserImg());
-        RoomData.push().setValue(tempPRDChatData);
-
-        rtValue = true;
-
-        return rtValue;
-    }
-
-
-    public void MonitorPublicRoomStatus() {
-        String MyID = strIdx;
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table, user;
-        table = database.getReference("PublicRoomList");
-        user = table.child(strIdx);
-
-        user.addChildEventListener(new ChildEventListener() {
-            int i = 0;
-
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                PublicRoomData stRecvData = new PublicRoomData();
-                stRecvData = dataSnapshot.getValue(PublicRoomData.class);
-                if(stRecvData != null)
-                    setUserPublicRoomStatus(stRecvData);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                delUserPublicRoomStatus();
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-        });
-
-    }
-
-    public void DestroyPRD() {
-        nPublicRoomLimit = 0;
-        nPublicRoomName = 0;
-        nPublicRoomStatus = 0;
-        nPublicRoomTime = 0;
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference Ref = database.getReference("PublicRoomList");
-        Ref.child(getUserIdx()).removeValue();
     }
 
     public  void delUserPublicRoomStatus()
@@ -2750,7 +2564,15 @@ public class MyData {
     public void SaveMyItem()
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+        DatabaseReference table ;
+        if(MyData.getInstance().getUserGender().equals("여자"))
+        {
+            table = database.getReference("Users").child("Woman");//.child(mMyData.getUserIdx());
+        }
+        else {
+            table = database.getReference("Users").child("Man");//.child(mMyData.getUserIdx());
+        }
+
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(getUserIdx());
 
@@ -2774,7 +2596,17 @@ public class MyData {
     public void SaveMyItem(int idx, int count)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+
+        DatabaseReference table;
+        if(getUserGender().equals("여자"))
+        {
+             table = database.getReference("Users").child("Woman");
+        }
+        else
+        {
+             table = database.getReference("Users").child("Man");
+        }
+
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(getUserIdx());
 
@@ -2857,32 +2689,25 @@ public class MyData {
         return rtValue;
     }
 
-    public void makeLastMSG(UserData  tempData, String Roomname, String strMsg, long lTime, int SendCount) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
+    public void makeLastMSG(final UserData  tempData, final String Roomname, String strMsg, long lTime, final int SendCount) {
 
-        final DatabaseReference user = table.child(strIdx).child("SendList").child(Roomname);
-        final DatabaseReference targetuser = table.child(tempData.Idx).child("SendList").child(Roomname);
 
-        String strLastMsg = strMsg;
+        final String strLastMsg = strMsg;
         String strLastImg = strImg;
-        long LastTime = lTime;
+        final long LastTime = lTime;
         int nCheckMsg = 0;
 
-        SimpleChatData tempMySave = new SimpleChatData();
-        tempMySave.ChatRoomName = Roomname;
-        tempMySave.Msg = strLastMsg;
-        tempMySave.Nick = getUserNick();
-        tempMySave.Idx = getUserIdx();
-        tempMySave.Img = getUserImg();
-        tempMySave.Grade = getGrade();
-        tempMySave.BestItem = bestItem;
-        tempMySave.Date = LastTime;
-        tempMySave.Check = 0;
-        tempMySave.SendHeart = SendCount;
-        tempMySave.WriterIdx = getUserIdx();
 
-
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
+        DatabaseReference user;
+        if(getUserGender().equals("여자"))
+        {
+           user = table.child("Woman").child(strIdx).child("SendList").child(Roomname);
+        }
+        else {
+            user = table.child("Man").child(strIdx).child("SendList").child(Roomname);
+        }
 
         SimpleChatData tempTargetSave = new SimpleChatData();
         tempTargetSave.ChatRoomName = Roomname;
@@ -2898,7 +2723,79 @@ public class MyData {
         tempTargetSave.WriterIdx = getUserIdx();
 
         user.setValue(tempTargetSave);
-        targetuser.setValue(tempMySave);
+
+
+        String tempGender = mapGenderData.get(tempData.Idx);
+
+        if (tempGender == null || tempGender.equals("")) {
+
+            table = database.getReference("GenderList");
+            table.child(tempData.Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String tempValue = dataSnapshot.getValue(String.class);
+                    mapGenderData.put(tempData.Idx, tempValue);
+
+                    DatabaseReference table = null;
+                    if (tempValue.equals("여자")) {
+                        table = database.getReference("Users").child("Woman");
+                    } else {
+                        table = database.getReference("Users").child("Man");
+                    }
+
+                    DatabaseReference targetuser = table.child(tempData.Idx).child("SendList").child(Roomname);
+
+                    SimpleChatData tempMySave = new SimpleChatData();
+                    tempMySave.ChatRoomName = Roomname;
+                    tempMySave.Msg = strLastMsg;
+                    tempMySave.Nick = getUserNick();
+                    tempMySave.Idx = getUserIdx();
+                    tempMySave.Img = getUserImg();
+                    tempMySave.Grade = getGrade();
+                    tempMySave.BestItem = bestItem;
+                    tempMySave.Date = LastTime;
+                    tempMySave.Check = 0;
+                    tempMySave.SendHeart = SendCount;
+                    tempMySave.WriterIdx = getUserIdx();
+
+                    targetuser.setValue(tempMySave);
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+
+            });
+
+        }
+
+        else
+        {
+            if (tempGender.equals("여자")) {
+                table = database.getReference("Users").child("Woman");
+            } else {
+                table = database.getReference("Users").child("Man");
+            }
+
+           DatabaseReference targetuser = table.child(tempData.Idx).child("SendList").child(Roomname);
+
+            SimpleChatData tempMySave = new SimpleChatData();
+            tempMySave.ChatRoomName = Roomname;
+            tempMySave.Msg = strLastMsg;
+            tempMySave.Nick = getUserNick();
+            tempMySave.Idx = getUserIdx();
+            tempMySave.Img = getUserImg();
+            tempMySave.Grade = getGrade();
+            tempMySave.BestItem = bestItem;
+            tempMySave.Date = LastTime;
+            tempMySave.Check = 0;
+            tempMySave.SendHeart = SendCount;
+            tempMySave.WriterIdx = getUserIdx();
+
+            targetuser.setValue(tempMySave);
+        }
     }
 
     public boolean CheckConnectDate() {
@@ -2919,7 +2816,15 @@ public class MyData {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table;
 
-            table = database.getReference("User/" + strIdx);
+            if(getUserGender().equals("여자"))
+            {
+                table = database.getReference("Users/Woman/" + strIdx);
+            }
+            else
+            {
+                table = database.getReference("Users/Man/" + strIdx);
+            }
+
             Map<String, Object> updateMap = new HashMap<>();
             updateMap.put("ConnectDate", ConnectDate);
             table.updateChildren(updateMap);
@@ -2953,6 +2858,11 @@ public class MyData {
         ArrayList<UserData> rtData = new ArrayList<UserData>();
         for(int i = 0; i < arrData.size(); i++)
         {
+            if(arrData.get(i).Age == null )
+            {
+                int aasd= 0;
+                aasd++;
+            }
             int nDataAge = Integer.parseInt(arrData.get(i).Age);
 
             if( nDataAge >= Start && nDataAge <= End)

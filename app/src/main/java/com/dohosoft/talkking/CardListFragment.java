@@ -209,7 +209,15 @@ public class CardListFragment extends Fragment {
                         public void onClick(View view) {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference table;
-                            table = database.getReference("User/" + mMyData.getUserIdx()+ "/CardList/");
+                            if(mMyData.getUserGender().equals("여자"))
+                            {
+                                table = database.getReference("Users/Woman/" + mMyData.getUserIdx() + "/CardList/");
+                            }
+                            else
+                            {
+                                table = database.getReference("Users/Man/" + mMyData.getUserIdx()+ "/CardList/" );
+                            }
+
                             table.child(mMyData.arrCarDataList.get(i).Idx).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -307,7 +315,18 @@ public class CardListFragment extends Fragment {
             final String strTargetIdx = mMyData.arrCarDataList.get(i).Idx;
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table = null;
-            table = database.getReference("User");
+
+
+            if(mMyData.arrCarDataList.get(i).Gender.equals("여자"))
+            {
+                table = database.getReference("Users").child("Woman");
+            }
+            else
+            {
+                table = database.getReference("Users").child("Man");
+            }
+
+
 
             table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

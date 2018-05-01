@@ -66,14 +66,13 @@ public class UserFanActivity extends AppCompatActivity {
     private TextView txt_FanCount, txt_heartCount;
 
 
-    private void SortByRecvHeart()
-    {
-         Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(stTargetData.FanList);
+    private void SortByRecvHeart() {
+        Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(stTargetData.FanList);
 
         Iterator it = sortByValue(tempDataMap).iterator();
         stTargetData.FanList.clear();
         stTargetData.arrFanList.clear();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             String temp = (String) it.next();
             stTargetData.FanList.put(temp, tempDataMap.get(temp));
             stTargetData.arrFanList.add(tempDataMap.get(temp));
@@ -83,11 +82,11 @@ public class UserFanActivity extends AppCompatActivity {
     public static List sortByValue(final Map map) {
         List<String> list = new ArrayList();
         list.addAll(map.keySet());
-        Collections.sort(list,new Comparator() {
+        Collections.sort(list, new Comparator() {
 
-            public int compare(Object o1,Object o2) {
-                FanData g1 = (FanData)map.get(o1);
-                FanData g2 = (FanData)map.get(o2);
+            public int compare(Object o1, Object o2) {
+                FanData g1 = (FanData) map.get(o1);
+                FanData g2 = (FanData) map.get(o2);
 
                 Object v1 = g1.RecvGold;
                 Object v2 = g2.RecvGold;
@@ -112,15 +111,15 @@ public class UserFanActivity extends AppCompatActivity {
 
         SortByRecvHeart();
 
-        UserFanRecycler = (RecyclerView)findViewById(R.id.user_fan_list);
+        UserFanRecycler = (RecyclerView) findViewById(R.id.user_fan_list);
         UserFanRecycler.setAdapter(new UserFanActivity.UserFanListAdapter());
         UserFanRecycler.setLayoutManager(new LinearLayoutManager(this));
 
-        tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         TextView txt_Title = findViewById(R.id.txt_title);
         txt_Title.setText(stTargetData.NickName + "님의 팬");
 
-        ImageView backBtn = (ImageView)findViewById(R.id.iv_back);
+        ImageView backBtn = (ImageView) findViewById(R.id.iv_back);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,8 +130,8 @@ public class UserFanActivity extends AppCompatActivity {
         txt_FanCount = findViewById(R.id.txt_fanCount);
         txt_FanCount.setText(Integer.toString(stTargetData.FanList.size()));
 
-        txt_heartCount = (TextView)findViewById(R.id.tv_heart);
-        String str = String.format("%,d", stTargetData.RecvGold  * -1);
+        txt_heartCount = (TextView) findViewById(R.id.tv_heart);
+        String str = String.format("%,d", stTargetData.RecvGold * -1);
 
         txt_heartCount.setText(str);
     }
@@ -140,20 +139,20 @@ public class UserFanActivity extends AppCompatActivity {
     private class UserFanListAdapter extends RecyclerView.Adapter<UserFanListAdapter.ViewHolder> {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_my_fan,parent,false);
-          //view.setLayoutParams(new_img LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_my_fan, parent, false);
+            //view.setLayoutParams(new_img LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,mUIData.getHeight()/7));
 
             return new ViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-          //  holder.linearLayout.setLayoutParams(new_img LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (mUIData.getHeight() / 7)));
+            //  holder.linearLayout.setLayoutParams(new_img LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (mUIData.getHeight() / 7)));
             holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    if(CommonFunc.getInstance().getClickStatus()==false)
+                    if (CommonFunc.getInstance().getClickStatus() == false)
                         getMyfanData(position);
 
                 }
@@ -181,19 +180,17 @@ public class UserFanActivity extends AppCompatActivity {
                     .thumbnail(0.1f)
                     .into(holder.img);
 
-            holder.textNick.setText(stTargetData.arrFanData.get(i).NickName+ " (" + stTargetData.arrFanData.get(i).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");ata.arrCardNameList.get(i).Age + "세");
+            holder.textNick.setText(stTargetData.arrFanData.get(i).NickName + " (" + stTargetData.arrFanData.get(i).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");ata.arrCardNameList.get(i).Age + "세");
 
-            if(stTargetData.arrFanData.get(i).Gender.equals("여자"))
+            if (stTargetData.arrFanData.get(i).Gender.equals("여자"))
                 holder.textNick.setTextColor(TEXTCOLOR_WOMAN);
             else
                 holder.textNick.setTextColor(TEXTCOLOR_MAN);
 
-            if(position < 3)
-            {
+            if (position < 3) {
                 holder.textRank.setVisibility(View.INVISIBLE);
                 holder.imgRank.setVisibility(View.VISIBLE);
-                switch (position)
-                {
+                switch (position) {
                     case 0:
                         holder.imgRank.setImageResource(R.drawable.fan_mark1_80);
                         break;
@@ -206,9 +203,7 @@ public class UserFanActivity extends AppCompatActivity {
                 }
 
 
-            }
-            else
-            {
+            } else {
                 holder.imgRank.setVisibility(View.INVISIBLE);
                 holder.textRank.setVisibility(View.VISIBLE);
                 holder.textRank.setText(Integer.toString(position + 1) + "위");
@@ -218,11 +213,9 @@ public class UserFanActivity extends AppCompatActivity {
 
             holder.imgItem.setVisibility(View.VISIBLE);
 
-            if(stTargetData.arrFanData.get(i).BestItem == 0)
-            {
+            if (stTargetData.arrFanData.get(i).BestItem == 0) {
                 holder.imgItem.setVisibility(View.GONE);
-            }
-            else
+            } else
                 holder.imgItem.setImageResource(mUIData.getJewels()[stTargetData.arrFanData.get(i).BestItem]);
 
             holder.imgGrade.setImageResource(mUIData.getGrades()[stTargetData.arrFanData.get(i).Grade]);
@@ -264,81 +257,173 @@ public class UserFanActivity extends AppCompatActivity {
             String i = stTargetData.arrFanList.get(position).Idx;
 
             final String strTargetIdx = stTargetData.FanList.get(i).Idx;
-            if(strTargetIdx.equals(mMyData.getUserIdx()))
-            {
+
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference table = null;
+
+
+            if (strTargetIdx.equals(mMyData.getUserIdx())) {
                 CommonFunc.getInstance().DismissLoadingPage();
                 CommonFunc.getInstance().setClickStatus(false);
                 CommonFunc.getInstance().ShowToast(getApplicationContext(), "본인 입니다", false);
-            }
+            } else {
 
-            else {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference table = null;
-                table = database.getReference("User");
+                String tempGender = mMyData.mapGenderData.get(strTargetIdx);
+                if (tempGender == null || tempGender.equals("")) {
+                    table = database.getReference("GenderList");
+                    table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String tempValue = dataSnapshot.getValue(String.class);
+                            mMyData.mapGenderData.put(strTargetIdx, tempValue);
 
-                table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int saa = 0;
-                        UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                        if (tempUserData != null) {
-                            stTargetData.mapFanData.put(strTargetIdx, tempUserData);
-
-                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
-                                stTargetData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
+                            DatabaseReference table = null;
+                            if (tempValue.equals("여자")) {
+                                table = database.getReference("Users").child("Woman");
+                            } else {
+                                table = database.getReference("Users").child("Man");
                             }
 
-                            if (stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() == 0) {
-                                moveFanPage(position);
-                            } else {
+                            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    int saa = 0;
+                                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                                    if (tempUserData != null) {
+                                        stTargetData.mapFanData.put(strTargetIdx, tempUserData);
 
-                                CommonFunc.getInstance().SortByRecvHeart(stTargetData.mapFanData.get(strTargetIdx));
+                                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                                            stTargetData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
+                                        }
 
-                                for (int i = 0; i < stTargetData.mapFanData.get(strTargetIdx).arrFanList.size(); i++) {
-                                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i).Idx);
-                                    final FanData finalTempFanData = stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i);
-                                    final int finalI = i;
-                                    data.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
-                                            if (DBData != null) {
-                                                stTargetData.mapFanData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+                                        if (stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() == 0) {
+                                            moveFanPage(position);
+                                        } else {
 
-                                                if (finalI == stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() - 1) {
-                                                    moveFanPage(position);
+                                            CommonFunc.getInstance().SortByRecvHeart(stTargetData.mapFanData.get(strTargetIdx));
+
+                                            for (int i = 0; i < stTargetData.mapFanData.get(strTargetIdx).arrFanList.size(); i++) {
+                                                Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i).Idx);
+                                                final FanData finalTempFanData = stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i);
+                                                final int finalI = i;
+                                                data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                                        if (DBData != null) {
+                                                            stTargetData.mapFanData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                                            if (finalI == stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() - 1) {
+                                                                moveFanPage(position);
+                                                            }
+                                                        } else {
+                                                            CommonFunc.getInstance().ShowToast(getApplicationContext(), "사용자가 없습니다.", false);
+                                                            CommonFunc.getInstance().setClickStatus(false);
+                                                        }
+
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+                                            }
+                                        }
+
+
+                                    } else
+                                        CommonFunc.getInstance().setClickStatus(false);
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+
+                            });
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+
+
+                    });
+                } else {
+                    if (tempGender.equals("여자")) {
+                        table = database.getReference("Users").child("Woman");
+                    } else {
+                        table = database.getReference("Users").child("Man");
+                    }
+
+                    table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int saa = 0;
+                            UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                            if (tempUserData != null) {
+                                stTargetData.mapFanData.put(strTargetIdx, tempUserData);
+
+                                for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                                    stTargetData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
+                                }
+
+                                if (stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() == 0) {
+                                    moveFanPage(position);
+                                } else {
+
+                                    CommonFunc.getInstance().SortByRecvHeart(stTargetData.mapFanData.get(strTargetIdx));
+
+                                    for (int i = 0; i < stTargetData.mapFanData.get(strTargetIdx).arrFanList.size(); i++) {
+                                        Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i).Idx);
+                                        final FanData finalTempFanData = stTargetData.mapFanData.get(strTargetIdx).arrFanList.get(i);
+                                        final int finalI = i;
+                                        data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                                if (DBData != null) {
+                                                    stTargetData.mapFanData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                                    if (finalI == stTargetData.mapFanData.get(strTargetIdx).arrFanList.size() - 1) {
+                                                        moveFanPage(position);
+                                                    }
+                                                } else {
+                                                    CommonFunc.getInstance().ShowToast(getApplicationContext(), "사용자가 없습니다.", false);
+                                                    CommonFunc.getInstance().setClickStatus(false);
                                                 }
-                                            } else {
-                                                CommonFunc.getInstance().ShowToast(getApplicationContext(), "사용자가 없습니다.", false);
-                                                CommonFunc.getInstance().setClickStatus(false);
+
+
                                             }
 
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
 
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
+                                            }
+                                        });
+                                    }
                                 }
-                            }
 
 
-                        } else
-                            CommonFunc.getInstance().setClickStatus(false);
+                            } else
+                                CommonFunc.getInstance().setClickStatus(false);
 
-                    }
+                        }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
 
-                });
+                    });
+
+                }
             }
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder{
+        public class ViewHolder extends RecyclerView.ViewHolder {
             public ImageView img, imgRank;
             public TextView textRank, textNick, textCount;
             public ConstraintLayout constraintLayout;
@@ -347,17 +432,17 @@ public class UserFanActivity extends AppCompatActivity {
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                img = (ImageView)itemView.findViewById(R.id.iv_fan);
-                imgRank = (ImageView)itemView.findViewById(R.id.iv_rank_mark);
-                imgGrade= (ImageView)itemView.findViewById(R.id.iv_grade);
-                imgItem = (ImageView)itemView.findViewById(R.id.iv_item);
+                img = (ImageView) itemView.findViewById(R.id.iv_fan);
+                imgRank = (ImageView) itemView.findViewById(R.id.iv_rank_mark);
+                imgGrade = (ImageView) itemView.findViewById(R.id.iv_grade);
+                imgItem = (ImageView) itemView.findViewById(R.id.iv_item);
 
-                imgNew = (ImageView)itemView.findViewById(R.id.iv_new);
-                imgAlarm = (ImageView)itemView.findViewById(R.id.red_alarm);
+                imgNew = (ImageView) itemView.findViewById(R.id.iv_new);
+                imgAlarm = (ImageView) itemView.findViewById(R.id.red_alarm);
 
-                textRank = (TextView)itemView.findViewById(R.id.tv_gift_ranking);
-                textNick = (TextView)itemView.findViewById(R.id.tv_nickname);
-                textCount = (TextView)itemView.findViewById(R.id.tv_gift_count);
+                textRank = (TextView) itemView.findViewById(R.id.tv_gift_ranking);
+                textNick = (TextView) itemView.findViewById(R.id.tv_nickname);
+                textCount = (TextView) itemView.findViewById(R.id.tv_gift_count);
 
                 constraintLayout = itemView.findViewById(R.id.layout_fan);
             }
@@ -368,7 +453,7 @@ public class UserFanActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+        if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
             mMyData.badgecount = pref.getInt("Badge", 1);

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.dohosoft.talkking.Data.MyData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -113,10 +114,118 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
     public void getTargetfanData(final int position) {
         CommonFunc.getInstance().setClickStatus(true);
         final String strTargetIdx = stTargetData.get(position).Idx;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
 
-        table = database.getReference("User");
+        final String tempGender = MyData.getInstance().mapGenderData.get(strTargetIdx);
+        if(tempGender == null || tempGender.equals(""))
+        {
+            table = database.getReference("GenderList");
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String tempValue = dataSnapshot.getValue(String.class);
+                    MyData.getInstance().mapGenderData.put(strTargetIdx, tempValue);
+
+                    DatabaseReference table = null;
+                    if (tempValue.equals("여자"))
+                    {
+                        table = database.getReference("Users").child("Woman");
+                    }
+                    else
+                    {
+                        table = database.getReference("Users").child("Man");
+                    }
+
+                    if (strTargetIdx != null)
+                    {
+                        table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                int saa = 0;
+                                UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                                if(tempUserData != null)
+                                {
+                                    tempFanData.mapFanData.put(strTargetIdx, tempUserData);
+
+                     /*       for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet())
+                                tempFanData.mapFanData.get(strTargetIdx).arrStarList.add(entry.getValue());
+*/
+                                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet())
+                                        tempFanData.mapFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
+
+
+                                    if(tempFanData.mapFanData.get(strTargetIdx).arrFanList.size() == 0)
+                                    {
+                                        moveFanPage(position);
+                                    }
+                                    else
+                                    {
+                                        for(int i = 0 ;i < tempFanData.mapFanData.get(strTargetIdx).arrFanList.size(); i++)
+                                        {
+                                            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(tempFanData.mapFanData.get(strTargetIdx).arrFanList.get(i).Idx);
+                                            final FanData finalTempFanData = tempFanData.mapFanData.get(strTargetIdx).arrFanList.get(i);
+                                            final int finalI = i;
+                                            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                                    if(DBData != null)
+                                                    {
+                                                        tempFanData.mapFanData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                                        if( finalI == tempFanData.mapFanData.get(strTargetIdx).arrFanList.size() -1)
+                                                        {
+                                                            moveFanPage(position);
+                                                        }
+                                                    }
+                                                    else{
+                                                        CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
+                                                        CommonFunc.getInstance().setClickStatus(false);
+                                                    }
+
+
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+                                else
+                                    CommonFunc.getInstance().setClickStatus(false);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+
+
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+
+            });
+
+        }
+        else
+        {
+            if (tempGender.equals("여자"))
+            {
+                table = database.getReference("Users").child("Woman");
+            }
+            else
+            {
+                table = database.getReference("Users").child("Man");
+            }
 
             if (strTargetIdx != null)
             {
@@ -187,6 +296,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder>{
 
                 });
             }
+        }
     }
 
 }

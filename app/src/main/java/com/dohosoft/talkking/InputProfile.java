@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -162,7 +163,7 @@ public class InputProfile extends AppCompatActivity {
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_Hot.add(cTempData);
-
+                                        mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
                                         i++;
                                     }
 
@@ -246,7 +247,7 @@ public class InputProfile extends AppCompatActivity {
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_Recv.add(cTempData);
-
+                                        mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
                            /*             if(mMyData.arrUserAll_Recv.get(i).Gender.equals("여자"))
                                         {
                                             mMyData.arrUserWoman_Recv.add(cTempData);
@@ -334,6 +335,8 @@ public class InputProfile extends AppCompatActivity {
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_Send.add(cTempData);
+                                         mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
+
                                /*         if (mMyData.arrUserAll_Send.get(i).Gender.equals("여자")) {
                                             mMyData.arrUserWoman_Send.add(mMyData.arrUserAll_Send.get(i));
                                         } else {
@@ -443,7 +446,7 @@ public class InputProfile extends AppCompatActivity {
 
                                             stRecvData.Dist = Dist;
                                             mMyData.arrUserAll_Near.add(stRecvData);
-
+                                            mMyData.mapGenderData.put(stRecvData.Idx, stRecvData.Gender);
                                 /*            if (mMyData.arrUserAll_Near.get(i).Gender.equals("여자")) {
                                                 mMyData.arrUserWoman_Near.add(mMyData.arrUserAll_Near.get(i));
                                             } else {
@@ -542,7 +545,7 @@ public class InputProfile extends AppCompatActivity {
                                             stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_New.add(stRecvData);
-
+                                        mMyData.mapGenderData.put(stRecvData.Idx, stRecvData.Gender);
                              /*           if (mMyData.arrUserAll_New.get(i).Gender.equals("여자")) {
                                             mMyData.arrUserWoman_New.add(mMyData.arrUserAll_New.get(i));
                                         } else {
@@ -1151,7 +1154,13 @@ public class InputProfile extends AppCompatActivity {
 
         mFireBaseData.SaveFirstMyData(mMyData.getUserIdx());
 
-        mFireBaseData.SaveUsersMyData(mMyData.getUserIdx());
+        //mFireBaseData.SaveUsersMyData(mMyData.getUserIdx());
+        mMyData.mapGenderData.put(mMyData.getUserIdx(), mMyData.getUserGender());
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyData", getApplicationContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("Gender",  mMyData.getUserGender());
+        editor.commit();
 
 
         mMyData.getRecvGold();

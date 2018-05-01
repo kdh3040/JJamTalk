@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -221,6 +222,7 @@ public class CommonFunc {
 
     public void MoveUserPage(final Activity mActivity, final UserData tempUserData) {
 
+        CommonFunc.getInstance().ShowLoadingPage(mActivity, "로딩중");
 
 /*        for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
             tempUserData.arrStarList.add(entry.getValue());
@@ -531,13 +533,61 @@ public class CommonFunc {
                         break;
                     }
                 }
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference table;
-                table = database.getReference("User/" + mMyData.getUserIdx() + "/SendList/").child(RoomName);
-                table.removeValue();
+                if(mMyData.getUserGender().equals("여자"))
+                {
+                    table = database.getReference("Users/Woman/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                    table.removeValue();
+                }
+                else
+                {
+                    table = database.getReference("Users/Man/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                    table.removeValue();
+                }
 
-                table = database.getReference("User/" + SendList.Idx + "/SendList/").child(RoomName);
-                table.removeValue();
+
+                String tempGender = MyData.getInstance().mapGenderData.get(SendList.Idx);
+                if (tempGender == null || tempGender.equals(""))
+                {
+                    table = database.getReference("GenderList");
+
+                    final String finalRoomName = RoomName;
+                    table.child(SendList.Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String tempValue = dataSnapshot.getValue(String.class);
+                            mMyData.mapGenderData.put(SendList.Idx, tempValue);
+
+                            DatabaseReference table = null;
+                            if (tempValue.equals("여자")) {
+                                table = database.getReference("Users").child("Woman").child(SendList.Idx).child("SendList").child(finalRoomName);
+                            } else {
+                                table = database.getReference("Users").child("Man").child(SendList.Idx).child("SendList").child(finalRoomName);
+                            }
+
+                            table.removeValue();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+
+
+                    });
+
+                }
+                else
+                {
+                    if (tempGender.equals("여자")) {
+                        table = database.getReference("Users/Woman/" + SendList.Idx + "/SendList/").child(RoomName);
+                    } else {
+                        table = database.getReference("Users/Man/" + SendList.Idx + "/SendList/").child(RoomName);
+                    }
+                    table.removeValue();
+                }
+
+
 
                 mMyData.makeBlockList(SendList);
                 FirebaseData.getInstance().DelChatData(RoomName);
@@ -567,13 +617,58 @@ public class CommonFunc {
                         break;
                     }
                 }
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference table;
-                table = database.getReference("User/" + mMyData.getUserIdx() + "/SendList/").child(RoomName);
-                table.removeValue();
 
-                table = database.getReference("User/" + SendList.Idx + "/SendList/").child(RoomName);
-                table.removeValue();
+                if(mMyData.getUserGender().equals("여자"))
+                {
+                    table = database.getReference("Users/Woman/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                    table.removeValue();
+                }
+                else
+                {
+                    table = database.getReference("Users/Man/" + mMyData.getUserIdx()+ "/SendList/").child(RoomName);
+                    table.removeValue();
+                }
+
+
+                String tempGender = MyData.getInstance().mapGenderData.get(SendList.Idx);
+                if (tempGender == null || tempGender.equals(""))
+                {
+                    table = database.getReference("GenderList");
+
+                    final String finalRoomName = RoomName;
+                    table.child(SendList.Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String tempValue = dataSnapshot.getValue(String.class);
+                            mMyData.mapGenderData.put(SendList.Idx, tempValue);
+
+                            DatabaseReference table = null;
+                            if (tempValue.equals("여자")) {
+                                table = database.getReference("Users").child("Woman").child(SendList.Idx).child("SendList").child(finalRoomName);
+                            } else {
+                                table = database.getReference("Users").child("Man").child(SendList.Idx).child("SendList").child(finalRoomName);
+                            }
+
+                            table.removeValue();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                }
+                else
+                {
+                    if (tempGender.equals("여자")) {
+                        table = database.getReference("Users/Woman/" + SendList.Idx + "/SendList/").child(RoomName);
+                    } else {
+                        table = database.getReference("Users/Man/" + SendList.Idx + "/SendList/").child(RoomName);
+                    }
+                    table.removeValue();
+                }
+
 
                 mMyData.makeBlockList(SendList);
                 FirebaseData.getInstance().DelChatData(RoomName);
@@ -654,13 +749,59 @@ public class CommonFunc {
                         break;
                     }
                 }
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference table;
-                table = database.getReference("User/" + mMyData.getUserIdx() + "/SendList/").child(RoomName);
+                if(mMyData.getUserGender().equals("여자"))
+                {
+                    table = database.getReference("Users/Woman/" + mMyData.getUserIdx()+ "/SendList/" ).child(RoomName);
+                }
+                else
+                {
+                    table = database.getReference("Users/Man/" + mMyData.getUserIdx() + "/SendList/").child(RoomName);
+                }
                 table.removeValue();
 
-                table = database.getReference("User/" + SendList.Idx + "/SendList/").child(RoomName);
-                table.removeValue();
+
+                String tempGender = MyData.getInstance().mapGenderData.get(SendList.Idx);
+                if (tempGender == null || tempGender.equals(""))
+                {
+                    table = database.getReference("GenderList");
+
+                    final String finalRoomName = RoomName;
+                    table.child(SendList.Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String tempValue = dataSnapshot.getValue(String.class);
+                            mMyData.mapGenderData.put(SendList.Idx, tempValue);
+
+                            DatabaseReference table = null;
+                            if (tempValue.equals("여자")) {
+                                table = database.getReference("Users").child("Woman").child(SendList.Idx).child("SendList").child(finalRoomName);
+                            } else {
+                                table = database.getReference("Users").child("Man").child(SendList.Idx).child("SendList").child(finalRoomName);
+                            }
+
+                            table.removeValue();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+
+
+                    });
+
+                }
+                else
+                {
+                    if (tempGender.equals("여자")) {
+                        table = database.getReference("Users/Woman/" + SendList.Idx + "/SendList/").child(RoomName);
+                    } else {
+                        table = database.getReference("Users/Man/" + SendList.Idx + "/SendList/").child(RoomName);
+                    }
+                    table.removeValue();
+                }
+
 
                 mMyData.makeBlockList(SendList);
                 FirebaseData.getInstance().DelChatData(RoomName);
@@ -691,13 +832,59 @@ public class CommonFunc {
                         break;
                     }
                 }
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference table;
-                table = database.getReference("User/" + mMyData.getUserIdx() + "/SendList/").child(RoomName);
+
+                if(mMyData.getUserGender().equals("여자"))
+                {
+                    table = database.getReference("Users/Woman/" + mMyData.getUserIdx()+ "/SendList/" ).child(RoomName);
+                }
+                else
+                {
+                    table = database.getReference("Users/Man/" + mMyData.getUserIdx() + "/SendList/").child(RoomName);
+                }
                 table.removeValue();
 
-                table = database.getReference("User/" + SendList.Idx + "/SendList/").child(RoomName);
-                table.removeValue();
+
+                String tempGender = MyData.getInstance().mapGenderData.get(SendList.Idx);
+                if (tempGender == null || tempGender.equals(""))
+                {
+                    table = database.getReference("GenderList");
+
+                    final String finalRoomName = RoomName;
+                    table.child(SendList.Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String tempValue = dataSnapshot.getValue(String.class);
+                            mMyData.mapGenderData.put(SendList.Idx, tempValue);
+
+                            DatabaseReference table = null;
+                            if (tempValue.equals("여자")) {
+                                table = database.getReference("Users").child("Woman").child(SendList.Idx).child("SendList").child(finalRoomName);
+                            } else {
+                                table = database.getReference("Users").child("Man").child(SendList.Idx).child("SendList").child(finalRoomName);
+                            }
+
+                            table.removeValue();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+
+
+                    });
+
+                }
+                else
+                {
+                    if (tempGender.equals("여자")) {
+                        table = database.getReference("Users/Woman/" + SendList.Idx + "/SendList/").child(RoomName);
+                    } else {
+                        table = database.getReference("Users/Man/" + SendList.Idx + "/SendList/").child(RoomName);
+                    }
+                    table.removeValue();
+                }
 
                 mMyData.makeBlockList(SendList);
                 FirebaseData.getInstance().DelChatData(RoomName);
@@ -1831,6 +2018,7 @@ public class CommonFunc {
 
         FirebaseData.getInstance().SaveData(mMyData.getUserIdx());
         mMyData.getRecvGold();
+
         GoMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
     }
 
