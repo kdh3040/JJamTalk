@@ -201,9 +201,9 @@ public class CommonFunc {
         intent.putExtra("New", New);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
         mActivity.startActivity(intent);
         mActivity.finish();
+        mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
     }
 
