@@ -105,7 +105,7 @@
         android:layout_marginLeft="20dp"
         android:background="@color/white"
         android:text="남자"
-        android:theme="@style/ViewCountRadioButton"
+        android:theme="@style/ManCheckBox"
         app:layout_constraintBottom_toBottomOf="@+id/txt_Gender"
         app:layout_constraintLeft_toRightOf="@+id/txt_Gender" />
 
@@ -117,7 +117,7 @@
         android:layout_marginLeft="20dp"
         android:background="@color/white"
         android:text="여자"
-        android:theme="@style/ViewCountRadioButton"
+        android:theme="@style/WomanCheckBox"
         app:layout_constraintBottom_toBottomOf="@+id/txt_Gender"
         app:layout_constraintLeft_toRightOf="@+id/rbtn_man" />
 

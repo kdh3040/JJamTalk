@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -1478,16 +1479,25 @@ public class MyData {
         strMemo = memo.toString();
     }
 
-    public void setSettingData(int SearchMode, int ViewMode, boolean recvMsgReject ) {
+    public void setSettingData(Context context, int SearchMode, int ViewMode, boolean recvMsgReject ) {
         nSearchMode = SearchMode;
         nViewMode = ViewMode;
         nRecvMsgReject = recvMsgReject;
+
+
+        SharedPreferences prefs = context.getSharedPreferences("Setting", context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("nSearchMode",  SearchMode);
+        editor.commit();
+
     }
 
     public void setAlarmSettingData(boolean alarmSetting_Sound, boolean alarmSetting_Vibration, boolean alarmSetting_Popup ) {
         nAlarmSetting_Sound = alarmSetting_Sound;
         nAlarmSetting_Vibration = alarmSetting_Vibration;
         nAlarmSetting_Pop = alarmSetting_Popup;
+
+
     }
 
     public void getGiftData(String Idx) {
@@ -1890,7 +1900,7 @@ public class MyData {
                                 nEndAge = stRecvData.EndAge;
                             }
 
-                            nSearchMode = stRecvData.SearchMode;
+                            //nSearchMode = stRecvData.SearchMode;
                             nViewMode = stRecvData.ViewMode;
                             nRecvMsgReject = stRecvData.RecvMsgReject == 0 ? false : true;
                             nAlarmSetting_Sound = stRecvData.AlarmMode_Sound;

@@ -84,7 +84,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private void SaveSettingData()
     {
-        mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting());
+        mMyData.setSettingData(getApplicationContext(),mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting());
         mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration(), mSetting.IsAlarmSettingPop());
     }
     @Override

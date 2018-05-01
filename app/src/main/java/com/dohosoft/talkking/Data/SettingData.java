@@ -1,5 +1,8 @@
 package com.dohosoft.talkking.Data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 /**
  * Created by boram on 2017-08-10.
  */
@@ -53,6 +56,7 @@ public class SettingData {
     }
     public int getnSearchSetting()
     {
+
         int rtValue = 0;
         if(mMyData.nSearchMode == 0)
         {

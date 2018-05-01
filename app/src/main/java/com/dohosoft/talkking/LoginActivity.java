@@ -9,6 +9,7 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -912,6 +913,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }*/
 
                             //mMyData.getCardList();
+
+
+                            SharedPreferences pref = getApplicationContext().getSharedPreferences("Setting", getApplicationContext().MODE_PRIVATE);
+                            mMyData.nSearchMode = pref.getInt("nSearchMode", 0);
+
 
                             mMyData.getSetting();
 

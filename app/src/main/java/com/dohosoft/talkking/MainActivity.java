@@ -638,8 +638,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
+
+
                         mMyData.setAlarmSettingData(mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration(), mSetting.IsAlarmSettingPop());
-                        mMyData.setSettingData(mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting());
+                        mMyData.setSettingData(getApplicationContext(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting());
                         mFireBaseData.SaveSettingData(mMyData.getUserIdx(), mSetting.getnSearchSetting(), mSetting.getnViewSetting(), mSetting.IsRecyMsgRejectSetting(), mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration(), mSetting.IsAlarmSettingPop());
                         filter_dialog.dismiss();
 
