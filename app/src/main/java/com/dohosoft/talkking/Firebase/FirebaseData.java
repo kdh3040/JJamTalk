@@ -342,6 +342,10 @@ public class FirebaseData {
         int nTodayTime = Integer.parseInt( (date.format(new Date(time))).toString());
         user.child("ConnectDate").setValue(nTodayTime);
 
+        table = database.getReference("GenderList");//.child(mMyData.getUserIdx());
+        user = table.child(userIdx);
+        user.setValue(mMyData.getUserGender());
+
         // 심플 디비 저장
         table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
         user = table.child(userIdx);
@@ -446,6 +450,11 @@ public class FirebaseData {
         user.child("Honey").setValue(mMyData.getUserHoney());
 
         user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
+
+        table = database.getReference("GenderList");//.child(mMyData.getUserIdx());
+        user = table.child(userIdx);
+        user.setValue(mMyData.getUserGender());
+
 
         // 심플 디비 저장
         SaveSimpleData();
