@@ -991,7 +991,7 @@ public class FirebaseData {
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_Hot.add(cTempData);
-
+                                        mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
                                         i++;
                                     }
                                 }
@@ -1072,7 +1072,7 @@ public class FirebaseData {
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_Recv.add(cTempData);
-
+                                        mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
                                         i++;
                                     }
                                 }
@@ -1150,7 +1150,7 @@ public class FirebaseData {
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_Send.add(cTempData);
-
+                                        mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
                                         i++;
                                     }
                                 }
@@ -1245,7 +1245,7 @@ public class FirebaseData {
                                             stRecvData.Dist = Dist;
 
                                             mMyData.arrUserAll_Near.add(stRecvData);
-
+                                            mMyData.mapGenderData.put(stRecvData.Idx, stRecvData.Gender);
 
                                             i++;
                                         }
@@ -1333,7 +1333,7 @@ public class FirebaseData {
                                             stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_New.add(stRecvData);
-
+                                        mMyData.mapGenderData.put(stRecvData.Idx, stRecvData.Gender);
 
                                         i++;
                                     }
@@ -1424,7 +1424,7 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_Hot.add(cTempData);
-
+                                mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
                             }
                             i++;
                         }
@@ -1499,7 +1499,7 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_Recv.add(cTempData);
-
+                                mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
                             }
                             i++;
                         }
@@ -1573,7 +1573,7 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_Send.add(cTempData);
-
+                                mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
                             }
                             i++;
                         }
@@ -1653,7 +1653,7 @@ public class FirebaseData {
 
                                     cTempData.Dist = Dist;
                                     mMyData.arrUserAll_Near.add(cTempData);
-
+                                    mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
                                 }
                                 i++;
                             }
@@ -1737,7 +1737,7 @@ public class FirebaseData {
 
                             if (bExist == false) {
                                 mMyData.arrUserAll_New.add(cTempData);
-
+                                mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
                             }
                             i++;
                         }
