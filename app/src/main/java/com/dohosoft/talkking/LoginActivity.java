@@ -181,6 +181,52 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
+
+    public void getVersion() {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("CommonValue").child("Version");
+
+        table.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                marketVersion = dataSnapshot.getValue(String.class);
+
+                if (!verSion.equals(marketVersion)) {
+                    bUpdate = false;
+                    mDialog.setMessage("업데이트 후 사용해주세요.")
+                            .setCancelable(false)
+                            .setPositiveButton("업데이트 바로가기",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,
+                                                            int id) {
+                                            Intent marketLaunch = new Intent(
+                                                    Intent.ACTION_VIEW);
+                                            marketLaunch.setData(Uri
+                                                    //.parse("https://play.google.com/store/apps/details?id=패키지명 적으세요"));
+                                                    .parse("https://play.google.com/store/apps/details?id=com.dohosoft.talkking"));
+
+                                            startActivity(marketLaunch);
+                                            finish();
+                                        }
+                                    });
+                    AlertDialog alert = mDialog.create();
+                    alert.setTitle("안 내");
+                    alert.show();
+                } else
+                    bUpdate = true;
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,8 +235,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mMyData.SetCurFrag(0);
 
+        PackageInfo pi = null;
+        try {
+            pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        verSion = pi.versionName;
+
         mDialog = new AlertDialog.Builder(this);
-        //new getMarketVersion().execute();
+        getVersion();
+/*
+
+
+        new getMarketVersion().execute();
+*/
 
       /*  try {
             PackageInfo i = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0);
@@ -854,6 +913,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             //mMyData.getCardList();
 
+                            mMyData.getSetting();
+
                             mMyData.getNotice();
                             mMyData.getLogin();
                             mMyData.getSignUp();
@@ -866,7 +927,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getFanList(mActivity);
                             mMyData.getReportedCnt();
 
-                            mMyData.getSetting();
+
 
                             mMyData.getSendList(mActivity);
                             mMyData.getSendHoneyList();
