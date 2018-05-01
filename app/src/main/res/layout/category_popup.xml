@@ -94,15 +94,15 @@
         android:text="표시 성별"
         android:textColor="@color/gray"
         android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_filter"  />
+        app:layout_constraintLeft_toLeftOf="@+id/imageView7"
+        app:layout_constraintTop_toBottomOf="@+id/tv_filter" />
 
     <RadioButton
         android:id="@+id/rbtn_man"
         android:layout_width="0dp"
         android:layout_height="60dp"
 
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="20dp"
         android:background="@color/white"
         android:text="남자"
         android:theme="@style/ViewCountRadioButton"
@@ -114,9 +114,10 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
 
+        android:layout_marginLeft="20dp"
         android:background="@color/white"
-        android:theme="@style/ViewCountRadioButton"
         android:text="여자"
+        android:theme="@style/ViewCountRadioButton"
         app:layout_constraintBottom_toBottomOf="@+id/txt_Gender"
         app:layout_constraintLeft_toRightOf="@+id/rbtn_man" />
 
@@ -130,7 +131,7 @@
         android:text="표시 나이"
         android:textColor="@color/gray"
         android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="@+id/rbtn_two"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView7"
         app:layout_constraintTop_toBottomOf="@+id/txt_Gender" />
 
     <Spinner
