@@ -147,19 +147,25 @@ public class FirebaseData {
 
         data = fierBaseDataInstance.getReference("SimpleData").child(mMyData.getUserIdx());
         final DatabaseReference SimpleToken = data.child("Token");
-        SimpleToken.setValue("0");
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("Token","0");
+
+        data.updateChildren(updateMap);
+        //SimpleToken.setValue("0");
 
         if(mMyData.getUserGender().equals("여자"))
         {
             data = fierBaseDataInstance.getReference("Users").child("Woman").child(mMyData.getUserIdx());
             final DatabaseReference UserToken = data.child("Token");
-            UserToken.setValue("0");
+            data.updateChildren(updateMap);
+            //UserToken.setValue("0");
         }
         else
         {
             data = fierBaseDataInstance.getReference("Users").child("Man").child(mMyData.getUserIdx());
             final DatabaseReference UserToken = data.child("Token");
-            UserToken.setValue("0");
+            data.updateChildren(updateMap);
+            //UserToken.setValue("0");
         }
     }
 

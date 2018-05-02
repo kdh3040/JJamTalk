@@ -55,7 +55,7 @@
     <color name = "colorDark">#4e342e</color>
     <color name = "bg_grid">#ffffff</color>
 
-        <color name="gray">#9e9e9e</color>
+        <color name="gray">#7d7d7d</color>
         <color name="tp_half">#80ffffff</color>
         <color name="white">#ffffff</color>
         <color name="black">#ff000000</color>
