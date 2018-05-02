@@ -245,6 +245,7 @@ public class BoardFragment extends Fragment {
                                     } else {
                                         CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
                                         CommonFunc.getInstance().setClickStatus(false);
+                                        CommonFunc.getInstance().DismissLoadingPage();
                                     }
 
                                 }
