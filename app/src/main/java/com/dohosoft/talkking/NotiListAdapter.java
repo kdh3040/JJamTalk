@@ -54,7 +54,7 @@ public class NotiListAdapter extends RecyclerView.Adapter<NotiListViewHolder> {
 
 
         Glide.with(mContext)
-                .load(R.drawable.logotalkingreal_200)
+                .load(R.drawable.notice_list)
                 .thumbnail(0.1f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(mContext))
