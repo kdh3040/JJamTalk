@@ -1123,7 +1123,8 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                                 Map<String, Object> updateMap = new HashMap<>();
                                 updateMap.put("ReportType", finalNReportVal);
-                                user.push().setValue(updateMap);
+                                user.updateChildren(updateMap);
+                                //user.push().setValue(updateMap);
 
                                 CommonFunc.getInstance().ShowToast(ChatRoomActivity.this,"신고가 완료 되었습니다.", true);
 
