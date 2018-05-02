@@ -77,8 +77,8 @@ public class CoomonValueData  {
     public static  boolean bSetRecv = false;
     public static  boolean bSetHot = false;
 
-    public boolean MOD_AddHotMember = true;
-    public boolean MOD_Notification = true;
+    public boolean MOD_AddHotMember = false;
+    public boolean MOD_Notification = false;
 
     private static CoomonValueData _Instance;
 
