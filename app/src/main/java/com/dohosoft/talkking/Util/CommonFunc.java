@@ -2038,5 +2038,75 @@ public class CommonFunc {
                 return 0;
         }
     }
+
+    public void AddHotMember(UserData userData)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("HotMember");//.child(mMyData.getUserIdx());
+        DatabaseReference user;
+        if(userData.Gender.equals("여자"))
+        {
+            user = table.child("Woman").child(userData.Idx);
+        }
+        else
+        {
+            user = table.child("Man").child(userData.Idx);
+        }
+
+
+        user.child("Age").setValue(userData.Age);
+        user.child("BestItem").setValue(userData.BestItem);
+        user.child("ConnectDate").setValue(userData.ConnectDate);
+        user.child("Date").setValue(userData.Date);
+        user.child("Dist").setValue(userData.Dist);
+        user.child("FanCount").setValue(userData.FanCount);
+        user.child("FanList").setValue(userData.FanList);
+        user.child("SendList").setValue(userData.SendList);
+        user.child("Gender").setValue(userData.Gender);
+        user.child("Grade").setValue(userData.Grade);
+        user.child("Honey").setValue(userData.Honey);
+        user.child("Idx").setValue(userData.Idx);
+        user.child("Img").setValue(userData.Img);
+        user.child("ImgCount").setValue(userData.ImgCount);
+        user.child("ImgGroup0").setValue(userData.ImgGroup0);
+        user.child("ImgGroup1").setValue(userData.ImgGroup1);
+        user.child("ImgGroup2").setValue(userData.ImgGroup2);
+        user.child("ImgGroup3").setValue(userData.ImgGroup3);
+        user.child("Lat").setValue(userData.Lat);
+        user.child("Lon").setValue(userData.Lon);
+        user.child("NickChangeCnt").setValue(userData.NickChangeCnt);
+        user.child("NickName").setValue(userData.NickName);
+        user.child("Point").setValue(userData.Point);
+        user.child("RecvGold").setValue(userData.RecvGold);
+        user.child("RecvMsgReject").setValue(userData.RecvMsgReject);
+        user.child("SendCount").setValue(userData.SendCount);
+        user.child("Token").setValue(userData.Token);
+        user.child("CardList").setValue(userData.CardList);
+        user.child("ItemCount").setValue(userData.ItemCount);
+        user.child("Item_1").setValue(userData.Item_1);
+        user.child("Item_2").setValue(userData.Item_2);
+        user.child("Item_3").setValue(userData.Item_3);
+        user.child("Item_4").setValue(userData.Item_4);
+        user.child("Item_5").setValue(userData.Item_5);
+        user.child("Item_6").setValue(userData.Item_6);
+        user.child("Item_7").setValue(userData.Item_7);
+        user.child("Item_8").setValue(userData.Item_8);
+    }
+
+    public void RemoveHotMember(UserData userData)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("HotMember");//.child(mMyData.getUserIdx());
+        DatabaseReference user;
+        if(userData.Gender.equals("여자"))
+        {
+            user = table.child("Woman").child(userData.Idx);
+        }
+        else
+        {
+            user = table.child("Man").child(userData.Idx);
+        }
+        user.removeValue();
+    }
 }
 

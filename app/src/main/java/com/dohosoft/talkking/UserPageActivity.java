@@ -325,31 +325,39 @@ if(mMyData.itemList.get(i) != 0)
 
                     case R.id.UserPage_btnRegister:
 
-
-                        if(mMyData.IsCardList(stTargetData.Idx) == false)
+                        if(CoomonValueData.getInstance().MOD_AddHotMember == true)
                         {
-                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기에 등록 하였습니다.", true);
-                            mMyData.makeCardList(stTargetData);
+                            CommonFunc.getInstance().AddHotMember(stTargetData);
+                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "핫멤버로 등록 하였습니다.", true);
                         }
                         else
                         {
-                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기를 취소 하였습니다.", true);
-                            mMyData.removeCardList(stTargetData);
+                            if(mMyData.IsCardList(stTargetData.Idx) == false)
+                            {
+                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기에 등록 하였습니다.", true);
+                                mMyData.makeCardList(stTargetData);
+                            }
+                            else
+                            {
+                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기를 취소 하였습니다.", true);
+                                mMyData.removeCardList(stTargetData);
+                            }
+
+
+                            Fragment frg = null;
+                            frg = mFragmentMng.findFragmentByTag("CardListFragment");
+                            if(frg != null)
+                            {
+                                final FragmentTransaction ft = mFragmentMng.beginTransaction();
+                                ft.detach(frg);
+                                ft.attach(frg);
+                                ft.commitAllowingStateLoss();
+                            }
+
+
+                            btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_pressed : R.drawable.favor);
+
                         }
-
-
-                        Fragment frg = null;
-                        frg = mFragmentMng.findFragmentByTag("CardListFragment");
-                        if(frg != null)
-                        {
-                            final FragmentTransaction ft = mFragmentMng.beginTransaction();
-                            ft.detach(frg);
-                            ft.attach(frg);
-                            ft.commitAllowingStateLoss();
-                        }
-
-
-                        btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_pressed : R.drawable.favor);
 
                         //ClickBtnSendHeart();
                         break;
@@ -715,7 +723,13 @@ if(mMyData.itemList.get(i) != 0)
         btnFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonFunc.getInstance().GoMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
+                if(CoomonValueData.getInstance().MOD_AddHotMember == true)
+                {
+                    CommonFunc.getInstance().RemoveHotMember(stTargetData);
+                    CommonFunc.getInstance().ShowToast(UserPageActivity.this, "핫멤버에서 삭제 하였습니다.", true);
+                }
+                else
+                    CommonFunc.getInstance().GoMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
             }
         });
     }
