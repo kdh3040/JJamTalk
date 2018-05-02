@@ -815,6 +815,7 @@ public class InputProfile extends AppCompatActivity {
                     //mMyData.getCardList(mActivity);
                     mMyData.getFanList(mActivity);
                     mMyData.getVersion();
+                    mMyData.getNotification();
 
                     mMyData.getReportedCnt();
                     mMyData.getSetting();

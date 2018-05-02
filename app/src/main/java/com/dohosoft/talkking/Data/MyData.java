@@ -47,6 +47,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import static com.dohosoft.talkking.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.UNIQ_FANCOUNT;
 import static com.dohosoft.talkking.MainActivity.mFragmentMng;
 
@@ -169,6 +170,9 @@ public class MyData {
     public int item_8;
 
     public int bestItem;
+
+    public ArrayList<String> arrNotiNameList = new ArrayList<>();
+    public ArrayList<NotiData> arrNotiDataList = new ArrayList<>();
 
     public ArrayList<String> arrBlockNameList = new ArrayList<>();
     public ArrayList<BlockData> arrBlockDataList = new ArrayList<>();
@@ -950,6 +954,30 @@ public class MyData {
         });
     }
 
+    public void getNotification() {
+
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
+        Query data = FirebaseDatabase.getInstance().getReference().child("CommonValue").child("Notification").limitToFirst(FIRST_LOAD_BOARD_COUNT);
+
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot == null)
+                    return;
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    final NotiData tempData = postSnapshot.getValue(NotiData.class);
+                    arrNotiDataList.add(tempData);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+    }
 
 
     public void getFanList(final Activity mActivity) {

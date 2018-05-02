@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     boolean RefreshTest = false;
+    boolean MOD_Notification = false;
 
     ImageView ib_home;
     ImageView ib_cardList;
@@ -584,7 +585,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CommonFunc.getInstance().SetMailAlarmVisible(false);
-                startActivity(new Intent(getApplicationContext(), MailboxActivity.class));
+
+                if(MOD_Notification == true)
+                {
+                    startActivity(new Intent(getApplicationContext(), NotiListActivity.class));
+                }
+                else
+                {
+                    startActivity(new Intent(getApplicationContext(), MailboxActivity.class));
+                }
+                //
+
             }
         });
 

@@ -940,6 +940,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.getFanList(mActivity);
                             mMyData.getReportedCnt();
                             mMyData.getVersion();
+                            mMyData.getNotification();
 
 
 

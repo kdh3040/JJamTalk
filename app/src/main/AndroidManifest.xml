@@ -32,12 +32,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.dohosoft.talkking.MainActivity"
-            android:parentActivityName="com.dohosoft.talkking.LoginActivity"
+            android:name=".MainActivity"
+            android:parentActivityName=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleBar" />
         <activity
-            android:name="com.dohosoft.talkking.LoginActivity"
+            android:name=".LoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleBar">
@@ -48,87 +48,90 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.dohosoft.talkking.Firebase.MyFirebaseInstanceIdSerivce">
+        <service android:name=".Firebase.MyFirebaseInstanceIdSerivce">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.dohosoft.talkking.Firebase.MyFirebaseMessagingService">
+        <service android:name=".Firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <activity
-            android:name="com.dohosoft.talkking.SignUpActivity"
+            android:name=".SignUpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.MyProfileActivity"
+            android:name=".MyProfileActivity"
             android:label="프로필"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.MyPageActivity"
+            android:name=".MyPageActivity"
             android:label="내 페이지"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.SettingActivity"
+            android:name=".SettingActivity"
             android:label="설정"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="com.dohosoft.talkking.UserFanActivity"
+            android:name=".UserFanActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleBar" />
         <activity
-            android:name="com.dohosoft.talkking.MainSettingActivity"
+            android:name=".MainSettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.BuyGoldActivity"
+            android:name=".BuyGoldActivity"
             android:label="코인 충전하기"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.Kakao.KakaoSignupActivity"
+            android:name=".Kakao.KakaoSignupActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.ClickedMyPicActivity"
+            android:name=".ClickedMyPicActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleBar" />
         <activity
-            android:name="com.dohosoft.talkking.InputProfile"
+            android:name=".InputProfile"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.UserPageActivity"
+            android:name=".UserPageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleBar" />
         <activity
-            android:name="com.dohosoft.talkking.ChatRoomActivity"
+            android:name=".ChatRoomActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.BoardItemActivity"
+            android:name=".BoardItemActivity"
             android:label="허허참"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.BoardWriteActivity"
+            android:name=".BoardWriteActivity"
             android:label="글쓰기"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.BoardMyListActivity"
+            android:name=".BoardMyListActivity"
             android:label="내가 쓴 글"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.ImageViewPager"
+            android:name=".ImageViewPager"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleBar" />
         <activity
-            android:name="com.dohosoft.talkking.MyImageViewPager"
+            android:name=".MyImageViewPager"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleBar" />
         <activity
-            android:name="com.dohosoft.talkking.BlockListActivity"
+            android:name=".BlockListActivity"
             android:label="차단 목록"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.MailboxActivity"
+            android:name=".NotiListActivity"
+            android:label="공지 사항"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MailboxActivity"
             android:label="받은 하트"
             android:screenOrientation="portrait" />
 
@@ -144,33 +147,37 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name="com.dohosoft.talkking.HoneyGetHistoryActivity"
+            android:name=".HoneyGetHistoryActivity"
             android:label="받은 꿀"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.HoneySentHistoryActivity"
+            android:name=".HoneySentHistoryActivity"
             android:label="선물한 꿀"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dohosoft.talkking.MyJewelBoxActivity"
+            android:name=".MyJewelBoxActivity"
             android:label="내 아이템"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleBar" />
         <activity
-            android:name="com.dohosoft.talkking.privacyActivity"
+            android:name=".privacyActivity"
             android:label="@string/title_activity_privacy"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.dohosoft.talkking.AccessActivity"
+            android:name=".AccessActivity"
             android:label="@string/title_activity_access"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.dohosoft.talkking.LocActivity"
+            android:name=".LocActivity"
             android:label="@string/title_activity_loc"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.dohosoft.talkking.HelpActivity"
+            android:name=".HelpActivity"
             android:label="@string/title_activity_help"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NotiBodyActivity"
+            android:label="@string/title_activity_noti_body"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
