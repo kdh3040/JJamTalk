@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -63,6 +64,9 @@ public class MyPageActivity extends AppCompatActivity {
     RecyclerView rv_myjewels;
     MyPageJewelAdapter adapter;
 
+    ImageView img_Noti;
+    TextView txt_noti;
+
     private CommonFunc mCommon = CommonFunc.getInstance();
 
     private Activity mActivity;
@@ -104,6 +108,23 @@ public class MyPageActivity extends AppCompatActivity {
         /*iv_jewely=findViewById(R.id.iv_jewely);
         iv_jewely.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
 */
+
+        img_Noti = (ImageView)findViewById(R.id.iv_notice);
+        txt_noti = (TextView) findViewById(R.id.tv_notice);
+        img_Noti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), NotiListActivity.class));
+            }
+        });
+        txt_noti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), NotiListActivity.class));
+            }
+        });
+
+
 
 
         iv_MyGift=findViewById(R.id.jewel);
