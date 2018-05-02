@@ -246,7 +246,6 @@ public class BoardFragment extends Fragment {
                                         CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
                                         CommonFunc.getInstance().DismissLoadingPage();
                                         CommonFunc.getInstance().setClickStatus(false);
-                                        CommonFunc.getInstance().DismissLoadingPage();
                                     }
 
                                 }
@@ -324,6 +323,7 @@ public class BoardFragment extends Fragment {
                                     }
                                 }
                             } else {
+                                CommonFunc.getInstance().DismissLoadingPage();
                                 CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
                                 CommonFunc.getInstance().setClickStatus(false);
                             }

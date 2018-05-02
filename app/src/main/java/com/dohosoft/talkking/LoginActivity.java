@@ -248,7 +248,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mDialog = new AlertDialog.Builder(this);
         getVersion();
 
-       /*PrepareMan initHot = new PrepareMan();
+  /*     PrepareMan initHot = new PrepareMan();
         initHot.execute(0, 0, 0);*/
 /*
 
@@ -959,9 +959,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             //mMyData.MonitorPublicRoomStatus();
 
-                      /*      PrepareMan initHot = new PrepareMan();
-                            initHot.execute(0, 0, 0);
-*/
+                            /*PrepareMan initHot = new PrepareMan();
+                            initHot.execute(0, 0, 0);*/
+
                           /*  PrepareHotmember init = new PrepareHotmember();
                             init.execute(0, 0, 0);*/
 

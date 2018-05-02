@@ -236,40 +236,6 @@ public class FirebaseData {
         SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
         int nTodayTime = Integer.parseInt( (date.format(new Date(time))).toString());
         user.child("ConnectDate").setValue(nTodayTime);
-
-        // 심플 디비 저장
-        table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
-        user = table.child(userIdx);
-        user.child("Idx").setValue(mMyData.getUserIdx());
-
-        mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
-        user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
-        user.child("Img").setValue(mMyData.getUserImg());
-
-        user.child("NickName").setValue(mMyData.getUserNick());
-        user.child("Gender").setValue(mMyData.getUserGender());
-        user.child("Age").setValue(mMyData.getUserAge());
-
-        user.child("Memo").setValue(mMyData.getUserMemo());
-
-        user.child("RecvGold").setValue(mMyData.getRecvHoney());
-        user.child("SendGold").setValue(mMyData.getSendHoney());
-
-        user.child("Lon").setValue(mMyData.getUserLon());
-        user.child("Lat").setValue(mMyData.getUserLat());
-        user.child("Dist").setValue(mMyData.getUserDist());
-        user.child("Date").setValue(mMyData.getUserDate());
-
-        user.child("FanCount").setValue(mMyData.getFanCount());
-
-        user.child("Point").setValue(mMyData.getPoint());
-
-        user.child("Grade").setValue(mMyData.getGrade());
-        user.child("BestItem").setValue(mMyData.bestItem);
-        user.child("Honey").setValue(mMyData.getUserHoney());
-
-        user.child("ConnectDate").setValue(nTodayTime);
-
     }
 
 
@@ -385,6 +351,8 @@ public class FirebaseData {
 
         user.child("ConnectDate").setValue(nTodayTime);
 
+
+        SaveUsersMyData(mMyData.getUserIdx());
     }
 
     public void SaveData(String userIdx) {
@@ -897,19 +865,24 @@ public class FirebaseData {
         BoardData.getInstance().AddBoardData(sendData, true);
         writeBoardTable.setValue(sendData);
 
-        DatabaseReference myTable = database.getReference("Users");
+        DatabaseReference myTable;// = database.getReference("Users");
 
         if(mMyData.getUserGender().equals("여자"))
         {
-            myTable.child("Woman").child(MyData.getInstance().getUserIdx()).child("LastBoardWriteTime");
+            myTable = database.getReference("Users").child("Woman").child(MyData.getInstance().getUserIdx());//.child("LastBoardWriteTime");
         }
         else
         {
-            myTable.child("Man").child(MyData.getInstance().getUserIdx()).child("LastBoardWriteTime");
+            myTable = database.getReference("Users").child("Man").child(MyData.getInstance().getUserIdx());//.child("LastBoardWriteTime");
         }
 
         MyData.getInstance().SetLastBoardWriteTime(CommonFunc.getInstance().GetCurrentTime());
-        myTable.setValue(CommonFunc.getInstance().GetCurrentTime());
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("LastBoardWriteTime",CommonFunc.getInstance().GetCurrentTime());
+
+        myTable.updateChildren(updateMap);
+
+        //myTable.setValue(CommonFunc.getInstance().GetCurrentTime());
 
       /*  DatabaseReference myTable = database.getReference("User").child(MyData.getInstance().getUserIdx()).child("LastBoardWriteTime");
         MyData.getInstance().SetLastBoardWriteTime(CommonFunc.getInstance().GetCurrentTime());

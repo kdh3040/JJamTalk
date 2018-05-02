@@ -684,7 +684,8 @@ public class CommonFunc {
 
                 Map<String, Object> updateMap = new HashMap<>();
                 updateMap.put("ReportType", 1);
-                user.push().setValue(updateMap);
+               // user.push().setValue(updateMap);
+                user.updateChildren(updateMap);
 
                 dialog.dismiss();
             }
@@ -900,7 +901,8 @@ public class CommonFunc {
 
                 Map<String, Object> updateMap = new HashMap<>();
                 updateMap.put("ReportType", 1);
-                user.push().setValue(updateMap);
+//                user.push().setValue(updateMap);
+                user.updateChildren(updateMap);
 
                 dialog.dismiss();
             }

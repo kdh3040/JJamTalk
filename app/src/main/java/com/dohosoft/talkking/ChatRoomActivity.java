@@ -406,7 +406,13 @@ public class ChatRoomActivity extends AppCompatActivity {
                     if(chat_message.fromIdx.equals(tempChatData.Idx))
                     {
                         chat_message.Check = 1;
-                        mRef.child(chat_message.strId).child("Check").setValue(chat_message.Check);
+                        mRef.child(chat_message.strId);//.child("Check").setValue(chat_message.Check);
+
+                        Map<String, Object> updateMap = new HashMap<>();
+                        updateMap.put("Check",chat_message.Check);
+
+                        mRef.child(chat_message.strId).updateChildren(updateMap);
+
                     }
 
                 }

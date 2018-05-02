@@ -33,6 +33,7 @@ import com.dohosoft.talkking.Util.CommonFunc;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -297,7 +298,12 @@ public class FanListFragment extends Fragment {
                 table = database.getReference("Users/Man/" + mMyData.getUserIdx() );
             }
 
-            table.child("FanList").child(mMyData.arrMyFanList.get(position).Idx).child("Check").setValue(mMyData.arrMyFanList.get(position).Check);
+            //table.child("FanList").child(mMyData.arrMyFanList.get(position).Idx);//.child("Check").setValue(mMyData.arrMyFanList.get(position).Check);
+
+            Map<String, Object> updateMap = new HashMap<>();
+            updateMap.put("Check",mMyData.arrMyFanList.get(position).Check);
+
+            table.child("FanList").child(mMyData.arrMyFanList.get(position).Idx).updateChildren(updateMap);
         }
 
 

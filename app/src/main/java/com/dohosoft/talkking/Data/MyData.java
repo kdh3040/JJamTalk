@@ -47,6 +47,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import static com.dohosoft.talkking.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.UNIQ_FANCOUNT;
 import static com.dohosoft.talkking.MainActivity.mFragmentMng;
 
@@ -169,6 +170,10 @@ public class MyData {
     public int item_8;
 
     public int bestItem;
+
+    public ArrayList<String> arrNotiNameList = new ArrayList<>();
+    public ArrayList<NotiData> arrNotiDataList = new ArrayList<>();
+
 
     public ArrayList<String> arrBlockNameList = new ArrayList<>();
     public ArrayList<BlockData> arrBlockDataList = new ArrayList<>();
@@ -948,6 +953,32 @@ public class MyData {
                 }
             });
         }
+    }
+
+
+    public void getNotification() {
+
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        // 현재 내가 바라 보고 있는 게시판 데이터를 가져온다.
+        Query data = FirebaseDatabase.getInstance().getReference().child("CommonValue").child("Notification").limitToFirst(FIRST_LOAD_BOARD_COUNT);
+
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot == null)
+                    return;
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    final NotiData tempData = postSnapshot.getValue(NotiData.class);
+                    arrNotiDataList.add(tempData);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
     }
 
 
@@ -2620,6 +2651,20 @@ public class MyData {
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(getUserIdx());
 
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("ItemCount",nItemCount);
+        updateMap.put("Item_1",item_1);
+        updateMap.put("Item_2",item_2);
+        updateMap.put("Item_3",item_3);
+        updateMap.put("Item_4",item_4);
+        updateMap.put("Item_5",item_5);
+        updateMap.put("Item_6",item_6);
+        updateMap.put("Item_7",item_7);
+        updateMap.put("Item_8",item_8);
+        updateMap.put("BestItem",bestItem);
+
+        user.updateChildren(updateMap);
+        /*
         user.child("ItemCount").setValue(nItemCount);
         user.child("Item_1").setValue(item_1);
         user.child("Item_2").setValue(item_2);
@@ -2629,11 +2674,15 @@ public class MyData {
         user.child("Item_6").setValue(item_6);
         user.child("Item_7").setValue(item_7);
         user.child("Item_8").setValue(item_8);
-        user.child("BestItem").setValue(bestItem);
+        user.child("BestItem").setValue(bestItem);*/
 
         table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
         final DatabaseReference SimpleUser = table.child(getUserIdx());
-        SimpleUser.child("BestItem").setValue(bestItem);
+
+        updateMap.put("BestItem",bestItem);
+        SimpleUser.updateChildren(updateMap);
+
+       // SimpleUser.child("BestItem").setValue(bestItem);
 
     }
 
