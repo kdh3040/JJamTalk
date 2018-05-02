@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -631,7 +632,10 @@ public class ChatListFragment extends Fragment {
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(mMyData.getUserIdx()).child("SendList").child(str);
 
-        user.child("Check").setValue(1);
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("Check", 1);
+        user.updateChildren(updateMap);
+
         mMyData.arrChatDataList.get(str).Check = 1;
 
     }

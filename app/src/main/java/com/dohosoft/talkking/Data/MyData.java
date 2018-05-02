@@ -818,8 +818,18 @@ public class MyData {
             user =  table.child("Man").child(strIdx).child("SendList");
         }
 
+        String tempGender = mapGenderData.get(_UserData.Idx);
 
-        targetuser = table.child(_UserData.Idx).child("SendList");
+        if(tempGender.equals("여자"))
+        {
+            targetuser = table.child("Woman").child(_UserData.Idx).child("SendList");
+        }
+        else  if(tempGender.equals("남자"))
+        {
+            targetuser =  table.child("Man").child(_UserData.Idx).child("SendList");
+        }
+        else
+            targetuser =  database.getReference("tempUsers").child(_UserData.Idx).child("SendList");
 
         String strCheckName = strIdx + "_" + _UserData.Idx;
         String strCheckName1 = _UserData.Idx + "_" + strIdx;
