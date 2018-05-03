@@ -75,11 +75,11 @@ public class MyData {
     public ArrayList<UserData> arrUserAll_Near = new ArrayList<>();
 
     //public ArrayList<UserData> arrUserMan_New = new ArrayList<>();
-   // public ArrayList<UserData> arrUserWoman_New = new ArrayList<>();
+    // public ArrayList<UserData> arrUserWoman_New = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_New = new ArrayList<>();
 
-  //  public ArrayList<UserData> arrUserMan_Send = new ArrayList<>();
-   // public ArrayList<UserData> arrUserWoman_Send = new ArrayList<>();
+    //  public ArrayList<UserData> arrUserMan_Send = new ArrayList<>();
+    // public ArrayList<UserData> arrUserWoman_Send = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Send = new ArrayList<>();
 
     public ArrayList<UserData> arrUserMan_Recv = new ArrayList<>();
@@ -87,15 +87,15 @@ public class MyData {
     public ArrayList<UserData> arrUserAll_Recv = new ArrayList<>();
 
 
-/*    public ArrayList<UserData> arrUserMan_Near_Age = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_Near_Age = new ArrayList<>();*/
+    /*    public ArrayList<UserData> arrUserMan_Near_Age = new ArrayList<>();
+        public ArrayList<UserData> arrUserWoman_Near_Age = new ArrayList<>();*/
     public ArrayList<UserData> arrUserAll_Near_Age = new ArrayList<>();
 
-  /*  public ArrayList<UserData> arrUserMan_New_Age = new ArrayList<>();
-    public ArrayList<UserData> arrUserWoman_New_Age = new ArrayList<>();*/
+    /*  public ArrayList<UserData> arrUserMan_New_Age = new ArrayList<>();
+      public ArrayList<UserData> arrUserWoman_New_Age = new ArrayList<>();*/
     public ArrayList<UserData> arrUserAll_New_Age = new ArrayList<>();
 
-  //  public ArrayList<UserData> arrUserMan_Send_Age = new ArrayList<>();
+    //  public ArrayList<UserData> arrUserMan_Send_Age = new ArrayList<>();
     //public ArrayList<UserData> arrUserWoman_Send_Age = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Send_Age = new ArrayList<>();
 
@@ -106,19 +106,19 @@ public class MyData {
     public ArrayList<UserData> arrUserAll_Hot = new ArrayList<>();
     public ArrayList<UserData> arrUserAll_Hot_Age = new ArrayList<>();
 
-    public  Map<String, String> mapGenderData = new LinkedHashMap<String, String>();
+    public Map<String, String> mapGenderData = new LinkedHashMap<String, String>();
 
-    public  Map<String, UserData> mapChatTargetData = new LinkedHashMap<String, UserData>();
+    public Map<String, UserData> mapChatTargetData = new LinkedHashMap<String, UserData>();
 
     public int nFanCount;
     public ArrayList<FanData> arrMyFanList = new ArrayList<>();
-    public  Map<String, FanData> arrMyFanRecvList = new LinkedHashMap<String, FanData>();
-    public  Map<String, SimpleUserData> arrMyFanDataList = new LinkedHashMap<String, SimpleUserData>();
-    public  Map<String, UserData> mapMyFanData = new LinkedHashMap<String, UserData>();
+    public Map<String, FanData> arrMyFanRecvList = new LinkedHashMap<String, FanData>();
+    public Map<String, SimpleUserData> arrMyFanDataList = new LinkedHashMap<String, SimpleUserData>();
+    public Map<String, UserData> mapMyFanData = new LinkedHashMap<String, UserData>();
 
     public ArrayList<StarData> arrMyStarList = new ArrayList<>();
-    public  Map<String, SimpleUserData> arrMyStarDataList = new LinkedHashMap<String, SimpleUserData>();
-    public  Map<String, UserData> mapMyStarData = new LinkedHashMap<String, UserData>();
+    public Map<String, SimpleUserData> arrMyStarDataList = new LinkedHashMap<String, SimpleUserData>();
+    public Map<String, UserData> mapMyStarData = new LinkedHashMap<String, UserData>();
 
     private String strUid;
     private String strIdx;
@@ -195,21 +195,21 @@ public class MyData {
     public String CurChatTartgetIdx = null;
 
     public ArrayList<String> arrCardNameList = new ArrayList<>();
-    public  Map<String, SimpleUserData> arrCarDataList = new LinkedHashMap<String, SimpleUserData>();
-    public  Map<String, UserData> mapMyCardData = new LinkedHashMap<String, UserData>();
+    public Map<String, SimpleUserData> arrCarDataList = new LinkedHashMap<String, SimpleUserData>();
+    public Map<String, UserData> mapMyCardData = new LinkedHashMap<String, UserData>();
 
     public Map<Integer, Integer> itemList = new HashMap<Integer, Integer>();
     public ArrayList<Integer> itemIdx = new ArrayList<>();
 
-    public  Uri urSaveUri;
-    public  int nSaveUri;
+    public Uri urSaveUri;
+    public int nSaveUri;
 
-    public  String strBannerID = "ca-app-pub-4020702622451243/5961056047";
+    public String strBannerID = "ca-app-pub-4020702622451243/5961056047";
 
-    public  boolean bChatRefresh = false;
+    public boolean bChatRefresh = false;
 
     private int nCurVisibleFrag;
-    public  int nMyAge;
+    public int nMyAge;
 
     public int Point;
     public int Grade;
@@ -223,8 +223,8 @@ public class MyData {
     public RewardedVideoAd mRewardedVideoAd;
     public RewardedVideoAd mRewardedVideoAd2;
 
-    public  IInAppBillingService mService;
-    public  ServiceConnection mServiceConn;
+    public IInAppBillingService mService;
+    public ServiceConnection mServiceConn;
 
     public ArrayList<String> skuList = new ArrayList<String>();
     public Bundle skuDetails = new Bundle();
@@ -233,7 +233,7 @@ public class MyData {
     public PendingIntent pendingIntent;
     public String[] strGold = new String[7];
     public String[] skuGold = {"gold_10", "gold_20", "gold_50", "gold_100", "gold_200", "gold_500", "gold_1000"};
-    public  String sku = null;
+    public String sku = null;
     public String price = null;
 
     public Context mContext;
@@ -243,7 +243,7 @@ public class MyData {
     public ArrayList<ReportedData> arrReportList = new ArrayList<>();
 
     public String ANDROID_ID;
-    public volatile  static UUID uuid;
+    public volatile static UUID uuid;
 
 
     public int badgecount;
@@ -256,11 +256,11 @@ public class MyData {
     public Double NearDistanceRef;
     public long NewDateRef;
 
-    public  String marketVersion, verSion;
+    public String marketVersion, verSion;
 
     //public boolean bHotMemberReady = false;
 
-    private  Resources res;
+    private Resources res;
 
     private MyData() {
         strUid = null;
@@ -298,16 +298,15 @@ public class MyData {
         Point = 0;
         ConnectDate = 0;
 
-        for(int i =0; i < 8; i++)
-        {
-            itemList.put( i, 0);
+        for (int i = 0; i < 8; i++) {
+            itemList.put(i, 0);
         }
 
         nReportedCnt = 0;
         badgecount = 0;
 
         mService = null;
-        mServiceConn= null;
+        mServiceConn = null;
 
         NickChangeCnt = 0;
         NewDateRef = 0;
@@ -315,18 +314,17 @@ public class MyData {
         NearDistanceRef = 0.0d;
     }
 
-    public void Clear()
-    {
+    public void Clear() {
         //arrUserMan_Near.clear();
         //arrUserWoman_Near.clear();
-        arrUserAll_Near .clear();
+        arrUserAll_Near.clear();
 
         //arrUserMan_New.clear();
-      //  arrUserWoman_New.clear();
+        //  arrUserWoman_New.clear();
         arrUserAll_New.clear();
 
-  //      arrUserMan_Send.clear();
-    //    arrUserWoman_Send.clear();
+        //      arrUserMan_Send.clear();
+        //    arrUserWoman_Send.clear();
         arrUserAll_Send.clear();
 
         arrUserMan_Recv.clear();
@@ -387,19 +385,19 @@ public class MyData {
         nFanCount = 0;
 
         strUid = null;
-        strIdx= null;
-        strToken= null;
+        strIdx = null;
+        strToken = null;
 
-        strImg= null;
+        strImg = null;
 
-        strNick= null;
-        strGender= null;
-        strAge= null;
+        strNick = null;
+        strGender = null;
+        strAge = null;
 
         lLat = 0;
-        lLon= 0;
+        lLon = 0;
 
-        nHoney= 0;
+        nHoney = 0;
         nSendCount = 0;
         nRecvGold = 0;
 
@@ -414,8 +412,7 @@ public class MyData {
         nRecvMsgReject = false;
 
         nImgCount = 0;
-        for(int i = 0 ; i < 4; i++)
-        {
+        for (int i = 0; i < 4; i++) {
             strProfileImg[i] = "1";
         }
 
@@ -432,9 +429,8 @@ public class MyData {
 
         bestItem = 0;
 
-        for(int i =0; i < 8; i++)
-        {
-            itemList.put( i, 0);
+        for (int i = 0; i < 8; i++) {
+            itemList.put(i, 0);
         }
 
         itemIdx = null;
@@ -446,7 +442,7 @@ public class MyData {
     public void setMyData(String _UserUid, String _UserIdx, int _UserImgCount, String _UserImg, String _UserImgGroup0, String _UserImgGroup1, String _UserImgGroup2, String _UserImgGroup3,
                           String _UserNick, String _UserGender, String _UserAge,
                           int _UserHoney, int _UserSendCount, long _UserRecvCount, long _UserDate,
-                          String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus , int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
+                          String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus, int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
                           int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime, int _UserNickChangeCnt) {
 
@@ -472,13 +468,13 @@ public class MyData {
 
         strImg = _UserImg;
 
-        if(_UserImgGroup0 == null || _UserImgGroup0.equals(""))
+        if (_UserImgGroup0 == null || _UserImgGroup0.equals(""))
             _UserImgGroup0 = "1";
-        if(_UserImgGroup1 == null || _UserImgGroup1.equals(""))
+        if (_UserImgGroup1 == null || _UserImgGroup1.equals(""))
             _UserImgGroup1 = "1";
-        if(_UserImgGroup2 == null || _UserImgGroup2.equals(""))
+        if (_UserImgGroup2 == null || _UserImgGroup2.equals(""))
             _UserImgGroup2 = "1";
-        if(_UserImgGroup3 == null ||_UserImgGroup3.equals(""))
+        if (_UserImgGroup3 == null || _UserImgGroup3.equals(""))
             _UserImgGroup3 = "1";
 
         strProfileImg[0] = _UserImgGroup0;
@@ -496,47 +492,41 @@ public class MyData {
 
         nItemCount = _UserItemCount;
         item_1 = _UserItem1;
-        if(item_1 != 0) {
+        if (item_1 != 0) {
             itemList.put(1, item_1);
         }
         item_2 = _UserItem2;
-        if(item_2 != 0) {
+        if (item_2 != 0) {
             itemList.put(2, item_2);
         }
 
         item_3 = _UserItem3;
-        if(item_3 != 0)
-        {
+        if (item_3 != 0) {
             itemList.put(3, item_3);
         }
 
         item_4 = _UserItem4;
-        if(item_4 != 0)
-        {
+        if (item_4 != 0) {
             itemList.put(4, item_4);
         }
 
         item_5 = _UserItem5;
-        if(item_5 != 0)
-        {
+        if (item_5 != 0) {
             itemList.put(5, item_5);
         }
 
         item_6 = _UserItem6;
-        if(item_6 != 0)
-        {
+        if (item_6 != 0) {
             itemList.put(6, item_6);
         }
 
         item_7 = _UserItem7;
-        if(item_7 != 0)
-        {
+        if (item_7 != 0) {
             itemList.put(7, item_7);
         }
 
         item_8 = _UserItem8;
-        if(item_8 != 0)
-        {
+        if (item_8 != 0) {
             itemList.put(8, item_8);
         }
 
@@ -545,8 +535,7 @@ public class MyData {
         Set<Integer> set = itemList.keySet();
         Iterator<Integer> key = set.iterator();
 
-        while (key.hasNext())
-        {
+        while (key.hasNext()) {
             int idx = key.next();
             itemIdx.add(idx);
         }
@@ -564,16 +553,14 @@ public class MyData {
         NickChangeCnt = _UserNickChangeCnt;
     }
 
-    public void refreshItemIdex()
-    {
+    public void refreshItemIdex() {
         bestItem = SetBestItem();
         itemIdx.clear();
 
         Set<Integer> set = itemList.keySet();
         Iterator<Integer> key = set.iterator();
 
-        while (key.hasNext())
-        {
+        while (key.hasNext()) {
             int idx = key.next();
             itemIdx.add(idx);
 
@@ -582,45 +569,50 @@ public class MyData {
     }
 
 
-    public void setGrade(int nGrade){
+    public void setGrade(int nGrade) {
         Grade = nGrade;
     }
 
-    public int getGrade(){return Grade;}
+    public int getGrade() {
+        return Grade;
+    }
 
-    public void setPoint(int nPoint){
+    public void setPoint(int nPoint) {
         Point += nPoint;
         SetMyGrade();
     }
-    public int getPoint(){return Point;}
+
+    public int getPoint() {
+        return Point;
+    }
 
     public void SetMyGrade() {
 
         int nGrade = getPoint() / 100;
 
-        if(0<= nGrade && nGrade < 2)
+        if (0 <= nGrade && nGrade < 2)
             setGrade(0);
-        else if(2<= nGrade && nGrade < 3)
+        else if (2 <= nGrade && nGrade < 3)
             setGrade(1);
-        else if(3<= nGrade && nGrade < 5)
+        else if (3 <= nGrade && nGrade < 5)
             setGrade(2);
-        else if(5<= nGrade && nGrade < 10)
+        else if (5 <= nGrade && nGrade < 10)
             setGrade(3);
-        else if(10<= nGrade && nGrade < 20)
+        else if (10 <= nGrade && nGrade < 20)
             setGrade(4);
-        else if(20<= nGrade)
+        else if (20 <= nGrade)
             setGrade(5);
     }
 
 
-    public void SetCurFrag(int Frag)
-    {
+    public void SetCurFrag(int Frag) {
         nCurVisibleFrag = Frag;
     }
-    public int GetCurFrag()
-    {
-        return  nCurVisibleFrag;
+
+    public int GetCurFrag() {
+        return nCurVisibleFrag;
     }
+
     public void setUserIdx(String userIdx) {
         strIdx = userIdx;
     }
@@ -674,8 +666,7 @@ public class MyData {
     }
 
     public void delUserProfileImg(int Index, String userImg) {
-        switch (Index)
-        {
+        switch (Index) {
             case 0:
                 strImg = strProfileImg[1];
                 strProfileImg[0] = strProfileImg[1];
@@ -775,13 +766,10 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
 
-        if(getUserGender().equals("여자"))
-        {
-            table = database.getReference("Users/Woman/" + strIdx );
-        }
-        else
-        {
-            table = database.getReference("Users/Man/" + strIdx);
+        if (getUserGender().equals("여자")) {
+            table = database.getReference("Users").child("Woman").child(strIdx);
+        } else {
+            table = database.getReference("Users").child("Man").child(strIdx);
         }
 
         Map<String, Object> updateMap = new HashMap<>();
@@ -814,23 +802,17 @@ public class MyData {
         DatabaseReference table, user, targetuser = null;
         table = database.getReference("Users");
 
-        if(getUserGender().equals("여자"))
-        {
+        if (getUserGender().equals("여자")) {
             user = table.child("Woman").child(strIdx).child("SendList");
-        }
-        else
-        {
-            user =  table.child("Man").child(strIdx).child("SendList");
+        } else {
+            user = table.child("Man").child(strIdx).child("SendList");
         }
 
         String tempGender = mapGenderData.get(_UserData.Idx);
 
         if (tempGender == null || tempGender.equals("")) {
 
-        }
-
-        else
-        {
+        } else {
             if (tempGender.equals("여자")) {
                 table = database.getReference("Users").child("Woman");
             } else {
@@ -838,10 +820,6 @@ public class MyData {
             }
             targetuser = table.child(_UserData.Idx).child("SendList");
         }
-
-
-
-
 
 
         SimpleChatData tempMySave = new SimpleChatData();
@@ -873,7 +851,7 @@ public class MyData {
 
         tempTargetSave.Check = 0;
 
-        if (!arrChatNameList.contains(strCheckName) && !arrChatNameList.contains(strCheckName1) ) {
+        if (!arrChatNameList.contains(strCheckName) && !arrChatNameList.contains(strCheckName1)) {
             user.child(strCheckName).setValue(tempTargetSave);
             targetuser.child(strCheckName).setValue(tempMySave);
             rtValue = true;
@@ -933,8 +911,7 @@ public class MyData {
         });
     }
 
-    public void getCardList()
-    {
+    public void getCardList() {
         for (int i = 0; i < arrCardNameList.size(); i++) {
             Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(arrCardNameList.get(i));
             final int finalI = i;
@@ -1001,19 +978,15 @@ public class MyData {
     }
 
 
-
     public void getFanList(final Activity mActivity) {
         String MyID = strIdx;
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
 
-        if(getUserGender().equals("여자"))
-        {
+        if (getUserGender().equals("여자")) {
             table = database.getReference("Users").child("Woman");
-        }
-        else
-        {
+        } else {
             table = database.getReference("Users").child("Man");
         }
 
@@ -1028,13 +1001,15 @@ public class MyData {
                 int saa = 0;
                 FanData tempFanData = new FanData();
                 tempFanData = dataSnapshot.getValue(FanData.class);
+
+                if (tempFanData != null) {
+
                 // arrMyFanList.add(tempFanData);
                 if (!arrMyFanList.contains(tempFanData.Idx)) {
                     arrMyFanList.add(tempFanData);
                     arrMyFanRecvList.put(tempFanData.Idx, tempFanData);
 
-                    if(arrMyFanList.get(i).Check == 1)
-                    {
+                    if (arrMyFanList.get(i).Check == 1) {
                         CommonFunc.getInstance().SetFanAlarmVisible(true);
                     }
 
@@ -1047,11 +1022,10 @@ public class MyData {
                             arrMyFanDataList.put(finalTempFanData.Idx, DBData);
 
                             CoomonValueData.getInstance().bMySet_Fan = true;
-                           // CommonFunc.getInstance().CheckMyDataSet(mActivity);
+                            // CommonFunc.getInstance().CheckMyDataSet(mActivity);
 
-                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
-                                if(GetCurFrag() == 3)
-                                {
+                            if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+                                if (GetCurFrag() == 3) {
                                     Fragment frg = null;
                                     frg = mFragmentMng.findFragmentByTag("FanListFragment");
                                     final FragmentTransaction ft = mFragmentMng.beginTransaction();
@@ -1072,23 +1046,21 @@ public class MyData {
                     i++;
                 }
             }
+            }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 FanData SendList = dataSnapshot.getValue(FanData.class);
                 boolean bEqual = false;
                 int Idx = 0;
-                for(int i=0; i<arrMyFanList.size(); i++)
-                {
-                    if(arrMyFanList.get(i).Idx.equals(SendList.Idx))
-                    {
+                for (int i = 0; i < arrMyFanList.size(); i++) {
+                    if (arrMyFanList.get(i).Idx.equals(SendList.Idx)) {
                         bEqual = true;
                         Idx = i;
                         break;
                     }
                 }
-                if(bEqual == false)
-                {
+                if (bEqual == false) {
                     arrMyFanList.add(SendList);
                     arrMyFanRecvList.put(SendList.Idx, SendList);
 
@@ -1100,9 +1072,8 @@ public class MyData {
                             SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
                             arrMyFanDataList.put(finalTempFanData.Idx, DBData);
 
-                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
-                                if(GetCurFrag() == 3)
-                                {
+                            if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+                                if (GetCurFrag() == 3) {
                                     Fragment frg = null;
                                     frg = mFragmentMng.findFragmentByTag("FanListFragment");
                                     final FragmentTransaction ft = mFragmentMng.beginTransaction();
@@ -1121,10 +1092,7 @@ public class MyData {
                     });
 
 
-                }
-
-                else
-                {
+                } else {
                     /*int nRecv = arrMyFanDataList.get(SendList.Idx).RecvGold;
                     SendList.RecvGold += nRecv;*/
                 /*    arrMyFanDataList.put(SendList.Idx, SendList);*/
@@ -1138,9 +1106,8 @@ public class MyData {
                             arrMyFanDataList.put(finalTempFanData.Idx, DBData);
                             arrMyFanRecvList.put(finalTempFanData.Idx, finalTempFanData);
 
-                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
-                                if(GetCurFrag() == 3)
-                                {
+                            if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+                                if (GetCurFrag() == 3) {
                                     Fragment frg = null;
                                     frg = mFragmentMng.findFragmentByTag("FanListFragment");
                                     final FragmentTransaction ft = mFragmentMng.beginTransaction();
@@ -1161,7 +1128,7 @@ public class MyData {
 
                 }
 
-             //   CommonFunc.getInstance().SetFanAlarmVisible(true);
+                //   CommonFunc.getInstance().SetFanAlarmVisible(true);
 
 
             }
@@ -1190,12 +1157,9 @@ public class MyData {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
 
-        if(getUserGender().equals("여자"))
-        {
+        if (getUserGender().equals("여자")) {
             table = database.getReference("Users").child("Woman");
-        }
-        else
-        {
+        } else {
             table = database.getReference("Users").child("Man");
         }
 
@@ -1205,9 +1169,8 @@ public class MyData {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Long temp = dataSnapshot.getValue(Long.class);
-                if(temp != null)
-                {
-                    if(temp != 0)
+                if (temp != null) {
+                    if (temp != 0)
                         setRecvHoney(temp);
                 }
 
@@ -1226,11 +1189,9 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table, user;
 
-        if(MyData.getInstance().getUserGender().equals("여자"))
-        {
+        if (MyData.getInstance().getUserGender().equals("여자")) {
             table = database.getReference("Users").child("Woman");//.child(mMyData.getUserIdx());
-        }
-        else {
+        } else {
             table = database.getReference("Users").child("Man");//.child(mMyData.getUserIdx());
         }
 
@@ -1248,23 +1209,19 @@ public class MyData {
                     arrChatNameList.add(SendList.ChatRoomName);
                     arrChatDataList.put(SendList.ChatRoomName, SendList);
 
-                    if(!SendList.WriterIdx.equals(getUserIdx()))
-                    {
-                        if(arrChatDataList.get(SendList.ChatRoomName).Check == 0)
+                    if (!SendList.WriterIdx.equals(getUserIdx())) {
+                        if (arrChatDataList.get(SendList.ChatRoomName).Check == 0)
                             CommonFunc.getInstance().SetChatAlarmVisible(true);
                     }
 
-                    final String str =SendList.ChatRoomName;
+                    final String str = SendList.ChatRoomName;
                     String[] strIdx = SendList.ChatRoomName.split("_");
 
                     String strTargetIdx = null;
 
-                    if(strIdx[0].equals(getUserIdx()))
-                    {
+                    if (strIdx[0].equals(getUserIdx())) {
                         strTargetIdx = strIdx[1];
-                    }
-                    else
-                    {
+                    } else {
                         strTargetIdx = strIdx[0];
                     }
 
@@ -1288,7 +1245,7 @@ public class MyData {
                             CoomonValueData.getInstance().bMySet_Send = true;
                             //CommonFunc.getInstance().CheckMyDataSet(mActivity);
 
-                            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+                            if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
                                 if (GetCurFrag() == 2) {
                                     Fragment frg = null;
                                     frg = mFragmentMng.findFragmentByTag("ChatListFragment");
@@ -1316,23 +1273,19 @@ public class MyData {
                 final SimpleChatData SendList = dataSnapshot.getValue(SimpleChatData.class);
                 arrChatDataList.put(SendList.ChatRoomName, SendList);
 
-                if(!SendList.WriterIdx.equals(getUserIdx()))
-                {
-                    if(arrChatDataList.get(SendList.ChatRoomName).Check == 0)
+                if (!SendList.WriterIdx.equals(getUserIdx())) {
+                    if (arrChatDataList.get(SendList.ChatRoomName).Check == 0)
                         CommonFunc.getInstance().SetChatAlarmVisible(true);
                 }
 
-                final String str =SendList.ChatRoomName;
+                final String str = SendList.ChatRoomName;
                 String[] strIdx = SendList.ChatRoomName.split("_");
 
                 String strTargetIdx = null;
 
-                if(strIdx[0].equals(getUserIdx()))
-                {
+                if (strIdx[0].equals(getUserIdx())) {
                     strTargetIdx = strIdx[1];
-                }
-                else
-                {
+                } else {
                     strTargetIdx = strIdx[0];
                 }
 
@@ -1353,7 +1306,7 @@ public class MyData {
                         DBData.BestItem = tempDB.BestItem;
                         arrChatDataList.put(finalStrTargetIdx, DBData);
 
-                        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+                        if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
                             if (GetCurFrag() == 2) {
                                 Fragment frg = null;
@@ -1363,8 +1316,7 @@ public class MyData {
                                 ft.attach(frg);
                                 ft.commit();
                             } else if (GetCurFrag() == 5) {
-                                if(CurChatTartgetIdx.equals(SendList.Idx))
-                                {
+                                if (CurChatTartgetIdx.equals(SendList.Idx)) {
                                     SendList.Check = 1;
                                 }
 
@@ -1378,7 +1330,6 @@ public class MyData {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-
 
 
             }
@@ -1418,6 +1369,7 @@ public class MyData {
 
         });
     }
+
     public void getLogin() {
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -1505,8 +1457,7 @@ public class MyData {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int boardLoadingDateDay = dataSnapshot.getValue(Integer.class);
 
-                if(boardLoadingDateDay > 0)
-                {
+                if (boardLoadingDateDay > 0) {
                     long nowTimeLong = CommonFunc.getInstance().GetCurrentTime();
                     nowTimeLong = nowTimeLong - (nowTimeLong % CoomonValueData.getInstance().DAY_MILLI_SECONDS);
                     CoomonValueData.getInstance().BoardLoadingDate = nowTimeLong - boardLoadingDateDay * CoomonValueData.getInstance().DAY_MILLI_SECONDS;
@@ -1549,17 +1500,14 @@ public class MyData {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        if(getUserGender().equals("여자"))
-        {
-            table = database.getReference("Users/Woman/" + getUserIdx());
-        }
-        else
-        {
-            table = database.getReference("Users/Man/" + getUserIdx());
+        if (getUserGender().equals("여자")) {
+            table = database.getReference("Users").child("Woman").child(getUserIdx());
+        } else {
+            table = database.getReference("Users").child("Man").child(getUserIdx());
         }
 
 
-        if(IsCardList(target.Idx))
+        if (IsCardList(target.Idx))
             return false;
 
         CommonFunc.getInstance().SetCardAlarmVisible(true);
@@ -1587,6 +1535,7 @@ public class MyData {
         return rtValue;
 
     }
+
     public void removeCardList(final UserData target) {
 
         arrCardNameList.remove(target.Idx);
@@ -1608,7 +1557,7 @@ public class MyData {
         strMemo = memo.toString();
     }
 
-    public void setSettingData(Context context, int SearchMode, int ViewMode, boolean recvMsgReject ) {
+    public void setSettingData(Context context, int SearchMode, int ViewMode, boolean recvMsgReject) {
         nSearchMode = SearchMode;
         nViewMode = ViewMode;
         nRecvMsgReject = recvMsgReject;
@@ -1616,12 +1565,12 @@ public class MyData {
 
         SharedPreferences prefs = context.getSharedPreferences("Setting", context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("nSearchMode",  SearchMode);
+        editor.putInt("nSearchMode", SearchMode);
         editor.commit();
 
     }
 
-    public void setAlarmSettingData(boolean alarmSetting_Sound, boolean alarmSetting_Vibration, boolean alarmSetting_Popup ) {
+    public void setAlarmSettingData(boolean alarmSetting_Sound, boolean alarmSetting_Vibration, boolean alarmSetting_Popup) {
         nAlarmSetting_Sound = alarmSetting_Sound;
         nAlarmSetting_Vibration = alarmSetting_Vibration;
         nAlarmSetting_Pop = alarmSetting_Popup;
@@ -1637,11 +1586,9 @@ public class MyData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
 
-        if(MyData.getInstance().getUserGender().equals("여자"))
-        {
+        if (MyData.getInstance().getUserGender().equals("여자")) {
             table = database.getReference("Users").child("Woman");//.child(mMyData.getUserIdx());
-        }
-        else {
+        } else {
             table = database.getReference("Users").child("Man");//.child(mMyData.getUserIdx());
         }
 
@@ -1656,9 +1603,13 @@ public class MyData {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                arrGiftUserDataList.put(strTargetIdx, tempUserData);
+            if(tempUserData != null) {
+                if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                    arrGiftUserDataList.put(strTargetIdx, tempUserData);
+                    int i = arrGiftUserDataList.size();
+                }
+            }
 
-                int i = arrGiftUserDataList.size();
            /*     for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                     //  if(!arrMyStarDataList.get(finalI).arrStarList.contains(entry.getValue().Nick))
                     arrGiftUserDataList.get(i - 1).arrStarList.add(entry.getValue());
@@ -2026,13 +1977,10 @@ public class MyData {
                         stRecvData = dataSnapshot.getValue(TempSettingData.class);
                         if (stRecvData != null) {
 
-                            if(stRecvData.StartAge == 0 || stRecvData.EndAge == 0)
-                            {
+                            if (stRecvData.StartAge == 0 || stRecvData.EndAge == 0) {
                                 nStartAge = (Integer.parseInt(getUserAge()) / 10) * 10;
                                 nEndAge = nStartAge + 19;
-                            }
-                            else
-                            {
+                            } else {
                                 nStartAge = stRecvData.StartAge;
                                 nEndAge = stRecvData.EndAge;
                             }
@@ -2055,8 +2003,7 @@ public class MyData {
 
     }
 
-    private void SortByRecvHeart(UserData stTargetData, Context context, Resources res, int myrank, int SendCount, String msg)
-    {
+    private void SortByRecvHeart(UserData stTargetData, Context context, Resources res, int myrank, int SendCount, String msg) {
         Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(stTargetData.FanList);
         //tempDataMap = mMyData.arrMyFanDataList;
         Iterator it = sortByValue(tempDataMap).iterator();
@@ -2064,20 +2011,16 @@ public class MyData {
 
         stTargetData.arrFanList.clear();
         stTargetData.FanList.clear();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             String temp = (String) it.next();
             stTargetData.arrFanList.add(tempDataMap.get(temp));
             stTargetData.FanList.put(temp, tempDataMap.get(temp));
         }
 
-        for(int i=0; i<stTargetData.arrFanList.size(); i++)
-        {
-            if(stTargetData.arrFanList.get(i).Idx.equals(getUserIdx()))
-            {
-                if(myrank != i)
-                {
-                    switch (i)
-                    {
+        for (int i = 0; i < stTargetData.arrFanList.size(); i++) {
+            if (stTargetData.arrFanList.get(i).Idx.equals(getUserIdx())) {
+                if (myrank != i) {
+                    switch (i) {
                         case 0:
                             CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_1st), 0);
                             NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 1);
@@ -2100,11 +2043,11 @@ public class MyData {
     public static List sortByValue(final Map map) {
         List<String> list = new ArrayList();
         list.addAll(map.keySet());
-        Collections.sort(list,new Comparator() {
+        Collections.sort(list, new Comparator() {
 
-            public int compare(Object o1,Object o2) {
-                FanData g1 = (FanData)map.get(o1);
-                FanData g2 = (FanData)map.get(o2);
+            public int compare(Object o1, Object o2) {
+                FanData g1 = (FanData) map.get(o1);
+                FanData g2 = (FanData) map.get(o2);
 
                 Object v1 = g1.RecvGold;
                 Object v2 = g2.RecvGold;
@@ -2123,8 +2066,7 @@ public class MyData {
 
         res = context.getResources();
 
-        if(stTargetData.FanList.size() == 0)
-        {
+        if (stTargetData.FanList.size() == 0) {
             NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 0);
 
             Check = 1;
@@ -2147,9 +2089,9 @@ public class MyData {
             tempData.NickName = getUserNick();
             tempData.Gender = getUserGender();
             tempData.Age = getUserAge();
-            tempData.Memo =getUserMemo();
+            tempData.Memo = getUserMemo();
             tempData.RecvGold = getRecvHoney();
-            tempData.SendGold =getSendHoney();
+            tempData.SendGold = getSendHoney();
             tempData.Lat = getUserLat();
             tempData.Lon = getUserLon();
             tempData.Date = strDate;
@@ -2162,13 +2104,10 @@ public class MyData {
 
             FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
             DatabaseReference data;
-            if(stTargetData.Gender.equals("여자"))
-            {
-                 data = fierBaseDataInstance.getReference("Users").child("Woman").child(stTargetData.Idx).child("FanCount");
-            }
-            else
-            {
-                 data = fierBaseDataInstance.getReference("Users").child("Man").child(stTargetData.Idx).child("FanCount");
+            if (stTargetData.Gender.equals("여자")) {
+                data = fierBaseDataInstance.getReference("Users").child("Woman").child(stTargetData.Idx).child("FanCount");
+            } else {
+                data = fierBaseDataInstance.getReference("Users").child("Man").child(stTargetData.Idx).child("FanCount");
             }
 
             data.runTransaction(new Transaction.Handler() {
@@ -2191,9 +2130,8 @@ public class MyData {
 
                     stTargetData.FanCount = dataSnapshot.getValue(Long.class);
 
-                    for(int i = 0; i < arrUserAll_Send_Age.size(); i++)
-                    {
-                        if(arrUserAll_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                    for (int i = 0; i < arrUserAll_Send_Age.size(); i++) {
+                        if (arrUserAll_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
                             arrUserAll_Send_Age.get(i).FanCount = stTargetData.FanCount;
                             break;
                         }
@@ -2207,13 +2145,10 @@ public class MyData {
                     updateFanCountMap.put("FanCount", stTargetData.FanCount);
                     table.updateChildren(updateFanCountMap);
 
-                    if(stTargetData.Gender.equals("여자"))
-                    {
-                        table = database.getReference("Users/Woman/" + stTargetData.Idx);
-                    }
-                    else
-                    {
-                        table = database.getReference("Users/Man/" + stTargetData.Idx);
+                    if (stTargetData.Gender.equals("여자")) {
+                        table = database.getReference("Users").child("Woman").child(stTargetData.Idx);
+                    } else {
+                        table = database.getReference("Users").child("Man").child(stTargetData.Idx);
                     }
 
                     table.updateChildren(updateFanCountMap);
@@ -2221,12 +2156,9 @@ public class MyData {
                 }
             });
 
-            if(stTargetData.Gender.equals("여자"))
-            {
+            if (stTargetData.Gender.equals("여자")) {
                 data = fierBaseDataInstance.getReference("Users").child("Woman").child(stTargetData.Idx).child("RecvGold");
-            }
-            else
-            {
+            } else {
                 data = fierBaseDataInstance.getReference("Users").child("Man").child(stTargetData.Idx).child("RecvGold");
             }
 
@@ -2250,9 +2182,8 @@ public class MyData {
 
                     stTargetData.RecvGold = dataSnapshot.getValue(Long.class);
 
-                    for(int i = 0; i < arrUserAll_Recv_Age.size(); i++)
-                    {
-                        if(arrUserAll_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                    for (int i = 0; i < arrUserAll_Recv_Age.size(); i++) {
+                        if (arrUserAll_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
                             arrUserAll_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
                             break;
                         }
@@ -2261,20 +2192,17 @@ public class MyData {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table;
 
-                    if(stTargetData.Gender.equals("여자"))
-                    {
-                        table = database.getReference("Users/Woman/" + stTargetData.Idx);
-                    }
-                    else
-                    {
-                        table = database.getReference("Users/Man/" + stTargetData.Idx);
+                    if (stTargetData.Gender.equals("여자")) {
+                        table = database.getReference("Users").child("Woman").child(stTargetData.Idx);
+                    } else {
+                        table = database.getReference("Users").child("Man").child(stTargetData.Idx);
                     }
 
                     Map<String, Object> updateFanCountMap = new HashMap<>();
                     updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
                     table.updateChildren(updateFanCountMap);
 
-                    table = database.getReference("SimpleData/" + stTargetData.Idx);
+                    table = database.getReference("SimpleData").child(stTargetData.Idx);
                     table.updateChildren(updateFanCountMap);
 
                 }
@@ -2283,17 +2211,14 @@ public class MyData {
 
             CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_1st), 0);
 
-        }
-        else
-        {
+        } else {
             Set<String> keySet = stTargetData.FanList.keySet();
             Iterator iterator = keySet.iterator();
             boolean bExist = false;
             int nMyRank = 0;
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 String element = (String) iterator.next();
-                if(stTargetData.FanList.get(element).Idx.equals(getUserIdx()))
-                {
+                if (stTargetData.FanList.get(element).Idx.equals(getUserIdx())) {
 
                     bExist = true;
                     break;
@@ -2301,27 +2226,21 @@ public class MyData {
             }
 
 
-            for(int i = 0; i<stTargetData.arrFanList.size(); i++)
-            {
-                if(stTargetData.arrFanList.get(i).Idx.equals(getUserIdx()))
-                {
+            for (int i = 0; i < stTargetData.arrFanList.size(); i++) {
+                if (stTargetData.arrFanList.get(i).Idx.equals(getUserIdx())) {
                     nMyRank = i;
                     break;
                 }
 
             }
 
-            if(bExist == true)
-            {
+            if (bExist == true) {
                 Check = 2;
                 stTargetData.FanList.get(getUserIdx()).RecvGold += SendCount;
                 nTotalSendCnt = stTargetData.FanList.get(getUserIdx()).RecvGold;
 
-                SortByRecvHeart(stTargetData, context, res, nMyRank,SendCount,  msg);
-            }
-
-            else
-            {
+                SortByRecvHeart(stTargetData, context, res, nMyRank, SendCount, msg);
+            } else {
                 Check = 1;
                 FanData tempFan = new FanData();
                 tempFan.Idx = getUserIdx();
@@ -2341,9 +2260,9 @@ public class MyData {
                 tempData.NickName = getUserNick();
                 tempData.Gender = getUserGender();
                 tempData.Age = getUserAge();
-                tempData.Memo =getUserMemo();
+                tempData.Memo = getUserMemo();
                 tempData.RecvGold = getRecvHoney();
-                tempData.SendGold =getSendHoney();
+                tempData.SendGold = getSendHoney();
                 tempData.Lat = getUserLat();
                 tempData.Lon = getUserLon();
                 tempData.Date = strDate;
@@ -2357,12 +2276,9 @@ public class MyData {
 
                 FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
                 DatabaseReference data;
-                if(stTargetData.Gender.equals("여자"))
-                {
+                if (stTargetData.Gender.equals("여자")) {
                     data = fierBaseDataInstance.getReference("Users").child("Woman").child(stTargetData.Idx).child("FanCount");
-                }
-                else
-                {
+                } else {
                     data = fierBaseDataInstance.getReference("Users").child("Man").child(stTargetData.Idx).child("FanCount");
                 }
 
@@ -2385,9 +2301,8 @@ public class MyData {
 
                         stTargetData.FanCount = dataSnapshot.getValue(Long.class);
 
-                        for(int i = 0; i < arrUserAll_Send_Age.size(); i++)
-                        {
-                            if(arrUserAll_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                        for (int i = 0; i < arrUserAll_Send_Age.size(); i++) {
+                            if (arrUserAll_Send_Age.get(i).Idx.equals(stTargetData.Idx)) {
                                 arrUserAll_Send_Age.get(i).FanCount = stTargetData.FanCount;
                                 break;
                             }
@@ -2395,20 +2310,20 @@ public class MyData {
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference table;
-                        if(stTargetData.Gender.equals("여자"))
-                        {
-                            table = database.getReference("Users/Woman/" + stTargetData.Idx);
-                        }
-                        else
-                        {
-                            table = database.getReference("Users/Man/" + stTargetData.Idx);
+                        if (stTargetData.Gender.equals("여자")) {
+
+                            table = database.getReference("Users").child("Woman").child(stTargetData.Idx);
+                        } else {
+
+                            table = database.getReference("Users").child("Man").child(stTargetData.Idx);
                         }
 
                         Map<String, Object> updateFanCountMap = new HashMap<>();
-                        updateFanCountMap.put("FanCount", stTargetData.FanCount );
+                        updateFanCountMap.put("FanCount", stTargetData.FanCount);
                         table.updateChildren(updateFanCountMap);
 
-                        table = database.getReference("SimpleData/" + stTargetData.Idx);
+                        table = database.getReference("SimpleData").child(stTargetData.Idx);
+                        ;
                         table.updateChildren(updateFanCountMap);
 
                     }
@@ -2417,13 +2332,10 @@ public class MyData {
 
             FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
             DatabaseReference data;
-            if(stTargetData.Gender.equals("여자"))
-            {
-                data  = fierBaseDataInstance.getReference("Users").child("Woman").child(stTargetData.Idx).child("RecvGold");
-            }
-            else
-            {
-                data  = fierBaseDataInstance.getReference("Users").child("Man").child(stTargetData.Idx).child("RecvGold");
+            if (stTargetData.Gender.equals("여자")) {
+                data = fierBaseDataInstance.getReference("Users").child("Woman").child(stTargetData.Idx).child("RecvGold");
+            } else {
+                data = fierBaseDataInstance.getReference("Users").child("Man").child(stTargetData.Idx).child("RecvGold");
             }
 
             data.runTransaction(new Transaction.Handler() {
@@ -2446,9 +2358,8 @@ public class MyData {
 
                     stTargetData.RecvGold = dataSnapshot.getValue(Long.class);
 
-                    for(int i = 0; i < arrUserAll_Recv_Age.size(); i++)
-                    {
-                        if(arrUserAll_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
+                    for (int i = 0; i < arrUserAll_Recv_Age.size(); i++) {
+                        if (arrUserAll_Recv_Age.get(i).Idx.equals(stTargetData.Idx)) {
                             arrUserAll_Recv_Age.get(i).RecvGold = stTargetData.RecvGold;
                             break;
                         }
@@ -2456,13 +2367,10 @@ public class MyData {
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference table;
-                    if(stTargetData.Gender.equals("여자"))
-                    {
-                        table = database.getReference("Users/Woman/" + stTargetData.Idx);
-                    }
-                    else
-                    {
-                        table = database.getReference("Users/Man/" + stTargetData.Idx);
+                    if (stTargetData.Gender.equals("여자")) {
+                        table = database.getReference("Users").child("Woman").child(stTargetData.Idx);
+                    } else {
+                        table = database.getReference("Users").child("Man").child(stTargetData.Idx);
                     }
 
 
@@ -2470,7 +2378,7 @@ public class MyData {
                     updateFanCountMap.put("RecvGold", stTargetData.RecvGold);
                     table.updateChildren(updateFanCountMap);
 
-                    table = database.getReference("SimpleData/" + stTargetData.Idx);
+                    table = database.getReference("SimpleData").child(stTargetData.Idx);
                     table.updateChildren(updateFanCountMap);
 
                 }
@@ -2479,17 +2387,13 @@ public class MyData {
         }
 
 
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
 
-        if(stTargetData.Gender.equals("여자"))
-        {
-            table = database.getReference("Users/Woman/" + stTargetData.Idx).child("FanList");
-        }
-        else
-        {
-            table = database.getReference("Users/Man/" + stTargetData.Idx).child("FanList");
+        if (stTargetData.Gender.equals("여자")) {
+            table = database.getReference("Users").child("Woman").child(stTargetData.Idx).child("FanList");
+        } else {
+            table = database.getReference("Users").child("Man").child(stTargetData.Idx).child("FanList");
         }
 
         Map<String, Object> updateMap = new HashMap<>();
@@ -2501,8 +2405,7 @@ public class MyData {
 
     }
 
-    public  void delUserPublicRoomStatus()
-    {
+    public void delUserPublicRoomStatus() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
         // DatabaseReference user = table.child( userIdx);
@@ -2540,11 +2443,9 @@ public class MyData {
     }
 
     public void setMyItem(int myItem) {
-        switch (myItem)
-        {
-            case 0:
-            {
-                if(item_1 == 0) {
+        switch (myItem) {
+            case 0: {
+                if (item_1 == 0) {
                     nItemCount++;
                 }
 
@@ -2553,9 +2454,8 @@ public class MyData {
 
                 break;
             }
-            case 1:
-            {
-                if(item_1 == 0) {
+            case 1: {
+                if (item_1 == 0) {
                     nItemCount++;
                 }
 
@@ -2564,9 +2464,8 @@ public class MyData {
 
                 break;
             }
-            case 2:
-            {
-                if(item_2 == 0){
+            case 2: {
+                if (item_2 == 0) {
                     nItemCount++;
                 }
 
@@ -2575,9 +2474,8 @@ public class MyData {
 
                 break;
             }
-            case 3:
-            {
-                if(item_3 == 0){
+            case 3: {
+                if (item_3 == 0) {
                     nItemCount++;
                 }
 
@@ -2586,9 +2484,8 @@ public class MyData {
 
                 break;
             }
-            case 4:
-            {
-                if(item_4 == 0){
+            case 4: {
+                if (item_4 == 0) {
                     nItemCount++;
                 }
 
@@ -2597,9 +2494,8 @@ public class MyData {
 
                 break;
             }
-            case 5:
-            {
-                if(item_5 == 0){
+            case 5: {
+                if (item_5 == 0) {
                     nItemCount++;
                 }
 
@@ -2607,9 +2503,8 @@ public class MyData {
                 itemList.put(5, item_5);
                 break;
             }
-            case 6:
-            {
-                if(item_6 == 0){
+            case 6: {
+                if (item_6 == 0) {
                     nItemCount++;
                 }
 
@@ -2618,9 +2513,8 @@ public class MyData {
 
                 break;
             }
-            case 7:
-            {
-                if(item_7 == 0){
+            case 7: {
+                if (item_7 == 0) {
                     nItemCount++;
                 }
 
@@ -2636,15 +2530,12 @@ public class MyData {
         //   SaveMyItem();
     }
 
-    public void SaveMyItem()
-    {
+    public void SaveMyItem() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table ;
-        if(MyData.getInstance().getUserGender().equals("여자"))
-        {
+        DatabaseReference table;
+        if (MyData.getInstance().getUserGender().equals("여자")) {
             table = database.getReference("Users").child("Woman");//.child(mMyData.getUserIdx());
-        }
-        else {
+        } else {
             table = database.getReference("Users").child("Man");//.child(mMyData.getUserIdx());
         }
 
@@ -2652,16 +2543,16 @@ public class MyData {
         final DatabaseReference user = table.child(getUserIdx());
 
         Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("ItemCount",nItemCount);
-        updateMap.put("Item_1",item_1);
-        updateMap.put("Item_2",item_2);
-        updateMap.put("Item_3",item_3);
-        updateMap.put("Item_4",item_4);
-        updateMap.put("Item_5",item_5);
-        updateMap.put("Item_6",item_6);
-        updateMap.put("Item_7",item_7);
-        updateMap.put("Item_8",item_8);
-        updateMap.put("BestItem",bestItem);
+        updateMap.put("ItemCount", nItemCount);
+        updateMap.put("Item_1", item_1);
+        updateMap.put("Item_2", item_2);
+        updateMap.put("Item_3", item_3);
+        updateMap.put("Item_4", item_4);
+        updateMap.put("Item_5", item_5);
+        updateMap.put("Item_6", item_6);
+        updateMap.put("Item_7", item_7);
+        updateMap.put("Item_8", item_8);
+        updateMap.put("BestItem", bestItem);
 
         user.updateChildren(updateMap);
         /*
@@ -2679,32 +2570,27 @@ public class MyData {
         table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
         final DatabaseReference SimpleUser = table.child(getUserIdx());
 
-        updateMap.put("BestItem",bestItem);
+        updateMap.put("BestItem", bestItem);
         SimpleUser.updateChildren(updateMap);
 
-       // SimpleUser.child("BestItem").setValue(bestItem);
+        // SimpleUser.child("BestItem").setValue(bestItem);
 
     }
 
-    public void SaveMyItem(int idx, int count)
-    {
+    public void SaveMyItem(int idx, int count) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         DatabaseReference table;
-        if(getUserGender().equals("여자"))
-        {
-             table = database.getReference("Users").child("Woman");
-        }
-        else
-        {
-             table = database.getReference("Users").child("Man");
+        if (getUserGender().equals("여자")) {
+            table = database.getReference("Users").child("Woman");
+        } else {
+            table = database.getReference("Users").child("Man");
         }
 
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(getUserIdx());
 
-        switch (idx)
-        {
+        switch (idx) {
             case 1:
                 item_1 = count;
                 user.child("Item_1").setValue(item_1);
@@ -2748,30 +2634,28 @@ public class MyData {
     }
 
     public long getFanCount() {
-        return  (-1 * (UNIQ_FANCOUNT * arrMyFanList.size() + Long.valueOf(getUserIdx())));
+        return (-1 * (UNIQ_FANCOUNT * arrMyFanList.size() + Long.valueOf(getUserIdx())));
     }
 
     public int SetBestItem() {
         int rtValue = 0;
-        if(itemList.size() == 0)
-            return  rtValue;
+        if (itemList.size() == 0)
+            return rtValue;
 
         boolean bCheckEmpty = true;
         Map<Integer, Integer> tempItemList = new HashMap<Integer, Integer>();
 
-        for (int i=0 ;i < itemList.size(); i++)
-        {
-            if(itemList.get(i) != 0) {
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i) != 0) {
                 tempItemList.put(i, itemList.get(i));
 
-                if(bCheckEmpty == true)
+                if (bCheckEmpty == true)
                     bCheckEmpty = false;
             }
         }
 
-        if(bCheckEmpty  == false)
-        {
-            TreeMap<Integer,Integer> tm = new TreeMap<Integer,Integer>(tempItemList);
+        if (bCheckEmpty == false) {
+            TreeMap<Integer, Integer> tm = new TreeMap<Integer, Integer>(tempItemList);
             Iterator<Integer> iteratorKey = tm.descendingKeySet().iterator(); //키값 내림차순 정렬
             rtValue = iteratorKey.next();
         }
@@ -2782,7 +2666,7 @@ public class MyData {
         return rtValue;
     }
 
-    public void makeLastMSG(final UserData  tempData, final String Roomname, String strMsg, long lTime, final int SendCount) {
+    public void makeLastMSG(final UserData tempData, final String Roomname, String strMsg, long lTime, final int SendCount) {
 
 
         final String strLastMsg = strMsg;
@@ -2794,11 +2678,9 @@ public class MyData {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
         DatabaseReference user;
-        if(getUserGender().equals("여자"))
-        {
-           user = table.child("Woman").child(strIdx).child("SendList").child(Roomname);
-        }
-        else {
+        if (getUserGender().equals("여자")) {
+            user = table.child("Woman").child(strIdx).child("SendList").child(Roomname);
+        } else {
             user = table.child("Man").child(strIdx).child("SendList").child(Roomname);
         }
 
@@ -2862,17 +2744,14 @@ public class MyData {
 
             });
 
-        }
-
-        else
-        {
+        } else {
             if (tempGender.equals("여자")) {
                 table = database.getReference("Users").child("Woman");
             } else {
                 table = database.getReference("Users").child("Man");
             }
 
-           DatabaseReference targetuser = table.child(tempData.Idx).child("SendList").child(Roomname);
+            DatabaseReference targetuser = table.child(tempData.Idx).child("SendList").child(Roomname);
 
             SimpleChatData tempMySave = new SimpleChatData();
             tempMySave.ChatRoomName = Roomname;
@@ -2896,33 +2775,29 @@ public class MyData {
 
         long time = CommonFunc.getInstance().GetCurrentTime();
         SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
-        int nTodayTime = Integer.parseInt( (date.format(new Date(time))).toString());
+        int nTodayTime = Integer.parseInt((date.format(new Date(time))).toString());
 
 
         int nLastConn = (ConnectDate);
 
-        if(nTodayTime - nLastConn >= 1)
-        {
+        if (nTodayTime - nLastConn >= 1) {
             rtValue = true;
             ConnectDate = nTodayTime;
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table;
 
-            if(getUserGender().equals("여자"))
-            {
-                table = database.getReference("Users/Woman/" + strIdx);
-            }
-            else
-            {
-                table = database.getReference("Users/Man/" + strIdx);
+            if (getUserGender().equals("여자")) {
+                table = database.getReference("Users").child("Woman").child(strIdx);
+            } else {
+                table = database.getReference("Users").child("Man").child(strIdx);
             }
 
             Map<String, Object> updateMap = new HashMap<>();
             updateMap.put("ConnectDate", ConnectDate);
             table.updateChildren(updateMap);
 
-            table = database.getReference("SimpleData/" + strIdx);
+            table = database.getReference("SimpleData").child(strIdx);
             table.updateChildren(updateMap);
         }
 
@@ -2930,15 +2805,12 @@ public class MyData {
         return rtValue;
     }
 
-    public ArrayList<UserData> SortData_UAge(ArrayList<UserData> arrData, int Start, int End)
-    {
+    public ArrayList<UserData> SortData_UAge(ArrayList<UserData> arrData, int Start, int End) {
         ArrayList<UserData> rtData = new ArrayList<UserData>();
-        for(int i = 0; i < arrData.size(); i++)
-        {
+        for (int i = 0; i < arrData.size(); i++) {
             int nDataAge = Integer.parseInt(arrData.get(i).Age);
 
-            if( nDataAge >= Start && nDataAge <= End)
-            {
+            if (nDataAge >= Start && nDataAge <= End) {
                 rtData.add(arrData.get(i));
             }
         }
@@ -2946,20 +2818,16 @@ public class MyData {
         return rtData;
     }
 
-    public ArrayList<UserData> SortData_Age(ArrayList<UserData> arrData, int Start, int End)
-    {
+    public ArrayList<UserData> SortData_Age(ArrayList<UserData> arrData, int Start, int End) {
         ArrayList<UserData> rtData = new ArrayList<UserData>();
-        for(int i = 0; i < arrData.size(); i++)
-        {
-            if(arrData.get(i).Age == null )
-            {
-                int aasd= 0;
+        for (int i = 0; i < arrData.size(); i++) {
+            if (arrData.get(i).Age == null) {
+                int aasd = 0;
                 aasd++;
             }
             int nDataAge = Integer.parseInt(arrData.get(i).Age);
 
-            if( nDataAge >= Start && nDataAge <= End)
-            {
+            if (nDataAge >= Start && nDataAge <= End) {
                 rtData.add(arrData.get(i));
             }
         }
@@ -2967,17 +2835,23 @@ public class MyData {
         return rtData;
     }
 
-    public int getUserBestItem()
-    {
+    public int getUserBestItem() {
         return bestItem;
     }
 
-    public long GetLastBoardWriteTime(){return LastBoardWriteTime;}
-    public void SetLastBoardWriteTime(long time){LastBoardWriteTime = time;}
+    public long GetLastBoardWriteTime() {
+        return LastBoardWriteTime;
+    }
 
-    public long GetLastAdsTime(){return LastAdsTime;}
-    public void SetLastAdsTime(long time)
-    {
+    public void SetLastBoardWriteTime(long time) {
+        LastBoardWriteTime = time;
+    }
+
+    public long GetLastAdsTime() {
+        return LastAdsTime;
+    }
+
+    public void SetLastAdsTime(long time) {
         FirebaseData.getInstance().SaveLastAdsTime(time);
         LastAdsTime = time;
     }

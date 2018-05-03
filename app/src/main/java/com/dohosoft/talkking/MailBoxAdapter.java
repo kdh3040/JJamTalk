@@ -146,6 +146,6 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
 
     @Override
     public int getItemCount() {
-        return mMyData.arrGiftHoneyDataList.size();
+        return mMyData.arrGiftUserDataList.size();
     }
 }

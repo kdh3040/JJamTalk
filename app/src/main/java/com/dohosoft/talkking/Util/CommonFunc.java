@@ -58,6 +58,7 @@ import com.dohosoft.talkking.Firebase.FirebaseData;
 import com.dohosoft.talkking.MainActivity;
 import com.dohosoft.talkking.R;
 import com.dohosoft.talkking.UserPageActivity;
+import com.kakao.usermgmt.response.model.User;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1517,6 +1518,8 @@ public class CommonFunc {
     public void setClickStatus(boolean Status)
     {
         bClickSync = Status;
+        if(bClickSync == false)
+            DismissLoadingPage();
     }
 
     public boolean getClickStatus()
@@ -2108,6 +2111,45 @@ public class CommonFunc {
             user = table.child("Man").child(userData.Idx);
         }
         user.removeValue();
+    }
+
+
+    public boolean CheckUserData(UserData userData)
+    {
+        boolean rtValue = false;
+
+        UserData tempData = new UserData();
+        tempData = userData;
+
+        if(tempData.Idx == null)
+            return false;
+
+        if(tempData.Gender == null ||tempData.Gender.equals(""))
+            return false;
+
+        if(tempData.Age == null ||tempData.Age.equals(""))
+            return false;
+
+        if(tempData.Img == null ||tempData.Img.equals(""))
+            return false;
+
+        if(tempData.ImgGroup0 == null ||tempData.ImgGroup0.equals(""))
+            return false;
+
+        if(tempData.NickName == null ||tempData.NickName.equals(""))
+            return false;
+
+        if(tempData.Token == null ||tempData.Token.equals(""))
+            return false;
+
+        if(tempData.Date == 0)
+            return false;
+
+        if(tempData.Dist == 0)
+            return false;
+
+
+        return true;
     }
 }
 

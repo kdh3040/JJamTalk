@@ -61,8 +61,7 @@ public class CardListFragment extends Fragment {
     private TextView txt_empty;
     View fragView;
 
-    private void refreshFragMent()
-    {
+    private void refreshFragMent() {
         FragmentTransaction trans = getFragmentManager().beginTransaction();
         trans.detach(this).attach(this).commit();
     }
@@ -75,7 +74,7 @@ public class CardListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+        if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             mMyData.SetCurFrag(1);
         }
@@ -85,28 +84,22 @@ public class CardListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        if (fragView!= null) {
-            if(mMyData.arrCarDataList.size() == 0)
-            {
+        if (fragView != null) {
+            if (mMyData.arrCarDataList.size() == 0) {
                 txt_empty.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 txt_empty.setVisibility(View.GONE);
                 CommonFunc.getInstance().RefreshCardData(cardListAdapter);
             }
 
 
-        }
-        else
-        {
-            fragView = inflater.inflate(R.layout.fragment_card_list,container,false);
+        } else {
+            fragView = inflater.inflate(R.layout.fragment_card_list, container, false);
 
             txt_empty = fragView.findViewById(R.id.txt_empty);
-            if(mMyData.arrCarDataList.size() == 0)
-            {
+            if (mMyData.arrCarDataList.size() == 0) {
                 txt_empty.setVisibility(View.VISIBLE);
-            }
-            else
+            } else
                 txt_empty.setVisibility(View.GONE);
 
 
@@ -125,7 +118,7 @@ public class CardListFragment extends Fragment {
     public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHolder> {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_my_card,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_my_card, parent, false);
 
 
             return new ViewHolder(view);
@@ -145,13 +138,11 @@ public class CardListFragment extends Fragment {
                     .into(holder.image);
 
             //if(mMyData.arrCardNameList.get(position).Count != 0)
-              //  holder.imageSymbol.setVisibility(View.GONE);
+            //  holder.imageSymbol.setVisibility(View.GONE);
 
-            if(mMyData.arrCarDataList.get(i).Memo == null || mMyData.arrCarDataList.get(i).Memo.equals(""))
-            {
+            if (mMyData.arrCarDataList.get(i).Memo == null || mMyData.arrCarDataList.get(i).Memo.equals("")) {
                 holder.textView_memo.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 holder.textView_memo.setVisibility(View.VISIBLE);
                 holder.textView_memo.setText(mMyData.arrCarDataList.get(i).Memo);
                 //holder.textView_memo.setBackgroundResource(R.drawable.inbox2);
@@ -163,11 +154,9 @@ public class CardListFragment extends Fragment {
 
             holder.imageItem.setVisibility(View.VISIBLE);
 
-            if(mMyData.arrCarDataList.get(i).BestItem == 0)
-            {
+            if (mMyData.arrCarDataList.get(i).BestItem == 0) {
                 holder.imageItem.setVisibility(View.GONE);
-            }
-            else
+            } else
                 holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrCarDataList.get(i).BestItem]);
 
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrCarDataList.get(i).Grade]);
@@ -175,7 +164,7 @@ public class CardListFragment extends Fragment {
 
             holder.textView.setText(mMyData.arrCarDataList.get(i).NickName + " (" + mMyData.arrCarDataList.get(i).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");
 
-            if(mMyData.arrCarDataList.get(i).Gender.equals("여자"))
+            if (mMyData.arrCarDataList.get(i).Gender.equals("여자"))
                 holder.textView.setTextColor(TEXTCOLOR_WOMAN);
             else
                 holder.textView.setTextColor(TEXTCOLOR_MAN);
@@ -209,13 +198,10 @@ public class CardListFragment extends Fragment {
                         public void onClick(View view) {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference table;
-                            if(mMyData.getUserGender().equals("여자"))
-                            {
-                                table = database.getReference("Users/Woman/" + mMyData.getUserIdx() + "/CardList/");
-                            }
-                            else
-                            {
-                                table = database.getReference("Users/Man/" + mMyData.getUserIdx()+ "/CardList/" );
+                            if (mMyData.getUserGender().equals("여자")) {
+                                table = database.getReference("Users").child("Woman").child(mMyData.getUserIdx()).child("CardList");
+                            } else {
+                                table = database.getReference("Users").child("Man").child(mMyData.getUserIdx()).child("CardList");
                             }
 
                             table.child(mMyData.arrCarDataList.get(i).Idx).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -223,6 +209,7 @@ public class CardListFragment extends Fragment {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     dataSnapshot.getRef().removeValue();
                                 }
+
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
 
@@ -265,13 +252,10 @@ public class CardListFragment extends Fragment {
                     updateMap.put("Count",  mMyData.arrCardNameList.get(position).Count);
                     table.child("CardList").child(mMyData.arrCardNameList.get(position).Idx).updateChildren(updateMap);*/
 
-                    if(!mMyData.arrCardNameList.get(position).equals(mMyData.getUserIdx()))
-                    {
-                        if(CommonFunc.getInstance().getClickStatus() == false)
+                    if (!mMyData.arrCardNameList.get(position).equals(mMyData.getUserIdx())) {
+                        if (CommonFunc.getInstance().getClickStatus() == false)
                             getMyCardData(position);
-                    }
-
-                    else
+                    } else
                         CommonFunc.getInstance().ShowToast(mContext, "본인 입니다", false);
                     //stTargetData = arrTargetData.get(position);
 
@@ -285,8 +269,7 @@ public class CardListFragment extends Fragment {
             return mMyData.arrCarDataList.size();
         }
 
-        public void moveCardPage(int position)
-        {
+        public void moveCardPage(int position) {
             final String i = mMyData.arrCardNameList.get(position);
             stTargetData = mMyData.mapMyCardData.get(mMyData.arrCarDataList.get(i).Idx);
             Intent intent = new Intent(mContext, UserPageActivity.class);
@@ -317,15 +300,11 @@ public class CardListFragment extends Fragment {
             DatabaseReference table = null;
 
 
-            if(mMyData.arrCarDataList.get(i).Gender.equals("여자"))
-            {
+            if (mMyData.arrCarDataList.get(i).Gender.equals("여자")) {
                 table = database.getReference("Users").child("Woman");
-            }
-            else
-            {
+            } else {
                 table = database.getReference("Users").child("Man");
             }
-
 
 
             table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -333,66 +312,65 @@ public class CardListFragment extends Fragment {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     int saa = 0;
                     final UserData tempUserData = dataSnapshot.getValue(UserData.class);
-                    if(tempUserData != null)
-                    {
-                        mMyData.mapMyCardData.put(strTargetIdx, tempUserData);
+                    if (tempUserData != null) {
+                        if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                            mMyData.mapMyCardData.put(strTargetIdx, tempUserData);
 
                   /*      for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             mMyData.mapMyCardData.get(strTargetIdx).arrStarList.add(entry.getValue());
                         }*/
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
-                            mMyData.mapMyCardData.get(strTargetIdx).arrFanList.add(entry.getValue());
-                        }
-
-                        if(mMyData.mapMyCardData.get(strTargetIdx).arrFanList.size() == 0)
-                        {
-                            //RefreshUserCardSimpleData(tempUserData, position);
-                            moveCardPage(position);
-                        }
-                        else
-                        {
-                            CommonFunc.getInstance().SortByRecvHeart(mMyData.mapMyCardData.get(strTargetIdx));
-
-                            for(int i = 0 ;i < mMyData.mapMyCardData.get(strTargetIdx).arrFanList.size(); i++)
-                            {
-                                Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapMyCardData.get(strTargetIdx).arrFanList.get(i).Idx);
-                                final FanData finalTempFanData = mMyData.mapMyCardData.get(strTargetIdx).arrFanList.get(i);
-                                final int finalI = i;
-                                data.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
-                                        if(DBData != null)
-                                        {
-                                            mMyData.mapMyCardData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
-
-                                            if( finalI == mMyData.mapMyCardData.get(strTargetIdx).arrFanList.size() -1)
-                                            {
-                                             //   RefreshUserCardSimpleData(tempUserData, position);
-                                                moveCardPage(position);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
-                                            CommonFunc.getInstance().setClickStatus(false);
-                                        }
-
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
+                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                                mMyData.mapMyCardData.get(strTargetIdx).arrFanList.add(entry.getValue());
                             }
+
+                            if (mMyData.mapMyCardData.get(strTargetIdx).arrFanList.size() == 0) {
+                                //RefreshUserCardSimpleData(tempUserData, position);
+                                moveCardPage(position);
+                            } else {
+                                CommonFunc.getInstance().SortByRecvHeart(mMyData.mapMyCardData.get(strTargetIdx));
+
+                                for (int i = 0; i < mMyData.mapMyCardData.get(strTargetIdx).arrFanList.size(); i++) {
+                                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapMyCardData.get(strTargetIdx).arrFanList.get(i).Idx);
+                                    final FanData finalTempFanData = mMyData.mapMyCardData.get(strTargetIdx).arrFanList.get(i);
+                                    final int finalI = i;
+                                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                            if (DBData != null) {
+                                                mMyData.mapMyCardData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                                if (finalI == mMyData.mapMyCardData.get(strTargetIdx).arrFanList.size() - 1) {
+                                                    //   RefreshUserCardSimpleData(tempUserData, position);
+                                                    moveCardPage(position);
+                                                }
+                                            } else {
+                                                CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
+                                                CommonFunc.getInstance().setClickStatus(false);
+                                            }
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+                            }
+
                         }
-
+                        else {
+                            CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
+                            CommonFunc.getInstance().setClickStatus(false);
+                        }
                     }
-
-
+                    else {
+                        CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
+                        CommonFunc.getInstance().setClickStatus(false);
+                    }
 
                 }
 
@@ -436,8 +414,8 @@ public class CardListFragment extends Fragment {
 
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder{
-          //  public ImageView imageSymbol;
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            //  public ImageView imageSymbol;
             public ImageView image;
             public ImageView imageItem, imageGrade;
             public TextView textView, textView_memo;
@@ -446,13 +424,13 @@ public class CardListFragment extends Fragment {
             public ViewHolder(View itemView) {
                 super(itemView);
                 //imageSymbol = (ImageView)itemView.findViewById(R.id.cardlist_newSymbol);
-                image = (ImageView)itemView.findViewById(R.id.iv_my_card);
+                image = (ImageView) itemView.findViewById(R.id.iv_my_card);
 
-                imageItem = (ImageView)itemView.findViewById(R.id.iv_item);
-                imageGrade = (ImageView)itemView.findViewById(R.id.iv_grade);
+                imageItem = (ImageView) itemView.findViewById(R.id.iv_item);
+                imageGrade = (ImageView) itemView.findViewById(R.id.iv_grade);
 
-                textView = (TextView)itemView.findViewById(R.id.tv_nickname);
-                textView_memo = (TextView)itemView.findViewById(R.id.tv_memo);
+                textView = (TextView) itemView.findViewById(R.id.tv_nickname);
+                textView_memo = (TextView) itemView.findViewById(R.id.tv_memo);
                 constraintLayout = itemView.findViewById(R.id.layout_mycard_item);
 
             }

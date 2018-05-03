@@ -292,12 +292,9 @@ public class ChatListFragment extends Fragment {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference table;
 
-                            if(mMyData.getUserGender().equals("여자"))
-                            {
-                                table = database.getReference("Users/Woman/" + mMyData.getUserIdx()+ "/SendList/" );
-                            }
-                            else
-                            {
+                            if (mMyData.getUserGender().equals("여자")) {
+                                table = database.getReference("Users/Woman/" + mMyData.getUserIdx() + "/SendList/");
+                            } else {
                                 table = database.getReference("Users/Man/" + mMyData.getUserIdx() + "/SendList/");
                             }
                             table.child(mMyData.arrChatDataList.get(str).ChatRoomName).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -464,59 +461,62 @@ public class ChatListFragment extends Fragment {
                                 int saa = 0;
                                 final UserData tempUserData = dataSnapshot.getValue(UserData.class);
                                 if (tempUserData != null) {
-                                    mMyData.mapChatTargetData.put(strTargetIdx, tempUserData);
+                                    if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+
+                                        mMyData.mapChatTargetData.put(strTargetIdx, tempUserData);
 
                       /*  for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             mMyData.mapChatTargetData.get(strTargetIdx).arrStarList.add(entry.getValue());
                         }*/
 
-                                    for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
-                                        mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.add(entry.getValue());
-                                    }
+                                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                                            mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.add(entry.getValue());
+                                        }
 
-                                    if (mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size() == 0) {
-                                        //RefreshUserChatSimpleData(tempUserData, position);
-                                        moveChatPage(mMyData.mapChatTargetData.get(strTargetIdx), position);
-                                        notifyDataSetChanged();
-                                    } else {
-                                        CommonFunc.getInstance().SortByRecvHeart(mMyData.mapChatTargetData.get(strTargetIdx));
+                                        if (mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size() == 0) {
+                                            //RefreshUserChatSimpleData(tempUserData, position);
+                                            moveChatPage(mMyData.mapChatTargetData.get(strTargetIdx), position);
+                                            notifyDataSetChanged();
+                                        } else {
+                                            CommonFunc.getInstance().SortByRecvHeart(mMyData.mapChatTargetData.get(strTargetIdx));
 
-                                        for (int i = 0; i < mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size(); i++) {
-                                            Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.get(i).Idx);
-                                            final FanData finalTempFanData = mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.get(i);
-                                            final int finalI = i;
-                                            data.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                                    SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
-                                                    if (DBData != null) {
-                                                        mMyData.mapChatTargetData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+                                            for (int i = 0; i < mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size(); i++) {
+                                                Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.get(i).Idx);
+                                                final FanData finalTempFanData = mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.get(i);
+                                                final int finalI = i;
+                                                data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                                        if (DBData != null) {
+                                                            mMyData.mapChatTargetData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
 
-                                                        if (finalI == mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size() - 1) {
-                                                            // RefreshUserChatSimpleData(tempUserData, position);
-                                                            moveChatPage(mMyData.mapChatTargetData.get(strTargetIdx), position);
-                                                            notifyDataSetChanged();
+                                                            if (finalI == mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size() - 1) {
+                                                                // RefreshUserChatSimpleData(tempUserData, position);
+                                                                moveChatPage(mMyData.mapChatTargetData.get(strTargetIdx), position);
+                                                                notifyDataSetChanged();
+                                                            }
+                                                        } else {
+                                                            CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
+                                                            CommonFunc.getInstance().setClickStatus(false);
                                                         }
-                                                    } else {
-                                                        CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
-                                                        CommonFunc.getInstance().setClickStatus(false);
+
+
                                                     }
 
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
 
-                                                }
-
-                                                @Override
-                                                public void onCancelled(DatabaseError databaseError) {
-
-                                                }
-                                            });
+                                                    }
+                                                });
+                                            }
                                         }
-                                    }
 
 
+                                    } else
+                                        CommonFunc.getInstance().setClickStatus(false);
                                 } else
                                     CommonFunc.getInstance().setClickStatus(false);
-
 
                             }
 
@@ -548,59 +548,62 @@ public class ChatListFragment extends Fragment {
                         int saa = 0;
                         final UserData tempUserData = dataSnapshot.getValue(UserData.class);
                         if (tempUserData != null) {
-                            mMyData.mapChatTargetData.put(strTargetIdx, tempUserData);
+                            if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+
+                                mMyData.mapChatTargetData.put(strTargetIdx, tempUserData);
 
                       /*  for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             mMyData.mapChatTargetData.get(strTargetIdx).arrStarList.add(entry.getValue());
                         }*/
 
-                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
-                                mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.add(entry.getValue());
-                            }
+                                for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                                    mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.add(entry.getValue());
+                                }
 
-                            if (mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size() == 0) {
-                                //RefreshUserChatSimpleData(tempUserData, position);
-                                moveChatPage(mMyData.mapChatTargetData.get(strTargetIdx), position);
-                                notifyDataSetChanged();
-                            } else {
-                                CommonFunc.getInstance().SortByRecvHeart(mMyData.mapChatTargetData.get(strTargetIdx));
+                                if (mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size() == 0) {
+                                    //RefreshUserChatSimpleData(tempUserData, position);
+                                    moveChatPage(mMyData.mapChatTargetData.get(strTargetIdx), position);
+                                    notifyDataSetChanged();
+                                } else {
+                                    CommonFunc.getInstance().SortByRecvHeart(mMyData.mapChatTargetData.get(strTargetIdx));
 
-                                for (int i = 0; i < mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size(); i++) {
-                                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.get(i).Idx);
-                                    final FanData finalTempFanData = mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.get(i);
-                                    final int finalI = i;
-                                    data.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
-                                            if (DBData != null) {
-                                                mMyData.mapChatTargetData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+                                    for (int i = 0; i < mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size(); i++) {
+                                        Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.get(i).Idx);
+                                        final FanData finalTempFanData = mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.get(i);
+                                        final int finalI = i;
+                                        data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                                if (DBData != null) {
+                                                    mMyData.mapChatTargetData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
 
-                                                if (finalI == mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size() - 1) {
-                                                    // RefreshUserChatSimpleData(tempUserData, position);
-                                                    moveChatPage(mMyData.mapChatTargetData.get(strTargetIdx), position);
-                                                    notifyDataSetChanged();
+                                                    if (finalI == mMyData.mapChatTargetData.get(strTargetIdx).arrFanList.size() - 1) {
+                                                        // RefreshUserChatSimpleData(tempUserData, position);
+                                                        moveChatPage(mMyData.mapChatTargetData.get(strTargetIdx), position);
+                                                        notifyDataSetChanged();
+                                                    }
+                                                } else {
+                                                    CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
+                                                    CommonFunc.getInstance().setClickStatus(false);
                                                 }
-                                            } else {
-                                                CommonFunc.getInstance().ShowToast(mContext, "사용자가 없습니다.", false);
-                                                CommonFunc.getInstance().setClickStatus(false);
+
+
                                             }
 
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
 
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
+                                            }
+                                        });
+                                    }
                                 }
-                            }
 
 
+                            } else
+                                CommonFunc.getInstance().setClickStatus(false);
                         } else
                             CommonFunc.getInstance().setClickStatus(false);
-
 
                     }
 
@@ -621,11 +624,9 @@ public class ChatListFragment extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;
-        if(MyData.getInstance().getUserGender().equals("여자"))
-        {
+        if (MyData.getInstance().getUserGender().equals("여자")) {
             table = database.getReference("Users").child("Woman");//.child(mMyData.getUserIdx());
-        }
-        else {
+        } else {
             table = database.getReference("Users").child("Man");//.child(mMyData.getUserIdx());
         }
 

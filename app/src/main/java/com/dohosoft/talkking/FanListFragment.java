@@ -65,8 +65,7 @@ public class FanListFragment extends Fragment {
     View fragView;
     private TextView txt_empty;
 
-    private void refreshFragMent()
-    {
+    private void refreshFragMent() {
         Fragment frg = null;
         frg = mFragmentMng.findFragmentByTag("FanListFragment");
         final FragmentTransaction ft = mFragmentMng.beginTransaction();
@@ -84,21 +83,19 @@ public class FanListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-        if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND  || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+        if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.FOREGROUND || CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
             mMyData.SetCurFrag(3);
         }
     }
 
 
-
-    private void SortByRecvHeart()
-    {
-       Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(mMyData.arrMyFanRecvList);
+    private void SortByRecvHeart() {
+        Map<String, FanData> tempDataMap = new LinkedHashMap<String, FanData>(mMyData.arrMyFanRecvList);
         //tempDataMap = mMyData.arrMyFanDataList;
         Iterator it = sortByValue(tempDataMap).iterator();
         mMyData.arrMyFanList.clear();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             String temp = (String) it.next();
             mMyData.arrMyFanList.add(tempDataMap.get(temp));
         }
@@ -107,18 +104,18 @@ public class FanListFragment extends Fragment {
     public static List sortByValue(final Map map) {
         List<String> list = new ArrayList();
         list.addAll(map.keySet());
-        Collections.sort(list,new Comparator() {
+        Collections.sort(list, new Comparator() {
 
-            public int compare(Object o1,Object o2) {
-                FanData g1 = (FanData)map.get(o1);
-                FanData g2 = (FanData)map.get(o2);
+            public int compare(Object o1, Object o2) {
+                FanData g1 = (FanData) map.get(o1);
+                FanData g2 = (FanData) map.get(o2);
 
                 Object v1 = g1.RecvGold;
                 Object v2 = g2.RecvGold;
                 return ((Comparable) v2).compareTo(v1);
             }
         });
-       // Collections.reverse(list); // 주석시 오름차순
+        // Collections.reverse(list); // 주석시 오름차순
         return list;
     }
 
@@ -126,32 +123,26 @@ public class FanListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        if (fragView!= null) {
+        if (fragView != null) {
 
-            if(mMyData.arrMyFanDataList.size() == 0)
-            {
+            if (mMyData.arrMyFanDataList.size() == 0) {
                 txt_empty.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 txt_empty.setVisibility(View.GONE);
                 CommonFunc.getInstance().RefreshFanData(fanListAdapter);
             }
 
 
-           // SortByRecvHeart();
+            // SortByRecvHeart();
             //fanListAdapter.notifyDataSetChanged();
 
-        }
-        else
-        {
-            fragView = inflater.inflate(R.layout.fragment_fan_list,container,false);
+        } else {
+            fragView = inflater.inflate(R.layout.fragment_fan_list, container, false);
 
             txt_empty = fragView.findViewById(R.id.txt_empty);
-            if(mMyData.arrMyFanDataList.size() == 0)
-            {
+            if (mMyData.arrMyFanDataList.size() == 0) {
                 txt_empty.setVisibility(View.VISIBLE);
-            }
-            else
+            } else
                 txt_empty.setVisibility(View.GONE);
 
 
@@ -180,19 +171,17 @@ public class FanListFragment extends Fragment {
             holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(!mMyData.arrMyFanList.get(position).Idx.equals(mMyData.getUserIdx()))
-                    {
-                        if(CommonFunc.getInstance().getClickStatus() == false) {
+                    if (!mMyData.arrMyFanList.get(position).Idx.equals(mMyData.getUserIdx())) {
+                        if (CommonFunc.getInstance().getClickStatus() == false) {
 
-                            if(mMyData.arrMyFanList.get(position).Check == 1)
+                            if (mMyData.arrMyFanList.get(position).Check == 1)
                                 CommonFunc.getInstance().SetFanAlarmVisible(false);
 
                             SetMyFanCheck(position);
                             fanListAdapter.notifyDataSetChanged();
                             getMyfanData(position);
                         }
-                    }
-                    else
+                    } else
                         CommonFunc.getInstance().ShowToast(mContext, "본인 입니다", false);
 
                 }
@@ -200,23 +189,19 @@ public class FanListFragment extends Fragment {
             //holder.imageView.setImageResource(R.mipmap.hdvd);
 
 
-
             holder.imgAlarm.setVisibility(View.GONE);
             holder.imgNew.setVisibility(View.GONE);
 
-            if(mMyData.arrMyFanList.get(position).Check == 1)
-            {
+            if (mMyData.arrMyFanList.get(position).Check == 1) {
                 holder.imgNew.setVisibility(View.VISIBLE);
-            }
-            else if(mMyData.arrMyFanList.get(position).Check == 2)
-            {
+            } else if (mMyData.arrMyFanList.get(position).Check == 2) {
                 holder.imgAlarm.setVisibility(View.VISIBLE);
             }
 
 
             String i = mMyData.arrMyFanList.get(position).Idx;
 
-            if(mMyData.arrMyFanDataList.get(i).Gender.equals("여자"))
+            if (mMyData.arrMyFanDataList.get(i).Gender.equals("여자"))
                 holder.textNick.setTextColor(TEXTCOLOR_WOMAN);
             else
                 holder.textNick.setTextColor(TEXTCOLOR_MAN);
@@ -231,25 +216,20 @@ public class FanListFragment extends Fragment {
 
             holder.imageItem.setVisibility(View.VISIBLE);
 
-             if(mMyData.arrMyFanDataList.get(i).BestItem == 0)
-            {
+            if (mMyData.arrMyFanDataList.get(i).BestItem == 0) {
                 holder.imageItem.setVisibility(View.GONE);
-            }
-            else
-              holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrMyFanDataList.get(i).BestItem]);
+            } else
+                holder.imageItem.setImageResource(mUIData.getJewels()[mMyData.arrMyFanDataList.get(i).BestItem]);
 
             holder.imageGrade.setImageResource(mUIData.getGrades()[mMyData.arrMyFanDataList.get(i).Grade]);
 
             holder.textNick.setText(mMyData.arrMyFanDataList.get(i).NickName + " (" + mMyData.arrMyFanDataList.get(i).Age + "세)");// + ", " + mMyData.arrCardNameList.get(i).Age + "세");ata.arrCardNameList.get(i).Age + "세");
 
 
-
-            if(position < 3)
-            {
+            if (position < 3) {
                 holder.textRank.setVisibility(View.INVISIBLE);
                 holder.imgRank.setVisibility(View.VISIBLE);
-                switch (position)
-                {
+                switch (position) {
                     case 0:
                         holder.imgRank.setImageResource(R.drawable.fan_mark1_80);
                         break;
@@ -262,15 +242,12 @@ public class FanListFragment extends Fragment {
                 }
 
 
-            }
-            else
-            {
+            } else {
                 holder.imgRank.setVisibility(View.INVISIBLE);
                 holder.textRank.setVisibility(View.VISIBLE);
                 holder.textRank.setText((position + 1) + "위");
 
             }
-
 
 
             int RecvCnt = mMyData.arrMyFanList.get(position).RecvGold;
@@ -289,26 +266,22 @@ public class FanListFragment extends Fragment {
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table;
-            if(mMyData.getUserGender().equals("여자"))
-            {
-                table = database.getReference("Users/Woman/" + mMyData.getUserIdx() );
-            }
-            else
-            {
-                table = database.getReference("Users/Man/" + mMyData.getUserIdx() );
+            if (mMyData.getUserGender().equals("여자")) {
+                table = database.getReference("Users").child("Woman").child(mMyData.getUserIdx());
+            } else {
+                table = database.getReference("Users").child("Man").child(mMyData.getUserIdx());
             }
 
             //table.child("FanList").child(mMyData.arrMyFanList.get(position).Idx);//.child("Check").setValue(mMyData.arrMyFanList.get(position).Check);
 
             Map<String, Object> updateMap = new HashMap<>();
-            updateMap.put("Check",mMyData.arrMyFanList.get(position).Check);
+            updateMap.put("Check", mMyData.arrMyFanList.get(position).Check);
 
             table.child("FanList").child(mMyData.arrMyFanList.get(position).Idx).updateChildren(updateMap);
         }
 
 
         public void moveFanPage(int position) {
-
 
 
             String i = mMyData.arrMyFanList.get(position).Idx;
@@ -338,12 +311,9 @@ public class FanListFragment extends Fragment {
             DatabaseReference table = null;
 
 
-            if(mMyData.arrMyFanDataList.get(i).Gender.equals("여자"))
-            {
+            if (mMyData.arrMyFanDataList.get(i).Gender.equals("여자")) {
                 table = database.getReference("Users").child("Woman");
-            }
-            else
-            {
+            } else {
                 table = database.getReference("Users").child("Man");
             }
 
@@ -353,64 +323,62 @@ public class FanListFragment extends Fragment {
                     int saa = 0;
                     UserData tempUserData = dataSnapshot.getValue(UserData.class);
                     if (tempUserData != null) {
-                        mMyData.mapMyFanData.put(strTargetIdx, tempUserData);
+                        if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+
+                            mMyData.mapMyFanData.put(strTargetIdx, tempUserData);
 
              /*           for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
                             mMyData.mapMyFanData.get(strTargetIdx).arrStarList.add(entry.getValue());
                         }*/
 
-                        for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
-                            mMyData.mapMyFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
-                        }
-
-                        if(mMyData.mapMyFanData.get(strTargetIdx).arrFanList.size() == 0)
-                        {
-                            moveFanPage(position);
-                        }
-                        else
-                        {
-                            CommonFunc.getInstance().SortByRecvHeart(mMyData.mapMyFanData.get(strTargetIdx));
-
-                            for(int i = 0 ;i < mMyData.mapMyFanData.get(strTargetIdx).arrFanList.size(); i++)
-                            {
-                                Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapMyFanData.get(strTargetIdx).arrFanList.get(i).Idx);
-                                final FanData finalTempFanData = mMyData.mapMyFanData.get(strTargetIdx).arrFanList.get(i);
-                                final int finalI = i;
-                                data.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
-                                        if(DBData != null)
-                                        {
-                                            mMyData.mapMyFanData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
-
-                                            if( finalI == mMyData.mapMyFanData.get(strTargetIdx).arrFanList.size() -1)
-                                            {
-                                                moveFanPage(position);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
-                                            CommonFunc.getInstance().setClickStatus(false);
-                                        }
-
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
+                            for (LinkedHashMap.Entry<String, FanData> entry : tempUserData.FanList.entrySet()) {
+                                mMyData.mapMyFanData.get(strTargetIdx).arrFanList.add(entry.getValue());
                             }
+
+                            if (mMyData.mapMyFanData.get(strTargetIdx).arrFanList.size() == 0) {
+                                moveFanPage(position);
+                            } else {
+                                CommonFunc.getInstance().SortByRecvHeart(mMyData.mapMyFanData.get(strTargetIdx));
+
+                                for (int i = 0; i < mMyData.mapMyFanData.get(strTargetIdx).arrFanList.size(); i++) {
+                                    Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.mapMyFanData.get(strTargetIdx).arrFanList.get(i).Idx);
+                                    final FanData finalTempFanData = mMyData.mapMyFanData.get(strTargetIdx).arrFanList.get(i);
+                                    final int finalI = i;
+                                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
+                                            if (DBData != null) {
+                                                mMyData.mapMyFanData.get(strTargetIdx).arrFanData.put(finalTempFanData.Idx, DBData);
+
+                                                if (finalI == mMyData.mapMyFanData.get(strTargetIdx).arrFanList.size() - 1) {
+                                                    moveFanPage(position);
+                                                }
+                                            } else {
+                                                CommonFunc.getInstance().ShowToast(getContext(), "사용자가 없습니다.", false);
+                                                CommonFunc.getInstance().setClickStatus(false);
+                                            }
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+                            }
+
+
+                        } else
+                        {
+                            CommonFunc.getInstance().DismissLoadingPage();
+                            CommonFunc.getInstance().setClickStatus(false);
                         }
 
-
-                    }
-                    else
+                    } else
                         CommonFunc.getInstance().setClickStatus(false);
-
 
                 }
 
@@ -420,7 +388,8 @@ public class FanListFragment extends Fragment {
 
             });
         }
-        public class ViewHolder extends RecyclerView.ViewHolder{
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
             public ImageView img, imgRank;
             public TextView textRank, textNick, textCount;
             public ConstraintLayout constraintLayout;
@@ -429,15 +398,15 @@ public class FanListFragment extends Fragment {
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                img = (ImageView)itemView.findViewById(R.id.iv_fan);
-                imgRank = (ImageView)itemView.findViewById(R.id.iv_rank_mark);
+                img = (ImageView) itemView.findViewById(R.id.iv_fan);
+                imgRank = (ImageView) itemView.findViewById(R.id.iv_rank_mark);
 
-                textRank = (TextView)itemView.findViewById(R.id.tv_gift_ranking);
-                textNick = (TextView)itemView.findViewById(R.id.tv_nickname);
-                textCount = (TextView)itemView.findViewById(R.id.tv_gift_count);
+                textRank = (TextView) itemView.findViewById(R.id.tv_gift_ranking);
+                textNick = (TextView) itemView.findViewById(R.id.tv_nickname);
+                textCount = (TextView) itemView.findViewById(R.id.tv_gift_count);
                 constraintLayout = itemView.findViewById(R.id.layout_fan);
                 imageGrade = itemView.findViewById(R.id.iv_grade);
-                imageItem= itemView.findViewById(R.id.iv_item);
+                imageItem = itemView.findViewById(R.id.iv_item);
                 imgNew = itemView.findViewById(R.id.iv_new);
                 imgAlarm = itemView.findViewById(R.id.red_alarm);
             }

@@ -972,8 +972,8 @@ public class FirebaseData {
                             {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
-                                if(cTempData != null) {
-                                    // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                if (cTempData != null && cTempData.Idx != null) {
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
                                     {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1053,8 +1053,8 @@ public class FirebaseData {
                             {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
-                                if(cTempData != null) {
-                                    // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                if (cTempData != null && cTempData.Idx != null) {
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
                                     {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1131,8 +1131,9 @@ public class FirebaseData {
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
-                                if(cTempData != null) {
-                                    //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+
+                                if (cTempData != null && cTempData.Idx != null) {
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
                                     {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1223,7 +1224,7 @@ public class FirebaseData {
                                     }
                                     else
                                     {
-                                        //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
+                                        if (CommonFunc.getInstance().CheckUserData(stRecvData))
                                         {
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1315,7 +1316,7 @@ public class FirebaseData {
                                 UserData stRecvData = new UserData ();
                                 stRecvData = fileSnapshot.getValue(UserData.class);
                                 if(stRecvData != null) {
-                                    //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
+                                    if (CommonFunc.getInstance().CheckUserData(stRecvData))
                                     {
                                         if (stRecvData.Img == null)
                                             stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1396,8 +1397,8 @@ public class FirebaseData {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     UserData cTempData = new UserData();
                     cTempData = postSnapshot.getValue(UserData.class);
-                    if (cTempData != null) {
-                        if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                    if (cTempData != null && cTempData.Idx != null) {
+                        if (CommonFunc.getInstance().CheckUserData(cTempData)){
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1471,8 +1472,8 @@ public class FirebaseData {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     UserData cTempData = new UserData();
                     cTempData = postSnapshot.getValue(UserData.class);
-                    if (cTempData != null) {
-                        if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                    if (cTempData != null && cTempData.Idx != null) {
+                        if (CommonFunc.getInstance().CheckUserData(cTempData)){
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1536,6 +1537,7 @@ public class FirebaseData {
 
         }
 
+        //data = FirebaseDatabase.getInstance().getReference().child("TestHotMember").child("Man");
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1544,9 +1546,9 @@ public class FirebaseData {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     UserData cTempData = new UserData();
                     cTempData = postSnapshot.getValue(UserData.class);
-                    if (cTempData != null) {
+                    if (cTempData != null && cTempData.Idx != null) {
 
-                        if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                        if (CommonFunc.getInstance().CheckUserData(cTempData)){
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1615,12 +1617,12 @@ public class FirebaseData {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     UserData cTempData = new UserData();
                     cTempData = postSnapshot.getValue(UserData.class);
-                    if (cTempData != null) {
+                    if (cTempData != null && cTempData.Idx != null) {
 
                         if (cTempData.Lat == 0 || cTempData.Lon == 0) {
                             // 위치 못받아오는 애들
                         } else {
-                            if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                            if (CommonFunc.getInstance().CheckUserData(cTempData)){
 
                                 if (cTempData.Img == null)
                                     cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1709,8 +1711,8 @@ public class FirebaseData {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     UserData cTempData = new UserData();
                     cTempData = postSnapshot.getValue(UserData.class);
-                    if (cTempData != null) {
-                        if (!cTempData.Idx.equals(mMyData.getUserIdx())) {
+                    if (cTempData != null && cTempData.Idx != null) {
+                        if (CommonFunc.getInstance().CheckUserData(cTempData)){
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 

@@ -1144,7 +1144,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
-                                if (cTempData != null) {
+                                if (cTempData != null && cTempData.Idx != null) {
                                     // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
                                         if (cTempData.Img == null)
@@ -1342,7 +1342,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
-                                if (cTempData != null) {
+                                if (cTempData != null && cTempData.Idx != null) {
                                     // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
                                         if (cTempData.Img == null)
@@ -1647,8 +1647,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
-                                if (cTempData != null) {
-                                    // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                if (cTempData != null && cTempData.Idx != null) {
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
                                     {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1729,8 +1729,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
-                                if (cTempData != null) {
-                                    // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                if (cTempData != null && cTempData.Idx != null) {
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
                                     {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1803,6 +1803,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
+            //ref = FirebaseDatabase.getInstance().getReference().child("TestHotMember").child("Man");
+
             Query query = ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -1812,8 +1814,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
+
                                 if (cTempData != null) {
-                                    //if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
                                     {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1906,7 +1909,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     if (stRecvData.Lat == 0 || stRecvData.Lon == 0) {
                                         // 위치 못받아오는 애들
                                     } else {
-                                        //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
+                                        if (CommonFunc.getInstance().CheckUserData(stRecvData))
                                         {
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1998,16 +2001,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 UserData stRecvData = new UserData();
                                 stRecvData = fileSnapshot.getValue(UserData.class);
-                                if (stRecvData != null) {
-                                    //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
-                                    {
-                                        if (stRecvData.Img == null)
-                                            stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                        mMyData.arrUserAll_New.add(stRecvData);
-                                        mMyData.mapGenderData.put(stRecvData.Idx, stRecvData.Gender);
+                                if(stRecvData != null)
+                                {
+                                    if (CommonFunc.getInstance().CheckUserData(stRecvData)) {
+                                        //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
+                                        {
+                                            if (stRecvData.Img == null)
+                                                stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-                                        i++;
+                                            mMyData.arrUserAll_New.add(stRecvData);
+                                            mMyData.mapGenderData.put(stRecvData.Idx, stRecvData.Gender);
+
+                                            i++;
+                                        }
                                     }
                                 }
                             }
