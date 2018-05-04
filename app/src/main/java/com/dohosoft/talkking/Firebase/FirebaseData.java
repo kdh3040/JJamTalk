@@ -497,56 +497,6 @@ public class FirebaseData {
         return true;
     }
 
-    public void setHeart(UserData stTargetData) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Users").child(stTargetData.Gender);
-        final DatabaseReference user = table.child(stTargetData.Idx);
-
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Heart", stTargetData.Heart + 1);
-        user.updateChildren(updateMap);
-    }
-
-
-    public void setHoney(UserData stTargetData, int nGiftCnt) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("Users").child(stTargetData.Gender);
-        final DatabaseReference user = table.child(stTargetData.Idx);
-
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Honey", stTargetData.Honey + nGiftCnt);
-        user.updateChildren(updateMap);
-    }
-
-    public void DelCardList(String Idx) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        Query queryRef = database.getReference("User").orderByValue().equalTo(Idx);
-
-        queryRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                snapshot.getRef().removeValue();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-    }
-
     public void DelChatData(String Idx) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table;

@@ -33,6 +33,8 @@ import com.dohosoft.talkking.R;
 import com.dohosoft.talkking.Util.CommonFunc;
 import com.dohosoft.talkking.Util.NotiFunc;
 
+import org.jsoup.select.Evaluator;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1582,44 +1584,86 @@ public class MyData {
 
         // arrMyStarDataList.clear();
 
-        final String strTargetIdx;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final String strTargetIdx = Idx;
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = null;
 
-        if (MyData.getInstance().getUserGender().equals("여자")) {
-            table = database.getReference("Users").child("Woman");//.child(mMyData.getUserIdx());
-        } else {
-            table = database.getReference("Users").child("Man");//.child(mMyData.getUserIdx());
+
+        String tempGender = mapGenderData.get(strTargetIdx);
+
+        if (tempGender == null || tempGender.equals("")) {
+
+            table = database.getReference("GenderList");
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String tempValue = dataSnapshot.getValue(String.class);
+                    mapGenderData.put(strTargetIdx, tempValue);
+
+                    DatabaseReference table = null;
+                    if (tempValue.equals("여자")) {
+                        table = database.getReference("Users").child("Woman");
+                    } else {
+                        table = database.getReference("Users").child("Man");
+                    }
+
+                    if (strTargetIdx != null) {
+                        table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                                if(tempUserData != null) {
+                                    if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                                        arrGiftUserDataList.put(strTargetIdx, tempUserData);
+                                        int i = arrGiftUserDataList.size();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+
+
+            });
+
+        }
+        else
+        {
+            if (tempGender.equals("여자")) {
+                table = database.getReference("Users").child("Woman");//.child(mMyData.getUserIdx());
+            } else {
+                table = database.getReference("Users").child("Man");//.child(mMyData.getUserIdx());
+            }
+
+
+            table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    UserData tempUserData = dataSnapshot.getValue(UserData.class);
+                    if(tempUserData != null) {
+                        if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                            arrGiftUserDataList.put(strTargetIdx, tempUserData);
+                            int i = arrGiftUserDataList.size();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
         }
 
-        //Log.d("!!!!!!", "getMyStarData  " + arrMyStarList.size());
-
-        strTargetIdx = Idx;
-
-        //Log.d("!!!!!!", "size OK  " + arrMyStarList.size());
-
-        table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                UserData tempUserData = dataSnapshot.getValue(UserData.class);
-            if(tempUserData != null) {
-                if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
-                    arrGiftUserDataList.put(strTargetIdx, tempUserData);
-                    int i = arrGiftUserDataList.size();
-                }
-            }
-
-           /*     for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {
-                    //  if(!arrMyStarDataList.get(finalI).arrStarList.contains(entry.getValue().Nick))
-                    arrGiftUserDataList.get(i - 1).arrStarList.add(entry.getValue());
-                }*/
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
     }
 
     public void getGiftHoneyList() {

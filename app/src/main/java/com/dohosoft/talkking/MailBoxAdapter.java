@@ -59,7 +59,7 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
         //stTargetData = mMyData.arrGiftUserDataList.get(position);
 
         Glide.with(mActivity)
-                .load(mMyData.arrGiftHoneyDataList.get(position).strTargetImg)
+                .load( mMyData.arrGiftUserDataList.get(mMyData.arrGiftHoneyDataList.get(position).strSendName).Img)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .thumbnail(0.1f)
                 .bitmapTransform(new CropCircleTransformation(mActivity))
@@ -95,7 +95,7 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
 
                 popup_textcount.setText(Integer.toString(mMyData.arrGiftHoneyDataList.get(position).nSendHoney));
                 popup_textMsg.setText(mMyData.arrGiftHoneyDataList.get(position).strTargetMsg);
-                popup_textNickname.setText(mMyData.arrGiftHoneyDataList.get(position).strTargetNick);
+                popup_textNickname.setText( mMyData.arrGiftUserDataList.get(mMyData.arrGiftHoneyDataList.get(position).strSendName).NickName);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setView(giftView);
