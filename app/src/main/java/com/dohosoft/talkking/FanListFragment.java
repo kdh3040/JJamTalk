@@ -206,13 +206,26 @@ public class FanListFragment extends Fragment {
             else
                 holder.textNick.setTextColor(TEXTCOLOR_MAN);
 
+            if(mMyData.arrMyFanDataList.get(i) == null || mMyData.arrMyFanDataList.get(i).Img == null || mMyData.arrMyFanDataList.get(i).Img.equals("")) {
+                Glide.with(mContext)
+                        .load(R.drawable.image)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .bitmapTransform(new CropCircleTransformation(mContext))
+                        .thumbnail(0.1f)
+                        .into(holder.img);
 
-            Glide.with(mContext)
-                    .load(mMyData.arrMyFanDataList.get(i).Img)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .bitmapTransform(new CropCircleTransformation(mContext))
-                    .thumbnail(0.1f)
-                    .into(holder.img);
+            }
+            else
+            {
+                Glide.with(mContext)
+                        .load(mMyData.arrMyFanDataList.get(i).Img)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .bitmapTransform(new CropCircleTransformation(mContext))
+                        .thumbnail(0.1f)
+                        .into(holder.img);
+
+            }
+
 
             holder.imageItem.setVisibility(View.VISIBLE);
 
@@ -323,7 +336,7 @@ public class FanListFragment extends Fragment {
                     int saa = 0;
                     UserData tempUserData = dataSnapshot.getValue(UserData.class);
                     if (tempUserData != null) {
-                        if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                        if (CommonFunc.getInstance().CheckUserData(tempUserData,dataSnapshot.getKey())) {
 
                             mMyData.mapMyFanData.put(strTargetIdx, tempUserData);
 

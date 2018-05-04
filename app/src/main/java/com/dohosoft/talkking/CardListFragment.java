@@ -313,7 +313,7 @@ public class CardListFragment extends Fragment {
                     int saa = 0;
                     final UserData tempUserData = dataSnapshot.getValue(UserData.class);
                     if (tempUserData != null) {
-                        if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                        if (CommonFunc.getInstance().CheckUserData(tempUserData,dataSnapshot.getKey())) {
                             mMyData.mapMyCardData.put(strTargetIdx, tempUserData);
 
                   /*      for (LinkedHashMap.Entry<String, SimpleUserData> entry : tempUserData.StarList.entrySet()) {

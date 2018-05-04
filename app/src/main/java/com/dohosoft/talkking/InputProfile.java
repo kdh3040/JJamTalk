@@ -157,7 +157,7 @@ public class InputProfile extends AppCompatActivity {
                                 cTempData = fileSnapshot.getValue(UserData.class);
                                 if (cTempData != null && cTempData.Idx != null) {
 
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData,fileSnapshot.getKey()))
                                     {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -241,7 +241,7 @@ public class InputProfile extends AppCompatActivity {
                                 cTempData = fileSnapshot.getValue(UserData.class);
                                 if (cTempData != null && cTempData.Idx != null) {
 
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData,fileSnapshot.getKey()))
                                     {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -329,7 +329,7 @@ public class InputProfile extends AppCompatActivity {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
                                 if (cTempData != null && cTempData.Idx != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData,fileSnapshot.getKey()))
                                      {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -437,7 +437,7 @@ public class InputProfile extends AppCompatActivity {
                                     }
                                     else
                                     {
-                                        if (CommonFunc.getInstance().CheckUserData(stRecvData))
+                                        if (CommonFunc.getInstance().CheckUserData(stRecvData,fileSnapshot.getKey()))
                                         {
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -539,7 +539,7 @@ public class InputProfile extends AppCompatActivity {
                                 UserData stRecvData = new UserData ();
                                 stRecvData = fileSnapshot.getValue(UserData.class);
                                 if(stRecvData != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(stRecvData))
+                                    if (CommonFunc.getInstance().CheckUserData(stRecvData,fileSnapshot.getKey()))
                                     {
                                         if (stRecvData.Img == null)
                                             stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";

@@ -139,7 +139,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder> {
                                 int saa = 0;
                                 UserData tempUserData = dataSnapshot.getValue(UserData.class);
                                 if (tempUserData != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                                    if (CommonFunc.getInstance().CheckUserData(tempUserData,dataSnapshot.getKey())) {
 
                                         tempFanData.mapFanData.put(strTargetIdx, tempUserData);
 
@@ -218,7 +218,7 @@ public class TargetFanAdapter extends RecyclerView.Adapter<FanViewHolder> {
                         int saa = 0;
                         UserData tempUserData = dataSnapshot.getValue(UserData.class);
                         if (tempUserData != null) {
-                            if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                            if (CommonFunc.getInstance().CheckUserData(tempUserData,dataSnapshot.getKey())) {
 
                                 tempFanData.mapFanData.put(strTargetIdx, tempUserData);
 

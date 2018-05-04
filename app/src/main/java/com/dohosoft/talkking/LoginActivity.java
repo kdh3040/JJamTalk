@@ -235,6 +235,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         mActivity = this;
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         mMyData.SetCurFrag(0);
 
         PackageInfo pi = null;
@@ -1648,7 +1650,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
                                 if (cTempData != null && cTempData.Idx != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData,fileSnapshot.getKey()))
                                     {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1730,7 +1732,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
                                 if (cTempData != null && cTempData.Idx != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData,fileSnapshot.getKey()))
                                     {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1816,7 +1818,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 cTempData = fileSnapshot.getValue(UserData.class);
 
                                 if (cTempData != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData,fileSnapshot.getKey()))
                                     {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1909,7 +1911,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     if (stRecvData.Lat == 0 || stRecvData.Lon == 0) {
                                         // 위치 못받아오는 애들
                                     } else {
-                                        if (CommonFunc.getInstance().CheckUserData(stRecvData))
+                                        if (CommonFunc.getInstance().CheckUserData(stRecvData,fileSnapshot.getKey()))
                                         {
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -2004,7 +2006,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                 if(stRecvData != null)
                                 {
-                                    if (CommonFunc.getInstance().CheckUserData(stRecvData)) {
+                                    if (CommonFunc.getInstance().CheckUserData(stRecvData, fileSnapshot.getKey())) {
                                         //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
                                         {
                                             if (stRecvData.Img == null)

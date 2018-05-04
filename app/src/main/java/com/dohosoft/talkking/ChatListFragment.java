@@ -461,7 +461,7 @@ public class ChatListFragment extends Fragment {
                                 int saa = 0;
                                 final UserData tempUserData = dataSnapshot.getValue(UserData.class);
                                 if (tempUserData != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                                    if (CommonFunc.getInstance().CheckUserData(tempUserData,dataSnapshot.getKey())) {
 
                                         mMyData.mapChatTargetData.put(strTargetIdx, tempUserData);
 
@@ -548,7 +548,7 @@ public class ChatListFragment extends Fragment {
                         int saa = 0;
                         final UserData tempUserData = dataSnapshot.getValue(UserData.class);
                         if (tempUserData != null) {
-                            if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                            if (CommonFunc.getInstance().CheckUserData(tempUserData,dataSnapshot.getKey())) {
 
                                 mMyData.mapChatTargetData.put(strTargetIdx, tempUserData);
 

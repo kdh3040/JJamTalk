@@ -50,12 +50,24 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<TargetLikeViewHolder
     public void onBindViewHolder(TargetLikeViewHolder holder, final int position) {
 
         String i = stTargetData.arrFanList.get(position).Idx;
-        Glide.with(mContext)
-                .load(stTargetData.arrFanData.get(i).Img)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new CropCircleTransformation(mContext))
-                .thumbnail(0.1f)
-                .into(holder.iv_liked);
+        if(stTargetData.arrFanData.get(i) == null || stTargetData.arrFanData.get(i).Img == null || stTargetData.arrFanData.get(i).Img.equals("")) {
+            Glide.with(mContext)
+                    .load(R.drawable.image)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .bitmapTransform(new CropCircleTransformation(mContext))
+                    .thumbnail(0.1f)
+                    .into(holder.iv_liked);
+        }
+        else
+        {
+            Glide.with(mContext)
+                    .load(stTargetData.arrFanData.get(i).Img)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .bitmapTransform(new CropCircleTransformation(mContext))
+                    .thumbnail(0.1f)
+                    .into(holder.iv_liked);
+        }
+
 
         /*holder.iv_liked.setOnClickListener(new_img View.OnClickListener() {
             @Override
@@ -67,7 +79,7 @@ public class TargetLikeAdapter extends RecyclerView.Adapter<TargetLikeViewHolder
 
     @Override
     public int getItemCount() {
-        return stTargetData.arrFanList.size();
+        return stTargetData.arrFanData.size();
     }
 
     public void moveLikePage(int position)

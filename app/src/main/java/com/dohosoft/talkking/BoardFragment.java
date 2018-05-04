@@ -199,7 +199,7 @@ public class BoardFragment extends Fragment {
                                     UserData tempUserData = dataSnapshot.getValue(UserData.class);
                                     if (tempUserData != null) {
 
-                                        if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                                        if (CommonFunc.getInstance().CheckUserData(tempUserData,dataSnapshot.getKey())) {
 
                                             _BoardWriterData = tempUserData;
 
@@ -286,7 +286,7 @@ public class BoardFragment extends Fragment {
                             int saa = 0;
                             UserData tempUserData = dataSnapshot.getValue(UserData.class);
                             if (tempUserData != null) {
-                                if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                                if (CommonFunc.getInstance().CheckUserData(tempUserData,dataSnapshot.getKey())) {
 
                                     _BoardWriterData = tempUserData;
 

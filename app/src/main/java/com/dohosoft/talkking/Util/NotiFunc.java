@@ -1,5 +1,7 @@
 package com.dohosoft.talkking.Util;
 
+import android.util.Log;
+
 import com.dohosoft.talkking.Data.MyData;
 import com.dohosoft.talkking.Data.UserData;
 
@@ -140,6 +142,45 @@ public class NotiFunc {
 
             root.put("data", data);
             root.put("to", stTargetData.Token);
+            // FMC 메시지 생성 end
+
+            URL Url = new URL(MSG_URL);
+            HttpURLConnection conn = (HttpURLConnection) Url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.addRequestProperty("Authorization", "key=" + SERVER_KEY);
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Content-type", "application/json");
+            OutputStream os = conn.getOutputStream();
+            os.write(root.toString().getBytes("utf-8"));
+            os.flush();
+            conn.getResponseCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void SendErrortoFCM(String Idx) {
+        try {
+
+
+            Log.d("DDDDDD","데이터 에러 발생 : " + Idx );
+            // FMC 메시지 생성 start
+            JSONObject root = new JSONObject();
+            JSONObject data = new JSONObject();
+
+            data.put("body", Idx);
+
+            data.put("title", "데이터 에러 발생 : " + Idx);
+            data.put("Img", mMyData.getUserImg());
+            data.put("Idx", Idx);
+            data.put("TargetIdx", mMyData.getUserIdx());
+            data.put("NickName", mMyData.getUserNick());
+            data.put("Type", "Msg");
+
+            root.put("data", data);
+            root.put("to", "cVkUciWWFFI:APA91bFJYezwZxLd0gp4q-PXViQl0IANzsNdPGBYJ8AUgL3386IGQeg-sbh7a_B2F0v9G4sClRcgLy6ym8ayszBDIl2Et6DnrsR2fofs21GfPVUT40gBqlMYS4rQhU4N_gRgoVjBO-wG");
             // FMC 메시지 생성 end
 
             URL Url = new URL(MSG_URL);

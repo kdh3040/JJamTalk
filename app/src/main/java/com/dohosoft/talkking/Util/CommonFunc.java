@@ -2156,39 +2156,58 @@ public class CommonFunc {
     }
 
 
-    public boolean CheckUserData(UserData userData)
+    public boolean CheckUserData(UserData userData, String Key)
     {
         boolean rtValue = false;
 
         UserData tempData = new UserData();
         tempData = userData;
-
-        if(tempData.Idx == null)
+      //  NotiFunc.getInstance().SendErrortoFCM(tempData.Idx);
+        if(tempData.Idx == null) {
+            NotiFunc.getInstance().SendErrortoFCM(Key);
             return false;
+        }
 
-        if(tempData.Gender == null ||tempData.Gender.equals(""))
+        if(tempData.Gender == null ||tempData.Gender.equals("")) {
+            NotiFunc.getInstance().SendErrortoFCM(Key);
             return false;
+        }
 
-        if(tempData.Age == null ||tempData.Age.equals(""))
+        if(tempData.Age == null ||tempData.Age.equals("")) {
+            NotiFunc.getInstance().SendErrortoFCM(Key);
             return false;
+        }
 
         if(tempData.Img == null ||tempData.Img.equals(""))
+
+        {
+            NotiFunc.getInstance().SendErrortoFCM(Key);
             return false;
+        }
 
         if(tempData.ImgGroup0 == null ||tempData.ImgGroup0.equals(""))
+        {
+            NotiFunc.getInstance().SendErrortoFCM(Key);
             return false;
+        }
 
         if(tempData.NickName == null ||tempData.NickName.equals(""))
+        {
+            NotiFunc.getInstance().SendErrortoFCM(Key);
             return false;
+        }
 
         if(tempData.Token == null ||tempData.Token.equals(""))
+        {
+            NotiFunc.getInstance().SendErrortoFCM(Key);
             return false;
+        }
 
-        if(tempData.Date == 0)
+        if(tempData.Date == 0) {
+            NotiFunc.getInstance().SendErrortoFCM(Key);
             return false;
+        }
 
-        if(tempData.Dist == 0)
-            return false;
 
 
         return true;

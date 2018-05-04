@@ -433,6 +433,10 @@ public class FirebaseData {
         CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Memo", mMyData.getUserMemo());
 
 
+        Map<String, Object> updateMap = new HashMap<>();
+
+
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
 
@@ -452,54 +456,86 @@ public class FirebaseData {
             System.exit(0);
         } else {
             mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
-            user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+            //user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+            updateMap.put("Token",mMyData.getUserToken());
         }
 
-        user.child("Idx").setValue(mMyData.getUserIdx());
-        user.child("ImgCount").setValue(mMyData.getUserImgCnt());
+        updateMap.put("Idx",mMyData.getUserIdx());
+        updateMap.put("ImgCount",mMyData.getUserImgCnt());
+
+        //user.child("Idx").setValue(mMyData.getUserIdx());
+        // user.child("ImgCount").setValue(mMyData.getUserImgCnt());
         if(mMyData.getUserImgCnt() == 0)
         {
             mMyData.setUserImgCnt(1);
-            user.child("ImgCount").setValue(1);
+            updateMap.put("ImgCount",1);
+            // user.child("ImgCount").setValue(1);
         }
 
-        user.child("Img").setValue(mMyData.getUserImg());
+        //user.child("Img").setValue(mMyData.getUserImg());
+        updateMap.put("Img",mMyData.getUserImg());
 
         for (int i = 0; i < 4; i++)
-            user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
+        {
+            updateMap.put("ImgGroup" + Integer.toString(i),mMyData.getUserProfileImg(i));
+        }
+        //user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
 
         if(mMyData.getUserProfileImg(0).equals("1"))
         {
             mMyData.setUserProfileImg(0, mMyData.getUserImg());
-            user.child("ImgGroup0").setValue(mMyData.getUserImg());
+            //user.child("ImgGroup0").setValue(mMyData.getUserImg());
+            updateMap.put("ImgGroup0",mMyData.getUserImg());
+
         }
+        updateMap.put("NickName",mMyData.getUserNick());
+        updateMap.put("Gender",mMyData.getUserGender());
+        updateMap.put("Age",mMyData.getUserAge());
 
-        user.child("NickName").setValue(mMyData.getUserNick());
-        user.child("Gender").setValue(mMyData.getUserGender());
-        user.child("Age").setValue(mMyData.getUserAge());
+        //    user.child("NickName").setValue(mMyData.getUserNick());
+        //      user.child("Gender").setValue(mMyData.getUserGender());
+//        user.child("Age").setValue(mMyData.getUserAge());
 
-        user.child("Lon").setValue(mMyData.getUserLon());
-        user.child("Lat").setValue(mMyData.getUserLat());
-        user.child("Dist").setValue(mMyData.getUserDist());
+        updateMap.put("Lon",mMyData.getUserLon());
+        updateMap.put("Lat",mMyData.getUserLat());
+        updateMap.put("Dist",mMyData.getUserDist());
 
-        user.child("SendCount").setValue(mMyData.getSendHoney());
-        user.child("RecvGold").setValue(mMyData.getRecvHoney());
+//        user.child("Lon").setValue(mMyData.getUserLon());
+        //      user.child("Lat").setValue(mMyData.getUserLat());
+        //    user.child("Dist").setValue(mMyData.getUserDist());
+
+        updateMap.put("SendCount",mMyData.getSendHoney());
+        updateMap.put("RecvGold",mMyData.getRecvHoney());
+
+        //user.child("SendCount").setValue(mMyData.getSendHoney());
+        //user.child("RecvGold").setValue(mMyData.getRecvHoney());
 
 
+        updateMap.put("Memo",mMyData.getUserMemo());
+        //user.child("Memo").setValue(mMyData.getUserMemo());
 
-        user.child("Memo").setValue(mMyData.getUserMemo());
+        updateMap.put("RecvMsgReject",mMyData.nRecvMsgReject ? 1 : 0);
+        //user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
-        user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
+        updateMap.put("FanCount", -1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
+        //user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
 
-        user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
+        updateMap.put("Point",mMyData.getPoint());
+        //user.child("Point").setValue(mMyData.getPoint());
 
-        user.child("Point").setValue(mMyData.getPoint());
+        updateMap.put("Grade",mMyData.getGrade());
+        updateMap.put("BestItem",mMyData.bestItem);
+        updateMap.put("Honey",mMyData.getUserHoney());
 
-        user.child("Grade").setValue(mMyData.getGrade());
-        user.child("BestItem").setValue(mMyData.bestItem);
-        user.child("Honey").setValue(mMyData.getUserHoney());
+        //user.child("Grade").setValue(mMyData.getGrade());
+        //user.child("BestItem").setValue(mMyData.bestItem);
+        //user.child("Honey").setValue(mMyData.getUserHoney());
 
-        user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
+        updateMap.put("NickChangeCnt",mMyData.NickChangeCnt);
+        //user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
+
+        user.updateChildren(updateMap);
+
 
         table = database.getReference("GenderList");//.child(mMyData.getUserIdx());
         user = table.child(userIdx);
@@ -515,6 +551,9 @@ public class FirebaseData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
 
+        Map<String, Object> updateMap = new HashMap<>();
+
+
         // DatabaseReference user = table.child( userIdx);
         final DatabaseReference user = table.child(mMyData.getUserIdx());
 
@@ -522,32 +561,56 @@ public class FirebaseData {
             System.exit(0);
         } else {
             mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
-            user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+           // user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+            updateMap.put("Token",mMyData.getUserToken());
         }
 
-        user.child("Idx").setValue(mMyData.getUserIdx());
-        user.child("Img").setValue(mMyData.getUserImg());
+        updateMap.put("Idx",mMyData.getUserIdx());
+        updateMap.put("Img",mMyData.getUserImg());
 
-        user.child("NickName").setValue(mMyData.getUserNick());
-        user.child("Gender").setValue(mMyData.getUserGender());
-        user.child("Age").setValue(mMyData.getUserAge());
+       // user.child("Idx").setValue(mMyData.getUserIdx());
+        //user.child("Img").setValue(mMyData.getUserImg());
 
-        user.child("Memo").setValue(mMyData.getUserMemo());
+        updateMap.put("NickName",mMyData.getUserNick());
+        updateMap.put("Gender",mMyData.getUserGender());
+        updateMap.put("Age",mMyData.getUserAge());
 
-        user.child("RecvGold").setValue(mMyData.getRecvHoney());
-        user.child("SendGold").setValue(mMyData.getSendHoney());
+      //  user.child("NickName").setValue(mMyData.getUserNick());
+      //  user.child("Gender").setValue(mMyData.getUserGender());
+      //  user.child("Age").setValue(mMyData.getUserAge());
 
-        user.child("Lon").setValue(mMyData.getUserLon());
-        user.child("Lat").setValue(mMyData.getUserLat());
-        user.child("Dist").setValue(mMyData.getUserDist());
+        updateMap.put("Memo",mMyData.getUserMemo());
 
-        user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
+       // user.child("Memo").setValue(mMyData.getUserMemo());
+        updateMap.put("SendCount",mMyData.getSendHoney());
+        updateMap.put("RecvGold",mMyData.getRecvHoney());
 
-        user.child("Point").setValue(mMyData.getPoint());
+       // user.child("RecvGold").setValue(mMyData.getRecvHoney());
+      //  user.child("SendGold").setValue(mMyData.getSendHoney());
+        updateMap.put("Lon",mMyData.getUserLon());
+        updateMap.put("Lat",mMyData.getUserLat());
+        updateMap.put("Dist",mMyData.getUserDist());
 
-        user.child("Grade").setValue(mMyData.getGrade());
-        user.child("BestItem").setValue(mMyData.bestItem);
-        user.child("Honey").setValue(mMyData.getUserHoney());
+       // user.child("Lon").setValue(mMyData.getUserLon());
+      //  user.child("Lat").setValue(mMyData.getUserLat());
+       // user.child("Dist").setValue(mMyData.getUserDist());
+
+        updateMap.put("FanCount", -1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
+
+       // user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
+
+        updateMap.put("Point",mMyData.getPoint());
+        //user.child("Point").setValue(mMyData.getPoint());
+
+        updateMap.put("Grade",mMyData.getGrade());
+        updateMap.put("BestItem",mMyData.bestItem);
+        updateMap.put("Honey",mMyData.getUserHoney());
+
+        user.updateChildren(updateMap);
+
+       // user.child("Grade").setValue(mMyData.getGrade());
+     //   user.child("BestItem").setValue(mMyData.bestItem);
+     //   user.child("Honey").setValue(mMyData.getUserHoney());
 
     }
 
@@ -999,7 +1062,7 @@ public class FirebaseData {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
                                 if (cTempData != null && cTempData.Idx != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData, fileSnapshot.getKey()))
                                     {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1080,7 +1143,7 @@ public class FirebaseData {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
                                 if (cTempData != null && cTempData.Idx != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData, fileSnapshot.getKey()))
                                     {
                                         if(cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1159,7 +1222,7 @@ public class FirebaseData {
                                 cTempData = fileSnapshot.getValue(UserData.class);
 
                                 if (cTempData != null && cTempData.Idx != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData))
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData, fileSnapshot.getKey()))
                                     {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1250,7 +1313,7 @@ public class FirebaseData {
                                     }
                                     else
                                     {
-                                        if (CommonFunc.getInstance().CheckUserData(stRecvData))
+                                        if (CommonFunc.getInstance().CheckUserData(stRecvData, fileSnapshot.getKey()))
                                         {
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1342,7 +1405,7 @@ public class FirebaseData {
                                 UserData stRecvData = new UserData ();
                                 stRecvData = fileSnapshot.getValue(UserData.class);
                                 if(stRecvData != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(stRecvData))
+                                    if (CommonFunc.getInstance().CheckUserData(stRecvData, fileSnapshot.getKey()))
                                     {
                                         if (stRecvData.Img == null)
                                             stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1424,7 +1487,7 @@ public class FirebaseData {
                     UserData cTempData = new UserData();
                     cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null && cTempData.Idx != null) {
-                        if (CommonFunc.getInstance().CheckUserData(cTempData)){
+                        if (CommonFunc.getInstance().CheckUserData(cTempData, postSnapshot.getKey())){
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1499,7 +1562,7 @@ public class FirebaseData {
                     UserData cTempData = new UserData();
                     cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null && cTempData.Idx != null) {
-                        if (CommonFunc.getInstance().CheckUserData(cTempData)){
+                        if (CommonFunc.getInstance().CheckUserData(cTempData,postSnapshot.getKey())){
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1574,7 +1637,7 @@ public class FirebaseData {
                     cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null && cTempData.Idx != null) {
 
-                        if (CommonFunc.getInstance().CheckUserData(cTempData)){
+                        if (CommonFunc.getInstance().CheckUserData(cTempData,postSnapshot.getKey())){
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1648,7 +1711,7 @@ public class FirebaseData {
                         if (cTempData.Lat == 0 || cTempData.Lon == 0) {
                             // 위치 못받아오는 애들
                         } else {
-                            if (CommonFunc.getInstance().CheckUserData(cTempData)){
+                            if (CommonFunc.getInstance().CheckUserData(cTempData,postSnapshot.getKey())){
 
                                 if (cTempData.Img == null)
                                     cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1738,7 +1801,7 @@ public class FirebaseData {
                     UserData cTempData = new UserData();
                     cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null && cTempData.Idx != null) {
-                        if (CommonFunc.getInstance().CheckUserData(cTempData)){
+                        if (CommonFunc.getInstance().CheckUserData(cTempData,postSnapshot.getKey())){
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 

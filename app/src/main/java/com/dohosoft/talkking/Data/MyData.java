@@ -824,6 +824,19 @@ public class MyData {
         }
 
 
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("ChatRoomName", strCheckName);
+        updateMap.put("Msg", _strSend.toString());
+        updateMap.put("Nick", getUserNick());
+        updateMap.put("Idx", getUserIdx());
+        updateMap.put("Img", getUserImg());
+        updateMap.put("Grade", getGrade());
+        updateMap.put("BestItem", bestItem);
+        updateMap.put("Check", 1);
+        updateMap.put("SendHeart", _SendCount);
+        updateMap.put("WriterIdx", getUserIdx());
+        updateMap.put("Date", nowTime);
+
         SimpleChatData tempMySave = new SimpleChatData();
         tempMySave.ChatRoomName = strCheckName;
         tempMySave.Msg = _strSend.toString();
@@ -835,9 +848,21 @@ public class MyData {
         tempMySave.Check = 1;
         tempMySave.SendHeart = _SendCount;
         tempMySave.WriterIdx = getUserIdx();
-
-
         tempMySave.Date = nowTime;
+
+
+        Map<String, Object> updateTargetMap = new HashMap<>();
+        updateTargetMap.put("ChatRoomName", strCheckName);
+        updateTargetMap.put("Idx", _UserData.Idx);
+        updateTargetMap.put("Msg", _strSend.toString());
+        updateTargetMap.put("Nick", _UserData.NickName);
+        updateTargetMap.put("Img", _UserData.Img);
+        updateTargetMap.put("Grade", _UserData.Grade);
+        updateTargetMap.put("BestItem", _UserData.BestItem);
+        updateTargetMap.put("Check", 0);
+        updateTargetMap.put("SendHeart", _SendCount);
+        updateTargetMap.put("WriterIdx", getUserIdx());
+        updateTargetMap.put("Date", nowTime);
 
         SimpleChatData tempTargetSave = new SimpleChatData();
         tempTargetSave.ChatRoomName = strCheckName;
@@ -850,7 +875,6 @@ public class MyData {
         tempTargetSave.Date = nowTime;
         tempTargetSave.SendHeart = _SendCount;
         tempTargetSave.WriterIdx = getUserIdx();
-
         tempTargetSave.Check = 0;
 
         if (!arrChatNameList.contains(strCheckName) && !arrChatNameList.contains(strCheckName1)) {
@@ -858,8 +882,12 @@ public class MyData {
             CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, getUserGender(), getUserIdx(), strCheckName, tempTargetSave);
             CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, tempGender, _UserData.Idx, strCheckName, tempMySave);
 
-            user.child(strCheckName).setValue(tempTargetSave);
-            targetuser.child(strCheckName).setValue(tempMySave);
+
+            //user.child(strCheckName).setValue(tempTargetSave);
+            user.child(strCheckName).updateChildren(updateTargetMap);
+            //targetuser.child(strCheckName).setValue(tempMySave);
+            targetuser.child(strCheckName).updateChildren(updateMap);
+
             rtValue = true;
 
         } else
@@ -1619,7 +1647,7 @@ public class MyData {
 
                                 UserData tempUserData = dataSnapshot.getValue(UserData.class);
                                 if(tempUserData != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                                    if (CommonFunc.getInstance().CheckUserData(tempUserData,dataSnapshot.getKey())) {
                                         arrGiftUserDataList.put(strTargetIdx, tempUserData);
                                         int i = arrGiftUserDataList.size();
                                     }
@@ -1656,7 +1684,7 @@ public class MyData {
 
                     UserData tempUserData = dataSnapshot.getValue(UserData.class);
                     if(tempUserData != null) {
-                        if (CommonFunc.getInstance().CheckUserData(tempUserData)) {
+                        if (CommonFunc.getInstance().CheckUserData(tempUserData,dataSnapshot.getKey())) {
                             arrGiftUserDataList.put(strTargetIdx, tempUserData);
                             int i = arrGiftUserDataList.size();
                         }
