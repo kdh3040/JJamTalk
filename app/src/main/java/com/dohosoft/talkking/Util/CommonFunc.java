@@ -17,6 +17,7 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AlertDialog;
@@ -59,6 +60,8 @@ import com.dohosoft.talkking.MainActivity;
 import com.dohosoft.talkking.R;
 import com.dohosoft.talkking.UserPageActivity;
 import com.kakao.usermgmt.response.model.User;
+
+import org.jsoup.select.Evaluator;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -2045,6 +2048,45 @@ public class CommonFunc {
 
     public void AddHotMember(UserData userData)
     {
+
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Age", userData.Age);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "BestItem", userData.BestItem);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ConnectDate", userData.ConnectDate);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Date", userData.Date);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Dist", userData.Dist);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "FanCount", userData.FanCount);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "SendList", userData.SendList);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Gender", userData.Gender);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Grade", userData.Grade);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Honey", userData.Honey);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Idx", userData.Idx);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Img", userData.Img);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ImgCount", userData.ImgCount);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ImgGroup0", userData.ImgGroup0);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ImgGroup1", userData.ImgGroup1);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ImgGroup2", userData.ImgGroup2);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ImgGroup3", userData.ImgGroup3);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Lat", userData.Lat);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Lon", userData.Lon);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Honey", userData.Honey);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "NickChangeCnt", userData.NickChangeCnt);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "NickName", userData.NickName);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Point", userData.Point);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "RecvGold", userData.RecvGold);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "RecvMsgReject", userData.RecvMsgReject);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "SendCount", userData.SendCount);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "CardList", userData.CardList);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ItemCount", userData.ItemCount);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_1", userData.Item_1);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_2", userData.Item_2);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_3", userData.Item_3);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_4", userData.Item_4);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_5", userData.Item_5);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_6", userData.Item_6);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_7", userData.Item_7);
+        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_8", userData.Item_8);
+
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("HotMember");//.child(mMyData.getUserIdx());
         DatabaseReference user;
@@ -2150,6 +2192,101 @@ public class CommonFunc {
 
 
         return true;
+    }
+
+    public boolean SetValue(String DataType, String Gender, String Idx, String Key, Map<String, Object> Value)
+    {
+        boolean rtValue = false;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference(DataType);//.child(mMyData.getUserIdx());
+        DatabaseReference user;
+        if(Gender.equals("여자"))
+        {
+            user = table.child("Woman").child(Idx);
+        }
+        else
+        {
+            user = table.child("Man").child(Idx);
+        }
+
+
+        user.child(Key).setValue(Value);
+
+        return rtValue;
+    }
+
+    public boolean SetValue(String DataType, String Gender, String Idx, String Key, Object Value)
+    {
+        return  false;
+
+    /*    boolean rtValue = false;
+
+        if(DataType.equals(CoomonValueData.getInstance().DATA_USERS))
+        {
+            SetValue(CoomonValueData.getInstance().DATA_USERS_BACKUP, Gender, Idx, Key, Value);
+        }
+        else if(DataType.equals(CoomonValueData.getInstance().DATA_HOTMEMBER))
+        {
+            SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER_BACKUP, Gender, Idx, Key, Value);
+        }
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference(DataType);//.child(mMyData.getUserIdx());
+        DatabaseReference user;
+
+        if(DataType.equals(CoomonValueData.getInstance().DATA_HOTMEMBER) || DataType.equals(CoomonValueData.getInstance().DATA_USERS)
+                || DataType.equals(CoomonValueData.getInstance().DATA_HOTMEMBER_BACKUP) || DataType.equals(CoomonValueData.getInstance().DATA_USERS_BACKUP))
+        {
+            if(Gender.equals("여자"))
+            {
+                user = table.child("Woman").child(Idx);
+            }
+            else
+            {
+                user = table.child("Man").child(Idx);
+            }
+        }
+        else
+            user = table.child(Idx);
+
+
+        user.child(Key).setValue(Value);
+
+        return rtValue;*/
+    }
+
+    public boolean UpdateValue(String DataType, String Gender, String Idx,  Map<String, Object> updateMap)
+    {
+        return  false;
+        /*
+        boolean rtValue = false;
+
+        if(DataType.equals(CoomonValueData.getInstance().DATA_USERS))
+        {
+            UpdateValue(CoomonValueData.getInstance().DATA_USERS_BACKUP, Gender, Idx, updateMap);
+        }
+        else if(DataType.equals(CoomonValueData.getInstance().DATA_HOTMEMBER))
+        {
+            UpdateValue(CoomonValueData.getInstance().DATA_HOTMEMBER_BACKUP, Gender, Idx, updateMap);
+        }
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference(DataType);//.child(mMyData.getUserIdx());
+        DatabaseReference user;
+        if(Gender.equals("여자"))
+        {
+            user = table.child("Woman").child(Idx);
+        }
+        else
+        {
+            user = table.child("Man").child(Idx);
+        }
+
+
+        user.updateChildren(updateMap);
+
+        return rtValue;*/
     }
 }
 

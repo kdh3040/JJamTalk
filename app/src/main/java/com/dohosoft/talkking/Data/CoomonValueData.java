@@ -80,6 +80,25 @@ public class CoomonValueData  {
     public boolean MOD_AddHotMember = false;
     public boolean MOD_Notification = false;
 
+
+    //public String DATA_USERS = "Users";
+    public String DATA_BOARD = "TestBoard";
+    public String DATA_CHATDATA = "TestCharData";
+    public String DATA_RECVHONEY = "TestRecvHoneyList";
+    public String DATA_SETTING = "TestSetting";
+    public String DATA_SIMPLEDATA = "TestSimpleData";
+    public String DATA_GENDERLIST = "TestGenderList";
+    public String DATA_BLOCKLIST = "TestBlockList";
+    public String DATA_BLOCKEDLIST = "TestBlockedList";
+
+    public String DATA_USERINDEX = "UserIdx";
+
+    public String DATA_USERS_BACKUP = "TestBackup";
+    public String DATA_USERS = "TestUsers";
+
+    public String DATA_HOTMEMBER_BACKUP = "TestHotMemberBackup";
+    public String DATA_HOTMEMBER = "TestHotMember";
+
     private static CoomonValueData _Instance;
 
     public static CoomonValueData getInstance() {

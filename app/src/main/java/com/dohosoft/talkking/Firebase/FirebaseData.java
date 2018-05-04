@@ -149,9 +149,10 @@ public class FirebaseData {
         final DatabaseReference SimpleToken = data.child("Token");
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("Token","0");
-
         data.updateChildren(updateMap);
-        //SimpleToken.setValue("0");
+
+        CommonFunc.getInstance().UpdateValue(CoomonValueData.getInstance().DATA_SIMPLEDATA, mMyData.getUserGender(), Idx, updateMap);
+        CommonFunc.getInstance().UpdateValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), Idx, updateMap);
 
         if(mMyData.getUserGender().equals("여자"))
         {
@@ -240,6 +241,41 @@ public class FirebaseData {
 
 
     public void SaveFirstMyData(String userIdx) {
+
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Age", mMyData.getUserAge());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "BestItem", mMyData.getUserBestItem());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ConnectDate", mMyData.ConnectDate);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Date", mMyData.getUserDate());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Dist", mMyData.getUserDist());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "FanCount", mMyData.getFanCount());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Gender", mMyData.getUserGender());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Grade", mMyData.getGrade());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Honey", mMyData.getUserHoney());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Idx", mMyData.getUserIdx());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Img", mMyData.getUserImg());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ImgCount", mMyData.getUserImgCnt());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ImgGroup0", mMyData.getUserProfileImg(0));
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ImgGroup1", mMyData.getUserProfileImg(1));
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ImgGroup2", mMyData.getUserProfileImg(2));
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ImgGroup3", mMyData.getUserProfileImg(3));
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Lat", mMyData.getUserLat());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Lon", mMyData.getUserLon());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "NickChangeCnt", mMyData.NickChangeCnt);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "NickName", mMyData.getUserNick());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Point", mMyData.getPoint());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "RecvGold", mMyData.nRecvGold);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "RecvMsgReject", mMyData.nRecvMsgReject ? 1 : 0);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "SendCount", mMyData.nSendCount);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_1", mMyData.item_1);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_2", mMyData.item_2);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_3", mMyData.item_3);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_4", mMyData.item_4);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_5", mMyData.item_5);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_6", mMyData.item_6);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_7", mMyData.item_7);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_8", mMyData.item_8);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Memo", mMyData.getUserMemo());
+
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
@@ -356,6 +392,46 @@ public class FirebaseData {
     }
 
     public void SaveData(String userIdx) {
+
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "SendList", mMyData.arrChatDataList);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "FanList", mMyData.arrMyFanRecvList);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "CardList", mMyData.arrCarDataList);
+
+
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Age", mMyData.getUserAge());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "BestItem", mMyData.getUserBestItem());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ConnectDate", mMyData.ConnectDate);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Date", mMyData.getUserDate());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Dist", mMyData.getUserDist());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "FanCount", mMyData.getFanCount());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Gender", mMyData.getUserGender());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Grade", mMyData.getGrade());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Honey", mMyData.getUserHoney());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Idx", mMyData.getUserIdx());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Img", mMyData.getUserImg());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ImgCount", mMyData.getUserImgCnt());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ImgGroup0", mMyData.getUserProfileImg(0));
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ImgGroup1", mMyData.getUserProfileImg(1));
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ImgGroup2", mMyData.getUserProfileImg(2));
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "ImgGroup3", mMyData.getUserProfileImg(3));
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Lat", mMyData.getUserLat());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Lon", mMyData.getUserLon());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "NickChangeCnt", mMyData.NickChangeCnt);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "NickName", mMyData.getUserNick());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Point", mMyData.getPoint());
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "RecvGold", mMyData.nRecvGold);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "RecvMsgReject", mMyData.nRecvMsgReject ? 1 : 0);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "SendCount", mMyData.nSendCount);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_1", mMyData.item_1);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_2", mMyData.item_2);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_3", mMyData.item_3);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_4", mMyData.item_4);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_5", mMyData.item_5);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_6", mMyData.item_6);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_7", mMyData.item_7);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Item_8", mMyData.item_8);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), userIdx, "Memo", mMyData.getUserMemo());
+
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());

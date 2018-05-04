@@ -854,6 +854,10 @@ public class MyData {
         tempTargetSave.Check = 0;
 
         if (!arrChatNameList.contains(strCheckName) && !arrChatNameList.contains(strCheckName1)) {
+
+            CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, getUserGender(), getUserIdx(), strCheckName, tempTargetSave);
+            CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, tempGender, _UserData.Idx, strCheckName, tempMySave);
+
             user.child(strCheckName).setValue(tempTargetSave);
             targetuser.child(strCheckName).setValue(tempMySave);
             rtValue = true;
@@ -1515,6 +1519,7 @@ public class MyData {
         CommonFunc.getInstance().SetCardAlarmVisible(true);
         arrCardNameList.add(target.Idx);
         table.child("CardList").child(target.Idx).setValue(target.Idx);
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_USERS, getUserGender(), getUserIdx(), "CardList/"+target.Idx , target.Idx);
 
         rtValue = true;
 
@@ -1879,6 +1884,7 @@ public class MyData {
         targetuser.push().setValue(tempMySave);
         rtValue = true;
 
+        //CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_GIFTHONEYLIST, getUserGender(), getUserIdx(), )
 
         return rtValue;
     }
@@ -1907,6 +1913,9 @@ public class MyData {
         target = database.getReference("BlockedList").child(tempData.Idx);
         //target = table
         target.child(getUserIdx()).setValue(targetData);
+
+        CommonFunc.getInstance().SetValue(CoomonValueData.getInstance().DATA_BLOCKEDLIST, getUserGender(), tempData.Idx, getUserIdx(), targetData);
+
     }
 
     public void getBlockList() {
