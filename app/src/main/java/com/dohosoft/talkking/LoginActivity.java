@@ -235,7 +235,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         mActivity = this;
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+       // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         mMyData.SetCurFrag(0);
 
@@ -964,7 +964,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             /*PrepareMan initHot = new PrepareMan();
                             initHot.execute(0, 0, 0);*/
 
-                          /*  PrepareHotmember init = new PrepareHotmember();
+                            /*PrepareHotmember init = new PrepareHotmember();
                             init.execute(0, 0, 0);*/
 
 
@@ -1396,13 +1396,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
-                           DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
+                           DatabaseReference table = database.getReference("HotMember");//.child(mMyData.getUserIdx());
 
                             for(int a = 0; a<mMyData.arrUserWoman_Recv.size(); a++)
                             {
-
-
-                            /*   if(mMyData.arrUserWoman_Recv.get(a).Idx.equals("66") ||
+                               if(mMyData.arrUserWoman_Recv.get(a).Idx.equals("66") ||
                                         mMyData.arrUserWoman_Recv.get(a).Idx.equals("90") ||
                                         mMyData.arrUserWoman_Recv.get(a).Idx.equals("338") ||
                                         mMyData.arrUserWoman_Recv.get(a).Idx.equals("356") ||
@@ -1435,17 +1433,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("2712") ||
                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("2827") ||
                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("2883") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2974")
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2974") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("3198") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("3300") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("3486") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("3860") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("3924") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4033") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4113") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4164") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4175") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4209") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4289") ||
+                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4297")
 
-
-                                      )*/
+                                      )
                                 {
 
                                     // DatabaseReference user = table.child( userIdx);
                                     DatabaseReference user = table.child("Woman").child(mMyData.arrUserWoman_Recv.get(a).Idx);
                                     user.child("Age").setValue(mMyData.arrUserWoman_Recv.get(a).Age);
                                     user.child("BestItem").setValue(mMyData.arrUserWoman_Recv.get(a).BestItem);
-                                    user.child("ConnectDate").setValue(mMyData.arrUserWoman_Recv.get(a).ConnectDate);
+                                    user.child("ConnectDate").setValue(-1 * mMyData.arrUserWoman_Recv.get(a).ConnectDate);
                                     user.child("Date").setValue(mMyData.arrUserWoman_Recv.get(a).Date);
                                     user.child("Dist").setValue(mMyData.arrUserWoman_Recv.get(a).Dist);
                                     user.child("FanCount").setValue(mMyData.arrUserWoman_Recv.get(a).FanCount);
@@ -1499,7 +1508,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-                            /*   if(mMyData.arrUserMan_Recv.get(a).Idx.equals("116") ||
+                               if(mMyData.arrUserMan_Recv.get(a).Idx.equals("116") ||
                                        mMyData.arrUserMan_Recv.get(a).Idx.equals("191") ||
                                        mMyData.arrUserMan_Recv.get(a).Idx.equals("325") ||
                                        mMyData.arrUserMan_Recv.get(a).Idx.equals("439") ||
@@ -1542,14 +1551,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                        mMyData.arrUserMan_Recv.get(a).Idx.equals("3077") ||
                                        mMyData.arrUserMan_Recv.get(a).Idx.equals("3081") ||
                                        mMyData.arrUserMan_Recv.get(a).Idx.equals("3090") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3122") )*/
+                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3122") ||
+                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3216") ||
+                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3349") ||
+                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3394") ||
+                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3876") ||
+                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3997") ||
+                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("4050") ||
+                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("4071") )
                                 {
 
                                     // DatabaseReference user = table.child( userIdx);
                                     DatabaseReference user = table.child("Man").child(mMyData.arrUserMan_Recv.get(a).Idx);
                                     user.child("Age").setValue(mMyData.arrUserMan_Recv.get(a).Age);
                                     user.child("BestItem").setValue(mMyData.arrUserMan_Recv.get(a).BestItem);
-                                    user.child("ConnectDate").setValue(mMyData.arrUserMan_Recv.get(a).ConnectDate);
+                                    user.child("ConnectDate").setValue(mMyData.arrUserMan_Recv.get(a).ConnectDate * -1);
                                     user.child("Date").setValue(mMyData.arrUserMan_Recv.get(a).Date);
                                     user.child("Dist").setValue(mMyData.arrUserMan_Recv.get(a).Dist);
                                     user.child("FanCount").setValue(mMyData.arrUserMan_Recv.get(a).FanCount);
@@ -1640,7 +1656,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Woman");
             }
 
-            Query query = ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            Query query=ref.orderByChild("ConnectDate").limitToFirst(50);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override

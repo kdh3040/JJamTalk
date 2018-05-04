@@ -77,6 +77,14 @@ public class CoomonValueData  {
     public static  boolean bSetRecv = false;
     public static  boolean bSetHot = false;
 
+
+    public static boolean bRefreshSetHot = false;
+    public static boolean bRefreshSetNear = false;
+    public static boolean bRefreshSetNew = false;
+    public static boolean bRefreshSetFan = false;
+    public static boolean bRefreshSetRecv = false;
+
+
     public boolean MOD_AddHotMember = false;
     public boolean MOD_Notification = false;
 

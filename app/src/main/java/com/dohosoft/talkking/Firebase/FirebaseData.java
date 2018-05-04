@@ -55,6 +55,11 @@ import static com.dohosoft.talkking.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_BOARD_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.dohosoft.talkking.Data.CoomonValueData.UNIQ_FANCOUNT;
+import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetFan;
+import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetHot;
+import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetNear;
+import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetNew;
+import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetRecv;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetHot;
 import static com.dohosoft.talkking.MainActivity.mFragmentMng;
 
@@ -1000,9 +1005,6 @@ public class FirebaseData {
         table.setValue(sendData);
     }
 
-
-    private boolean bSetNear, bSetNew, bSetFan, bSetRecv = false;
-
     public void RefreshUserData(Activity activity) {
 
         CommonFunc.getInstance().ShowLoadingPage(activity, "로딩중");
@@ -1051,7 +1053,7 @@ public class FirebaseData {
                 ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Woman");
             }
 
-            Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            Query query=ref.orderByChild("ConnectDate").limitToFirst(50);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -1079,8 +1081,8 @@ public class FirebaseData {
                             if(mMyData.arrUserAll_Hot.size() > 0)
                                 mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size()-1).Date;
 
-                            bSetHot = true;
-                            if (bSetHot== true && bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                            bRefreshSetHot = true;
+                            if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1160,8 +1162,8 @@ public class FirebaseData {
                             if(mMyData.arrUserAll_Recv.size() > 0)
                                 mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
 
-                            bSetRecv = true;
-                            if (bSetHot== true && bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                            bRefreshSetRecv = true;
+                            if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1239,8 +1241,8 @@ public class FirebaseData {
                             if(mMyData.arrUserAll_Send.size() > 0)
                                 mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
 
-                            bSetFan = true;
-                            if (bSetHot== true && bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                            bRefreshSetFan = true;
+                            if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1339,8 +1341,8 @@ public class FirebaseData {
 
                             mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
 
-                            bSetNear = true;
-                            if (bSetHot== true && bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                            bRefreshSetNear = true;
+                            if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1423,8 +1425,8 @@ public class FirebaseData {
                             if(mMyData.arrUserAll_New.size() > 0)
                                 mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
 
-                            bSetNew = true;
-                            if (bSetHot== true && bSetNear == true && bSetNew == true && bSetFan == true && bSetRecv == true) {
+                            bRefreshSetNew = true;
+                            if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 

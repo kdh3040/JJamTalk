@@ -82,6 +82,10 @@ import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.dohosoft.talkking.Data.CoomonValueData.REF_LAT;
 import static com.dohosoft.talkking.Data.CoomonValueData.REF_LON;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetHot;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetNear;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetNew;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetRecv;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetRich;
 import static com.dohosoft.talkking.MyProfileActivity.calculateInSampleSize;
 
 public class InputProfile extends AppCompatActivity {
@@ -117,7 +121,6 @@ public class InputProfile extends AppCompatActivity {
     String provider;
 
     private boolean bMySet, bMyThumb, bMyImg, bMyLoc = false;
-    private boolean bSetNear, bSetNew, bSetRich, bSetRecv = false;
 
     private int nUserSet = 0;
     private static String TAG = "InputActivity Log!!";
@@ -145,7 +148,7 @@ public class InputProfile extends AppCompatActivity {
                 ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Woman");
             }
 
-            Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            Query query=ref.orderByChild("ConnectDate").limitToFirst(50);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -176,7 +179,7 @@ public class InputProfile extends AppCompatActivity {
                             mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge );
 */
                             if(mMyData.arrUserAll_Hot.size() > 0)
-                                mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size()-1).RecvGold;
+                                mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size()-1).Date;
 
                             bSetHot = true;
                             if(bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyImg == true && bMyThumb == true && bMyLoc == true){
@@ -1144,6 +1147,13 @@ public class InputProfile extends AppCompatActivity {
 
     }
     private void GoMainPage() {
+
+
+        bSetHot = false;
+        bSetNear = false;
+        bSetNew = false;
+        bSetRich = false;
+        bSetRecv = false;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("UserIdx");

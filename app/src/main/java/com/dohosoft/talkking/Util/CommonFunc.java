@@ -85,6 +85,11 @@ import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_Fan;
 import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_Image;
 import static com.dohosoft.talkking.Data.CoomonValueData.bMySet_Send;
 import static com.dohosoft.talkking.Data.CoomonValueData.bMySet;
+import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetFan;
+import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetHot;
+import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetNear;
+import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetNew;
+import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetRecv;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetHot;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetNear;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetNew;
@@ -200,6 +205,12 @@ public class CommonFunc {
     }
 
     public void refreshMainActivity(Activity mActivity, int StartFragMent, int Noti, int New) {
+
+        bRefreshSetHot = false;
+        bRefreshSetNear = false ;
+        bRefreshSetFan = false ;
+        bRefreshSetNew = false;
+        bRefreshSetRecv = false;
 
         CommonFunc.getInstance().DismissLoadingPage();
         Intent intent = new Intent(mActivity, MainActivity.class);
