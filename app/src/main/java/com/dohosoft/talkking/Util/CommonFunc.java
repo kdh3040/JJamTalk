@@ -2113,7 +2113,7 @@ public class CommonFunc {
 
         user.child("Age").setValue(userData.Age);
         user.child("BestItem").setValue(userData.BestItem);
-        user.child("ConnectDate").setValue(userData.ConnectDate);
+        user.child("ConnectDate").setValue(userData.ConnectDate * -1);
         user.child("Date").setValue(userData.Date);
         user.child("Dist").setValue(userData.Dist);
         user.child("FanCount").setValue(userData.FanCount);
