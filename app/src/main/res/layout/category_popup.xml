@@ -92,6 +92,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="표시 성별"
+        android:visibility="gone"
         android:textColor="@color/gray"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@+id/imageView7"
@@ -101,7 +102,7 @@
         android:id="@+id/rbtn_man"
         android:layout_width="0dp"
         android:layout_height="60dp"
-
+        android:visibility="gone"
         android:layout_marginLeft="20dp"
         android:background="@color/white"
         android:text="남자"
@@ -113,7 +114,7 @@
         android:id="@+id/rbtn_woman"
         android:layout_width="0dp"
         android:layout_height="60dp"
-
+        android:visibility="gone"
         android:layout_marginLeft="20dp"
         android:background="@color/white"
         android:text="여자"
@@ -132,7 +133,7 @@
         android:textColor="@color/gray"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/txt_Gender" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_filter" />
 
     <Spinner
         android:id="@+id/spinner1"
@@ -140,9 +141,9 @@
         android:layout_height="60dp"
         android:entries="@array/MyProfire_Age"
         android:spinnerMode="dialog"
-
+        android:layout_marginLeft="20dp"
         app:layout_constraintBottom_toBottomOf="@id/txt_Age"
-        app:layout_constraintLeft_toLeftOf="@+id/rbtn_man" />
+        app:layout_constraintLeft_toRightOf="@+id/txt_Age" />
 
     <TextView
         android:id="@+id/textView28"

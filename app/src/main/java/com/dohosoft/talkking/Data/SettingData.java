@@ -56,8 +56,14 @@ public class SettingData {
     }
     public int getnSearchSetting()
     {
-
         int rtValue = 0;
+
+        if(mMyData.getUserGender().equals("여자"))
+            rtValue = 1;
+        else
+            rtValue = 2;
+
+/*        int rtValue = 0;
         if(mMyData.nSearchMode == 0)
         {
             if(mMyData.getUserGender() != null)
@@ -69,7 +75,7 @@ public class SettingData {
             }
         }
         else
-            rtValue = mMyData.nSearchMode;
+            rtValue = mMyData.nSearchMode;*/
 
         return  rtValue;
     }

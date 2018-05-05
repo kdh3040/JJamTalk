@@ -2104,19 +2104,19 @@ public class MyData {
                     switch (i) {
                         case 0:
                             CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_1st), 0);
-                            NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 1);
+                            //NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 1);
                             break;
                         case 1:
-                            NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 2);
+                            //NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 2);
                             CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_2nd), 1);
                             break;
                         case 2:
-                            NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 2);
+                            //NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 2);
                             CommonFunc.getInstance().ShowFanRankPopup(context, stTargetData.NickName + res.getString(R.string.Fan_Rank_3rd), 2);
                             break;
                     }
                 }
-                NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 2);
+                //NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 2);
             }
         }
     }
@@ -2148,7 +2148,7 @@ public class MyData {
         res = context.getResources();
 
         if (stTargetData.FanList.size() == 0) {
-            NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 0);
+            //NotiFunc.getInstance().SendHoneyToFCM(stTargetData, SendCount, msg, 0);
 
             Check = 1;
 

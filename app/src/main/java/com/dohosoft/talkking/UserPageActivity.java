@@ -275,6 +275,20 @@ if(mMyData.itemList.get(i) != 0)
         btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
         //btnGiftHoney.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
         btnMessage =  findViewById(R.id.UserPage_btnMessage);
+
+        if(mMyData.getUserGender().equals("여자"))
+        {
+            if(stTargetData.Gender.equals(mMyData.getUserGender()))
+            {
+                btnMessage.setVisibility(View.GONE);
+            }
+            else
+                btnMessage.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            btnMessage.setVisibility(View.GONE);
+        }
         //btnMessage.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
 
 
