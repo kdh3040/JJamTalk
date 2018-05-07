@@ -434,7 +434,7 @@ if(mMyData.itemList.get(i) != 0)
                                 mMyData.makeCardList(stTargetData);
                                 mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
                                 mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
-                                mMyData.setUserHoney(mMyData.getUserHoney() - heartCount * 10);
+                                mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
                                 mMyData.setSendHoneyCnt(heartCount);
                                 mMyData.makeFanList(mActivity, stTargetData, heartCount, msg);
 

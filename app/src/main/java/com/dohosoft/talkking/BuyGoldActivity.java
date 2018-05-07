@@ -516,31 +516,31 @@ public class BuyGoldActivity extends AppCompatActivity {
         int nPrice = 0;
         if(ID.equals(mMyData.skuGold[0]))
         {
-            nPrice = 10;
+            nPrice = 100;
         }
         else if(ID.equals(mMyData.skuGold[1]))
         {
-            nPrice = 33;
+            nPrice = 330;
         }
         else if(ID.equals(mMyData.skuGold[2]))
         {
-            nPrice = 57;
+            nPrice = 570;
         }
         else if(ID.equals(mMyData.skuGold[3]))
         {
-            nPrice = 120;
+            nPrice = 1200;
         }
         else if(ID.equals(mMyData.skuGold[4]))
         {
-            nPrice = 375;
+            nPrice = 3750;
         }
         else if(ID.equals(mMyData.skuGold[5]))
         {
-            nPrice = 650;
+            nPrice = 6500;
         }
         else if(ID.equals(mMyData.skuGold[6]))
         {
-            nPrice = 1500;
+            nPrice = 15000;
         }
 
 

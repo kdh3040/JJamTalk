@@ -61,8 +61,8 @@ public class CoomonValueData  {
 
     public static boolean OFFAPP = true;
 
-    public static int CHANGE_NICK_NAME_COST = 50;
-    public static int SEND_MSG_COST = 80;
+    public static int CHANGE_NICK_NAME_COST = 500;
+    public static int SEND_MSG_COST = 8;
 
     public static boolean bMySet_DownUrl = false;
     public static  boolean bMySet_Image = false;

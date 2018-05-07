@@ -594,7 +594,7 @@ public class MyData {
 
     public void SetMyGrade() {
 
-        int nGrade = getPoint() / 1000;
+        int nGrade = getPoint() / 100;
 
         if (0 <= nGrade && nGrade < 2)
             setGrade(0);
