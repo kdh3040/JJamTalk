@@ -201,7 +201,7 @@
         android:layout_marginTop="1dp"
         android:background="@android:color/white"
         android:gravity="center"
-        android:text="1000코인"
+        android:text="100코인"
         app:layout_constraintLeft_toRightOf="@+id/tv_bronze"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
@@ -213,7 +213,7 @@
         android:layout_marginLeft="1dp"
         android:background="@android:color/white"
         android:gravity="center"
-        android:text="2000코인"
+        android:text="200코인"
         app:layout_constraintBottom_toBottomOf="@+id/silver"
         app:layout_constraintLeft_toRightOf="@+id/tv_silver"
         app:layout_constraintRight_toRightOf="parent" />
@@ -225,7 +225,7 @@
         android:layout_marginLeft="1dp"
         android:background="@android:color/white"
         android:gravity="center"
-        android:text="3000코인"
+        android:text="300코인"
         app:layout_constraintBottom_toBottomOf="@+id/gold"
         app:layout_constraintLeft_toRightOf="@+id/tv_gold"
         app:layout_constraintRight_toRightOf="parent" />
@@ -237,7 +237,7 @@
         android:layout_marginLeft="1dp"
         android:background="@android:color/white"
         android:gravity="center"
-        android:text="5000코인"
+        android:text="500코인"
         app:layout_constraintBottom_toBottomOf="@+id/diamond"
         app:layout_constraintLeft_toRightOf="@+id/tv_diamond"
         app:layout_constraintRight_toRightOf="parent" />
@@ -249,7 +249,7 @@
         android:layout_marginLeft="1dp"
         android:background="@android:color/white"
         android:gravity="center"
-        android:text="20000코인"
+        android:text="2000코인"
         app:layout_constraintBottom_toBottomOf="@+id/vip"
         app:layout_constraintLeft_toRightOf="@+id/tv_vip"
         app:layout_constraintRight_toRightOf="parent" />
@@ -261,7 +261,7 @@
         android:layout_marginLeft="1dp"
         android:background="@android:color/white"
         android:gravity="center"
-        android:text="50000코인"
+        android:text="5000코인"
         app:layout_constraintBottom_toBottomOf="@+id/vvip"
         app:layout_constraintLeft_toRightOf="@+id/tv_vvip"
         app:layout_constraintRight_toRightOf="parent" />

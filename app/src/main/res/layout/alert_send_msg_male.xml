@@ -93,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="* 쪽지 전송시 건당 80코인이 차감됩니다."
+        android:text="* 쪽지 전송시 건당 8코인이 차감됩니다."
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="@+id/et_nick"
         app:layout_constraintTop_toBottomOf="@+id/coinText" />
