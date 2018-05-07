@@ -1,6 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/bg_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView23"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+
+        android:background="@color/baseColor2"
+        android:gravity="center"
+        android:text="쪽지 보내기"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/et_nick"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/et_outline"
+        android:gravity="top"
+        android:hint="(30자 이내)"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="30"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+    <TextView
+        android:id="@+id/coinText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="남은 코인 :"
+        android:textColor="@color/boardLikeColor"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@+id/et_nick"
+        app:layout_constraintTop_toBottomOf="@+id/et_nick" />
+
+    <ImageView
+        android:id="@+id/iv_Coin"
+        android:layout_width="30dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/coinText"
+        app:layout_constraintLeft_toRightOf="@+id/coinText"
+        app:layout_constraintTop_toTopOf="@+id/coinText"
+        app:srcCompat="@drawable/coin" />
+
+    <TextView
+        android:id="@+id/tv_myCoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/boardLikeColor"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@+id/iv_Coin"
+        app:layout_constraintTop_toTopOf="@+id/coinText" />
+
+    <TextView
+        android:id="@+id/ex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="* 쪽지 전송시 건당 80코인이 차감됩니다."
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@+id/et_nick"
+        app:layout_constraintTop_toBottomOf="@+id/coinText" />
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+
+
+        android:layout_marginTop="20dp"
+        android:background="@drawable/purple_btn_bg2"
+        android:text="전송"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bg_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ex" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+
+        android:background="@drawable/purple_stroke_btn_bg"
+
+        android:text="취소"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_send"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/HeartPop_Charge"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_send" />
+
+
+    <Button
+        android:id="@+id/HeartPop_Charge"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/yellow_btn_bg"
+        android:text="코인 충전"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_send"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_cancel" />
+
+    <ImageView
+        android:id="@+id/imageView23"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_send" />
+
 
 </android.support.constraint.ConstraintLayout>
