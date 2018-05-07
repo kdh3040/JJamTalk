@@ -887,7 +887,7 @@ public class MainActivity extends AppCompatActivity {
 
        // boolean bCheckConnt = mMyData.CheckConnectDate();
 
-        if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK)) {
+         if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK)) {
 
             mMyData.ConnectDate = -1 * CommonFunc.getInstance().GetCurrentTime();
 
