@@ -506,9 +506,6 @@ if(mMyData.itemList.get(i) != 0)
                             final EditText Edit = giftView.findViewById(R.id.et_nick);
                             Edit.setVisibility(View.GONE);
 
-                            final TextView Body = giftView.findViewById(R.id.tv_change_nick);
-                            Body.setText("상대방이 쪽지 수신을" + "\n" +"거부 하였습니다");
-
                             final Button OK = giftView.findViewById(R.id.btn_send);
                             OK.setText("확인");
                             OK.setOnClickListener(new View.OnClickListener() {

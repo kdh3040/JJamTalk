@@ -890,7 +890,7 @@ public class MyData {
 
 
             //user.child(strCheckName).setValue(tempTargetSave);
-            user.child(strCheckName).updateChildren(updateTargetMap);
+          //  user.child(strCheckName).updateChildren(updateTargetMap);
             //targetuser.child(strCheckName).setValue(tempMySave);
             targetuser.child(strCheckName).updateChildren(updateMap);
 
