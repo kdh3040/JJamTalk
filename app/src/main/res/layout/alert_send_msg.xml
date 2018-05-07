@@ -27,7 +27,7 @@
 
         android:background="@color/baseColor2"
         android:gravity="center"
-        android:text="쪽지 보내기"
+        android:text="쪽지를 보내보세요!"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,46 +58,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
-    <TextView
-        android:id="@+id/coinText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="남은 코인 :"
-        android:textColor="@color/boardLikeColor"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="@+id/et_nick"
-        app:layout_constraintTop_toBottomOf="@+id/et_nick" />
-
-    <ImageView
-        android:id="@+id/iv_Coin"
-        android:layout_width="30dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/coinText"
-        app:layout_constraintLeft_toRightOf="@+id/coinText"
-        app:layout_constraintTop_toTopOf="@+id/coinText"
-        app:srcCompat="@drawable/coin" />
-
-    <TextView
-        android:id="@+id/tv_myCoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textColor="@color/boardLikeColor"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@+id/iv_Coin"
-        app:layout_constraintTop_toTopOf="@+id/coinText" />
-
-    <TextView
-        android:id="@+id/ex"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="* 쪽지 전송시 건당 80코인이 차감됩니다."
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="@+id/et_nick"
-        app:layout_constraintTop_toBottomOf="@+id/coinText" />
-
     <Button
         android:id="@+id/btn_send"
         android:layout_width="wrap_content"
@@ -109,11 +69,9 @@
         android:text="전송"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/bg_bottom"
+        app:layout_constraintRight_toLeftOf="@id/btn_cancel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ex" />
+        app:layout_constraintTop_toBottomOf="@+id/et_nick" />
 
     <Button
         android:id="@+id/btn_cancel"
@@ -126,22 +84,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_send"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/HeartPop_Charge"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_send" />
-
-
-    <Button
-        android:id="@+id/HeartPop_Charge"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:background="@drawable/yellow_btn_bg"
-        android:text="코인 충전"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_send"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_cancel" />
 
     <ImageView
         android:id="@+id/imageView23"
@@ -151,6 +94,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_send" />
-
 
 </android.support.constraint.ConstraintLayout>
