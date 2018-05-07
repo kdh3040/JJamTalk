@@ -217,7 +217,7 @@ public class MyData {
     public int Point;
     public int Grade;
 
-    public int ConnectDate;
+    public long ConnectDate;
     public long LastBoardWriteTime;
     public long LastAdsTime;
 
@@ -447,7 +447,7 @@ public class MyData {
                           int _UserHoney, int _UserSendCount, long _UserRecvCount, long _UserDate,
                           String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus, int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
-                          int _UserPoint, int _UserGrade, int _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime, int _UserNickChangeCnt) {
+                          int _UserPoint, int _UserGrade, long _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime, int _UserNickChangeCnt) {
 
         strUid = _UserUid;
         strIdx = _UserIdx;
@@ -2869,15 +2869,11 @@ public class MyData {
         boolean rtValue = false;
 
         long time = CommonFunc.getInstance().GetCurrentTime();
-        SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
-        int nTodayTime = Integer.parseInt((date.format(new Date(time))).toString());
 
 
-        int nLastConn = (ConnectDate);
-
-        if (nTodayTime - nLastConn >= 1) {
+        if (time - ConnectDate >= 1) {
             rtValue = true;
-            ConnectDate = nTodayTime;
+            ConnectDate = time;
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table;

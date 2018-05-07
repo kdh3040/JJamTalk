@@ -1630,10 +1630,10 @@ public class CommonFunc {
                             break;
                     }
 
-                    if (mMyData.getUserHoney() < nSendHoneyCnt[0]) {
-                        Msg.setText("코인이 부족합니다. (" + nSendHoneyCnt[0] + " 코인 필요)");
+                    if (mMyData.getUserHoney() < nSendHoneyCnt[0] * 10) {
+                        Msg.setText("코인이 부족합니다. (" + nSendHoneyCnt[0] * 10 + " 코인 필요)");
                     } else {
-                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?(" + nSendHoneyCnt[0] + "코인 소모)");
+                        Msg.setText(nSendHoneyCnt[0] + "하트를 날리시겠습니까?(" + nSendHoneyCnt[0] * 10 + "코인 소모)");
                     }
                 }
             };
@@ -1651,9 +1651,9 @@ public class CommonFunc {
             {
                  @Override
                  public void onClick(View view) {
-                     if(mMyData.getUserHoney() < nSendHoneyCnt[0])
+                     if(mMyData.getUserHoney() < nSendHoneyCnt[0] * 10)
                      {
-                         CommonFunc.getInstance().ShowToast(context, (nSendHoneyCnt[0] - mMyData.getUserHoney())+ " 코인이 부족 합니다.", true);
+                         CommonFunc.getInstance().ShowToast(context, (nSendHoneyCnt[0] * 10 - mMyData.getUserHoney())+ " 코인이 부족 합니다.", true);
                          return;
                      }
                      String strSendMsg = SendMsg.getText().toString();

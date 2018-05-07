@@ -883,9 +883,12 @@ public class MainActivity extends AppCompatActivity {
         prepareJob.execute();*/
 
 
-        boolean bCheckConnt = mMyData.CheckConnectDate();
+       // boolean bCheckConnt = mMyData.CheckConnectDate();
 
-        if (bCheckConnt == true) {
+        if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK)) {
+
+            mMyData.ConnectDate = -1 * CommonFunc.getInstance().GetCurrentTime();
+
             String alertTitle = "종료";
             View ConnV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);
 
@@ -971,7 +974,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
 
-            bCheckConnt = false;
         }
 
         if (nStartByNew == 1) {

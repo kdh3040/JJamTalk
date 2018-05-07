@@ -434,7 +434,7 @@ if(mMyData.itemList.get(i) != 0)
                                 mMyData.makeCardList(stTargetData);
                                 mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
                                 mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
-                                mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
+                                mMyData.setUserHoney(mMyData.getUserHoney() - heartCount * 10);
                                 mMyData.setSendHoneyCnt(heartCount);
                                 mMyData.makeFanList(mActivity, stTargetData, heartCount, msg);
 
@@ -615,6 +615,13 @@ if(mMyData.itemList.get(i) != 0)
                                         }
                                     });
 
+                                    CoinCharge.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                                            msgDialog.dismiss();
+                                        }
+                                    });
 
 
                                     btn_send.setOnClickListener(new View.OnClickListener() {

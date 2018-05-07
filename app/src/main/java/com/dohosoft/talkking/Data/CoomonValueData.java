@@ -48,6 +48,7 @@ public class CoomonValueData  {
     public static final int TEXT_MAX_LENGTH_MEMO = 100;
 
     public static final int BOARD_WRITE_TIME_MIN = 10;
+    public static final int DAILY_CONNECT_CHECK = 1440;
 
     public static final Double REF_LAT = 38.910042;
     public static final Double REF_LON = 125.848755;

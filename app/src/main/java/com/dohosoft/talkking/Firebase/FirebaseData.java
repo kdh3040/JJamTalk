@@ -351,9 +351,9 @@ public class FirebaseData {
         user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
 
         long time = CommonFunc.getInstance().GetCurrentTime();
-        SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
-        int nTodayTime = Integer.parseInt( (date.format(new Date(time))).toString());
-        user.child("ConnectDate").setValue(nTodayTime);
+        /*SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+        int nTodayTime = Integer.parseInt( (date.format(new Date(time))).toString());*/
+        user.child("ConnectDate").setValue(-1 * time);
 
         table = database.getReference("GenderList");//.child(mMyData.getUserIdx());
         user = table.child(userIdx);
@@ -390,7 +390,7 @@ public class FirebaseData {
         user.child("BestItem").setValue(mMyData.bestItem);
         user.child("Honey").setValue(mMyData.getUserHoney());
 
-        user.child("ConnectDate").setValue(nTodayTime);
+        user.child("ConnectDate").setValue(CommonFunc.getInstance().GetCurrentTime());
 
 
         SaveUsersMyData(mMyData.getUserIdx());
