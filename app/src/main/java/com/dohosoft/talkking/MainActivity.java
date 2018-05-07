@@ -84,7 +84,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import static com.dohosoft.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
@@ -888,6 +890,22 @@ public class MainActivity extends AppCompatActivity {
         if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK)) {
 
             mMyData.ConnectDate = -1 * CommonFunc.getInstance().GetCurrentTime();
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference table;
+
+            if (mMyData.getUserGender().equals("여자")) {
+                table = database.getReference("Users").child("Woman").child(mMyData.getUserIdx());
+            } else {
+                table = database.getReference("Users").child("Man").child(mMyData.getUserIdx());
+            }
+
+            Map<String, Object> updateMap = new HashMap<>();
+            updateMap.put("ConnectDate", mMyData.ConnectDate);
+            table.updateChildren(updateMap);
+
+            table = database.getReference("SimpleData").child(mMyData.getUserIdx());
+            table.updateChildren(updateMap);
 
             String alertTitle = "종료";
             View ConnV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);
