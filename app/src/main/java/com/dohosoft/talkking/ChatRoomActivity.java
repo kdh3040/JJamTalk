@@ -41,6 +41,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -64,6 +65,7 @@ import java.util.Map;
 import gun0912.tedbottompicker.TedBottomPicker;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.dohosoft.talkking.Data.CoomonValueData.SEND_MSG_COST;
 import static com.dohosoft.talkking.MainActivity.mFragmentMng;
 import static com.dohosoft.talkking.MyProfileActivity.calculateInSampleSize;
 
@@ -871,37 +873,63 @@ public class ChatRoomActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         dialog_gal_gift.dismiss();
 
-                        CommonFunc.HeartGiftPopup_Change_End changeListener = new CommonFunc.HeartGiftPopup_Change_End()
-                        {
+                        CommonFunc.getInstance().ShowLoadingPage(ChatRoomActivity.this, "로딩중");
+
+                        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+                        Query data;
+                        if (mMyData.getUserGender().equals("여자")) {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+                        } else {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+                        }
+
+                        data.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void EndListener() {
-                                startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                CommonFunc.getInstance().DismissLoadingPage();
+                                int tempValue = dataSnapshot.getValue(int.class);
+                                mMyData.setUserHoney(tempValue);
+
+                                CommonFunc.HeartGiftPopup_Change_End changeListener = new CommonFunc.HeartGiftPopup_Change_End()
+                                {
+                                    @Override
+                                    public void EndListener() {
+                                        startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                                    }
+                                };
+                                CommonFunc.HeartGiftPopup_Send_End sendListener = new CommonFunc.HeartGiftPopup_Send_End()
+                                {
+                                    @Override
+                                    public void EndListener(int heartCount, String msg) {
+
+                                        mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
+                                        mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
+                                        mMyData.makeCardList(stTargetData);
+                                        mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
+
+                                        mMyData.setSendHoneyCnt(heartCount);
+                                        mMyData.makeFanList(ChatRoomActivity.this, stTargetData, heartCount, msg);
+
+                                        long nowTime = CommonFunc.getInstance().GetCurrentTime();
+
+                                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, msg, nowTime, "", 0, heartCount);
+
+                                        if(msg.equals(""))
+                                            msg = mMyData.getUserNick() + "님이 " + heartCount + " 하트를 보냈습니다";
+                                        mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, msg, nowTime, heartCount);
+                                        mRef.push().setValue(chat_Data);
+                                    }
+                                };
+                                CommonFunc.getInstance().HeartGiftPopup(ChatRoomActivity.this, stTargetData.Idx, changeListener, sendListener);
                             }
-                        };
-                        CommonFunc.HeartGiftPopup_Send_End sendListener = new CommonFunc.HeartGiftPopup_Send_End()
-                        {
+
                             @Override
-                            public void EndListener(int heartCount, String msg) {
+                            public void onCancelled(DatabaseError databaseError) {
 
-                                mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
-                                mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
-                                mMyData.makeCardList(stTargetData);
-                                mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
-
-                                mMyData.setSendHoneyCnt(heartCount);
-                                mMyData.makeFanList(ChatRoomActivity.this, stTargetData, heartCount, msg);
-
-                                long nowTime = CommonFunc.getInstance().GetCurrentTime();
-
-                                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, msg, nowTime, "", 0, heartCount);
-
-                                if(msg.equals(""))
-                                    msg = mMyData.getUserNick() + "님이 " + heartCount + " 하트를 보냈습니다";
-                                mMyData.makeLastMSG(stTargetData, tempChatData.ChatRoomName, msg, nowTime, heartCount);
-                                mRef.push().setValue(chat_Data);
                             }
-                        };
-                        CommonFunc.getInstance().HeartGiftPopup(ChatRoomActivity.this, stTargetData.Idx, changeListener, sendListener);
+                        });
                     }
                 });
 

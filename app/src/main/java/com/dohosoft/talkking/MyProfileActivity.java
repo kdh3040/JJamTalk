@@ -32,7 +32,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -44,6 +49,8 @@ import com.dohosoft.talkking.Firebase.FirebaseData;
 import com.dohosoft.talkking.Util.CommonFunc;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import gun0912.tedbottompicker.TedBottomPicker;
 
@@ -747,7 +754,35 @@ public class MyProfileActivity extends AppCompatActivity {
                     if(tempChangeNickNameEnable)
                     {
                         mMyData.NickChangeCnt++;
-                        mMyData.setUserHoney(mMyData.getUserHoney() - saveChagneNickNameCost);
+
+                        CommonFunc.getInstance().ShowLoadingPage(MyProfileActivity.this, "로딩중");
+
+                        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                        Query data;
+                        if (mMyData.getUserGender().equals("여자")) {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+                        } else {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+                        }
+
+                        data.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                CommonFunc.getInstance().DismissLoadingPage();
+                                int tempValue = dataSnapshot.getValue(int.class);
+                                mMyData.setUserHoney(tempValue);
+
+                                mMyData.setUserHoney(mMyData.getUserHoney() - saveChagneNickNameCost);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
                     }
 
                     if(bChangeImg == false)

@@ -1901,4 +1901,33 @@ public class FirebaseData {
         myTable.updateChildren(updateMap);
     }
 
+    public void GetMyCoin(int cost) {
+
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+        Query data;
+        if(mMyData.getUserGender().equals("여자"))
+        {
+            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+        }
+        else
+        {
+            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+        }
+
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               int tempValue = dataSnapshot.getValue(int.class);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 }

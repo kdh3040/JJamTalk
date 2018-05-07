@@ -945,6 +945,7 @@ public class MainActivity extends AppCompatActivity {
             });
             btn_no.setVisibility(View.GONE);
 
+
             mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
             mMyData.setPoint(mUIData.getAdReward()[mMyData.getGrade()]);
 

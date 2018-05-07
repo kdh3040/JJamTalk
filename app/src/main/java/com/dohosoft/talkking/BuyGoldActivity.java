@@ -30,6 +30,11 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.dohosoft.talkking.Data.MyData;
 import com.dohosoft.talkking.Data.UIData;
 import com.dohosoft.talkking.Util.CommonFunc;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -543,10 +548,38 @@ public class BuyGoldActivity extends AppCompatActivity {
             nPrice = 15000;
         }
 
+        CommonFunc.getInstance().ShowLoadingPage(BuyGoldActivity.this, "로딩중");
 
-        mMyData.setUserHoney(mMyData.getUserHoney() +  nPrice);
-        mMyData.setPoint( nPrice);
-        refreshHearCnt();
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+        Query data;
+        if (mMyData.getUserGender().equals("여자")) {
+            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+        } else {
+            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+        }
+
+        final int finalNPrice = nPrice;
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                CommonFunc.getInstance().DismissLoadingPage();
+                int tempValue = dataSnapshot.getValue(int.class);
+                mMyData.setUserHoney(tempValue);
+
+                mMyData.setUserHoney(mMyData.getUserHoney() + finalNPrice);
+                mMyData.setPoint(finalNPrice);
+                refreshHearCnt();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     public void loadRewardedVideoAd(Context mContext) {

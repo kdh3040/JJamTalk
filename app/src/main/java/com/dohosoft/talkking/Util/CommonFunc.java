@@ -24,6 +24,7 @@ import android.support.v7.app.AlertDialog;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dohosoft.talkking.BuyGoldActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -1216,14 +1217,38 @@ public class CommonFunc {
                         int nCount = mMyData.itemList.get(result);
                         nCount--;
                         mMyData.itemList.put(result, nCount);
-                        mMyData.setUserHoney(mMyData.getUserHoney() + 4);
-                        mMyData.SetBestItem();
-                        mMyData.SaveMyItem(result, nCount);
-                        mMyData.refreshItemIdex();
-                        endListener.EndListener();
-                        dialog.dismiss();
 
+                        CommonFunc.getInstance().ShowLoadingPage(context, "로딩중");
+                        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                        Query data;
+                        if (mMyData.getUserGender().equals("여자")) {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+                        } else {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+                        }
 
+                        final int finalNCount = nCount;
+                        data.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                CommonFunc.getInstance().DismissLoadingPage();
+                                int tempValue = dataSnapshot.getValue(int.class);
+                                mMyData.setUserHoney(tempValue);
+
+                                mMyData.setUserHoney(mMyData.getUserHoney() + 4);
+                                mMyData.SetBestItem();
+                                mMyData.SaveMyItem(result, finalNCount);
+                                mMyData.refreshItemIdex();
+                                endListener.EndListener();
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 });
 
@@ -1300,12 +1325,40 @@ public class CommonFunc {
                         int nCount = mMyData.itemList.get(Index);
                         nCount--;
                         mMyData.itemList.put(Index, nCount);
-                        mMyData.setUserHoney(mMyData.getUserHoney() + 4);
-                        mMyData.SetBestItem();
-                        mMyData.SaveMyItem(Index, nCount);
-                        mMyData.refreshItemIdex();
-                        endListener.EndListener();
-                        dialog.dismiss();
+
+                        CommonFunc.getInstance().ShowLoadingPage(context, "로딩중");
+                        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                        Query data;
+                        if (mMyData.getUserGender().equals("여자")) {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+                        } else {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+                        }
+
+                        final int finalNCount = nCount;
+                        data.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                CommonFunc.getInstance().DismissLoadingPage();
+                                int tempValue = dataSnapshot.getValue(int.class);
+                                mMyData.setUserHoney(tempValue);
+
+                                mMyData.setUserHoney(mMyData.getUserHoney() + 4);
+                                mMyData.SetBestItem();
+                                mMyData.SaveMyItem(Index, finalNCount);
+                                mMyData.refreshItemIdex();
+                                endListener.EndListener();
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
                     }
                 });
 
@@ -1383,36 +1436,65 @@ public class CommonFunc {
 
                         dialog.cancel();
                         ShowLoadingPage(activity,"뽑기중");
-                        TimerTask mTask;
-                        Timer mTimer;
 
-                        mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
 
-                        mTask = new TimerTask() {
+
+                        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                        Query data;
+                        if (mMyData.getUserGender().equals("여자")) {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+                        } else {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+                        }
+
+                        data.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                CommonFunc.getInstance().DismissLoadingPage();
+                                int tempValue = dataSnapshot.getValue(int.class);
+                                mMyData.setUserHoney(tempValue);
+
+
+                                mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
+
+                                TimerTask mTask;
+                                Timer mTimer;
+
+                                mTask = new TimerTask() {
+
+                                    @Override
+                                    public void run() {
+
+                                        activity.runOnUiThread(new Runnable(){
+
+                                            public void run(){
+                                                for (int i = 0; i < count + bonus; i++) {
+                                                    BuyItemPopup(activity, endListener);
+
+                                                }
+
+                                                endListener.EndListener();
+                                                DismissLoadingPage();
+
+                                            }
+
+                                        });
+                                    }
+                                };
+
+                                mTimer = new Timer();
+
+                                mTimer.schedule(mTask, 500);
+                            }
 
                             @Override
-                            public void run() {
+                            public void onCancelled(DatabaseError databaseError) {
 
-                                activity.runOnUiThread(new Runnable(){
-
-                                    public void run(){
-                                        for (int i = 0; i < count + bonus; i++) {
-                                           BuyItemPopup(activity, endListener);
-
-                                        }
-
-                                        endListener.EndListener();
-                                        DismissLoadingPage();
-
-                                    }
-
-                                });
                             }
-                        };
+                        });
 
-                        mTimer = new Timer();
 
-                        mTimer.schedule(mTask, 2000);
                     }
                     else {
                         CommonFunc.getInstance().ShowToast(activity, "코인이 부족합니다.", false);

@@ -15,7 +15,13 @@ import android.widget.TextView;
 
 import com.dohosoft.talkking.Data.MyData;
 import com.dohosoft.talkking.Data.UIData;
+import com.dohosoft.talkking.Util.CommonFunc;
 import com.dohosoft.talkking.ViewHolder.MyJewelViewHolder;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by mjk on 2017-10-01.
@@ -84,20 +90,49 @@ public class MyPageMyJewelAdapter extends RecyclerView.Adapter<MyJewelViewHolder
                         @Override
                         public void onClick(View view) {
                             dialog.cancel();
-                            mMyData.setUserHoney(mMyData.getUserHoney() + nSellGold);
-                            mMyData.itemList.put(nSellIdx, --nSellCount[0]);
-                            mMyData.SaveMyItem(nSellIdx, nSellCount[0]);
-                            if(nSellCount[0] == 0) {
-                                mMyData.itemList.put(nSellIdx, 0);
-                                mMyData.nItemCount--;
+
+                            CommonFunc.getInstance().ShowLoadingPage(mActivity, "로딩중");
+
+                            FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                            Query data;
+                            if (mMyData.getUserGender().equals("여자")) {
+                                data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+                            } else {
+                                data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
                             }
 
-                            mMyData.refreshItemIdex();
-                            notifyDataSetChanged();
-                            Intent intent = new Intent(mActivity, MyJewelBoxActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            mActivity.startActivity(intent);
-                            mActivity.finish();
+                            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    CommonFunc.getInstance().DismissLoadingPage();
+                                    int tempValue = dataSnapshot.getValue(int.class);
+                                    mMyData.setUserHoney(tempValue);
+
+                                    mMyData.setUserHoney(mMyData.getUserHoney() + nSellGold);
+                                    mMyData.itemList.put(nSellIdx, --nSellCount[0]);
+                                    mMyData.SaveMyItem(nSellIdx, nSellCount[0]);
+                                    if(nSellCount[0] == 0) {
+                                        mMyData.itemList.put(nSellIdx, 0);
+                                        mMyData.nItemCount--;
+                                    }
+
+                                    mMyData.refreshItemIdex();
+                                    notifyDataSetChanged();
+                                    Intent intent = new Intent(mActivity, MyJewelBoxActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    mActivity.startActivity(intent);
+                                    mActivity.finish();
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+
                             //mActivity.overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
 
                             }

@@ -41,6 +41,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.dohosoft.talkking.Data.ChatData;
 import com.dohosoft.talkking.Data.CoomonValueData;
@@ -107,7 +108,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     private ImageButton btnShare;
     private ImageButton btnMessage;
-   // private Button btnPublicChat;
+    // private Button btnPublicChat;
 
     private ImageView imgProfile;
     private ImageView imgBestItem;
@@ -120,7 +121,7 @@ public class UserPageActivity extends AppCompatActivity {
     private UserData TempSendUserData = new UserData();
 
     private SwipeRefreshLayout refreshlayout;
-    private  TargetLikeAdapter likeAdapter;
+    private TargetLikeAdapter likeAdapter;
 
     private ImageButton btnFAB;
 
@@ -142,16 +143,15 @@ public class UserPageActivity extends AppCompatActivity {
         });*/
 
         mMyData.SetCurFrag(0);
-        ic_fan =findViewById(R.id.ic_fan);
-        bg_fan= findViewById(R.id.bg_fan);
-        btnShare = (ImageButton)findViewById(R.id.UserPage_btnShared);
+        ic_fan = findViewById(R.id.ic_fan);
+        bg_fan = findViewById(R.id.bg_fan);
+        btnShare = (ImageButton) findViewById(R.id.UserPage_btnShared);
 
-        myjewelAdapter = new MyJewelAdapter(getApplicationContext(),mUIdata.getJewels());
+        myjewelAdapter = new MyJewelAdapter(getApplicationContext(), mUIdata.getJewels());
         mActivity = this;
 
-        Divider_memo = (ImageView)findViewById(R.id.divider_memo);
-        Divider_fan = (ImageView)findViewById(R.id.divider_fan);
-
+        Divider_memo = (ImageView) findViewById(R.id.divider_memo);
+        Divider_fan = (ImageView) findViewById(R.id.divider_fan);
 
 
         Intent intent = getIntent();
@@ -164,40 +164,38 @@ public class UserPageActivity extends AppCompatActivity {
         //getTargetfanData();
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
-        txtProfile.setText(stTargetData.NickName + "(" + stTargetData.Age+"세)");
+        txtProfile.setText(stTargetData.NickName + "(" + stTargetData.Age + "세)");
 
-        if(stTargetData.Gender.equals("여자"))
+        if (stTargetData.Gender.equals("여자"))
             txtProfile.setTextColor(TEXTCOLOR_WOMAN);
         else
             txtProfile.setTextColor(TEXTCOLOR_MAN);
 
         //View Divide_Memo = (View)findViewById(R.id.Divide_Memo);
         txtMemo = (TextView) findViewById(R.id.UserPage_txtMemo);
-        if(stTargetData.Memo == null || stTargetData.Memo.equals(""))
-        {
+        if (stTargetData.Memo == null || stTargetData.Memo.equals("")) {
             //Divide_Memo.setVisibility(View.GONE);
             txtMemo.setVisibility(View.GONE);
-        }
-        else
+        } else
             txtMemo.setText(stTargetData.Memo);
 
         txtDistance = (TextView) findViewById(R.id.UserPage_txtDistance);
 
-        double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stTargetData.Lat, stTargetData.Lon,"kilometer");
-        Log.d("Guide !!!! ", "Case 1 : "+ (int)Dist);
+        double Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stTargetData.Lat, stTargetData.Lon, "kilometer");
+        Log.d("Guide !!!! ", "Case 1 : " + (int) Dist);
 
 
-        if(Dist < 1.0)
+        if (Dist < 1.0)
             txtDistance.setText("1km");
         else
-            txtDistance.setText((int)Dist + "km");
+            txtDistance.setText((int) Dist + "km");
 
         //private TextView txtProfile;
 
         //tv_like = (TextView) findViewById(R.id.tv_like);
         //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
 
-        imgProfile = (ImageView)findViewById(R.id.UserPage_ImgProfile);
+        imgProfile = (ImageView) findViewById(R.id.UserPage_ImgProfile);
         //imgProfile.setLayoutParams(mUIdata.getRLP(1,0.6f));
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,14 +229,12 @@ public class UserPageActivity extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 
-        imgBestItem = (ImageView)findViewById(R.id.iv_item);
+        imgBestItem = (ImageView) findViewById(R.id.iv_item);
         imgBestItem.setVisibility(View.VISIBLE);
 
-        if(stTargetData.BestItem == 0)
-        {
+        if (stTargetData.BestItem == 0) {
             imgBestItem.setVisibility(View.GONE);
-        }
-        else
+        } else
             imgBestItem.setImageResource(mUIdata.getJewels()[stTargetData.BestItem]);
 
 
@@ -250,7 +246,7 @@ public class UserPageActivity extends AppCompatActivity {
         });*/
 
 
-        imgGrade = (ImageView)findViewById(R.id.iv_fan);
+        imgGrade = (ImageView) findViewById(R.id.iv_fan);
         imgGrade.setImageResource(mUIdata.getGrades()[stTargetData.Grade]);
 /*        Glide.with(getApplicationContext())
                 .load(stTargetData.BestItem)
@@ -275,9 +271,9 @@ if(mMyData.itemList.get(i) != 0)
         btnRegister = findViewById(R.id.UserPage_btnRegister);
         btnRegister.setImageResource(mMyData.IsCardList(stTargetData.Idx) ? R.drawable.favor_pressed : R.drawable.favor);
         //btnRegister.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
-        btnGiftHoney =  findViewById(R.id.UserPage_btnGiftHoney);
+        btnGiftHoney = findViewById(R.id.UserPage_btnGiftHoney);
         //btnGiftHoney.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
-        btnMessage =  findViewById(R.id.UserPage_btnMessage);
+        btnMessage = findViewById(R.id.UserPage_btnMessage);
 
 
         //btnMessage.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
@@ -324,6 +320,7 @@ if(mMyData.itemList.get(i) != 0)
             LayoutInflater inflater = LayoutInflater.from(mActivity);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
@@ -334,21 +331,14 @@ if(mMyData.itemList.get(i) != 0)
 
                     case R.id.UserPage_btnRegister:
 
-                        if(MOD_AddHotMember == true)
-                        {
+                        if (MOD_AddHotMember == true) {
                             CommonFunc.getInstance().AddHotMember(stTargetData);
                             CommonFunc.getInstance().ShowToast(UserPageActivity.this, "핫멤버로 등록 하였습니다.", true);
-                        }
-
-                        else
-                        {
-                            if(mMyData.IsCardList(stTargetData.Idx) == false)
-                            {
+                        } else {
+                            if (mMyData.IsCardList(stTargetData.Idx) == false) {
                                 CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기에 등록 하였습니다.", true);
                                 mMyData.makeCardList(stTargetData);
-                            }
-                            else
-                            {
+                            } else {
                                 CommonFunc.getInstance().ShowToast(UserPageActivity.this, "즐겨찾기를 취소 하였습니다.", true);
                                 mMyData.removeCardList(stTargetData);
                             }
@@ -356,8 +346,7 @@ if(mMyData.itemList.get(i) != 0)
 
                             Fragment frg = null;
                             frg = mFragmentMng.findFragmentByTag("CardListFragment");
-                            if(frg != null)
-                            {
+                            if (frg != null) {
                                 final FragmentTransaction ft = mFragmentMng.beginTransaction();
                                 ft.detach(frg);
                                 ft.attach(frg);
@@ -385,14 +374,11 @@ if(mMyData.itemList.get(i) != 0)
 
                         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
 
-                        if(MOD_AddHotMember == true)
-                        {
+                        if (MOD_AddHotMember == true) {
                             CommonFunc.getInstance().RemoveHotMember(stTargetData);
                             CommonFunc.getInstance().ShowToast(UserPageActivity.this, "핫멤버에서 삭제 하였습니다.", true);
-                        }
-                        else
-                        {
-                            int aaa= 0;
+                        } else {
+                            int aaa = 0;
                             // String subject = "회원님을 위한 특별한 이성을 발견했습니다.";
                             String text = "회원님을 위한 특별한 이성을 발견했습니다.\n톡킹에 로그인해 맘에 드는지 확인해보세요 \n" + CoomonValueData.getInstance().DownUrl;
 
@@ -408,76 +394,57 @@ if(mMyData.itemList.get(i) != 0)
                         break;
 
                     case R.id.UserPage_btnGiftHoney:
-                  /*      View v = LayoutInflater.from(context).inflate(R.layout.dialog_be_ranker, null, false);
 
+                        CommonFunc.getInstance().ShowLoadingPage(UserPageActivity.this, "로딩중");
 
+                        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
+                        Query data;
+                        if (mMyData.getUserGender().equals("여자")) {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+                        } else {
+                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+                        }
 
-                        AlertDialog dialogrank = new AlertDialog.Builder(context).setView(v).create();
-                        dialogrank.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                        dialogrank.show();*/
-
-
-
-                        CommonFunc.HeartGiftPopup_Change_End changeListener = new CommonFunc.HeartGiftPopup_Change_End()
-                        {
+                        data.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void EndListener() {
-                                startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
-                            }
-                        };
-                        CommonFunc.HeartGiftPopup_Send_End sendListener = new CommonFunc.HeartGiftPopup_Send_End()
-                        {
-                            @Override
-                            public void EndListener(int heartCount, String msg) {
-                                //mMyData.makeSendList(stTargetData, msg, heartCount);
-                                mMyData.makeCardList(stTargetData);
-                                mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
-                                mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
-                                mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
-                                mMyData.setSendHoneyCnt(heartCount);
-                                mMyData.makeFanList(mActivity, stTargetData, heartCount, msg);
+                            public void onDataChange(DataSnapshot dataSnapshot) {
 
+                                CommonFunc.getInstance().DismissLoadingPage();
+                                int tempValue = dataSnapshot.getValue(int.class);
+                                mMyData.setUserHoney(tempValue);
 
-                                RefreshFanData();
-                                likeAdapter.notifyDataSetChanged();
+                                CommonFunc.HeartGiftPopup_Change_End changeListener = new CommonFunc.HeartGiftPopup_Change_End() {
+                                    @Override
+                                    public void EndListener() {
+                                        startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                                    }
+                                };
+                                CommonFunc.HeartGiftPopup_Send_End sendListener = new CommonFunc.HeartGiftPopup_Send_End() {
+                                    @Override
+                                    public void EndListener(int heartCount, String msg) {
+                                        //mMyData.makeSendList(stTargetData, msg, heartCount);
+                                        mMyData.makeCardList(stTargetData);
+                                        mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
+                                        mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
+                                        mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
+                                        mMyData.setSendHoneyCnt(heartCount);
+                                        mMyData.makeFanList(mActivity, stTargetData, heartCount, msg);
 
-                              /*  Calendar cal = Calendar.getInstance();
-                                Date date = cal.getTime();
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-                                String formatStr = sdf.format(date);
+                                        RefreshFanData();
+                                        likeAdapter.notifyDataSetChanged();
 
-                                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(),  stTargetData.NickName, msg, formatStr, "", 0, heartCount);
-
-                                final String ChatName = mMyData.getUserIdx()+"_"+stTargetData.Idx;
-                                String ChatName1 = stTargetData.Idx + "_"+ mMyData.getUserIdx();
-                                DatabaseReference mRef;
-
-                                if(msg.equals(""))
-                                    msg = mMyData.getUserNick() + "님이 " + heartCount + " 하트를 보냈습니다";
-
-                                if(mMyData.arrChatNameList.contains(ChatName) ) {
-                                    mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
-
-                                    mMyData.makeLastMSG(stTargetData, ChatName, msg, formatStr, heartCount);
-
-                                }
-                                else     if(mMyData.arrChatNameList.contains(ChatName1) ) {
-                                    mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName1);
-                                    mMyData.makeLastMSG(stTargetData, ChatName1, msg, formatStr, heartCount);
-
-                                }
-                                else
-                                    mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
-
-
-
-                                mRef.push().setValue(chat_Data);*/
-
+                                    }
+                                };
+                                CommonFunc.getInstance().HeartGiftPopup(UserPageActivity.this, stTargetData.Idx, changeListener, sendListener);
 
                             }
-                        };
-                        CommonFunc.getInstance().HeartGiftPopup(UserPageActivity.this, stTargetData.Idx, changeListener, sendListener);
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
 
 
                         //ClickBtnSendHeart();
@@ -486,7 +453,7 @@ if(mMyData.itemList.get(i) != 0)
                     case R.id.UserPage_btnMessage:
 
                         int nSize = mMyData.arrBlockedDataList.size();
-                        int nBlockSize= mMyData.arrBlockDataList.size();
+                        int nBlockSize = mMyData.arrBlockDataList.size();
                         boolean bMsgBlock = false;
                         boolean bMsgBlocked = false;
 
@@ -520,29 +487,24 @@ if(mMyData.itemList.get(i) != 0)
 
                             final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-                            ConstraintLayout ll = (ConstraintLayout)giftView.findViewById(R.id.constraintLayout);
-                            ll.setOnClickListener(new View.OnClickListener()
-                            {
+                            ConstraintLayout ll = (ConstraintLayout) giftView.findViewById(R.id.constraintLayout);
+                            ll.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(View v)
-                                {
+                                public void onClick(View v) {
                                     imm.hideSoftInputFromWindow(Edit.getWindowToken(), 0);
                                 }
                             });
 
                             break;
-                        }
+                        } else {
 
-                        else
-                        {
-                            if(CommonFunc.getInstance().ShowBlockUser(UserPageActivity.this, stTargetData.Idx) == false)
-                            {
-                                final String ChatName = mMyData.getUserIdx()+"_"+stTargetData.Idx;
-                                String ChatName1 = stTargetData.Idx + "_"+ mMyData.getUserIdx();
 
-                                if(mMyData.arrChatNameList.contains(ChatName) )
-                                {
-                                    intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
+                            if (CommonFunc.getInstance().ShowBlockUser(UserPageActivity.this, stTargetData.Idx) == false) {
+                                final String ChatName = mMyData.getUserIdx() + "_" + stTargetData.Idx;
+                                String ChatName1 = stTargetData.Idx + "_" + mMyData.getUserIdx();
+
+                                if (mMyData.arrChatNameList.contains(ChatName)) {
+                                    intent = new Intent(getApplicationContext(), ChatRoomActivity.class);
                                     Bundle bundle = new Bundle();
 
                                     bundle.putSerializable("Target", stTargetData);
@@ -551,10 +513,8 @@ if(mMyData.itemList.get(i) != 0)
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                     //finish();
-                                }
-                                else if(mMyData.arrChatNameList.contains(ChatName1))
-                                {
-                                    intent = new Intent(getApplicationContext(),ChatRoomActivity.class);
+                                } else if (mMyData.arrChatNameList.contains(ChatName1)) {
+                                    intent = new Intent(getApplicationContext(), ChatRoomActivity.class);
                                     Bundle bundle = new Bundle();
 
                                     bundle.putSerializable("Target", stTargetData);
@@ -563,110 +523,165 @@ if(mMyData.itemList.get(i) != 0)
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                     //finish();
-                                }
+                                } else {
 
-                                else {
-                                    View view1;
 
-                                    view1 = inflater.inflate(R.layout.alert_send_msg_male, null);
+                                    CommonFunc.getInstance().ShowLoadingPage(UserPageActivity.this, "로딩중");
 
-                                    TextView CoinText = (TextView)view1.findViewById(R.id.coinText);
-                                    ImageView CoinImg = (ImageView)view1.findViewById(R.id.iv_Coin);
-                                    TextView CoinMine = (TextView)view1.findViewById(R.id.tv_myCoin);
-                                    TextView Coin = (TextView)view1.findViewById(R.id.ex);
+                                    fierBaseDataInstance = FirebaseDatabase.getInstance();
 
-                                    Button CoinCharge = (Button)view1.findViewById(R.id.HeartPop_Charge);
-
-                                    if(mMyData.getUserGender().equals("여자") && stTargetData.Gender.equals("남자"))
-                                    {
-                                        CoinText.setVisibility(View.GONE);
-                                        CoinImg.setVisibility(View.GONE);
-                                        CoinMine.setVisibility(View.GONE);
-                                        Coin.setVisibility(View.GONE);
-                                        CoinCharge.setVisibility(View.GONE);
-                                    }
-                                    else
-                                    {
-                                        CoinText.setVisibility(View.VISIBLE);
-                                        CoinImg.setVisibility(View.VISIBLE);
-                                        CoinMine.setVisibility(View.VISIBLE);
-                                        Coin.setVisibility(View.VISIBLE);
-                                        CoinCharge.setVisibility(View.VISIBLE);
-
-                                        CoinMine.setText(Integer.toString(mMyData.getUserHoney()));
+                                    if (mMyData.getUserGender().equals("여자")) {
+                                        data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+                                    } else {
+                                        data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
                                     }
 
 
-                                    Button btn_cancel = view1.findViewById(R.id.btn_cancel);
-                                    final EditText et_msg = view1.findViewById(R.id.et_nick);
-                                    Button btn_send = view1.findViewById(R.id.btn_send);
-                                    builder.setView(view1);
-
-                                    final AlertDialog msgDialog = builder.create();
-                                    msgDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                                    msgDialog.show();
-                                    btn_cancel.setOnClickListener(new View.OnClickListener() {
+                                    data.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
-                                        public void onClick(View view) {
-                                            msgDialog.dismiss();
-                                        }
-                                    });
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                    CoinCharge.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
-                                            msgDialog.dismiss();
-                                        }
-                                    });
+                                            CommonFunc.getInstance().DismissLoadingPage();
+                                            int tempValue = dataSnapshot.getValue(int.class);
+                                            mMyData.setUserHoney(tempValue);
 
+                                            View view1;
 
-                                    btn_send.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
+                                            view1 = inflater.inflate(R.layout.alert_send_msg_male, null);
 
-                                            if (mMyData.getUserHoney() < SEND_MSG_COST) {
-                                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "코인이 부족합니다", true);
+                                            TextView CoinText = (TextView) view1.findViewById(R.id.coinText);
+                                            ImageView CoinImg = (ImageView) view1.findViewById(R.id.iv_Coin);
+                                            TextView CoinMine = (TextView) view1.findViewById(R.id.tv_myCoin);
+                                            TextView Coin = (TextView) view1.findViewById(R.id.ex);
+
+                                            Button CoinCharge = (Button) view1.findViewById(R.id.HeartPop_Charge);
+
+                                            if (mMyData.getUserGender().equals("여자") && stTargetData.Gender.equals("남자")) {
+                                                CoinText.setVisibility(View.GONE);
+                                                CoinImg.setVisibility(View.GONE);
+                                                CoinMine.setVisibility(View.GONE);
+                                                Coin.setVisibility(View.GONE);
+                                                CoinCharge.setVisibility(View.GONE);
                                             } else {
-                                                String strMemo = et_msg.getText().toString();
-                                                strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
+                                                CoinText.setVisibility(View.VISIBLE);
+                                                CoinImg.setVisibility(View.VISIBLE);
+                                                CoinMine.setVisibility(View.VISIBLE);
+                                                Coin.setVisibility(View.VISIBLE);
+                                                CoinCharge.setVisibility(View.VISIBLE);
 
-                                                if (CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this, "쪽지 쓰기", true) == false)
-                                                    return;
-
-                                                if (strMemo == null || strMemo.equals("")) {
-                                                    return;
-                                                }
-
-                                                mNotiFunc.SendMSGToFCM(stTargetData, strMemo);
-                                                mMyData.setUserHoney(mMyData.getUserHoney() - SEND_MSG_COST);
-
-                                                boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString(), 0);
-
-                                                long nowTime = CommonFunc.getInstance().GetCurrentTime();
-                                                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), stTargetData.NickName, strMemo, nowTime, "", 0, 0);
-                                                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
-                                                mRef.push().setValue(chat_Data);
-
-                                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "쪽지를 보냈습니다.", true);
+                                                CoinMine.setText(Integer.toString(mMyData.getUserHoney()));
                                             }
 
-                                            msgDialog.dismiss();
 
+                                            Button btn_cancel = view1.findViewById(R.id.btn_cancel);
+                                            final EditText et_msg = view1.findViewById(R.id.et_nick);
+                                            Button btn_send = view1.findViewById(R.id.btn_send);
+                                            builder.setView(view1);
+
+                                            final AlertDialog msgDialog = builder.create();
+                                            msgDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                                            msgDialog.show();
+                                            btn_cancel.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    msgDialog.dismiss();
+                                                }
+                                            });
+
+                                            CoinCharge.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                                                    msgDialog.dismiss();
+                                                }
+                                            });
+
+
+                                            btn_send.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+
+                                                    CommonFunc.getInstance().ShowLoadingPage(UserPageActivity.this, "로딩중");
+
+                                                    FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+                                                    Query data;
+                                                    if (mMyData.getUserGender().equals("여자")) {
+                                                        data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+                                                    } else {
+                                                        data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+                                                    }
+
+                                                    data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                            CommonFunc.getInstance().DismissLoadingPage();
+                                                            int tempValue = dataSnapshot.getValue(int.class);
+                                                            mMyData.setUserHoney(tempValue);
+
+                                                            if (mMyData.getUserHoney() < SEND_MSG_COST) {
+                                                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "코인이 부족합니다", true);
+                                                            } else {
+                                                                String strMemo = et_msg.getText().toString();
+                                                                strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
+
+                                                                if (CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this, "쪽지 쓰기", true) == false)
+                                                                    return;
+
+                                                                if (strMemo == null || strMemo.equals("")) {
+                                                                    return;
+                                                                }
+
+                                                                mNotiFunc.SendMSGToFCM(stTargetData, strMemo);
+                                                                mMyData.setUserHoney(mMyData.getUserHoney() - SEND_MSG_COST);
+
+                                                                boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString(), 0);
+
+                                                                long nowTime = CommonFunc.getInstance().GetCurrentTime();
+                                                                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), stTargetData.NickName, strMemo, nowTime, "", 0, 0);
+                                                                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
+                                                                mRef.push().setValue(chat_Data);
+
+                                                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "쪽지를 보냈습니다.", true);
+                                                            }
+
+                                                            msgDialog.dismiss();
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(DatabaseError databaseError) {
+
+                                                        }
+                                                    });
+
+
+
+
+
+
+
+                                                }
+                                            });
+
+                                            final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                                            ConstraintLayout ll = (ConstraintLayout) view1.findViewById(R.id.constraintLayout);
+                                            ll.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    imm.hideSoftInputFromWindow(et_msg.getWindowToken(), 0);
+                                                }
+                                            });
                                         }
-                                    });
 
-                                    final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                                    ConstraintLayout ll = (ConstraintLayout)view1.findViewById(R.id.constraintLayout);
-                                    ll.setOnClickListener(new View.OnClickListener()
-                                    {
                                         @Override
-                                        public void onClick(View v)
-                                        {
-                                            imm.hideSoftInputFromWindow(et_msg.getWindowToken(), 0);
+                                        public void onCancelled(DatabaseError databaseError) {
+
                                         }
                                     });
+
+
                                 }
                             }
                         }
@@ -676,11 +691,9 @@ if(mMyData.itemList.get(i) != 0)
         };
 
 
-        final GestureDetector gestureDetector = new GestureDetector(UserPageActivity.this,new GestureDetector.SimpleOnGestureListener()
-        {
+        final GestureDetector gestureDetector = new GestureDetector(UserPageActivity.this, new GestureDetector.SimpleOnGestureListener() {
             @Override
-            public boolean onSingleTapUp(MotionEvent e)
-            {
+            public boolean onSingleTapUp(MotionEvent e) {
                 return true;
             }
         });
@@ -696,7 +709,7 @@ if(mMyData.itemList.get(i) != 0)
         //LinearLayout layout = (LinearLayout) findViewById(R.id.ll_fan);
         //View Divide_Fan = (View)findViewById(R.id.divide_fan);
 
-        if(stTargetData.arrFanList.size() == 0 && stTargetData.arrStarList.size() == 0 ) {
+        if (stTargetData.arrFanList.size() == 0 && stTargetData.arrStarList.size() == 0) {
             //layout.setVisibility(View.GONE);
             //Divide_Fan.setVisibility(View.GONE);
         }
@@ -706,14 +719,12 @@ if(mMyData.itemList.get(i) != 0)
         listView_like = (RecyclerView) findViewById(R.id.lv_like);
 
 
-
-        if(stTargetData.arrFanList.size() != 0)
-        {
+        if (stTargetData.arrFanList.size() != 0) {
             //tv_like = findViewById(R.id.tv_like);
             //tv_like.setText(stTargetData.NickName+"님을 좋아하는 사람들");
 
             likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData);
-            listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+            listView_like.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             bg_fan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -768,8 +779,7 @@ if(mMyData.itemList.get(i) != 0)
                 }
             });
 */
-        }
-        else {
+        } else {
             Divider_memo.setVisibility(View.GONE);
             Divider_fan.setVisibility(View.GONE);
 
@@ -779,8 +789,7 @@ if(mMyData.itemList.get(i) != 0)
         }
 
 
-
-        btnFAB = (ImageButton)findViewById(R.id.btnFAB);
+        btnFAB = (ImageButton) findViewById(R.id.btnFAB);
         btnFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -884,7 +893,7 @@ if(mMyData.itemList.get(i) != 0)
 
     public void getTargetfanData() {
 
-       // stTargetData.arrFanData.clear();
+        // stTargetData.arrFanData.clear();
 
         String strTargetIdx;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -895,8 +904,7 @@ if(mMyData.itemList.get(i) != 0)
         for (int i = 0; i < stTargetData.arrFanList.size(); i++) {
             strTargetIdx = stTargetData.arrFanList.get(i).Idx;
 
-            if (strTargetIdx != null)
-            {
+            if (strTargetIdx != null) {
 
                 final int finalI = i;
                 table.child(strTargetIdx).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -959,14 +967,13 @@ if(mMyData.itemList.get(i) != 0)
         }
     }*/
 
-    private void RefreshFanData()
-    {
+    private void RefreshFanData() {
         ic_fan.setVisibility(View.VISIBLE);
         listView_like.setVisibility(View.VISIBLE);
         bg_fan.setVisibility(View.VISIBLE);
 
         likeAdapter = new TargetLikeAdapter(getApplicationContext(), stTargetData);
-        listView_like.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        listView_like.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         bg_fan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -993,11 +1000,12 @@ if(mMyData.itemList.get(i) != 0)
             }
         });
     }
+
     private void RefreshData(final SwipeRefreshLayout refreshlayout) {
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference().child("User").child(stTargetData.Idx);
 
-       // Query query= ref.orderByChild(stTargetData.Idx);//키가 id와 같은걸 쿼리로 가져옴
+        // Query query= ref.orderByChild(stTargetData.Idx);//키가 id와 같은걸 쿼리로 가져옴
         ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -1054,11 +1062,8 @@ if(mMyData.itemList.get(i) != 0)
             android.app.AlertDialog alert = mDialog.create();
             alert.setTitle("안 내");
             alert.show();
-        }
-
-        else
-        {
-            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+        } else {
+            if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
                 mMyData.badgecount = pref.getInt("Badge", 1);
