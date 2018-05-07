@@ -90,8 +90,8 @@ public class CoomonValueData  {
     public boolean MOD_AddHotMember = false;
     public boolean MOD_Notification = false;
 
-    public static int REWARD_NEW = 1000;
-    public static int REWARD_DAY = 300;
+    public static int REWARD_NEW = 50;
+    public static int REWARD_DAY = 30;
 
     //public String DATA_USERS = "Users";
     public String DATA_BOARD = "TestBoard";
