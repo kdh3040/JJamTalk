@@ -652,13 +652,48 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void GoProfilePage() {
-        Intent intent = new Intent(LoginActivity.this, InputProfile.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("Idx", rtStr);
-        intent.putExtras(bundle);
 
-        startActivity(intent);
-        finish();
+        CommonFunc.getInstance().ShowLoadingPage(LoginActivity.this, "로딩중");
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+        Query data;
+        data = FirebaseDatabase.getInstance().getReference().child("UserIdx_History").child(mMyData.getUserIdx());
+
+
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                CommonFunc.getInstance().DismissLoadingPage();
+
+              String tempStr = dataSnapshot.getValue(String.class);
+
+                if (tempStr == null || tempStr.equals("")) {
+                    Intent intent = new Intent(LoginActivity.this, InputProfile.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Idx", rtStr);
+                    bundle.putSerializable("ReJoin", false);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(LoginActivity.this, InputProfile.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Idx", rtStr);
+                    bundle.putSerializable("ReJoin", true);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 
     private void SetBoardMyData() {

@@ -130,6 +130,8 @@ public class InputProfile extends AppCompatActivity {
     private Uri tempImgUri;
     private boolean bClickSave = false;
 
+    private boolean bRejoin = false;
+
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
         @Override
         protected void onPreExecute() {
@@ -610,6 +612,8 @@ public class InputProfile extends AppCompatActivity {
 
         final Bundle bundle = getIntent().getExtras();
         strIdx = (String) bundle.getSerializable("Idx");
+        bRejoin = (boolean) bundle.getSerializable("ReJoin");
+
 
         mMyData.setUserIdx(strIdx);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -1161,8 +1165,12 @@ public class InputProfile extends AppCompatActivity {
         final DatabaseReference UserIdx = table.child(mMyData.ANDROID_ID);
         UserIdx.setValue(strIdx);
 
-        mMyData.setUserHoney(REWARD_NEW);
-        mMyData.setPoint(REWARD_NEW);
+        if(bRejoin == false)
+        {
+            mMyData.setUserHoney(REWARD_NEW);
+            mMyData.setPoint(REWARD_NEW);
+        }
+
 
 
         mFireBaseData.SaveFirstMyData(mMyData.getUserIdx());

@@ -147,14 +147,17 @@ public class FirebaseData {
         data.removeValue();
 
         data = fierBaseDataInstance.getReference("UserIdx_History");
-        final DatabaseReference user = data;
-        user.push().child(Uid).setValue(Idx);
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put(Uid,Idx);
+        data.updateChildren(updateMap);
+
 
         data = fierBaseDataInstance.getReference("SimpleData").child(mMyData.getUserIdx());
         final DatabaseReference SimpleToken = data.child("Token");
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Token","0");
-        data.updateChildren(updateMap);
+        Map<String, Object> updateTokenMap = new HashMap<>();
+        updateTokenMap.put("Token","0");
+        data.updateChildren(updateTokenMap);
 
         CommonFunc.getInstance().UpdateValue(CoomonValueData.getInstance().DATA_SIMPLEDATA, mMyData.getUserGender(), Idx, updateMap);
         CommonFunc.getInstance().UpdateValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), Idx, updateMap);
@@ -163,14 +166,14 @@ public class FirebaseData {
         {
             data = fierBaseDataInstance.getReference("Users").child("Woman").child(mMyData.getUserIdx());
             final DatabaseReference UserToken = data.child("Token");
-            data.updateChildren(updateMap);
+            data.updateChildren(updateTokenMap);
             //UserToken.setValue("0");
         }
         else
         {
             data = fierBaseDataInstance.getReference("Users").child("Man").child(mMyData.getUserIdx());
             final DatabaseReference UserToken = data.child("Token");
-            data.updateChildren(updateMap);
+            data.updateChildren(updateTokenMap);
             //UserToken.setValue("0");
         }
     }
