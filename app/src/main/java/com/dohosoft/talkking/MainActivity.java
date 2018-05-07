@@ -923,14 +923,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             btn_no.setVisibility(View.GONE);
-            ConnDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface var1) {
-                    mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
-                    mMyData.setPoint(mUIData.getAdReward()[mMyData.getGrade()]);
-                }
 
-            });
+            mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
+            mMyData.setPoint(mUIData.getAdReward()[mMyData.getGrade()]);
 
             if (CoomonValueData.getInstance().Notice != null && !CoomonValueData.getInstance().Notice.equals("")) {
                 View NoticeV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);

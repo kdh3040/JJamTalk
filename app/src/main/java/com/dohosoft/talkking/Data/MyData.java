@@ -35,6 +35,7 @@ import com.dohosoft.talkking.Util.NotiFunc;
 
 import org.jsoup.select.Evaluator;
 
+import java.sql.Savepoint;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -573,6 +574,9 @@ public class MyData {
 
     public void setGrade(int nGrade) {
         Grade = nGrade;
+
+        FirebaseData.getInstance().SaveMyGrade();
+
     }
 
     public int getGrade() {
@@ -590,7 +594,7 @@ public class MyData {
 
     public void SetMyGrade() {
 
-        int nGrade = getPoint() / 100;
+        int nGrade = getPoint() / 1000;
 
         if (0 <= nGrade && nGrade < 2)
             setGrade(0);
@@ -598,11 +602,11 @@ public class MyData {
             setGrade(1);
         else if (3 <= nGrade && nGrade < 5)
             setGrade(2);
-        else if (5 <= nGrade && nGrade < 10)
+        else if (5 <= nGrade && nGrade < 20)
             setGrade(3);
-        else if (10 <= nGrade && nGrade < 20)
+        else if (20 <= nGrade && nGrade < 50)
             setGrade(4);
-        else if (20 <= nGrade)
+        else if (50 <= nGrade)
             setGrade(5);
     }
 
@@ -747,6 +751,8 @@ public class MyData {
 
     public void setUserHoney(int userHoney) {
         nHoney = userHoney;
+
+        FirebaseData.getInstance().SaveMyCoin();
     }
 
     public int getUserHoney() {
@@ -2674,44 +2680,52 @@ public class MyData {
         switch (idx) {
             case 1:
                 item_1 = count;
-                user.child("Item_1").setValue(item_1);
                 break;
             case 2:
                 item_2 = count;
-                user.child("Item_2").setValue(item_2);
                 break;
             case 3:
                 item_3 = count;
-                user.child("Item_3").setValue(item_3);
                 break;
             case 4:
                 item_4 = count;
-                user.child("Item_4").setValue(item_4);
                 break;
             case 5:
                 item_5 = count;
-                user.child("Item_5").setValue(item_5);
                 break;
             case 6:
                 item_6 = count;
-                user.child("Item_6").setValue(item_6);
                 break;
             case 7:
                 item_7 = count;
-                user.child("Item_7").setValue(item_7);
                 break;
             case 8:
                 item_8 = count;
-                user.child("Item_8").setValue(item_8);
                 break;
 
         }
-        user.child("ItemCount").setValue(nItemCount);
-        user.child("BestItem").setValue(bestItem);
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("ItemCount", nItemCount);
+        updateMap.put("Item_1", item_1);
+        updateMap.put("Item_2", item_2);
+        updateMap.put("Item_3", item_3);
+        updateMap.put("Item_4", item_4);
+        updateMap.put("Item_5", item_5);
+        updateMap.put("Item_6", item_6);
+        updateMap.put("Item_7", item_7);
+        updateMap.put("Item_8", item_8);
+        updateMap.put("BestItem", bestItem);
+
+        user.updateChildren(updateMap);
 
         table = database.getReference("SimpleData");//.child(mMyData.getUserIdx());
         final DatabaseReference SimpleUser = table.child(getUserIdx());
-        SimpleUser.child("BestItem").setValue(bestItem);
+
+        Map<String, Object> updateSimpleMap = new HashMap<>();
+        updateSimpleMap.put("ItemCount", nItemCount);
+        SimpleUser.updateChildren(updateSimpleMap);
+
     }
 
     public long getFanCount() {

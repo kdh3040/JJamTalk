@@ -42,7 +42,7 @@ public class UIData {
     private int grades[] = {R.drawable.rank_bronze,R.drawable.rank_silver,R.drawable.rank_gold,R.drawable.rank_diamond,R.drawable.rank_vip,R.drawable.rank_vvip};
     private int sellJewelValue[] = {4,4,4,4,4,4,4,4};
     private int genderIcon[] = {R.drawable.rank_bronze, R.drawable.rank_silver};
-    private int ad_Reward[] = {10,15,20,25,30,35};
+    private int ad_Reward[] = {300,315,320,325,330,335};
 
     private LinearLayout.LayoutParams llp_ListItem;
     public boolean bSellItemStatus = false;

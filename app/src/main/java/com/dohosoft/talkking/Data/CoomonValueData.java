@@ -61,6 +61,7 @@ public class CoomonValueData  {
     public static boolean OFFAPP = true;
 
     public static int CHANGE_NICK_NAME_COST = 50;
+    public static int SEND_MSG_COST = 80;
 
     public static boolean bMySet_DownUrl = false;
     public static  boolean bMySet_Image = false;
@@ -88,6 +89,8 @@ public class CoomonValueData  {
     public boolean MOD_AddHotMember = false;
     public boolean MOD_Notification = false;
 
+    public static int REWARD_NEW = 1000;
+    public static int REWARD_DAY = 300;
 
     //public String DATA_USERS = "Users";
     public String DATA_BOARD = "TestBoard";

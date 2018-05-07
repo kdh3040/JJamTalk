@@ -1849,14 +1849,56 @@ public class FirebaseData {
 
         if(mMyData.getUserGender().equals("여자"))
         {
-            myTable.child("Woman").child(MyData.getInstance().getUserIdx()).child("LastAdsTime");
+            myTable = myTable.child("Woman").child(MyData.getInstance().getUserIdx());
         }
         else
         {
-            myTable.child("Man").child(MyData.getInstance().getUserIdx()).child("LastAdsTime");
+            myTable = myTable.child("Man").child(MyData.getInstance().getUserIdx());
         }
 
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("LastAdsTime", Long.valueOf(time));
+        myTable.updateChildren(updateMap);
 
-        myTable.setValue(Long.valueOf(time));
     }
+
+    public void SaveMyGrade() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        DatabaseReference myTable = database.getReference("Users");
+
+        if(mMyData.getUserGender().equals("여자"))
+        {
+            myTable = myTable.child("Woman").child(MyData.getInstance().getUserIdx());
+        }
+        else
+        {
+            myTable = myTable.child("Man").child(MyData.getInstance().getUserIdx());
+        }
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("Point",mMyData.getPoint());
+        updateMap.put("Grade",mMyData.getGrade());
+        myTable.updateChildren(updateMap);
+    }
+
+    public void SaveMyCoin() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        DatabaseReference myTable = database.getReference("Users");
+
+        if(mMyData.getUserGender().equals("여자"))
+        {
+            myTable = myTable.child("Woman").child(MyData.getInstance().getUserIdx());
+        }
+        else
+        {
+            myTable = myTable.child("Man").child(MyData.getInstance().getUserIdx());
+        }
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("Honey",mMyData.getUserHoney());
+        myTable.updateChildren(updateMap);
+    }
+
 }

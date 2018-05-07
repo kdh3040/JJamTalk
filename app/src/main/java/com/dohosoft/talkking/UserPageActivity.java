@@ -52,7 +52,10 @@ import com.dohosoft.talkking.Util.CommonFunc;
 import com.dohosoft.talkking.Util.LocationFunc;
 import com.dohosoft.talkking.Util.NotiFunc;
 
+import org.w3c.dom.Text;
+
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.dohosoft.talkking.Data.CoomonValueData.SEND_MSG_COST;
 import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_MAN;
 import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_WOMAN;
 import static com.dohosoft.talkking.MainActivity.mFragmentMng;
@@ -276,19 +279,7 @@ if(mMyData.itemList.get(i) != 0)
         //btnGiftHoney.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
         btnMessage =  findViewById(R.id.UserPage_btnMessage);
 
-        if(mMyData.getUserGender().equals("여자"))
-        {
-            if(stTargetData.Gender.equals(mMyData.getUserGender()))
-            {
-                btnMessage.setVisibility(View.GONE);
-            }
-            else
-                btnMessage.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            btnMessage.setVisibility(View.GONE);
-        }
+
         //btnMessage.setVisibility(stTargetData.Idx.equals(mMyData.getUserIdx()) ? View.GONE : View.VISIBLE);
 
 
@@ -578,10 +569,40 @@ if(mMyData.itemList.get(i) != 0)
                                 }
 
                                 else {
-                                    View view1 = inflater.inflate(R.layout.alert_send_msg, null);
+                                    View view1;
+
+                                    view1 = inflater.inflate(R.layout.alert_send_msg_male, null);
+
+                                    TextView CoinText = (TextView)view1.findViewById(R.id.coinText);
+                                    ImageView CoinImg = (ImageView)view1.findViewById(R.id.iv_Coin);
+                                    TextView CoinMine = (TextView)view1.findViewById(R.id.tv_myCoin);
+                                    TextView Coin = (TextView)view1.findViewById(R.id.ex);
+
+                                    Button CoinCharge = (Button)view1.findViewById(R.id.HeartPop_Charge);
+
+                                    if(mMyData.getUserGender().equals("여자") && stTargetData.Gender.equals("남자"))
+                                    {
+                                        CoinText.setVisibility(View.GONE);
+                                        CoinImg.setVisibility(View.GONE);
+                                        CoinMine.setVisibility(View.GONE);
+                                        Coin.setVisibility(View.GONE);
+                                        CoinCharge.setVisibility(View.GONE);
+                                    }
+                                    else
+                                    {
+                                        CoinText.setVisibility(View.VISIBLE);
+                                        CoinImg.setVisibility(View.VISIBLE);
+                                        CoinMine.setVisibility(View.VISIBLE);
+                                        Coin.setVisibility(View.VISIBLE);
+                                        CoinCharge.setVisibility(View.VISIBLE);
+
+                                        CoinMine.setText(Integer.toString(mMyData.getUserHoney()));
+                                    }
+
+
                                     Button btn_cancel = view1.findViewById(R.id.btn_cancel);
                                     final EditText et_msg = view1.findViewById(R.id.et_nick);
-
+                                    Button btn_send = view1.findViewById(R.id.btn_send);
                                     builder.setView(view1);
 
                                     final AlertDialog msgDialog = builder.create();
@@ -593,35 +614,41 @@ if(mMyData.itemList.get(i) != 0)
                                             msgDialog.dismiss();
                                         }
                                     });
-                                    Button btn_send = view1.findViewById(R.id.btn_send);
+
 
 
                                     btn_send.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
 
-                                            String strMemo = et_msg.getText().toString();
-                                            strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
+                                            if (mMyData.getUserHoney() < SEND_MSG_COST) {
+                                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "코인이 부족합니다", true);
+                                            } else {
+                                                String strMemo = et_msg.getText().toString();
+                                                strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
 
-                                            if (CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this, "쪽지 쓰기", true) == false)
-                                                return;
+                                                if (CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this, "쪽지 쓰기", true) == false)
+                                                    return;
 
-                                            if (strMemo == null || strMemo.equals("")) {
-                                                return;
+                                                if (strMemo == null || strMemo.equals("")) {
+                                                    return;
+                                                }
+
+                                                mNotiFunc.SendMSGToFCM(stTargetData, strMemo);
+                                                mMyData.setUserHoney(mMyData.getUserHoney() - SEND_MSG_COST);
+
+                                                boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString(), 0);
+
+                                                long nowTime = CommonFunc.getInstance().GetCurrentTime();
+                                                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), stTargetData.NickName, strMemo, nowTime, "", 0, 0);
+                                                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
+                                                mRef.push().setValue(chat_Data);
+
+                                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "쪽지를 보냈습니다.", true);
                                             }
-
-                                            mNotiFunc.SendMSGToFCM(stTargetData, strMemo);
-                                            boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString(), 0);
-
-                                            long nowTime = CommonFunc.getInstance().GetCurrentTime();
-                                            ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), stTargetData.NickName, strMemo, nowTime, "", 0, 0);
-                                            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
-                                            mRef.push().setValue(chat_Data);
-
 
                                             msgDialog.dismiss();
 
-                                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "쪽지를 보냈습니다.", true);
                                         }
                                     });
 

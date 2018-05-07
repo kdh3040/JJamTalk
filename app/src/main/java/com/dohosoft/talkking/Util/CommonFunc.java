@@ -1386,6 +1386,8 @@ public class CommonFunc {
                         TimerTask mTask;
                         Timer mTimer;
 
+                        mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
+
                         mTask = new TimerTask() {
 
                             @Override
@@ -1394,7 +1396,6 @@ public class CommonFunc {
                                 activity.runOnUiThread(new Runnable(){
 
                                     public void run(){
-                                        mMyData.setUserHoney(mMyData.getUserHoney() - (CoomonValueData.OPEN_BOX_COST * count));
                                         for (int i = 0; i < count + bonus; i++) {
                                            BuyItemPopup(activity, endListener);
 

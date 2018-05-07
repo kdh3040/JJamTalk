@@ -81,6 +81,7 @@ import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.dohosoft.talkking.Data.CoomonValueData.REF_LAT;
 import static com.dohosoft.talkking.Data.CoomonValueData.REF_LON;
+import static com.dohosoft.talkking.Data.CoomonValueData.REWARD_NEW;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetHot;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetNear;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetNew;
@@ -1160,8 +1161,8 @@ public class InputProfile extends AppCompatActivity {
         final DatabaseReference UserIdx = table.child(mMyData.ANDROID_ID);
         UserIdx.setValue(strIdx);
 
-        mMyData.setUserHoney(300);
-        mMyData.setPoint(300);
+        mMyData.setUserHoney(REWARD_NEW);
+        mMyData.setPoint(REWARD_NEW);
 
 
         mFireBaseData.SaveFirstMyData(mMyData.getUserIdx());
