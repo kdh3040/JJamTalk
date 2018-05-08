@@ -265,6 +265,11 @@ public class MyData {
 
     private Resources res;
 
+    public long UnityAdsTime;
+    public long AdColonyAdsTime;
+    public long AdSyncAdsTime;
+    public long AdmobAdsTime;
+
     private MyData() {
         strUid = null;
         strImg = null;
@@ -315,6 +320,11 @@ public class MyData {
         NewDateRef = 0;
         FanCountRef = 0;
         NearDistanceRef = 0.0d;
+
+        UnityAdsTime = 0;
+        AdColonyAdsTime= 0;
+        AdSyncAdsTime = 0;
+        AdmobAdsTime = 0;
     }
 
     public void Clear() {
@@ -2895,6 +2905,7 @@ public class MyData {
 
         return rtValue;
     }
+
 
     public ArrayList<UserData> SortData_UAge(ArrayList<UserData> arrData, int Start, int End) {
         ArrayList<UserData> rtData = new ArrayList<UserData>();

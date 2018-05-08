@@ -956,7 +956,7 @@ public class CommonFunc {
     }
 
     // 현재 시간이 지정한 시간보다 지났나?
-    public boolean IsCurrentDateCompare(Date pastDate, int offsetMin) {
+    public boolean IsCurrentDateCompare(Date pastDate, int offsetMin, int offsetType) {
         if (pastDate.equals(new Date(0)))
             return true;
 
@@ -967,7 +967,11 @@ public class CommonFunc {
             else
                 return false;
         } else {
-            Date compareDate = new Date(pastDate.getTime() + offsetMin * CoomonValueData.MIN_MILLI_SECONDS);
+            Date compareDate = null;
+            if(offsetType == 0)
+                compareDate = new Date(pastDate.getTime() + offsetMin * CoomonValueData.MIN_MILLI_SECONDS);
+            else if(offsetType ==1 )
+                compareDate = new Date(pastDate.getTime() + offsetMin * CoomonValueData.SEC_MILLI_SECONDS);
 
             if (currentDate.compareTo(compareDate) > 0)
                 return true;
@@ -975,6 +979,7 @@ public class CommonFunc {
                 return false;
         }
     }
+
 
     // 미래의 시간이 얼마나 남았는지 보여주는 함수
     public String GetRemainTimeByFuture(Date futureTime, boolean secView)
@@ -2017,6 +2022,7 @@ public class CommonFunc {
 
 
 
+
     private void SortByChatDate()
     {
         Map<String, SimpleChatData> tempDataMap = new LinkedHashMap<String, SimpleChatData>(mMyData.arrChatDataList);
@@ -2182,6 +2188,23 @@ public class CommonFunc {
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("HotMemberIdx");//.child(mMyData.getUserIdx());
+        DatabaseReference user;
+        if(userData.Gender.equals("여자"))
+        {
+            user = table.child("Woman").child(userData.Idx);
+        }
+        else
+        {
+            user = table.child("Man").child(userData.Idx);
+        }
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put(userData.Idx, userData.Idx);
+        // user.push().setValue(updateMap);
+        user.updateChildren(updateMap);
+
+        /*
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("HotMember");//.child(mMyData.getUserIdx());
         DatabaseReference user;
         if(userData.Gender.equals("여자"))
@@ -2230,7 +2253,7 @@ public class CommonFunc {
         user.child("Item_5").setValue(userData.Item_5);
         user.child("Item_6").setValue(userData.Item_6);
         user.child("Item_7").setValue(userData.Item_7);
-        user.child("Item_8").setValue(userData.Item_8);
+        user.child("Item_8").setValue(userData.Item_8);*/
     }
 
     public void RemoveHotMember(UserData userData)
@@ -2400,6 +2423,18 @@ public class CommonFunc {
         user.updateChildren(updateMap);
 
         return rtValue;*/
+    }
+
+    public static class AscendingObj implements Comparator<UserData> {
+
+        @Override
+        public int compare(UserData o1, UserData o2) {
+            Object v1 = o1.ConnectDate;
+            Object v2 = o2.ConnectDate;
+
+            return ((Comparable) v1).compareTo(v2);
+        }
+
     }
 }
 

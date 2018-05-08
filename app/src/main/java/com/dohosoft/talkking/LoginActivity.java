@@ -39,6 +39,9 @@ import android.widget.TextView;
 import com.dohosoft.talkking.Data.FanData;
 import com.dohosoft.talkking.Data.SettingData;
 import com.dohosoft.talkking.Data.SimpleChatData;
+import com.fpang.lib.FpangSession;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
@@ -84,6 +87,7 @@ import java.util.UUID;
 import static com.dohosoft.talkking.Data.CoomonValueData.DEF_LAT;
 import static com.dohosoft.talkking.Data.CoomonValueData.DEF_LON;
 import static com.dohosoft.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
+import static com.dohosoft.talkking.Data.CoomonValueData.HOTMEMBER_LOAD_MAIN_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.dohosoft.talkking.Data.CoomonValueData.REF_LAT;
@@ -234,6 +238,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mActivity = this;
+
+
+
+          /*  mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/5818242350",
+                    new AdRequest.Builder().build());*/
+
+
+
+        //FpangSession.setDebug(true);
+      //  FpangSession.setUserId("Talkking");
 
        // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
@@ -910,7 +924,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if (stRecvData.Img == null)
                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
-
                             mMyData.setMyData(stRecvData.Uid, stRecvData.Idx, stRecvData.ImgCount, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3,
                                     stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvGold, stRecvData.Date,
                                     stRecvData.Memo, stRecvData.RecvMsgReject, stRecvData.PublicRoomStatus, stRecvData.PublicRoomName, stRecvData.PublicRoomLimit, stRecvData.PublicRoomTime,
@@ -1369,8 +1382,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            ref = FirebaseDatabase.getInstance().getReference().child("User");
-            Query query = ref.orderByChild("Idx").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            ref = FirebaseDatabase.getInstance().getReference().child("HotMember");
+            Query query = ref.child("Woman").orderByChild("Idx").limitToFirst(100);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -1382,266 +1395,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 if (cTempData != null && cTempData.Idx != null) {
                                     // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
                                     {
-                                        if (cTempData.Img == null)
-                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+                                        String tempIdx = cTempData.Idx;
 
-                                        mMyData.arrUserAll_Recv.add(cTempData);
-
-                                        for (LinkedHashMap.Entry<String, String> entry : cTempData.CardList.entrySet()) {
-                                            mMyData.arrUserAll_Recv.get(i).arrCardList.add(entry.getValue());
-                                        }
-
-                                        for (LinkedHashMap.Entry<String, FanData> entry : cTempData.FanList.entrySet()) {
-                                            mMyData.arrUserAll_Recv.get(i).arrFanList.add(entry.getValue());
-                                        }
-
-
-
-                                        for (LinkedHashMap.Entry<String, SimpleChatData> entry : cTempData.SendList.entrySet()) {
-                                            mMyData.arrUserAll_Recv.get(i).tempChatData.add(entry.getValue());
-                                        }
-
-                                        if (mMyData.arrUserAll_Recv.get(i).Gender.equals("여자")) {
-                                            mMyData.arrUserWoman_Recv.add(mMyData.arrUserAll_Recv.get(i));
-                                        } else {
-                                            mMyData.arrUserMan_Recv.add(mMyData.arrUserAll_Recv.get(i));
-                                        }
-
-
-                                        i++;
+                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                        DatabaseReference table = database.getReference("HotMemberIdx");//.child(mMyData.getUserIdx());
+                                        DatabaseReference user = table.child("Woman");
+                                        user.child(tempIdx).setValue(tempIdx);
                                     }
-
-                                }
-
-                            }
-
-
-                            // DatabaseReference user = table.child( userIdx);
-
-
-
-
-              /*              mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserWoman_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserWoman_Recv, mMyData.nStartAge, mMyData.nEndAge);
-                            mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
-
-*/
-                          //  FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        //    DatabaseReference table = database.getReference("HotMember");//.child(mMyData.getUserIdx());
-
-
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                           DatabaseReference table = database.getReference("HotMember");//.child(mMyData.getUserIdx());
-
-                            for(int a = 0; a<mMyData.arrUserWoman_Recv.size(); a++)
-                            {
-                               if(mMyData.arrUserWoman_Recv.get(a).Idx.equals("66") ||
-                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("90") ||
-                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("338") ||
-                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("356") ||
-                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("395") ||
-                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("705") ||
-                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("774") ||
-                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("778") ||
-                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("925") ||
-                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("966") ||
-                                        mMyData.arrUserWoman_Recv.get(a).Idx.equals("1079") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("1142") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("1172") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("1238") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("1322") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("1584") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("1689") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("1777") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("1832") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2028") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2036") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2100") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2113") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2194") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2260") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2329") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2406") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2504") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2581") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2601") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2712") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2827") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2883") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("2974") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("3198") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("3300") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("3486") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("3860") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("3924") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4033") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4113") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4164") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4175") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4209") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4289") ||
-                                       mMyData.arrUserWoman_Recv.get(a).Idx.equals("4297")
-
-                                      )
-                                {
-
-                                    // DatabaseReference user = table.child( userIdx);
-                                    DatabaseReference user = table.child("Woman").child(mMyData.arrUserWoman_Recv.get(a).Idx);
-                                    user.child("Age").setValue(mMyData.arrUserWoman_Recv.get(a).Age);
-                                    user.child("BestItem").setValue(mMyData.arrUserWoman_Recv.get(a).BestItem);
-                                    user.child("ConnectDate").setValue(-1 * mMyData.arrUserWoman_Recv.get(a).ConnectDate);
-                                    user.child("Date").setValue(mMyData.arrUserWoman_Recv.get(a).Date);
-                                    user.child("Dist").setValue(mMyData.arrUserWoman_Recv.get(a).Dist);
-                                    user.child("FanCount").setValue(mMyData.arrUserWoman_Recv.get(a).FanCount);
-
-                                    user.child("FanList").setValue(mMyData.arrUserWoman_Recv.get(a).FanList);
-                                    user.child("SendList").setValue(mMyData.arrUserWoman_Recv.get(a).SendList);
-
-
-                                    user.child("Gender").setValue(mMyData.arrUserWoman_Recv.get(a).Gender);
-                                    user.child("Grade").setValue(mMyData.arrUserWoman_Recv.get(a).Grade);
-                                    user.child("Honey").setValue(mMyData.arrUserWoman_Recv.get(a).Honey);
-                                    user.child("Idx").setValue(mMyData.arrUserWoman_Recv.get(a).Idx);
-                                    user.child("Img").setValue(mMyData.arrUserWoman_Recv.get(a).Img);
-                                    user.child("ImgCount").setValue(mMyData.arrUserWoman_Recv.get(a).ImgCount);
-                                    user.child("ImgGroup0").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup0);
-                                    user.child("ImgGroup1").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup1);
-                                    user.child("ImgGroup2").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup2);
-                                    user.child("ImgGroup3").setValue(mMyData.arrUserWoman_Recv.get(a).ImgGroup3);
-
-                                    user.child("Lat").setValue(mMyData.arrUserWoman_Recv.get(a).Lat);
-                                    user.child("Lon").setValue(mMyData.arrUserWoman_Recv.get(a).Lon);
-
-                                    user.child("NickChangeCnt").setValue(mMyData.arrUserWoman_Recv.get(a).NickChangeCnt);
-                                    user.child("NickName").setValue(mMyData.arrUserWoman_Recv.get(a).NickName);
-                                    user.child("Point").setValue(mMyData.arrUserWoman_Recv.get(a).Point);
-                                    user.child("RecvGold").setValue(mMyData.arrUserWoman_Recv.get(a).RecvGold);
-                                    user.child("RecvMsgReject").setValue(mMyData.arrUserWoman_Recv.get(a).RecvMsgReject);
-                                    user.child("SendCount").setValue(mMyData.arrUserWoman_Recv.get(a).SendCount);
-                                    user.child("Token").setValue(mMyData.arrUserWoman_Recv.get(a).Token);
-
-                                    user.child("CardList").setValue(mMyData.arrUserWoman_Recv.get(a).CardList);
-
-                                    user.child("ItemCount").setValue(mMyData.arrUserWoman_Recv.get(a).ItemCount);
-                                    user.child("Item_1").setValue(mMyData.arrUserWoman_Recv.get(a).Item_1);
-                                    user.child("Item_2").setValue(mMyData.arrUserWoman_Recv.get(a).Item_2);
-                                    user.child("Item_3").setValue(mMyData.arrUserWoman_Recv.get(a).Item_3);
-                                    user.child("Item_4").setValue(mMyData.arrUserWoman_Recv.get(a).Item_4);
-                                    user.child("Item_5").setValue(mMyData.arrUserWoman_Recv.get(a).Item_5);
-                                    user.child("Item_6").setValue(mMyData.arrUserWoman_Recv.get(a).Item_6);
-                                    user.child("Item_7").setValue(mMyData.arrUserWoman_Recv.get(a).Item_7);
-                                    user.child("Item_8").setValue(mMyData.arrUserWoman_Recv.get(a).Item_8);
-                                }
-
-                            }
-
-
-                            for(int a = 0; a<mMyData.arrUserMan_Recv.size(); a++)
-                            {
-
-
-
-
-
-                               if(mMyData.arrUserMan_Recv.get(a).Idx.equals("116") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("191") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("325") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("439") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1038") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1131") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1145") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1148") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1332") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1445") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1538") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1613") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1811") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1812") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1840") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1841") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1879") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1896") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1954") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("1966") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2030") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2105") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2162") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2186") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2192") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2229") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2238") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2248") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2283") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2590") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2608") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2630") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2643") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2861") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2910") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2947") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2972") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("2991") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3037") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3055") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3077") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3081") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3090") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3122") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3216") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3349") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3394") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3876") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("3997") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("4050") ||
-                                       mMyData.arrUserMan_Recv.get(a).Idx.equals("4071") )
-                                {
-
-                                    // DatabaseReference user = table.child( userIdx);
-                                    DatabaseReference user = table.child("Man").child(mMyData.arrUserMan_Recv.get(a).Idx);
-                                    user.child("Age").setValue(mMyData.arrUserMan_Recv.get(a).Age);
-                                    user.child("BestItem").setValue(mMyData.arrUserMan_Recv.get(a).BestItem);
-                                    user.child("ConnectDate").setValue(mMyData.arrUserMan_Recv.get(a).ConnectDate * -1);
-                                    user.child("Date").setValue(mMyData.arrUserMan_Recv.get(a).Date);
-                                    user.child("Dist").setValue(mMyData.arrUserMan_Recv.get(a).Dist);
-                                    user.child("FanCount").setValue(mMyData.arrUserMan_Recv.get(a).FanCount);
-
-                                    user.child("FanList").setValue(mMyData.arrUserMan_Recv.get(a).FanList);
-                                    user.child("SendList").setValue(mMyData.arrUserMan_Recv.get(a).SendList);
-
-
-                                    user.child("Gender").setValue(mMyData.arrUserMan_Recv.get(a).Gender);
-                                    user.child("Grade").setValue(mMyData.arrUserMan_Recv.get(a).Grade);
-                                    user.child("Honey").setValue(mMyData.arrUserMan_Recv.get(a).Honey);
-                                    user.child("Idx").setValue(mMyData.arrUserMan_Recv.get(a).Idx);
-                                    user.child("Img").setValue(mMyData.arrUserMan_Recv.get(a).Img);
-                                    user.child("ImgCount").setValue(mMyData.arrUserMan_Recv.get(a).ImgCount);
-                                    user.child("ImgGroup0").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup0);
-                                    user.child("ImgGroup1").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup1);
-                                    user.child("ImgGroup2").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup2);
-                                    user.child("ImgGroup3").setValue(mMyData.arrUserMan_Recv.get(a).ImgGroup3);
-
-                                    user.child("Lat").setValue(mMyData.arrUserMan_Recv.get(a).Lat);
-                                    user.child("Lon").setValue(mMyData.arrUserMan_Recv.get(a).Lon);
-
-                                    user.child("NickChangeCnt").setValue(mMyData.arrUserMan_Recv.get(a).NickChangeCnt);
-                                    user.child("NickName").setValue(mMyData.arrUserMan_Recv.get(a).NickName);
-                                    user.child("Point").setValue(mMyData.arrUserMan_Recv.get(a).Point);
-                                    user.child("RecvGold").setValue(mMyData.arrUserMan_Recv.get(a).RecvGold);
-                                    user.child("RecvMsgReject").setValue(mMyData.arrUserMan_Recv.get(a).RecvMsgReject);
-                                    user.child("SendCount").setValue(mMyData.arrUserMan_Recv.get(a).SendCount);
-                                    user.child("Token").setValue(mMyData.arrUserMan_Recv.get(a).Token);
-
-                                    user.child("CardList").setValue(mMyData.arrUserMan_Recv.get(a).CardList);
-
-                                    user.child("ItemCount").setValue(mMyData.arrUserMan_Recv.get(a).ItemCount);
-                                    user.child("Item_1").setValue(mMyData.arrUserMan_Recv.get(a).Item_1);
-                                    user.child("Item_2").setValue(mMyData.arrUserMan_Recv.get(a).Item_2);
-                                    user.child("Item_3").setValue(mMyData.arrUserMan_Recv.get(a).Item_3);
-                                    user.child("Item_4").setValue(mMyData.arrUserMan_Recv.get(a).Item_4);
-                                    user.child("Item_5").setValue(mMyData.arrUserMan_Recv.get(a).Item_5);
-                                    user.child("Item_6").setValue(mMyData.arrUserMan_Recv.get(a).Item_6);
-                                    user.child("Item_7").setValue(mMyData.arrUserMan_Recv.get(a).Item_7);
-                                    user.child("Item_8").setValue(mMyData.arrUserMan_Recv.get(a).Item_8);
                                 }
 
                             }
@@ -1651,6 +1411,39 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         public void onCancelled(DatabaseError databaseError) {
                         }
                     });
+
+
+            ref = FirebaseDatabase.getInstance().getReference().child("HotMember");
+            query = ref.child("Man").orderByChild("Idx").limitToFirst(100);//키가 id와 같은걸 쿼리로 가져옴
+            query.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            int i = 0;
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                UserData cTempData = new UserData();
+                                cTempData = fileSnapshot.getValue(UserData.class);
+                                if (cTempData != null && cTempData.Idx != null) {
+                                    // if (!cTempData.Idx.equals(mMyData.getUserIdx()))
+                                    {
+                                        String tempIdx = cTempData.Idx;
+
+                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                        DatabaseReference table = database.getReference("HotMemberIdx");//.child(mMyData.getUserIdx());
+                                        DatabaseReference user = table.child("Man");
+                                        user.child(tempIdx).setValue(tempIdx);
+                                    }
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+
             return 0;
         }
 
@@ -1680,52 +1473,95 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Integer doInBackground(Integer... integers) {
-            DatabaseReference ref;
 
             if(SettingData.getInstance().getnSearchSetting() == 1)
             {
-                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Man");
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMemberIdx").child("Man");
             }
             else
             {
-                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Woman");
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMemberIdx").child("Woman");
             }
 
-            Query query=ref.orderByChild("ConnectDate").limitToFirst(50);//키가 id와 같은걸 쿼리로 가져옴
+            Query query = ref.limitToLast(HOTMEMBER_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                UserData cTempData = new UserData();
-                                cTempData = fileSnapshot.getValue(UserData.class);
-                                if (cTempData != null && cTempData.Idx != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData,fileSnapshot.getKey()))
+                                String tempValue = fileSnapshot.getValue(String.class);
+
+                                if(tempValue != null || !tempValue.equals(""))
+                                {
+                                    i ++;
+                                    final DatabaseReference Hotref;
+                                    if(SettingData.getInstance().getnSearchSetting() == 1)
                                     {
-                                        if (cTempData.Img == null)
-                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                                        mMyData.arrUserAll_Hot.add(cTempData);
-
-                                        mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
-
-                                        i++;
+                                        Hotref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(tempValue);
                                     }
+                                    else
+                                    {
+                                        Hotref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(tempValue);
+                                    }
+
+
+                                    final int finalI = i;
+                                    Hotref.addListenerForSingleValueEvent(
+                                            new ValueEventListener() {
+
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    UserData stRecvData = new UserData();
+                                                    stRecvData = dataSnapshot.getValue(UserData.class);
+                                                    if (stRecvData != null) {
+                                                        if (stRecvData != null && stRecvData.Idx != null) {
+                                                            if (CommonFunc.getInstance().CheckUserData(stRecvData,dataSnapshot.getKey()))
+                                                            {
+                                                                if (stRecvData.Img == null)
+                                                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                                                mMyData.arrUserAll_Hot.add(stRecvData);
+
+                                                                mMyData.mapGenderData.put(stRecvData.Idx, stRecvData.Gender);
+
+                                                                if(mMyData.arrUserAll_Hot.size() == HOTMEMBER_LOAD_MAIN_COUNT)
+                                                                {
+
+                                                                    CommonFunc.AscendingObj ascending = new CommonFunc.AscendingObj();
+
+                                                                    Collections.sort(mMyData.arrUserAll_Hot, ascending);
+
+                                                                    mMyData.arrUserAll_Hot_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Hot, mMyData.nStartAge, mMyData.nEndAge);
+
+                                                                    bSetHot = true;
+                                                                    if (mMyData.arrUserAll_Hot.size() > 0)
+                                                                        mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size() - 1).Date;
+
+                                                                    if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
+
+                                                                        Log.d(TAG, "Account Log in  Complete");
+                                                                        CommonFunc.getInstance().GoMainPage(mActivity);
+                                                                    }
+                                                                }
+
+                                                            }
+                                                        }
+
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
                                 }
+
+
                             }
 
-                            mMyData.arrUserAll_Hot_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Hot, mMyData.nStartAge, mMyData.nEndAge);
 
-                            bSetHot = true;
-                            if (mMyData.arrUserAll_Hot.size() > 0)
-                                mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size() - 1).Date;
-
-                            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
-
-                                Log.d(TAG, "Account Log in  Complete");
-                                CommonFunc.getInstance().GoMainPage(mActivity);
-                            }
 
                         }
 
@@ -1733,17 +1569,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         public void onCancelled(DatabaseError databaseError) {
                         }
                     });
+
             return 0;
         }
 
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-            if (bSetHot == true && bSetNear == true && bSetNew == true && bSetRich == true && bSetRecv == true && bMySet == true && bMyLoc == true && bUpdate == true) {
 
-                Log.d(TAG, "Account Log in  Complete");
-                CommonFunc.getInstance().GoMainPage(mActivity);
-            }
         }
 
         @Override

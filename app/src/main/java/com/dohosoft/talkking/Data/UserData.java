@@ -275,4 +275,9 @@ public class UserData implements Serializable,Parcelable {
         parcel.writeInt(NickChangeCnt);
     }
 
+/*    public long getConnectDate() {
+        return ConnectDate;
+    }*/
+
+
 }

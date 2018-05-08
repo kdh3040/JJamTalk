@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.fpang.lib.FpangSession;
+import com.fpang.lib.SessionCallback;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -42,6 +45,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.unity3d.ads.IUnityAdsListener;
+import com.unity3d.ads.UnityAds;
+
+import static com.dohosoft.talkking.Data.CoomonValueData.REWARD_UNITY;
+
 /**
  * Created by mjk on 2017. 8. 4..
  */
@@ -52,16 +60,17 @@ public class BuyGoldActivity extends AppCompatActivity {
     private UIData mUIData = UIData.getInstance();
     private TextView tv_mycoin;
     private Button btn_10, btn_30, btn_50, btn_100, btn_300, btn_500, btn_1000;
-    private Button Free_1, Free_2;
+    private Button Free_Adcolony, Free_Unity, Free_AdMob, Free_AdSync;
     private Activity mActivity;
 
 
     ArrayList<HeartItem> list;
 
     private CommonFunc mCommon = CommonFunc.getInstance();
-
-
     private  Boolean bLoadAd = false;
+
+    private UnityAdsListener unityAdsListener = new UnityAdsListener();
+
 
 
     @Override
@@ -69,7 +78,6 @@ public class BuyGoldActivity extends AppCompatActivity {
         super.onDestroy();
         if (mMyData.mService != null) {
             unbindService(mMyData.mServiceConn);
-            mMyData.mRewardedVideoAd = null;
             mMyData.mServiceConn = null;
             mMyData.mService = null;
         }
@@ -126,6 +134,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
 
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +142,73 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         mActivity = this;
         mMyData.SetCurFrag(0);
+
+        UnityAds.initialize(BuyGoldActivity.this, "1793710", unityAdsListener, true );
+
+
+        FpangSession.init(BuyGoldActivity.this);
+        FpangSession.setUserId (mMyData.getUserIdx());
+
+        mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(BuyGoldActivity.this);
+        mMyData.mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+            @Override
+            public void onRewarded(RewardItem reward) {
+
+                CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "보상", mUIData.getAdReward()[mMyData.getGrade()] + "코인을 획득 하였습니다.");
+                mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
+                refreshHearCnt();
+
+                loadRewardedVideoAd();
+                // Reward the user.
+            }
+
+            @Override
+            public void onRewardedVideoAdLeftApplication() {
+                int aaa = 0;
+                aaa ++;
+            }
+
+            @Override
+            public void onRewardedVideoAdClosed() {
+                int aaa = 0;
+                aaa ++;
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int errorCode) {
+                int aaa = 0;
+                aaa ++;
+            }
+
+            @Override
+            public void onRewardedVideoAdLoaded() {
+                int aaa = 0;
+                aaa ++;
+            }
+
+            @Override
+            public void onRewardedVideoAdOpened() {
+                int aaa = 0;
+                aaa ++;
+            }
+
+            @Override
+            public void onRewardedVideoStarted() {
+                int aaa = 0;
+                aaa ++;
+            }
+        });
+
+
+        loadRewardedVideoAd();
+
+        /*mMyData.mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());*/
+
+/*        mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/3514842138",
+                new AdRequest.Builder().build());*/
+
+
 
         if(mMyData.mServiceConn == null) {
             mMyData.mServiceConn = new ServiceConnection() {
@@ -146,7 +222,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                                                IBinder service) {
                     mMyData.mService = IInAppBillingService.Stub.asInterface(service);
 
-                    loadRewardedVideoAd(getApplicationContext());
+                    //loadRewardedVideoAd(BuyGoldActivity.this);
 
                     try {
                         mMyData.skuDetails = mMyData.mService.getSkuDetails(3, getPackageName(), "inapp", mMyData.querySkus);
@@ -210,20 +286,21 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         mMyData.SetCurFrag(0);
 
-        Free_1 = (Button)findViewById(R.id.button14);
-        Free_1.setVisibility(View.GONE);
-        Free_1.setOnClickListener(new View.OnClickListener() {
+
+        Free_AdMob = (Button)findViewById(R.id.button14);
+        Free_AdMob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(mMyData.mRewardedVideoAd.isLoaded() == false)
                 {
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "한 시간에 한번만 충전 할 수 있습니다.");
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "광고 준비중입니다");
                 }
                 else
                 {
                     CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
                         public void YesListener() {
-                            if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastAdsTime()), 60) == false)
+                            if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastAdsTime()), 60, 0) == false)
                             {
                                 // TODO 환웅
                                 CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "한 시간에 한번만 충전 할 수 있습니다.");
@@ -239,6 +316,69 @@ public class BuyGoldActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Free_Adcolony = (Button)findViewById(R.id.button16);
+        Free_Adcolony.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+        Free_Unity = (Button)findViewById(R.id.button15);
+        Free_Unity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(!UnityAds.isReady("rewardedVideo"))
+                {
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "광고 준비중입니다");
+                }
+                else
+                {
+                    if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.UnityAdsTime), 30, 1) == false)
+                    {
+                        // TODO 환웅
+                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
+                        return;
+                    }
+                    else
+                    {
+                        CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                            public void YesListener() {
+
+                                mMyData.UnityAdsTime = CommonFunc.getInstance().GetCurrentTime();
+                                UnityAds.show(BuyGoldActivity.this, "rewardedVideo");
+
+                                //mMyData.mRewardedVideoAd.show();
+                            }
+                        };
+
+                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, null, "무료 코인 충전", "광고를 보시고 " + REWARD_UNITY +"코인을 획득 하시겠습니까?", "예", "아니요");
+                    }
+
+                }
+            }
+        });
+        Free_AdSync = (Button)findViewById(R.id.button17);
+        Free_AdSync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FpangSession.showAdsyncList (BuyGoldActivity.this,"무료골드");
+            }
+        });
+        FpangSession.withdrawUserPointTest (BuyGoldActivity.this, new SessionCallback(){
+            public void onResult(Context ctx, Object result) {
+                int point = (int)result;
+                if (point >= 0) {
+                    // mMyData.setUserHoney(mMyData.getUserHoney() + point);
+                    //setPoint(point);
+                }     else {
+                    Log.e("AdSync", "조회 오류");
+                }          // wait indicator 닫기
+            }
+        }, "Test");
+
 
         btn_10 = (Button)findViewById(R.id.btn_10);
         btn_10.setOnClickListener(new View.OnClickListener() {
@@ -295,36 +435,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                 BuyGoldByGoogle(getApplicationContext(),mMyData.skuGold[6]);
             }
         });
-
-
-        /*ServiceConnection mServiceConn = new_img ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-
-            }
-
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                //서비스 연결성공
-
-                mService = IInAppBillingService.Stub.asInterface(service);
-
-
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-
-                //서비스 연결해제
-
-                mService = null;
-
-            }
-        };//
-*/
-
     }
-
 
 
     public void refreshHearCnt()
@@ -582,63 +693,68 @@ public class BuyGoldActivity extends AppCompatActivity {
 
     }
 
-    public void loadRewardedVideoAd(Context mContext) {
-
-        if(mMyData.mRewardedVideoAd == null)
-        {
-            mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(mContext);
-            mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/3514842138",
-                    new AdRequest.Builder().build());
-          /*  mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/5818242350",
-                    new AdRequest.Builder().build());*/
-
-            loadRewardedVideoAd(mContext);
-        }
-        else
-        {
-            mMyData.mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-                @Override
-                public void onRewarded(RewardItem reward) {
-
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "보상", mUIData.getAdReward()[mMyData.getGrade()] + "코인을 획득 하였습니다.");
-                    mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
-                    refreshHearCnt();
-                    // Reward the user.
-                }
-
-                @Override
-                public void onRewardedVideoAdLeftApplication() {
-                    int aaa = 0;
-                }
-
-                @Override
-                public void onRewardedVideoAdClosed() {
-                    int aaa = 0;
-                }
-
-                @Override
-                public void onRewardedVideoAdFailedToLoad(int errorCode) {
-                    int aaa = 0;
-                }
-
-                @Override
-                public void onRewardedVideoAdLoaded() {
-                    int aaa = 0;
-                }
-
-                @Override
-                public void onRewardedVideoAdOpened() {
-                    int aaa = 0;
-                }
-
-                @Override
-                public void onRewardedVideoStarted() {
-                    int aaa = 0;
-                }
-            });
-        }
-
+    public void loadRewardedVideoAd() {
+        mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/3514842138",
+                new AdRequest.Builder().build());
 
     }
 
+
+    public class UnityAdsListener implements IUnityAdsListener{
+
+        @Override
+        public void onUnityAdsReady(String s) {
+
+
+        }
+
+        @Override
+        public void onUnityAdsStart(String s) {
+
+        }
+
+        @Override
+        public void onUnityAdsFinish(String s, UnityAds.FinishState finishState) {
+
+            if(finishState != UnityAds.FinishState.SKIPPED)
+            {
+
+                CommonFunc.getInstance().ShowLoadingPage(BuyGoldActivity.this, "로딩중");
+
+                FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+                Query data;
+                if (mMyData.getUserGender().equals("여자")) {
+                    data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+                } else {
+                    data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+                }
+
+                data.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        CommonFunc.getInstance().DismissLoadingPage();
+                        int tempValue = dataSnapshot.getValue(int.class);
+                        mMyData.setUserHoney(tempValue);
+
+                        mMyData.setUserHoney(mMyData.getUserHoney() + REWARD_UNITY);
+                        mMyData.setPoint(REWARD_UNITY);
+                        refreshHearCnt();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+        }
+
+        @Override
+        public void onUnityAdsError(UnityAds.UnityAdsError unityAdsError, String s) {
+
+        }
+    }
 }

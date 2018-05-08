@@ -76,6 +76,7 @@ import com.dohosoft.talkking.Firebase.FirebaseData;
 import com.dohosoft.talkking.Util.AppStatus;
 import com.dohosoft.talkking.Util.CommonFunc;
 import com.dohosoft.talkking.Util.LocationFunc;
+import com.unity3d.ads.UnityAds;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -424,6 +425,8 @@ public class MainActivity extends AppCompatActivity {
         mActivity = this;
         mContext = getApplicationContext();
 
+
+
         SharedPreferences MyDataPref = mContext.getSharedPreferences("MyData", mContext.MODE_PRIVATE);
         SharedPreferences.Editor MyDataEditor = MyDataPref.edit();
         MyDataEditor.putString("Gender",  mMyData.getUserGender());
@@ -596,7 +599,7 @@ public class MainActivity extends AppCompatActivity {
         CommonFunc.getInstance().Board_Write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastBoardWriteTime()), CoomonValueData.BOARD_WRITE_TIME_MIN) == false) {
+                if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastBoardWriteTime()), CoomonValueData.BOARD_WRITE_TIME_MIN, 0) == false) {
                     String Desc = CommonFunc.getInstance().GetRemainTimeByFuture(new Date(mMyData.GetLastBoardWriteTime() + (CoomonValueData.BOARD_WRITE_TIME_MIN * CoomonValueData.MIN_MILLI_SECONDS)), true);
                     CommonFunc.getInstance().ShowDefaultPopup(MainActivity.this, "게시판 작성", "도배방지를 위해 " + Desc + " 후에 글을 쓰실 수 있습니다.");
                 } else
@@ -887,7 +890,7 @@ public class MainActivity extends AppCompatActivity {
 
        // boolean bCheckConnt = mMyData.CheckConnectDate();
 
-         if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK)) {
+         if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK, 0)) {
 
             mMyData.ConnectDate = -1 * CommonFunc.getInstance().GetCurrentTime();
 
@@ -2186,5 +2189,7 @@ public class MainActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
         }
     }
+
+
 
 }

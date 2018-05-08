@@ -248,10 +248,50 @@
         android:background="@drawable/purple_btn_bg2"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="무료 충전하기"
+        android:layout_marginLeft="50dp"
+        android:text="애드몹"
         android:textColor="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button16"/>
+
+    <Button
+        android:id="@+id/button15"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/purple_btn_bg2"
+        android:paddingLeft="10dp"
+        android:layout_marginRight="50dp"
+        android:paddingRight="10dp"
+        android:text="유니티애즈"
+        android:textColor="@android:color/white"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button17"/>
+
+    <Button
+        android:id="@+id/button16"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/purple_btn_bg2"
+        android:paddingLeft="10dp"
+        android:layout_marginLeft="50dp"
+        android:paddingRight="10dp"
+        android:text="애드콜로니"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/bg_bot"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bg_bot" />
+        app:layout_constraintTop_toTopOf="@+id/bg_bot"/>
+
+    <Button
+        android:id="@+id/button17"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/purple_btn_bg2"
+        android:paddingLeft="10dp"
+        android:layout_marginRight="50dp"
+        android:paddingRight="10dp"
+        android:text="애드싱크"
+        android:textColor="@android:color/white"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bg_bot"
+        app:layout_constraintBottom_toBottomOf="@+id/bg_bot"/>
 </android.support.constraint.ConstraintLayout>

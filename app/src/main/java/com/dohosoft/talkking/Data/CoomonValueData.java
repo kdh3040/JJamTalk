@@ -6,6 +6,7 @@ package com.dohosoft.talkking.Data;
 
 public class CoomonValueData  {
     public static final long UNIQ_FANCOUNT = 10000000;
+    public static final int HOTMEMBER_LOAD_MAIN_COUNT = 50;
     public static final int FIRST_LOAD_MAIN_COUNT = 30;
     public static final int LOAD_MAIN_COUNT = 15;
 
@@ -92,6 +93,11 @@ public class CoomonValueData  {
 
     public static int REWARD_NEW = 50;
     public static int REWARD_DAY = 30;
+
+    public static int REWARD_UNITY = 1;
+    public static int REWARD_ADMOB = 50;
+    public static int REWARD_ADCOLONY = 50;
+    public static int REWARD_ADSYNC = 50;
 
     //public String DATA_USERS = "Users";
     public String DATA_BOARD = "TestBoard";
