@@ -85,6 +85,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/purple_stroke_btn_bg"
         android:text="삭제"
+        android:textColor="@color/baseColor"
         app:layout_constraintBottom_toBottomOf="@+id/confirm"
         app:layout_constraintLeft_toRightOf="@+id/confirm"
         app:layout_constraintRight_toRightOf="parent" />

@@ -194,6 +194,7 @@
         android:background="@drawable/purple_stroke_btn_bg"
         android:text="취소"
         android:textSize="18sp"
+        android:textColor="@color/baseColor"
         app:layout_constraintBottom_toBottomOf="@+id/btn_gift_send"
         app:layout_constraintLeft_toRightOf="@+id/btn_gift_send"
         app:layout_constraintRight_toLeftOf="@id/HeartPop_Charge" />
