@@ -92,9 +92,12 @@ public class CoomonValueData  {
     public boolean MOD_Notification = false;
 
 
-     public static String APP_ID = "appb1dde5c7745c4831ac";
+     public static String ADCOLONY_APP_ID = "appb1dde5c7745c4831ac";
      public static String ZONE_ID = "vz446c43de0bbc4d8191";
      public static String TAG = "AdColonyDemo";
+
+    public static String VUNGLE_APP_ID = "5af2a4f90ad26636322d18e2";
+    public static String VUNGLE_REFERENCE = "REWARD_2-3054297";
 
 
     public static int REWARD_NEW = 50;
@@ -103,7 +106,7 @@ public class CoomonValueData  {
     public static int REWARD_UNITY = 1;
     public static int REWARD_ADMOB = 1;
     public static int REWARD_ADCOLONY = 1;
-    public static int REWARD_ADSYNC = 50;
+    public static int REWARD_VUNGLE = 1;
 
     //public String DATA_USERS = "Users";
     public String DATA_BOARD = "TestBoard";

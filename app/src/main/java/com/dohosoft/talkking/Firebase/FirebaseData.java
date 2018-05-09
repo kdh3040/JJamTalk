@@ -549,6 +549,9 @@ public class FirebaseData {
         updateMap.put("NickChangeCnt",mMyData.NickChangeCnt);
         //user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
 
+        long time = CommonFunc.getInstance().GetCurrentTime();
+        user.child("ConnectDate").setValue(-1 * time);
+
         user.updateChildren(updateMap);
 
 

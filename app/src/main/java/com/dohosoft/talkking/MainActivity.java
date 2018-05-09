@@ -425,6 +425,7 @@ public class MainActivity extends AppCompatActivity {
         mActivity = this;
         mContext = getApplicationContext();
 
+        mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(MainActivity.this);
 
 
         SharedPreferences MyDataPref = mContext.getSharedPreferences("MyData", mContext.MODE_PRIVATE);
@@ -890,7 +891,7 @@ public class MainActivity extends AppCompatActivity {
 
        // boolean bCheckConnt = mMyData.CheckConnectDate();
 
-         if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK, 0)) {
+         /*if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK, 0)) {
 
             mMyData.ConnectDate = -1 * CommonFunc.getInstance().GetCurrentTime();
 
@@ -996,7 +997,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
 
-        }
+        }*/
 
         if (nStartByNew == 1) {
 

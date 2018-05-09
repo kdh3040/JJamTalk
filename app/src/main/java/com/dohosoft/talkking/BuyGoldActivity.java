@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.adcolony.sdk.AdColony;
@@ -53,16 +54,29 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import com.unity3d.ads.IUnityAdsListener;
 import com.unity3d.ads.UnityAds;
 
 import static com.dohosoft.talkking.Data.CoomonValueData.REWARD_ADCOLONY;
 import static com.dohosoft.talkking.Data.CoomonValueData.REWARD_ADMOB;
+import static com.dohosoft.talkking.Data.CoomonValueData.REWARD_VUNGLE;
+import static com.dohosoft.talkking.Data.CoomonValueData.VUNGLE_APP_ID;
+import static com.dohosoft.talkking.Data.CoomonValueData.VUNGLE_REFERENCE;
 import static com.dohosoft.talkking.Data.CoomonValueData.ZONE_ID;
-import static com.dohosoft.talkking.Data.CoomonValueData.APP_ID;
+import static com.dohosoft.talkking.Data.CoomonValueData.ADCOLONY_APP_ID;
 import static com.dohosoft.talkking.Data.CoomonValueData.REWARD_UNITY;
+
+import com.vungle.warren.Vungle;
+import com.vungle.warren.AdConfig;        // Custom ad configurations
+import com.vungle.warren.InitCallback;    // Initialization callback
+import com.vungle.warren.LoadAdCallback;  // Load ad callback
+import com.vungle.warren.PlayAdCallback;  // Play ad callback
+import com.vungle.warren.VungleNativeAd;  // Flex-Feed ad
+
 
 /**
  * Created by mjk on 2017. 8. 4..
@@ -74,7 +88,7 @@ public class BuyGoldActivity extends AppCompatActivity {
     private UIData mUIData = UIData.getInstance();
     private TextView tv_mycoin;
     private Button btn_10, btn_30, btn_50, btn_100, btn_300, btn_500, btn_1000;
-    private Button Free_Adcolony, Free_Unity, Free_AdMob, Free_AdSync;
+    private Button Free_Adcolony, Free_Unity, Free_AdMob, Free_Vungle;
     private Activity mActivity;
 
 
@@ -88,7 +102,20 @@ public class BuyGoldActivity extends AppCompatActivity {
     private AdColonyInterstitialListener listener;
     private AdColonyAdOptions ad_options;
 
+    final String LOG_TAG = "VungleSampleApp";
 
+
+    private final List<String> placementsList =
+            Arrays.asList(VUNGLE_REFERENCE);//, "DYNAMIC_TEMPLATE_INTERSTITIAL-6969365", "FLEX_FEED-2416159");
+
+    private RelativeLayout flexfeed_container;
+    private VungleNativeAd vungleNativeAd;
+    private View nativeAdView;
+
+    //private AdConfig adConfig = new AdConfig();
+
+
+    private int index = 0;
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -165,14 +192,19 @@ public class BuyGoldActivity extends AppCompatActivity {
         mActivity = this;
         mMyData.SetCurFrag(0);
 
-        UnityAds.initialize(BuyGoldActivity.this, "1793710", unityAdsListener, true );
+        initSDK();
 
-        FpangSession.init(BuyGoldActivity.this);
-        FpangSession.setUserId (mMyData.getUserIdx());
+
+        mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/3514842138",
+                new AdRequest.Builder().build());
+
+
+        UnityAds.initialize(BuyGoldActivity.this, "1793710", unityAdsListener, false );
+
 
         AdColonyAppOptions app_options = new AdColonyAppOptions()
                 .setUserID( mMyData.getUserIdx());
-        AdColony.configure( this, app_options, CoomonValueData.getInstance().APP_ID, CoomonValueData.getInstance().ZONE_ID );
+        AdColony.configure( this, app_options, CoomonValueData.getInstance().ADCOLONY_APP_ID, CoomonValueData.getInstance().ZONE_ID );
 
         AdColonyUserMetadata metadata = new AdColonyUserMetadata()
                 .setUserAge( 26 )
@@ -270,7 +302,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         };
 
 
-        mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(BuyGoldActivity.this);
+
         mMyData.mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
             @Override
             public void onRewarded(RewardItem reward) {
@@ -355,7 +387,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         });
 
 
-        loadRewardedVideoAd();
+        //loadRewardedVideoAd();
 
         /*mMyData.mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
                 new AdRequest.Builder().build());*/
@@ -442,7 +474,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         mMyData.SetCurFrag(0);
 
 
-        Free_AdMob = (Button)findViewById(R.id.button14);
+        Free_AdMob = (Button)findViewById(R.id.button17);
         Free_AdMob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -476,15 +508,34 @@ public class BuyGoldActivity extends AppCompatActivity {
             }
         });
 
-        Free_Adcolony = (Button)findViewById(R.id.button16);
+        Free_Adcolony = (Button)findViewById(R.id.button15);
         Free_Adcolony.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ad.show();
+
+                if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.AdColonyAdsTime), 30, 1) == false)
+                {
+                    // TODO 환웅
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
+                    return;
+                }
+                else
+                {
+                    CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                        public void YesListener() {
+                            mMyData.UnityAdsTime = CommonFunc.getInstance().GetCurrentTime();
+                            ad.show();
+                        }
+                    };
+
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, null, "무료 코인 충전", "광고를 보시고 " + REWARD_ADCOLONY +"코인을 획득 하시겠습니까?", "예", "아니요");
+                }
+
+
 
             }
         });
-        Free_Unity = (Button)findViewById(R.id.button15);
+        Free_Unity = (Button)findViewById(R.id.button14);
         Free_Unity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -519,56 +570,44 @@ public class BuyGoldActivity extends AppCompatActivity {
                 }
             }
         });
-        Free_AdSync = (Button)findViewById(R.id.button17);
-        Free_AdSync.setOnClickListener(new View.OnClickListener() {
+        Free_Vungle = (Button)findViewById(R.id.button16);
+        Free_Vungle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FpangSession.showAdsyncList (BuyGoldActivity.this,"무료골드");
+               // FpangSession.showAdsyncList (BuyGoldActivity.this,"무료골드");
+
+
+                if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.VungleAdsTime), 30, 1) == false)
+                {
+                    // TODO 환웅
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
+                    return;
+                }
+                else
+                {
+                    CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                        public void YesListener() {
+                            mMyData.VungleAdsTime = CommonFunc.getInstance().GetCurrentTime();
+                            Vungle.setIncentivizedFields(mMyData.getUserIdx(),"RewardedTitle","RewardedBody","RewardedKeepWatching","RewardedClose");
+
+                            Vungle.playAd(VUNGLE_REFERENCE, null, vunglePlayAdCallback);
+                        }
+                    };
+
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, null, "무료 코인 충전", "광고를 보시고 " + REWARD_VUNGLE +"코인을 획득 하시겠습니까?", "예", "아니요");
+                }
+
+
+
+                /*adConfig.setBackButtonImmediatelyEnabled(true);
+                adConfig.setAutoRotate(true);
+                adConfig.setMuted(false);*/
+                // Optional settings for rewarded ads
+
+
+
             }
         });
-        FpangSession.withdrawUserPointTest (BuyGoldActivity.this, new SessionCallback(){
-            public void onResult(Context ctx, Object result) {
-                final int point = (int)result;
-                if (point >= 0) {
-
-                    CommonFunc.getInstance().ShowLoadingPage(BuyGoldActivity.this, "로딩중");
-
-                    FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
-
-                    Query data;
-                    if (mMyData.getUserGender().equals("여자")) {
-                        data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
-                    } else {
-                        data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
-                    }
-
-                    data.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                            CommonFunc.getInstance().DismissLoadingPage();
-                            int tempValue = dataSnapshot.getValue(int.class);
-                            mMyData.setUserHoney(tempValue);
-                            CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "보상", point + "코인을 획득 하였습니다.");
-                            mMyData.setUserHoney(mMyData.getUserHoney() + point);
-                            mMyData.setPoint(point);
-                            refreshHearCnt();
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-                    // mMyData.setUserHoney(mMyData.getUserHoney() + point);
-                    //setPoint(point);
-                }     else {
-                    Log.e("AdSync", "조회 오류");
-                }          // wait indicator 닫기
-            }
-        }, "Test");
 
 
         btn_10 = (Button)findViewById(R.id.btn_10);
@@ -890,6 +929,108 @@ public class BuyGoldActivity extends AppCompatActivity {
 
     }
 
+    private void initSDK() {
+        Vungle.init(placementsList, VUNGLE_APP_ID, getApplicationContext(), new InitCallback() {
+            @Override
+            public void onSuccess() {
+                Log.d(LOG_TAG, "InitCallback - onSuccess");
+
+                Vungle.loadAd(placementsList.get(index), vungleLoadAdCallback);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Log.d(LOG_TAG, "InitCallback - onError: " + throwable.getLocalizedMessage());
+            }
+
+            @Override
+            public void onAutoCacheAdAvailable(final String placementReferenceID) {
+                Log.d(LOG_TAG, "InitCallback - onAutoCacheAdAvailable" +
+                        "\n\tPlacement Reference ID = " + placementReferenceID);
+                // SDK will request auto cache placement ad immediately upon initialization
+                // This callback is triggered every time the auto-cached placement is available
+                // This is the best place to add your own listeners and propagate them to any UI logic bearing class
+                Free_Vungle.setEnabled(true);
+            }
+        });
+    }
+
+    private final PlayAdCallback vunglePlayAdCallback = new PlayAdCallback() {
+        @Override
+        public void onAdStart(final String placementReferenceID) {
+            Log.d(LOG_TAG, "PlayAdCallback - onAdStart" +
+                    "\n\tPlacement Reference ID = " + placementReferenceID);
+        }
+
+        @Override
+        public void onAdEnd(final String placementReferenceID, final boolean completed, final boolean isCTAClicked) {
+            Log.d(LOG_TAG, "PlayAdCallback - onAdEnd" +
+                    "\n\tPlacement Reference ID = " + placementReferenceID +
+                    "\n\tView Completed = " + completed + "" +
+                    "\n\tDownload Clicked = " + isCTAClicked);
+
+            CommonFunc.getInstance().ShowLoadingPage(BuyGoldActivity.this, "로딩중");
+
+            FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+            Query data;
+            if (mMyData.getUserGender().equals("여자")) {
+                data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+            } else {
+                data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+            }
+
+            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    CommonFunc.getInstance().DismissLoadingPage();
+                    int tempValue = dataSnapshot.getValue(int.class);
+                    mMyData.setUserHoney(tempValue);
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "보상", REWARD_VUNGLE + "코인을 획득 하였습니다.");
+                    mMyData.setUserHoney(mMyData.getUserHoney() + REWARD_VUNGLE);
+                    mMyData.setPoint(REWARD_VUNGLE);
+                    refreshHearCnt();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+        @Override
+        public void onError(final String placementReferenceID, Throwable throwable) {
+            Log.d(LOG_TAG, "PlayAdCallback - onError" +
+                    "\n\tPlacement Reference ID = " + placementReferenceID +
+            "\n\tError = " + throwable.getLocalizedMessage());
+
+            //checkInitStatus(throwable);
+        }
+    };
+
+    private final LoadAdCallback vungleLoadAdCallback = new LoadAdCallback() {
+        @Override
+        public void onAdLoad(final String placementReferenceID) {
+
+            Log.d(LOG_TAG,"LoadAdCallback - onAdLoad" +
+                    "\n\tPlacement Reference ID = " + placementReferenceID);
+
+
+            //setButtonState(load_buttons[placementsList.indexOf(placementReferenceID)], false);
+        }
+
+        @Override
+        public void onError(final String placementReferenceID, Throwable throwable) {
+            Log.d(LOG_TAG, "LoadAdCallback - onError" +
+                    "\n\tPlacement Reference ID = " + placementReferenceID +
+                    "\n\tError = " + throwable.getLocalizedMessage());
+
+            //checkInitStatus(throwable);
+        }
+    };
 
     public class UnityAdsListener implements IUnityAdsListener{
 
@@ -904,7 +1045,6 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         }
 
-        @Override
         public void onUnityAdsFinish(String s, UnityAds.FinishState finishState) {
 
             if(finishState != UnityAds.FinishState.SKIPPED)
@@ -948,4 +1088,6 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         }
     }
+
+
 }

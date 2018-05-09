@@ -267,7 +267,7 @@ public class MyData {
 
     public long UnityAdsTime;
     public long AdColonyAdsTime;
-    public long AdSyncAdsTime;
+    public long VungleAdsTime;
     public long AdmobAdsTime;
 
     private MyData() {
@@ -323,7 +323,7 @@ public class MyData {
 
         UnityAdsTime = 0;
         AdColonyAdsTime= 0;
-        AdSyncAdsTime = 0;
+        VungleAdsTime = 0;
         AdmobAdsTime = 0;
     }
 

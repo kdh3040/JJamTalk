@@ -15,8 +15,8 @@ android {
         applicationId "com.dohosoft.talkking"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 40
-        versionName "1.39"
+        versionCode 41
+        versionName "1.40"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -43,7 +43,13 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
     //compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
+    compile 'com.github.vungle:vungle-android-sdk:6.2.5'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
+
+    compile 'com.google.android.gms:play-services-basement:11.8.0'
+
+
+
     compile 'com.google.firebase:firebase-core:11.8.0'
     compile 'com.google.firebase:firebase-messaging:11.8.0'
     compile 'com.google.firebase:firebase-storage:11.8.0'
@@ -78,6 +84,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
     compile 'com.adcolony:sdk:3.3.3'
     implementation project(':unity-ads')
+
 }
 
 apply plugin: 'com.google.gms.google-services'

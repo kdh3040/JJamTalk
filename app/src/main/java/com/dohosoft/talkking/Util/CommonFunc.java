@@ -2442,6 +2442,8 @@ public class CommonFunc {
     {
         String rtValue = "";
 
+        return  rtValue;
+        /*
         date *= -1;
         Date FirstDate = new Date(date);
         Date SecondDate = GetCurrentDate();
@@ -2482,7 +2484,7 @@ public class CommonFunc {
         }
 
 
-        return rtValue;
+        return rtValue;*/
     }
 }
 
