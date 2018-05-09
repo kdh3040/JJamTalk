@@ -91,12 +91,18 @@ public class CoomonValueData  {
     public boolean MOD_AddHotMember = false;
     public boolean MOD_Notification = false;
 
+
+     public static String APP_ID = "appb1dde5c7745c4831ac";
+     public static String ZONE_ID = "vz446c43de0bbc4d8191";
+     public static String TAG = "AdColonyDemo";
+
+
     public static int REWARD_NEW = 50;
     public static int REWARD_DAY = 30;
 
     public static int REWARD_UNITY = 1;
-    public static int REWARD_ADMOB = 50;
-    public static int REWARD_ADCOLONY = 50;
+    public static int REWARD_ADMOB = 1;
+    public static int REWARD_ADCOLONY = 1;
     public static int REWARD_ADSYNC = 50;
 
     //public String DATA_USERS = "Users";

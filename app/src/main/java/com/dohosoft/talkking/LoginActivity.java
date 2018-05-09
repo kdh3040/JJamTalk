@@ -364,19 +364,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 @Override
                 public void onPermissionGranted() {
 
-                    //mLoginFormView = findViewById(R.id.login_form);
-                    //progressBar = findViewById(R.id.login_progress);
-
-
-                /*    gso = new_img GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                            .requestIdToken(getString(R.string.default_web_client_id))
-                            .requestEmail()
-                            .build();
-
-                    mGoogleApiClient = new_img GoogleApiClient.Builder(getApplicationContext())
-                            .enableAutoManage(this *//* FragmentActivity *//*, this *//* OnConnectionFailedListener *//*)
-                            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                            .build();*/
                     FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
                     Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
 
@@ -408,7 +395,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             };
 
-            new TedPermission(LoginActivity.this)
+            TedPermission.with(LoginActivity.this)
                     .setPermissionListener(permissionlistener)
                     .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                     .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE)
@@ -895,119 +882,92 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void InitData_Mine() {
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyData", getApplicationContext().MODE_PRIVATE);
-        String tempGender = pref.getString("Gender", "초기값");
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("GenderList");
+
+        table.child(mMyData.getUserIdx()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String tempValue = dataSnapshot.getValue(String.class);
+
+                if(tempValue.equals("여자"))
+                {
+                    ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx());
+                }
+                else  if(tempValue.equals("남자"))
+                {
+                    ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx());
+                }
+
+                //ref.addValueEventListener(
+                ref.addListenerForSingleValueEvent(
+                        new ValueEventListener() {
+
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                int i = 0;
+                                UserData stRecvData = new UserData();
+                                stRecvData = dataSnapshot.getValue(UserData.class);
+                                if (stRecvData != null) {
+
+                                    if (stRecvData.Img == null)
+                                        stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                    mMyData.setMyData(stRecvData.Uid, stRecvData.Idx, stRecvData.ImgCount, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3,
+                                            stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvGold, stRecvData.Date,
+                                            stRecvData.Memo, stRecvData.RecvMsgReject, stRecvData.PublicRoomStatus, stRecvData.PublicRoomName, stRecvData.PublicRoomLimit, stRecvData.PublicRoomTime,
+                                            stRecvData.ItemCount, stRecvData.Item_1, stRecvData.Item_2, stRecvData.Item_3, stRecvData.Item_4, stRecvData.Item_5, stRecvData.Item_6, stRecvData.Item_7, stRecvData.Item_8, stRecvData.BestItem,
+                                            stRecvData.Point, stRecvData.Grade, stRecvData.ConnectDate, stRecvData.LastBoardWriteTime, stRecvData.LastAdsTime, stRecvData.NickChangeCnt);
 
 
-        if(tempGender.equals("여자"))
-        {
-            ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx());
-        }
-        else  if(tempGender.equals("남자"))
-        {
-            ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx());
-        }
-        else
-            ref = FirebaseDatabase.getInstance().getReference().child("User").child(mMyData.getUserIdx());
+                                    mMyData.mapGenderData.put(mMyData.getUserIdx(), mMyData.getUserGender());
 
-        //ref.addValueEventListener(
-        ref.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
-                        UserData stRecvData = new UserData();
-                        stRecvData = dataSnapshot.getValue(UserData.class);
-                        if (stRecvData != null) {
-
-                            if (stRecvData.Img == null)
-                                stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                            mMyData.setMyData(stRecvData.Uid, stRecvData.Idx, stRecvData.ImgCount, stRecvData.Img, stRecvData.ImgGroup0, stRecvData.ImgGroup1, stRecvData.ImgGroup2, stRecvData.ImgGroup3,
-                                    stRecvData.NickName, stRecvData.Gender, stRecvData.Age, stRecvData.Honey, stRecvData.SendCount, stRecvData.RecvGold, stRecvData.Date,
-                                    stRecvData.Memo, stRecvData.RecvMsgReject, stRecvData.PublicRoomStatus, stRecvData.PublicRoomName, stRecvData.PublicRoomLimit, stRecvData.PublicRoomTime,
-                                    stRecvData.ItemCount, stRecvData.Item_1, stRecvData.Item_2, stRecvData.Item_3, stRecvData.Item_4, stRecvData.Item_5, stRecvData.Item_6, stRecvData.Item_7, stRecvData.Item_8, stRecvData.BestItem,
-                                    stRecvData.Point, stRecvData.Grade, stRecvData.ConnectDate, stRecvData.LastBoardWriteTime, stRecvData.LastAdsTime, stRecvData.NickChangeCnt);
-
-
-
-                      /*      for(LinkedHashMap.Entry<String, String> entry : stRecvData.ChatTargetList.entrySet()) {
-                                mMyData.arrMyChatTargetList.add(entry.getValue());
-                            }*/
-
-                         /*   for(LinkedHashMap.Entry<String, FanData> entry : stRecvData.FanList.entrySet()) {
-                                    mMyData.arrMyFanList.add(entry.getValue());
-                            }*/
-
-                            //mMyData.getFanList();
-
-                            // mMyData.nFanCount = mMyData.arrMyFanList.size();
-
-                            //mMyData.arrMyStarList = stRecvData.StarList;
-                        /*    for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.StarList.entrySet()) {
-                                StarData tempStarData = new_img StarData();
-                                tempStarData.Idx = entry.getValue().Idx;
-                                tempStarData.SendGold = entry.getValue().SendGold;
-                                mMyData.arrMyStarList.add(tempStarData);
-                                //mMyData.sortStarData();
-                            }*/
-
-               /*             for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.FanList.entrySet()) {
-                                FanData tempFanData = new_img FanData();
-                                tempFanData.Idx = entry.getValue().Idx;
-                                tempFanData.RecvGold = entry.getValue().RecvGold;
-                                mMyData.arrMyFanList.add(tempFanData);
-                                //mMyData.sortStarData();
-                            }
-*/
-
-                            mMyData.mapGenderData.put(mMyData.getUserIdx(), mMyData.getUserGender());
-
-                            for (LinkedHashMap.Entry<String, String> entry : stRecvData.CardList.entrySet()) {
-                                mMyData.arrCardNameList.add(entry.getValue());
-                                //mMyData.sortStarData();
-                            }
+                                    for (LinkedHashMap.Entry<String, String> entry : stRecvData.CardList.entrySet()) {
+                                        mMyData.arrCardNameList.add(entry.getValue());
+                                        //mMyData.sortStarData();
+                                    }
                             /*for(LinkedHashMap.Entry<String, SimpleUserData> entry : stRecvData.CardList.entrySet()) {
                                 mMyData.arrCardNameList.add(entry.getValue());
                             }*/
 
-                            //mMyData.getCardList();
+                                    //mMyData.getCardList();
 
 
-                            SharedPreferences pref = getApplicationContext().getSharedPreferences("Setting", getApplicationContext().MODE_PRIVATE);
-                            mMyData.nSearchMode = pref.getInt("nSearchMode", 0);
+                                    SharedPreferences pref = getApplicationContext().getSharedPreferences("Setting", getApplicationContext().MODE_PRIVATE);
+                                    mMyData.nSearchMode = pref.getInt("nSearchMode", 0);
 
 
-                            mMyData.getSetting();
+                                    mMyData.getSetting();
 
-                            mMyData.getNotice();
-                            mMyData.getLogin();
-                            mMyData.getSignUp();
+                                    mMyData.getNotice();
+                                    mMyData.getLogin();
+                                    mMyData.getSignUp();
 
-                            mMyData.getDownUrl(mActivity);
-                            mMyData.getImageLoading(mActivity);
-                            mMyData.getBoardLoadingDate(mActivity);
-                            //mMyData.getAdBannerID();
+                                    mMyData.getDownUrl(mActivity);
+                                    mMyData.getImageLoading(mActivity);
+                                    mMyData.getBoardLoadingDate(mActivity);
+                                    //mMyData.getAdBannerID();
 //                            mMyData.getCardList(mActivity);
-                            mMyData.getFanList(mActivity);
-                            mMyData.getReportedCnt();
-                            mMyData.getVersion();
-                            mMyData.getNotification();
+                                    mMyData.getFanList(mActivity);
+                                    mMyData.getReportedCnt();
+                                    mMyData.getVersion();
+                                    mMyData.getNotification();
 
 
 
-                            mMyData.getSendList(mActivity);
-                            mMyData.getSendHoneyList();
-                            mMyData.getGiftHoneyList();
-                            mMyData.getRecvHoneyList();
-                            mMyData.getBlockList();
-                            mMyData.getBlockedList();
+                                    mMyData.getSendList(mActivity);
+                                    mMyData.getSendHoneyList();
+                                    mMyData.getGiftHoneyList();
+                                    mMyData.getRecvHoneyList();
+                                    mMyData.getBlockList();
+                                    mMyData.getBlockedList();
 
-                            FirebaseData.getInstance().GetInitBoardData();
-                            FirebaseData.getInstance().GetInitMyBoardData();
+                                    FirebaseData.getInstance().GetInitBoardData();
+                                    FirebaseData.getInstance().GetInitMyBoardData();
 
-                            //mMyData.MonitorPublicRoomStatus();
+                                    //mMyData.MonitorPublicRoomStatus();
 
                             /*PrepareMan initHot = new PrepareMan();
                             initHot.execute(0, 0, 0);*/
@@ -1016,34 +976,42 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             init.execute(0, 0, 0);*/
 
 
-                            PrePareHot initHot = new PrePareHot();
-                            initHot.execute(0, 0, 0);
+                                    PrePareHot initHot = new PrePareHot();
+                                    initHot.execute(0, 0, 0);
 
-                            PrePareRecv initRecv = new PrePareRecv();
-                            initRecv.execute(0, 0, 0);
+                                    PrePareRecv initRecv = new PrePareRecv();
+                                    initRecv.execute(0, 0, 0);
 
-                            PrePareFan initFan = new PrePareFan();
-                            initFan.execute(0, 0, 0);
+                                    PrePareFan initFan = new PrePareFan();
+                                    initFan.execute(0, 0, 0);
 
-                            PrePareNear initNear = new PrePareNear();
-                            initNear.execute(0, 0, 0);
+                                    PrePareNear initNear = new PrePareNear();
+                                    initNear.execute(0, 0, 0);
 
-                            PrePareNew initNew = new PrePareNew();
-                            initNew.execute(0, 0, 0);
-
-
+                                    PrePareNew initNew = new PrePareNew();
+                                    initNew.execute(0, 0, 0);
 
 
-                            bInit = true;
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                        //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
-                    }
-                });
+
+                                    bInit = true;
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                //handle databaseError
+                                //Toast toast = Toast.makeText(getApplicationContext(), "유져 데이터 cancelled", Toast.LENGTH_SHORT);
+                            }
+                        });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
     }
 
     private boolean isEmailValid(String email) {

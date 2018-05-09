@@ -14,6 +14,7 @@ import com.dohosoft.talkking.Data.SettingData;
 import com.dohosoft.talkking.Data.UIData;
 import com.dohosoft.talkking.Data.UserData;
 import com.dohosoft.talkking.Util.AppStatus;
+import com.dohosoft.talkking.Util.CommonFunc;
 import com.dohosoft.talkking.Util.LocationFunc;
 import com.dohosoft.talkking.ViewHolder.GridUserViewHolder;
 
@@ -129,6 +130,8 @@ public class Rank_HotAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
 
         //holder.textView.setText(-1 * (mMyData.arrUserAll_Hot_Age.get(i).FanCount / UNIQ_FANCOUNT) + "명");
 
+
+        holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Hot_Age.get(i).ConnectDate));
         holder.iv_rank.setVisibility(View.INVISIBLE);
         holder.textView.setText("(" + mMyData.arrUserAll_Hot_Age.get(i).Age + "세)" + mMyData.arrUserAll_Hot_Age.get(i).NickName);
         holder.iv_honey_rank.setImageResource(R.drawable.hot_main);

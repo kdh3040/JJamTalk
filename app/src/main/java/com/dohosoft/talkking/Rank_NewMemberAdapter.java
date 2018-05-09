@@ -13,6 +13,7 @@ import com.dohosoft.talkking.Data.MyData;
 import com.dohosoft.talkking.Data.SettingData;
 import com.dohosoft.talkking.Data.UIData;
 import com.dohosoft.talkking.Util.AppStatus;
+import com.dohosoft.talkking.Util.CommonFunc;
 import com.dohosoft.talkking.Util.LocationFunc;
 import com.dohosoft.talkking.ViewHolder.GridUserViewHolder;
 
@@ -84,6 +85,9 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
 
 
         int i = position;
+
+        holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_New_Age.get(i).ConnectDate));
+
 
         //Log.d("Guide !!!! ", "Case 3");
         holder.textView.setText("(" + mMyData.arrUserAll_New_Age.get(i).Age + "세)" + mMyData.arrUserAll_New_Age.get(i).NickName);

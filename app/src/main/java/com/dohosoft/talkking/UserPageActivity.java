@@ -125,6 +125,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     private ImageButton btnFAB;
 
+    private TextView txtWhen;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +142,8 @@ public class UserPageActivity extends AppCompatActivity {
 
             }
         });*/
+
+        txtWhen = findViewById(R.id.tv_when);
 
         mMyData.SetCurFrag(0);
         ic_fan = findViewById(R.id.ic_fan);
@@ -162,6 +165,8 @@ public class UserPageActivity extends AppCompatActivity {
         TempSendUserData.arrStarList = stTargetData.arrStarList;
         TempSendUserData.arrFanList = stTargetData.arrFanList;
         //getTargetfanData();
+
+        txtWhen.setText(CommonFunc.getInstance().GetUserDate(stTargetData.ConnectDate));
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(stTargetData.NickName + "(" + stTargetData.Age + "세)");

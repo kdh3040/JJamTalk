@@ -14,6 +14,7 @@ import com.dohosoft.talkking.Data.MyData;
 import com.dohosoft.talkking.Data.SettingData;
 import com.dohosoft.talkking.Data.UIData;
 import com.dohosoft.talkking.Util.AppStatus;
+import com.dohosoft.talkking.Util.CommonFunc;
 import com.dohosoft.talkking.Util.LocationFunc;
 import com.dohosoft.talkking.ViewHolder.GridUserViewHolder;
 
@@ -92,6 +93,8 @@ public class Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
             holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */"1km 이내");
         else
             holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int) (mMyData.arrUserAll_Near_Age.get(i).Dist / 1000) + "km");
+
+        holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Near_Age.get(i).ConnectDate));
 
         Glide.with(mContext)
                 .load(mMyData.arrUserAll_Near_Age.get(i).Img)

@@ -2259,7 +2259,7 @@ public class CommonFunc {
     public void RemoveHotMember(UserData userData)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = database.getReference("HotMember");//.child(mMyData.getUserIdx());
+        DatabaseReference table = database.getReference("HotMemberIdx");//.child(mMyData.getUserIdx());
         DatabaseReference user;
         if(userData.Gender.equals("여자"))
         {
@@ -2435,6 +2435,54 @@ public class CommonFunc {
             return ((Comparable) v1).compareTo(v2);
         }
 
+    }
+
+
+    public String GetUserDate(long date)
+    {
+        String rtValue = "";
+
+        date *= -1;
+        Date FirstDate = new Date(date);
+        Date SecondDate = GetCurrentDate();
+
+        long calDate = FirstDate.getTime() - SecondDate.getTime();
+
+        // Date.getTime() 은 해당날짜를 기준으로1970년 00:00:00 부터 몇 초가 흘렀는지를 반환해준다.
+        // 이제 24*60*60*1000(각 시간값에 따른 차이점) 을 나눠주면 일수가 나온다.
+        long calDateDays = calDate / ( 30*24*60*60*1000);
+        if(calDateDays > 0)
+        {
+            rtValue = "1달전";
+        }
+        else {
+            calDateDays = calDate / ( 24*60*60*1000);
+            if(calDateDays > 0)
+            {
+                calDateDays = Math.abs(calDateDays);
+                rtValue = Long.toString(calDateDays);
+            }
+            else
+            {
+                calDateDays = calDate / ( 60*60*1000);
+                if(calDateDays > 0)
+                {
+                    calDateDays = Math.abs(calDateDays);
+                    rtValue = Long.toString(calDateDays);
+                }
+                else
+                {
+                    calDateDays = calDate / ( 60*1000);
+                    calDateDays = Math.abs(calDateDays);
+                    rtValue = Long.toString(calDateDays);
+                }
+
+            }
+
+        }
+
+
+        return rtValue;
     }
 }
 

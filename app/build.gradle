@@ -60,7 +60,7 @@ dependencies {
     compile 'com.fpang:adsync2:5.2.5'
     compile 'com.melnykov:floatingactionbutton:1.3.0'
     compile 'org.jsoup:jsoup:1.9.2'
-    compile 'gun0912.ted:tedpermission:1.0.2'
+    compile 'gun0912.ted:tedpermission:2.0.0'
     compile 'gun0912.ted:tedbottompicker:1.1.0'
     compile 'com.github.chrisbanes.photoview:library:1.2.3'
     ///compile 'com.android.support.constraint:constraint-layout:1.0.2'

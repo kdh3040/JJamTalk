@@ -14,6 +14,7 @@ import com.dohosoft.talkking.Data.SettingData;
 import com.dohosoft.talkking.Data.UIData;
 import com.dohosoft.talkking.Data.UserData;
 import com.dohosoft.talkking.Util.AppStatus;
+import com.dohosoft.talkking.Util.CommonFunc;
 import com.dohosoft.talkking.Util.LocationFunc;
 import com.dohosoft.talkking.ViewHolder.GridUserViewHolder;
 
@@ -85,6 +86,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
         holder.bg_tv.setLayoutParams(lpForBgTxt);
 
 
+
         //holder.textView.setVisibility(View.INVISIBLE);
 
         //Log.d("Guide !!!! ", "Start");
@@ -126,6 +128,7 @@ public class Rank_FanRichAdapter extends RecyclerView.Adapter<GridUserViewHolder
 
         //Log.d("Guide !!!! ", "Case 3");
         //  Dist = mLocFunc.getDistance(mMyData.getUserLat(), mMyData.getUserLon(), mMyData.arrUserAll_Send.get(i).Lat, mMyData.arrUserAll_Send.get(i).Lon,"kilometer");
+        holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Send_Age.get(i).ConnectDate));
 
         holder.textView.setText(-1 * (mMyData.arrUserAll_Send_Age.get(i).FanCount / UNIQ_FANCOUNT) + "명");
         holder.iv_honey_rank.setImageResource(R.drawable.fan_white);

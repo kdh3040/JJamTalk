@@ -13,7 +13,7 @@ import com.dohosoft.talkking.R;
 
 public class GridUserViewHolder extends RecyclerView.ViewHolder {
     public ImageView iv_profile,iv_honey_rank,bg_tv,iv_rank;
-    public TextView textView;
+    public TextView textView, textWhen;
     public GridUserViewHolder(View itemView) {
         super(itemView);
         iv_profile = itemView.findViewById(R.id.iv_user);
@@ -21,6 +21,7 @@ public class GridUserViewHolder extends RecyclerView.ViewHolder {
         bg_tv = itemView.findViewById(R.id.bg_txt);
         iv_honey_rank = itemView.findViewById(R.id.iv_honey_rank);
         textView = itemView.findViewById(R.id.tv_user);
+        textWhen = itemView.findViewById(R.id.tv_when);
 
     }
 }

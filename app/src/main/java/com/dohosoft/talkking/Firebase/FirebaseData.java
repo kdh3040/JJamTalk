@@ -49,18 +49,25 @@ import java.util.Map;
 import java.util.Random;
 
 import static com.dohosoft.talkking.Data.CoomonValueData.FIRST_LOAD_MAIN_COUNT;
+import static com.dohosoft.talkking.Data.CoomonValueData.HOTMEMBER_LOAD_MAIN_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_MAIN_COUNT;
 
 import static com.dohosoft.talkking.Data.CoomonValueData.FIRST_LOAD_BOARD_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.LOAD_BOARD_COUNT;
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.dohosoft.talkking.Data.CoomonValueData.UNIQ_FANCOUNT;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMyLoc;
+import static com.dohosoft.talkking.Data.CoomonValueData.bMySet;
 import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetFan;
 import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetHot;
 import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetNear;
 import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetNew;
 import static com.dohosoft.talkking.Data.CoomonValueData.bRefreshSetRecv;
 import static com.dohosoft.talkking.Data.CoomonValueData.bSetHot;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetNear;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetNew;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetRecv;
+import static com.dohosoft.talkking.Data.CoomonValueData.bSetRich;
 import static com.dohosoft.talkking.MainActivity.mFragmentMng;
 
 /**
@@ -1045,49 +1052,93 @@ public class FirebaseData {
 
         @Override
         protected Integer doInBackground(Integer... integers) {
-
             DatabaseReference ref;
             if(SettingData.getInstance().getnSearchSetting() == 1)
             {
-                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Man");
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMemberIdx").child("Man");
             }
             else
             {
-                ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Woman");
+                ref = FirebaseDatabase.getInstance().getReference().child("HotMemberIdx").child("Woman");
             }
 
-            Query query=ref.orderByChild("ConnectDate").limitToFirst(50);//키가 id와 같은걸 쿼리로 가져옴
+            Query query = ref.limitToLast(HOTMEMBER_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0;
-                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
-                            {
-                                UserData cTempData = new UserData();
-                                cTempData = fileSnapshot.getValue(UserData.class);
-                                if (cTempData != null && cTempData.Idx != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData, fileSnapshot.getKey()))
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                String tempValue = fileSnapshot.getValue(String.class);
+
+                                if(tempValue != null || !tempValue.equals(""))
+                                {
+                                    i ++;
+                                    final DatabaseReference Hotref;
+                                    if(SettingData.getInstance().getnSearchSetting() == 1)
                                     {
-                                        if(cTempData.Img == null)
-                                            cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
-
-                                        mMyData.arrUserAll_Hot.add(cTempData);
-                                        mMyData.mapGenderData.put(cTempData.Idx, cTempData.Gender);
-                                        i++;
+                                        Hotref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(tempValue);
                                     }
+                                    else
+                                    {
+                                        Hotref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(tempValue);
+                                    }
+
+
+                                    final int finalI = i;
+                                    Hotref.addListenerForSingleValueEvent(
+                                            new ValueEventListener() {
+
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    UserData stRecvData = new UserData();
+                                                    stRecvData = dataSnapshot.getValue(UserData.class);
+                                                    if (stRecvData != null) {
+                                                        if (stRecvData != null && stRecvData.Idx != null) {
+                                                            if (CommonFunc.getInstance().CheckUserData(stRecvData,dataSnapshot.getKey()))
+                                                            {
+                                                                if (stRecvData.Img == null)
+                                                                    stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
+
+                                                                mMyData.arrUserAll_Hot.add(stRecvData);
+
+                                                                mMyData.mapGenderData.put(stRecvData.Idx, stRecvData.Gender);
+
+                                                                if(mMyData.arrUserAll_Hot.size() == HOTMEMBER_LOAD_MAIN_COUNT)
+                                                                {
+
+                                                                    CommonFunc.AscendingObj ascending = new CommonFunc.AscendingObj();
+
+                                                                    Collections.sort(mMyData.arrUserAll_Hot, ascending);
+
+                                                                    mMyData.arrUserAll_Hot_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Hot, mMyData.nStartAge, mMyData.nEndAge );
+
+                                                                    if(mMyData.arrUserAll_Hot.size() > 0)
+                                                                        mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size()-1).Date;
+
+                                                                    bRefreshSetHot = true;
+                                                                    if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
+                                                                        CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
+                                                                    }
+                                                                }
+
+                                                            }
+                                                        }
+
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
                                 }
+
+
                             }
 
-                            mMyData.arrUserAll_Hot_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Hot, mMyData.nStartAge, mMyData.nEndAge );
 
-                            if(mMyData.arrUserAll_Hot.size() > 0)
-                                mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size()-1).Date;
-
-                            bRefreshSetHot = true;
-                            if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
-                                CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
-                            }
 
                         }
 
@@ -1095,6 +1146,7 @@ public class FirebaseData {
                         public void onCancelled(DatabaseError databaseError) {
                         }
                     });
+
             return 0;
         }
 

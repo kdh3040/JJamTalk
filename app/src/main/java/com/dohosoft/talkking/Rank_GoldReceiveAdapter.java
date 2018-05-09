@@ -14,6 +14,7 @@ import com.dohosoft.talkking.Data.MyData;
 import com.dohosoft.talkking.Data.SettingData;
 import com.dohosoft.talkking.Data.UIData;
 import com.dohosoft.talkking.Util.AppStatus;
+import com.dohosoft.talkking.Util.CommonFunc;
 import com.dohosoft.talkking.ViewHolder.GridUserViewHolder;
 
 /**
@@ -123,6 +124,8 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
 
         String str = String.format("%,d", mMyData.arrUserAll_Recv_Age.get(i).RecvGold * -1);
         holder.textView.setText(str);
+
+        holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Recv_Age.get(i).ConnectDate));
 
         Glide.with(mContext)
                 .load(mMyData.arrUserAll_Recv_Age.get(i).Img)
