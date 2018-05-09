@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
         android.app.AlertDialog.Builder mDialog = null;
         mDialog = new android.app.AlertDialog.Builder(this);
 
-        if (!mMyData.verSion.equals(mMyData.marketVersion)) {
+  /*      if (!mMyData.verSion.equals(mMyData.marketVersion)) {
             mDialog.setMessage("업데이트 후 사용해주세요.")
                     .setCancelable(false)
                     .setPositiveButton("업데이트 바로가기",
@@ -338,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
             alert.show();
         }
 
-        else
+        else*/
         {
 
             NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

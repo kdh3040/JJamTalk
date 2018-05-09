@@ -657,7 +657,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         CommonFunc.getInstance().ShowLoadingPage(LoginActivity.this, "로딩중");
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
         Query data;
-        data = FirebaseDatabase.getInstance().getReference().child("UserIdx_History").child(mMyData.getUserIdx());
+        data = FirebaseDatabase.getInstance().getReference().child("UserIdx_History").child(mMyData.ANDROID_ID);
 
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {

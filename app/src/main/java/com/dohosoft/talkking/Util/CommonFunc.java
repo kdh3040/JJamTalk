@@ -2440,6 +2440,11 @@ public class CommonFunc {
 
     public String GetUserDate(long date)
     {
+/*        long temp = date;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
+        Date date1 = simpleDateFormat.parse(date);*/
+
+
         String rtValue = "";
 
         return  rtValue;

@@ -1047,7 +1047,7 @@ if(mMyData.itemList.get(i) != 0)
         android.app.AlertDialog.Builder mDialog = null;
         mDialog = new android.app.AlertDialog.Builder(this);
 
-        if (!mMyData.verSion.equals(mMyData.marketVersion)) {
+ /*       if (!mMyData.verSion.equals(mMyData.marketVersion)) {
             mDialog.setMessage("업데이트 후 사용해주세요.")
                     .setCancelable(false)
                     .setPositiveButton("업데이트 바로가기",
@@ -1067,7 +1067,8 @@ if(mMyData.itemList.get(i) != 0)
             android.app.AlertDialog alert = mDialog.create();
             alert.setTitle("안 내");
             alert.show();
-        } else {
+        } else*/
+            {
             if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);

@@ -467,7 +467,7 @@ public class SettingActivity extends AppCompatActivity {
         android.app.AlertDialog.Builder mDialog = null;
         mDialog = new android.app.AlertDialog.Builder(this);
 
-        if (!MyData.getInstance().verSion.equals(MyData.getInstance().marketVersion)) {
+  /*      if (!MyData.getInstance().verSion.equals(MyData.getInstance().marketVersion)) {
             mDialog.setMessage("업데이트 후 사용해주세요.")
                     .setCancelable(false)
                     .setPositiveButton("업데이트 바로가기",
@@ -489,7 +489,7 @@ public class SettingActivity extends AppCompatActivity {
             alert.show();
         }
 
-        else
+        else*/
         {
             if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
