@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
     android:background="@color/gray">
 
     <ImageView
@@ -23,7 +24,7 @@
         android:gravity="center"
         android:text="보유 코인 : 100"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/iv_10"
+        app:layout_constraintBottom_toTopOf="@+id/bg_bot"
         app:layout_constraintLeft_toLeftOf="@+id/bg_top"
         app:layout_constraintRight_toRightOf="@+id/bg_top"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +51,7 @@
         app:layout_constraintBottom_toTopOf="@+id/iv_30"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_mycoin"
+        app:layout_constraintTop_toBottomOf="@+id/bg_bot"
         app:srcCompat="@drawable/buy_10" />
 
     <ImageView
@@ -128,11 +129,10 @@
         android:id="@+id/iv_1000"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="1dp"
         android:background="@android:color/white"
         android:paddingLeft="20dp"
         android:paddingRight="150dp"
-        app:layout_constraintBottom_toTopOf="@+id/bg_bot"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/iv_10"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_500"
@@ -235,10 +235,9 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_1000"
+        app:layout_constraintTop_toBottomOf="@+id/bg_top"
         app:srcCompat="@android:color/white" />
 
     <Button
@@ -288,8 +287,6 @@
         android:id="@+id/button17"
         android:layout_width="70dp"
         android:layout_height="50dp"
-
-
         android:layout_marginEnd="24dp"
         android:background="@drawable/purple_btn_bg2"
         android:text="무료\n충전4"
