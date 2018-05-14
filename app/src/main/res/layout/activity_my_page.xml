@@ -85,7 +85,7 @@
         android:elevation="5dp"
         android:padding="7dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/dia_s"
+        android:src="@drawable/randombox"
         android:theme="@style/PrimaryButton"
         app:layout_constraintBottom_toBottomOf="@+id/nickname"
         app:layout_constraintLeft_toRightOf="@+id/rank"
