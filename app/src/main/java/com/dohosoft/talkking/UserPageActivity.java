@@ -152,6 +152,28 @@ public class UserPageActivity extends AppCompatActivity {
 
 
 
+        mMyData.mInterstitialAd = new InterstitialAd(UserPageActivity.this);
+        mMyData.mInterstitialAd.setAdUnitId("ca-app-pub-4020702622451243/1718076510");
+        mMyData.mInterstitialAd.setAdListener(new AdListener() {
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                if (mMyData.mInterstitialAd.isLoaded()) {
+                    mMyData.mInterstitialAd.show();
+                }
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mMyData.mInterstitialAd.loadAd(adRequest);
+
+/*
         if (mMyData.mInterstitialAd.isLoaded()) {
             mMyData.mInterstitialAd.show();
         } else {
@@ -164,7 +186,7 @@ public class UserPageActivity extends AppCompatActivity {
                 // Load the next interstitial.
                 mMyData.mInterstitialAd.loadAd(new AdRequest.Builder().build());
             }
-        });
+        });*/
 
 
         txtWhen = findViewById(R.id.tv_when);

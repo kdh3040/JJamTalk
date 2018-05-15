@@ -254,6 +254,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mMyData.SetCurFrag(0);
 
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-4020702622451243~3824534212");
+        mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(LoginActivity.this);
+
+
         mMyData.mInterstitialAd = new InterstitialAd(this);
         mMyData.mInterstitialAd.setAdUnitId("ca-app-pub-4020702622451243/1718076510");
         mMyData.mInterstitialAd.loadAd(new AdRequest.Builder().build());

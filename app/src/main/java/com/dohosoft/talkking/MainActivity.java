@@ -425,8 +425,6 @@ public class MainActivity extends AppCompatActivity {
         mActivity = this;
         mContext = getApplicationContext();
 
-        mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(MainActivity.this);
-
 
         SharedPreferences MyDataPref = mContext.getSharedPreferences("MyData", mContext.MODE_PRIVATE);
         SharedPreferences.Editor MyDataEditor = MyDataPref.edit();
@@ -435,7 +433,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mFragmentMng = getSupportFragmentManager();
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-4020702622451243~3824534212");
+
 
         Bundle bundle = getIntent().getExtras();
         nStartFragment = (int) bundle.getSerializable("StartFragment");
@@ -650,7 +648,7 @@ public class MainActivity extends AppCompatActivity {
                 AdRequest adRequest = new AdRequest.Builder().build();
                 mAdView.loadAd(adRequest);
 
-                
+
                 spin_StartAge = (Spinner) v.findViewById(R.id.spinner1);
                 spin_StartAge.setSelection(mMyData.nStartAge - 20);
                 // spin_StartAge.setPrompt(String.valueOf(mMyData.nStartAge));

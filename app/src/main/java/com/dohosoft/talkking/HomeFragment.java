@@ -42,12 +42,19 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (fragView!= null) {
 
+            if(mAdView != null)
+            {
+                mAdView.setVisibility(View.VISIBLE);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mAdView.loadAd(adRequest);
+            }
         }
         else
         {
             fragView = inflater.inflate(R.layout.fragment_home,container,false);
 
-            mAdView = fragView.findViewById(R.id.adView);
+            mAdView = fragView.findViewById(R.id.adBottomView);
+            mAdView.setVisibility(View.VISIBLE);
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
 
