@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
 
             tabLayout.addTab(tabLayout.newTab().setText("Hot"));
             tabLayout.addTab(tabLayout.newTab().setText("인기순"));
-            tabLayout.addTab(tabLayout.newTab().setText("팬보유순"));
+          //  tabLayout.addTab(tabLayout.newTab().setText("팬보유순"));
             tabLayout.addTab(tabLayout.newTab().setText("가까운순"));
             tabLayout.addTab(tabLayout.newTab().setText("New"));
 
@@ -90,11 +90,11 @@ public class HomeFragment extends Fragment {
                     return new Rank_HotFragment();
                 case 1:
                     return new Rank_GoldReceiveFragment();
+               /* case 2:
+                    return new Rank_FanRichFragment();*/
                 case 2:
-                    return new Rank_FanRichFragment();
-                case 3:
                     return new Rank_NearFragment();
-                case 4:
+                case 3:
                     return new Rank_NewMemberFragment();
             }
 

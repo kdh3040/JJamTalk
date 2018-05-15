@@ -1028,8 +1028,8 @@ public class FirebaseData {
         RefreshGoldReceiver initRecv = new RefreshGoldReceiver(activity);
         initRecv.execute(0,0,0);
 
-        RefreshFanCount initFan = new RefreshFanCount(activity);
-        initFan.execute(0,0,0);
+     /*   RefreshFanCount initFan = new RefreshFanCount(activity);
+        initFan.execute(0,0,0);*/
 
         RefreshNear initNear = new RefreshNear(activity);
         initNear.execute(0,0,0);

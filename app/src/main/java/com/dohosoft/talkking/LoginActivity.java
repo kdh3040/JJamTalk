@@ -982,8 +982,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     PrePareRecv initRecv = new PrePareRecv();
                                     initRecv.execute(0, 0, 0);
 
-                                    PrePareFan initFan = new PrePareFan();
-                                    initFan.execute(0, 0, 0);
+                                  /*  PrePareFan initFan = new PrePareFan();
+                                    initFan.execute(0, 0, 0);*/
 
                                     PrePareNear initNear = new PrePareNear();
                                     initNear.execute(0, 0, 0);

@@ -95,7 +95,7 @@ public class BuyGoldActivity extends AppCompatActivity {
     ArrayList<HeartItem> list;
 
     private CommonFunc mCommon = CommonFunc.getInstance();
-    private  Boolean bLoadAd = false;
+    private Boolean bLoadAd = false;
 
     private UnityAdsListener unityAdsListener = new UnityAdsListener();
     private AdColonyInterstitial ad;
@@ -116,6 +116,7 @@ public class BuyGoldActivity extends AppCompatActivity {
 
 
     private int index = 0;
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -133,9 +134,8 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         mMyData.SetCurFrag(0);
 
-        if (ad == null || ad.isExpired())
-        {
-            AdColony.requestInterstitial( CoomonValueData.getInstance().ZONE_ID, listener, ad_options );
+        if (ad == null || ad.isExpired()) {
+            AdColony.requestInterstitial(CoomonValueData.getInstance().ZONE_ID, listener, ad_options);
         }
 
 
@@ -166,7 +166,7 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         else*/
         {
-            if(CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
+            if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
                 mMyData.badgecount = pref.getInt("Badge", 1);
@@ -199,60 +199,53 @@ public class BuyGoldActivity extends AppCompatActivity {
                 new AdRequest.Builder().build());
 
 
-        UnityAds.initialize(BuyGoldActivity.this, "1793710", unityAdsListener, false );
+        UnityAds.initialize(BuyGoldActivity.this, "1793710", unityAdsListener, false);
 
 
         AdColonyAppOptions app_options = new AdColonyAppOptions()
-                .setUserID( mMyData.getUserIdx());
-        AdColony.configure( this, app_options, CoomonValueData.getInstance().ADCOLONY_APP_ID, CoomonValueData.getInstance().ZONE_ID );
+                .setUserID(mMyData.getUserIdx());
+        AdColony.configure(this, app_options, CoomonValueData.getInstance().ADCOLONY_APP_ID, CoomonValueData.getInstance().ZONE_ID);
 
         AdColonyUserMetadata metadata = new AdColonyUserMetadata()
-                .setUserAge( 26 )
-                .setUserEducation( AdColonyUserMetadata.USER_EDUCATION_BACHELORS_DEGREE )
-                .setUserGender( AdColonyUserMetadata.USER_MALE );
+                .setUserAge(26)
+                .setUserEducation(AdColonyUserMetadata.USER_EDUCATION_BACHELORS_DEGREE)
+                .setUserGender(AdColonyUserMetadata.USER_MALE);
 
         ad_options = new AdColonyAdOptions()
-                .enableConfirmationDialog( true )
-                .enableResultsDialog( true )
-                .setUserMetadata( metadata );
+                .enableConfirmationDialog(true)
+                .enableResultsDialog(true)
+                .setUserMetadata(metadata);
 
 
-
-        AdColony.setRewardListener( new AdColonyRewardListener()
-        {
+        AdColony.setRewardListener(new AdColonyRewardListener() {
             @Override
-            public void onReward( AdColonyReward reward )
-            {
+            public void onReward(AdColonyReward reward) {
                 /** Query reward object for info here */
-                Log.d( CoomonValueData.getInstance().TAG, "onReward" );
+                Log.d(CoomonValueData.getInstance().TAG, "onReward");
             }
-        } );
+        });
 
 
-        listener = new AdColonyInterstitialListener()
-        {
+        listener = new AdColonyInterstitialListener() {
             /** Ad passed back in request filled callback, ad can now be shown */
             @Override
-            public void onRequestFilled( AdColonyInterstitial ad )
-            {
+            public void onRequestFilled(AdColonyInterstitial ad) {
                 BuyGoldActivity.this.ad = ad;
-                Free_Adcolony.setEnabled( true );
-                Log.d( CoomonValueData.getInstance().TAG, "onRequestFilled" );
+                Free_Adcolony.setEnabled(true);
+                Log.d(CoomonValueData.getInstance().TAG, "onRequestFilled");
             }
 
             /** Ad request was not filled */
             @Override
-            public void onRequestNotFilled( AdColonyZone zone )
-            {
-                Log.d( CoomonValueData.getInstance().TAG, "onRequestNotFilled");
+            public void onRequestNotFilled(AdColonyZone zone) {
+                Log.d(CoomonValueData.getInstance().TAG, "onRequestNotFilled");
             }
 
             /** Ad opened, reset UI to reflect state change */
             @Override
-            public void onOpened( AdColonyInterstitial ad )
-            {
-                Free_Adcolony.setEnabled( false );
-                Log.d( CoomonValueData.getInstance().TAG, "onOpened" );
+            public void onOpened(AdColonyInterstitial ad) {
+                Free_Adcolony.setEnabled(false);
+                Log.d(CoomonValueData.getInstance().TAG, "onOpened");
 
 
                 CommonFunc.getInstance().ShowLoadingPage(BuyGoldActivity.this, "로딩중");
@@ -275,7 +268,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                         mMyData.setUserHoney(tempValue);
 
                         CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "보상", REWARD_ADCOLONY + "코인을 획득 하였습니다.");
-                        mMyData.setUserHoney(mMyData.getUserHoney() +REWARD_ADCOLONY);
+                        mMyData.setUserHoney(mMyData.getUserHoney() + REWARD_ADCOLONY);
 
                         mMyData.setPoint(REWARD_ADCOLONY);
                         refreshHearCnt();
@@ -293,14 +286,12 @@ public class BuyGoldActivity extends AppCompatActivity {
 
             /** Request a new ad if ad is expiring */
             @Override
-            public void onExpiring( AdColonyInterstitial ad )
-            {
-                Free_Adcolony.setEnabled( false );
-                AdColony.requestInterstitial( CoomonValueData.getInstance().ZONE_ID, this, ad_options );
-                Log.d( CoomonValueData.getInstance().TAG, "onExpiring" );
+            public void onExpiring(AdColonyInterstitial ad) {
+                Free_Adcolony.setEnabled(false);
+                AdColony.requestInterstitial(CoomonValueData.getInstance().ZONE_ID, this, ad_options);
+                Log.d(CoomonValueData.getInstance().TAG, "onExpiring");
             }
         };
-
 
 
         mMyData.mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
@@ -328,7 +319,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                         mMyData.setUserHoney(tempValue);
 
                         CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "보상", REWARD_ADMOB + "코인을 획득 하였습니다.");
-                        mMyData.setUserHoney(mMyData.getUserHoney() +REWARD_ADMOB);
+                        mMyData.setUserHoney(mMyData.getUserHoney() + REWARD_ADMOB);
 
                         mMyData.setPoint(REWARD_ADMOB);
                         refreshHearCnt();
@@ -343,46 +334,43 @@ public class BuyGoldActivity extends AppCompatActivity {
                 });
 
 
-
-
-
                 // Reward the user.
             }
 
             @Override
             public void onRewardedVideoAdLeftApplication() {
                 int aaa = 0;
-                aaa ++;
+                aaa++;
             }
 
             @Override
             public void onRewardedVideoAdClosed() {
                 int aaa = 0;
-                aaa ++;
+                aaa++;
             }
 
             @Override
             public void onRewardedVideoAdFailedToLoad(int errorCode) {
                 int aaa = 0;
-                aaa ++;
+                aaa++;
             }
 
             @Override
             public void onRewardedVideoAdLoaded() {
                 int aaa = 0;
-                aaa ++;
+                aaa++;
             }
 
             @Override
             public void onRewardedVideoAdOpened() {
                 int aaa = 0;
-                aaa ++;
+                aaa++;
             }
 
             @Override
             public void onRewardedVideoStarted() {
                 int aaa = 0;
-                aaa ++;
+                aaa++;
             }
         });
 
@@ -396,8 +384,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                 new AdRequest.Builder().build());*/
 
 
-
-        if(mMyData.mServiceConn == null) {
+        if (mMyData.mServiceConn == null) {
             mMyData.mServiceConn = new ServiceConnection() {
                 @Override
                 public void onServiceDisconnected(ComponentName name) {
@@ -467,150 +454,95 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
 
 
-
-        tv_mycoin = (TextView)findViewById(R.id.tv_mycoin);
+        tv_mycoin = (TextView) findViewById(R.id.tv_mycoin);
         tv_mycoin.setText("보유 코인 : " + mMyData.getUserHoney());
 
         mMyData.SetCurFrag(0);
 
 
-        Free_AdMob = (Button)findViewById(R.id.button17);
+        Free_AdMob = (Button) findViewById(R.id.button17);
         Free_AdMob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(mMyData.mRewardedVideoAd.isLoaded() == false)
-                {
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "광고 준비중입니다");
-                }
-                else
-                {
-                    if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastAdsTime()), 30, 1) == false)
-                    {
+                if (mMyData.mRewardedVideoAd.isLoaded() == false) {
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "광고 준비중입니다");
+                } else {
+                    if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastAdsTime()), 30, 1) == false) {
                         // TODO 환웅
-                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
+                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
                         return;
-                    }
-                    else
-                    {
-                        CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
-                            public void YesListener() {
+                    } else {
 
-                                mMyData.SetLastAdsTime(CommonFunc.getInstance().GetCurrentTime());
-                                mMyData.mRewardedVideoAd.show();
-                            }
-                        };
+                        mMyData.SetLastAdsTime(CommonFunc.getInstance().GetCurrentTime());
+                        mMyData.mRewardedVideoAd.show();
 
-                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, null, "무료 코인 충전", "광고를 보시고 " + REWARD_ADMOB +"코인을 획득 하시겠습니까?", "예", "아니요");
                     }
 
                 }
             }
         });
 
-        Free_Adcolony = (Button)findViewById(R.id.button15);
+        Free_Adcolony = (Button) findViewById(R.id.button15);
         Free_Adcolony.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.AdColonyAdsTime), 30, 1) == false)
-                {
+                if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.AdColonyAdsTime), 30, 1) == false) {
                     // TODO 환웅
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
                     return;
+                } else {
+                        mMyData.AdColonyAdsTime = CommonFunc.getInstance().GetCurrentTime();
+                        ad.show();
                 }
-                else
-                {
-                    CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
-                        public void YesListener() {
-                            mMyData.UnityAdsTime = CommonFunc.getInstance().GetCurrentTime();
-                            ad.show();
-                        }
-                    };
-
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, null, "무료 코인 충전", "광고를 보시고 " + REWARD_ADCOLONY +"코인을 획득 하시겠습니까?", "예", "아니요");
-                }
-
 
 
             }
         });
-        Free_Unity = (Button)findViewById(R.id.button14);
+        Free_Unity = (Button) findViewById(R.id.button14);
         Free_Unity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(!UnityAds.isReady("rewardedVideo"))
-                {
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "광고 준비중입니다");
-                }
-                else
-                {
-                    if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.UnityAdsTime), 30, 1) == false)
-                    {
+                if (!UnityAds.isReady("rewardedVideo")) {
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "광고 준비중입니다");
+                } else {
+                    if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.UnityAdsTime), 30, 1) == false) {
                         // TODO 환웅
-                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
+                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
                         return;
-                    }
-                    else
-                    {
-                        CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
-                            public void YesListener() {
-
-                                mMyData.UnityAdsTime = CommonFunc.getInstance().GetCurrentTime();
-                                UnityAds.show(BuyGoldActivity.this, "rewardedVideo");
-
-                                //mMyData.mRewardedVideoAd.show();
-                            }
-                        };
-
-                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, null, "무료 코인 충전", "광고를 보시고 " + REWARD_UNITY +"코인을 획득 하시겠습니까?", "예", "아니요");
+                    } else {
+                            mMyData.UnityAdsTime = CommonFunc.getInstance().GetCurrentTime();
+                            UnityAds.show(BuyGoldActivity.this, "rewardedVideo");
                     }
 
                 }
             }
         });
-        Free_Vungle = (Button)findViewById(R.id.button16);
+        Free_Vungle = (Button) findViewById(R.id.button16);
         Free_Vungle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // FpangSession.showAdsyncList (BuyGoldActivity.this,"무료골드");
+                // FpangSession.showAdsyncList (BuyGoldActivity.this,"무료골드");
 
 
-                if(CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.VungleAdsTime), 30, 1) == false)
-                {
+                if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.VungleAdsTime), 30, 1) == false) {
                     // TODO 환웅
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this,"무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
                     return;
+                } else {
+                    if (Vungle.isInitialized()) {
+                        mMyData.VungleAdsTime = CommonFunc.getInstance().GetCurrentTime();
+                        Vungle.setIncentivizedFields(mMyData.getUserIdx(), "RewardedTitle", "RewardedBody", "RewardedKeepWatching", "RewardedClose");
+
+                        Vungle.playAd(VUNGLE_REFERENCE, null, vunglePlayAdCallback);
+                    }
                 }
-                else
-                {
-                    CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
-                        public void YesListener() {
-                            mMyData.VungleAdsTime = CommonFunc.getInstance().GetCurrentTime();
-                            Vungle.setIncentivizedFields(mMyData.getUserIdx(),"RewardedTitle","RewardedBody","RewardedKeepWatching","RewardedClose");
-
-                            Vungle.playAd(VUNGLE_REFERENCE, null, vunglePlayAdCallback);
-                        }
-                    };
-
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, listener, null, "무료 코인 충전", "광고를 보시고 " + REWARD_VUNGLE +"코인을 획득 하시겠습니까?", "예", "아니요");
-                }
-
-
-
-                /*adConfig.setBackButtonImmediatelyEnabled(true);
-                adConfig.setAutoRotate(true);
-                adConfig.setMuted(false);*/
-                // Optional settings for rewarded ads
-
-
-
             }
         });
 
-
-        btn_10 = (Button)findViewById(R.id.btn_10);
+        btn_10 = (Button) findViewById(R.id.btn_10);
         btn_10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -618,7 +550,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             }
         });
 
-        btn_30 = (Button)findViewById(R.id.btn_30);
+        btn_30 = (Button) findViewById(R.id.btn_30);
         btn_30.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -626,50 +558,49 @@ public class BuyGoldActivity extends AppCompatActivity {
             }
         });
 
-        btn_50 = (Button)findViewById(R.id.btn_50);
+        btn_50 = (Button) findViewById(R.id.btn_50);
         btn_50.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuyGoldByGoogle(getApplicationContext(),mMyData.skuGold[2]);
+                BuyGoldByGoogle(getApplicationContext(), mMyData.skuGold[2]);
             }
         });
 
-        btn_100 = (Button)findViewById(R.id.btn_100);
+        btn_100 = (Button) findViewById(R.id.btn_100);
         btn_100.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuyGoldByGoogle(getApplicationContext(),mMyData.skuGold[3]);
+                BuyGoldByGoogle(getApplicationContext(), mMyData.skuGold[3]);
             }
         });
 
-        btn_300 = (Button)findViewById(R.id.btn_300);
+        btn_300 = (Button) findViewById(R.id.btn_300);
         btn_300.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuyGoldByGoogle(getApplicationContext(),mMyData.skuGold[4]);
+                BuyGoldByGoogle(getApplicationContext(), mMyData.skuGold[4]);
             }
         });
 
-        btn_500 = (Button)findViewById(R.id.btn_500);
+        btn_500 = (Button) findViewById(R.id.btn_500);
         btn_500.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuyGoldByGoogle(getApplicationContext(),mMyData.skuGold[5]);
+                BuyGoldByGoogle(getApplicationContext(), mMyData.skuGold[5]);
             }
         });
 
-        btn_1000 = (Button)findViewById(R.id.btn_1000);
+        btn_1000 = (Button) findViewById(R.id.btn_1000);
         btn_1000.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BuyGoldByGoogle(getApplicationContext(),mMyData.skuGold[6]);
+                BuyGoldByGoogle(getApplicationContext(), mMyData.skuGold[6]);
             }
         });
     }
 
 
-    public void refreshHearCnt()
-    {
+    public void refreshHearCnt() {
         tv_mycoin.setText("보유 코인 : " + mMyData.getUserHoney());
     }
 
@@ -687,15 +618,15 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
     }
 
-    class HeartItemAdapter extends BaseAdapter{
+    class HeartItemAdapter extends BaseAdapter {
         Context con;
         LayoutInflater inflater;
         ArrayList<HeartItem> arrData;
         int nLayout;
 
-        private  MyData mMyData = MyData.getInstance();
-        public HeartItemAdapter(Context context, int layout, ArrayList<HeartItem> arrD)
-        {
+        private MyData mMyData = MyData.getInstance();
+
+        public HeartItemAdapter(Context context, int layout, ArrayList<HeartItem> arrD) {
             con = context;
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             arrData = arrD;
@@ -703,7 +634,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
 
         @Override
-        public int getCount(){
+        public int getCount() {
             return arrData.size();
         }
 
@@ -719,24 +650,22 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         @Override
         public View getView(final int i, View view, ViewGroup viewGroup) {
-            if(view == null)
+            if (view == null)
                 view = inflater.inflate(nLayout, viewGroup, false);
 
-            ImageView img = (ImageView)view.findViewById(R.id.Charge_Img);
+            ImageView img = (ImageView) view.findViewById(R.id.Charge_Img);
             img.setImageResource(arrData.get(i).Img_Heart);
-            final Button btn = (Button)view.findViewById(R.id.charge_Txt);
+            final Button btn = (Button) view.findViewById(R.id.charge_Txt);
 
             btn.setText(arrData.get(i).txt_Heart);
 
-            btn.setOnClickListener(new TextView.OnClickListener()
-            {
+            btn.setOnClickListener(new TextView.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //Toast.makeText(con, txt.getText(), Toast.LENGTH_SHORT).show();
 
                     String tempStrGold = null;
-                    switch (i)
-                    {
+                    switch (i) {
                         case 0:
                             tempStrGold = mMyData.skuGold[0];
                             break;
@@ -770,8 +699,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                     }
 
                     mMyData.pendingIntent = mMyData.buyIntentBundle.getParcelable("BUY_INTENT");
-                    if(mMyData.pendingIntent != null)
-                    {
+                    if (mMyData.pendingIntent != null) {
                         try {
                             startIntentSenderForResult(mMyData.pendingIntent.getIntentSender(),
                                     1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
@@ -788,11 +716,9 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
     }
 
-    private void BuyGoldByGoogle(Context context, String tempStrGold)
-    {
+    private void BuyGoldByGoogle(Context context, String tempStrGold) {
         try {
-            if(mMyData.mService == null)
-            {
+            if (mMyData.mService == null) {
                 CommonFunc.getInstance().ShowToast(context, "결제에 실패하였습니다. 다시 시도해주세요.", true);
                 return;
             }
@@ -803,15 +729,13 @@ public class BuyGoldActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if(mMyData.buyIntentBundle == null)
-        {
+        if (mMyData.buyIntentBundle == null) {
             CommonFunc.getInstance().ShowToast(context, "결제에 실패하였습니다. 다시 시도해주세요.", true);
             return;
         }
 
         mMyData.pendingIntent = mMyData.buyIntentBundle.getParcelable("BUY_INTENT");
-        if(mMyData.pendingIntent != null)
-        {
+        if (mMyData.pendingIntent != null) {
             try {
                 startIntentSenderForResult(mMyData.pendingIntent.getIntentSender(),
                         1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
@@ -848,44 +772,28 @@ public class BuyGoldActivity extends AppCompatActivity {
                     });
 
 
-
-                }
-                catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
 
-    public void setBuyGold(String ID)
-    {
+    public void setBuyGold(String ID) {
         int nPrice = 0;
-        if(ID.equals(mMyData.skuGold[0]))
-        {
+        if (ID.equals(mMyData.skuGold[0])) {
             nPrice = 100;
-        }
-        else if(ID.equals(mMyData.skuGold[1]))
-        {
+        } else if (ID.equals(mMyData.skuGold[1])) {
             nPrice = 330;
-        }
-        else if(ID.equals(mMyData.skuGold[2]))
-        {
+        } else if (ID.equals(mMyData.skuGold[2])) {
             nPrice = 570;
-        }
-        else if(ID.equals(mMyData.skuGold[3]))
-        {
+        } else if (ID.equals(mMyData.skuGold[3])) {
             nPrice = 1200;
-        }
-        else if(ID.equals(mMyData.skuGold[4]))
-        {
+        } else if (ID.equals(mMyData.skuGold[4])) {
             nPrice = 3750;
-        }
-        else if(ID.equals(mMyData.skuGold[5]))
-        {
+        } else if (ID.equals(mMyData.skuGold[5])) {
             nPrice = 6500;
-        }
-        else if(ID.equals(mMyData.skuGold[6]))
-        {
+        } else if (ID.equals(mMyData.skuGold[6])) {
             nPrice = 15000;
         }
 
@@ -1005,7 +913,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         public void onError(final String placementReferenceID, Throwable throwable) {
             Log.d(LOG_TAG, "PlayAdCallback - onError" +
                     "\n\tPlacement Reference ID = " + placementReferenceID +
-            "\n\tError = " + throwable.getLocalizedMessage());
+                    "\n\tError = " + throwable.getLocalizedMessage());
 
             //checkInitStatus(throwable);
         }
@@ -1015,7 +923,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         @Override
         public void onAdLoad(final String placementReferenceID) {
 
-            Log.d(LOG_TAG,"LoadAdCallback - onAdLoad" +
+            Log.d(LOG_TAG, "LoadAdCallback - onAdLoad" +
                     "\n\tPlacement Reference ID = " + placementReferenceID);
 
 
@@ -1032,7 +940,7 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
     };
 
-    public class UnityAdsListener implements IUnityAdsListener{
+    public class UnityAdsListener implements IUnityAdsListener {
 
         @Override
         public void onUnityAdsReady(String s) {
@@ -1047,8 +955,7 @@ public class BuyGoldActivity extends AppCompatActivity {
 
         public void onUnityAdsFinish(String s, UnityAds.FinishState finishState) {
 
-            if(finishState != UnityAds.FinishState.SKIPPED)
-            {
+            if (finishState != UnityAds.FinishState.SKIPPED) {
 
                 CommonFunc.getInstance().ShowLoadingPage(BuyGoldActivity.this, "로딩중");
 

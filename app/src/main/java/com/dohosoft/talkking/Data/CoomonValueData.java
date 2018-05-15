@@ -76,7 +76,7 @@ public class CoomonValueData  {
     public static  boolean bMyLoc = true;
     public static  boolean bSetNear = false;
     public static  boolean bSetNew = false;
-    public static  boolean bSetRich =false;
+    public static  boolean bSetRich = true;
     public static  boolean bSetRecv = false;
     public static  boolean bSetHot = false;
 
@@ -84,7 +84,7 @@ public class CoomonValueData  {
     public static boolean bRefreshSetHot = false;
     public static boolean bRefreshSetNear = false;
     public static boolean bRefreshSetNew = false;
-    public static boolean bRefreshSetFan = false;
+    public static boolean bRefreshSetFan = true;
     public static boolean bRefreshSetRecv = false;
 
 
