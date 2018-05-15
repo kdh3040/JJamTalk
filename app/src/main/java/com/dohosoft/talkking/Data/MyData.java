@@ -17,6 +17,7 @@ import android.text.Editable;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.dohosoft.talkking.CardListFragment;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -269,6 +270,9 @@ public class MyData {
     public long AdColonyAdsTime;
     public long VungleAdsTime;
     public long AdmobAdsTime;
+
+
+    public InterstitialAd mInterstitialAd;
 
     private MyData() {
         strUid = null;

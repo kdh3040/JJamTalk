@@ -41,6 +41,7 @@ import com.dohosoft.talkking.Data.SettingData;
 import com.dohosoft.talkking.Data.SimpleChatData;
 import com.fpang.lib.FpangSession;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -252,6 +253,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
        // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         mMyData.SetCurFrag(0);
+
+        mMyData.mInterstitialAd = new InterstitialAd(this);
+        mMyData.mInterstitialAd.setAdUnitId("ca-app-pub-4020702622451243/1718076510");
+        mMyData.mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
 
         PackageInfo pi = null;
         try {

@@ -37,6 +37,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -126,6 +129,10 @@ public class UserPageActivity extends AppCompatActivity {
     private ImageButton btnFAB;
 
     private TextView txtWhen;
+
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +149,23 @@ public class UserPageActivity extends AppCompatActivity {
 
             }
         });*/
+
+
+
+        if (mMyData.mInterstitialAd.isLoaded()) {
+            mMyData.mInterstitialAd.show();
+        } else {
+            Log.d("TAG", "The interstitial wasn't loaded yet.");
+        }
+
+        mMyData.mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mMyData.mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+        });
+
 
         txtWhen = findViewById(R.id.tv_when);
 

@@ -30,7 +30,18 @@
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15"></android.support.v4.view.ViewPager>
+        android:layout_weight="14"></android.support.v4.view.ViewPager>
 
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-4020702622451243/7169713746"></com.google.android.gms.ads.AdView>
 
 </LinearLayout>

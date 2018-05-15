@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import github.chenupt.springindicator.SpringIndicator;
 
 import static com.dohosoft.talkking.R.id.vp;
@@ -28,6 +31,8 @@ public class HomeFragment extends Fragment {
     private TabLayout tabLayout;
     View fragView;
 
+    private AdView mAdView;
+
     public HomeFragment() {
 
     }
@@ -41,6 +46,12 @@ public class HomeFragment extends Fragment {
         else
         {
             fragView = inflater.inflate(R.layout.fragment_home,container,false);
+
+            mAdView = fragView.findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+
+
             tabLayout = fragView.findViewById(R.id.tabLayout);
 
             tabLayout.addTab(tabLayout.newTab().setText("Hot"));

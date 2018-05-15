@@ -8,6 +8,7 @@
 
     >
 
+
     <ImageView
         android:id="@+id/bg_top"
         android:layout_width="0dp"
@@ -43,6 +44,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/white"
+        android:visibility="gone"
+        ads:adSize="MEDIUM_RECTANGLE"
+        ads:adUnitId="ca-app-pub-4020702622451243/5961056047"></com.google.android.gms.ads.AdView>
+
+
     <TextView
         android:id="@+id/rbtn_two"
         android:layout_width="wrap_content"
@@ -57,7 +70,7 @@
         android:visibility="gone"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_filter" />
+        app:layout_constraintTop_toBottomOf="@+id/adView" />
 
     <RadioButton
         android:id="@+id/rbtn_three"
@@ -96,7 +109,7 @@
         android:textColor="@color/gray"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/tv_filter" />
+        app:layout_constraintTop_toBottomOf="@+id/adView" />
 
     <RadioButton
         android:id="@+id/rbtn_man"
@@ -133,7 +146,7 @@
         android:textColor="@color/gray"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/tv_filter" />
+        app:layout_constraintTop_toBottomOf="@+id/adView" />
 
     <Spinner
         android:id="@+id/spinner1"

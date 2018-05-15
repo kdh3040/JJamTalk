@@ -635,6 +635,7 @@ public class MainActivity extends AppCompatActivity {
 
                 filter_dialog.show();
 
+                final AdView mAdView;
 
                 final RadioButton rbtn_three;
                 final RadioButton rbtn_four;
@@ -644,6 +645,12 @@ public class MainActivity extends AppCompatActivity {
 
                 final Spinner spin_StartAge, spin_EndAge;
 
+                mAdView = (AdView) v.findViewById(R.id.adView);
+                mAdView.setVisibility(View.VISIBLE);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mAdView.loadAd(adRequest);
+
+                
                 spin_StartAge = (Spinner) v.findViewById(R.id.spinner1);
                 spin_StartAge.setSelection(mMyData.nStartAge - 20);
                 // spin_StartAge.setPrompt(String.valueOf(mMyData.nStartAge));
