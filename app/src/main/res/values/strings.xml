@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">톡킹</string>
     <string name="title_activity_login">Sign in</string>
 
     <string name="google_maps_key">AIzaSyBlWfAWc4rsaAL4il3blw9pLJ_qP1ajjSg</string>
@@ -32,13 +31,13 @@
     </string-array>
 
 
-    <string name="Item_0_text">\'오팔\'</string>
-    <string name="Item_1_text">\'진주\'</string>
-    <string name="Item_2_text">\'자수정\'</string>
-    <string name="Item_3_text">\'사파이어\'</string>
-    <string name="Item_4_text">\'루비\'</string>
-    <string name="Item_5_text">\'에메랄드\'</string>
-    <string name="Item_6_text">\'다이아몬드\'</string>
+    <string name="Item_0_text">\'Opal\'</string>
+    <string name="Item_1_text">\'Pearl\'</string>
+    <string name="Item_2_text">\'Amethyst\'</string>
+    <string name="Item_3_text">\'Sapphire\'</string>
+    <string name="Item_4_text">\'Ruby\'</string>
+    <string name="Item_5_text">\'Emerald\'</string>
+    <string name="Item_6_text">\'Diamond\'</string>
 
     <string-array name="OpenItem_text">
         <item>클로버 소개 글</item>
@@ -141,28 +140,33 @@
         <item>99</item>
     </string-array>
 
+    <string name="Home_Hot_Title">Hot50</string>
+    <string name="Home_Favorite_Title">인기순</string>
+    <string name="Home_Near_Title">가까운순</string>
+    <string name="Home_New_Title">New</string>
+
     <style name="DialogTheme">
         <item name="android:windowEnterAnimation">@anim/slide_left</item>
         <item name="android:windowExitAnimation">@anim/slide_right</item>
     </style>
 
     <string name="Fan_Rank_Title">팬 순위권 제목</string>
-    <string name="Fan_Rank_1st">님의 1등 팬이 되셨군요!</string>
-    <string name="Fan_Rank_2nd">님의 2등 팬이 되셨군요!</string>
-    <string name="Fan_Rank_3rd">님의 3등 팬이 되셨군요!</string>
+    <string name="Fan_Rank_1st">You became the first fan.</string>
+    <string name="Fan_Rank_2nd">You became a second fan.</string>
+    <string name="Fan_Rank_3rd">You became the third fan</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="profile">설정</string>
-    <string name="myprofiledesc">내설정</string>
-    <string name="buyGold">코인 충전하기</string>
-    <string name="myProfile">내 프로필</string>
+    <string name="profile">Setting</string>
+    <string name="myprofiledesc">My Settings</string>
+    <string name="buyGold">Charging</string>
+    <string name="myProfile">Profile</string>
     <string name="profiledesc">내프로필아이콘</string>
     <string name="myProfileLO">내프로필레이아웃</string>
     <string name="settingdesc">설정아이콘</string>
     <string name="myJewelImage">내보석이미지</string>
-    <string name="recvMessage">쪽지 수신 거부</string>
-    <string name="title_activity_privacy">개인정보 취급방침</string>
+    <string name="recvMessage">Unsubscribe</string>
+    <string name="title_activity_privacy">Privacy Statement</string>
     <string name="large_text">
         "도호소프트’는 (이하 '회사'라 합니다.) 이용자의 개인정보를 중요하게 생각합니다. 회사는 정보통신망 이용촉진 및 정보보호 등에 관한 법률, 전기통신사업법, 통신비밀보호법 등 개인정보와 관련된 법령 상의 개인정보 보호 규정 및 방송통신위원회가 제정한 개인정보보호지침을 준수하고 있습니다.\n
 
@@ -346,8 +350,8 @@
 
     </string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_access">이용 약관</string>
-    <string name="title_activity_loc">위치 정보 이용 약관</string>
+    <string name="title_activity_access">Terms of use</string>
+    <string name="title_activity_loc">"Terms of location information "</string>
 
     <string name="Access_Term">
         제 1 조 (목적) \n
@@ -707,7 +711,7 @@
 
 
     </string>
-    <string name="title_activity_help">도움말 및 고객지원</string>
+    <string name="title_activity_help">Help</string>
     <string name="activity_help">
         톡킹 이용안내\n\n
 톡킹 메인화면에는 인기순(선물 받은 하트 순), 팬보유 순, 가까운 순, NEW(신규 가입순) 으로 사용자가 표시됩니다\n
@@ -826,7 +830,9 @@
 (개인정보 사유로 유선상담 불가)\n
 
     </string>
-    <string name="title_activity_noti_body">공지 사항</string>
+    <string name="title_activity_noti_body">Notice</string>
+    <string name="app_name">TalkKing</string>
+    <string name="kakao_app_key">5904866e9e9f18cee10679df437f1ace</string>
 
 </resources>
 
