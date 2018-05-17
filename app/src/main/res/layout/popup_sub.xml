@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_intro"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:text="광고 없음,쪽지보내기무료,코인 지급"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_week"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/bambamcolor"
+        android:text="1주일 쪽지보내기 무료 + 100코인"
+        android:textColor="@color/Green"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_1900"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_1900" />
+
+    <TextView
+        android:id="@+id/tv_month"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/bambamcolor"
+        android:text="1달 쪽지보내기 무료 + 400코인"
+        android:textColor="@color/Green"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_4900"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_4900" />
+
+    <TextView
+        android:id="@+id/tv_year"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/bambamcolor"
+        android:text="1년 쪽지 보내기 무료 + 5000코인"
+        android:textColor="@color/Green"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_49000"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_49000" />
+
+    <Button
+        android:id="@+id/btn_1900"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="1900원"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_intro" />
+
+    <Button
+        android:id="@+id/btn_4900"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="4900원"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_1900" />
+
+    <Button
+        android:id="@+id/btn_49000"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="49000원"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_4900" />
+</android.support.constraint.ConstraintLayout>
