@@ -53,7 +53,9 @@
         android:background="@android:color/white"
         android:visibility="gone"
         ads:adSize="MEDIUM_RECTANGLE"
-        ads:adUnitId="ca-app-pub-4020702622451243/5961056047"></com.google.android.gms.ads.AdView>
+        ads:adUnitId="ca-app-pub-4020702622451243/5961056047"
+        ads:layout_constraintLeft_toLeftOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/bg_top"></com.google.android.gms.ads.AdView>
 
 
     <TextView
@@ -135,6 +137,15 @@
         app:layout_constraintBottom_toBottomOf="@+id/txt_Gender"
         app:layout_constraintLeft_toRightOf="@+id/rbtn_man" />
 
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adView"
+        app:srcCompat="@color/baseColor" />
+
     <TextView
         android:id="@+id/txt_Age"
         android:layout_width="wrap_content"
@@ -143,7 +154,6 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="표시 나이"
-        android:textColor="@color/gray"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@+id/imageView7"
         app:layout_constraintTop_toBottomOf="@+id/adView" />
