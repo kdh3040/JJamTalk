@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.dohosoft.talkking.Util.CommonFunc;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -44,9 +45,7 @@ public class HomeFragment extends Fragment {
 
             if(mAdView != null)
             {
-                mAdView.setVisibility(View.VISIBLE);
-                AdRequest adRequest = new AdRequest.Builder().build();
-                mAdView.loadAd(adRequest);
+                CommonFunc.getInstance().ViewAdsBanner(mAdView);
             }
         }
         else
@@ -54,9 +53,8 @@ public class HomeFragment extends Fragment {
             fragView = inflater.inflate(R.layout.fragment_home,container,false);
 
             mAdView = fragView.findViewById(R.id.adBottomView);
-            mAdView.setVisibility(View.VISIBLE);
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
+            CommonFunc.getInstance().ViewAdsBanner(mAdView);
+
 
 
             tabLayout = fragView.findViewById(R.id.tabLayout);

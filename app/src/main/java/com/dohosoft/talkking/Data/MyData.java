@@ -208,8 +208,6 @@ public class MyData {
     public Uri urSaveUri;
     public int nSaveUri;
 
-    public String strBannerID = "ca-app-pub-4020702622451243/5961056047";
-
     public boolean bChatRefresh = false;
 
     private int nCurVisibleFrag;
@@ -1532,27 +1530,6 @@ public class MyData {
         });
     }
 
-    public void getAdBannerID() {
-        String strTargetIdx;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference table = null;
-        table = database.getReference("BannerID");
-
-        table.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int saa = 0;
-                String tempUserData = dataSnapshot.getValue(String.class);
-                strBannerID = tempUserData;
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-        });
-    }
 
     public boolean makeCardList(final UserData target) {
         boolean rtValue = false;
@@ -2966,6 +2943,17 @@ public class MyData {
         FirebaseData.getInstance().SaveLastAdsTime(time);
         LastAdsTime = time;
     }
+
+
+    public boolean IsViewAds()
+    {
+        //SubStatus = 1;
+        if( SubStatus == 0)
+            return true;
+        else
+            return false;
+    }
+
 
 }
 

@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,6 +65,7 @@ public class FanListFragment extends Fragment {
 
     View fragView;
     private TextView txt_empty;
+    private AdView mAdView;
 
     private void refreshFragMent() {
         Fragment frg = null;
@@ -132,6 +134,10 @@ public class FanListFragment extends Fragment {
                 CommonFunc.getInstance().RefreshFanData(fanListAdapter);
             }
 
+            if(mAdView != null)
+            {
+                CommonFunc.getInstance().ViewAdsBanner(mAdView);
+            }
 
             // SortByRecvHeart();
             //fanListAdapter.notifyDataSetChanged();
@@ -145,6 +151,8 @@ public class FanListFragment extends Fragment {
             } else
                 txt_empty.setVisibility(View.GONE);
 
+            mAdView = fragView.findViewById(R.id.adBottomView);
+            CommonFunc.getInstance().ViewAdsBanner(mAdView);
 
             fan_recylerview = fragView.findViewById(R.id.fanlist_recy);
             fan_recylerview.setAdapter(fanListAdapter);

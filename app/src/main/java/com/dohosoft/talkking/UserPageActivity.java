@@ -69,6 +69,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
+import static com.dohosoft.talkking.Data.CoomonValueData.MOD_AddHotMember;
 import static com.dohosoft.talkking.Data.CoomonValueData.SEND_MSG_COST;
 import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_MAN;
 import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_WOMAN;
@@ -79,9 +80,6 @@ import static com.dohosoft.talkking.MainActivity.mFragmentMng;
  */
 
 public class UserPageActivity extends AppCompatActivity {
-
-    boolean MOD_AddHotMember = false;
-
 
     private UserData stTargetData;
     private ImageView bg_fan;
@@ -127,7 +125,7 @@ public class UserPageActivity extends AppCompatActivity {
     private ImageView imgBestItem;
     private ImageView imgGrade;
 
-    private  ImageView imgAds;
+    private ImageView imgAds;
 
     RecyclerView listView_like, listView_liked;
     final Context context = this;
@@ -161,81 +159,13 @@ public class UserPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
 
-        if (mServiceConn == null) {
-            mServiceConn = new ServiceConnection() {
-                @Override
-                public void onServiceDisconnected(ComponentName name) {
-                    mService = null;
-                }
-
-                @Override
-                public void onServiceConnected(ComponentName name,
-                                               IBinder service) {
-                    mService = IInAppBillingService.Stub.asInterface(service);
-
-                    //loadRewardedVideoAd(BuyGoldActivity.this);
-
-                    try {
-                        mMyData.skuDetails = mService.getSkuDetails(3, getPackageName(), "inapp", mMyData.querySkus);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-
-                    int response = mMyData.skuDetails.getInt("RESPONSE_CODE");
-                    if (response == 0) {
-                        ArrayList<String> responseList
-                                = mMyData.skuDetails.getStringArrayList("DETAILS_LIST");
-
-                        for (String thisResponse : responseList) {
-                            JSONObject object = null;
-                            try {
-                                object = new JSONObject(thisResponse);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                mMyData.sku = object.getString("productId");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                mMyData.price = object.getString("price");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            if (mMyData.sku.equals("gold_10"))
-                                mMyData.strGold[0] = mMyData.price;
-                            else if (mMyData.sku.equals("gold_20"))
-                                mMyData.strGold[1] = mMyData.price;
-                            else if (mMyData.sku.equals("gold_50"))
-                                mMyData.strGold[2] = mMyData.price;
-                            else if (mMyData.sku.equals("gold_100"))
-                                mMyData.strGold[3] = mMyData.price;
-                            else if (mMyData.sku.equals("gold_200"))
-                                mMyData.strGold[4] = mMyData.price;
-                            else if (mMyData.sku.equals("gold_500"))
-                                mMyData.strGold[5] = mMyData.price;
-                            else if (mMyData.sku.equals("gold_1000"))
-                                mMyData.strGold[6] = mMyData.price;
-                            else if (mMyData.sku.equals("sub_week"))
-                                mMyData.strGold[7] = mMyData.price;
-                            else if (mMyData.sku.equals("sub_month"))
-                                mMyData.strGold[8] = mMyData.price;
-                            else if (mMyData.sku.equals("sub_year"))
-                                mMyData.strGold[9] = mMyData.price;
-                        }
-                    }
-
-                }
-            };
-
-            Intent serviceIntent =
-                    new Intent("com.android.vending.billing.InAppBillingService.BIND");
-            serviceIntent.setPackage("com.android.vending");
-            bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
-        }
+        imgAds = findViewById(R.id.UserPage_Ads);
+        imgAds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewSubPopup();
+            }
+        });
 
 
         mMyData.mInterstitialAd = new InterstitialAd(UserPageActivity.this);
@@ -256,31 +186,95 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });
 
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mMyData.mInterstitialAd.loadAd(adRequest);
+        mMyData.mInterstitialAd.loadAd(CoomonValueData.adRequest);
 
-/*
-        if (mMyData.mInterstitialAd.isLoaded()) {
-            mMyData.mInterstitialAd.show();
-        } else {
-            Log.d("TAG", "The interstitial wasn't loaded yet.");
+        /*
+
+        if (mMyData.SubStatus == 0) {
+            if (mServiceConn == null) {
+                mServiceConn = new ServiceConnection() {
+                    @Override
+                    public void onServiceDisconnected(ComponentName name) {
+                        mService = null;
+                    }
+
+                    @Override
+                    public void onServiceConnected(ComponentName name,
+                                                   IBinder service) {
+                        mService = IInAppBillingService.Stub.asInterface(service);
+
+                        //loadRewardedVideoAd(BuyGoldActivity.this);
+
+                        try {
+                            mMyData.skuDetails = mService.getSkuDetails(3, getPackageName(), "inapp", mMyData.querySkus);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+
+                        int response = mMyData.skuDetails.getInt("RESPONSE_CODE");
+                        if (response == 0) {
+                            ArrayList<String> responseList
+                                    = mMyData.skuDetails.getStringArrayList("DETAILS_LIST");
+
+                            for (String thisResponse : responseList) {
+                                JSONObject object = null;
+                                try {
+                                    object = new JSONObject(thisResponse);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    mMyData.sku = object.getString("productId");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    mMyData.price = object.getString("price");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                if (mMyData.sku.equals("gold_10"))
+                                    mMyData.strGold[0] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_20"))
+                                    mMyData.strGold[1] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_50"))
+                                    mMyData.strGold[2] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_100"))
+                                    mMyData.strGold[3] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_200"))
+                                    mMyData.strGold[4] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_500"))
+                                    mMyData.strGold[5] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_1000"))
+                                    mMyData.strGold[6] = mMyData.price;
+                                else if (mMyData.sku.equals("sub_week"))
+                                    mMyData.strGold[7] = mMyData.price;
+                                else if (mMyData.sku.equals("sub_month"))
+                                    mMyData.strGold[8] = mMyData.price;
+                                else if (mMyData.sku.equals("sub_year"))
+                                    mMyData.strGold[9] = mMyData.price;
+                            }
+                        }
+
+                    }
+                };
+
+                Intent serviceIntent =
+                        new Intent("com.android.vending.billing.InAppBillingService.BIND");
+                serviceIntent.setPackage("com.android.vending");
+                bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+            }
+
+            mMyData.mInterstitialAd.loadAd(CoomonValueData.adRequest);
+        }
+        else
+        {
+            imgAds.setVisibility(View.GONE);
         }
 
-        mMyData.mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                mMyData.mInterstitialAd.loadAd(new AdRequest.Builder().build());
-            }
-        });*/
-
-        imgAds = findViewById(R.id.UserPage_Ads);
-        imgAds.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewSubPopup();
-            }
-        });
+*/
 
         txtWhen = findViewById(R.id.tv_when);
 
@@ -475,7 +469,7 @@ if(mMyData.itemList.get(i) != 0)
 
                     case R.id.UserPage_btnRegister:
 
-                        if (MOD_AddHotMember == true) {
+                        if (CoomonValueData.MOD_AddHotMember == true) {
                             CommonFunc.getInstance().AddHotMember(stTargetData);
                             CommonFunc.getInstance().ShowToast(UserPageActivity.this, "핫멤버로 등록 하였습니다.", true);
                         } else {
@@ -745,66 +739,58 @@ if(mMyData.itemList.get(i) != 0)
                                                 @Override
                                                 public void onClick(View view) {
 
-                                                    CommonFunc.getInstance().ShowLoadingPage(UserPageActivity.this, "로딩중");
+                                                    if(mMyData.IsViewAds() == false )
+                                                    {
+                                                        String strMemo = et_msg.getText().toString();
+                                                        strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
 
-                                                    FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                                                        if (CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this, "쪽지 쓰기", true) == false)
+                                                            return;
 
-                                                    Query data;
-                                                    if (mMyData.getUserGender().equals("여자")) {
-                                                        data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
-                                                    } else {
-                                                        data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+                                                        if (strMemo == null || strMemo.equals("")) {
+                                                            return;
+                                                        }
+
+                                                        mNotiFunc.SendMSGToFCM(stTargetData, strMemo);
+                                                        boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString(), 0);
+                                                        long nowTime = CommonFunc.getInstance().GetCurrentTime();
+                                                        ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), stTargetData.NickName, strMemo, nowTime, "", 0, 0);
+                                                        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
+                                                        mRef.push().setValue(chat_Data);
+
+                                                        CommonFunc.getInstance().ShowToast(UserPageActivity.this, "쪽지를 보냈습니다.", true);
                                                     }
+                                                    else
+                                                    {
+                                                        if (mMyData.getUserHoney() < SEND_MSG_COST) {
+                                                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "코인이 부족합니다", true);
+                                                        } else {
+                                                            String strMemo = et_msg.getText().toString();
+                                                            strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
 
-                                                    data.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                        @Override
-                                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                                            if (CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this, "쪽지 쓰기", true) == false)
+                                                                return;
 
-                                                            CommonFunc.getInstance().DismissLoadingPage();
-                                                            int tempValue = dataSnapshot.getValue(int.class);
-                                                            mMyData.setUserHoney(tempValue);
-
-                                                            if (mMyData.getUserHoney() < SEND_MSG_COST) {
-                                                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "코인이 부족합니다", true);
-                                                            } else {
-                                                                String strMemo = et_msg.getText().toString();
-                                                                strMemo = CommonFunc.getInstance().RemoveEmptyString(strMemo);
-
-                                                                if (CommonFunc.getInstance().CheckTextMaxLength(strMemo, CoomonValueData.TEXT_MAX_LENGTH_MAIL, UserPageActivity.this, "쪽지 쓰기", true) == false)
-                                                                    return;
-
-                                                                if (strMemo == null || strMemo.equals("")) {
-                                                                    return;
-                                                                }
-
-                                                                mNotiFunc.SendMSGToFCM(stTargetData, strMemo);
-                                                                mMyData.setUserHoney(mMyData.getUserHoney() - SEND_MSG_COST);
-
-                                                                boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString(), 0);
-
-                                                                long nowTime = CommonFunc.getInstance().GetCurrentTime();
-                                                                ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), stTargetData.NickName, strMemo, nowTime, "", 0, 0);
-                                                                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
-                                                                mRef.push().setValue(chat_Data);
-
-                                                                CommonFunc.getInstance().ShowToast(UserPageActivity.this, "쪽지를 보냈습니다.", true);
+                                                            if (strMemo == null || strMemo.equals("")) {
+                                                                return;
                                                             }
 
-                                                            msgDialog.dismiss();
+                                                            mNotiFunc.SendMSGToFCM(stTargetData, strMemo);
+                                                            mMyData.setUserHoney(mMyData.getUserHoney() - SEND_MSG_COST);
+
+                                                            boolean rtValuew = mMyData.makeSendList(stTargetData, et_msg.getText().toString(), 0);
+
+                                                            long nowTime = CommonFunc.getInstance().GetCurrentTime();
+                                                            ChatData chat_Data = new ChatData(mMyData.getUserIdx(), mMyData.getUserNick(), stTargetData.NickName, strMemo, nowTime, "", 0, 0);
+                                                            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("ChatData").child(ChatName);
+                                                            mRef.push().setValue(chat_Data);
+
+                                                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "쪽지를 보냈습니다.", true);
                                                         }
-
-                                                        @Override
-                                                        public void onCancelled(DatabaseError databaseError) {
-
-                                                        }
-                                                    });
+                                                    }
 
 
-
-
-
-
-
+                                                    msgDialog.dismiss();
                                                 }
                                             });
 
@@ -821,11 +807,8 @@ if(mMyData.itemList.get(i) != 0)
 
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {
-
                                         }
                                     });
-
-
                                 }
                             }
                         }
@@ -1182,6 +1165,88 @@ if(mMyData.itemList.get(i) != 0)
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
+        if (mMyData.SubStatus == 0) {
+            if (mServiceConn == null) {
+                mServiceConn = new ServiceConnection() {
+                    @Override
+                    public void onServiceDisconnected(ComponentName name) {
+                        mService = null;
+                    }
+
+                    @Override
+                    public void onServiceConnected(ComponentName name,
+                                                   IBinder service) {
+                        mService = IInAppBillingService.Stub.asInterface(service);
+
+                        //loadRewardedVideoAd(BuyGoldActivity.this);
+
+                        try {
+                            mMyData.skuDetails = mService.getSkuDetails(3, getPackageName(), "inapp", mMyData.querySkus);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+
+                        int response = mMyData.skuDetails.getInt("RESPONSE_CODE");
+                        if (response == 0) {
+                            ArrayList<String> responseList
+                                    = mMyData.skuDetails.getStringArrayList("DETAILS_LIST");
+
+                            for (String thisResponse : responseList) {
+                                JSONObject object = null;
+                                try {
+                                    object = new JSONObject(thisResponse);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    mMyData.sku = object.getString("productId");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    mMyData.price = object.getString("price");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                if (mMyData.sku.equals("gold_10"))
+                                    mMyData.strGold[0] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_20"))
+                                    mMyData.strGold[1] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_50"))
+                                    mMyData.strGold[2] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_100"))
+                                    mMyData.strGold[3] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_200"))
+                                    mMyData.strGold[4] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_500"))
+                                    mMyData.strGold[5] = mMyData.price;
+                                else if (mMyData.sku.equals("gold_1000"))
+                                    mMyData.strGold[6] = mMyData.price;
+                                else if (mMyData.sku.equals("sub_week"))
+                                    mMyData.strGold[7] = mMyData.price;
+                                else if (mMyData.sku.equals("sub_month"))
+                                    mMyData.strGold[8] = mMyData.price;
+                                else if (mMyData.sku.equals("sub_year"))
+                                    mMyData.strGold[9] = mMyData.price;
+                            }
+                        }
+
+                    }
+                };
+
+                Intent serviceIntent =
+                        new Intent("com.android.vending.billing.InAppBillingService.BIND");
+                serviceIntent.setPackage("com.android.vending");
+                bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+            }
+            imgAds.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            imgAds.setVisibility(View.GONE);
+        }
 
         android.app.AlertDialog.Builder mDialog = null;
         mDialog = new android.app.AlertDialog.Builder(this);
@@ -1207,7 +1272,7 @@ if(mMyData.itemList.get(i) != 0)
             alert.setTitle("안 내");
             alert.show();
         } else*/
-            {
+        {
             if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("Badge", getApplicationContext().MODE_PRIVATE);
@@ -1228,8 +1293,7 @@ if(mMyData.itemList.get(i) != 0)
         mMyData.SetCurFrag(0);
     }
 
-    void ViewSubPopup()
-    {
+    void ViewSubPopup() {
         View v = LayoutInflater.from(UserPageActivity.this).inflate(R.layout.popup_sub, null, false);
 
         final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();

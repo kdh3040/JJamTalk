@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,6 +59,9 @@ public class BoardFragment extends Fragment {
     // 보드 리스트 UI
     RecyclerView BoardSlotListRecycler;
     Button WriteButton, MyWriteListButton;
+
+    private AdView mAdView;
+
 
     public enum BOARD_SCROLL_STATE_TYPE {
         NONE,
@@ -368,9 +372,19 @@ public class BoardFragment extends Fragment {
             //CommonFunc.getInstance().refreshFragMent(this);
             BoradListAdapter.notifyDataSetChanged();
             //refreshFragMent();
+
+            if(mAdView != null)
+            {
+                CommonFunc.getInstance().ViewAdsBanner(mAdView);
+            }
+
         } else {
             mFragmentView = inflater.inflate(R.layout.fragment_board, container, false);
             BoardSlotListRecycler = (RecyclerView) mFragmentView.findViewById(R.id.board_recy);
+
+            mAdView = mFragmentView.findViewById(R.id.adBottomView);
+            CommonFunc.getInstance().ViewAdsBanner(mAdView);
+
             BoardSlotListRecycler.setAdapter(BoradListAdapter);
             BoardSlotListRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
             BoradListAdapter.notifyDataSetChanged();
@@ -387,6 +401,7 @@ public class BoardFragment extends Fragment {
                 }*/
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
 
                     if (!recyclerView.canScrollVertically(-1)) {
                         if (mBoardInstanceData.BoardList.size() <= 0)

@@ -1469,6 +1469,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                              Log.d("@@@@@@", fileSnapshot.getKey());
                                 String tempValue = fileSnapshot.getValue(String.class);
 
                                 if(tempValue != null || !tempValue.equals(""))

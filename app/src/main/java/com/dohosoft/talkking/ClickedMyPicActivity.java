@@ -59,7 +59,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
     LinearLayout stickers_holder;
     UIData mUIData = UIData.getInstance();
     Activity mActivity;
-
+    private ImageView imgAds;
     private ImageView bg_fan;
     private SwipeRefreshLayout refreshlayout;
 
@@ -69,20 +69,14 @@ public class ClickedMyPicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_clicked_mypic);
         setContentView(R.layout.activity_user_page);
-        //refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
-        /*refreshlayout.setOnRefreshListener(new_img SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-               // RefreshData(refreshlayout);
-                refreshlayout.setRefreshing(false);
-            }
-        });*/
 
         mActivity = this;
 
         mMyData.SetCurFrag(0);
+
+        imgAds = findViewById(R.id.UserPage_Ads);
+        imgAds.setVisibility(View.GONE);
 
         txtProfile = (TextView) findViewById(R.id.UserPage_txtProfile);
         txtProfile.setText(mMyData.getUserNick() + ",  " + mMyData.getUserAge()+"세");
