@@ -1257,27 +1257,6 @@ if(mMyData.itemList.get(i) != 0)
         android.app.AlertDialog.Builder mDialog = null;
         mDialog = new android.app.AlertDialog.Builder(this);
 
- /*       if (!mMyData.verSion.equals(mMyData.marketVersion)) {
-            mDialog.setMessage("업데이트 후 사용해주세요.")
-                    .setCancelable(false)
-                    .setPositiveButton("업데이트 바로가기",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                                    int id) {
-                                    Intent marketLaunch = new Intent(
-                                            Intent.ACTION_VIEW);
-                                    marketLaunch.setData(Uri
-                                            //.parse("https://play.google.com/store/apps/details?id=패키지명 적으세요"));
-                                            .parse("https://play.google.com/store/apps/details?id=com.dohosoft.talkking"));
-
-                                    startActivity(marketLaunch);
-                                    System.exit(0);
-                                }
-                            });
-            android.app.AlertDialog alert = mDialog.create();
-            alert.setTitle("안 내");
-            alert.show();
-        } else*/
         {
             if (CommonFunc.getInstance().mAppStatus == CommonFunc.AppStatus.RETURNED_TO_FOREGROUND) {
 
@@ -1342,11 +1321,11 @@ if(mMyData.itemList.get(i) != 0)
 
     private void BuyGoldByGoogle(Context context, String tempStrGold) {
         try {
-            if (mMyData.mService == null) {
+            if (mService == null) {
                 CommonFunc.getInstance().ShowToast(context, "결제에 실패하였습니다. 다시 시도해주세요.", true);
                 return;
             }
-            mMyData.buyIntentBundle = mMyData.mService.getBuyIntent(3, getPackageName(),
+            mMyData.buyIntentBundle = mService.getBuyIntent(3, getPackageName(),
                     tempStrGold, "inapp", "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
 
         } catch (RemoteException e) {
@@ -1388,7 +1367,7 @@ if(mMyData.itemList.get(i) != 0)
                         @Override
                         public void run() {
                             try {
-                                int response = mMyData.mService.consumePurchase(3, getPackageName(), strToken);
+                                int response = mService.consumePurchase(3, getPackageName(), strToken);
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
