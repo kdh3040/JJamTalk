@@ -30,6 +30,47 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/iv_sub"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="@drawable/bg_top_sub"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_1000" />
+
+    <ImageView
+        android:id="@+id/iv_star"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_sub"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_sub"
+        app:srcCompat="@drawable/star_sub" />
+
+    <TextView
+        android:id="@+id/tv_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="광고를 안뜨게 하시려면?"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_sub" />
+
+    <TextView
+        android:id="@+id/tv_sub2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="쪽지를 무제한으로 보내시려면?"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_sub"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sub" />
+
+    <ImageView
         android:id="@+id/iv_coin"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -132,10 +173,10 @@
         android:background="@android:color/white"
         android:paddingLeft="20dp"
         android:paddingRight="150dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/iv_10"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_500"
+        app:layout_constraintBottom_toTopOf="@id/iv_sub"
         app:srcCompat="@drawable/buy_1000" />
 
     <Button
