@@ -464,7 +464,8 @@ public class MyData {
                           int _UserHoney, int _UserSendCount, long _UserRecvCount, long _UserDate,
                           String _UserMemo, int _UserRecvMsgReject, int _UserPublicRoomStatus, int _UserPublicRoomName, int _UserPublicRoomLimit, int _UserPublicRoomTime,
                           int _UserItemCount, int _UserItem1, int _UserItem2, int _UserItem3, int _UserItem4, int _UserItem5, int _UserItem6, int _UserItem7, int _UserItem8, int _UserBestItem,
-                          int _UserPoint, int _UserGrade, long _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime, int _UserNickChangeCnt) {
+                          int _UserPoint, int _UserGrade, long _UserConnDate, long _UserLastBoardWriteTime, long _UserLastAdsTime, int _UserNickChangeCnt,
+                          long _UserSubDate, int _UserSubStatus) {
 
         strUid = _UserUid;
         strIdx = _UserIdx;
@@ -571,6 +572,9 @@ public class MyData {
         nEndAge = nStartAge + 19;
 
         NickChangeCnt = _UserNickChangeCnt;
+
+        SubDate = _UserSubDate;
+        SubStatus = _UserSubStatus;
     }
 
     public void refreshItemIdex() {
@@ -2947,7 +2951,7 @@ public class MyData {
 
     public boolean IsViewAds()
     {
-        //SubStatus = 1;
+      //  SubStatus = 1;
         if( SubStatus == 0)
             return true;
         else

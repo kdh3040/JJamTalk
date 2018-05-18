@@ -61,6 +61,7 @@ import com.dohosoft.talkking.Firebase.FirebaseData;
 import com.dohosoft.talkking.Util.CommonFunc;
 import com.dohosoft.talkking.Util.LocationFunc;
 import com.dohosoft.talkking.Util.NotiFunc;
+import com.kakao.usermgmt.response.model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -168,25 +169,30 @@ public class UserPageActivity extends AppCompatActivity {
         });
 
 
-        mMyData.mInterstitialAd = new InterstitialAd(UserPageActivity.this);
-        mMyData.mInterstitialAd.setAdUnitId("ca-app-pub-4020702622451243/1718076510");
-        mMyData.mInterstitialAd.setAdListener(new AdListener() {
 
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                if (mMyData.mInterstitialAd.isLoaded()) {
-                    mMyData.mInterstitialAd.show();
+        if(MyData.getInstance().IsViewAds() == true)
+        {
+            mMyData.mInterstitialAd = new InterstitialAd(UserPageActivity.this);
+            mMyData.mInterstitialAd.setAdUnitId("ca-app-pub-4020702622451243/1718076510");
+            mMyData.mInterstitialAd.setAdListener(new AdListener() {
+
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    if (mMyData.mInterstitialAd.isLoaded()) {
+                        mMyData.mInterstitialAd.show();
+                    }
                 }
-            }
 
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-            }
-        });
+                @Override
+                public void onAdFailedToLoad(int i) {
+                    super.onAdFailedToLoad(i);
+                }
+            });
 
-        mMyData.mInterstitialAd.loadAd(CoomonValueData.adRequest);
+            mMyData.mInterstitialAd.loadAd(CoomonValueData.adRequest);
+
+        }
 
         /*
 
@@ -1376,7 +1382,7 @@ if(mMyData.itemList.get(i) != 0)
                     JSONObject jo = new JSONObject(purchaseData);
                     String sku = jo.getString("productId");
                     final String strToken = jo.getString("purchaseToken");
-                    FirebaseData.getInstance().SetSubStatus(sku);
+                    FirebaseData.getInstance().SetSubStatus(UserPageActivity.this, sku);
 
                     mActivity.runOnUiThread(new Runnable() {
                         @Override

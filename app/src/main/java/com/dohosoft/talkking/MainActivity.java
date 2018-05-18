@@ -457,7 +457,7 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         // 구독 상태
-        CommonFunc.getInstance().CheckSubStatus();
+        CommonFunc.getInstance().CheckSubStatus(MainActivity.this);
 
 
         RefreshBtn = (ImageButton)findViewById(R.id.RefreshBtn);

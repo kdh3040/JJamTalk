@@ -2,6 +2,7 @@ package com.dohosoft.talkking.Firebase;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -1911,7 +1912,7 @@ public class FirebaseData {
 
     }
 
-    public void SetSubStatus(String status) {
+    public void SetSubStatus(Context context, String status) {
 
         int substatus = 0;
 
@@ -1922,12 +1923,15 @@ public class FirebaseData {
         else if (status.equals(mMyData.skuGold[7])) {
             substatus = CoomonValueData.SUBSTATUS_WEEK;
             MyData.getInstance().setUserHoney(MyData.getInstance().getUserHoney() + CoomonValueData.SUBSTATUS_WEEK_COIN);
+            CommonFunc.getInstance().ShowToast(context, "1주일 구독하였습니다. 감사합니다", true);
         } else if (status.equals(mMyData.skuGold[8])) {
             substatus = CoomonValueData.SUBSTATUS_MONTH;
             MyData.getInstance().setUserHoney(MyData.getInstance().getUserHoney() + CoomonValueData.SUBSTATUS_MONTH_COIN);
+            CommonFunc.getInstance().ShowToast(context, "1주일 구독하였습니다. 감사합니다", true);
         } else if (status.equals(mMyData.skuGold[9])) {
             substatus = CoomonValueData.SUBSTATUS_YEAR;
             MyData.getInstance().setUserHoney(MyData.getInstance().getUserHoney() + CoomonValueData.SUBSTATUS_YEAR_COIN);
+            CommonFunc.getInstance().ShowToast(context, "1주일 구독하였습니다. 감사합니다", true);
         }
 
 

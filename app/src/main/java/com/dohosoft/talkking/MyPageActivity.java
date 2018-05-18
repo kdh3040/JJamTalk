@@ -67,6 +67,9 @@ public class MyPageActivity extends AppCompatActivity {
     ImageView img_Noti;
     TextView txt_noti;
 
+    TextView img_sub;
+    TextView txt_sub, txt_sub_date;
+
     private CommonFunc mCommon = CommonFunc.getInstance();
 
     private Activity mActivity;
@@ -79,6 +82,26 @@ public class MyPageActivity extends AppCompatActivity {
         mActivity = this;
 
         mMyData.SetCurFrag(0);
+
+        img_sub = findViewById(R.id.iv_sub);
+        txt_sub = findViewById(R.id.tv_sub);
+        txt_sub_date = findViewById(R.id.tv_sub_date);
+
+        if(mMyData.IsViewAds())
+        {
+            img_sub.setVisibility(View.GONE);
+            txt_sub.setVisibility(View.GONE);
+            txt_sub_date.setVisibility(View.GONE);
+        }
+        else
+        {
+            img_sub.setVisibility(View.VISIBLE);
+            txt_sub.setVisibility(View.VISIBLE);
+            txt_sub_date.setVisibility(View.VISIBLE);
+            txt_sub_date.setText(CommonFunc.getInstance().GetRemainSubDate());
+        }
+
+
         profileButton1 = findViewById(R.id.cover_profile);
         profileButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,21 +116,6 @@ public class MyPageActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),SettingActivity.class));
             }
         });
-        /*ll_jewel_box= (LinearLayout) findViewById(R.id.ll_jewel_box);
-        ll_jewel_box.setOnClickListener(new_img View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new_img Intent(getApplicationContext(),MyJewelBoxActivity.class));
-            }
-<<<<<<< HEAD
-        });*/
-
-        //iv_gold = findViewById(R.id.iv_gold);
-        //iv_gold.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.boardBgColor), PorterDuff.Mode.MULTIPLY);
-
-        /*iv_jewely=findViewById(R.id.iv_jewely);
-        iv_jewely.setColorFilter(ContextCompat.getColor(getApplicationContext(),R.color.textColorDark), PorterDuff.Mode.MULTIPLY);
-*/
 
         img_Noti = (ImageView)findViewById(R.id.iv_notice);
         txt_noti = (TextView) findViewById(R.id.tv_notice);
@@ -124,22 +132,8 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         iv_MyGift=findViewById(R.id.jewel);
         iv_MyGift.setVisibility(View.VISIBLE);
-
-       /* if(mMyData.bestItem == 0)
-        {
-            iv_MyGift.setImageResource(R.mipmap.randombox);
-        }
-        else
-        {
-            iv_MyGift.setImageResource(mUIdata.getJewels()[mMyData.bestItem]);
-        }*/
-
-
 
         iv_MyGift.setOnClickListener(new View.OnClickListener() {
             @Override

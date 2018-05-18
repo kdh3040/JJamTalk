@@ -2375,8 +2375,33 @@ public class CommonFunc {
 
     }
 
+    public String GetRemainSubDate()
+    {
+        String rtValue = "";
 
-    public void  CheckSubStatus()
+        SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd");
+
+        if(mMyData.SubStatus == 1)
+        {
+            mMyData.SubDate += CoomonValueData.SUBDATE_WEEK * CoomonValueData.MIN_MILLI_SECONDS;
+            rtValue = dayTime.format(new Date(mMyData.SubDate));
+        }
+        else  if(mMyData.SubStatus == 2)
+        {
+            mMyData.SubDate += CoomonValueData.SUBDATE_MONTH * CoomonValueData.MIN_MILLI_SECONDS;
+            rtValue = dayTime.format(new Date(mMyData.SubDate));
+        }
+        else  if(mMyData.SubStatus == 3)
+        {
+            mMyData.SubDate += CoomonValueData.SUBDATE_YEAR * CoomonValueData.MIN_MILLI_SECONDS;
+            rtValue = dayTime.format(new Date(mMyData.SubDate));
+        }
+
+        return  rtValue;
+
+    }
+
+    public void  CheckSubStatus(Context context)
     {
         int tempSubStatus = MyData.getInstance().SubStatus;
         long tempSubDate = MyData.getInstance().SubDate;
@@ -2384,19 +2409,19 @@ public class CommonFunc {
         switch (tempSubStatus)
         {
             case 0:
-                 FirebaseData.getInstance().SetSubStatus("");
+                 FirebaseData.getInstance().SetSubStatus(context, "");
                 break;
             case 1:
                 if(IsCurrentDateCompare(new Date(tempSubDate), CoomonValueData.SUBDATE_WEEK, 0))
-                    FirebaseData.getInstance().SetSubStatus("");
+                    FirebaseData.getInstance().SetSubStatus(context, "");
                 break;
             case 2:
                 if(IsCurrentDateCompare(new Date(tempSubDate), CoomonValueData.SUBDATE_MONTH, 0))
-                    FirebaseData.getInstance().SetSubStatus("");
+                    FirebaseData.getInstance().SetSubStatus(context, "");
                 break;
             case 3:
                 if(IsCurrentDateCompare(new Date(tempSubDate), CoomonValueData.SUBDATE_YEAR, 0))
-                    FirebaseData.getInstance().SetSubStatus("");
+                    FirebaseData.getInstance().SetSubStatus(context, "");
                 break;
         }
     }
