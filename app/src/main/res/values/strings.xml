@@ -140,10 +140,10 @@
         <item>99</item>
     </string-array>
 
-    <string name="Home_Hot_Title">Hot50</string>
-    <string name="Home_Favorite_Title">인기순</string>
-    <string name="Home_Near_Title">가까운순</string>
-    <string name="Home_New_Title">New</string>
+    <string name="Home_Hot_Title" translatable="false">Hot50</string>
+    <string name="Home_Favorite_Title" translatable="false">인기순</string>
+    <string name="Home_Near_Title" translatable="false">가까운순</string>
+    <string name="Home_New_Title" translatable="false">New</string>
 
     <style name="DialogTheme">
         <item name="android:windowEnterAnimation">@anim/slide_left</item>

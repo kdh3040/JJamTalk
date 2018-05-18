@@ -127,6 +127,9 @@ public class UserPageActivity extends AppCompatActivity {
     private ImageView imgGrade;
 
     private ImageView imgAds;
+    private TextView txt_Ads1;
+    private TextView txt_Ads2;
+    private ImageView img_sub;
 
     RecyclerView listView_like, listView_liked;
     final Context context = this;
@@ -167,6 +170,11 @@ public class UserPageActivity extends AppCompatActivity {
                 ViewSubPopup();
             }
         });
+
+        txt_Ads1 = findViewById(R.id.tv_ad);
+        txt_Ads2 = findViewById(R.id.tv_ad1);
+        img_sub = findViewById(R.id.iv_sub);
+
 
 
 
@@ -700,14 +708,7 @@ if(mMyData.itemList.get(i) != 0)
 
                                             Button CoinCharge = (Button) view1.findViewById(R.id.HeartPop_Charge);
 
-                                            if(mMyData.IsViewAds() == false )
-                                            {
-                                                Coin.setVisibility(View.GONE);
-                                            }
-                                            else
-                                            {
-                                                Coin.setVisibility(View.VISIBLE);
-                                            }
+
 
                                             if (mMyData.getUserGender().equals("여자") && stTargetData.Gender.equals("남자")) {
                                                 CoinText.setVisibility(View.GONE);
@@ -725,6 +726,15 @@ if(mMyData.itemList.get(i) != 0)
                                                 CoinMine.setText(Integer.toString(mMyData.getUserHoney()));
                                             }
 
+
+                                            if(mMyData.IsViewAds() == false )
+                                            {
+                                                Coin.setVisibility(View.GONE);
+                                            }
+                                            else
+                                            {
+                                                Coin.setVisibility(View.VISIBLE);
+                                            }
 
                                             Button btn_cancel = view1.findViewById(R.id.btn_cancel);
                                             final EditText et_msg = view1.findViewById(R.id.et_nick);
@@ -1257,10 +1267,16 @@ if(mMyData.itemList.get(i) != 0)
                 bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
             }
             imgAds.setVisibility(View.VISIBLE);
+            img_sub.setVisibility(View.VISIBLE);
+            txt_Ads2.setVisibility(View.VISIBLE);
+            txt_Ads1.setVisibility(View.VISIBLE);
         }
         else
         {
             imgAds.setVisibility(View.GONE);
+            img_sub.setVisibility(View.GONE);
+            txt_Ads2.setVisibility(View.GONE);
+            txt_Ads1.setVisibility(View.GONE);
         }
 
         android.app.AlertDialog.Builder mDialog = null;

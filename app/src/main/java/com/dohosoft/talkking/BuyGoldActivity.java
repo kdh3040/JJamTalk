@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +37,7 @@ import com.adcolony.sdk.AdColonyUserMetadata;
 import com.adcolony.sdk.AdColonyZone;
 import com.android.vending.billing.IInAppBillingService;
 import com.dohosoft.talkking.Data.CoomonValueData;
+import com.dohosoft.talkking.Firebase.FirebaseData;
 import com.fpang.lib.FpangSession;
 import com.fpang.lib.SessionCallback;
 import com.google.android.gms.ads.AdRequest;
@@ -116,6 +119,7 @@ public class BuyGoldActivity extends AppCompatActivity {
 
 
     private int index = 0;
+    private ImageView imgAds;
 
     @Override
     public void onDestroy() {
@@ -138,6 +142,9 @@ public class BuyGoldActivity extends AppCompatActivity {
             AdColony.requestInterstitial(CoomonValueData.getInstance().ZONE_ID, listener, ad_options);
         }
 
+        if (mMyData.IsViewAds() == false) {
+            CommonFunc.getInstance().ShowToast(BuyGoldActivity.this, "이미 구독 중입니다", true);
+        }
 
         android.app.AlertDialog.Builder mDialog = null;
         mDialog = new android.app.AlertDialog.Builder(this);
@@ -193,6 +200,14 @@ public class BuyGoldActivity extends AppCompatActivity {
         mMyData.SetCurFrag(0);
 
         initSDK();
+
+        imgAds = findViewById(R.id.iv_sub);
+        imgAds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewSubPopup();
+            }
+        });
 
 
         mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/3514842138",
@@ -441,6 +456,12 @@ public class BuyGoldActivity extends AppCompatActivity {
                                 mMyData.strGold[5] = mMyData.price;
                             else if (mMyData.sku.equals("gold_1000"))
                                 mMyData.strGold[6] = mMyData.price;
+                            else if (mMyData.sku.equals("sub_week"))
+                                mMyData.strGold[7] = mMyData.price;
+                            else if (mMyData.sku.equals("sub_month"))
+                                mMyData.strGold[8] = mMyData.price;
+                            else if (mMyData.sku.equals("sub_year"))
+                                mMyData.strGold[9] = mMyData.price;
                         }
                     }
 
@@ -759,6 +780,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                     String sku = jo.getString("productId");
                     final String strToken = jo.getString("purchaseToken");
                     setBuyGold(sku);
+                    FirebaseData.getInstance().SetSubStatus(BuyGoldActivity.this, sku);
 
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
@@ -795,6 +817,15 @@ public class BuyGoldActivity extends AppCompatActivity {
             nPrice = 6500;
         } else if (ID.equals(mMyData.skuGold[6])) {
             nPrice = 15000;
+        }
+        else if (ID.equals(mMyData.skuGold[7])) {
+            nPrice = CoomonValueData.SUBSTATUS_WEEK_COIN;
+        }
+        else if (ID.equals(mMyData.skuGold[8])) {
+            nPrice = CoomonValueData.SUBSTATUS_MONTH_COIN;
+        }
+        else if (ID.equals(mMyData.skuGold[9])) {
+            nPrice = CoomonValueData.SUBSTATUS_YEAR_COIN;
         }
 
         CommonFunc.getInstance().ShowLoadingPage(BuyGoldActivity.this, "로딩중");
@@ -996,5 +1027,46 @@ public class BuyGoldActivity extends AppCompatActivity {
         }
     }
 
+
+
+    void ViewSubPopup() {
+        View v = LayoutInflater.from(BuyGoldActivity.this).inflate(R.layout.popup_sub, null, false);
+
+        final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        final Button btn_week;
+        final Button btn_month;
+        final Button btn_year;
+
+        btn_week = (Button) v.findViewById(R.id.btn_1900);
+        btn_week.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(BuyGoldActivity.this, mMyData.skuGold[7]);
+                dialog.dismiss();
+            }
+        });
+
+        btn_month = (Button) v.findViewById(R.id.btn_4900);
+        btn_month.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(BuyGoldActivity.this, mMyData.skuGold[8]);
+                dialog.dismiss();
+            }
+        });
+
+        btn_year = (Button) v.findViewById(R.id.btn_49000);
+        btn_year.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(BuyGoldActivity.this, mMyData.skuGold[9]);
+                dialog.dismiss();
+            }
+        });
+
+    }
 
 }

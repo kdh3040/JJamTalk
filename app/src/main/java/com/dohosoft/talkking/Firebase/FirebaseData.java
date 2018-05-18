@@ -1922,23 +1922,18 @@ public class FirebaseData {
         }
         else if (status.equals(mMyData.skuGold[7])) {
             substatus = CoomonValueData.SUBSTATUS_WEEK;
-            MyData.getInstance().setUserHoney(MyData.getInstance().getUserHoney() + CoomonValueData.SUBSTATUS_WEEK_COIN);
             CommonFunc.getInstance().ShowToast(context, "1주일 구독하였습니다. 감사합니다", true);
         } else if (status.equals(mMyData.skuGold[8])) {
             substatus = CoomonValueData.SUBSTATUS_MONTH;
-            MyData.getInstance().setUserHoney(MyData.getInstance().getUserHoney() + CoomonValueData.SUBSTATUS_MONTH_COIN);
             CommonFunc.getInstance().ShowToast(context, "1주일 구독하였습니다. 감사합니다", true);
         } else if (status.equals(mMyData.skuGold[9])) {
             substatus = CoomonValueData.SUBSTATUS_YEAR;
-            MyData.getInstance().setUserHoney(MyData.getInstance().getUserHoney() + CoomonValueData.SUBSTATUS_YEAR_COIN);
             CommonFunc.getInstance().ShowToast(context, "1주일 구독하였습니다. 감사합니다", true);
         }
 
 
         MyData.getInstance().SubStatus = substatus;
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-
         DatabaseReference myTable = database.getReference("Users");
 
         if (mMyData.getUserGender().equals("여자")) {
