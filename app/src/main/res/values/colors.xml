@@ -50,6 +50,7 @@
         <color name="colorPrimaryDark">#1a237e</color>
         <color name="colorPrimaryLight">#dbffff</color>
     <color name = "colorAccentDark">#80deea</color>
+    <color name = "sub_bg">#c2f6f7</color>
         <color name="colorAccent">#77ffd700</color>
 
     <color name = "colorDark">#4e342e</color>
