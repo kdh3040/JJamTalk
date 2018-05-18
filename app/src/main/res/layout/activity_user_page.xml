@@ -32,12 +32,47 @@
 
         <ImageView
             android:id="@+id/UserPage_Ads"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_top_sub"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/userpage_top" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_ad1"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="7dp"
+            android:gravity="center_vertical"
+            android:text="광고를 안뜨게 하시려면?"
+            android:textColor="@android:color/white"
+            app:layout_constraintLeft_toLeftOf="@+id/UserPage_Ads"
+            app:layout_constraintTop_toTopOf="@+id/UserPage_Ads" />
+
+        <TextView
+            android:id="@+id/tv_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="7dp"
+            android:gravity="center_vertical"
+            android:text="쪽지를 무제한으로 보내시려면?"
+            android:textColor="@android:color/white"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_ad1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ad1" />
+
+        <ImageView
+            android:id="@+id/iv_sub"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toRightOf="@+id/UserPage_Ads"
+            app:layout_constraintTop_toTopOf="@+id/UserPage_Ads"
+            app:srcCompat="@drawable/star_sub" />
 
         <TextView
             android:id="@+id/UserPage_txtProfile"
