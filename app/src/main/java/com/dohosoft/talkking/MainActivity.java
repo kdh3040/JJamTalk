@@ -719,8 +719,8 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-                rbtn_three = (RadioButton) v.findViewById(R.id.rbtn_three);
-                rbtn_four = (RadioButton) v.findViewById(R.id.rbtn_four);
+                //rbtn_three = (RadioButton) v.findViewById(R.id.rbtn_three);
+                //rbtn_four = (RadioButton) v.findViewById(R.id.rbtn_four);
 
                 cbox_man = (RadioButton) v.findViewById(R.id.rbtn_man);
                 cbox_woman = (RadioButton) v.findViewById(R.id.rbtn_woman);
@@ -750,18 +750,18 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (mSetting.getnViewSetting() == 0) {
-                    rbtn_three.setChecked(false);
-                    rbtn_four.setChecked(false);
+                    //rbtn_three.setChecked(false);
+                    //rbtn_four.setChecked(false);
                 } else if (mSetting.getnViewSetting() == 1) {
-                    rbtn_three.setChecked(true);
-                    rbtn_four.setChecked(false);
+                    //rbtn_three.setChecked(true);
+                    //rbtn_four.setChecked(false);
                 } else if (mSetting.getnViewSetting() == 2) {
-                    rbtn_three.setChecked(false);
-                    rbtn_four.setChecked(true);
+                   // rbtn_three.setChecked(false);
+                   // rbtn_four.setChecked(true);
                 }
 
 
-                rbtn_three.setOnClickListener(new View.OnClickListener() {
+                /*rbtn_three.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (rbtn_three.isChecked()) {
@@ -783,7 +783,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-                });
+                });*/
 
                 cbox_man.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -843,7 +843,7 @@ public class MainActivity extends AppCompatActivity {
                 }*/
 
 
-                RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener() {
+                /*RadioButton.OnClickListener optionOnClickListener = new RadioButton.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (rbtn_three.isChecked())
@@ -852,7 +852,7 @@ public class MainActivity extends AppCompatActivity {
                             mSetting.setnViewSetting(2);
                     }
                 };
-
+*/
 
             }
         });

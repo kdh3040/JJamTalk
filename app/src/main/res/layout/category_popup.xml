@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
-    >
+    android:background="@android:color/white">
 
 
     <ImageView
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/iv_finder"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="16dp"
@@ -40,14 +40,14 @@
         android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/bg_top"
-        app:layout_constraintLeft_toRightOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toRightOf="@+id/iv_finder"
+        app:layout_constraintTop_toTopOf="@+id/bg_top" />
 
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:background="@android:color/white"
@@ -55,50 +55,9 @@
         ads:adSize="MEDIUM_RECTANGLE"
         ads:adUnitId="ca-app-pub-4020702622451243/5961056047"
         ads:layout_constraintLeft_toLeftOf="parent"
+        ads:layout_constraintRight_toRightOf="parent"
         ads:layout_constraintTop_toBottomOf="@+id/bg_top"></com.google.android.gms.ads.AdView>
 
-
-    <TextView
-        android:id="@+id/rbtn_two"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-
-        android:gravity="center"
-        android:text="표시 개수"
-        android:textColor="@color/gray"
-        android:visibility="gone"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adView" />
-
-    <RadioButton
-        android:id="@+id/rbtn_three"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginLeft="16dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:text="3개씩"
-        android:visibility="gone"
-        android:theme="@style/ViewCountRadioButton"
-        app:layout_constraintBottom_toBottomOf="@+id/rbtn_two"
-        app:layout_constraintLeft_toRightOf="@+id/rbtn_two" />
-
-
-    <RadioButton
-        android:id="@+id/rbtn_four"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:text="4개씩"
-        android:visibility="gone"
-        android:theme="@style/ViewCountRadioButton"
-        app:layout_constraintBottom_toBottomOf="@+id/rbtn_two"
-        app:layout_constraintLeft_toRightOf="@+id/rbtn_three" />
 
     <TextView
         android:id="@+id/txt_Gender"
@@ -107,21 +66,21 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="표시 성별"
-        android:visibility="gone"
         android:textColor="@color/gray"
         android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="@+id/imageView7"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_finder"
         app:layout_constraintTop_toBottomOf="@+id/adView" />
 
     <RadioButton
         android:id="@+id/rbtn_man"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:visibility="gone"
         android:layout_marginLeft="20dp"
         android:background="@color/white"
         android:text="남자"
         android:theme="@style/ManCheckBox"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/txt_Gender"
         app:layout_constraintLeft_toRightOf="@+id/txt_Gender" />
 
@@ -129,16 +88,16 @@
         android:id="@+id/rbtn_woman"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:visibility="gone"
         android:layout_marginLeft="20dp"
         android:background="@color/white"
         android:text="여자"
         android:theme="@style/WomanCheckBox"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/txt_Gender"
         app:layout_constraintLeft_toRightOf="@+id/rbtn_man" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/iv_line"
         android:layout_width="0dp"
         android:layout_height="1dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -155,16 +114,16 @@
         android:gravity="center"
         android:text="표시 나이"
         android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/adView" />
+        app:layout_constraintLeft_toLeftOf="@+id/iv_finder"
+        app:layout_constraintTop_toBottomOf="@+id/iv_line" />
 
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
         android:entries="@array/MyProfire_Age"
         android:spinnerMode="dialog"
-        android:layout_marginLeft="20dp"
         app:layout_constraintBottom_toBottomOf="@id/txt_Age"
         app:layout_constraintLeft_toRightOf="@+id/txt_Age" />
 
@@ -226,8 +185,8 @@
         android:layout_height="60dp"
         android:background="@drawable/purple_stroke_btn_bg"
         android:text="취소"
-        android:textSize="18dp"
         android:textColor="@color/baseColor2"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_save"
         app:layout_constraintLeft_toRightOf="@+id/btn_save"
         app:layout_constraintRight_toRightOf="parent" />
