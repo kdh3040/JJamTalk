@@ -34,24 +34,6 @@ public class ImageViewPager extends AppCompatActivity {
 
         Custom_ViewPager mViewPager = (Custom_ViewPager)findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
-/*        mViewPager.addOnPageChangeListener(new_img ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                int aaa = 0;
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if(position == 1)
-                    mCommon.loadInterstitialAd(getApplicationContext());
-                int aaa = 0;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });*/
 
     }
 

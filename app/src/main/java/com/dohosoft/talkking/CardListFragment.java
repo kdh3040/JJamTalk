@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,6 +63,8 @@ public class CardListFragment extends Fragment {
     private TextView txt_empty;
     View fragView;
 
+    private AdView mAdView;
+
     private void refreshFragMent() {
         FragmentTransaction trans = getFragmentManager().beginTransaction();
         trans.detach(this).attach(this).commit();
@@ -92,9 +96,17 @@ public class CardListFragment extends Fragment {
                 CommonFunc.getInstance().RefreshCardData(cardListAdapter);
             }
 
+            if(mAdView != null)
+            {
+                CommonFunc.getInstance().ViewAdsBanner(mAdView);
+            }
+
 
         } else {
             fragView = inflater.inflate(R.layout.fragment_card_list, container, false);
+
+            mAdView = fragView.findViewById(R.id.adBottomView);
+            CommonFunc.getInstance().ViewAdsBanner(mAdView);
 
             txt_empty = fragView.findViewById(R.id.txt_empty);
             if (mMyData.arrCarDataList.size() == 0) {

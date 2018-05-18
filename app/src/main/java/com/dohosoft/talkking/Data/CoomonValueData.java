@@ -1,5 +1,7 @@
 package com.dohosoft.talkking.Data;
 
+import com.google.android.gms.ads.AdRequest;
+
 /**
  * Created by HwanWoong on 2018-01-14.
  */
@@ -88,7 +90,7 @@ public class CoomonValueData  {
     public static boolean bRefreshSetRecv = false;
 
 
-    public boolean MOD_AddHotMember = false;
+    public static boolean MOD_AddHotMember = false;
     public boolean MOD_Notification = false;
 
 
@@ -138,6 +140,7 @@ public class CoomonValueData  {
     public static int SUBDATE_MONTH = 60 * 24 * 30;
     public static int SUBDATE_YEAR = 60 * 24 * 365;
 
+    public static AdRequest adRequest;
 
     private static CoomonValueData _Instance;
 
@@ -149,7 +152,7 @@ public class CoomonValueData  {
     }
 
     private CoomonValueData() {
-
+        adRequest = new AdRequest.Builder().build();
     }
 
     public long BoardLoadingDate = -1; // 게시판글 몇일전꺼는 안불러오게 하는 변수 -1은 무제한

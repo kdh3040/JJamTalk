@@ -1945,7 +1945,10 @@ public class FirebaseData {
 
         Map<String, Object> updateMap = new HashMap<>();
         updateMap.put("SubStatus",  MyData.getInstance().SubStatus );
-        updateMap.put("SubDate", CommonFunc.getInstance().GetCurrentTime());
+
+        if(MyData.getInstance().SubStatus != 0)
+            updateMap.put("SubDate", CommonFunc.getInstance().GetCurrentTime());
+
         myTable.updateChildren(updateMap);
 
         SaveMyCoin();

@@ -102,7 +102,15 @@ public class CustomPagerAdapter extends PagerAdapter{
 
     @Override
     public int getCount() {
-       return tempImg.size() + 1;
+        if(MyData.getInstance().IsViewAds() == true)
+        {
+            return tempImg.size() + 1;
+        }
+        else
+        {
+            return tempImg.size();
+        }
+
     }
 
     @Override
@@ -116,72 +124,62 @@ public class CustomPagerAdapter extends PagerAdapter{
         final ImageView imageView = (ImageView)itemView.findViewById(R.id.imageView);
         mAdView = (AdView)itemView.findViewById(R.id.adView);
 
-        if(position == 1)
+        if(MyData.getInstance().IsViewAds() == true)
         {
-            mAdView.setVisibility(View.VISIBLE);
-            imageView.setVisibility(View.GONE);
+            if(position == 1)
+            {
+                CommonFunc.getInstance().ViewAdsBanner(mAdView);
+                imageView.setVisibility(View.GONE);
+            }
+            else if(position == 0)
+            {
+                imageView.setVisibility(View.VISIBLE);
+                mAdView.setVisibility(View.GONE);
 
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
-
-
-            mAdView.setAdListener(new AdListener() {
-                @Override
-                public void onAdLoaded() {
-                    // Code to be executed when an ad finishes loading.
-                    int aaa = 0;
-                }
-
-                @Override
-                public void onAdFailedToLoad(int errorCode) {
-                    // Code to be executed when an ad request fails.
-                    int aaa = 0;
-                }
-
-                @Override
-                public void onAdOpened() {
-                    // Code to be executed when an ad opens an overlay that
-                    // covers the screen.
-                    int aaa = 0;
-                }
-
-                @Override
-                public void onAdLeftApplication() {
-                    // Code to be executed when the user has left the app.
-                    int aaa = 0;
-                }
-
-                @Override
-                public void onAdClosed() {
-                    // Code to be executed when when the user is about to return
-                    // to the app after tapping on an ad.
-                    int aaa = 0;
-                }
-            });
-        }
-        else if(position == 0)
-        {
-            imageView.setVisibility(View.VISIBLE);
-            mAdView.setVisibility(View.GONE);
-
-            Glide.with(mContext).load(tempImg.get(0))
-                    .listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(GlideDrawable glideDrawable, String s, Target<GlideDrawable> target, boolean b, boolean b1) {
-                            if (mAttacher != null) {
-                                mAttacher.update();
-                            } else {
-                                mAttacher = new PhotoViewAttacher(imageView);
-                                // mAttacher.setScaleType(ImageView.ScaleType.FIT_XY);
+                Glide.with(mContext).load(tempImg.get(0))
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {
+                                return false;
                             }
-                            return false;
-                        }
-                    }).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+
+                            @Override
+                            public boolean onResourceReady(GlideDrawable glideDrawable, String s, Target<GlideDrawable> target, boolean b, boolean b1) {
+                                if (mAttacher != null) {
+                                    mAttacher.update();
+                                } else {
+                                    mAttacher = new PhotoViewAttacher(imageView);
+                                    // mAttacher.setScaleType(ImageView.ScaleType.FIT_XY);
+                                }
+                                return false;
+                            }
+                        }).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+            }
+
+            else
+            {
+                imageView.setVisibility(View.VISIBLE);
+                mAdView.setVisibility(View.GONE);
+
+                Glide.with(mContext).load(tempImg.get(position-1))
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideDrawable glideDrawable, String s, Target<GlideDrawable> target, boolean b, boolean b1) {
+                                if (mAttacher != null) {
+                                    mAttacher.update();
+                                } else {
+                                    mAttacher = new PhotoViewAttacher(imageView);
+                                    // mAttacher.setScaleType(ImageView.ScaleType.FIT_XY);
+                                }
+                                return false;
+                            }
+                        }).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+            }
         }
 
         else
@@ -189,7 +187,7 @@ public class CustomPagerAdapter extends PagerAdapter{
             imageView.setVisibility(View.VISIBLE);
             mAdView.setVisibility(View.GONE);
 
-            Glide.with(mContext).load(tempImg.get(position-1))
+            Glide.with(mContext).load(tempImg.get(position))
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {
@@ -207,7 +205,9 @@ public class CustomPagerAdapter extends PagerAdapter{
                             return false;
                         }
                     }).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+
         }
+
             //mCommon.loadInterstitialAd(mContext);
 
 

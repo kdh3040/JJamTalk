@@ -27,6 +27,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dohosoft.talkking.BuyGoldActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
 import android.support.v7.app.AppCompatDialog;
@@ -343,30 +344,6 @@ public class CommonFunc {
 
         });
     }
-
-    public void loadInterstitialAd(Context mContext) {
-        mInterstitialAd = new InterstitialAd(mContext);
-        mInterstitialAd.setAdUnitId("ca-app-pub-4020702622451243/5961056047");
-        mInterstitialAd.setAdListener(new AdListener() {
-
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                }
-            }
-
-            @Override
-            public void onAdFailedToLoad(int i) {
-                super.onAdFailedToLoad(i);
-            }
-        });
-
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mInterstitialAd.loadAd(adRequest);
-    }
-
 
     public void ShowFanRankPopup(Context context, String title, int Rank) {
         ImageView iv_Rank;
@@ -2149,44 +2126,6 @@ public class CommonFunc {
     public void AddHotMember(UserData userData)
     {
 
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Age", userData.Age);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "BestItem", userData.BestItem);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ConnectDate", userData.ConnectDate);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Date", userData.Date);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Dist", userData.Dist);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "FanCount", userData.FanCount);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "SendList", userData.SendList);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Gender", userData.Gender);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Grade", userData.Grade);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Honey", userData.Honey);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Idx", userData.Idx);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Img", userData.Img);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ImgCount", userData.ImgCount);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ImgGroup0", userData.ImgGroup0);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ImgGroup1", userData.ImgGroup1);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ImgGroup2", userData.ImgGroup2);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ImgGroup3", userData.ImgGroup3);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Lat", userData.Lat);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Lon", userData.Lon);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Honey", userData.Honey);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "NickChangeCnt", userData.NickChangeCnt);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "NickName", userData.NickName);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Point", userData.Point);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "RecvGold", userData.RecvGold);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "RecvMsgReject", userData.RecvMsgReject);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "SendCount", userData.SendCount);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "CardList", userData.CardList);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "ItemCount", userData.ItemCount);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_1", userData.Item_1);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_2", userData.Item_2);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_3", userData.Item_3);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_4", userData.Item_4);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_5", userData.Item_5);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_6", userData.Item_6);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_7", userData.Item_7);
-        SetValue(CoomonValueData.getInstance().DATA_HOTMEMBER, userData.Gender, userData.Idx, "Item_8", userData.Item_8);
-
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("HotMemberIdx");//.child(mMyData.getUserIdx());
         DatabaseReference user;
@@ -2198,10 +2137,9 @@ public class CommonFunc {
         {
             user = table.child("Man").child(userData.Idx);
         }
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put(userData.Idx, userData.Idx);
-        // user.push().setValue(updateMap);
-        user.updateChildren(updateMap);
+
+        user.setValue(userData.Idx);
+
 
         /*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -2463,6 +2401,16 @@ public class CommonFunc {
         }
     }
 
+    public void ViewAdsBanner(AdView adView)
+    {
+        if(MyData.getInstance().IsViewAds() == true)
+        {
+            adView.setVisibility(View.VISIBLE);
+            adView.loadAd(CoomonValueData.adRequest);
+        }
+        else
+            adView.setVisibility(View.GONE);
+    }
 
     public String GetUserDate(long date)
     {

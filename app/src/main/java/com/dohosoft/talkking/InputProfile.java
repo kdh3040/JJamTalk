@@ -1229,11 +1229,8 @@ public class InputProfile extends AppCompatActivity {
                 }
             });
 
-
             mAdView = (AdView) v.findViewById(R.id.adView);
-            mAdView.setVisibility(View.VISIBLE);
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
+            CommonFunc.getInstance().ViewAdsBanner(mAdView);
 
         }
         return true;

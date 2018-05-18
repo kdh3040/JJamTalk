@@ -647,9 +647,8 @@ public class MainActivity extends AppCompatActivity {
                 final Spinner spin_StartAge, spin_EndAge;
 
                 mAdView = (AdView) v.findViewById(R.id.adView);
-                mAdView.setVisibility(View.VISIBLE);
-                AdRequest adRequest = new AdRequest.Builder().build();
-                mAdView.loadAd(adRequest);
+                CommonFunc.getInstance().ViewAdsBanner(mAdView);
+
 
 
                 spin_StartAge = (Spinner) v.findViewById(R.id.spinner1);
@@ -1598,11 +1597,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAdView = (AdView) v.findViewById(R.id.adView);
-        mAdView.setVisibility(View.VISIBLE);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-
+        CommonFunc.getInstance().ViewAdsBanner(mAdView);
     }
 
     @Override
