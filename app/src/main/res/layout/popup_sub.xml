@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/bg_top"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="140dp"
         android:background="@drawable/bg_top_sub"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -27,20 +27,23 @@
     <pl.droidsonroids.gif.GifTextView
 
         android:id="@+id/logo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
 
+        android:layout_marginLeft="30dp"
         android:background="@drawable/bangsa"
-        android:scaleType="fitCenter"
 
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/bg_top"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bg_top" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        app:layout_constraintLeft_toLeftOf="@+id/logo"
+        app:layout_constraintTop_toTopOf="@+id/logo"
         app:srcCompat="@drawable/star_sub" />
 
     <ImageView
@@ -50,7 +53,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toRightOf="@+id/logo"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
         app:srcCompat="@drawable/block_white" />
 
     <ImageView
@@ -72,12 +75,23 @@
         app:srcCompat="@drawable/money" />
 
     <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="구독 혜택"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/bg_top" />
+
+    <TextView
         android:id="@+id/tv_intro"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="5dp"
         android:text="광고 없음"
-        android:textColor="@android:color/white"
+        android:textColor="@color/textColorLight"
         app:layout_constraintLeft_toRightOf="@+id/imageView10"
         app:layout_constraintTop_toTopOf="@+id/imageView10" />
 
@@ -87,7 +101,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="5dp"
         android:text="쪽지보내기 무료"
-        android:textColor="@android:color/white"
+        android:textColor="@color/textColorLight"
         app:layout_constraintLeft_toRightOf="@+id/imageView10"
         app:layout_constraintTop_toTopOf="@+id/imageView13" />
 
@@ -97,7 +111,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="5dp"
         android:text="추가 코인"
-        android:textColor="@android:color/white"
+        android:textColor="@color/textColorLight"
         app:layout_constraintLeft_toRightOf="@+id/imageView10"
         app:layout_constraintTop_toTopOf="@+id/imageView15" />
 
