@@ -2438,6 +2438,32 @@ public class CommonFunc {
     }
 
 
+    public void  CheckSubStatus()
+    {
+        int tempSubStatus = MyData.getInstance().SubStatus;
+        long tempSubDate = MyData.getInstance().SubDate;
+
+        switch (tempSubStatus)
+        {
+            case 0:
+                 FirebaseData.getInstance().SetSubStatus("");
+                break;
+            case 1:
+                if(IsCurrentDateCompare(new Date(tempSubDate), CoomonValueData.SUBDATE_WEEK, 0))
+                    FirebaseData.getInstance().SetSubStatus("");
+                break;
+            case 2:
+                if(IsCurrentDateCompare(new Date(tempSubDate), CoomonValueData.SUBDATE_MONTH, 0))
+                    FirebaseData.getInstance().SetSubStatus("");
+                break;
+            case 3:
+                if(IsCurrentDateCompare(new Date(tempSubDate), CoomonValueData.SUBDATE_YEAR, 0))
+                    FirebaseData.getInstance().SetSubStatus("");
+                break;
+        }
+    }
+
+
     public String GetUserDate(long date)
     {
 /*        long temp = date;

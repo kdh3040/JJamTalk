@@ -235,8 +235,8 @@ public class MyData {
     public Bundle querySkus = new Bundle();
     public Bundle buyIntentBundle = new Bundle();
     public PendingIntent pendingIntent;
-    public String[] strGold = new String[7];
-    public String[] skuGold = {"gold_10", "gold_20", "gold_50", "gold_100", "gold_200", "gold_500", "gold_1000"};
+    public String[] strGold = new String[10];
+    public String[] skuGold = {"gold_10", "gold_20", "gold_50", "gold_100", "gold_200", "gold_500", "gold_1000", "sub_week", "sub_month", "sub_year"};
     public String sku = null;
     public String price = null;
 
@@ -270,6 +270,9 @@ public class MyData {
     public long AdColonyAdsTime;
     public long VungleAdsTime;
     public long AdmobAdsTime;
+
+    public int SubStatus;
+    public long SubDate;
 
 
     public InterstitialAd mInterstitialAd;
@@ -329,6 +332,8 @@ public class MyData {
         AdColonyAdsTime= 0;
         VungleAdsTime = 0;
         AdmobAdsTime = 0;
+
+        SubStatus = 0;
     }
 
     public void Clear() {

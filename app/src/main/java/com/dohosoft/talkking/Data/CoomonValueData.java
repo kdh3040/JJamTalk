@@ -126,6 +126,19 @@ public class CoomonValueData  {
     public String DATA_HOTMEMBER_BACKUP = "TestHotMemberBackup";
     public String DATA_HOTMEMBER = "TestHotMember";
 
+    public static int SUBSTATUS_WEEK = 1;
+    public static int SUBSTATUS_MONTH = 2;
+    public static int SUBSTATUS_YEAR = 3;
+
+    public static int SUBSTATUS_WEEK_COIN = 100;
+    public static int SUBSTATUS_MONTH_COIN = 400;
+    public static int SUBSTATUS_YEAR_COIN = 5000;
+
+    public static int SUBDATE_WEEK = 60 * 24 * 7;
+    public static int SUBDATE_MONTH = 60 * 24 * 30;
+    public static int SUBDATE_YEAR = 60 * 24 * 365;
+
+
     private static CoomonValueData _Instance;
 
     public static CoomonValueData getInstance() {

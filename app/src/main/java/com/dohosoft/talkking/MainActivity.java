@@ -456,6 +456,9 @@ public class MainActivity extends AppCompatActivity {
 
         }*/
 
+        // 구독 상태
+        CommonFunc.getInstance().CheckSubStatus();
+
 
         RefreshBtn = (ImageButton)findViewById(R.id.RefreshBtn);
 
@@ -1050,91 +1053,6 @@ public class MainActivity extends AppCompatActivity {
 
             nStartByNew = 0;
         }
-        // Toast.makeText(getApplicationContext(),"width: "+width+"height: "+ height,Toast.LENGTH_LONG).show();
-        /*ib_pcr_open = (ImageButton)findViewById(R.id.ib_pcr_open);
-        ib_pcr_open.setOnClickListener(new_img View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(mMyData.nPublicRoomStatus == 0)
-                {
-                    AlertDialog.Builder builder = new_img AlertDialog.Builder(mActivity);
-                    View v = LayoutInflater.from(mActivity).inflate(R.layout.dialog_pcr_open,null,false);
-                    //v.getBackground().setAlpha(0);
-
-
-                    final RadioButton btn_Member_50 =  v.findViewById(R.id.member_50);
-                    final RadioButton btn_Member_100 =  v.findViewById(R.id.member_100);
-                    final RadioButton btn_Member_200 =  v.findViewById(R.id.member_200);
-
-                    final int[] publicRoomMemberCnt = new_img int[1];
-
-                    final RadioButton btn_time_30 =  v.findViewById(R.id.time_30);
-                    final RadioButton btn_time_60 =  v.findViewById(R.id.time_60);
-                    final RadioButton btn_time_120 =  v.findViewById(R.id.time_120);
-
-                    final int[] publicRoomTime = new_img int[1];
-
-                    RadioButton.OnClickListener optionOnClickListener = new_img RadioButton.OnClickListener(){
-
-                        @Override
-                        public void onClick(View view) {
-                            if(btn_Member_50.isChecked())
-                                publicRoomMemberCnt[0] = 50;
-                            else if(btn_Member_100.isChecked())
-                                publicRoomMemberCnt[0] = 100;
-                            else if(btn_Member_200.isChecked())
-                                publicRoomMemberCnt[0] = 200;
-
-                            else if(btn_time_30.isChecked())
-                                publicRoomTime[0] = 30;
-                            else if(btn_time_60.isChecked())
-                                publicRoomTime[0] = 60;
-                            else if(btn_time_120.isChecked())
-                                publicRoomTime[0] = 120;
-
-                        }
-                    };
-
-                    btn_time_30.setOnClickListener(optionOnClickListener);
-                    btn_time_60.setOnClickListener(optionOnClickListener);
-                    btn_time_120.setOnClickListener(optionOnClickListener);
-
-                    btn_Member_50.setOnClickListener(optionOnClickListener);
-                    btn_Member_100.setOnClickListener(optionOnClickListener);
-                    btn_Member_200.setOnClickListener(optionOnClickListener);
-
-
-
-                    builder.setView(v);
-                    final AlertDialog dialog = builder.create();
-                    dialog.getWindow().setBackgroundDrawable(new_img ColorDrawable(android.graphics.Color.TRANSPARENT));
-                    dialog.show();
-
-                    Button btn_open_pcr = v.findViewById(R.id.btn_open_pcr);
-                    btn_open_pcr.setOnClickListener(new_img View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                            boolean rtValuew = mMyData.makePublicRoom(publicRoomMemberCnt[0], publicRoomTime[0]);
-
-                            Intent intent= new_img Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
-                            startActivity(intent);
-                            dialog.dismiss();
-                        }
-                    });
-                }
-
-
-                else
-                {
-                    Intent intent= new_img Intent(getApplicationContext(), PublicChatRoomHostActivity.class);
-                    intent.putExtra("RoomLimit", mMyData.nPublicRoomLimit);
-                    intent.putExtra("RoomTime", mMyData.nPublicRoomTime);
-                    startActivity(intent);
-                }
-            }
-        });*/
 
 
         txt_home = findViewById(R.id.tv_home);

@@ -156,28 +156,25 @@ public class FirebaseData {
         data = fierBaseDataInstance.getReference("UserIdx_History");
 
         Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put(Uid,Idx);
+        updateMap.put(Uid, Idx);
         data.updateChildren(updateMap);
 
 
         data = fierBaseDataInstance.getReference("SimpleData").child(mMyData.getUserIdx());
         final DatabaseReference SimpleToken = data.child("Token");
         Map<String, Object> updateTokenMap = new HashMap<>();
-        updateTokenMap.put("Token","0");
+        updateTokenMap.put("Token", "0");
         data.updateChildren(updateTokenMap);
 
         CommonFunc.getInstance().UpdateValue(CoomonValueData.getInstance().DATA_SIMPLEDATA, mMyData.getUserGender(), Idx, updateMap);
         CommonFunc.getInstance().UpdateValue(CoomonValueData.getInstance().DATA_USERS, mMyData.getUserGender(), Idx, updateMap);
 
-        if(mMyData.getUserGender().equals("여자"))
-        {
+        if (mMyData.getUserGender().equals("여자")) {
             data = fierBaseDataInstance.getReference("Users").child("Woman").child(mMyData.getUserIdx());
             final DatabaseReference UserToken = data.child("Token");
             data.updateChildren(updateTokenMap);
             //UserToken.setValue("0");
-        }
-        else
-        {
+        } else {
             data = fierBaseDataInstance.getReference("Users").child("Man").child(mMyData.getUserIdx());
             final DatabaseReference UserToken = data.child("Token");
             data.updateChildren(updateTokenMap);
@@ -191,7 +188,7 @@ public class FirebaseData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("User");//.child(mMyData.getUserIdx());
 
-        DatabaseReference user = table.child( userIdx);
+        DatabaseReference user = table.child(userIdx);
 
 
         if (FirebaseInstanceId.getInstance() == null || FirebaseInstanceId.getInstance().getToken() == null || FirebaseInstanceId.getInstance().getToken().equals("")) {
@@ -208,15 +205,13 @@ public class FirebaseData {
         for (int i = 0; i < 4; i++)
             user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
 
-        if(mMyData.getUserProfileImg(0).equals("1"))
-        {
+        if (mMyData.getUserProfileImg(0).equals("1")) {
             mMyData.setUserProfileImg(0, mMyData.getUserImg());
             user.child("ImgGroup0").setValue(mMyData.getUserImg());
         }
 
         user.child("ImgCount").setValue(mMyData.getUserImgCnt());
-        if(mMyData.getUserImgCnt() == 0)
-        {
+        if (mMyData.getUserImgCnt() == 0) {
             mMyData.setUserImgCnt(1);
             user.child("ImgCount").setValue(1);
         }
@@ -250,7 +245,7 @@ public class FirebaseData {
 
         long time = CommonFunc.getInstance().GetCurrentTime();
         SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
-        int nTodayTime = Integer.parseInt( (date.format(new Date(time))).toString());
+        int nTodayTime = Integer.parseInt((date.format(new Date(time))).toString());
         user.child("ConnectDate").setValue(nTodayTime);
     }
 
@@ -297,12 +292,9 @@ public class FirebaseData {
 
         // DatabaseReference user = table.child( userIdx);
         DatabaseReference user;
-        if(mMyData.getUserGender().equals("여자"))
-        {
-             user = table.child("Woman").child(mMyData.getUserIdx());
-        }
-        else
-        {
+        if (mMyData.getUserGender().equals("여자")) {
+            user = table.child("Woman").child(mMyData.getUserIdx());
+        } else {
             user = table.child("Man").child(mMyData.getUserIdx());
         }
 
@@ -320,15 +312,13 @@ public class FirebaseData {
         for (int i = 0; i < 4; i++)
             user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
 
-        if(mMyData.getUserProfileImg(0).equals("1"))
-        {
+        if (mMyData.getUserProfileImg(0).equals("1")) {
             mMyData.setUserProfileImg(0, mMyData.getUserImg());
             user.child("ImgGroup0").setValue(mMyData.getUserImg());
         }
 
         user.child("ImgCount").setValue(mMyData.getUserImgCnt());
-        if(mMyData.getUserImgCnt() == 0)
-        {
+        if (mMyData.getUserImgCnt() == 0) {
             mMyData.setUserImgCnt(1);
             user.child("ImgCount").setValue(1);
         }
@@ -451,19 +441,15 @@ public class FirebaseData {
         Map<String, Object> updateMap = new HashMap<>();
 
 
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
 
         // DatabaseReference user = table.child( userIdx);
 
         DatabaseReference user;
-        if(mMyData.getUserGender().equals("여자"))
-        {
+        if (mMyData.getUserGender().equals("여자")) {
             user = table.child("Woman").child(mMyData.getUserIdx());
-        }
-        else
-        {
+        } else {
             user = table.child("Man").child(mMyData.getUserIdx());
         }
 
@@ -472,81 +458,78 @@ public class FirebaseData {
         } else {
             mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
             //user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
-            updateMap.put("Token",mMyData.getUserToken());
+            updateMap.put("Token", mMyData.getUserToken());
         }
 
-        updateMap.put("Idx",mMyData.getUserIdx());
-        updateMap.put("ImgCount",mMyData.getUserImgCnt());
+        updateMap.put("Idx", mMyData.getUserIdx());
+        updateMap.put("ImgCount", mMyData.getUserImgCnt());
 
         //user.child("Idx").setValue(mMyData.getUserIdx());
         // user.child("ImgCount").setValue(mMyData.getUserImgCnt());
-        if(mMyData.getUserImgCnt() == 0)
-        {
+        if (mMyData.getUserImgCnt() == 0) {
             mMyData.setUserImgCnt(1);
-            updateMap.put("ImgCount",1);
+            updateMap.put("ImgCount", 1);
             // user.child("ImgCount").setValue(1);
         }
 
         //user.child("Img").setValue(mMyData.getUserImg());
-        updateMap.put("Img",mMyData.getUserImg());
+        updateMap.put("Img", mMyData.getUserImg());
 
-        for (int i = 0; i < 4; i++)
-        {
-            updateMap.put("ImgGroup" + Integer.toString(i),mMyData.getUserProfileImg(i));
+        for (int i = 0; i < 4; i++) {
+            updateMap.put("ImgGroup" + Integer.toString(i), mMyData.getUserProfileImg(i));
         }
         //user.child("ImgGroup" + Integer.toString(i)).setValue(mMyData.getUserProfileImg(i));
 
-        if(mMyData.getUserProfileImg(0).equals("1"))
-        {
+        if (mMyData.getUserProfileImg(0).equals("1")) {
             mMyData.setUserProfileImg(0, mMyData.getUserImg());
             //user.child("ImgGroup0").setValue(mMyData.getUserImg());
-            updateMap.put("ImgGroup0",mMyData.getUserImg());
+            updateMap.put("ImgGroup0", mMyData.getUserImg());
 
         }
-        updateMap.put("NickName",mMyData.getUserNick());
-        updateMap.put("Gender",mMyData.getUserGender());
-        updateMap.put("Age",mMyData.getUserAge());
+        updateMap.put("NickName", mMyData.getUserNick());
+        updateMap.put("Gender", mMyData.getUserGender());
+        updateMap.put("Age", mMyData.getUserAge());
 
         //    user.child("NickName").setValue(mMyData.getUserNick());
         //      user.child("Gender").setValue(mMyData.getUserGender());
 //        user.child("Age").setValue(mMyData.getUserAge());
 
-        updateMap.put("Lon",mMyData.getUserLon());
-        updateMap.put("Lat",mMyData.getUserLat());
-        updateMap.put("Dist",mMyData.getUserDist());
+        updateMap.put("Lon", mMyData.getUserLon());
+        updateMap.put("Lat", mMyData.getUserLat());
+        updateMap.put("Dist", mMyData.getUserDist());
 
 //        user.child("Lon").setValue(mMyData.getUserLon());
         //      user.child("Lat").setValue(mMyData.getUserLat());
         //    user.child("Dist").setValue(mMyData.getUserDist());
 
-        updateMap.put("SendCount",mMyData.getSendHoney());
-        updateMap.put("RecvGold",mMyData.getRecvHoney());
+        updateMap.put("SendCount", mMyData.getSendHoney());
+        updateMap.put("RecvGold", mMyData.getRecvHoney());
 
         //user.child("SendCount").setValue(mMyData.getSendHoney());
         //user.child("RecvGold").setValue(mMyData.getRecvHoney());
 
 
-        updateMap.put("Memo",mMyData.getUserMemo());
+        updateMap.put("Memo", mMyData.getUserMemo());
         //user.child("Memo").setValue(mMyData.getUserMemo());
 
-        updateMap.put("RecvMsgReject",mMyData.nRecvMsgReject ? 1 : 0);
+        updateMap.put("RecvMsgReject", mMyData.nRecvMsgReject ? 1 : 0);
         //user.child("RecvMsgReject").setValue(mMyData.nRecvMsgReject ? 1 : 0);
 
         updateMap.put("FanCount", -1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
         //user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
 
-        updateMap.put("Point",mMyData.getPoint());
+        updateMap.put("Point", mMyData.getPoint());
         //user.child("Point").setValue(mMyData.getPoint());
 
-        updateMap.put("Grade",mMyData.getGrade());
-        updateMap.put("BestItem",mMyData.bestItem);
-        updateMap.put("Honey",mMyData.getUserHoney());
+        updateMap.put("Grade", mMyData.getGrade());
+        updateMap.put("BestItem", mMyData.bestItem);
+        updateMap.put("Honey", mMyData.getUserHoney());
 
         //user.child("Grade").setValue(mMyData.getGrade());
         //user.child("BestItem").setValue(mMyData.bestItem);
         //user.child("Honey").setValue(mMyData.getUserHoney());
 
-        updateMap.put("NickChangeCnt",mMyData.NickChangeCnt);
+        updateMap.put("NickChangeCnt", mMyData.NickChangeCnt);
         //user.child("NickChangeCnt").setValue(mMyData.NickChangeCnt);
 
         long time = CommonFunc.getInstance().GetCurrentTime();
@@ -579,56 +562,56 @@ public class FirebaseData {
             System.exit(0);
         } else {
             mMyData.setUserToken(FirebaseInstanceId.getInstance().getToken());
-           // user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
-            updateMap.put("Token",mMyData.getUserToken());
+            // user.child("Token").setValue(FirebaseInstanceId.getInstance().getToken());
+            updateMap.put("Token", mMyData.getUserToken());
         }
 
-        updateMap.put("Idx",mMyData.getUserIdx());
-        updateMap.put("Img",mMyData.getUserImg());
+        updateMap.put("Idx", mMyData.getUserIdx());
+        updateMap.put("Img", mMyData.getUserImg());
 
-       // user.child("Idx").setValue(mMyData.getUserIdx());
+        // user.child("Idx").setValue(mMyData.getUserIdx());
         //user.child("Img").setValue(mMyData.getUserImg());
 
-        updateMap.put("NickName",mMyData.getUserNick());
-        updateMap.put("Gender",mMyData.getUserGender());
-        updateMap.put("Age",mMyData.getUserAge());
+        updateMap.put("NickName", mMyData.getUserNick());
+        updateMap.put("Gender", mMyData.getUserGender());
+        updateMap.put("Age", mMyData.getUserAge());
 
-      //  user.child("NickName").setValue(mMyData.getUserNick());
-      //  user.child("Gender").setValue(mMyData.getUserGender());
-      //  user.child("Age").setValue(mMyData.getUserAge());
+        //  user.child("NickName").setValue(mMyData.getUserNick());
+        //  user.child("Gender").setValue(mMyData.getUserGender());
+        //  user.child("Age").setValue(mMyData.getUserAge());
 
-        updateMap.put("Memo",mMyData.getUserMemo());
+        updateMap.put("Memo", mMyData.getUserMemo());
 
-       // user.child("Memo").setValue(mMyData.getUserMemo());
-        updateMap.put("SendCount",mMyData.getSendHoney());
-        updateMap.put("RecvGold",mMyData.getRecvHoney());
+        // user.child("Memo").setValue(mMyData.getUserMemo());
+        updateMap.put("SendCount", mMyData.getSendHoney());
+        updateMap.put("RecvGold", mMyData.getRecvHoney());
 
-       // user.child("RecvGold").setValue(mMyData.getRecvHoney());
-      //  user.child("SendGold").setValue(mMyData.getSendHoney());
-        updateMap.put("Lon",mMyData.getUserLon());
-        updateMap.put("Lat",mMyData.getUserLat());
-        updateMap.put("Dist",mMyData.getUserDist());
+        // user.child("RecvGold").setValue(mMyData.getRecvHoney());
+        //  user.child("SendGold").setValue(mMyData.getSendHoney());
+        updateMap.put("Lon", mMyData.getUserLon());
+        updateMap.put("Lat", mMyData.getUserLat());
+        updateMap.put("Dist", mMyData.getUserDist());
 
-       // user.child("Lon").setValue(mMyData.getUserLon());
-      //  user.child("Lat").setValue(mMyData.getUserLat());
-       // user.child("Dist").setValue(mMyData.getUserDist());
+        // user.child("Lon").setValue(mMyData.getUserLon());
+        //  user.child("Lat").setValue(mMyData.getUserLat());
+        // user.child("Dist").setValue(mMyData.getUserDist());
 
         updateMap.put("FanCount", -1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
 
-       // user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
+        // user.child("FanCount").setValue(-1 * (UNIQ_FANCOUNT * mMyData.arrMyFanList.size() + Long.valueOf(mMyData.getUserIdx())));
 
-        updateMap.put("Point",mMyData.getPoint());
+        updateMap.put("Point", mMyData.getPoint());
         //user.child("Point").setValue(mMyData.getPoint());
 
-        updateMap.put("Grade",mMyData.getGrade());
-        updateMap.put("BestItem",mMyData.bestItem);
-        updateMap.put("Honey",mMyData.getUserHoney());
+        updateMap.put("Grade", mMyData.getGrade());
+        updateMap.put("BestItem", mMyData.bestItem);
+        updateMap.put("Honey", mMyData.getUserHoney());
 
         user.updateChildren(updateMap);
 
-       // user.child("Grade").setValue(mMyData.getGrade());
-     //   user.child("BestItem").setValue(mMyData.bestItem);
-     //   user.child("Honey").setValue(mMyData.getUserHoney());
+        // user.child("Grade").setValue(mMyData.getGrade());
+        //   user.child("BestItem").setValue(mMyData.bestItem);
+        //   user.child("Honey").setValue(mMyData.getUserHoney());
 
     }
 
@@ -974,18 +957,15 @@ public class FirebaseData {
 
         DatabaseReference myTable;// = database.getReference("Users");
 
-        if(mMyData.getUserGender().equals("여자"))
-        {
+        if (mMyData.getUserGender().equals("여자")) {
             myTable = database.getReference("Users").child("Woman").child(MyData.getInstance().getUserIdx());//.child("LastBoardWriteTime");
-        }
-        else
-        {
+        } else {
             myTable = database.getReference("Users").child("Man").child(MyData.getInstance().getUserIdx());//.child("LastBoardWriteTime");
         }
 
         MyData.getInstance().SetLastBoardWriteTime(CommonFunc.getInstance().GetCurrentTime());
         Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("LastBoardWriteTime",CommonFunc.getInstance().GetCurrentTime());
+        updateMap.put("LastBoardWriteTime", CommonFunc.getInstance().GetCurrentTime());
 
         myTable.updateChildren(updateMap);
 
@@ -1023,24 +1003,25 @@ public class FirebaseData {
         CommonFunc.getInstance().ShowLoadingPage(activity, "로딩중");
 
         RefreshHot initHot = new RefreshHot(activity);
-        initHot.execute(0,0,0);
+        initHot.execute(0, 0, 0);
 
         RefreshGoldReceiver initRecv = new RefreshGoldReceiver(activity);
-        initRecv.execute(0,0,0);
+        initRecv.execute(0, 0, 0);
 
      /*   RefreshFanCount initFan = new RefreshFanCount(activity);
         initFan.execute(0,0,0);*/
 
         RefreshNear initNear = new RefreshNear(activity);
-        initNear.execute(0,0,0);
+        initNear.execute(0, 0, 0);
 
         RefreshNew initNew = new RefreshNew(activity);
-        initNew.execute(0,0,0);
+        initNew.execute(0, 0, 0);
 
     }
 
     public class RefreshHot extends AsyncTask<Integer, Integer, Integer> {
         Activity mActivity;
+
         public RefreshHot(Activity activity) {
             mActivity = activity;
         }
@@ -1056,12 +1037,9 @@ public class FirebaseData {
         @Override
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("HotMemberIdx").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("HotMemberIdx").child("Woman");
             }
 
@@ -1074,16 +1052,12 @@ public class FirebaseData {
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 String tempValue = fileSnapshot.getValue(String.class);
 
-                                if(tempValue != null || !tempValue.equals(""))
-                                {
-                                    i ++;
+                                if (tempValue != null || !tempValue.equals("")) {
+                                    i++;
                                     final DatabaseReference Hotref;
-                                    if(SettingData.getInstance().getnSearchSetting() == 1)
-                                    {
+                                    if (SettingData.getInstance().getnSearchSetting() == 1) {
                                         Hotref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(tempValue);
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         Hotref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(tempValue);
                                     }
 
@@ -1098,8 +1072,7 @@ public class FirebaseData {
                                                     stRecvData = dataSnapshot.getValue(UserData.class);
                                                     if (stRecvData != null) {
                                                         if (stRecvData != null && stRecvData.Idx != null) {
-                                                            if (CommonFunc.getInstance().CheckUserData(stRecvData,dataSnapshot.getKey()))
-                                                            {
+                                                            if (CommonFunc.getInstance().CheckUserData(stRecvData, dataSnapshot.getKey())) {
                                                                 if (stRecvData.Img == null)
                                                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1107,20 +1080,19 @@ public class FirebaseData {
 
                                                                 mMyData.mapGenderData.put(stRecvData.Idx, stRecvData.Gender);
 
-                                                                if(mMyData.arrUserAll_Hot.size() == HOTMEMBER_LOAD_MAIN_COUNT)
-                                                                {
+                                                                if (mMyData.arrUserAll_Hot.size() == HOTMEMBER_LOAD_MAIN_COUNT) {
 
                                                                     CommonFunc.AscendingObj ascending = new CommonFunc.AscendingObj();
 
                                                                     Collections.sort(mMyData.arrUserAll_Hot, ascending);
 
-                                                                    mMyData.arrUserAll_Hot_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Hot, mMyData.nStartAge, mMyData.nEndAge );
+                                                                    mMyData.arrUserAll_Hot_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Hot, mMyData.nStartAge, mMyData.nEndAge);
 
-                                                                    if(mMyData.arrUserAll_Hot.size() > 0)
-                                                                        mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size()-1).Date;
+                                                                    if (mMyData.arrUserAll_Hot.size() > 0)
+                                                                        mMyData.HotIndexRef = mMyData.arrUserAll_Hot.get(mMyData.arrUserAll_Hot.size() - 1).Date;
 
                                                                     bRefreshSetHot = true;
-                                                                    if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
+                                                                    if (bRefreshSetHot == true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
                                                                         CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                                                                     }
                                                                 }
@@ -1140,7 +1112,6 @@ public class FirebaseData {
 
 
                             }
-
 
 
                         }
@@ -1167,6 +1138,7 @@ public class FirebaseData {
 
     public class RefreshGoldReceiver extends AsyncTask<Integer, Integer, Integer> {
         Activity mActivity;
+
         public RefreshGoldReceiver(Activity activity) {
             mActivity = activity;
         }
@@ -1183,29 +1155,24 @@ public class FirebaseData {
         protected Integer doInBackground(Integer... integers) {
 
             DatabaseReference ref;
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
-            Query query=ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            Query query = ref.orderByChild("RecvGold").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0;
-                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren())
-                            {
+                            for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
                                 if (cTempData != null && cTempData.Idx != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData, fileSnapshot.getKey()))
-                                    {
-                                        if(cTempData.Img == null)
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData, fileSnapshot.getKey())) {
+                                        if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                         mMyData.arrUserAll_Recv.add(cTempData);
@@ -1215,13 +1182,13 @@ public class FirebaseData {
                                 }
                             }
 
-                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge );
+                            mMyData.arrUserAll_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserAll_Recv, mMyData.nStartAge, mMyData.nEndAge);
 
-                            if(mMyData.arrUserAll_Recv.size() > 0)
-                                mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size()-1).RecvGold;
+                            if (mMyData.arrUserAll_Recv.size() > 0)
+                                mMyData.RecvIndexRef = mMyData.arrUserAll_Recv.get(mMyData.arrUserAll_Recv.size() - 1).RecvGold;
 
                             bRefreshSetRecv = true;
-                            if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
+                            if (bRefreshSetHot == true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1237,15 +1204,17 @@ public class FirebaseData {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
-         }
+        }
 
         @Override
         protected void onProgressUpdate(Integer... params) {
             super.onProgressUpdate(params);
         }
     }
+
     public class RefreshFanCount extends AsyncTask<Integer, Integer, Integer> {
         Activity mActivity;
+
         public RefreshFanCount(Activity activity) {
             mActivity = activity;
         }
@@ -1262,16 +1231,13 @@ public class FirebaseData {
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
 
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
-            Query query= ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
+            Query query = ref.orderByChild("FanCount").limitToFirst(FIRST_LOAD_MAIN_COUNT);//키가 id와 같은걸 쿼리로 가져옴
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
@@ -1282,8 +1248,7 @@ public class FirebaseData {
                                 cTempData = fileSnapshot.getValue(UserData.class);
 
                                 if (cTempData != null && cTempData.Idx != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData, fileSnapshot.getKey()))
-                                    {
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData, fileSnapshot.getKey())) {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1296,11 +1261,11 @@ public class FirebaseData {
 
                             mMyData.arrUserAll_Send_Age = mMyData.SortData_Age(mMyData.arrUserAll_Send, mMyData.nStartAge, mMyData.nEndAge);
 
-                            if(mMyData.arrUserAll_Send.size() > 0)
-                                mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size()-1).FanCount;
+                            if (mMyData.arrUserAll_Send.size() > 0)
+                                mMyData.FanCountRef = mMyData.arrUserAll_Send.get(mMyData.arrUserAll_Send.size() - 1).FanCount;
 
                             bRefreshSetFan = true;
-                            if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
+                            if (bRefreshSetHot == true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1325,8 +1290,10 @@ public class FirebaseData {
             super.onProgressUpdate(params);
         }
     }
+
     public class RefreshNear extends AsyncTask<Integer, Integer, Integer> {
         Activity mActivity;
+
         public RefreshNear(Activity activity) {
             mActivity = activity;
         }
@@ -1344,16 +1311,13 @@ public class FirebaseData {
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
 
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
-            Query query=ref
+            Query query = ref
                     .orderByChild("Dist").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             final double[] tempDist = {0};
@@ -1361,25 +1325,21 @@ public class FirebaseData {
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            int i = 0, j=0, k=0;
+                            int i = 0, j = 0, k = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                UserData stRecvData = new UserData ();
+                                UserData stRecvData = new UserData();
                                 stRecvData = fileSnapshot.getValue(UserData.class);
-                                if(stRecvData != null) {
+                                if (stRecvData != null) {
 
-                                    if(stRecvData.Lat == 0 || stRecvData.Lon == 0)
-                                    {
+                                    if (stRecvData.Lat == 0 || stRecvData.Lon == 0) {
                                         // 위치 못받아오는 애들
-                                    }
-                                    else
-                                    {
-                                        if (CommonFunc.getInstance().CheckUserData(stRecvData, fileSnapshot.getKey()))
-                                        {
+                                    } else {
+                                        if (CommonFunc.getInstance().CheckUserData(stRecvData, fileSnapshot.getKey())) {
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
                                             tempDist[0] = stRecvData.Dist;
-                                            double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon,"meter");
+                                            double Dist = LocationFunc.getInstance().getDistance(mMyData.getUserLat(), mMyData.getUserLon(), stRecvData.Lat, stRecvData.Lon, "meter");
                                             stRecvData.Dist = Dist;
 
                                             mMyData.arrUserAll_Near.add(stRecvData);
@@ -1391,8 +1351,8 @@ public class FirebaseData {
                                 }
                             }
 
-                            if(mMyData.arrUserAll_Near.size() > 0)
-                                mMyData.NearDistanceRef = tempDist[0] ; //mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
+                            if (mMyData.arrUserAll_Near.size() > 0)
+                                mMyData.NearDistanceRef = tempDist[0]; //mMyData.arrUserAll_Near.get(mMyData.arrUserAll_Near.size()-1).Dist;
 
                             CommonFunc.NearSort cNearSort = new CommonFunc.NearSort();
                             Collections.sort(mMyData.arrUserAll_Near, cNearSort);
@@ -1400,7 +1360,7 @@ public class FirebaseData {
                             mMyData.arrUserAll_Near_Age = mMyData.SortData_Age(mMyData.arrUserAll_Near, mMyData.nStartAge, mMyData.nEndAge);
 
                             bRefreshSetNear = true;
-                            if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
+                            if (bRefreshSetHot == true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1425,8 +1385,10 @@ public class FirebaseData {
             super.onProgressUpdate(params);
         }
     }
+
     public class RefreshNew extends AsyncTask<Integer, Integer, Integer> {
         Activity mActivity;
+
         public RefreshNew(Activity activity) {
             mActivity = activity;
         }
@@ -1445,28 +1407,24 @@ public class FirebaseData {
         protected Integer doInBackground(Integer... integers) {
 
             DatabaseReference ref;
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
-            Query query=ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
+            Query query = ref.orderByChild("Date").limitToFirst(FIRST_LOAD_MAIN_COUNT);
 
             query.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            int i = 0, j=0, k=0;
+                            int i = 0, j = 0, k = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                UserData stRecvData = new UserData ();
+                                UserData stRecvData = new UserData();
                                 stRecvData = fileSnapshot.getValue(UserData.class);
-                                if(stRecvData != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(stRecvData, fileSnapshot.getKey()))
-                                    {
+                                if (stRecvData != null) {
+                                    if (CommonFunc.getInstance().CheckUserData(stRecvData, fileSnapshot.getKey())) {
                                         if (stRecvData.Img == null)
                                             stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1480,11 +1438,11 @@ public class FirebaseData {
 
                             mMyData.arrUserAll_New_Age = mMyData.SortData_Age(mMyData.arrUserAll_New, mMyData.nStartAge, mMyData.nEndAge);
 
-                            if(mMyData.arrUserAll_New.size() > 0)
-                                mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size()-1).Date;
+                            if (mMyData.arrUserAll_New.size() > 0)
+                                mMyData.NewDateRef = mMyData.arrUserAll_New.get(mMyData.arrUserAll_New.size() - 1).Date;
 
                             bRefreshSetNew = true;
-                            if (bRefreshSetHot== true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
+                            if (bRefreshSetHot == true && bRefreshSetNear == true && bRefreshSetFan == true && bRefreshSetNew == true && bRefreshSetRecv == true) {
                                 CommonFunc.getInstance().refreshMainActivity(mActivity, MAIN_ACTIVITY_HOME, 0, 0);
                             }
 
@@ -1511,8 +1469,6 @@ public class FirebaseData {
     }
 
 
-
-
     Rank_HotAdapter UpdateAdapter = null;
 
     public void GetHotData(Rank_HotAdapter updateAdapter, Boolean top) {
@@ -1522,15 +1478,11 @@ public class FirebaseData {
         Query data = null;
         if (top) {
             data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Date").limitToFirst(LOAD_MAIN_COUNT);
-        } else
-        {
+        } else {
             DatabaseReference ref;
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("HotMember").child("Woman");
             }
 
@@ -1547,7 +1499,7 @@ public class FirebaseData {
                     UserData cTempData = new UserData();
                     cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null && cTempData.Idx != null) {
-                        if (CommonFunc.getInstance().CheckUserData(cTempData, postSnapshot.getKey())){
+                        if (CommonFunc.getInstance().CheckUserData(cTempData, postSnapshot.getKey())) {
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1586,8 +1538,6 @@ public class FirebaseData {
     }
 
 
-
-
     Rank_GoldReceiveAdapter UpdateHotAdapter = null;
 
     public void GetRecvData(Rank_GoldReceiveAdapter updateAdapter, Boolean top) {
@@ -1597,21 +1547,17 @@ public class FirebaseData {
         Query data = null;
         if (top) {
             data = fierBaseDataInstance.getReference().child("User").orderByChild("RecvGold").limitToFirst(LOAD_MAIN_COUNT);
-        } else
-        {
+        } else {
             DatabaseReference ref;
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
             data = ref.orderByChild("RecvGold").startAt(mMyData.RecvIndexRef).limitToFirst(LOAD_MAIN_COUNT);
         }
-            //data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").startAt(mMyData.HotIndexRef).limitToFirst(LOAD_MAIN_COUNT);
+        //data = fierBaseDataInstance.getReference().child("HotMember").orderByChild("Point").startAt(mMyData.HotIndexRef).limitToFirst(LOAD_MAIN_COUNT);
 
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1622,7 +1568,7 @@ public class FirebaseData {
                     UserData cTempData = new UserData();
                     cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null && cTempData.Idx != null) {
-                        if (CommonFunc.getInstance().CheckUserData(cTempData,postSnapshot.getKey())){
+                        if (CommonFunc.getInstance().CheckUserData(cTempData, postSnapshot.getKey())) {
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1670,15 +1616,11 @@ public class FirebaseData {
         Query data = null;
         if (top)
             data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").startAt(0).endAt(LOAD_MAIN_COUNT);
-        else
-        {
+        else {
             DatabaseReference ref;
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
@@ -1697,7 +1639,7 @@ public class FirebaseData {
                     cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null && cTempData.Idx != null) {
 
-                        if (CommonFunc.getInstance().CheckUserData(cTempData,postSnapshot.getKey())){
+                        if (CommonFunc.getInstance().CheckUserData(cTempData, postSnapshot.getKey())) {
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1748,12 +1690,9 @@ public class FirebaseData {
         Query data = null;
         {
             DatabaseReference ref;
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
             data = ref.orderByChild("Dist").startAt(mMyData.NearDistanceRef).limitToFirst(LOAD_MAIN_COUNT);
@@ -1771,7 +1710,7 @@ public class FirebaseData {
                         if (cTempData.Lat == 0 || cTempData.Lon == 0) {
                             // 위치 못받아오는 애들
                         } else {
-                            if (CommonFunc.getInstance().CheckUserData(cTempData,postSnapshot.getKey())){
+                            if (CommonFunc.getInstance().CheckUserData(cTempData, postSnapshot.getKey())) {
 
                                 if (cTempData.Img == null)
                                     cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
@@ -1837,15 +1776,11 @@ public class FirebaseData {
         Query data = null;
         if (top)
             data = fierBaseDataInstance.getReference().child("SimpleData").orderByChild("FanCount").startAt(0).endAt(LOAD_MAIN_COUNT);
-        else
-        {
+        else {
             DatabaseReference ref;
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
@@ -1861,7 +1796,7 @@ public class FirebaseData {
                     UserData cTempData = new UserData();
                     cTempData = postSnapshot.getValue(UserData.class);
                     if (cTempData != null && cTempData.Idx != null) {
-                        if (CommonFunc.getInstance().CheckUserData(cTempData,postSnapshot.getKey())){
+                        if (CommonFunc.getInstance().CheckUserData(cTempData, postSnapshot.getKey())) {
                             if (cTempData.Img == null)
                                 cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1905,12 +1840,9 @@ public class FirebaseData {
 
         DatabaseReference myTable = database.getReference("Users");
 
-        if(mMyData.getUserGender().equals("여자"))
-        {
+        if (mMyData.getUserGender().equals("여자")) {
             myTable = myTable.child("Woman").child(MyData.getInstance().getUserIdx());
-        }
-        else
-        {
+        } else {
             myTable = myTable.child("Man").child(MyData.getInstance().getUserIdx());
         }
 
@@ -1925,18 +1857,15 @@ public class FirebaseData {
 
         DatabaseReference myTable = database.getReference("Users");
 
-        if(mMyData.getUserGender().equals("여자"))
-        {
+        if (mMyData.getUserGender().equals("여자")) {
             myTable = myTable.child("Woman").child(MyData.getInstance().getUserIdx());
-        }
-        else
-        {
+        } else {
             myTable = myTable.child("Man").child(MyData.getInstance().getUserIdx());
         }
 
         Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Point",mMyData.getPoint());
-        updateMap.put("Grade",mMyData.getGrade());
+        updateMap.put("Point", mMyData.getPoint());
+        updateMap.put("Grade", mMyData.getGrade());
         myTable.updateChildren(updateMap);
     }
 
@@ -1945,39 +1874,33 @@ public class FirebaseData {
 
         DatabaseReference myTable = database.getReference("Users");
 
-        if(mMyData.getUserGender().equals("여자"))
-        {
+        if (mMyData.getUserGender().equals("여자")) {
             myTable = myTable.child("Woman").child(MyData.getInstance().getUserIdx());
-        }
-        else
-        {
+        } else {
             myTable = myTable.child("Man").child(MyData.getInstance().getUserIdx());
         }
 
         Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Honey",mMyData.getUserHoney());
+        updateMap.put("Honey", mMyData.getUserHoney());
         myTable.updateChildren(updateMap);
     }
 
-    public void GetMyCoin(int cost) {
+    public void GetMyCoin() {
 
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
         Query data;
-        if(mMyData.getUserGender().equals("여자"))
-        {
+        if (mMyData.getUserGender().equals("여자")) {
             data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
-        }
-        else
-        {
+        } else {
             data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
         }
 
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-               int tempValue = dataSnapshot.getValue(int.class);
-
+                int tempValue = dataSnapshot.getValue(int.class);
+                MyData.getInstance().setUserHoney(tempValue);
             }
 
             @Override
@@ -1986,6 +1909,46 @@ public class FirebaseData {
             }
         });
 
+    }
+
+    public void SetSubStatus(String status) {
+
+        int substatus = 0;
+
+        if (status == null || status.equals(""))
+        {
+            substatus = 0;
+        }
+        else if (status.equals(mMyData.skuGold[7])) {
+            substatus = CoomonValueData.SUBSTATUS_WEEK;
+            MyData.getInstance().setUserHoney(MyData.getInstance().getUserHoney() + CoomonValueData.SUBSTATUS_WEEK_COIN);
+        } else if (status.equals(mMyData.skuGold[8])) {
+            substatus = CoomonValueData.SUBSTATUS_MONTH;
+            MyData.getInstance().setUserHoney(MyData.getInstance().getUserHoney() + CoomonValueData.SUBSTATUS_MONTH_COIN);
+        } else if (status.equals(mMyData.skuGold[9])) {
+            substatus = CoomonValueData.SUBSTATUS_YEAR;
+            MyData.getInstance().setUserHoney(MyData.getInstance().getUserHoney() + CoomonValueData.SUBSTATUS_YEAR_COIN);
+        }
+
+
+        MyData.getInstance().SubStatus = substatus;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        DatabaseReference myTable = database.getReference("Users");
+
+        if (mMyData.getUserGender().equals("여자")) {
+            myTable = myTable.child("Woman").child(MyData.getInstance().getUserIdx());
+        } else {
+            myTable = myTable.child("Man").child(MyData.getInstance().getUserIdx());
+        }
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("SubStatus",  MyData.getInstance().SubStatus );
+        updateMap.put("SubDate", CommonFunc.getInstance().GetCurrentTime());
+        myTable.updateChildren(updateMap);
+
+        SaveMyCoin();
     }
 
 }

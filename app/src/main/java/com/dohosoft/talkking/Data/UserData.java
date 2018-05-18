@@ -99,6 +99,9 @@ public class UserData implements Serializable,Parcelable {
     public int ReportedCnt;
     public int NickChangeCnt;
 
+    public int SubStatus;
+    public long SubDate;
+
     public UserData() {
 
     }
@@ -180,6 +183,9 @@ public class UserData implements Serializable,Parcelable {
 
         ReportedCnt = in.readInt();
         NickChangeCnt = in.readInt();
+
+        SubStatus = in.readInt();
+        SubDate = in.readLong();
     }
 
     public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -273,6 +279,9 @@ public class UserData implements Serializable,Parcelable {
 
         parcel.writeInt(ReportedCnt);
         parcel.writeInt(NickChangeCnt);
+
+        parcel.writeInt(SubStatus);
+        parcel.writeLong(SubDate);
     }
 
 /*    public long getConnectDate() {

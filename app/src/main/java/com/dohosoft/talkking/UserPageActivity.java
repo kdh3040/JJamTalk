@@ -1,14 +1,19 @@
 package com.dohosoft.talkking;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
@@ -32,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -56,7 +62,11 @@ import com.dohosoft.talkking.Util.CommonFunc;
 import com.dohosoft.talkking.Util.LocationFunc;
 import com.dohosoft.talkking.Util.NotiFunc;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
 import static com.dohosoft.talkking.Data.CoomonValueData.SEND_MSG_COST;
@@ -117,6 +127,8 @@ public class UserPageActivity extends AppCompatActivity {
     private ImageView imgBestItem;
     private ImageView imgGrade;
 
+    private  ImageView imgAds;
+
     RecyclerView listView_like, listView_liked;
     final Context context = this;
     LinearLayout stickers_holder;
@@ -130,26 +142,100 @@ public class UserPageActivity extends AppCompatActivity {
 
     private TextView txtWhen;
 
+    public IInAppBillingService mService;
+    public ServiceConnection mServiceConn;
 
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mService != null) {
+            unbindService(mServiceConn);
+            mServiceConn = null;
+            mService = null;
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
 
-        /*refreshlayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
-        refreshlayout.setOnRefreshListener(new_img SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+        if (mServiceConn == null) {
+            mServiceConn = new ServiceConnection() {
+                @Override
+                public void onServiceDisconnected(ComponentName name) {
+                    mService = null;
+                }
 
-                RefreshData(refreshlayout);
+                @Override
+                public void onServiceConnected(ComponentName name,
+                                               IBinder service) {
+                    mService = IInAppBillingService.Stub.asInterface(service);
 
-//                refreshlayout.setRefreshing(false);
+                    //loadRewardedVideoAd(BuyGoldActivity.this);
 
-            }
-        });*/
+                    try {
+                        mMyData.skuDetails = mService.getSkuDetails(3, getPackageName(), "inapp", mMyData.querySkus);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
 
+                    int response = mMyData.skuDetails.getInt("RESPONSE_CODE");
+                    if (response == 0) {
+                        ArrayList<String> responseList
+                                = mMyData.skuDetails.getStringArrayList("DETAILS_LIST");
+
+                        for (String thisResponse : responseList) {
+                            JSONObject object = null;
+                            try {
+                                object = new JSONObject(thisResponse);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                mMyData.sku = object.getString("productId");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                mMyData.price = object.getString("price");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            if (mMyData.sku.equals("gold_10"))
+                                mMyData.strGold[0] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_20"))
+                                mMyData.strGold[1] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_50"))
+                                mMyData.strGold[2] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_100"))
+                                mMyData.strGold[3] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_200"))
+                                mMyData.strGold[4] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_500"))
+                                mMyData.strGold[5] = mMyData.price;
+                            else if (mMyData.sku.equals("gold_1000"))
+                                mMyData.strGold[6] = mMyData.price;
+                            else if (mMyData.sku.equals("sub_week"))
+                                mMyData.strGold[7] = mMyData.price;
+                            else if (mMyData.sku.equals("sub_month"))
+                                mMyData.strGold[8] = mMyData.price;
+                            else if (mMyData.sku.equals("sub_year"))
+                                mMyData.strGold[9] = mMyData.price;
+                        }
+                    }
+
+                }
+            };
+
+            Intent serviceIntent =
+                    new Intent("com.android.vending.billing.InAppBillingService.BIND");
+            serviceIntent.setPackage("com.android.vending");
+            bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+        }
 
 
         mMyData.mInterstitialAd = new InterstitialAd(UserPageActivity.this);
@@ -188,6 +274,13 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });*/
 
+        imgAds = findViewById(R.id.UserPage_Ads);
+        imgAds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewSubPopup();
+            }
+        });
 
         txtWhen = findViewById(R.id.tv_when);
 
@@ -1133,6 +1226,111 @@ if(mMyData.itemList.get(i) != 0)
 
 
         mMyData.SetCurFrag(0);
+    }
+
+    void ViewSubPopup()
+    {
+        View v = LayoutInflater.from(UserPageActivity.this).inflate(R.layout.popup_sub, null, false);
+
+        final AlertDialog dialog = new AlertDialog.Builder(this).setView(v).create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        final Button btn_week;
+        final Button btn_month;
+        final Button btn_year;
+
+        btn_week = (Button) v.findViewById(R.id.btn_1900);
+        btn_week.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(UserPageActivity.this, mMyData.skuGold[7]);
+                dialog.dismiss();
+            }
+        });
+
+        btn_month = (Button) v.findViewById(R.id.btn_4900);
+        btn_month.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(UserPageActivity.this, mMyData.skuGold[8]);
+                dialog.dismiss();
+            }
+        });
+
+        btn_year = (Button) v.findViewById(R.id.btn_49000);
+        btn_year.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BuyGoldByGoogle(UserPageActivity.this, mMyData.skuGold[9]);
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+
+    private void BuyGoldByGoogle(Context context, String tempStrGold) {
+        try {
+            if (mMyData.mService == null) {
+                CommonFunc.getInstance().ShowToast(context, "결제에 실패하였습니다. 다시 시도해주세요.", true);
+                return;
+            }
+            mMyData.buyIntentBundle = mMyData.mService.getBuyIntent(3, getPackageName(),
+                    tempStrGold, "inapp", "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        if (mMyData.buyIntentBundle == null) {
+            CommonFunc.getInstance().ShowToast(context, "결제에 실패하였습니다. 다시 시도해주세요.", true);
+            return;
+        }
+
+        mMyData.pendingIntent = mMyData.buyIntentBundle.getParcelable("BUY_INTENT");
+        if (mMyData.pendingIntent != null) {
+            try {
+                startIntentSenderForResult(mMyData.pendingIntent.getIntentSender(),
+                        1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
+                        Integer.valueOf(0));
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1001) {
+            int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
+            String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
+            String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
+
+            if (resultCode == RESULT_OK) {
+                try {
+                    JSONObject jo = new JSONObject(purchaseData);
+                    String sku = jo.getString("productId");
+                    final String strToken = jo.getString("purchaseToken");
+                    FirebaseData.getInstance().SetSubStatus(sku);
+
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                int response = mMyData.mService.consumePurchase(3, getPackageName(), strToken);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }
