@@ -178,7 +178,6 @@
         android:id="@+id/btn_4900"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:background="#00cde9"
         android:text="4900원"
         android:textColor="@android:color/white"
