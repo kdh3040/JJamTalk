@@ -1,85 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_intro"
+    <ImageView
+        android:id="@+id/bg_top"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:text="광고 없음,쪽지보내기무료,코인 지급"
+        android:background="@drawable/bg_top_sub"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/bg_bot"
+        android:layout_width="0dp"
+        android:layout_height="230dp"
+        android:background="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bg_top"
+        app:srcCompat="@android:color/white" />
+
+    <pl.droidsonroids.gif.GifTextView
+
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        android:background="@drawable/bangsa"
+        android:scaleType="fitCenter"
+
+        app:layout_constraintBottom_toBottomOf="@+id/bg_top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bg_top" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/star_sub" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/block_white" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView10"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10"
+        app:srcCompat="@drawable/btn_chat_selected" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView10"
+        app:layout_constraintTop_toBottomOf="@+id/imageView13"
+        app:srcCompat="@drawable/money" />
+
+    <TextView
+        android:id="@+id/tv_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:text="광고 없음"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toRightOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/imageView10" />
+
+    <TextView
+        android:id="@+id/tv_intro2"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:text="쪽지보내기 무료"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toRightOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/imageView13" />
+
+    <TextView
+        android:id="@+id/tv_intro3"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:text="추가 코인"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toRightOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/imageView15" />
 
     <TextView
         android:id="@+id/tv_week"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/bambamcolor"
+
+        android:layout_margin="20dp"
+        android:background="@color/sub_bg"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:text="1주일 쪽지보내기 무료 + 100코인"
-        android:textColor="@color/Green"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_1900"
+        android:textColor="@color/bambamcolor"
+        android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_1900" />
+        app:layout_constraintTop_toBottomOf="@+id/bg_top" />
 
     <TextView
         android:id="@+id/tv_month"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/bambamcolor"
+
+        android:layout_margin="20dp"
+        android:background="@color/sub_bg"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:text="1달 쪽지보내기 무료 + 400코인"
-        android:textColor="@color/Green"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_4900"
+        android:textColor="@color/bambamcolor"
+        android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_4900" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_week" />
 
     <TextView
         android:id="@+id/tv_year"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/bambamcolor"
+
+        android:layout_margin="20dp"
+        android:background="@color/sub_bg"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:text="1년 쪽지 보내기 무료 + 5000코인"
-        android:textColor="@color/Green"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_49000"
+        android:text="1년 쪽지보내기 무료 + 5000코인"
+        android:textColor="@color/bambamcolor"
+        android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_49000" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_month" />
 
     <Button
         android:id="@+id/btn_1900"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:background="#00cde9"
         android:text="1900원"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_intro" />
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_week"
+        app:layout_constraintRight_toRightOf="@+id/tv_week"
+        app:layout_constraintTop_toTopOf="@+id/tv_week" />
 
     <Button
         android:id="@+id/btn_4900"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
+        android:background="#00cde9"
         android:text="4900원"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_1900" />
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_month"
+        app:layout_constraintRight_toRightOf="@+id/tv_month"
+        app:layout_constraintTop_toTopOf="@+id/tv_month" />
 
     <Button
         android:id="@+id/btn_49000"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:background="#00cde9"
         android:text="49000원"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_4900" />
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_year"
+        app:layout_constraintRight_toRightOf="@+id/tv_year"
+        app:layout_constraintTop_toTopOf="@+id/tv_year" />
 </android.support.constraint.ConstraintLayout>
