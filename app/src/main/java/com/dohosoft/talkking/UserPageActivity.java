@@ -700,6 +700,15 @@ if(mMyData.itemList.get(i) != 0)
 
                                             Button CoinCharge = (Button) view1.findViewById(R.id.HeartPop_Charge);
 
+                                            if(mMyData.IsViewAds() == false )
+                                            {
+                                                Coin.setVisibility(View.GONE);
+                                            }
+                                            else
+                                            {
+                                                Coin.setVisibility(View.VISIBLE);
+                                            }
+
                                             if (mMyData.getUserGender().equals("여자") && stTargetData.Gender.equals("남자")) {
                                                 CoinText.setVisibility(View.GONE);
                                                 CoinImg.setVisibility(View.GONE);
