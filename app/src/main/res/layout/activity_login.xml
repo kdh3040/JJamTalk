@@ -130,11 +130,11 @@
         app:layout_constraintBottom_toTopOf="@id/textView2"
         android:background="@drawable/progressbar" />
 -->
+
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
         android:src="@drawable/heart_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
