@@ -15,8 +15,8 @@ android {
         applicationId "com.dohosoft.talkking"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 44
-        versionName "1.43"
+        versionCode 46
+        versionName "1.45"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
