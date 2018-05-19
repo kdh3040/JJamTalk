@@ -729,13 +729,17 @@ if(mMyData.itemList.get(i) != 0)
 
                                             if(mMyData.IsViewAds() == false )
                                             {
-                                                Coin.setVisibility(View.GONE);
+                                                CoinText.setVisibility(View.GONE);
+                                                CoinImg.setVisibility(View.GONE);
                                                 CoinMine.setVisibility(View.GONE);
+                                                Coin.setVisibility(View.GONE);
                                             }
                                             else
                                             {
-                                                Coin.setVisibility(View.VISIBLE);
+                                                CoinText.setVisibility(View.VISIBLE);
+                                                CoinImg.setVisibility(View.VISIBLE);
                                                 CoinMine.setVisibility(View.VISIBLE);
+                                                Coin.setVisibility(View.VISIBLE);
                                             }
 
                                             Button btn_cancel = view1.findViewById(R.id.btn_cancel);
