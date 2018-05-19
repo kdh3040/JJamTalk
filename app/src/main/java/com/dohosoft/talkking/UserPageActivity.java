@@ -730,10 +730,12 @@ if(mMyData.itemList.get(i) != 0)
                                             if(mMyData.IsViewAds() == false )
                                             {
                                                 Coin.setVisibility(View.GONE);
+                                                CoinMine.setVisibility(View.GONE);
                                             }
                                             else
                                             {
                                                 Coin.setVisibility(View.VISIBLE);
+                                                CoinMine.setVisibility(View.VISIBLE);
                                             }
 
                                             Button btn_cancel = view1.findViewById(R.id.btn_cancel);
@@ -1387,7 +1389,7 @@ if(mMyData.itemList.get(i) != 0)
                     String sku = jo.getString("productId");
                     final String strToken = jo.getString("purchaseToken");
                     FirebaseData.getInstance().SetSubStatus(UserPageActivity.this, sku);
-
+                    setBuyGold(sku);
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -1405,6 +1407,52 @@ if(mMyData.itemList.get(i) != 0)
                 }
             }
         }
+    }
+
+
+    public void setBuyGold(String ID) {
+        int nPrice = 0;
+
+        if (ID.equals(mMyData.skuGold[7])) {
+            nPrice = CoomonValueData.SUBSTATUS_WEEK_COIN;
+        }
+        else if (ID.equals(mMyData.skuGold[8])) {
+            nPrice = CoomonValueData.SUBSTATUS_MONTH_COIN;
+        }
+        else if (ID.equals(mMyData.skuGold[9])) {
+            nPrice = CoomonValueData.SUBSTATUS_YEAR_COIN;
+        }
+
+        CommonFunc.getInstance().ShowLoadingPage(UserPageActivity.this, "로딩중");
+
+        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+
+        Query data;
+        if (mMyData.getUserGender().equals("여자")) {
+            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+        } else {
+            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+        }
+
+        final int finalNPrice = nPrice;
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                CommonFunc.getInstance().DismissLoadingPage();
+                int tempValue = dataSnapshot.getValue(int.class);
+                mMyData.setUserHoney(tempValue);
+                CommonFunc.getInstance().ShowDefaultPopup(UserPageActivity.this, "보상", finalNPrice + "코인을 획득 하였습니다.");
+                mMyData.setUserHoney(mMyData.getUserHoney() + finalNPrice);
+                mMyData.setPoint(finalNPrice);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 }
