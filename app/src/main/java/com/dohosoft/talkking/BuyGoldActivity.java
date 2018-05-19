@@ -142,9 +142,7 @@ public class BuyGoldActivity extends AppCompatActivity {
             AdColony.requestInterstitial(CoomonValueData.getInstance().ZONE_ID, listener, ad_options);
         }
 
-        if (mMyData.IsViewAds() == false) {
-            CommonFunc.getInstance().ShowToast(BuyGoldActivity.this, "이미 구독 중입니다", true);
-        }
+
 
         android.app.AlertDialog.Builder mDialog = null;
         mDialog = new android.app.AlertDialog.Builder(this);
@@ -205,7 +203,14 @@ public class BuyGoldActivity extends AppCompatActivity {
         imgAds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewSubPopup();
+
+                if (mMyData.IsViewAds() == false) {
+                    CommonFunc.getInstance().ShowToast(BuyGoldActivity.this, "이미 구독 중입니다", true);
+                }
+                else
+                {
+                    ViewSubPopup();
+                }
             }
         });
 

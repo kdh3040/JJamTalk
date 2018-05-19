@@ -2379,22 +2379,27 @@ public class CommonFunc {
     {
         String rtValue = "";
 
-        SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd");
+        Date tempData = new Date(mMyData.SubDate);
+        Date ReturnData = null;
+
+    //    compareDate = new Date(pastDate.getTime() + offsetMin * CoomonValueData.MIN_MILLI_SECONDS);
+
+        SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
 
         if(mMyData.SubStatus == 1)
         {
-            mMyData.SubDate += CoomonValueData.SUBDATE_WEEK * CoomonValueData.MIN_MILLI_SECONDS;
-            rtValue = dayTime.format(new Date(mMyData.SubDate));
+            ReturnData = new Date (tempData.getTime() + CoomonValueData.SUBDATE_WEEK * CoomonValueData.MIN_MILLI_SECONDS);
+            rtValue = dayTime.format(ReturnData);
         }
         else  if(mMyData.SubStatus == 2)
         {
-            mMyData.SubDate += CoomonValueData.SUBDATE_MONTH * CoomonValueData.MIN_MILLI_SECONDS;
-            rtValue = dayTime.format(new Date(mMyData.SubDate));
+            ReturnData = new Date (tempData.getTime() + CoomonValueData.SUBDATE_MONTH * CoomonValueData.MIN_MILLI_SECONDS);
+            rtValue = dayTime.format(ReturnData);
         }
         else  if(mMyData.SubStatus == 3)
         {
-            mMyData.SubDate += CoomonValueData.SUBDATE_YEAR * CoomonValueData.MIN_MILLI_SECONDS;
-            rtValue = dayTime.format(new Date(mMyData.SubDate));
+            ReturnData = new Date (tempData.getTime() + CoomonValueData.SUBDATE_YEAR * CoomonValueData.MIN_MILLI_SECONDS);
+            rtValue = dayTime.format(ReturnData);
         }
 
         return  rtValue;
