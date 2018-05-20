@@ -492,11 +492,11 @@ public class BuyGoldActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (mMyData.mRewardedVideoAd.isLoaded() == false) {
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "광고 준비중입니다");
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "광고 준비중입니다. 10~20초 후에 다시 시도해 주세요 :)");
                 } else {
                     if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.GetLastAdsTime()), 30, 1) == false) {
                         // TODO 환웅
-                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
+                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다 :)");
                         return;
                     } else {
 
@@ -516,7 +516,7 @@ public class BuyGoldActivity extends AppCompatActivity {
 
                 if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.AdColonyAdsTime), 30, 1) == false) {
                     // TODO 환웅
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다 :)");
                     return;
                 } else {
                     if(ad != null){
@@ -525,7 +525,7 @@ public class BuyGoldActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "광고 준비중입니다");
+                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "광고 준비중입니다. 10 ~ 20초 후에 다시 시도해 주세요 :)");
                     }
 
                 }
@@ -539,11 +539,11 @@ public class BuyGoldActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (!UnityAds.isReady("rewardedVideo")) {
-                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "광고 준비중입니다");
+                    CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "광고 준비중입니다.10 ~ 20초 후에 다시 시도해 주세요 :) ");
                 } else {
                     if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(mMyData.UnityAdsTime), 30, 1) == false) {
                         // TODO 환웅
-                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
+                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다 :)");
                         return;
                     } else {
                             mMyData.UnityAdsTime = CommonFunc.getInstance().GetCurrentTime();
