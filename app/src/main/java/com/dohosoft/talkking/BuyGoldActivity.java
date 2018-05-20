@@ -571,6 +571,10 @@ public class BuyGoldActivity extends AppCompatActivity {
 
                         Vungle.playAd(VUNGLE_REFERENCE, null, vunglePlayAdCallback);
                     }
+                    else
+                    {
+                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "광고 준비중입니다.10 ~ 20초 후에 다시 시도해 주세요 :) ");
+                    }
                 }
             }
         });

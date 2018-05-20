@@ -63,7 +63,8 @@ public class ClickedMyPicActivity extends AppCompatActivity {
     private ImageView bg_fan;
     private SwipeRefreshLayout refreshlayout;
 
-
+    private TextView txt_ad1, txt_ad;
+    private ImageView img_sub;
     private ImageView Divider_memo, Divider_fan;
 
     @Override
@@ -74,6 +75,14 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         mActivity = this;
 
         mMyData.SetCurFrag(0);
+
+        txt_ad = findViewById(R.id.tv_ad);
+        txt_ad1 = findViewById(R.id.tv_ad1);
+        img_sub= findViewById(R.id.iv_sub);
+
+        txt_ad.setVisibility(View.GONE);
+        txt_ad1.setVisibility(View.GONE);
+        img_sub.setVisibility(View.GONE);
 
         imgAds = findViewById(R.id.UserPage_Ads);
         imgAds.setVisibility(View.GONE);
