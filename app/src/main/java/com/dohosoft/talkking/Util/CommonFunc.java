@@ -2435,8 +2435,12 @@ public class CommonFunc {
     {
         if(MyData.getInstance().IsViewAds() == true)
         {
-            adView.setVisibility(View.VISIBLE);
-            adView.loadAd(CoomonValueData.adRequest);
+            if(adView != null && CoomonValueData.adRequest != null)
+            {
+                adView.setVisibility(View.VISIBLE);
+                adView.loadAd(CoomonValueData.adRequest);
+            }
+
         }
         else
             adView.setVisibility(View.GONE);

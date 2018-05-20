@@ -98,7 +98,7 @@ public class MyPageActivity extends AppCompatActivity {
             img_sub.setVisibility(View.VISIBLE);
             txt_sub.setVisibility(View.VISIBLE);
             txt_sub_date.setVisibility(View.VISIBLE);
-            txt_sub_date.setText(CommonFunc.getInstance().GetRemainSubDate());
+            txt_sub_date.setText(" (" + CommonFunc.getInstance().GetRemainSubDate() + ")");
         }
 
 

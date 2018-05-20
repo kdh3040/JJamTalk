@@ -519,8 +519,15 @@ public class BuyGoldActivity extends AppCompatActivity {
                     CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "30초에 한번씩 충전 할 수 있습니다.");
                     return;
                 } else {
+                    if(ad != null){
                         mMyData.AdColonyAdsTime = CommonFunc.getInstance().GetCurrentTime();
                         ad.show();
+                    }
+                    else
+                    {
+                        CommonFunc.getInstance().ShowDefaultPopup(BuyGoldActivity.this, "무료 코인 충전", "광고 준비중입니다");
+                    }
+
                 }
 
 

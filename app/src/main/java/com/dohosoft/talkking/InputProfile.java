@@ -1165,7 +1165,6 @@ public class InputProfile extends AppCompatActivity {
         mMyData.getRecvGold();
         mFireBaseData.GetInitBoardData();
         mFireBaseData.GetInitMyBoardData();
-        CommonFunc.getInstance().DismissLoadingPage();
         mCommon.refreshMainActivity(this, MAIN_ACTIVITY_HOME, 0, 1);
         finish();
         /*Intent intent = new_img Intent(InputProfile.this, MainActivity.class);
@@ -1230,7 +1229,8 @@ public class InputProfile extends AppCompatActivity {
             });
 
             mAdView = (AdView) v.findViewById(R.id.adView);
-            CommonFunc.getInstance().ViewAdsBanner(mAdView);
+            mAdView.setVisibility(View.GONE);
+            //CommonFunc.getInstance().ViewAdsBanner(mAdView);
 
         }
         return true;
