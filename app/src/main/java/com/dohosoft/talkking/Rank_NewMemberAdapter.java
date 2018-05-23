@@ -92,8 +92,20 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
 
         int i = position;
 
-        holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_New_Age.get(i).ConnectDate));
+        //holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_New_Age.get(i).ConnectDate));
+        String tempUserConnTime =CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_New_Age.get(i).ConnectDate);
+        if(tempUserConnTime.equals("접속중"))
+        {
+            holder.textWhen.setVisibility(View.GONE);
+            holder.iv_online.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.iv_online.setVisibility(View.GONE);
 
+            holder.textWhen.setVisibility(View.VISIBLE);
+            holder.textWhen.setText(tempUserConnTime);
+        }
 
         //Log.d("Guide !!!! ", "Case 3");
         holder.textView.setText("(" + mMyData.arrUserAll_New_Age.get(i).Age + "세)" + mMyData.arrUserAll_New_Age.get(i).NickName);

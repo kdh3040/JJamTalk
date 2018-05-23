@@ -100,7 +100,22 @@ public class Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
         else
             holder.textView.setText(/*mMyData.arrUserAll_Near.get(i).NickName + ", " + mMyData.arrUserAll_Near.get(i).Age + "세, " + */(int) (mMyData.arrUserAll_Near_Age.get(i).Dist / 1000) + "km");
 
-        holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Near_Age.get(i).ConnectDate));
+        String tempUserConnTime =CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Near_Age.get(i).ConnectDate);
+        if(tempUserConnTime.equals("접속중"))
+        {
+            holder.textWhen.setVisibility(View.GONE);
+            holder.iv_online.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.iv_online.setVisibility(View.GONE);
+
+            holder.textWhen.setVisibility(View.VISIBLE);
+            holder.textWhen.setText(tempUserConnTime);
+        }
+
+
+        //holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Near_Age.get(i).ConnectDate));
 
         Glide.with(mContext)
                 .load(mMyData.arrUserAll_Near_Age.get(i).Img)

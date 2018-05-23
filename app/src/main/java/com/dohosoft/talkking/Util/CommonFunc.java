@@ -2463,38 +2463,54 @@ public class CommonFunc {
 
             long calDate = SecondDate.getTime() - FirstDate.getTime();
 
-            // Date.getTime() 은 해당날짜를 기준으로1970년 00:00:00 부터 몇 초가 흘렀는지를 반환해준다.
-            // 이제 24*60*60*1000(각 시간값에 따른 차이점) 을 나눠주면 일수가 나온다.
-            long calDateDays = calDate / ( 30*24*60*60*1000);
-            if(calDateDays > 0)
+            if(calDate < 0)
             {
-                rtValue = "1달전";
+                rtValue = "1시간 전";
             }
-            else {
-                calDateDays = calDate / ( 24*60*60*1000);
+            else
+            {
+                // Date.getTime() 은 해당날짜를 기준으로1970년 00:00:00 부터 몇 초가 흘렀는지를 반환해준다.
+                // 이제 24*60*60*1000(각 시간값에 따른 차이점) 을 나눠주면 일수가 나온다.
+                long calDateDays = calDate / ( 30*24*60*60*1000);
                 if(calDateDays > 0)
                 {
-                    calDateDays = Math.abs(calDateDays);
-                    rtValue = Long.toString(calDateDays) + " 일전";
+                    rtValue = "1달전";
                 }
-                else
-                {
-                    calDateDays = calDate / ( 60*60*1000);
+                else {
+                    calDateDays = calDate / ( 24*60*60*1000);
                     if(calDateDays > 0)
                     {
                         calDateDays = Math.abs(calDateDays);
-                        rtValue = Long.toString(calDateDays) + " 시간 전";
+                        rtValue = Long.toString(calDateDays) + " 일전";
                     }
                     else
                     {
-                        calDateDays = calDate / ( 60*1000);
-                        calDateDays = Math.abs(calDateDays);
-                        rtValue = Long.toString(calDateDays) + " 분 전";
+                        calDateDays = calDate / ( 60*60*1000);
+                        if(calDateDays > 0)
+                        {
+                            calDateDays = Math.abs(calDateDays);
+                            rtValue = Long.toString(calDateDays) + " 시간 전";
+                        }
+                        else
+                        {
+                            calDateDays = calDate / ( 5 * 60*1000);
+                            if(calDateDays > 0)
+                            {
+                                calDateDays = Math.abs(calDateDays);
+                                rtValue = Long.toString(calDateDays) + " 분 전";
+                            }
+                            else
+                            {
+                                rtValue = "접속중";
+                            }
+
+                        }
+
                     }
 
                 }
-
             }
+
         }
 /*        long temp = date;
         Date FirstDate = new Date();

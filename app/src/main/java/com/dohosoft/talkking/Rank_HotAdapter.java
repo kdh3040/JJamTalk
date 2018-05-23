@@ -134,8 +134,22 @@ public class Rank_HotAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
 
         //holder.textView.setText(-1 * (mMyData.arrUserAll_Hot_Age.get(i).FanCount / UNIQ_FANCOUNT) + "명");
 
+        String tempUserConnTime =CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Hot_Age.get(i).ConnectDate);
+        if(tempUserConnTime.equals("접속중"))
+        {
+            holder.textWhen.setVisibility(View.GONE);
+            holder.iv_online.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.iv_online.setVisibility(View.GONE);
 
-        holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Hot_Age.get(i).ConnectDate));
+            holder.textWhen.setVisibility(View.VISIBLE);
+            holder.textWhen.setText(tempUserConnTime);
+        }
+
+
+        //holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Hot_Age.get(i).ConnectDate));
         holder.iv_rank.setVisibility(View.INVISIBLE);
         holder.textView.setText("(" + mMyData.arrUserAll_Hot_Age.get(i).Age + "세)" + mMyData.arrUserAll_Hot_Age.get(i).NickName);
         holder.iv_honey_rank.setImageResource(R.drawable.hot_main);

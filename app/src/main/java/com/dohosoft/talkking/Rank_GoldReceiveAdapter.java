@@ -72,6 +72,7 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
         lpForIvRank.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         lpForIvRank.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         holder.iv_rank.setLayoutParams(lpForIvRank);
+
         //온라인 표시
         RelativeLayout.LayoutParams lpForIvOnline = new RelativeLayout.LayoutParams((int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2), (int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2));
         lpForIvOnline.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -129,8 +130,23 @@ public class Rank_GoldReceiveAdapter extends RecyclerView.Adapter<GridUserViewHo
 
         String str = String.format("%,d", mMyData.arrUserAll_Recv_Age.get(i).RecvGold * -1);
         holder.textView.setText(str);
+        String tempUserConnTime =CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Recv_Age.get(i).ConnectDate);
+        if(tempUserConnTime.equals("접속중"))
+        {
+            holder.textWhen.setVisibility(View.GONE);
+            holder.iv_online.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.iv_online.setVisibility(View.GONE);
 
-        holder.textWhen.setText(CommonFunc.getInstance().GetUserDate(mMyData.arrUserAll_Recv_Age.get(i).ConnectDate));
+            holder.textWhen.setVisibility(View.VISIBLE);
+            holder.textWhen.setText(tempUserConnTime);
+        }
+
+
+
+
 
         Glide.with(mContext)
                 .load(mMyData.arrUserAll_Recv_Age.get(i).Img)

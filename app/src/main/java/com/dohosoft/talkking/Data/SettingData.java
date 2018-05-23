@@ -63,8 +63,7 @@ public class SettingData {
         else
             rtValue = 2;
 
-/*        int rtValue = 0;
-        if(mMyData.nSearchMode == 0)
+/*        if(mMyData.nSearchMode == 0)
         {
             if(mMyData.getUserGender() != null)
             {
