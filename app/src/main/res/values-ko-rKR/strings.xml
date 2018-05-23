@@ -29,7 +29,7 @@
 
 
     <string name="setting_delete_title">계정삭제</string>
-    <string name="setting_delete_body">계정을 삭제하시겠습니까? (*주의: 즐겨찾기, 채팅방 내용, 내 코인 등 기존 활동 내역이 모두 영구삭제됩니다.)</string>
+    <string name="setting_delete_body">계정을 삭제하시겠습니까? (*주의: 즐겨찾기, 채팅방 내용, 내 코인 등 기존 활동 내역이 모두 영구삭제되며, 재가입시 신규보상, 출첵보상이 없어집니다.)</string>
 
     <string name="text_yes">예</string>
     <string name="text_no">아니오</string>
