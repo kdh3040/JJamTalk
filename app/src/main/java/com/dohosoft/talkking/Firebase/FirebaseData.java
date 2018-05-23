@@ -1875,14 +1875,14 @@ public class FirebaseData {
 
         DatabaseReference myTable = database.getReference("Users");
 
-        if (mMyData.getUserGender().equals("여자")) {
+        if (MyData.getInstance().getUserGender().equals("여자")) {
             myTable = myTable.child("Woman").child(MyData.getInstance().getUserIdx());
         } else {
             myTable = myTable.child("Man").child(MyData.getInstance().getUserIdx());
         }
 
         Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("Honey", mMyData.getUserHoney());
+        updateMap.put("Honey", MyData.getInstance().getUserHoney());
         myTable.updateChildren(updateMap);
     }
 
@@ -1936,7 +1936,7 @@ public class FirebaseData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myTable = database.getReference("Users");
 
-        if (mMyData.getUserGender().equals("여자")) {
+        if (MyData.getInstance().getUserGender().equals("여자")) {
             myTable = myTable.child("Woman").child(MyData.getInstance().getUserIdx());
         } else {
             myTable = myTable.child("Man").child(MyData.getInstance().getUserIdx());

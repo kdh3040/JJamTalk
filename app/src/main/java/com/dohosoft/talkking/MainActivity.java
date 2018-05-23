@@ -457,8 +457,6 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         // 구독 상태
-        CommonFunc.getInstance().CheckSubStatus(MainActivity.this);
-
 
         RefreshBtn = (ImageButton)findViewById(R.id.RefreshBtn);
 
@@ -898,7 +896,8 @@ public class MainActivity extends AppCompatActivity {
 
        // boolean bCheckConnt = mMyData.CheckConnectDate();
 
-         /*if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK, 0)) {
+         if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK, 0))
+         {
 
             mMyData.ConnectDate = -1 * CommonFunc.getInstance().GetCurrentTime();
 
@@ -960,7 +959,7 @@ public class MainActivity extends AppCompatActivity {
             mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
             mMyData.setPoint(mUIData.getAdReward()[mMyData.getGrade()]);
 
-            if (CoomonValueData.getInstance().Notice != null && !CoomonValueData.getInstance().Notice.equals("")) {
+        /*    if (CoomonValueData.getInstance().Notice != null && !CoomonValueData.getInstance().Notice.equals("")) {
                 View NoticeV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);
 
                 final AlertDialog NoticeDialog = new AlertDialog.Builder(this).setView(NoticeV).create();
@@ -1002,9 +1001,9 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 });
-            }
+            }*/
 
-        }*/
+        }
 
         if (nStartByNew == 1) {
 
@@ -1380,6 +1379,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+        CommonFunc.getInstance().CheckSubStatus(MainActivity.this);
 
         // 111111111
 

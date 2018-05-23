@@ -198,7 +198,8 @@ public class UserPageActivity extends AppCompatActivity {
                 }
             });
 
-            mMyData.mInterstitialAd.loadAd(CoomonValueData.adRequest);
+            if(CoomonValueData.adRequest != null)
+                mMyData.mInterstitialAd.loadAd(CoomonValueData.adRequest);
 
         }
 
