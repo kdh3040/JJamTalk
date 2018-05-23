@@ -1137,7 +1137,7 @@ public class InputProfile extends AppCompatActivity {
         bSetHot = false;
         bSetNear = false;
         bSetNew = false;
-        bSetRich = false;
+        //bSetRich = false;
         bSetRecv = false;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

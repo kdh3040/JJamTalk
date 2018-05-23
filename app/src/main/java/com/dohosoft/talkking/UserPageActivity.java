@@ -717,30 +717,27 @@ if(mMyData.itemList.get(i) != 0)
                                                 Coin.setVisibility(View.GONE);
                                                 CoinCharge.setVisibility(View.GONE);
                                             } else {
-                                                CoinText.setVisibility(View.VISIBLE);
-                                                CoinImg.setVisibility(View.VISIBLE);
-                                                CoinMine.setVisibility(View.VISIBLE);
-                                                Coin.setVisibility(View.VISIBLE);
-                                                CoinCharge.setVisibility(View.VISIBLE);
-
-                                                CoinMine.setText(Integer.toString(mMyData.getUserHoney()));
+                                                if(mMyData.IsViewAds() == false )
+                                                {
+                                                    CoinText.setVisibility(View.GONE);
+                                                    CoinImg.setVisibility(View.GONE);
+                                                    CoinMine.setVisibility(View.GONE);
+                                                    Coin.setVisibility(View.GONE);
+                                                    CoinCharge.setVisibility(View.GONE);
+                                                }
+                                                else
+                                                {
+                                                    CoinText.setVisibility(View.VISIBLE);
+                                                    CoinImg.setVisibility(View.VISIBLE);
+                                                    CoinMine.setVisibility(View.VISIBLE);
+                                                    Coin.setVisibility(View.VISIBLE);
+                                                    CoinCharge.setVisibility(View.VISIBLE);
+                                                    CoinMine.setText(Integer.toString(mMyData.getUserHoney()));
+                                                }
                                             }
 
 
-                                            if(mMyData.IsViewAds() == false )
-                                            {
-                                                CoinText.setVisibility(View.GONE);
-                                                CoinImg.setVisibility(View.GONE);
-                                                CoinMine.setVisibility(View.GONE);
-                                                Coin.setVisibility(View.GONE);
-                                            }
-                                            else
-                                            {
-                                                CoinText.setVisibility(View.VISIBLE);
-                                                CoinImg.setVisibility(View.VISIBLE);
-                                                CoinMine.setVisibility(View.VISIBLE);
-                                                Coin.setVisibility(View.VISIBLE);
-                                            }
+
 
                                             Button btn_cancel = view1.findViewById(R.id.btn_cancel);
                                             final EditText et_msg = view1.findViewById(R.id.et_nick);

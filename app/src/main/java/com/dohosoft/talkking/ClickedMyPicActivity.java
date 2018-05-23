@@ -66,6 +66,8 @@ public class ClickedMyPicActivity extends AppCompatActivity {
     private TextView txt_ad1, txt_ad;
     private ImageView img_sub;
     private ImageView Divider_memo, Divider_fan;
+    private TextView txt_when;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +77,9 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         mActivity = this;
 
         mMyData.SetCurFrag(0);
+
+        txt_when = findViewById(R.id.tv_when);
+        txt_when.setText(CommonFunc.getInstance().GetUserDate(MyData.getInstance().ConnectDate));
 
         txt_ad = findViewById(R.id.tv_ad);
         txt_ad1 = findViewById(R.id.tv_ad1);

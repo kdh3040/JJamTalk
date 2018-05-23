@@ -210,7 +210,6 @@ public class CommonFunc {
 
         bRefreshSetHot = false;
         bRefreshSetNear = false ;
-        bRefreshSetFan = false ;
         bRefreshSetNew = false;
         bRefreshSetRecv = false;
 
