@@ -11,7 +11,7 @@
     />
     <item
         android:id="@+id/btn_block"
-        android:icon="@drawable/hand_white"
+        android:icon="@drawable/block_text"
         android:title="블락"
 
         app:showAsAction="always|withText"></item>
