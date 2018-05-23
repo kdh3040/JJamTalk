@@ -887,8 +887,8 @@ public class MainActivity extends AppCompatActivity {
 
         // boolean bCheckConnt = mMyData.CheckConnectDate();
 
-        //if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK, 0))
-        if (true) {
+        if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK, 0)){
+        //if (true) {
             mMyData.ConnectDate = -1 * CommonFunc.getInstance().GetCurrentTime();
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();

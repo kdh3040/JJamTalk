@@ -65,6 +65,7 @@ import com.kakao.usermgmt.response.model.User;
 
 import org.jsoup.select.Evaluator;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -2447,56 +2448,72 @@ public class CommonFunc {
 
     public String GetUserDate(long date)
     {
-/*        long temp = date;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
-        Date date1 = simpleDateFormat.parse(date);*/
-
+        date *= -1;
 
         String rtValue = "";
 
-        return  rtValue;
-        /*
-        date *= -1;
-        Date FirstDate = new Date(date);
-        Date SecondDate = GetCurrentDate();
-
-        long calDate = FirstDate.getTime() - SecondDate.getTime();
-
-        // Date.getTime() 은 해당날짜를 기준으로1970년 00:00:00 부터 몇 초가 흘렀는지를 반환해준다.
-        // 이제 24*60*60*1000(각 시간값에 따른 차이점) 을 나눠주면 일수가 나온다.
-        long calDateDays = calDate / ( 30*24*60*60*1000);
-        if(calDateDays > 0)
+        if(date < 30000000)
         {
-            rtValue = "1달전";
+            rtValue = "2주전";
         }
-        else {
-            calDateDays = calDate / ( 24*60*60*1000);
+        else
+        {
+            Date FirstDate = new Date(date);
+            Date SecondDate = GetCurrentDate();
+
+            long calDate = SecondDate.getTime() - FirstDate.getTime();
+
+            // Date.getTime() 은 해당날짜를 기준으로1970년 00:00:00 부터 몇 초가 흘렀는지를 반환해준다.
+            // 이제 24*60*60*1000(각 시간값에 따른 차이점) 을 나눠주면 일수가 나온다.
+            long calDateDays = calDate / ( 30*24*60*60*1000);
             if(calDateDays > 0)
             {
-                calDateDays = Math.abs(calDateDays);
-                rtValue = Long.toString(calDateDays);
+                rtValue = "1달전";
             }
-            else
-            {
-                calDateDays = calDate / ( 60*60*1000);
+            else {
+                calDateDays = calDate / ( 24*60*60*1000);
                 if(calDateDays > 0)
                 {
                     calDateDays = Math.abs(calDateDays);
-                    rtValue = Long.toString(calDateDays);
+                    rtValue = Long.toString(calDateDays) + " 일전";
                 }
                 else
                 {
-                    calDateDays = calDate / ( 60*1000);
-                    calDateDays = Math.abs(calDateDays);
-                    rtValue = Long.toString(calDateDays);
+                    calDateDays = calDate / ( 60*60*1000);
+                    if(calDateDays > 0)
+                    {
+                        calDateDays = Math.abs(calDateDays);
+                        rtValue = Long.toString(calDateDays) + " 시간 전";
+                    }
+                    else
+                    {
+                        calDateDays = calDate / ( 60*1000);
+                        calDateDays = Math.abs(calDateDays);
+                        rtValue = Long.toString(calDateDays) + " 분 전";
+                    }
+
                 }
 
             }
-
         }
+/*        long temp = date;
+        Date FirstDate = new Date();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
+        try {
+            FirstDate = simpleDateFormat.parse(Long.toString(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
 
 
-        return rtValue;*/
+
+
+
+
+
+
+        return rtValue;
     }
 }
 

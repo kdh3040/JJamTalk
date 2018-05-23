@@ -79,7 +79,7 @@ public class ClickedMyPicActivity extends AppCompatActivity {
         mMyData.SetCurFrag(0);
 
         txt_when = findViewById(R.id.tv_when);
-        txt_when.setText(CommonFunc.getInstance().GetUserDate(MyData.getInstance().ConnectDate));
+        txt_when.setVisibility(View.GONE);
 
         txt_ad = findViewById(R.id.tv_ad);
         txt_ad1 = findViewById(R.id.tv_ad1);
