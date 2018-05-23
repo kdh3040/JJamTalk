@@ -273,7 +273,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
                 };
 
-                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, listener, null, "계정삭제", "계정을 삭제하시겠습니까? (*주의: 즐겨찾기, 채팅방 내용, 내 코인 등 기존 활동 내역이 모두 영구삭제됩니다.) ", "네", "아니요");
+                CommonFunc.getInstance().ShowDefaultPopup(SettingActivity.this, listener, null, getResources().getString(R.string.setting_delete_title), getResources().getString(R.string.setting_delete_body), getResources().getString(R.string.text_yes), getResources().getString(R.string.text_no));
             }
         });
 

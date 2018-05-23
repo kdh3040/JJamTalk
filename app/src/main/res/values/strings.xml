@@ -834,5 +834,11 @@
     <string name="app_name">TalkKing</string>
     <string name="kakao_app_key">5904866e9e9f18cee10679df437f1ace</string>
 
+    <string name="setting_delete_title">Delete</string>
+    <string name="setting_delete_body">Delete</string>
+
+    <string name="text_yes">Yes</string>
+    <string name="text_no">No</string>
+
 </resources>
 
