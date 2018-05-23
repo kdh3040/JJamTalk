@@ -75,6 +75,12 @@ public class Rank_NearAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         lpForIcon.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
+        //온라인표시
+        RelativeLayout.LayoutParams lpForIvOnline = new RelativeLayout.LayoutParams((int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2), (int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2));
+        lpForIvOnline.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lpForIvOnline.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        holder.iv_online.setLayoutParams(lpForIvOnline);
+
 
         holder.iv_rank.setVisibility(View.GONE);
         holder.iv_honey_rank.setLayoutParams(lpForIcon);

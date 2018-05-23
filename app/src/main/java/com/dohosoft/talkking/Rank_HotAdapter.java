@@ -60,7 +60,11 @@ public class Rank_HotAdapter extends RecyclerView.Adapter<GridUserViewHolder> {
         lpForTextView.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lpForTextView.addRule(RelativeLayout.RIGHT_OF, R.id.iv_honey_rank);
         holder.textView.setLayoutParams(lpForTextView);
-
+//온라인
+        RelativeLayout.LayoutParams lpForIvOnline = new RelativeLayout.LayoutParams((int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2), (int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2));
+        lpForIvOnline.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lpForIvOnline.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        holder.iv_online.setLayoutParams(lpForIvOnline);
         //순위 레이아웃
 
         RelativeLayout.LayoutParams lpForIvRank = new RelativeLayout.LayoutParams((int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2), (int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2));

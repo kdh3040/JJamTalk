@@ -12,11 +12,12 @@ import com.dohosoft.talkking.R;
  */
 
 public class GridUserViewHolder extends RecyclerView.ViewHolder {
-    public ImageView iv_profile,iv_honey_rank,bg_tv,iv_rank;
+    public ImageView iv_profile,iv_honey_rank,bg_tv,iv_rank,iv_online;
     public TextView textView, textWhen;
     public GridUserViewHolder(View itemView) {
         super(itemView);
         iv_profile = itemView.findViewById(R.id.iv_user);
+        iv_online = itemView.findViewById(R.id.iv_online);
         iv_rank = itemView.findViewById(R.id.iv_rank);
         bg_tv = itemView.findViewById(R.id.bg_txt);
         iv_honey_rank = itemView.findViewById(R.id.iv_honey_rank);

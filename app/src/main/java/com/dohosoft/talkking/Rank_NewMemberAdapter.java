@@ -76,6 +76,12 @@ public class Rank_NewMemberAdapter extends RecyclerView.Adapter<GridUserViewHold
         holder.iv_honey_rank.setLayoutParams(lpForIcon);
         holder.iv_honey_rank.setImageResource(R.drawable.new_img);
 
+        //온라인표시
+        RelativeLayout.LayoutParams lpForIvOnline = new RelativeLayout.LayoutParams((int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2), (int) (mUIData.getWidth() / mSetting.getViewCount() * 0.2));
+        lpForIvOnline.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lpForIvOnline.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        holder.iv_online.setLayoutParams(lpForIvOnline);
+
         RelativeLayout.LayoutParams lpForBgTxt = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) ((mUIData.getWidth() / mSetting.getViewCount()) * 0.2));
         lpForBgTxt.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         lpForBgTxt.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
