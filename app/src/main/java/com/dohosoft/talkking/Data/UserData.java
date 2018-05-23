@@ -102,6 +102,7 @@ public class UserData implements Serializable,Parcelable {
     public int SubStatus;
     public long SubDate;
 
+    public int Rejoin;
     public UserData() {
 
     }
@@ -186,6 +187,8 @@ public class UserData implements Serializable,Parcelable {
 
         SubStatus = in.readInt();
         SubDate = in.readLong();
+
+        Rejoin = in.readInt();
     }
 
     public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -282,6 +285,8 @@ public class UserData implements Serializable,Parcelable {
 
         parcel.writeInt(SubStatus);
         parcel.writeLong(SubDate);
+
+        parcel.writeInt(Rejoin);
     }
 
 /*    public long getConnectDate() {

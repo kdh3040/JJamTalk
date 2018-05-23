@@ -248,6 +248,8 @@ public class FirebaseData {
         SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
         int nTodayTime = Integer.parseInt((date.format(new Date(time))).toString());
         user.child("ConnectDate").setValue(nTodayTime);
+
+        user.child("Rejoin").setValue(mMyData.Rejoin);
     }
 
 
@@ -392,6 +394,8 @@ public class FirebaseData {
         user.child("Honey").setValue(mMyData.getUserHoney());
 
         user.child("ConnectDate").setValue(CommonFunc.getInstance().GetCurrentTime());
+
+        user.child("Rejoin").setValue(mMyData.Rejoin);
 
 
         SaveUsersMyData(mMyData.getUserIdx());

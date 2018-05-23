@@ -135,7 +135,7 @@ public class InputProfile extends AppCompatActivity {
     private Uri tempImgUri;
     private boolean bClickSave = false;
 
-    private boolean bRejoin = false;
+    private int bRejoin = 0;
 
     public class PrePareHot extends AsyncTask<Integer, Integer, Integer> {
         @Override
@@ -629,7 +629,7 @@ public class InputProfile extends AppCompatActivity {
 
         final Bundle bundle = getIntent().getExtras();
         strIdx = (String) bundle.getSerializable("Idx");
-        bRejoin = (boolean) bundle.getSerializable("ReJoin");
+        bRejoin = (int) bundle.getSerializable("ReJoin");
 
 
         mMyData.setUserIdx(strIdx);
@@ -1145,9 +1145,10 @@ public class InputProfile extends AppCompatActivity {
         final DatabaseReference UserIdx = table.child(mMyData.ANDROID_ID);
         UserIdx.setValue(strIdx);
 
-        if (bRejoin == false) {
+        if (bRejoin == 0) {
             mMyData.setUserHoney(REWARD_NEW);
             mMyData.setPoint(REWARD_NEW);
+            mMyData.Rejoin = 0;
         }
 
 

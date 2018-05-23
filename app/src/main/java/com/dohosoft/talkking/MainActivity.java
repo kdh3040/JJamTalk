@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
     boolean RefreshTest = false;
 
 
-
     ImageView ib_home;
     ImageView ib_cardList;
     ImageView ib_chatList;
@@ -173,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean bAlarmChat = false;
 
-    public interface  CallBack{
+    public interface CallBack {
         void callback();
     }
 
@@ -428,7 +427,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences MyDataPref = mContext.getSharedPreferences("MyData", mContext.MODE_PRIVATE);
         SharedPreferences.Editor MyDataEditor = MyDataPref.edit();
-        MyDataEditor.putString("Gender",  mMyData.getUserGender());
+        MyDataEditor.putString("Gender", mMyData.getUserGender());
         MyDataEditor.commit();
 
 
@@ -458,12 +457,11 @@ public class MainActivity extends AppCompatActivity {
 
         // 구독 상태
 
-        RefreshBtn = (ImageButton)findViewById(R.id.RefreshBtn);
+        RefreshBtn = (ImageButton) findViewById(R.id.RefreshBtn);
 
         RefreshBtn.setVisibility(View.GONE);
 
-        if(RefreshTest == true)
-        {
+        if (RefreshTest == true) {
             RefreshBtn.setVisibility(View.VISIBLE);
             RefreshBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -472,7 +470,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
 
 
         SharedPreferences pref = getSharedPreferences("ExecByNoti", MODE_PRIVATE);
@@ -564,15 +561,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if(bAlarmChat == true)
-        {
+        if (bAlarmChat == true) {
             CommonFunc.getInstance().SetChatAlarmVisible(true);
-        }
-        else
-        {
+        } else {
             CommonFunc.getInstance().SetChatAlarmVisible(false);
         }
-
 
 
         CommonFunc.getInstance().Item_Box = (ImageView) findViewById(R.id.iv_itemBox);
@@ -648,7 +641,6 @@ public class MainActivity extends AppCompatActivity {
                 CommonFunc.getInstance().ViewAdsBanner(mAdView);
 
 
-
                 spin_StartAge = (Spinner) v.findViewById(R.id.spinner1);
                 spin_StartAge.setSelection(mMyData.nStartAge - 20);
                 // spin_StartAge.setPrompt(String.valueOf(mMyData.nStartAge));
@@ -689,7 +681,6 @@ public class MainActivity extends AppCompatActivity {
                 btn_ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
 
 
                         mMyData.setAlarmSettingData(mSetting.IsAlarmSettingSound(), mSetting.IsAlarmSettingVibration(), mSetting.IsAlarmSettingPop());
@@ -756,8 +747,8 @@ public class MainActivity extends AppCompatActivity {
                     //rbtn_three.setChecked(true);
                     //rbtn_four.setChecked(false);
                 } else if (mSetting.getnViewSetting() == 2) {
-                   // rbtn_three.setChecked(false);
-                   // rbtn_four.setChecked(true);
+                    // rbtn_three.setChecked(false);
+                    // rbtn_four.setChecked(true);
                 }
 
 
@@ -894,13 +885,11 @@ public class MainActivity extends AppCompatActivity {
         prepareJob.execute();*/
 
 
-       // boolean bCheckConnt = mMyData.CheckConnectDate();
+        // boolean bCheckConnt = mMyData.CheckConnectDate();
 
-         //if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK, 0))
-        if(true)
-         {
-
-           /* mMyData.ConnectDate = -1 * CommonFunc.getInstance().GetCurrentTime();
+        //if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK, 0))
+        if (true) {
+            mMyData.ConnectDate = -1 * CommonFunc.getInstance().GetCurrentTime();
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference table;
@@ -918,48 +907,51 @@ public class MainActivity extends AppCompatActivity {
             table = database.getReference("SimpleData").child(mMyData.getUserIdx());
             table.updateChildren(updateMap);
 
-            String alertTitle = "종료";
-            View ConnV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);
+            if (mMyData.Rejoin == 0) {
+                String alertTitle = "종료";
+                View ConnV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);
 
-            final AlertDialog ConnDialog = new AlertDialog.Builder(this).setView(ConnV).create();
-            ConnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-            ConnDialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
-            ConnDialog.show();
+                final AlertDialog ConnDialog = new AlertDialog.Builder(this).setView(ConnV).create();
+                ConnDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                ConnDialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
+                ConnDialog.show();
 
-            final TextView txt_Title;
-            txt_Title = (TextView) ConnV.findViewById(R.id.title);
-            txt_Title.setText("출석 체크 보상");
-            final TextView txt_Body;
-            txt_Body = (TextView) ConnV.findViewById(R.id.msg);
-            txt_Body.setText(CoomonValueData.getInstance().Login + "\n" + mUIData.getAdReward()[mMyData.getGrade()] + "코인 획득 하였습니다");
-            // txt_Body.setText("톡킹을 다운로드 해주셔서 감사합니다" + "\n" + "여러분들의 외로움을 해결해드리기 위해 "+ "\n" + "최선을 다하겠습니다");
-
-
-            final Button btn_exit;
-            final Button btn_no;
-
-            btn_exit = (Button) ConnV.findViewById(R.id.btn_yes);
-            btn_exit.setText("확인");
-            btn_exit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ConnDialog.dismiss();
-                }
-            });
-
-            btn_no = (Button) ConnV.findViewById(R.id.btn_no);
-            btn_no.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ConnDialog.dismiss();
-                }
-            });
-            btn_no.setVisibility(View.GONE);
+                final TextView txt_Title;
+                txt_Title = (TextView) ConnV.findViewById(R.id.title);
+                txt_Title.setText("출석 체크 보상");
+                final TextView txt_Body;
+                txt_Body = (TextView) ConnV.findViewById(R.id.msg);
+                txt_Body.setText(CoomonValueData.getInstance().Login + "\n" + mUIData.getAdReward() + "코인 획득 하였습니다");
+                // txt_Body.setText("톡킹을 다운로드 해주셔서 감사합니다" + "\n" + "여러분들의 외로움을 해결해드리기 위해 "+ "\n" + "최선을 다하겠습니다");
 
 
-            mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward()[mMyData.getGrade()]);
-            mMyData.setPoint(mUIData.getAdReward()[mMyData.getGrade()]);
-*/
+                final Button btn_exit;
+                final Button btn_no;
+
+                btn_exit = (Button) ConnV.findViewById(R.id.btn_yes);
+                btn_exit.setText("확인");
+                btn_exit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ConnDialog.dismiss();
+                    }
+                });
+
+                btn_no = (Button) ConnV.findViewById(R.id.btn_no);
+                btn_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ConnDialog.dismiss();
+                    }
+                });
+                btn_no.setVisibility(View.GONE);
+
+
+                mMyData.setUserHoney(mMyData.getUserHoney() + mUIData.getAdReward());
+                mMyData.setPoint(mUIData.getAdReward());
+            }
+
+
             if (CoomonValueData.getInstance().Notice != null && !CoomonValueData.getInstance().Notice.equals("")) {
                 View NoticeV = LayoutInflater.from(mActivity).inflate(R.layout.dialog_exit_app, null, false);
 
@@ -1173,20 +1165,16 @@ public class MainActivity extends AppCompatActivity {
 
                 if (chatListFragment == null) {
                     LoadChatData();
-                }
-                else {
+                } else {
                     boolean bSetChatData = true;
-                    for(int i = 0; i< mMyData.arrChatDataList.size(); i++)
-                    {
-                        if(mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(i)).Gender == null || mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(i)).Gender.equals("") )
-                        {
+                    for (int i = 0; i < mMyData.arrChatDataList.size(); i++) {
+                        if (mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(i)).Gender == null || mMyData.arrChatDataList.get(mMyData.arrChatNameList.get(i)).Gender.equals("")) {
                             bSetChatData = false;
                             break;
                         }
                     }
 
-                    if(bSetChatData == true)
-                    {
+                    if (bSetChatData == true) {
                         iv_myPage.setVisibility(View.GONE);
                         logo.setVisibility(View.GONE);
                         iv_heartCnt.setVisibility(View.GONE);
@@ -1231,17 +1219,14 @@ public class MainActivity extends AppCompatActivity {
                 else {
 
                     boolean bFanDataSet = true;
-                    for(int i = 0; i< mMyData.arrMyFanDataList.size(); i++)
-                    {
-                        if(mMyData.arrMyFanDataList.get(mMyData.arrMyFanList.get(i).Idx).Gender == null || mMyData.arrMyFanDataList.get(mMyData.arrMyFanList.get(i).Idx).Gender.equals(""))
-                        {
+                    for (int i = 0; i < mMyData.arrMyFanDataList.size(); i++) {
+                        if (mMyData.arrMyFanDataList.get(mMyData.arrMyFanList.get(i).Idx).Gender == null || mMyData.arrMyFanDataList.get(mMyData.arrMyFanList.get(i).Idx).Gender.equals("")) {
                             bFanDataSet = false;
                             break;
                         }
                     }
 
-                    if(bFanDataSet == true)
-                    {
+                    if (bFanDataSet == true) {
 
                         iv_myPage.setVisibility(View.GONE);
                         logo.setVisibility(View.GONE);
@@ -1397,9 +1382,8 @@ public class MainActivity extends AppCompatActivity {
     private void LoadChatData() {
         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
-     //   if (mMyData.arrChatNameList.size() == 0 || mMyData.arrChatNameList.size() == mMyData.arrChatDataList.size()) {
-        if(chatListFragment == null)
-        {
+        //   if (mMyData.arrChatNameList.size() == 0 || mMyData.arrChatNameList.size() == mMyData.arrChatDataList.size()) {
+        if (chatListFragment == null) {
             chatListFragment = new ChatListFragment(getApplicationContext());
             return;
         }
@@ -2056,12 +2040,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Integer... voids) {
 
-            if(mMyData.arrCardNameList.size() == mMyData.arrCarDataList.size())
-            {
+            if (mMyData.arrCardNameList.size() == mMyData.arrCarDataList.size()) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, cardListFragment, "CardListFragment").commit();
-            }
-            else
-            {
+            } else {
                 for (int i = 0; i < mMyData.arrCardNameList.size(); i++) {
                     Query data = FirebaseDatabase.getInstance().getReference().child("SimpleData").child(mMyData.arrCardNameList.get(i));
                     final int finalI = i;
@@ -2070,7 +2051,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             SimpleUserData DBData = dataSnapshot.getValue(SimpleUserData.class);
                             mMyData.arrCarDataList.put(mMyData.arrCardNameList.get(finalI), DBData);
-                            if(mMyData.arrCardNameList.size() == mMyData.arrCarDataList.size()) {
+                            if (mMyData.arrCardNameList.size() == mMyData.arrCarDataList.size()) {
                                 CoomonValueData.getInstance().bMySet_Card = true;
                                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, cardListFragment, "CardListFragment").commit();
                             }
@@ -2109,7 +2090,6 @@ public class MainActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
         }
     }
-
 
 
 }
