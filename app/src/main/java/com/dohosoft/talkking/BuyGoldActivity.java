@@ -47,6 +47,11 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.dohosoft.talkking.Data.MyData;
 import com.dohosoft.talkking.Data.UIData;
 import com.dohosoft.talkking.Util.CommonFunc;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -56,8 +61,12 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -120,6 +129,12 @@ public class BuyGoldActivity extends AppCompatActivity {
 
     private int index = 0;
     private ImageView imgAds;
+
+
+    String emailAddress = "dohosoft@api-7931733623402980105-475923.iam.gserviceaccount.com";
+
+
+
 
     @Override
     public void onDestroy() {
@@ -634,6 +649,32 @@ public class BuyGoldActivity extends AppCompatActivity {
                 BuyGoldByGoogle(getApplicationContext(), mMyData.skuGold[6]);
             }
         });
+
+
+        JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+        HttpTransport httpTransport = null;
+        try {
+            httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            GoogleCredential credential = new GoogleCredential.Builder()
+                    .setTransport(httpTransport)
+                    .setJsonFactory(JSON_FACTORY)
+                    .setServiceAccountId(emailAddress)
+                    .setServiceAccountPrivateKeyFromP12File(new File("src/GooglePlayAndroidDeveloperPrivateKey.p12"))
+                    .setServiceAccountScopes(Collections.singleton("https://www.googleapis.com/auth/androidpublisher"))
+                    .build();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
