@@ -105,14 +105,16 @@ public class MailBoxAdapter extends RecyclerView.Adapter<MailboxViewHolder>{
                 Button btnChatStart = giftView.findViewById(R.id.confirm);
                 Button btnOK = giftView.findViewById(R.id.btn_ok);
 
-                btnOK.setOnClickListener(new View.OnClickListener() {
+                btnOK.setVisibility(View.GONE);
+               /* btnOK.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        mMyData.arrGiftUserDataList.remove(mMyData.arrGiftHoneyDataList.get(position).strSendName);
                         mMyData.arrGiftHoneyDataList.remove(position);
                         notifyDataSetChanged();
                         dialog.dismiss();
                     }
-                });
+                });*/
 
                 btnChatStart.setOnClickListener(new View.OnClickListener() {
                     @Override
