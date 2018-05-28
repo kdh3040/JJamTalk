@@ -24,7 +24,7 @@
         android:layout_height="0dp"
         android:layout_margin="10dp"
         android:layout_weight="2"
-        android:text="게시글에 풍기문란, 사기 및 범죄 관련, 불법적인 광고 등의 내용이 포함될 경우 계정이 영구정지 될 수 있습니다."
+        android:text="게시글에 풍기문란, 사기 및 범죄 관련, 카톡 아이디 공개, 불법적인 광고 등의 내용이 포함될 경우 계정이 영구정지 될 수 있습니다."
         android:textColor="@android:color/holo_red_dark" />
 
     <Button
