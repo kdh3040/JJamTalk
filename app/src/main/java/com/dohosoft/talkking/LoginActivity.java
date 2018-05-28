@@ -19,6 +19,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.ContactsContract;
 import android.provider.Settings;
@@ -77,7 +78,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -166,6 +170,67 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     AlertDialog.Builder mDialog;
 
+
+    public static final String ROOT_PATH = Environment.getExternalStorageDirectory() + "";
+    public static final String ROOTING_PATH_1 = "/system/bin/su";
+    public static final String ROOTING_PATH_2 = "/system/xbin/su";
+    public static final String ROOTING_PATH_3 = "/system/app/SuperUser.apk";
+    public static final String ROOTING_PATH_4 = "/data/data/com.noshufou.android.su";
+
+    public static String[] RootFilesPath = new String[]{
+            ROOT_PATH + ROOTING_PATH_1,
+            ROOT_PATH + ROOTING_PATH_2,
+            ROOT_PATH + ROOTING_PATH_3,
+            ROOT_PATH + ROOTING_PATH_4
+    };
+
+    private static boolean checkRootingDevice() {
+        boolean isRootingFlag = false;
+
+        try {
+            Process process = Runtime.getRuntime().exec("find / -name su");
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            if (reader.ready() == false) {
+                return false;
+            }
+
+            String result = reader.readLine();
+            if (result.contains("/su") == true) {
+                isRootingFlag = true;
+            }
+
+        } catch (Exception e) {
+            isRootingFlag = false;
+        }
+
+        if (!isRootingFlag) {
+            isRootingFlag = checkRootingFiles(RootFilesPath);
+        }
+
+        return isRootingFlag;
+    }
+
+
+    private static boolean checkRootingFiles(String[] filePaths) {
+        boolean result = false;
+        File file;
+
+        for (String path : filePaths) {
+            file = new File(path);
+
+            if (file != null && file.exists() && file.isFile()) {
+                result = true;
+                break;
+            } else {
+                result = false;
+            }
+        }
+
+        return result;
+    }
+
+
     @Override
     public void onBackPressed() {
 
@@ -186,7 +251,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
     }
-
 
 
     public void getVersion() {
@@ -215,6 +279,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                             startActivity(marketLaunch);
                                             finish();
+                                            System.exit(0);
+                                            int pid = android.os.Process.myPid();
+                                            android.os.Process.killProcess(pid);
                                         }
                                     });
                     AlertDialog alert = mDialog.create();
@@ -241,39 +308,50 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mActivity = this;
 
 
+        if (checkRootingDevice() == true) {
+            CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                public void YesListener() {
+                    finish();
+                    System.exit(0);
+                    int pid = android.os.Process.myPid();
+                    android.os.Process.killProcess(pid);
+                }
+            };
+
+            CommonFunc.getInstance().ShowDefaultPopup(this, listener, listener, "비정상 실행", "루팅된 상태로는 실행이 불가능 합니다", "종료", null);
+        } else {
 
           /*  mMyData.mRewardedVideoAd.loadAd("ca-app-pub-4020702622451243/5818242350",
                     new AdRequest.Builder().build());*/
 
 
+            //FpangSession.setDebug(true);
+            //  FpangSession.setUserId("Talkking");
 
-        //FpangSession.setDebug(true);
-      //  FpangSession.setUserId("Talkking");
+            // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-       // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
-        mMyData.SetCurFrag(0);
-
-
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-4020702622451243~3824534212");
-        mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(LoginActivity.this);
+            mMyData.SetCurFrag(0);
 
 
-        mMyData.mInterstitialAd = new InterstitialAd(this);
-        mMyData.mInterstitialAd.setAdUnitId("ca-app-pub-4020702622451243/1718076510");
-        mMyData.mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            MobileAds.initialize(getApplicationContext(), "ca-app-pub-4020702622451243~3824534212");
+            mMyData.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(LoginActivity.this);
 
 
-        PackageInfo pi = null;
-        try {
-            pi = getPackageManager().getPackageInfo(getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        mMyData.verSion = pi.versionName;
+            mMyData.mInterstitialAd = new InterstitialAd(this);
+            mMyData.mInterstitialAd.setAdUnitId("ca-app-pub-4020702622451243/1718076510");
+            mMyData.mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-        mDialog = new AlertDialog.Builder(this);
-        getVersion();
+
+            PackageInfo pi = null;
+            try {
+                pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            mMyData.verSion = pi.versionName;
+
+            mDialog = new AlertDialog.Builder(this);
+            getVersion();
 
   /*     PrepareMan initHot = new PrepareMan();
         initHot.execute(0, 0, 0);*/
@@ -289,37 +367,37 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } catch (PackageManager.NameNotFoundException e) {
         }*/
 
-        Log.d(TAG, "!!!!!!!!!!!!!!!!!!!");
+            Log.d(TAG, "!!!!!!!!!!!!!!!!!!!");
 
-        getApplication().registerActivityLifecycleCallbacks(new CommonFunc.MyActivityLifecycleCallbacks());
+            getApplication().registerActivityLifecycleCallbacks(new CommonFunc.MyActivityLifecycleCallbacks());
 
-        mMyData.ANDROID_ID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        try {
-            if (!"9774d56d682e549c".equals(mMyData.ANDROID_ID)) {
-                mMyData.uuid = UUID.nameUUIDFromBytes(mMyData.ANDROID_ID
-                        .getBytes("utf8"));
-            } else {
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
+            mMyData.ANDROID_ID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+            try {
+                if (!"9774d56d682e549c".equals(mMyData.ANDROID_ID)) {
+                    mMyData.uuid = UUID.nameUUIDFromBytes(mMyData.ANDROID_ID
+                            .getBytes("utf8"));
                 } else {
-                    final String deviceId = ((TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-                    mMyData.uuid = deviceId != null ? UUID
-                            .nameUUIDFromBytes(deviceId
-                                    .getBytes("utf8")) : UUID
-                            .randomUUID();
-                }
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    } else {
+                        final String deviceId = ((TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+                        mMyData.uuid = deviceId != null ? UUID
+                                .nameUUIDFromBytes(deviceId
+                                        .getBytes("utf8")) : UUID
+                                .randomUUID();
+                    }
 
+                }
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
             }
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
 
 
         /*ImgLoading = (ImageView)findViewById(R.id.loading);
@@ -330,22 +408,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(ImgLoading);*/
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
 
-        // Set up the login form.
-        mAuth = FirebaseAuth.getInstance();
+            // Set up the login form.
+            mAuth = FirebaseAuth.getInstance();
 
 
-        final long[] tempVal = {0};
-        final String[] rtStr = new String[1];
+            final long[] tempVal = {0};
+            final String[] rtStr = new String[1];
 
   /*      Handler handler = new_img Handler();
         handler.postDelayed(new_img Runnable() {
             public void run() {*/
 
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
     /*    if(currentUser != null)
         {
             FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
@@ -367,52 +445,86 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             });
         }
         else*/
-        {
+            {
 
-            final boolean[] bCheckedMyIdx = {false};
+                final boolean[] bCheckedMyIdx = {false};
 
-            PermissionListener permissionlistener = new PermissionListener() {
-                @Override
-                public void onPermissionGranted() {
+                PermissionListener permissionlistener = new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
 
-                    FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
-                    Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
+                        FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
+                        Query data = FirebaseDatabase.getInstance().getReference().child("UserIdx").child(mMyData.ANDROID_ID);
 
-                    data.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            bCheckedMyIdx[0] = true;
-                            rtStr[0] = dataSnapshot.getValue(String.class);
+                        data.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                bCheckedMyIdx[0] = true;
+                                rtStr[0] = dataSnapshot.getValue(String.class);
 
-                            if (rtStr[0] == null || rtStr[0].equals(""))
-                                go();
-                            else {
-                                mMyData.setUserIdx(rtStr[0]);
-                                getLocation();
-                                InitData_Mine();
+                                if (rtStr[0] == null || rtStr[0].equals(""))
+                                    go();
+                                else {
+
+                                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                    DatabaseReference table = null;
+                                    table = database.getReference("BlackList");
+
+                                    table.child(rtStr[0]).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            String tempValue = dataSnapshot.getValue(String.class);
+
+                                            if(tempValue != null)
+                                            {
+                                                CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                                                    public void YesListener() {
+                                                        finish();
+                                                        System.exit(0);
+                                                        int pid = android.os.Process.myPid();
+                                                        android.os.Process.killProcess(pid);
+                                                    }
+                                                };
+
+                                                CommonFunc.getInstance().ShowDefaultPopup(LoginActivity.this, listener, listener, "활동 정지", "광고 및 부정행위로 활동이 정지되었습니다" + "\n" + "문의메일 - Dohosoft@gmail.com ", "종료", null);
+                                            }
+
+                                            else
+                                            {
+                                                mMyData.setUserIdx(rtStr[0]);
+                                                getLocation();
+                                                InitData_Mine();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
-                }
+                            }
+                        });
+                    }
 
-                @Override
-                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                    int aaa = 0;
-                }
-            };
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                        int aaa = 0;
+                    }
+                };
 
-            TedPermission.with(LoginActivity.this)
-                    .setPermissionListener(permissionlistener)
-                    .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
-                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE)
-                    .check();
+                TedPermission.with(LoginActivity.this)
+                        .setPermissionListener(permissionlistener)
+                        .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE)
+                        .check();
 
-        }
+            }
 
 /*
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -436,7 +548,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         login.execute(0,0,0);
 */
 
-        // Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+            // Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
 
         /*Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);*/
@@ -503,6 +615,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }*/
         /*    }
         }, 5000);*/
+
+        }
     }
 
     private void go() {
@@ -676,7 +790,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onDataChange(DataSnapshot dataSnapshot) {
                 CommonFunc.getInstance().DismissLoadingPage();
 
-              String tempStr = dataSnapshot.getValue(String.class);
+                String tempStr = dataSnapshot.getValue(String.class);
 
                 if (tempStr == null || tempStr.equals("")) {
                     Intent intent = new Intent(LoginActivity.this, InputProfile.class);
@@ -686,8 +800,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
-                }
-                else {
+                } else {
                     Intent intent = new Intent(LoginActivity.this, InputProfile.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Idx", rtStr);
@@ -703,7 +816,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             }
         });
-
 
 
     }
@@ -891,6 +1003,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     static boolean bInit = false;
 
+    private void CheckBlackList(String Idx)
+    {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = null;
+        table = database.getReference("BlackList");
+
+        table.child(Idx).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String tempValue = dataSnapshot.getValue(String.class);
+
+                if(tempValue != null)
+                {
+                    CommonFunc.ShowDefaultPopup_YesListener listener = new CommonFunc.ShowDefaultPopup_YesListener() {
+                        public void YesListener() {
+                            finish();
+                            System.exit(0);
+                            int pid = android.os.Process.myPid();
+                            android.os.Process.killProcess(pid);
+                        }
+                    };
+
+                    CommonFunc.getInstance().ShowDefaultPopup(LoginActivity.this, listener, listener, "활동 정지", "광고 및 부정행위로 활동이 정지되었습니다" + "\n" + "문의메일 - Dohosoft@gmail.com ", "종료", null);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
     private void InitData_Mine() {
 
 
@@ -903,12 +1050,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String tempValue = dataSnapshot.getValue(String.class);
 
-                if(tempValue.equals("여자"))
-                {
+                if (tempValue.equals("여자")) {
                     ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx());
-                }
-                else  if(tempValue.equals("남자"))
-                {
+                } else if (tempValue.equals("남자")) {
                     ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx());
                 }
 
@@ -968,7 +1112,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     mMyData.getNotification();
 
 
-
                                     mMyData.getSendList(mActivity);
                                     mMyData.getSendHoneyList();
                                     mMyData.getGiftHoneyList();
@@ -1002,8 +1145,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                     PrePareNew initNew = new PrePareNew();
                                     initNew.execute(0, 0, 0);
-
-
 
 
                                     bInit = true;
@@ -1191,7 +1332,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         }
 
 
-
                                         for (LinkedHashMap.Entry<String, SimpleChatData> entry : cTempData.SendList.entrySet()) {
                                             mMyData.arrUserAll_Recv.get(i).tempChatData.add(entry.getValue());
                                         }
@@ -1215,9 +1355,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             mMyData.arrUserMan_Recv_Age = mMyData.SortData_UAge(mMyData.arrUserMan_Recv, mMyData.nStartAge, mMyData.nEndAge);
 
 
-
-                            for(int a = 0; a<mMyData.arrUserWoman_Recv.size(); a++)
-                            {
+                            for (int a = 0; a < mMyData.arrUserWoman_Recv.size(); a++) {
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
 
@@ -1270,8 +1408,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
 
 
-                            for(int a = 0; a<mMyData.arrUserMan_Recv.size(); a++)
-                            {
+                            for (int a = 0; a < mMyData.arrUserMan_Recv.size(); a++) {
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference table = database.getReference("Users");//.child(mMyData.getUserIdx());
 
@@ -1324,7 +1461,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             }
 
 
-
                         }
 
                         @Override
@@ -1349,7 +1485,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             super.onProgressUpdate(params);
         }
     }
-
 
 
     public class PrepareHotmember extends AsyncTask<Integer, Integer, Integer> {
@@ -1454,12 +1589,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Integer doInBackground(Integer... integers) {
 
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("HotMemberIdx").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("HotMemberIdx").child("Woman");
             }
 
@@ -1470,19 +1602,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int i = 0;
                             for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                              Log.d("@@@@@@", fileSnapshot.getKey());
+                                Log.d("@@@@@@", fileSnapshot.getKey());
                                 String tempValue = fileSnapshot.getValue(String.class);
 
-                                if(tempValue != null || !tempValue.equals(""))
-                                {
-                                    i ++;
+                                if (tempValue != null || !tempValue.equals("")) {
+                                    i++;
                                     final DatabaseReference Hotref;
-                                    if(SettingData.getInstance().getnSearchSetting() == 1)
-                                    {
+                                    if (SettingData.getInstance().getnSearchSetting() == 1) {
                                         Hotref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(tempValue);
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         Hotref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(tempValue);
                                     }
 
@@ -1497,8 +1625,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                                     stRecvData = dataSnapshot.getValue(UserData.class);
                                                     if (stRecvData != null) {
                                                         if (stRecvData != null && stRecvData.Idx != null) {
-                                                            if (CommonFunc.getInstance().CheckUserData(stRecvData,dataSnapshot.getKey()))
-                                                            {
+                                                            if (CommonFunc.getInstance().CheckUserData(stRecvData, dataSnapshot.getKey())) {
                                                                 if (stRecvData.Img == null)
                                                                     stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1506,8 +1633,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                                                                 mMyData.mapGenderData.put(stRecvData.Idx, stRecvData.Gender);
 
-                                                                if(mMyData.arrUserAll_Hot.size() == HOTMEMBER_LOAD_MAIN_COUNT)
-                                                                {
+                                                                if (mMyData.arrUserAll_Hot.size() == HOTMEMBER_LOAD_MAIN_COUNT) {
 
                                                                     CommonFunc.AscendingObj ascending = new CommonFunc.AscendingObj();
 
@@ -1541,7 +1667,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
                             }
-
 
 
                         }
@@ -1578,12 +1703,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Integer doInBackground(Integer... integers) {
             DatabaseReference ref;
 
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
@@ -1597,8 +1719,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 UserData cTempData = new UserData();
                                 cTempData = fileSnapshot.getValue(UserData.class);
                                 if (cTempData != null && cTempData.Idx != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData,fileSnapshot.getKey()))
-                                    {
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData, fileSnapshot.getKey())) {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1661,12 +1782,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Integer doInBackground(Integer... voids) {
             DatabaseReference ref;
 
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
@@ -1683,8 +1801,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 cTempData = fileSnapshot.getValue(UserData.class);
 
                                 if (cTempData != null) {
-                                    if (CommonFunc.getInstance().CheckUserData(cTempData,fileSnapshot.getKey()))
-                                    {
+                                    if (CommonFunc.getInstance().CheckUserData(cTempData, fileSnapshot.getKey())) {
                                         if (cTempData.Img == null)
                                             cTempData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1750,12 +1867,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             DatabaseReference ref;
 
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
@@ -1776,8 +1890,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     if (stRecvData.Lat == 0 || stRecvData.Lon == 0) {
                                         // 위치 못받아오는 애들
                                     } else {
-                                        if (CommonFunc.getInstance().CheckUserData(stRecvData,fileSnapshot.getKey()))
-                                        {
+                                        if (CommonFunc.getInstance().CheckUserData(stRecvData, fileSnapshot.getKey())) {
                                             if (stRecvData.Img == null)
                                                 stRecvData.Img = "http://cfile238.uf.daum.net/image/112DFD0B4BFB58A27C4B03";
 
@@ -1849,12 +1962,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             DatabaseReference ref;
 
-            if(SettingData.getInstance().getnSearchSetting() == 1)
-            {
+            if (SettingData.getInstance().getnSearchSetting() == 1) {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Man");
-            }
-            else
-            {
+            } else {
                 ref = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman");
             }
 
@@ -1869,8 +1979,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 UserData stRecvData = new UserData();
                                 stRecvData = fileSnapshot.getValue(UserData.class);
 
-                                if(stRecvData != null)
-                                {
+                                if (stRecvData != null) {
                                     if (CommonFunc.getInstance().CheckUserData(stRecvData, fileSnapshot.getKey())) {
                                         //if (!stRecvData.Idx.equals(mMyData.getUserIdx()))
                                         {

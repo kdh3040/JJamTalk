@@ -834,16 +834,21 @@ public class BuyGoldActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 try {
                     JSONObject jo = new JSONObject(purchaseData);
-                    String sku = jo.getString("productId");
+                    final String sku = jo.getString("productId");
                     final String strToken = jo.getString("purchaseToken");
-                    setBuyGold(sku);
-                    FirebaseData.getInstance().SetSubStatus(BuyGoldActivity.this, sku);
+
 
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
                                 int response = mMyData.mService.consumePurchase(3, getPackageName(), strToken);
+
+                                if(response == 0 )
+                                {
+                                    setBuyGold(sku);
+                                    FirebaseData.getInstance().SetSubStatus(BuyGoldActivity.this, sku);
+                                }
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }

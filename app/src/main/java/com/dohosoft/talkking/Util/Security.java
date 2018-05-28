@@ -19,6 +19,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -101,7 +103,10 @@ public class Security {
             sig = Signature.getInstance(SIGNATURE_ALGORITHM);
             sig.initVerify(publicKey);
             sig.update(signedData.getBytes());
-            if (!sig.verify(Base64.decode(signature))) {
+            Method verify = java.security.SignatureSpi.class.getDeclaredMethod("engineVerify", byte[].class);
+            verify.setAccessible(true);
+            Object returnValue = verify.invoke(sig, Base64.decode(signature));
+            if (!(Boolean)returnValue) {
                 Log.e(TAG, "Signature verification failed.");
                 return false;
             }
@@ -114,6 +119,12 @@ public class Security {
             Log.e(TAG, "Signature exception.");
         } catch (Base64DecoderException e) {
             Log.e(TAG, "Base64 decoding failed.");
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
         return false;
     }

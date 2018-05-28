@@ -70,7 +70,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 import static com.dohosoft.talkking.Data.CoomonValueData.MAIN_ACTIVITY_HOME;
-import static com.dohosoft.talkking.Data.CoomonValueData.MOD_AddHotMember;
+import static com.dohosoft.talkking.Data.CoomonValueData.EDIT_USERPAGE;
 import static com.dohosoft.talkking.Data.CoomonValueData.SEND_MSG_COST;
 import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_MAN;
 import static com.dohosoft.talkking.Data.CoomonValueData.TEXTCOLOR_WOMAN;
@@ -484,7 +484,7 @@ if(mMyData.itemList.get(i) != 0)
 
                     case R.id.UserPage_btnRegister:
 
-                        if (CoomonValueData.MOD_AddHotMember == true) {
+                        if (CoomonValueData.EDIT_USERPAGE == true) {
                             CommonFunc.getInstance().AddHotMember(stTargetData);
                             CommonFunc.getInstance().ShowToast(UserPageActivity.this, "핫멤버로 등록 하였습니다.", true);
                         } else {
@@ -527,7 +527,7 @@ if(mMyData.itemList.get(i) != 0)
 
                         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
 
-                        if (MOD_AddHotMember == true) {
+                        if (EDIT_USERPAGE == true) {
                             CommonFunc.getInstance().RemoveHotMember(stTargetData);
                             CommonFunc.getInstance().ShowToast(UserPageActivity.this, "핫멤버에서 삭제 하였습니다.", true);
                         } else {
@@ -548,58 +548,65 @@ if(mMyData.itemList.get(i) != 0)
 
                     case R.id.UserPage_btnGiftHoney:
 
-                        CommonFunc.getInstance().ShowLoadingPage(UserPageActivity.this, "로딩중");
-
                         FirebaseDatabase fierBaseDataInstance = FirebaseDatabase.getInstance();
 
                         Query data;
-                        if (mMyData.getUserGender().equals("여자")) {
-                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+
+                        if (EDIT_USERPAGE == true) {
+                            CommonFunc.getInstance().AddBlackList(stTargetData);
+                            CommonFunc.getInstance().ShowToast(UserPageActivity.this, "블랙리스트에 추가하였습니다.", true);
+
                         } else {
-                            data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+                            CommonFunc.getInstance().ShowLoadingPage(UserPageActivity.this, "로딩중");
+
+
+                            if (mMyData.getUserGender().equals("여자")) {
+                                data = FirebaseDatabase.getInstance().getReference().child("Users").child("Woman").child(mMyData.getUserIdx()).child("Honey");
+                            } else {
+                                data = FirebaseDatabase.getInstance().getReference().child("Users").child("Man").child(mMyData.getUserIdx()).child("Honey");
+                            }
+
+                            data.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    CommonFunc.getInstance().DismissLoadingPage();
+                                    int tempValue = dataSnapshot.getValue(int.class);
+                                    mMyData.setUserHoney(tempValue);
+
+                                    CommonFunc.HeartGiftPopup_Change_End changeListener = new CommonFunc.HeartGiftPopup_Change_End() {
+                                        @Override
+                                        public void EndListener() {
+                                            startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
+                                        }
+                                    };
+                                    CommonFunc.HeartGiftPopup_Send_End sendListener = new CommonFunc.HeartGiftPopup_Send_End() {
+                                        @Override
+                                        public void EndListener(int heartCount, String msg) {
+                                            //mMyData.makeSendList(stTargetData, msg, heartCount);
+                                            mMyData.makeCardList(stTargetData);
+                                            mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
+                                            mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
+                                            mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
+                                            mMyData.setSendHoneyCnt(heartCount);
+                                            mMyData.makeFanList(mActivity, stTargetData, heartCount, msg);
+
+                                            RefreshFanData();
+                                            likeAdapter.notifyDataSetChanged();
+
+                                        }
+                                    };
+                                    CommonFunc.getInstance().HeartGiftPopup(UserPageActivity.this, stTargetData.Idx, changeListener, sendListener);
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
                         }
-
-                        data.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                CommonFunc.getInstance().DismissLoadingPage();
-                                int tempValue = dataSnapshot.getValue(int.class);
-                                mMyData.setUserHoney(tempValue);
-
-                                CommonFunc.HeartGiftPopup_Change_End changeListener = new CommonFunc.HeartGiftPopup_Change_End() {
-                                    @Override
-                                    public void EndListener() {
-                                        startActivity(new Intent(getApplicationContext(), BuyGoldActivity.class));
-                                    }
-                                };
-                                CommonFunc.HeartGiftPopup_Send_End sendListener = new CommonFunc.HeartGiftPopup_Send_End() {
-                                    @Override
-                                    public void EndListener(int heartCount, String msg) {
-                                        //mMyData.makeSendList(stTargetData, msg, heartCount);
-                                        mMyData.makeCardList(stTargetData);
-                                        mMyData.makeSendHoneyList(stTargetData, heartCount, msg);
-                                        mMyData.makeRecvHoneyList(stTargetData, heartCount, msg);
-                                        mMyData.setUserHoney(mMyData.getUserHoney() - heartCount);
-                                        mMyData.setSendHoneyCnt(heartCount);
-                                        mMyData.makeFanList(mActivity, stTargetData, heartCount, msg);
-
-                                        RefreshFanData();
-                                        likeAdapter.notifyDataSetChanged();
-
-                                    }
-                                };
-                                CommonFunc.getInstance().HeartGiftPopup(UserPageActivity.this, stTargetData.Idx, changeListener, sendListener);
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
-
                         //ClickBtnSendHeart();
                         break;
 

@@ -423,6 +423,10 @@ public class CommonFunc {
         if (btnView) {
             YesButton.setVisibility(View.VISIBLE);
             NoButton.setVisibility(View.VISIBLE);
+
+            if(noDesc == null || noDesc.equals(""))
+                NoButton.setVisibility(View.GONE);
+
             YesButton.setText(yesDesc);
             NoButton.setText(noDesc);
 
@@ -2208,6 +2212,21 @@ public class CommonFunc {
             user = table.child("Man").child(userData.Idx);
         }
         user.removeValue();
+    }
+
+
+    public void AddBlackList(UserData userData)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("BlackList");//.child(mMyData.getUserIdx());
+        table.child(userData.Idx).setValue(userData.Idx);
+    }
+
+    public void RemoveBlackList(UserData userData)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table = database.getReference("BlackList");//.child(mMyData.getUserIdx());
+        table.child(userData.Idx).removeValue();
     }
 
 

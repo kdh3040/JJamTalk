@@ -90,7 +90,7 @@ public class CoomonValueData  {
     public static boolean bRefreshSetRecv = false;
 
 
-    public static boolean MOD_AddHotMember = false;
+    public static boolean EDIT_USERPAGE = false;
     public boolean MOD_Notification = false;
 
 
