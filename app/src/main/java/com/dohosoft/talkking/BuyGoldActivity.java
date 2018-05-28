@@ -3,13 +3,11 @@ package com.dohosoft.talkking;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -37,57 +35,40 @@ import com.adcolony.sdk.AdColonyUserMetadata;
 import com.adcolony.sdk.AdColonyZone;
 import com.android.vending.billing.IInAppBillingService;
 import com.dohosoft.talkking.Data.CoomonValueData;
-import com.dohosoft.talkking.Firebase.FirebaseData;
-import com.fpang.lib.FpangSession;
-import com.fpang.lib.SessionCallback;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.dohosoft.talkking.Data.MyData;
 import com.dohosoft.talkking.Data.UIData;
+import com.dohosoft.talkking.Firebase.FirebaseData;
 import com.dohosoft.talkking.Util.CommonFunc;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.unity3d.ads.IUnityAdsListener;
+import com.unity3d.ads.UnityAds;
+import com.vungle.warren.InitCallback;
+import com.vungle.warren.LoadAdCallback;
+import com.vungle.warren.PlayAdCallback;
+import com.vungle.warren.Vungle;
+import com.vungle.warren.VungleNativeAd;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import com.unity3d.ads.IUnityAdsListener;
-import com.unity3d.ads.UnityAds;
-
 import static com.dohosoft.talkking.Data.CoomonValueData.REWARD_ADCOLONY;
 import static com.dohosoft.talkking.Data.CoomonValueData.REWARD_ADMOB;
+import static com.dohosoft.talkking.Data.CoomonValueData.REWARD_UNITY;
 import static com.dohosoft.talkking.Data.CoomonValueData.REWARD_VUNGLE;
 import static com.dohosoft.talkking.Data.CoomonValueData.VUNGLE_APP_ID;
 import static com.dohosoft.talkking.Data.CoomonValueData.VUNGLE_REFERENCE;
-import static com.dohosoft.talkking.Data.CoomonValueData.ZONE_ID;
-import static com.dohosoft.talkking.Data.CoomonValueData.ADCOLONY_APP_ID;
-import static com.dohosoft.talkking.Data.CoomonValueData.REWARD_UNITY;
-
-import com.vungle.warren.Vungle;
-import com.vungle.warren.AdConfig;        // Custom ad configurations
-import com.vungle.warren.InitCallback;    // Initialization callback
-import com.vungle.warren.LoadAdCallback;  // Load ad callback
-import com.vungle.warren.PlayAdCallback;  // Play ad callback
-import com.vungle.warren.VungleNativeAd;  // Flex-Feed ad
 
 
 /**
@@ -129,11 +110,6 @@ public class BuyGoldActivity extends AppCompatActivity {
 
     private int index = 0;
     private ImageView imgAds;
-
-
-    String emailAddress = "dohosoft@api-7931733623402980105-475923.iam.gserviceaccount.com";
-
-
 
 
     @Override
@@ -649,32 +625,6 @@ public class BuyGoldActivity extends AppCompatActivity {
                 BuyGoldByGoogle(getApplicationContext(), mMyData.skuGold[6]);
             }
         });
-
-
-        JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-        HttpTransport httpTransport = null;
-        try {
-            httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            GoogleCredential credential = new GoogleCredential.Builder()
-                    .setTransport(httpTransport)
-                    .setJsonFactory(JSON_FACTORY)
-                    .setServiceAccountId(emailAddress)
-                    .setServiceAccountPrivateKeyFromP12File(new File("src/GooglePlayAndroidDeveloperPrivateKey.p12"))
-                    .setServiceAccountScopes(Collections.singleton("https://www.googleapis.com/auth/androidpublisher"))
-                    .build();
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
 
