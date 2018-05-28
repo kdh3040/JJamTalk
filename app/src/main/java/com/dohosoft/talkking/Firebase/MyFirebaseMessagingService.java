@@ -55,12 +55,30 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        if (remoteMessage.getData() != null) {
-            Resources res = getResources();
-            String body = remoteMessage.getData().get("body");
-            String title = remoteMessage.getData().get("title");
+        Resources res = getResources();
 
-            String index = remoteMessage.getData().get("TargetIdx");
+        String body= null;
+        String title = null;
+
+        String index= null;
+
+        if (remoteMessage.getData().size() > 0) {
+            body = remoteMessage.getData().get("body");
+            title = remoteMessage.getData().get("title");
+
+            index = remoteMessage.getData().get("TargetIdx");
+        }
+        if (remoteMessage.getNotification() != null) {
+            body = remoteMessage.getNotification().getBody();
+            title = "톡킹 - 소개팅,채팅,미팅의 킹";
+
+            index = null;
+        }
+
+
+
+        //if (remoteMessage.getData() != null)
+        {
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
@@ -162,10 +180,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 if(mMyData.GetCurFrag() == 5)
                 {
-                    if(mMyData.CurChatTartgetIdx.equals(index))
+                    if(index != null || !(index.equals("")))
                     {
-                        return;
+                        if(mMyData.CurChatTartgetIdx.equals(index))
+                        {
+                            return;
+                        }
                     }
+
                 }
 
                 //if(mMyData.GetCurFrag() != 5)
