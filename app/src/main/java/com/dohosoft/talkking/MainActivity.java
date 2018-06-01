@@ -888,6 +888,7 @@ public class MainActivity extends AppCompatActivity {
         // boolean bCheckConnt = mMyData.CheckConnectDate();
 
         if (CommonFunc.getInstance().IsCurrentDateCompare(new Date(-1 * mMyData.ConnectDate), CoomonValueData.DAILY_CONNECT_CHECK, 0)){
+        //if(CommonFunc.getInstance().IsConnectDateCompare(new Date(mMyData.ConnectDate * -1)))
         //if (true) {
             mMyData.ConnectDate = -1 * CommonFunc.getInstance().GetCurrentTime();
 
@@ -921,7 +922,7 @@ public class MainActivity extends AppCompatActivity {
                 txt_Title.setText("출석 체크 보상");
                 final TextView txt_Body;
                 txt_Body = (TextView) ConnV.findViewById(R.id.msg);
-                txt_Body.setText(CoomonValueData.getInstance().Login + "\n" + mUIData.getAdReward() + "코인 획득 하였습니다");
+                txt_Body.setText(CoomonValueData.getInstance().Login);
                 // txt_Body.setText("톡킹을 다운로드 해주셔서 감사합니다" + "\n" + "여러분들의 외로움을 해결해드리기 위해 "+ "\n" + "최선을 다하겠습니다");
 
 

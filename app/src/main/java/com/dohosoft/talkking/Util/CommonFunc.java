@@ -932,6 +932,30 @@ public class CommonFunc {
         return System.currentTimeMillis();
     }
 
+    public boolean IsConnectDateCompare(Date pastDate){
+        if (pastDate.equals(new Date(0)))
+            return true;
+
+        Date currentDate = new Date(GetCurrentTime());
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            pastDate = format.parse(pastDate.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            currentDate = format.parse(currentDate.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return true;
+
+    }
+
     public Date GetCurrentDate() {
         return new Date(GetCurrentTime());
     }
